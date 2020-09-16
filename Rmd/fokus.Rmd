@@ -1,0 +1,102 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# INTERNAL
+
+## Package load/unload
+
+```{r}
+.onUnload <- function (libpath) {
+  
+  pkgpins::deregister(pkg = pkg)
+}
+
+.onLoad <- function(libname, pkgname) {
+  
+  pkgpins::clear(pkg = pkgname,
+                 max_age = getOption("swissevote.global_cache_lifespan",
+                                     default = "30 days"))
+  
+  # set local path to working directory
+  options(fokus.path_wd = switch(EXPR = Sys.info()[["user"]],
+                                 "salim" = "~/Arbeit/ZDA/Git/fokus_aargau/",
+                                 getOption("fokus.path_wd")))
+  
+  
+  
+  if (is.null(getOption("fokus.path_wd")) || is.na(getOption("fokus.path_wd"))) {
+    
+    rlang::warn(message = msg_path_wd_unset)
+    
+  } else {
+    
+    test_valid_path <- checkmate::test_directory(getOption("fokus.path_wd"),
+                                                 access = "r")
+    
+    if (!isTRUE(test_valid_path)) {
+      
+      rlang::warn(glue::glue("The option `fokus.path_wd` is set to: {getOption('fokus.path_wd')}\n",
+                             "This is not a valid path (with at least read access). Please correct this in order for this package to work properly."))
+    }
+  }
+}
+```
+
+## Avoid `R CMD check` notes about undefined global objects used in magrittr pipes
+
+cf. <https://github.com/tidyverse/magrittr/issues/29#issuecomment-74313262>
+
+```{r}
+utils::globalVariables(names = c("."))
+```
+
+## Constants
+
+```{r}
+pkg <- utils::packageName()
+```
+
+### Messages
+
+```{r}
+msg_path_wd_unset <- paste0("Please set the proper path to the working directory (the local instance of the `fokus_aargau` repository).\n",
+                            "To do so, run: `options(fokus.path_wd = 'PATH/TO/fokus_aargau/')`")
+```
+
+# Get pre-defined variable value labels
+
+```{r}
+#' Get pre-defined variable value labels
+#'
+#' @param type Variable value type.
+#' @param lang Language the labels should be returned in.
+#'
+#' @return A character vector.
+#' @export
+v_val_lbls <- function(type = c("non_material_participants"),
+                       lang = c("de", "en")) {
+  
+  type <- rlang::arg_match(type)
+  lang <- rlang::arg_match(lang)
+  
+  variable_value_labels %>%
+    dplyr::filter(type == !!type) %$%
+    eval(parse(text = lang)) %>%
+    unlist()
+}
+
+variable_value_labels <- tibble::tribble(
+  
+  ~type,
+  ~de,
+  ~en,
+  
+  "non_material_participants",
+  c("leer eingelegt/nicht abgestimmt",
+    "keine (leer eingelegt oder nicht teilgenommen)",
+    "niemanden (leer eingelegt oder nicht teilgenommen)"),
+  c("empty (blank vote) or not voted")
+)
+```
