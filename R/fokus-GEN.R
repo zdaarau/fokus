@@ -40,8 +40,40 @@ utils::globalVariables(names = c("."))
 
 pkg <- utils::packageName()
 
+sym_checkmark <- "\u2705"
+sym_crossmark <- "\u274C"
+
 msg_path_wd_unset <- paste0("Please set the proper path to the working directory (the local instance of the `fokus_aargau` repository).\n",
                             "To do so, run: `options(fokus.path_wd = 'PATH/TO/fokus_aargau/')`")
+
+opts <- function(pretty_colnames = FALSE) {
+  
+  tibble::tribble(
+    ~name,           ~description,           ~is_auto_init,
+    "fokus.path_wd", "the path to the working directory (the local instance of the `fokus_aargau` repository); only set automatically for user=salim", TRUE,
+    "fokus.canton", "the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to `\"aargau\"`", TRUE,
+    "fokus.date_ballot",   "the date of the ballot to which ballot-specific actions are to be adjusted", FALSE
+  ) %>%
+    purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
+                                                                        "set automatically by `init()`" = is_auto_init),
+                ~ .)
+}
+
+#' Convert logical vector to Unicode symbols `r sym_checkmark` and `r sym_crossmark`
+#'
+#' @param x A logical vector.
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' c(TRUE, TRUE, FALSE, NA) %>% lgl_to_unicode()
+lgl_to_unicode <- function(x) {
+  
+  dplyr::if_else(checkmate::assert_logical(x),
+                 sym_checkmark,
+                 sym_crossmark)
+}
 
 #' Get pre-defined variable value labels
 #'
