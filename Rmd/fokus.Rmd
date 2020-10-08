@@ -8,7 +8,7 @@ editor_options:
 ## Package load/unload
 
 ```{r}
-.onUnload <- function (libpath) {
+.onUnload <- function(libpath) {
   
   pkgpins::deregister(pkg = pkg)
 }
