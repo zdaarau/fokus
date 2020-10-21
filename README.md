@@ -1,6 +1,6 @@
-# fokus: Provides API-like functions around the FOKUS Aargau Research Project of the Centre for Democracy Studies Aarau (ZDA)
+# fokus: Provides API-like functions around the FOKUS Research Project of the Centre for Democracy Studies Aarau (ZDA)
 
-fokus provides functions to (pre-)process and clean the raw data, analyze and visualize the cleaned data and create the questionnaires of the FOKUS Aargau surveys as well as other utility functions around the whole research project.
+fokus provides functions to (pre-)process and clean the raw data, analyze and visualize the cleaned data and create the questionnaires of the FOKUS post-voting surveys as well as other utility functions around the whole research project.
 
 ## Details
 
@@ -8,19 +8,16 @@ fokus provides functions to (pre-)process and clean the raw data, analyze and vi
 
 The following package-specific R options are used to control the package’s functionality:
 
-``` r
-opts() %>%
-  dplyr::mutate(name = paste0("`", name, "`"),
-                "set automatically by `init()`" = lgl_to_unicode(is_auto_init)) %>%
-  dplyr::select(-is_auto_init) %>%
-  pal::pipe_table()
-```
-
-    ## Error in opts(): could not find function "opts"
+| **name**                      | **description**                                                                                                                | **set automatically by `init()`** |
+|:------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|:----------------------------------|
+| `fokus.path_wd`               | the path to the working directory (the local instance of the `fokus_aargau` repository); only set automatically for user=salim | ✅                                 |
+| `fokus.global_cache_lifespan` | the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                           | ✅                                 |
+| `fokus.canton`                | the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to `"aargau"`               | ✅                                 |
+| `fokus.date_ballot`           | the date of the ballot to which ballot-specific actions are to be adjusted                                                     | ❌                                 |
 
 ### Working directory structure
 
-For part of this package’s functionality the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or enforced (output):
+For part of this package’s functionality, the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or enforced (output):
 
 ``` fs
 fokus_private/
@@ -30,7 +27,7 @@ fokus_private/
 ├──config/
 |  ├──csl/
 |  ├──css/
-|  ├──shared_pandoc_variables/`
+|  ├──shared_pandoc_variables/
 |  |  ├──online_de.yaml
 |  |  ├──online_en.yaml
 |  |  ├──print_de.yaml
@@ -54,13 +51,12 @@ fokus_private/
 |  └──...
 ├──images/
 |  ├──[CANTON]/
-|  |  └──[BALLOT_DATE]_*
+|  |  └──[BALLOT_DATE]
 |  └──...
 ├──questionnaires/
 |  ├──print/
 |  |  └──questionnaire_print_[BALLOT_DATE]_[CANTON].pdf
-|  ├──proposals_[BALLOT_DATE].toml
-|  ├──elections_[BALLOT_DATE].toml
+|  ├──[BALLOT_DATE].toml
 |  └──questionnaire.toml
 ├──rmd/
 |  ├──snippets/
@@ -122,8 +118,8 @@ The following placeholders are used in the schema above:
 -   `...` for further files and/or folders
 -   `*` for a variable character sequence
 -   `#` for a count starting with `1`
--   `[CANTON]` for the name of the current canton given by the R option `fokus.canton` (in lower case)
--   `[BALLOT_DATE]` for the current ballot date given by the R option `fokus.date_ballot` (in the format `YYYY-MM-DD`)
+-   `[CANTON]` for the name of the current canton ~~given by the R option `fokus.canton`~~ (in lower case)
+-   `[BALLOT_DATE]` for the current ballot date ~~given by the R option `fokus.date_ballot`~~ (in the format `YYYY-MM-DD`)
 -   `[STATOFF_DELIVERY_DATE]` for the delivery date of the voting register data provided by the cantonal statistical office
 
 ## Installation
@@ -136,7 +132,7 @@ if (!("remotes" %in% rownames(installed.packages()))) {
                    repos = "https://cloud.r-project.org/")
 }
 
-remotes::install_gitlab(repo = "salim_b/r/pkgs/fokus")
+remotes::install_gitlab(repo = "zdaarau/fokus")
 ```
 
 ## Development
