@@ -1,6 +1,6 @@
 Package: fokus
-Title: Provides API-like functions around the FOKUS Aargau
-    Research Project of the Centre for Democracy Studies Aarau (ZDA)
+Title: Provides API-like functions around the FOKUS Research
+    Project of the Centre for Democracy Studies Aarau (ZDA)
 Version: 0.0.9001
 Authors@R: 
     person(given = "Salim",
@@ -10,23 +10,35 @@ Authors@R:
            comment = c(ORCID = "0000-0002-5329-5987"))
 Description: fokus provides functions to (pre-)process and
     clean the raw data, analyze and visualize the cleaned data and create
-    the questionnaires of the FOKUS Aargau surveys as well as other
+    the questionnaires of the FOKUS post-voting surveys as well as other
     utility functions around the whole research project.
 License: AGPL-3
-URL: https://gitlab.com/salim_b/r/pkgs/fokus
-BugReports: https://gitlab.com/salim_b/r/pkgs/fokus/issues
+URL: https://gitlab.com/zdaarau/fokus
+BugReports: https://gitlab.com/zdaarau/fokus/issues
+Depends: 
+    R (>= 4.0)
 Imports: 
     checkmate (>= 2.0.0),
+    cli (>= 2.1.0),
     dplyr (>= 1.0.2),
+    fs (>= 1.5.0),
     glue (>= 1.4.2),
+    lubridate (>= 1.7.9),
     magrittr (>= 1.5),
     pal (>= 0.0.9013),
     pkgpins (>= 0.4.1),
     purrr (>= 0.3.4),
+    RcppTOML (>= 0.1.6),
+    readr (>= 1.4.0),
     rlang (>= 0.4.7),
+    RSelenium (>= 1.7.7),
+    stringr (>= 1.4.0),
     tibble (>= 3.0.3),
-    utils (>= 4.0.2)
+    tidyr (>= 1.1.2),
+    utils (>= 4.0.2),
+    xfun (>= 0.18)
 Remotes:
+    github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal
 Encoding: UTF-8
 LazyData: true
