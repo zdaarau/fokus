@@ -1748,7 +1748,6 @@ TODO: Outsource this into separate pkg *tomlr*.
 #' @param path The path to the TOML file. A character scalar.
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
-#' @family questionnaire
 #' @export
 #'
 #' @examples

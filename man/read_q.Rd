@@ -18,7 +18,6 @@ Questionnaire-related functions
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},
-\code{\link{read_q_supplemental}()},
-\code{\link{read_toml}()}
+\code{\link{read_q_supplemental}()}
 }
 \concept{questionnaire}

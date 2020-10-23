@@ -1462,7 +1462,6 @@ print_wd_structure <- function() {
 #' @param path The path to the TOML file. A character scalar.
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
-#' @family questionnaire
 #' @export
 #'
 #' @examples

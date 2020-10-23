@@ -35,7 +35,6 @@ Questionnaire-related functions
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},
 \code{\link{read_q_supplemental}()},
-\code{\link{read_q}()},
-\code{\link{read_toml}()}
+\code{\link{read_q}()}
 }
 \concept{questionnaire}
