@@ -4,19 +4,31 @@
 \name{fokus-package}
 \alias{fokus}
 \alias{fokus-package}
-\title{fokus: Provides API-like functions around the FOKUS Aargau
-    Research Project of the Centre for Democracy Studies Aarau (ZDA)}
+\title{fokus: Provides API-like functions around the FOKUS Research
+    Project of the Centre for Democracy Studies Aarau (ZDA)}
 \description{
 fokus provides functions to (pre-)process and
     clean the raw data, analyze and visualize the cleaned data and create
-    the questionnaires of the FOKUS Aargau surveys as well as other
+    the questionnaires of the FOKUS post-voting surveys as well as other
     utility functions around the whole research project.
 }
+\section{Package options}{
+
+
+The following package-specific R options are used to control the package's functionality:\tabular{lll}{
+   \strong{name} \tab \strong{description} \tab \strong{set automatically by \code{init()}} \cr
+   \code{fokus.path_wd} \tab the path to the working directory (the local instance of the \code{fokus_aargau} repository); only set automatically for user=salim \tab ✅ \cr
+   \code{fokus.global_cache_lifespan} \tab the default cache lifespan for all functions taking a \code{cache_lifespan} argument; defaults to 30 days \tab ✅ \cr
+   \code{fokus.canton} \tab the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to \code{"aargau"} \tab ✅ \cr
+   \code{fokus.date_ballot} \tab the date of the ballot to which ballot-specific actions are to be adjusted \tab ❌ \cr
+}
+}
+
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gitlab.com/salim_b/r/pkgs/fokus}
-  \item Report bugs at \url{https://gitlab.com/salim_b/r/pkgs/fokus/issues}
+  \item \url{https://gitlab.com/zdaarau/fokus}
+  \item Report bugs at \url{https://gitlab.com/zdaarau/fokus/issues}
 }
 
 }

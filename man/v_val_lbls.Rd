@@ -17,3 +17,8 @@ A character vector.
 \description{
 Get pre-defined variable value labels
 }
+\seealso{
+FOKUS-variable-related functions
+\code{\link{is_skill_question}()}
+}
+\concept{variable}
