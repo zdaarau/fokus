@@ -40,3 +40,10 @@ Note that
 \item it is considered to be a non-proposal-specific skill question if \code{proposal_nr = NULL} (usually the case at elections).
 }
 }
+\examples{
+skill_question_answer_nr(q_supplemental = read_q_supplemental("2018-09-23"),
+                         skill_question_nr = 2,
+                         level = "cantonal",
+                         canton = "aargau",
+                         proposal_nr = 1)
+}
