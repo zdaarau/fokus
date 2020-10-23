@@ -17,7 +17,7 @@ fokus provides functions to (pre-)process and
 
 The following package-specific R options are used to control the package's functionality:\tabular{lll}{
    \strong{name} \tab \strong{description} \tab \strong{set automatically by \code{init()}} \cr
-   \code{fokus.path_wd} \tab the path to the working directory (the local instance of the \code{fokus_private} repository); only set automatically for user=salim \tab ✅ \cr
+   \code{fokus.path_wd} \tab the path to the working directory (the local instance of the \href{https://gitlab.com/c2d-zda/fokus_private}{\code{fokus_private} repository}); only set automatically for user=salim \tab ✅ \cr
    \code{fokus.global_cache_lifespan} \tab the default cache lifespan for all functions taking a \code{cache_lifespan} argument; defaults to 30 days \tab ✅ \cr
 }
 }

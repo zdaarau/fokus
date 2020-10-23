@@ -8,10 +8,10 @@ fokus provides functions to (pre-)process and clean the raw data, analyze and vi
 
 The following package-specific R options are used to control the package’s functionality:
 
-| **name**                      | **description**                                                                                                                 | **set automatically by `init()`** |
-|:------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|:----------------------------------|
-| `fokus.path_wd`               | the path to the working directory (the local instance of the `fokus_private` repository); only set automatically for user=salim | ✅                                 |
-| `fokus.global_cache_lifespan` | the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                            | ✅                                 |
+| **name**                      | **description**                                                                                                                                                             | **set automatically by `init()`** |
+|:------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------|
+| `fokus.path_wd`               | the path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/c2d-zda/fokus_private)); only set automatically for user=salim | ✅                                 |
+| `fokus.global_cache_lifespan` | the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                        | ✅                                 |
 
 ### Working directory structure
 
