@@ -271,7 +271,7 @@ assemble_deep <- function(data_q,
                            devisable_map = devisable_map,
                            generate_md = generate_md)
     
-  } else if (purrr::vec_depth(data_q) > 2) {
+  } else if (purrr::vec_depth(data_q) > 2L) {
     
     result <-
       data_q %>%
@@ -313,8 +313,8 @@ process_item <- function(v_name,
   } else {
     
     # evaluate 1st-level iterator and also return NULL if `i` is defined but evaluates to NULL (which means item isn't included @ ballot date)
-    # NOTE: we need to handle the value `""` separately because it would evaluate to NULL when parsed
-    if (isTRUE(devisable_map[["i"]] != "") & !is.null(devisable_map[["i"]])) {
+    # NOTE: we need to handle the empty string `""` separately because it would evaluate to NULL when parsed
+    if (isTRUE(devisable_map[["i"]] != "") && !is.null(devisable_map[["i"]])) {
       
       devisable_map[["i"]] <- eval(parse(text = devisable_map[["i"]]))
       
@@ -324,7 +324,7 @@ process_item <- function(v_name,
     }
     
     # assemble "normal" questionnaire items
-    if (is.null(devisable_map[["i"]]) & is.null(devisable_map[["j"]])) {
+    if (is.null(devisable_map[["i"]]) && is.null(devisable_map[["j"]])) {
       
       if (generate_md) {
         result <- assemble_table_row(v_name = v_name,
@@ -496,7 +496,7 @@ assemble_table_row <- function(i = NULL,
                    .default = "-") %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
-      purrr::map(.envir = parent.frame(n = 2),
+      purrr::map(.envir = parent.frame(n = 2L),
                  .f = glue::glue,
                  .trim = FALSE,
                  .na = "-") %>%
@@ -519,7 +519,7 @@ assemble_table_row <- function(i = NULL,
                    .default = "-") %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
-      purrr::map(.envir = parent.frame(n = 2),
+      purrr::map(.envir = parent.frame(n = 2L),
                  .f = glue::glue,
                  .trim = FALSE,
                  .na = "-") %>%
@@ -532,7 +532,7 @@ assemble_table_row <- function(i = NULL,
                    .default = "-") %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
-      purrr::map(.envir = parent.frame(n = 2),
+      purrr::map(.envir = parent.frame(n = 2L),
                  .f = glue::glue,
                  .trim = FALSE,
                  .na = "-") %>%
@@ -703,7 +703,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       purrr::map(.f = glue::glue,
-                 .envir = parent.frame(n = 2),
+                 .envir = parent.frame(n = 2L),
                  .na = NULL,
                  .trim = FALSE) %>%
       purrr::flatten_chr() %>%
@@ -727,7 +727,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       purrr::map(.f = glue::glue,
-                 .envir = parent.frame(n = 2),
+                 .envir = parent.frame(n = 2L),
                  .na = NULL,
                  .trim = FALSE) %>%
       purrr::map(.f = as.integer) %>%
@@ -740,7 +740,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       purrr::map(.f = glue::glue,
-                 .envir = parent.frame(n = 2),
+                 .envir = parent.frame(n = 2L),
                  .na = NULL,
                  .trim = FALSE) %>%
       purrr::flatten_chr() %>%
