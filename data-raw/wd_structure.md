@@ -97,6 +97,7 @@ The following placeholders are used in the schema above:
 -   `...` for further files and/or folders
 -   `*` for a variable character sequence
 -   `#` for a count starting with `1`
--   `[CANTON]` for the name of the current canton ~~given by the R option `fokus.canton`~~ (in lower case)
--   `[BALLOT_DATE]` for the current ballot date ~~given by the R option `fokus.date_ballot`~~ (in the format `YYYY-MM-DD`)
--   `[STATOFF_DELIVERY_DATE]` for the delivery date of the voting register data provided by the cantonal statistical office
+-   `[CANTON]` for the name of the FOKUS canton (in lower case), e.g. `aargau`
+-   `[BALLOT_DATE]` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`
+-   `[STATOFF_DELIVERY_DATE]` for the delivery date of the voting register data provided by the cantonal statistical office (in the format `YYYY-MM-DD`), e.g.
+    `2019-09-11`
