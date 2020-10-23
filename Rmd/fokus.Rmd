@@ -81,9 +81,7 @@ opts <- function(pretty_colnames = FALSE) {
   tibble::tribble(
     ~name,           ~description,           ~is_auto_init,
     "fokus.path_wd", "the path to the working directory (the local instance of the `fokus_aargau` repository); only set automatically for user=salim", TRUE,
-    "fokus.global_cache_lifespan", "the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days", TRUE,
-    "fokus.canton", "the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to `\"aargau\"`", TRUE,
-    "fokus.date_ballot",   "the date of the ballot to which ballot-specific actions are to be adjusted", FALSE
+    "fokus.global_cache_lifespan", "the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days", TRUE
   ) %>%
     purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
                                                                         "set automatically by `init()`" = is_auto_init),

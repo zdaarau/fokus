@@ -50,9 +50,7 @@ opts <- function(pretty_colnames = FALSE) {
   tibble::tribble(
     ~name,           ~description,           ~is_auto_init,
     "fokus.path_wd", "the path to the working directory (the local instance of the `fokus_aargau` repository); only set automatically for user=salim", TRUE,
-    "fokus.global_cache_lifespan", "the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days", TRUE,
-    "fokus.canton", "the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to `\"aargau\"`", TRUE,
-    "fokus.date_ballot",   "the date of the ballot to which ballot-specific actions are to be adjusted", FALSE
+    "fokus.global_cache_lifespan", "the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days", TRUE
   ) %>%
     purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
                                                                         "set automatically by `init()`" = is_auto_init),
@@ -971,6 +969,13 @@ is_referendum <- function(canton = cantons,
 #'
 #' @return An integer scalar.
 #' @export
+#'
+#' @examples
+#' skill_question_answer_nr(q_supplemental = read_q_supplemental("2018-09-23"),
+#'                          skill_question_nr = 2,
+#'                          level = "cantonal",
+#'                          canton = "aargau",
+#'                          proposal_nr = 1)
 skill_question_answer_nr <- function(q_supplemental,
                                      skill_question_nr,
                                      level = c("cantonal", "federal"),

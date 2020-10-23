@@ -19,8 +19,6 @@ The following package-specific R options are used to control the package's funct
    \strong{name} \tab \strong{description} \tab \strong{set automatically by \code{init()}} \cr
    \code{fokus.path_wd} \tab the path to the working directory (the local instance of the \code{fokus_aargau} repository); only set automatically for user=salim \tab ✅ \cr
    \code{fokus.global_cache_lifespan} \tab the default cache lifespan for all functions taking a \code{cache_lifespan} argument; defaults to 30 days \tab ✅ \cr
-   \code{fokus.canton} \tab the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to \code{"aargau"} \tab ✅ \cr
-   \code{fokus.date_ballot} \tab the date of the ballot to which ballot-specific actions are to be adjusted \tab ❌ \cr
 }
 }
 

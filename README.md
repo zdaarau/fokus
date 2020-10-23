@@ -12,8 +12,6 @@ The following package-specific R options are used to control the package’s fun
 |:------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|:----------------------------------|
 | `fokus.path_wd`               | the path to the working directory (the local instance of the `fokus_aargau` repository); only set automatically for user=salim | ✅                                 |
 | `fokus.global_cache_lifespan` | the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                           | ✅                                 |
-| `fokus.canton`                | the name of the canton to which canton-specific actions are to be adjusted in lower case; defaults to `"aargau"`               | ✅                                 |
-| `fokus.date_ballot`           | the date of the ballot to which ballot-specific actions are to be adjusted                                                     | ❌                                 |
 
 ### Working directory structure
 
