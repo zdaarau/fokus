@@ -33,6 +33,7 @@ Questionnaire-related functions
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
 \code{\link{read_q_supplemental}()},
+\code{\link{read_q}()},
 \code{\link{read_toml}()}
 }
 \concept{questionnaire}

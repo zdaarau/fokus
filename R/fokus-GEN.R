@@ -1040,17 +1040,24 @@ n_election_candidates <- function(q_supplemental,
   length(q_supplemental[[level]][[canton]][["election"]][["majoritarian"]][[election_nr]][["candidate"]])
 }
 
+#' Read in raw questionnaire data
+#'
+#' Reads in file `questionnaire/questionnaire.toml` and returns it as a structured list.
+#'
+#' @return `r pkgsnip::return_label("strict_list")`
+#' @family questionnaire
+#' @export
 read_q <- function() {
   read_toml(path_wd("questionnaire/questionnaire.toml"))
 }
 
 #' Read in raw supplemental date-specific questionnaire data
 #'
-#' Reads in file `questionnaire/YYYY-MM-DD.toml` where `YYYY-MM-DD` corresponds to the `ballot_date` argument.
+#' Reads in file `questionnaire/YYYY-MM-DD.toml` where `YYYY-MM-DD` corresponds to the `ballot_date` argument and returns it as a structured list.
 #'
 #' @inheritParams gen_q
 #'
-#' @return `r pkgsnip::return_label("strict_list")`
+#' @inherit read_q return
 #' @family questionnaire
 #' @export
 read_q_supplemental <- function(ballot_date = as.character(ballot_dates)) {
@@ -1276,7 +1283,7 @@ q_md <- function(canton = cantons,
 #' @param l The questionnaire subitem. A list object.
 #' @inheritParams gen_q
 #'
-#' @return The value of `l` that is right for `canton` and `ballot_date`.
+#' @return The value of `l` that corresponds to `canton` and `ballot_date`.
 #' @family questionnaire
 #' @export
 pick_right <- function(l,

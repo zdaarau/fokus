@@ -20,7 +20,7 @@ read_q_supplemental(ballot_date = as.character(ballot_dates))
 A \link[xfun:strict_list]{strict list}.
 }
 \description{
-Reads in file \code{questionnaire/YYYY-MM-DD.toml} where \code{YYYY-MM-DD} corresponds to the \code{ballot_date} argument.
+Reads in file \code{questionnaire/YYYY-MM-DD.toml} where \code{YYYY-MM-DD} corresponds to the \code{ballot_date} argument and returns it as a structured list.
 }
 \seealso{
 Questionnaire-related functions
@@ -28,6 +28,7 @@ Questionnaire-related functions
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},
+\code{\link{read_q}()},
 \code{\link{read_toml}()}
 }
 \concept{questionnaire}

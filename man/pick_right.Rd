@@ -24,7 +24,7 @@ pick_right(l, canton, ballot_date)
 }}
 }
 \value{
-The value of \code{l} that is right for \code{canton} and \code{ballot_date}.
+The value of \code{l} that corresponds to \code{canton} and \code{ballot_date}.
 }
 \description{
 Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)
@@ -35,6 +35,7 @@ Questionnaire-related functions
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},
 \code{\link{read_q_supplemental}()},
+\code{\link{read_q}()},
 \code{\link{read_toml}()}
 }
 \concept{questionnaire}
