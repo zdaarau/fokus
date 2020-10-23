@@ -306,7 +306,8 @@ process_item <- function(v_name,
   
   # return NULL if item isn't included @ ballot date
   if (!devisable_map[["include"]]
-      | (devisable_map$ballot_type != "both_referendum_and_election" & devisable_map$ballot_type != ballot_type())) {
+      || (devisable_map$ballot_type != "both_referendum_and_election"
+          && devisable_map$ballot_type != ballot_type(canton = canton, ballot_date = ballot_date))) {
     return(NULL)
     
   } else {
