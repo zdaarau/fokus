@@ -26,8 +26,9 @@ Imports:
     knitr (>= 1.30),
     lubridate (>= 1.7.9),
     magrittr (>= 1.5),
-    pal (>= 0.0.9029),
+    pal (>= 0.0.9031),
     pkgpins (>= 0.4.1),
+    pkgsnip (>= 0.0.9015),
     purrr (>= 0.3.4),
     RcppTOML (>= 0.1.6),
     readr (>= 1.4.0),
@@ -37,11 +38,14 @@ Imports:
     stringr (>= 1.4.0),
     tibble (>= 3.0.3),
     tidyr (>= 1.1.2),
+    tidyselect (>= 1.1.0),
     utils (>= 4.0.2),
+    withr (>= 2.3.0),
     xfun (>= 0.18)
 Remotes:
     github::ropensci/RSelenium#237,
-    gitlab::salim_b/r/pkgs/pal
+    gitlab::salim_b/r/pkgs/pal,
+    gitlab::salim_b/r/pkgs/pkgsnip
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

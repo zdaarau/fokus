@@ -16,7 +16,29 @@
   init_path_wd()
 }
 
-utils::globalVariables(names = c("."))
+utils::globalVariables(names = c(".",
+                                 "alignment",
+                                 "allowed",
+                                 "has_same_length",
+                                 "is_auto_init",
+                                 "n_cantonal_majoritarian_elections",
+                                 "n_cantonal_proportional_elections",
+                                 "n_cantonal_referendums",
+                                 "n_char_short",
+                                 "n_federal_majoritarian_elections",
+                                 "n_federal_proportional_elections",
+                                 "n_federal_referendums",
+                                 "name",
+                                 "nr",
+                                 "question",
+                                 "response_options",
+                                 "separator",
+                                 "string",
+                                 "topic",
+                                 "value_labels",
+                                 "variable_values",
+                                 "who",
+                                 "width"))
 
 path_wd <- function(rel_path) {
   
@@ -218,13 +240,14 @@ gen_table_header <- function() {
       paste0(separator, collapse = " | "))
 }
 
-gen_table_body <- function(block,
+gen_table_body <- function(q,
+                           block,
                            enumeration_start = 1L) {
   # ensure `block` exists
   ensure_block_exists(block = block)
   
-  # traverse list `data_questionnaire` recursively to assemble questionnaire body
-  body <- assemble_deep(data_q = data_questionnaire[[block]],
+  # traverse list `q` recursively to assemble questionnaire body
+  body <- assemble_deep(data_q = q[[block]],
                         devisable_map = init_devisable_map())
   
   if (length(body) > 0L) {
@@ -236,7 +259,7 @@ gen_table_body <- function(block,
     body %<>% purrr::flatten_chr()
     
     # get block enumeration prefix
-    prefix <- purrr::pluck(.x = data_questionnaire,
+    prefix <- purrr::pluck(.x = q,
                            block, "prefix",
                            .default = 0L)
     
@@ -253,8 +276,8 @@ gen_table_body <- function(block,
 
 ensure_block_exists <- function(block) {
   
-  if (is.null(data_questionnaire[[block]])) {
-    rlang::abort(glue::glue("The block '{block}' doesn't exist in `data_questionnaire`!"))
+  if (is.null(q[[block]])) {
+    rlang::abort(glue::glue("The block '{block}' doesn't exist in `q`!"))
   }
 }
 
@@ -289,7 +312,8 @@ process_item <- function(v_name,
                          devisable_map,
                          generate_md = TRUE,
                          canton,
-                         ballot_date) {
+                         ballot_date,
+                         q) {
   
   # ensure nothing indispensable is missing
   check_devisable_map_completeness(devisable_map = devisable_map)
@@ -330,12 +354,14 @@ process_item <- function(v_name,
         result <- assemble_table_row(v_name = v_name,
                                      devisable_map = devisable_map,
                                      canton = canton,
-                                     ballot_date = ballot_date)
+                                     ballot_date = ballot_date,
+                                     q = q)
       } else {
         result <- assemble_subitem(v_name = v_name,
                                    devisable_map = devisable_map,
                                    canton = canton,
-                                   ballot_date = ballot_date)
+                                   ballot_date = ballot_date,
+                                   q = q)
       }
     } else if (is.null(devisable_map[["j"]])) {
       
@@ -345,14 +371,16 @@ process_item <- function(v_name,
                                  v_name = v_name,
                                  devisable_map = devisable_map,
                                  canton = canton,
-                                 ballot_date = ballot_date)
+                                 ballot_date = ballot_date,
+                                 q = q)
       } else {
         result <- purrr::map_dfr(.x = devisable_map[["i"]],
                                  .f = assemble_subitem,
                                  v_name = v_name,
                                  devisable_map = devisable_map,
                                  canton = canton,
-                                 ballot_date = ballot_date)
+                                 ballot_date = ballot_date,
+                                 q = q)
       }
       
       # validity check
@@ -367,14 +395,16 @@ process_item <- function(v_name,
       #                            v_name = v_name,
       #                            devisable_map = devisable_map,
       #                            canton = canton,
-      #                            ballot_date = ballot_date)
+      #                            ballot_date = ballot_date,
+      #                            q = q)
       # } else {
       #   result <- purrr::map_dfr(.x = devisable_map[["j"]],
       #                            .f = assemble_subitem,
       #                            v_name = v_name,
       #                            devisable_map = devisable_map,
       #                            canton = canton,
-      #                            ballot_date = ballot_date)
+      #                            ballot_date = ballot_date,
+      #                            q = q)
       # }
       
       # "template" items resulting in multiple questionnaire items
@@ -393,7 +423,8 @@ process_item <- function(v_name,
                                       v_name = v_name,
                                       devisable_map = devisable_map,
                                       canton = canton,
-                                      ballot_date = ballot_date)
+                                      ballot_date = ballot_date,
+                                      q = q)
                      }) %>%
           purrr::flatten_chr()
         
@@ -410,7 +441,8 @@ process_item <- function(v_name,
                                           v_name = v_name,
                                           devisable_map = devisable_map,
                                           canton = canton,
-                                          ballot_date = ballot_date)
+                                          ballot_date = ballot_date,
+                                          q = q)
                          })
       }
     }
@@ -424,7 +456,8 @@ assemble_table_row <- function(i = NULL,
                                v_name,
                                devisable_map,
                                canton,
-                               ballot_date) {
+                               ballot_date,
+                               q) {
   # parse the variable name
   v_name %<>%
     pick_right(canton = canton,
@@ -439,7 +472,7 @@ assemble_table_row <- function(i = NULL,
     glue::glue(.trim = FALSE)
   
   who_en <-
-    data_questionnaire$who %>%
+    q$who %>%
     purrr::detect(~ .x$value$de == stringr::str_replace(string = who,
                                                         pattern = "\\d+",
                                                         replacement = "{i}")) %>%
@@ -480,7 +513,7 @@ assemble_table_row <- function(i = NULL,
       collapse_break(),
     # variable_name_32,
     v_name %>%
-      shorten_fa_v_names() %>%
+      shorten_v_names() %>%
       wrap_backtick() %>%
       collapse_break(),
     # variable label
@@ -557,7 +590,8 @@ assemble_subitem <- function(i = NULL,
                              v_name,
                              devisable_map,
                              canton,
-                             ballot_date) {
+                             ballot_date,
+                             q = q) {
   # parse the variable name
   v_name %<>%
     pick_right(canton = canton,
@@ -578,9 +612,9 @@ assemble_subitem <- function(i = NULL,
                ballot_date = ballot_date) %>%
     glue::glue(.na = NULL,
                .trim = FALSE) %>%
-    strip_md()
+    pal::strip_md()
   
-  if (is.na(question_common) & "default" %in% names(question)) {
+  if (is.na(question_common) && "default" %in% names(question)) {
     
     question_common <-
       question$default %>%
@@ -588,13 +622,13 @@ assemble_subitem <- function(i = NULL,
                  ballot_date = ballot_date) %>%
       glue::glue(.na = NULL,
                  .trim = FALSE) %>%
-      strip_md()
+      pal::strip_md()
   }
   
   # special case: if no `variable_label_common` is defined, use `variable_label.default` instead if it exists
   variable_name <-
     v_name %>%
-    strip_md()
+    pal::strip_md()
   
   who <-
     devisable_map %>%
@@ -602,16 +636,16 @@ assemble_subitem <- function(i = NULL,
     pick_right(canton = canton,
                ballot_date = ballot_date) %>%
     glue::glue(.trim = FALSE) %>%
-    strip_md()
+    pal::strip_md()
   
   who_en <-
-    data_questionnaire$who %>%
+    q$who %>%
     purrr::detect(~ .x$value$de == stringr::str_replace(string = who,
                                                         pattern = "\\d+",
                                                         replacement = "{i}")) %>%
     purrr::chuck("value", "en") %>%
     glue::glue(.trim = FALSE) %>%
-    strip_md()
+    pal::strip_md()
   
   variable_label <-
     devisable_map %>%
@@ -625,7 +659,7 @@ assemble_subitem <- function(i = NULL,
                ballot_date = ballot_date) %>%
     glue::glue(.na = NULL,
                .trim = FALSE) %>%
-    strip_md()
+    pal::strip_md()
   
   if (is.na(variable_label_common) & "default" %in% names(variable_label)) {
     
@@ -642,7 +676,7 @@ assemble_subitem <- function(i = NULL,
                    ballot_date = ballot_date) %>%
         glue::glue(.na = NULL,
                    .trim = FALSE) %>%
-        strip_md() %>%
+        pal::strip_md() %>%
         add_who_constraint(who = who_en)
     }
     # add who constraint if necessary
@@ -667,7 +701,7 @@ assemble_subitem <- function(i = NULL,
                  ballot_date = ballot_date) %>%
       glue::glue(.na = NULL,
                  .trim = FALSE) %>%
-      strip_md(),
+      pal::strip_md(),
     who = who,
     question =
       question %>%
@@ -675,7 +709,7 @@ assemble_subitem <- function(i = NULL,
                  ballot_date = ballot_date) %>%
       glue::glue(.na = NULL,
                  .trim = FALSE) %>%
-      strip_md(),
+      pal::strip_md(),
     question_common = question_common,
     multiple_answers_allowed =
       devisable_map %>%
@@ -687,13 +721,13 @@ assemble_subitem <- function(i = NULL,
     variable_name = variable_name,
     variable_name_32 =
       variable_name %>%
-      shorten_fa_v_names(),
+      shorten_v_names(),
     variable_label =
       variable_label %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       glue::glue(.trim = FALSE) %>%
-      strip_md() %>%
+      pal::strip_md() %>%
       add_who_constraint(who = who_en),
     variable_label_common = variable_label_common,
     response_options =
@@ -751,7 +785,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       glue::glue(.trim = FALSE) %>%
-      strip_md(),
+      pal::strip_md(),
     randomize_response_options =
       devisable_map %>%
       purrr::chuck("randomize_response_options") %>%
@@ -823,19 +857,6 @@ check_devisable_map_completeness <- function(devisable_map) {
   }
 }
 
-wrap_backtick <- function(s) {
-  
-  purrr::map_chr(.x = s,
-                 .f = ~ dplyr::if_else(.x == "-" | stringr::str_detect(string = .x,
-                                                                       pattern = "^(_.*_|\\*.*\\*)$"),
-                                       as.character(.x),
-                                       paste0("`", .x, "`")))
-}
-
-collapse_break <- function(s) {
-  paste0(s, collapse = "<br>")
-}
-
 add_who_constraint <- function(s,
                                who) {
   if (who != "all") {
@@ -847,6 +868,19 @@ add_who_constraint <- function(s,
                                                                                replacement = paste0("; only ", ., ")")),
                   ~ paste0(s, " (only ", ., ")"))
   } else s
+}
+
+collapse_break <- function(s) {
+  paste0(s, collapse = "<br>")
+}
+
+wrap_backtick <- function(s) {
+  
+  purrr::map_chr(.x = s,
+                 .f = ~ dplyr::if_else(.x == "-" | stringr::str_detect(string = .x,
+                                                                       pattern = "^(_.*_|\\*.*\\*)$"),
+                                       as.character(.x),
+                                       paste0("`", .x, "`")))
 }
 
 pkg <- utils::packageName()
@@ -874,7 +908,7 @@ unicode_ellipsis  <- "\u2026"
 
 #' FOKUS ballot-date-canton metadata
 #'
-#' Returns a tibble of FOKUS-survey-related ballot-date-canton metadata, effective `r lubridate::today()`.
+#' Returns a tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until `r max(ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("data")`
 #' @seealso [ballot_dates] [cantons] 
@@ -883,7 +917,7 @@ unicode_ellipsis  <- "\u2026"
 
 #' List cantons that are covered in *any* FOKUS survey
 #'
-#' Simply returns a vector of cantons that were part of at least one FOKUS survey up until `r lubridate::today()`.
+#' Simply returns a vector of cantons that were part of at least one FOKUS survey up until `r max(ballot_dates)`.
 #'
 #' @format A character vector.
 #' @seealso [ballot_dates] [ballot_metadata] 
@@ -1128,11 +1162,11 @@ q_tibble <- function(canton = cantons,
   
   # assemble questionnaire
   questionnaire <-
-    purrr::map_dfr(.x = names(data_questionnaire),
+    purrr::map_dfr(.x = names(q),
                    .f = function(block) {
                      
                      # determine item enumeration prefix
-                     prefix <- purrr::pluck(.x = data_questionnaire,
+                     prefix <- purrr::pluck(.x = q,
                                             block, "prefix",
                                             .default = 0L)
                      
@@ -1141,11 +1175,10 @@ q_tibble <- function(canton = cantons,
                                                               item_enumerator,
                                                               1L)
                      
-                     # traverse list `data_questionnaire` recursively and assemble items
-                     questionnaire <-
-                       assemble_deep(data_q = data_questionnaire[[block]],
-                                     devisable_map = init_devisable_map(),
-                                     generate_md = FALSE)
+                     # traverse list `q` recursively and assemble items
+                     questionnaire <- assemble_deep(data_q = q[[block]],
+                                                    devisable_map = init_devisable_map(),
+                                                    generate_md = FALSE)
                      
                      # only proceed if it is an actual questionnaire block (i.e. contains table items)
                      if (length(questionnaire)) {
@@ -1156,8 +1189,10 @@ q_tibble <- function(canton = cantons,
                          # add item enumeration
                          dplyr::mutate(nr = seq(from = item_enumeration_start + prefix,
                                                 to = item_enumeration_start + prefix + nrow(.) - 1L,
-                                                by = 1L)) %>%
-                         dplyr::select(nr, everything())
+                                                by = 1L),
+                                       block = block) %>%
+                         # reorder cols
+                         dplyr::select(nr, block, tidyselect::everything())
                        
                        # update item enumerator
                        if (prefix == 0L) item_enumerator <<- item_enumerator + nrow(questionnaire)
@@ -1191,12 +1226,12 @@ q_md <- function(canton = cantons,
   # initialize across-block item enumerator
   item_enumerator <- 1L
   
-  # traverse list `data_questionnaire` recursively to assemble questionnaire
-  purrr::map(.x = names(data_questionnaire),
+  # traverse list `q` recursively to assemble questionnaire
+  purrr::map(.x = names(q),
              .f = function(block) {
                
                # determine item enumeration prefix
-               prefix <- purrr::pluck(.x = data_questionnaire,
+               prefix <- purrr::pluck(.x = q,
                                       block, "prefix",
                                       .default = 0L)
                
@@ -1206,7 +1241,8 @@ q_md <- function(canton = cantons,
                                                         1L)
                
                # generate table body
-               table_body <- gen_table_body(block = block,
+               table_body <- gen_table_body(q = q,
+                                            block = block,
                                             enumeration_start = item_enumeration_start)
                
                # only proceed if it is an actual questionnaire block (i.e. contains table items)
@@ -1217,7 +1253,7 @@ q_md <- function(canton = cantons,
                  
                  # determine block "number"
                  block_nr <-
-                   data_questionnaire %>%
+                   q %>%
                    purrr::pluck(block, "nr") %>%
                    glue::glue(.trim = FALSE)
                  
@@ -1230,7 +1266,7 @@ q_md <- function(canton = cantons,
                  
                  # assemble block header
                  whole_block <-
-                   purrr::pluck(data_questionnaire,
+                   purrr::pluck(q,
                                 block, "title") %>%
                    glue::glue(.trim = FALSE) %>%
                    purrr::when(is.null(.) ~ "",
@@ -1239,7 +1275,7 @@ q_md <- function(canton = cantons,
                  
                  # add block intro and table
                  whole_block <-
-                   purrr::pluck(data_questionnaire,
+                   purrr::pluck(q,
                                 block, "intro") %>%
                    pick_right(canton = canton,
                               ballot_date = ballot_date) %>%
@@ -1261,7 +1297,7 @@ q_md <- function(canton = cantons,
     cat(sep = "\n")
   
   # assemble footnotes
-  data_questionnaire$footnote %>%
+  q$footnote %>%
     purrr::map(.f = assemble_md_ref_item,
                canton = canton,
                ballot_date = ballot_date) %>%
@@ -1270,7 +1306,7 @@ q_md <- function(canton = cantons,
         sep = "\n\n")
   
   # assemble reference-style links
-  data_questionnaire$link %>%
+  q$link %>%
     purrr::map(.f = assemble_md_ref_item,
                canton = canton,
                ballot_date = ballot_date) %>%
@@ -1412,6 +1448,160 @@ variable_value_labels <- tibble::tribble(
   c("empty (blank vote) or not voted")
 )
 
+#' Shorten variable names to a maximum length of 32 characters
+#'
+#' @param v_names A character vector of variable names.
+#' @param reverse Whether to apply the inversion of the shortening logic, i.e. to restore original/unshortened variable names.
+#' @param max_n_char The maximum allowed number of characters. `NULL` to skip the check or otherwise an integer scalar in which case it is ensured that the
+#'   maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.
+#'
+#' @return A character vector of the same length as `v_names`.
+#' @family variable
+#' @seealso [shorten_colnames()], [restore_colnames()]
+#' @export
+shorten_v_names <- function(v_names,
+                            reverse = FALSE,
+                            max_n_char = 32L) {
+  
+  # NOTE: the rules apply one by one in the order they are listed below
+  rules <- tibble::tribble(
+    
+    ~string,                                   ~replacement,                   ~allowed,
+    
+    # sophisticated rules
+    "cantonal_government_parliament",          "cgovparl",                     "begin-middle-end",
+    "cantonal_government",                     "cgov",                         "begin-middle-end",
+    "cantonal_parliament",                     "cparl",                        "begin-middle-end",
+    "cantonal_proposal",                       "cp",                           "begin-middle-end",
+    "cantonal_proposals",                      "cps",                          "begin-middle-end",
+    "federal_proposal",                        "fp",                           "begin-middle-end",
+    "federal_proposals",                       "fps",                          "begin-middle-end",
+    "cantonal_proportional_election",          "cpe",                          "begin-middle-end",
+    "cantonal_proportional_elections",         "cpes",                         "begin-middle-end",
+    "federal_proportional_election",           "fpe",                          "begin-middle-end",
+    "federal_proportional_elections",          "fpes",                         "begin-middle-end",
+    "cantonal_majoritarian_election",          "cme",                          "begin-middle-end",
+    "cantonal_majoritarian_elections",         "cmes",                         "begin-middle-end",
+    "federal_majoritarian_election",           "fme",                          "begin-middle-end",
+    "federal_majoritarian_elections",          "fmes",                         "begin-middle-end",
+    "cantonal_election",                       "ce",                           "begin-middle-end",
+    "cantonal_elections",                      "ces",                          "begin-middle-end",
+    "federal_election",                        "fe",                           "begin-middle-end",
+    "federal_elections",                       "fes",                          "begin-middle-end",
+    "cantonal",                                "c",                            "begin-middle-end",
+    "federal",                                 "f",                            "begin-middle-end",
+    "time",                                    "t",                            "begin",
+    "reduced",                                 "rdc",                          "end",
+    
+    # simple rules
+    "applications",                            "apps",                         "begin-middle-end",
+    "agglomeration",                           "agglo",                        "begin-middle-end",
+    "attitude",                                "att",                          "begin-middle-end",
+    "booklet",                                 "bkl",                          "begin-middle-end",
+    "candidate",                               "cand",                         "begin-middle-end",
+    "competent",                               "cmp",                          "begin-middle-end",
+    "convincing",                              "cnv",                          "begin-middle-end",
+    "custom",                                  "cm",                           "begin-middle-end",
+    "decision",                                "dcsn",                         "begin-middle-end",
+    "hypothetical",                            "hypo",                         "begin-middle-end",
+    "importance",                              "imp",                          "begin-middle-end",
+    "ineffectiveness",                         "ineff",                        "begin-middle-end",
+    "information_source",                      "info_src",                     "begin-middle-end",
+    "infrastructure",                          "infra",                        "begin-middle-end",
+    "modification",                            "mod",                          "begin-middle-end",
+    "options",                                 "opts",                         "begin-middle-end",
+    "political",                               "pol",                          "begin-middle-end",
+    "positioning",                             "pos",                          "begin-middle-end",
+    "reduction",                               "red",                          "begin-middle-end",
+    "spending",                                "spend",                        "begin-middle-end",
+    "switzerland",                             "ch",                           "begin-middle-end",
+    "typology",                                "typ",                          "begin-middle-end",
+    
+    # lazy rules
+    "reason_non_participation",                "reason_non_part",              "begin-middle-end",
+    "equivalised_income",                      "equi_inc",                     "begin-middle-end",
+    "environmentalism_vs_economic_prosperity", "env_vs_econ",                  "begin-middle-end",
+    "welfare_state_vs_self_responsibility",    "welfare_vs_self_respon",       "begin-middle-end",
+    "equal_opportunity_foreigners",            "equal_opportunity_foreign",    "begin-middle-end"
+  )
+
+  if (reverse) colnames(rules) %<>% .[c(2, 1, 3)]
+  
+  rules %<>%
+    dplyr::mutate(pattern =
+                    allowed %>%
+                    purrr::map_chr(function(allowed) {
+                      
+                      allowed %>% purrr::when(. %in% c("begin-middle", "begin-middle-end") ~ "(?<=(^|_))",
+                                              . %in% c("middle", "middle-end") ~ "(?<=_)",
+                                              . %in% c("begin", "begin-end") ~ "^",
+                                              ~ "")
+                    }) %>%
+                    paste0(string) %>%
+                    purrr::map2_chr(.x = allowed,
+                                    .f = function(allowed, string) {
+                                      
+                                      allowed %>% purrr::when(. %in% c("middle-end", "begin-middle-end") ~ paste0(string, "(?=(_|$))"),
+                                                              . %in% c("begin", "middle", "begin-middle") ~ paste0(string, "(?=_)"),
+                                                              . %in% c("begin-end", "end") ~ paste0(string, "$"),
+                                                              ~ rlang::abort("This should not happen!"))
+                                    }))
+  
+  pattern_replacement <- rules$replacement
+  names(pattern_replacement) <- rules$pattern
+  
+  v_names_new <- v_names %>% stringr::str_replace_all(pattern = pattern_replacement)
+  
+  # ensure we did our job
+  if (!is.null(max_n_char) && !reverse && any(nchar(v_names_new) > max_n_char)) {
+    
+    rlang::abort(glue::glue("There are still variable names left of a length greater than {max_n_char} characters after applying `shorten_v_names()`. ",
+                            "Affected are the following (shortened) variable names:\n\n",
+                            tibble::tibble(v_name = v_names,
+                                           v_name_short = v_names_new,
+                                           n_char = nchar(v_names),
+                                           n_char_short = nchar(v_names_new)) %>%
+                              dplyr::filter(n_char_short > max_n_char) %>%
+                              pal::capture_print()))
+  }
+  
+  v_names_new
+}
+
+#' Shorten column names to a maximum length of 32 characters
+#'
+#' This is useful for DTA export since Stata has a built-in variable name length limit of [32
+#' characters](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names).
+#'
+#' @param x A tabular data object like a data frame or tibble.
+#' @inheritParams shorten_v_names
+#'
+#' @return `x` with column names shortened to a maximum length of 32 characters.
+#' @seealso [shorten_v_names()], [restore_colnames()]
+#' @export
+shorten_colnames <- function(x,
+                             max_n_char = 32L) {
+  
+  x %>% magrittr::set_colnames(value = shorten_v_names(v_names = colnames(x),
+                                                       max_n_char = max_n_char))
+}
+
+#' Restore original/unshortened column names
+#'
+#' Applies the inversion of [shorten_colnames()].
+#'
+#' @inheritParams shorten_colnames
+#' @inheritParams shorten_v_names
+#'
+#' @return `x` with original/unshortened column names restored.
+#' @seealso [shorten_v_names()], [shorten_colnames()]
+#' @export
+restore_colnames <- function(x) {
+  
+  x %>% magrittr::set_colnames(value = shorten_v_names(v_names = colnames(x),
+                                                       reverse = TRUE))
+}
+
 #' Convert logical vector to Unicode symbols `r unicode_checkmark` and `r unicode_crossmark`
 #'
 #' @param x A logical vector.
@@ -1442,6 +1632,45 @@ emphasize <- function(x,
   
   x[which] %<>% paste0(emph, ., emph)
   x
+}
+
+abbreviations <- function() {
+  
+  tibble::tribble(
+    ~full_expression, ~abbreviation,
+    "google", "g",
+    "procedure", "prcd",
+    "questionnaire", "q",
+    "statistik aargau", "sa"
+  ) %>%
+    dplyr::bind_rows(pkgsnip::abbreviations()) %>%
+    dplyr::arrange(dplyr::across())
+}
+
+#' Prettify date
+#'
+#' Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA...
+#'
+#' @param date The date to be prettified. A [date][base::Date] or something coercible to.
+#' @param locale The locale the date should be prettified for. Currently only `"en"`/`"en-US"` and `"de"`/`"de-CH"` are implemented.
+#'
+#' @return A character scalar.
+#' @export
+#'
+#' @examples
+#' lubridate::today() %>% prettify_date()
+prettify_date <- function(date,
+                          locale = "en-US") {
+  
+  withr::with_locale(new = c("LC_TIME" = purrr::when(. = locale,
+                                                     . %in% c("en", "en-US") ~ "C",
+                                                     . %in% c("de", "de-CH") ~ "de_CH.utf8")),
+                     code =
+                       locale %>%
+                       purrr::when(. %in% c("en", "en-US") ~ "%B %d, %Y",
+                                   . %in% c("de", "de-CH") ~ "%d. %B %Y",
+                                   ~ rlang::abort("Specified `locale` not implemented yet.")) %>%
+                       format(x = lubridate::as_date(date)))
 }
 
 #' Print working directory structure
