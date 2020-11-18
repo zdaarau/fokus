@@ -25,7 +25,7 @@ Imports:
     glue (>= 1.4.2),
     knitr (>= 1.30),
     lubridate (>= 1.7.9),
-    magrittr (>= 1.5),
+    magrittr (>= 2.0),
     pal (>= 0.0.9031),
     pkgpins (>= 0.4.1),
     pkgsnip (>= 0.0.9015),
