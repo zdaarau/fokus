@@ -529,7 +529,7 @@ assemble_table_row <- function(i = NULL,
                    .default = "-") %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
-      purrr::map(.envir = parent.frame(n = 2L),
+      purrr::map(.envir = environment(),
                  .f = glue::glue,
                  .trim = FALSE,
                  .na = "-") %>%
@@ -552,7 +552,7 @@ assemble_table_row <- function(i = NULL,
                    .default = "-") %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
-      purrr::map(.envir = parent.frame(n = 2L),
+      purrr::map(.envir = environment(),
                  .f = glue::glue,
                  .trim = FALSE,
                  .na = "-") %>%
@@ -565,7 +565,7 @@ assemble_table_row <- function(i = NULL,
                    .default = "-") %>%
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
-      purrr::map(.envir = parent.frame(n = 2L),
+      purrr::map(.envir = environment(),
                  .f = glue::glue,
                  .trim = FALSE,
                  .na = "-") %>%
@@ -737,7 +737,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       purrr::map(.f = glue::glue,
-                 .envir = parent.frame(n = 2L),
+                 .envir = environment(),
                  .na = NULL,
                  .trim = FALSE) %>%
       purrr::flatten_chr() %>%
@@ -753,7 +753,7 @@ assemble_subitem <- function(i = NULL,
                                     pick_right(canton = canton,
                                                ballot_date = ballot_date) %>%
                                     purrr::map(.f = glue::glue,
-                                               .envir = parent.frame(n = 2),
+                                               .envir = environment(),
                                                .na = NULL,
                                                .trim = FALSE) %>%
                                     purrr::flatten_chr() %>%
@@ -761,7 +761,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       purrr::map(.f = glue::glue,
-                 .envir = parent.frame(n = 2L),
+                 .envir = environment(),
                  .na = NULL,
                  .trim = FALSE) %>%
       purrr::map(.f = as.integer) %>%
@@ -774,7 +774,7 @@ assemble_subitem <- function(i = NULL,
       pick_right(canton = canton,
                  ballot_date = ballot_date) %>%
       purrr::map(.f = glue::glue,
-                 .envir = parent.frame(n = 2L),
+                 .envir = environment(),
                  .na = NULL,
                  .trim = FALSE) %>%
       purrr::flatten_chr() %>%
