@@ -42,6 +42,8 @@ Imports:
     utils (>= 4.0.2),
     withr (>= 2.3.0),
     xfun (>= 0.18)
+Suggests:
+    RSelenium (>= 1.7.7.9000)
 Remotes:
     github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal,
