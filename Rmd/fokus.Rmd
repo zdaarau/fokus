@@ -581,7 +581,8 @@ assemble_table_row <- function(i = NULL,
       collapse_break(),
     # variable_name_32,
     v_name %>%
-      shorten_v_names() %>%
+      # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
+      shorten_v_names(max_n_char = 30L) %>%
       wrap_backtick() %>%
       collapse_break(),
     # variable label
@@ -793,7 +794,8 @@ assemble_subitem <- function(i = NULL,
     variable_name = variable_name,
     variable_name_32 =
       variable_name %>%
-      shorten_v_names(),
+      # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
+      shorten_v_names(max_n_char = 30L),
     variable_label =
       variable_label %>%
       pick_right(canton = canton,
@@ -1835,6 +1837,7 @@ shortening_rules <- function() {
     "ineffectiveness",                         "ineff",                        "begin-middle-end",
     "information_source",                      "info_src",                     "begin-middle-end",
     "infrastructure",                          "infra",                        "begin-middle-end",
+    "insurance",                               "insrnc",                       "begin-middle-end",
     "modification",                            "mod",                          "begin-middle-end",
     "options",                                 "opts",                         "begin-middle-end",
     "political",                               "pol",                          "begin-middle-end",
