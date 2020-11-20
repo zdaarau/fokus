@@ -1730,7 +1730,88 @@ variable_value_labels <- tibble::tribble(
 )
 ```
 
-## Shorten variable names to a maximum length of 32 characters
+## Get left-right party order
+
+TODO: Make `lvl_below_min` dependent on language.
+
+```{r}
+#' Reorder a party-referencing factor according to the usual left-right spectrum
+#'
+#' @param fct The factor to be reordered. Its levels should reference Swiss political parties.
+#' @param min_share The share of `fct`'s length below which levels are lumped together to `lvl_below_min`. Set to `0` for no lumping.
+#' @param lvl_below_min The name of the new factor level for all the old levels that fell below `min_share`.
+#'
+#' @return A factor.
+#' @export
+reorder_party_fct <- function(fct,
+                              min_share = 0.02,
+                              lvl_below_min = "Kleinparteien") {
+  
+  fct <- checkmate::assert_factor(fct)
+  min_share <- checkmate::assert_number(min_share,
+                                        lower = 0.0,
+                                        upper = 1.0)
+  lvl_below_min <- checkmate::assert_string(lvl_below_min)
+  lump <- min_share > 0L
+  
+  if (lump) fct %<>% forcats::fct_lump_min(min = length(.) * min_share,
+                                           other_level = lvl_below_min)
+  
+  # party order from left to right
+  regex_party_order <- paste0("\\b", 
+                              c("JUSO",                     # JUSO
+                                "SP",                       # SP
+                                "Junge Grüne",              # Junge Grüne
+                                "Grüne",                    # Grüne
+                                "Junge EVP",                # Junge EVP
+                                "EVP",                      # EVP
+                                "LOVB",                     # LOVB
+                                "SLB",                      # SLB
+                                "Junge glp",                # Junge glp
+                                "glp",                      # glp
+                                "((Piraten)partei?|PPS)",   # Piraten
+                                "IP",                       # IP (Integrale Politik)
+                                "Neue Bundesverfassung",    # Neue Bundesverfassung (Pius Lischer)
+                                "Frecher Frischer Fischer", # Frecher Frischer Fischer
+                                lvl_below_min[lump],        # _lumped together small parties_
+                                "(andere|other|custom)",    # _custom answers_
+                                "Die Unabhängigen",         # DU (Die Unabhängigen)
+                                "Freie Wähler",             # Freie Wähler
+                                "(?i)nichtwähler",          # www.Nichtwähler.ch
+                                "Junge BDP",                # Junge BDP
+                                "BDP",                      # BDP
+                                "Junge CVP",                # Junge CVP
+                                "CVP",                      # CVP
+                                "Jungfreisinnige",          # Jungfreisinnige
+                                "FDP",                      # FDP
+                                "Ecopop",                   # Ecopop
+                                "Luzi Stamm",               # Luzi Stamm
+                                "TEAM65+",                  # TEAM65+
+                                "Junge SVP",                # Junge SVP
+                                "SVP",                      # SVP
+                                "Junge EDU",                # Junge EDU
+                                "EDU"),                     # EDU
+                              "\\b")
+  lvls <- levels(fct)
+  
+  new_lvls <-
+    regex_party_order %>%
+    purrr::map(.f = stringr::str_subset,
+               string = lvls) %>%
+    purrr::compact() %>%
+    unique() %>%
+    purrr::flatten_chr()
+  
+  # ensure new levels have the right length
+  if (length(new_lvls) != length(lvls)) rlang::abort("Left-right party ordering result has wrong length. Maybe the regex rules need to be updated?")
+  
+  fct %>% forcats::fct_relevel(new_lvls)
+}
+```
+
+## Variable name shortening
+
+### Shorten variable names to a maximum length of 32 characters
 
 **Remarks:**
 
@@ -1877,7 +1958,7 @@ shortening_rules <- function() {
 }
 ```
 
-## Shorten column names to a maximum length of 32 characters
+### Shorten column names to a maximum length of 32 characters
 
 ```{r}
 #' Shorten column names to a maximum length of 32 characters
@@ -1899,7 +1980,7 @@ shorten_colnames <- function(x,
 }
 ```
 
-## Restore original/unshortened column names
+### Restore original/unshortened column names
 
 ```{r}
 #' Restore original/unshortened column names
