@@ -1515,8 +1515,8 @@ reorder_party_fct <- function(fct,
                                 "Frecher Frischer Fischer",                # Frecher Frischer Fischer
                                 paste0("\\Q", lvl_below_min, "\\E")[lump], # _lumped together small parties_
                                 "(andere[rs]?|other|custom)",              # _custom answers_
-                                "Die Unabhängigen",                        # DU (Die Unabhängigen)
-                                "Freie Wähler",                            # Freie Wähler
+                                "(DU|Die Unabhängigen)",                   # DU (Die Unabhängigen)
+                                "(FW|Freie Wähler)",                       # Freie Wähler
                                 "(?i)nichtwähler",                         # www.Nichtwähler.ch
                                 "Junge BDP",                               # Junge BDP
                                 "BDP",                                     # BDP
