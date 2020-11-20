@@ -1472,11 +1472,15 @@ variable_value_labels <- tibble::tribble(
 
 #' Reorder a party-referencing factor according to the usual left-right spectrum
 #'
+#' Reorders a factor whose levels reference Swiss political parties according to the usual left-right spectrum. Levels that make less than `min_share` % of all
+#' values will be lumped together to the new factor level `lvl_below_min` which will be placed in the center of the left-right spectrum.
+#'
 #' @param fct The factor to be reordered. Its levels should reference Swiss political parties.
 #' @param min_share The share of `fct`'s length below which levels are lumped together to `lvl_below_min`. Set to `0` for no lumping.
 #' @param lvl_below_min The name of the new factor level for all the old levels that fell below `min_share`.
 #'
 #' @return A factor.
+#' @family fct
 #' @export
 reorder_party_fct <- function(fct,
                               min_share = 0.02,
@@ -1494,38 +1498,39 @@ reorder_party_fct <- function(fct,
   
   # party order from left to right
   regex_party_order <- paste0("\\b", 
-                              c("JUSO",                     # JUSO
-                                "SP",                       # SP
-                                "Junge Grüne",              # Junge Grüne
-                                "Grüne",                    # Grüne
-                                "Junge EVP",                # Junge EVP
-                                "EVP",                      # EVP
-                                "LOVB",                     # LOVB
-                                "SLB",                      # SLB
-                                "Junge glp",                # Junge glp
-                                "glp",                      # glp
-                                "((Piraten)partei?|PPS)",   # Piraten
-                                "IP",                       # IP (Integrale Politik)
-                                "Neue Bundesverfassung",    # Neue Bundesverfassung (Pius Lischer)
-                                "Frecher Frischer Fischer", # Frecher Frischer Fischer
-                                lvl_below_min[lump],        # _lumped together small parties_
-                                "(andere|other|custom)",    # _custom answers_
-                                "Die Unabhängigen",         # DU (Die Unabhängigen)
-                                "Freie Wähler",             # Freie Wähler
-                                "(?i)nichtwähler",          # www.Nichtwähler.ch
-                                "Junge BDP",                # Junge BDP
-                                "BDP",                      # BDP
-                                "Junge CVP",                # Junge CVP
-                                "CVP",                      # CVP
-                                "Jungfreisinnige",          # Jungfreisinnige
-                                "FDP",                      # FDP
-                                "Ecopop",                   # Ecopop
-                                "Luzi Stamm",               # Luzi Stamm
-                                "TEAM65+",                  # TEAM65+
-                                "Junge SVP",                # Junge SVP
-                                "SVP",                      # SVP
-                                "Junge EDU",                # Junge EDU
-                                "EDU"),                     # EDU
+                              c("JUSO",                                    # JUSO
+                                "SP",                                      # SP
+                                "Junge Grüne",                             # Junge Grüne
+                                "Grüne",                                   # Grüne
+                                "Junge EVP",                               # Junge EVP
+                                "EVP",                                     # EVP
+                                "LOVB",                                    # LOVB
+                                "SLB",                                     # SLB
+                                "Junge glp",                               # Junge glp
+                                "glp",                                     # glp
+                                "((Piraten)partei?|PPS)",                  # Piraten
+                                "IP",                                      # IP (Integrale Politik)
+                                "Pius Lischer",                            # Pius Lischer (Neue Bundesverfassung / Für Freiheit und Gesundheit)
+                                "Stephan Zurfluh",                         # Stephan Zurfluh (i54.ch)
+                                "Frecher Frischer Fischer",                # Frecher Frischer Fischer
+                                paste0("\\Q", lvl_below_min, "\\E")[lump], # _lumped together small parties_
+                                "(andere[rs]?|other|custom)",              # _custom answers_
+                                "Die Unabhängigen",                        # DU (Die Unabhängigen)
+                                "Freie Wähler",                            # Freie Wähler
+                                "(?i)nichtwähler",                         # www.Nichtwähler.ch
+                                "Junge BDP",                               # Junge BDP
+                                "BDP",                                     # BDP
+                                "Junge CVP",                               # Junge CVP
+                                "CVP",                                     # CVP
+                                "Jungfreisinnige",                         # Jungfreisinnige
+                                "FDP",                                     # FDP
+                                "Ecopop",                                  # Ecopop
+                                "Luzi Stamm",                              # Luzi Stamm
+                                "TEAM65+",                                 # TEAM65+
+                                "Junge SVP",                               # Junge SVP
+                                "SVP",                                     # SVP
+                                "Junge EDU",                               # Junge EDU
+                                "EDU"),                                    # EDU
                               "\\b")
   lvls <- levels(fct)
   
