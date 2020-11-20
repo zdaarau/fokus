@@ -40,6 +40,9 @@ utils::globalVariables(names = c(".",
                                  "who",
                                  "width"))
 
+# avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://github.com/kevinushey/rex#using-rex-in-other-packages
+rex::register_shortcuts(pkg_name = utils::packageName())
+
 path_wd <- function(rel_path) {
   
   fs::path(getOption("fokus.path_wd"), rel_path)
@@ -248,7 +251,7 @@ gen_table_body <- function(q,
   
   # traverse list `q` recursively to assemble questionnaire body
   body <- assemble_deep(data_q = q[[block]],
-                        devisable_map = init_devisable_map())
+                        devisable_map = init_devisable_map(block = block))
   
   if (length(body) > 0L) {
     
@@ -514,7 +517,15 @@ assemble_table_row <- function(i = NULL,
     # variable_name_32,
     v_name %>%
       # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
-      shorten_v_names(max_n_char = 30L) %>%
+      # (except the special-block vx which won't have `time_*` siblings and certain exceptions which will share a common `time_*` v)
+      shorten_fa_v_names(max_n_char = dplyr::if_else(devisable_map$block %in% c("x_publitest", "y_generated", "z_generated")
+                                                     | stringr::str_detect(string = .,
+                                                                           pattern = rex::rex(start, or(c("agreement_contra_argument_",
+                                                                                                          "information_source_",
+                                                                                                          "reason_non_participation_",
+                                                                                                          "political_occasions_")))),
+                                                     32L,
+                                                     30L)) %>%
       wrap_backtick() %>%
       collapse_break(),
     # variable label
@@ -723,7 +734,15 @@ assemble_subitem <- function(i = NULL,
     variable_name_32 =
       variable_name %>%
       # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
-      shorten_v_names(max_n_char = 30L),
+      # (except the special-block vx which won't have `time_*` siblings and certain exceptions which will share a common `time_*` v)
+      shorten_fa_v_names(max_n_char = dplyr::if_else(devisable_map$block %in% c("x_publitest", "y_generated", "z_generated")
+                                                     | stringr::str_detect(string = .,
+                                                                           pattern = rex::rex(start, or(c("agreement_contra_argument_",
+                                                                                                          "information_source_",
+                                                                                                          "reason_non_participation_",
+                                                                                                          "political_occasions_")))),
+                                                     32L,
+                                                     30L)),
     variable_label =
       variable_label %>%
       pick_right(canton = canton,
@@ -798,9 +817,10 @@ assemble_subitem <- function(i = NULL,
   )
 }
 
-init_devisable_map <- function() {
+init_devisable_map <- function(block) {
   
-  xfun::strict_list(i = NULL,
+  xfun::strict_list(block = block,
+                    i = NULL,
                     j = NULL,
                     topic = NULL,
                     who = NULL,
@@ -1179,7 +1199,7 @@ q_tibble <- function(canton = cantons,
                      
                      # traverse list `q` recursively and assemble items
                      questionnaire <- assemble_deep(data_q = q[[block]],
-                                                    devisable_map = init_devisable_map(),
+                                                    devisable_map = init_devisable_map(block = block),
                                                     generate_md = FALSE)
                      
                      # only proceed if it is an actual questionnaire block (i.e. contains table items)
