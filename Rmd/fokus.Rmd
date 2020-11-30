@@ -1777,7 +1777,7 @@ reorder_party_fct <- function(fct,
       length() %>%
       magrittr::divide_by(length(fct))
     
-    if (empty_share < min_share) {
+    if (empty_share > 0L && empty_share < min_share) {
       
       rlang::abort(glue::glue("Empty votes category included in `fct` which makes up {signif(empty_share, digits = 2L)} of all values which is less than ",
                               "`min_share = {min_share}` and thus would be lumped together to `lvl_below_min = \"{lvl_below_min}\"`."))
