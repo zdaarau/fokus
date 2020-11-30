@@ -17,7 +17,7 @@ reorder_party_fct(fct, min_share = 0.02, lvl_below_min = "Kleinparteien")
 A factor.
 }
 \description{
-Reorders a factor whose levels reference Swiss political parties according to the usual left-right spectrum. Levels that make less than \code{min_share} \% of all
+Reorders a factor whose levels reference Swiss political parties according to the usual left-right spectrum. Levels that make up less than \code{min_share} of all
 values will be lumped together to the new factor level \code{lvl_below_min} which will be placed in the center of the left-right spectrum.
 }
 \concept{fct}

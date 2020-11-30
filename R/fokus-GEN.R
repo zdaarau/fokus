@@ -1472,7 +1472,7 @@ variable_value_labels <- tibble::tribble(
 
 #' Reorder a party-referencing factor according to the usual left-right spectrum
 #'
-#' Reorders a factor whose levels reference Swiss political parties according to the usual left-right spectrum. Levels that make less than `min_share` % of all
+#' Reorders a factor whose levels reference Swiss political parties according to the usual left-right spectrum. Levels that make up less than `min_share` of all
 #' values will be lumped together to the new factor level `lvl_below_min` which will be placed in the center of the left-right spectrum.
 #'
 #' @param fct The factor to be reordered. Its levels should reference Swiss political parties.
@@ -1493,8 +1493,28 @@ reorder_party_fct <- function(fct,
   lvl_below_min <- checkmate::assert_string(lvl_below_min)
   lump <- min_share > 0L
   
-  if (lump) fct %<>% forcats::fct_lump_min(min = length(.) * min_share,
-                                           other_level = lvl_below_min)
+  # empty votes regex
+  empty_party_regex <- "(keine \\(leer eingelegt oder nicht teilgenommen\\)|empty \\(blank vote\\) or not voted)"
+  
+  if (lump) {
+    
+    # ensure "empty votes" category is *never* lumped together to `lvl_below_min`
+    empty_share <-
+      fct %>%
+      stringr::str_detect(pattern = empty_party_regex) %>%
+      which() %>%
+      length() %>%
+      magrittr::divide_by(length(fct))
+    
+    if (empty_share < min_share) {
+      
+      rlang::abort(glue::glue("Empty votes category included in `fct` which makes up {signif(empty_share, digits = 2L)} of all values which is less than ",
+                              "`min_share = {min_share}` and thus would be lumped together to `lvl_below_min = \"{lvl_below_min}\"`."))
+    }
+    
+    fct %<>% forcats::fct_lump_min(min = length(.) * min_share,
+                                   other_level = lvl_below_min)
+  }
   
   # party order from left to right
   regex_party_order <- paste0("\\b", 
@@ -1531,7 +1551,10 @@ reorder_party_fct <- function(fct,
                                 "SVP",                                     # SVP
                                 "Junge EDU",                               # Junge EDU
                                 "EDU"),                                    # EDU
-                              "\\b")
+                              "\\b") %>%
+    # _empty votes_
+    c(empty_party_regex, .)
+    
   lvls <- levels(fct)
   
   new_lvls <-
