@@ -1808,6 +1808,9 @@ TODO:
 
 -   [ ] Do not hardcode "empty votes" category regex but source it from central fn instead.
 
+-   [ ] Overthink `min_share`! `forcats::fct_lump_min(w = )` allows to provide a weight variable, so we should *really* use that! Also it would be cool to be
+    able to provide either `min_share` or `min_n` with the latter allowing to specifiy the minimum number of (weighted) cases.
+
 -   [ ] Make `lvl_below_min` dependent on language.
 
 ```{r}
