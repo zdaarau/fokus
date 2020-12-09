@@ -1791,8 +1791,8 @@ reorder_party_fct <- function(fct,
   regex_party_order <- paste0("\\b", 
                               c("JUSO",                                    # JUSO
                                 "SP",                                      # SP
-                                "Junge Grüne",                             # Junge Grüne
-                                "Grüne",                                   # Grüne
+                                "Junge Gr\u00fcne",                        # Junge Gruene
+                                "Gr\u00fcne",                              # Gruene
                                 "Junge EVP",                               # Junge EVP
                                 "EVP",                                     # EVP
                                 "LOVB",                                    # LOVB
@@ -1801,14 +1801,14 @@ reorder_party_fct <- function(fct,
                                 "glp",                                     # glp
                                 "((Piraten)partei?|PPS)",                  # Piraten
                                 "IP",                                      # IP (Integrale Politik)
-                                "Pius Lischer",                            # Pius Lischer (Neue Bundesverfassung / Für Freiheit und Gesundheit)
+                                "Pius Lischer",                            # Pius Lischer (Neue Bundesverfassung / Fuer Freiheit und Gesundheit)
                                 "Stephan Zurfluh",                         # Stephan Zurfluh (i54.ch)
                                 "Frecher Frischer Fischer",                # Frecher Frischer Fischer
                                 paste0("\\Q", lvl_below_min, "\\E")[lump], # _lumped together small parties_
                                 "(andere[rs]?|other|custom)",              # _custom answers_
-                                "(DU|Die Unabhängigen)",                   # DU (Die Unabhängigen)
-                                "(FW|Freie Wähler)",                       # Freie Wähler
-                                "(?i)nichtwähler",                         # www.Nichtwähler.ch
+                                "(DU|Die Unabh\u00e4ngigen)",              # DU (Die Unabhaengigen)
+                                "(FW|Freie W\u00e4hler)",                  # Freie Waehler
+                                "(?i)nichtw\u00e4hler",                    # www.Nichtwaehler.ch
                                 "Junge BDP",                               # Junge BDP
                                 "BDP",                                     # BDP
                                 "Junge CVP",                               # Junge CVP
