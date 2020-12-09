@@ -1588,29 +1588,28 @@ shorten_v_names <- function(v_names,
                             reverse = FALSE,
                             max_n_char = 32L) {
   
-  rules <- shortening_rules()
+  rules <- shortening_rules
 
-  if (reverse) colnames(rules) %<>% .[c(2, 1, 3)]
+  if (reverse) colnames(rules) %<>% .[c(2L, 1L, 3L)]
   
-  rules %<>%
-    dplyr::mutate(pattern =
-                    allowed %>%
-                    purrr::map_chr(function(allowed) {
-                      
-                      allowed %>% purrr::when(. %in% c("begin-middle", "begin-middle-end") ~ "(?<=(^|_))",
-                                              . %in% c("middle", "middle-end") ~ "(?<=_)",
-                                              . %in% c("begin", "begin-end") ~ "^",
-                                              ~ "")
-                    }) %>%
-                    paste0(string) %>%
-                    purrr::map2_chr(.x = allowed,
-                                    .f = function(allowed, string) {
-                                      
-                                      allowed %>% purrr::when(. %in% c("middle-end", "begin-middle-end") ~ paste0(string, "(?=(_|$))"),
-                                                              . %in% c("begin", "middle", "begin-middle") ~ paste0(string, "(?=_)"),
-                                                              . %in% c("begin-end", "end") ~ paste0(string, "$"),
-                                                              ~ rlang::abort("This should not happen!"))
-                                    }))
+  rules %<>% dplyr::mutate(pattern =
+                             allowed %>%
+                             purrr::map_chr(function(allowed) {
+                               
+                               allowed %>% purrr::when(. %in% c("begin-middle", "begin-middle-end") ~ "(?<=(^|_))",
+                                                       . %in% c("middle", "middle-end") ~ "(?<=_)",
+                                                       . %in% c("begin", "begin-end") ~ "^",
+                                                       ~ "")
+                             }) %>%
+                             paste0(string) %>%
+                             purrr::map2_chr(.x = allowed,
+                                             .f = function(allowed, string) {
+                                               
+                                               allowed %>% purrr::when(. %in% c("middle-end", "begin-middle-end") ~ paste0(string, "(?=(_|$))"),
+                                                                       . %in% c("begin", "middle", "begin-middle") ~ paste0(string, "(?=_)"),
+                                                                       . %in% c("begin-end", "end") ~ paste0(string, "$"),
+                                                                       ~ rlang::abort("This should not happen!"))
+                                             }))
   
   pattern_replacement <- rules$replacement
   names(pattern_replacement) <- rules$pattern
@@ -1631,73 +1630,6 @@ shorten_v_names <- function(v_names,
   }
   
   v_names_new
-}
-
-# define rules separately so they can be easily accessed in tests etc.
-shortening_rules <- function() {
-  
-  # NOTE: the rules apply one by one in the order they are listed below
-  tibble::tribble(
-    
-    ~string,                                   ~replacement,                   ~allowed,
-    
-    # sophisticated rules
-    "cantonal_government_parliament",          "cgovparl",                     "begin-middle-end",
-    "cantonal_government",                     "cgov",                         "begin-middle-end",
-    "cantonal_parliament",                     "cparl",                        "begin-middle-end",
-    "cantonal_proposals",                      "cps",                          "begin-middle-end",
-    "cantonal_proposal",                       "cp",                           "begin-middle-end",
-    "federal_proposals",                       "fps",                          "begin-middle-end",
-    "federal_proposal",                        "fp",                           "begin-middle-end",
-    "cantonal_proportional_elections",         "cpes",                         "begin-middle-end",
-    "cantonal_proportional_election",          "cpe",                          "begin-middle-end",
-    "federal_proportional_elections",          "fpes",                         "begin-middle-end",
-    "federal_proportional_election",           "fpe",                          "begin-middle-end",
-    "cantonal_majoritarian_elections",         "cmes",                         "begin-middle-end",
-    "cantonal_majoritarian_election",          "cme",                          "begin-middle-end",
-    "federal_majoritarian_elections",          "fmes",                         "begin-middle-end",
-    "federal_majoritarian_election",           "fme",                          "begin-middle-end",
-    "cantonal_elections",                      "ces",                          "begin-middle-end",
-    "cantonal_election",                       "ce",                           "begin-middle-end",
-    "federal_elections",                       "fes",                          "begin-middle-end",
-    "federal_election",                        "fe",                           "begin-middle-end",
-    "cantonal",                                "c",                            "begin-middle-end",
-    "federal",                                 "f",                            "begin-middle-end",
-    "time",                                    "t",                            "begin",
-    "reduced",                                 "rdc",                          "end",
-    
-    # simple rules
-    "applications",                            "apps",                         "begin-middle-end",
-    "agglomeration",                           "agglo",                        "begin-middle-end",
-    "attitude",                                "att",                          "begin-middle-end",
-    "booklet",                                 "bkl",                          "begin-middle-end",
-    "candidate",                               "cand",                         "begin-middle-end",
-    "competent",                               "cmp",                          "begin-middle-end",
-    "convincing",                              "cnv",                          "begin-middle-end",
-    "custom",                                  "cm",                           "begin-middle-end",
-    "decision",                                "dcsn",                         "begin-middle-end",
-    "hypothetical",                            "hypo",                         "begin-middle-end",
-    "importance",                              "imp",                          "begin-middle-end",
-    "ineffectiveness",                         "ineff",                        "begin-middle-end",
-    "information_source",                      "info_src",                     "begin-middle-end",
-    "infrastructure",                          "infra",                        "begin-middle-end",
-    "insurance",                               "insrnc",                       "begin-middle-end",
-    "modification",                            "mod",                          "begin-middle-end",
-    "options",                                 "opts",                         "begin-middle-end",
-    "political",                               "pol",                          "begin-middle-end",
-    "positioning",                             "pos",                          "begin-middle-end",
-    "reduction",                               "red",                          "begin-middle-end",
-    "spending",                                "spend",                        "begin-middle-end",
-    "switzerland",                             "ch",                           "begin-middle-end",
-    "typology",                                "typ",                          "begin-middle-end",
-    
-    # lazy rules
-    "reason_non_participation",                "reason_non_part",              "begin-middle-end",
-    "equivalised_income",                      "equi_inc",                     "begin-middle-end",
-    "environmentalism_vs_economic_prosperity", "env_vs_econ",                  "begin-middle-end",
-    "welfare_state_vs_self_responsibility",    "welfare_vs_self_respon",       "begin-middle-end",
-    "equal_opportunity_foreigners",            "equal_opportunity_foreign",    "begin-middle-end"
-  )
 }
 
 #' Shorten column names to a maximum length of 32 characters
