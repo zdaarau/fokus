@@ -586,14 +586,14 @@ assemble_table_row <- function(i = NULL,
     v_name %>%
       # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
       # (except the special-block vx which won't have `time_*` siblings and certain exceptions which will share a common `time_*` v)
-      shorten_fa_v_names(max_n_char = dplyr::if_else(devisable_map$block %in% c("x_publitest", "y_generated", "z_generated")
-                                                     || stringr::str_detect(string = .,
-                                                                            pattern = rex::rex(start, or(c("agreement_contra_argument_",
-                                                                                                           "information_source_",
-                                                                                                           "reason_non_participation_",
-                                                                                                           "political_occasions_")))),
-                                                     32L,
-                                                     30L)) %>%
+      shorten_v_names(max_n_char = dplyr::if_else(devisable_map$block %in% c("x_publitest", "y_generated", "z_generated")
+                                                  || stringr::str_detect(string = .,
+                                                                         pattern = rex::rex(start, or(c("agreement_contra_argument_",
+                                                                                                        "information_source_",
+                                                                                                        "reason_non_participation_",
+                                                                                                        "political_occasions_")))),
+                                                  32L,
+                                                  30L)) %>%
       wrap_backtick() %>%
       collapse_break(),
     # variable label
@@ -807,14 +807,14 @@ assemble_subitem <- function(i = NULL,
       variable_name %>%
       # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
       # (except the special-block vx which won't have `time_*` siblings and certain exceptions which will share a common `time_*` v)
-      shorten_fa_v_names(max_n_char = dplyr::if_else(devisable_map$block %in% c("x_publitest", "y_generated", "z_generated")
-                                                     || stringr::str_detect(string = .,
-                                                                            pattern = rex::rex(start, or(c("agreement_contra_argument_",
-                                                                                                           "information_source_",
-                                                                                                           "reason_non_participation_",
-                                                                                                           "political_occasions_")))),
-                                                     32L,
-                                                     30L)),
+      shorten_v_names(max_n_char = dplyr::if_else(devisable_map$block %in% c("x_publitest", "y_generated", "z_generated")
+                                                  || stringr::str_detect(string = .,
+                                                                         pattern = rex::rex(start, or(c("agreement_contra_argument_",
+                                                                                                        "information_source_",
+                                                                                                        "reason_non_participation_",
+                                                                                                        "political_occasions_")))),
+                                                  32L,
+                                                  30L)),
     variable_label =
       variable_label %>%
       pick_right(canton = canton,
