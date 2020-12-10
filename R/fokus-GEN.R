@@ -1496,7 +1496,10 @@ reorder_party_fct <- function(fct,
   lump <- min_share > 0L
   
   # empty votes regex
-  empty_party_regex <- "^(keine \\(leer eingelegt oder nicht teilgenommen\\)|empty \\(blank vote\\) or not voted|keine|none)$"
+  empty_party_regex <- paste0("^(keine \\((leer eingelegt|nicht teilgenommen)( oder (nicht teilgenommen|leer eingelegt))?\\)",
+                              "|empty \\(blank vote\\) or not voted",
+                              "|keine",
+                              "|none)$")
   
   if (lump) {
     
