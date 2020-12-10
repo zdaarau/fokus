@@ -1480,19 +1480,23 @@ variable_value_labels <- tibble::tribble(
 #' @param fct The factor to be reordered. Its levels should reference Swiss political parties.
 #' @param min_share The share of `fct`'s length below which levels are lumped together to `lvl_below_min`. Set to `0` for no lumping.
 #' @param lvl_below_min The name of the new factor level for all the old levels that fell below `min_share`.
+#' @param abstention_lvl_right Whether to place `fct` levels for vote abstention at the right pole of the left-right spectrum. If `FALSE`, abstention levels
+#'   will be placed at the left pole instead.
 #'
 #' @return A factor.
 #' @family fct
 #' @export
 reorder_party_fct <- function(fct,
                               min_share = 0.02,
-                              lvl_below_min = "Kleinparteien") {
+                              lvl_below_min = "Kleinparteien",
+                              abstention_lvl_right = TRUE) {
   
   fct <- checkmate::assert_factor(fct)
   min_share <- checkmate::assert_number(min_share,
                                         lower = 0.0,
                                         upper = 1.0)
   lvl_below_min <- checkmate::assert_string(lvl_below_min)
+  abstention_lvl_right <- checkmate::assert_flag(abstention_lvl_right)
   lump <- min_share > 0L
   
   # empty votes regex
@@ -1556,9 +1560,13 @@ reorder_party_fct <- function(fct,
                                 "SVP",                                     # SVP
                                 "Junge EDU",                               # Junge EDU
                                 "EDU"),                                    # EDU
-                              "\\b") %>%
-    # _empty votes_
-    c(empty_party_regex, .)
+                              "\\b")
+  
+  if (abstention_lvl_right) {
+    regex_party_order %<>% c(empty_party_regex)
+  } else {
+    regex_party_order %<>% c(empty_party_regex, .)
+  }
     
   lvls <- levels(fct)
   

@@ -4,7 +4,12 @@
 \alias{reorder_party_fct}
 \title{Reorder a party-referencing factor according to the usual left-right spectrum}
 \usage{
-reorder_party_fct(fct, min_share = 0.02, lvl_below_min = "Kleinparteien")
+reorder_party_fct(
+  fct,
+  min_share = 0.02,
+  lvl_below_min = "Kleinparteien",
+  abstention_lvl_right = TRUE
+)
 }
 \arguments{
 \item{fct}{The factor to be reordered. Its levels should reference Swiss political parties.}
@@ -12,6 +17,9 @@ reorder_party_fct(fct, min_share = 0.02, lvl_below_min = "Kleinparteien")
 \item{min_share}{The share of \code{fct}'s length below which levels are lumped together to \code{lvl_below_min}. Set to \code{0} for no lumping.}
 
 \item{lvl_below_min}{The name of the new factor level for all the old levels that fell below \code{min_share}.}
+
+\item{abstention_lvl_right}{Whether to place \code{fct} levels for vote abstention at the right pole of the left-right spectrum. If \code{FALSE}, abstention levels
+will be placed at the left pole instead.}
 }
 \value{
 A factor.
