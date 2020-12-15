@@ -12,7 +12,7 @@ Description: fokus provides functions to (pre-)process and
     clean the raw data, analyze and visualize the cleaned data and create
     the questionnaires of the FOKUS post-voting surveys as well as other
     utility functions around the whole research project.
-License: AGPL-3
+License: AGPL (>= 3)
 URL: https://gitlab.com/zdaarau/fokus
 BugReports: https://gitlab.com/zdaarau/fokus/issues
 Depends: 
