@@ -1543,6 +1543,9 @@ reorder_party_fct <- function(fct,
                                 "Stephan Zurfluh",                         # Stephan Zurfluh (i54.ch)
                                 "Frecher Frischer Fischer",                # Frecher Frischer Fischer
                                 paste0("\\Q", lvl_below_min, "\\E")[lump], # _lumped together small parties_
+                                "mehrere \\(links",                        # multiple (left)
+                                "mehrere \\(mitte-rechts",                 # multiple (center-right)
+                                "mehrere \\(beliebig",                     # multiple (arbitrary)
                                 "(andere[rs]?|other|custom)",              # _custom answers_
                                 "(DU|Die Unabh\u00e4ngigen)",              # DU (Die Unabhaengigen)
                                 "(FW|Freie W\u00e4hler)",                  # Freie Waehler
