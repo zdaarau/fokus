@@ -1623,7 +1623,7 @@ shorten_v_names <- function(v_names,
                                                                   . %in% c("begin-middle-end", "middle-end") ~ paste0(.y, "(?=(_|$))"),
                                                                   . %in% c("begin-middle", "middle") ~ paste0(.y, "(?=_)"),
                                                                   . == "begin-end" ~ paste0(.y, "$"),
-                                                                  . == "end" ~ paste0("(?=_)", .y, "$"),
+                                                                  . == "end" ~ paste0("(?<=_)", .y, "$"),
                                                                   ~ rlang::abort("This should not happen!"))
                                              }))
   
