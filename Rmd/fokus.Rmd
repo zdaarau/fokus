@@ -2007,7 +2007,7 @@ shorten_v_names <- function(v_names,
                                            n_char = nchar(v_names),
                                            n_char_short = nchar(v_names_new)) %>%
                               dplyr::filter(n_char_short > max_n_char) %>%
-                              pal::capture_print()))
+                              pal::capture_print(collapse = "\n")))
   }
   
   v_names_new
