@@ -1617,12 +1617,14 @@ shorten_v_names <- function(v_names,
                              }) %>%
                              paste0(string) %>%
                              purrr::map2_chr(.x = allowed,
-                                             .f = function(allowed, string) {
+                                             .f = ~ {
                                                
-                                               allowed %>% purrr::when(. %in% c("middle-end", "begin-middle-end") ~ paste0(string, "(?=(_|$))"),
-                                                                       . %in% c("begin", "middle", "begin-middle") ~ paste0(string, "(?=_)"),
-                                                                       . %in% c("begin-end", "end") ~ paste0(string, "$"),
-                                                                       ~ rlang::abort("This should not happen!"))
+                                               .x %>% purrr::when(. == "begin" ~ .y,
+                                                                  . %in% c("begin-middle-end", "middle-end") ~ paste0(.y, "(?=(_|$))"),
+                                                                  . %in% c("begin-middle", "middle") ~ paste0(.y, "(?=_)"),
+                                                                  . == "begin-end" ~ paste0(.y, "$"),
+                                                                  . == "end" ~ paste0("(?=_)", .y, "$"),
+                                                                  ~ rlang::abort("This should not happen!"))
                                              }))
   
   pattern_replacement <- rules$replacement
