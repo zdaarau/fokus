@@ -3,6 +3,11 @@ fokus_private/
 ├──bibliography/
 |  ├──zotero_c2d.bib
 |  └──zotero_c2d.json
+├──bin/
+|  └──pandoc/
+|     ├──linux/
+|     ├──macos/
+|     └──windows/
 ├──config/
 |  ├──csl/
 |  ├──css/
@@ -83,11 +88,6 @@ fokus_private/
 |     └──[BALLOT_DATE]/
 |        └──[CANTON]/
 |           └──plots/
-├──tools/
-|  └──pandoc/
-|     ├──linux/
-|     ├──macos/
-|     └──windows/
 ├──README.Rmd
 └──...
 ```
