@@ -167,7 +167,7 @@ assemble_md_ref_item <- function(l,
   l %<>% xfun::as_strict_list()
   
   if ("id" %in% names(l)
-      & ("text" %in% names(l) | "url" %in% names(l))) {
+      && ("text" %in% names(l) || "url" %in% names(l))) {
     
     l$include %<>%
       pick_right(canton = canton,
@@ -673,7 +673,7 @@ assemble_subitem <- function(i = NULL,
                .trim = FALSE) %>%
     pal::strip_md()
   
-  if (is.na(variable_label_common) & "default" %in% names(variable_label)) {
+  if (is.na(variable_label_common) && "default" %in% names(variable_label)) {
     
     # integrity check: ensure there haven't been any changes to `who` over time (if so, an explcicit `variable_label_common` has to be defined!)
     if (length(devisable_map$who) > 1L) {
@@ -693,8 +693,8 @@ assemble_subitem <- function(i = NULL,
     }
     # add who constraint if necessary
   } else if (!is.na(variable_label_common)
-             & !stringr::str_detect(string = variable_label_common,
-                                    pattern = "(\\(|; )only .*?\\)$")) {
+             && !stringr::str_detect(string = variable_label_common,
+                                     pattern = "(\\(|; )only .*?\\)$")) {
     
     if (length(devisable_map$who) > 1L) {
       
@@ -923,7 +923,7 @@ unicode_ellipsis  <- "\u2026"
 
 #' List FOKUS-covered ballot dates
 #'
-#' Simply returns a vector of ballot dates covered by FOKUS surveys up until `r max(ballot_dates)`.
+#' A vector of ballot dates covered by FOKUS surveys up until `r max(ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("dates")`
 #' @seealso [cantons] [ballot_metadata] 
@@ -932,7 +932,7 @@ unicode_ellipsis  <- "\u2026"
 
 #' FOKUS ballot-date-canton metadata
 #'
-#' Returns a tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until `r max(ballot_dates)`.
+#' A tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until `r max(ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("data")`
 #' @seealso [ballot_dates] [cantons] 
@@ -941,7 +941,7 @@ unicode_ellipsis  <- "\u2026"
 
 #' List cantons that are covered in *any* FOKUS survey
 #'
-#' Simply returns a vector of cantons that were part of at least one FOKUS survey up until `r max(ballot_dates)`.
+#' A vector of cantons that were part of at least one FOKUS survey up until `r max(ballot_dates)`.
 #'
 #' @format A character vector.
 #' @seealso [ballot_dates] [ballot_metadata] 
@@ -1389,7 +1389,7 @@ pick_right_helper <- function(l,
         begin <- x %>% stringr::str_extract(pattern = "^\\d+") %>% lubridate::as_date()
         end <- x %>% stringr::str_extract(pattern = "\\d+$") %>% lubridate::as_date()
         
-        if (begin <= ballot_date && ballot_date <= end) TRUE else FALSE
+        begin <= ballot_date && ballot_date <= end
       })
     
     # integrity check: ensure there aren't any overlapping intervals
