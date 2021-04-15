@@ -16,7 +16,8 @@ maximum resulting variable name length doesn't exceed it. Doesn't have any influ
 \code{x} with column names shortened to a maximum length of 32 characters.
 }
 \description{
-This is useful for DTA export since Stata has a built-in variable name length limit of \href{https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names}{32 characters}.
+This is useful for DTA export since Stata has a built-in variable name length limit of \href{https://www.stata.com/manuals/r.pdf#rLimits}{32 characters} (see also
+\href{https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names}{here}.
 }
 \seealso{
 \code{\link[=shorten_v_names]{shorten_v_names()}}, \code{\link[=restore_colnames]{restore_colnames()}}

@@ -11,7 +11,7 @@ A character vector.
 cantons
 }
 \description{
-Simply returns a vector of cantons that were part of at least one FOKUS survey up until 2020-10-18.
+A vector of cantons that were part of at least one FOKUS survey up until 2020-10-18.
 }
 \seealso{
 \link{ballot_dates} \link{ballot_metadata}

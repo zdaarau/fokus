@@ -1651,7 +1651,8 @@ shorten_v_names <- function(v_names,
 #' Shorten column names to a maximum length of 32 characters
 #'
 #' This is useful for DTA export since Stata has a built-in variable name length limit of [32
-#' characters](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names).
+#' characters](https://www.stata.com/manuals/r.pdf#rLimits) (see also
+#' [here](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names).
 #'
 #' @param x A tabular data object like a data frame or tibble.
 #' @inheritParams shorten_v_names
