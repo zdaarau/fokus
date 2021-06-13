@@ -14,6 +14,6 @@ ballot_dates
 A vector of ballot dates covered by FOKUS surveys up until 2020-10-18.
 }
 \seealso{
-\link{cantons} \link{ballot_metadata}
+\code{\link{cantons}} \code{\link{ballot_metadata}}
 }
 \keyword{datasets}

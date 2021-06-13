@@ -926,7 +926,7 @@ unicode_ellipsis  <- "\u2026"
 #' A vector of ballot dates covered by FOKUS surveys up until `r max(ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("dates")`
-#' @seealso [cantons] [ballot_metadata] 
+#' @seealso [`cantons`][cantons] [`ballot_metadata`][ballot_metadata]
 #' @export
 "ballot_dates"
 
@@ -935,7 +935,7 @@ unicode_ellipsis  <- "\u2026"
 #' A tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until `r max(ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("data")`
-#' @seealso [ballot_dates] [cantons] 
+#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons]
 #' @export
 "ballot_metadata"
 
@@ -944,7 +944,7 @@ unicode_ellipsis  <- "\u2026"
 #' A vector of cantons that were part of at least one FOKUS survey up until `r max(ballot_dates)`.
 #'
 #' @format A character vector.
-#' @seealso [ballot_dates] [ballot_metadata] 
+#' @seealso [`ballot_dates`][ballot_dates] [`ballot_metadata`][ballot_metadata]
 #' @export
 "cantons"
 
