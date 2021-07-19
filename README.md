@@ -130,7 +130,7 @@ if (!("remotes" %in% rownames(installed.packages()))) {
                    repos = "https://cloud.r-project.org/")
 }
 
-remotes::install_gitlab(repo = "zdaarau/fokus")
+remotes::install_gitlab(repo = "zdaarau/rpkgs/fokus")
 ```
 
 ## Development
