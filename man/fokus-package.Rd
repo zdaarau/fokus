@@ -26,8 +26,8 @@ The following package-specific R options are used to control the package's funct
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gitlab.com/zdaarau/fokus}
-  \item Report bugs at \url{https://gitlab.com/zdaarau/fokus/issues}
+  \item \url{https://gitlab.com/zdaarau/rpkgs/fokus}
+  \item Report bugs at \url{https://gitlab.com/zdaarau/rpkgs/fokus/issues}
 }
 
 }
