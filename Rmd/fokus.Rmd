@@ -1117,7 +1117,8 @@ Note that
 
 -   these constants are documented separately (further down in this document).
 
--   although they are saved as "internal data" in `R/sysdata.rda`, they are still exported later on, something not explicitly mentioned in the book [R
+-   although they are saved as "internal data" in `R/sysdata.rda`, they are still exported later on, something [not explicitly
+    mentioned](https://coolbutuseless.github.io/2018/12/10/r-packages-internal-and-external-data/) in the book [R
     Packages](https://r-pkgs.org/data.html#data-data) (and maybe a CRAN violation?).
 
 -   the option `fokus.path_wd` must be set to create them.
@@ -2069,3 +2070,4 @@ read_toml <- function(path) {
     xfun::as_strict_list()
 }
 ```
+
