@@ -1838,6 +1838,10 @@ shorten_v_names <- function(v_names,
                             reverse = FALSE,
                             max_n_char = 32L) {
   
+  checkmate::assert_character(v_names,
+                              any.missing = FALSE)
+  checkmate::assert_flag(reverse)
+  checkmate::assert_count(max_n_char)
   rules <- shortening_rules
 
   if (reverse) colnames(rules) %<>% .[c(2L, 1L, 3L)]
@@ -2070,4 +2074,3 @@ read_toml <- function(path) {
     xfun::as_strict_list()
 }
 ```
-
