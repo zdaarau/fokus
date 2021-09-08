@@ -9,13 +9,13 @@ editor_options:
 
 ```{r}
 .onUnload <- function(libpath) {
-  pkgpins::deregister(pkg = pkg)
+  pkgpins::deregister(pkg = this_pkg)
 }
 
 .onLoad <- function(libname, pkgname) {
   
   pkgpins::clear(pkg = pkgname,
-                 max_age = getOption("fokus.global_cache_lifespan",
+                 max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
                                      default = "30 days"))
   
   # set pkg opts
@@ -1007,7 +1007,7 @@ wrap_backtick <- function(s) {
 ## Constants
 
 ```{r}
-pkg <- utils::packageName()
+this_pkg <- utils::packageName()
 ```
 
 ### Messages
