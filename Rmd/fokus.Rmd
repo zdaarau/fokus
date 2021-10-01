@@ -78,7 +78,7 @@ init_path_wd <- function() {
   if (is.null(getOption("fokus.path_wd"))) {
     # user-specific
     options(fokus.path_wd = switch(EXPR = Sys.info()[["user"]],
-                                   "salim" = "~/Arbeit/ZDA/Git/c2d-zda/fokus_private/",
+                                   "salim" = "~/Arbeit/ZDA/Git/zdaarau/private/fokus_private/",
                                    # fall back to current working directory
                                    getwd()))
   }
@@ -1810,7 +1810,7 @@ variable_value_labels <- tibble::tribble(
 
 -   To display a comparison between original and shortened column names and their respective lengths after applying `shorten_v_names()`, use:
 
-    ``` {.r}
+    ``` r
     fa_data() %>%
       colnames() %>%
       tibble::tibble(original = .,

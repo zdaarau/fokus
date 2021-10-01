@@ -2,7 +2,7 @@
 # See `README.md#r-markdown-format` for more information on the literate programming approach used applying the R Markdown format.
 
 # fokus: Provides API-like functionality around the FOKUS Post-voting Surveys
-# Copyright (C) 2021 Salim Brüggemann
+# Copyright (C) 2021 Centre for Democracy Studies Aarau (ZDA)
 # 
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, either version 3 of the License, or any later version.
@@ -13,13 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 .onUnload <- function(libpath) {
-  pkgpins::deregister(pkg = pkg)
+  pkgpins::deregister(pkg = this_pkg)
 }
 
 .onLoad <- function(libname, pkgname) {
   
   pkgpins::clear(pkg = pkgname,
-                 max_age = getOption("fokus.global_cache_lifespan",
+                 max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
                                      default = "30 days"))
   
   # set pkg opts
@@ -64,7 +64,7 @@ init_path_wd <- function() {
   if (is.null(getOption("fokus.path_wd"))) {
     # user-specific
     options(fokus.path_wd = switch(EXPR = Sys.info()[["user"]],
-                                   "salim" = "~/Arbeit/ZDA/Git/c2d-zda/fokus_private/",
+                                   "salim" = "~/Arbeit/ZDA/Git/zdaarau/private/fokus_private/",
                                    # fall back to current working directory
                                    getwd()))
   }
@@ -916,7 +916,7 @@ wrap_backtick <- function(s) {
                                        paste0("`", .x, "`")))
 }
 
-pkg <- utils::packageName()
+this_pkg <- utils::packageName()
 
 
 
