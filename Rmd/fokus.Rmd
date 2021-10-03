@@ -2052,6 +2052,10 @@ emphasize <- function(x,
 
 ### `abbreviations`
 
+TODO:
+
+-   Introduce abbr `supplemental`/`supplementary` -> `suppl` and replace all occurrences in code.
+
 ```{r}
 #' Abbreviations used in the **fokus** package
 #'
