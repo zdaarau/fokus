@@ -122,7 +122,7 @@
     <p>Reads in file <code>questionnaire/YYYY-MM-DD.toml</code> where <code>YYYY-MM-DD</code> corresponds to the <code>ballot_date</code> argument and returns it as a structured list.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_q_supplemental</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>ballot_dates</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_q_supplemental</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,8 +134,10 @@
 <li><p><code>"2018-11-25"</code></p></li>
 <li><p><code>"2019-10-20"</code></p></li>
 <li><p><code>"2020-09-27"</code></p></li>
-<li><p><code>"2020-10-18"</code> )`</p></li>
-</ul></td>
+<li><p><code>"2020-10-18"</code></p></li>
+</ul>
+
+<p>Either as a character or a <a href='https://rdrr.io/r/base/Dates.html'>date</a> scalar.</p></td>
     </tr>
     </table>
 

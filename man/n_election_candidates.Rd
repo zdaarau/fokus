@@ -24,7 +24,7 @@ n_election_candidates(
 
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
-\item \code{"aargau"} )`
+\item \code{"aargau"}
 }}
 }
 \value{

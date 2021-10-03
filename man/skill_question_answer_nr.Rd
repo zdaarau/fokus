@@ -25,7 +25,7 @@ skill_question_answer_nr(
 
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
-\item \code{"aargau"} )`
+\item \code{"aargau"}
 }}
 
 \item{proposal_nr}{The proposal number. An integer scalar.}

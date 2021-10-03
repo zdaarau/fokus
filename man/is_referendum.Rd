@@ -4,12 +4,12 @@
 \alias{is_referendum}
 \title{Determine if ballot type includes a referendum}
 \usage{
-is_referendum(canton = cantons, ballot_date = as.character(ballot_dates))
+is_referendum(canton = cantons, ballot_date = ballot_dates)
 }
 \arguments{
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
-\item \code{"aargau"} )`
+\item \code{"aargau"}
 }}
 
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -18,8 +18,10 @@ is_referendum(canton = cantons, ballot_date = as.character(ballot_dates))
 \item \code{"2018-11-25"}
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
-\item \code{"2020-10-18"} )`
-}}
+\item \code{"2020-10-18"}
+}
+
+Either as a character or a \link[base:Dates]{date} scalar.}
 }
 \value{
 A logical scalar.

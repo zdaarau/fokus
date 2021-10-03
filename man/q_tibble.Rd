@@ -4,12 +4,12 @@
 \alias{q_tibble}
 \title{Generate questionnaire tibble}
 \usage{
-q_tibble(canton = cantons, ballot_date = as.character(ballot_dates))
+q_tibble(canton = cantons, ballot_date = ballot_dates)
 }
 \arguments{
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
-\item \code{"aargau"} )`
+\item \code{"aargau"}
 }}
 
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -18,8 +18,10 @@ q_tibble(canton = cantons, ballot_date = as.character(ballot_dates))
 \item \code{"2018-11-25"}
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
-\item \code{"2020-10-18"} )`
-}}
+\item \code{"2020-10-18"}
+}
+
+Either as a character or a \link[base:Dates]{date} scalar.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
@@ -32,6 +34,7 @@ Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
+\code{\link{read_q_supplemental}()},
 \code{\link{read_q}()}
 }
 \concept{questionnaire}

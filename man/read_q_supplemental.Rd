@@ -4,7 +4,7 @@
 \alias{read_q_supplemental}
 \title{Read in raw supplemental date-specific questionnaire data}
 \usage{
-read_q_supplemental(ballot_date = as.character(ballot_dates))
+read_q_supplemental(ballot_date = ballot_dates)
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -13,8 +13,10 @@ read_q_supplemental(ballot_date = as.character(ballot_dates))
 \item \code{"2018-11-25"}
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
-\item \code{"2020-10-18"} )`
-}}
+\item \code{"2020-10-18"}
+}
+
+Either as a character or a \link[base:Dates]{date} scalar.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

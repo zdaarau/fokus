@@ -11,7 +11,7 @@ pick_right(l, canton, ballot_date)
 
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
-\item \code{"aargau"} )`
+\item \code{"aargau"}
 }}
 
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -20,8 +20,10 @@ pick_right(l, canton, ballot_date)
 \item \code{"2018-11-25"}
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
-\item \code{"2020-10-18"} )`
-}}
+\item \code{"2020-10-18"}
+}
+
+Either as a character or a \link[base:Dates]{date} scalar.}
 }
 \value{
 The value of \code{l} that corresponds to \code{canton} and \code{ballot_date}.
@@ -34,6 +36,7 @@ Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},
+\code{\link{read_q_supplemental}()},
 \code{\link{read_q}()}
 }
 \concept{questionnaire}

@@ -4,12 +4,12 @@
 \alias{ballot_type}
 \title{Determine ballot type}
 \usage{
-ballot_type(canton = cantons, ballot_date = as.character(ballot_dates))
+ballot_type(canton = cantons, ballot_date = ballot_dates)
 }
 \arguments{
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
-\item \code{"aargau"} )`
+\item \code{"aargau"}
 }}
 
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -18,15 +18,17 @@ ballot_type(canton = cantons, ballot_date = as.character(ballot_dates))
 \item \code{"2018-11-25"}
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
-\item \code{"2020-10-18"} )`
-}}
+\item \code{"2020-10-18"}
+}
+
+Either as a character or a \link[base:Dates]{date} scalar.}
 }
 \value{
 The ballot type as a character scalar. One of
 \itemize{
-\item \code{"both_referendum_and_election"}
 \item \code{"referendum"}
 \item \code{"election"}
+\item \code{"both_referendum_and_election"}
 }
 }
 \description{

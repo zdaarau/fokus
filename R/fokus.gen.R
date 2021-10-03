@@ -964,16 +964,18 @@ unicode_ellipsis  <- "\u2026"
 #' @inheritParams gen_q
 #'
 #' @return The ballot type as a character scalar. One of
-#'   - `"both_referendum_and_election"`
 #'   - `"referendum"`
 #'   - `"election"`
+#'   - `"both_referendum_and_election"`
 #' @family fundamental
 #' @export
 ballot_type <- function(canton = cantons,
-                        ballot_date = as.character(ballot_dates)) {
+                        ballot_date = ballot_dates) {
   
   canton <- rlang::arg_match(canton)
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   
   is_election <- is_election(canton = canton,
                              ballot_date = ballot_date)
@@ -994,10 +996,12 @@ ballot_type <- function(canton = cantons,
 #' @family fundamental
 #' @export
 is_election <- function(canton = cantons,
-                        ballot_date = as.character(ballot_dates)) {
+                        ballot_date = ballot_dates) {
   
   canton <- rlang::arg_match(canton)
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   
   ballot_metadata %>%
     dplyr::filter(canton == !!canton,
@@ -1013,10 +1017,12 @@ is_election <- function(canton = cantons,
 #' @family fundamental
 #' @export
 is_referendum <- function(canton = cantons,
-                          ballot_date = as.character(ballot_dates)) {
+                          ballot_date = ballot_dates) {
   
   canton <- rlang::arg_match(canton)
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   
   ballot_metadata %>%
     dplyr::filter(canton == !!canton,
@@ -1130,9 +1136,11 @@ read_q <- function() {
 #' @inherit read_q return
 #' @family questionnaire
 #' @export
-read_q_supplemental <- function(ballot_date = as.character(ballot_dates)) {
+read_q_supplemental <- function(ballot_date = ballot_dates) {
   
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   read_toml(path_wd(glue::glue("questionnaire/{ballot_date}.toml")))
 }
 
@@ -1142,18 +1150,22 @@ read_q_supplemental <- function(ballot_date = as.character(ballot_dates)) {
 #' anything.
 #'
 #' @param canton A valid FOKUS canton. One of
-#'   `r pal::as_md_list(paste0('"', cantons, '"'), wrap = '``')`
+#' `r pal::as_md_list(paste0('"', cantons, '"'), wrap = '``')`
 #' @param ballot_date A valid FOKUS-covered cantonal ballot date. One of
-#'   `r pal::as_md_list(paste0('"', ballot_dates, '"'), wrap = '``')`
+#' `r pal::as_md_list(paste0('"', ballot_dates, '"'), wrap = '``')`
+#'   
+#' Either as a character or a [date][base::Date] scalar.
 #'
 #' @return NULL (invisibly).
 #' @family questionnaire
 #' @export
 gen_q <- function(canton = cantons,
-                  ballot_date = as.character(ballot_dates)) {
+                  ballot_date = ballot_dates) {
   
   canton <- rlang::arg_match(canton)
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   
   # generate questionnaire tibble
   q_tibble <- q_tibble(canton = canton,
@@ -1185,10 +1197,12 @@ gen_q <- function(canton = cantons,
 #' @family questionnaire
 #' @export
 q_tibble <- function(canton = cantons,
-                     ballot_date = as.character(ballot_dates)) {
+                     ballot_date = ballot_dates) {
   
   canton <- rlang::arg_match(canton)
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   q <- read_q()
   q_supplemental <- read_q_supplemental(ballot_date = ballot_date)
   
@@ -1248,10 +1262,12 @@ q_tibble <- function(canton = cantons,
 #' @family questionnaire
 #' @export
 q_md <- function(canton = cantons,
-                 ballot_date = as.character(ballot_dates)) {
+                 ballot_date = ballot_dates) {
   
   canton <- rlang::arg_match(canton)
-  ballot_date <- rlang::arg_match(ballot_date)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
   q <- read_q()
   q_supplemental <- read_q_supplemental(ballot_date = ballot_date)
   

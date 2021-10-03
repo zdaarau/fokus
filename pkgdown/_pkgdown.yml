@@ -15,20 +15,24 @@ template:
 url: https://rpkg.dev/fokus
 reference:
 - title: FOKUS "truth anchors"
+  desc: 'TODO: Explain concept of truth anchors!'
 - contents:
   - ballot_dates
   - ballot_metadata
   - cantons
 - title: Fundamental predicates
+  desc: 'TODO: Explain fundamental predicates!'
 - contents:
   - ballot_type
   - is_election
   - is_referendum
 - title: Higher predicates
+  desc: 'TODO: Explain higher predicates!'
 - contents:
   - skill_question_answer_nr
   - n_election_candidates
 - title: Questionnaire
+  desc: Functions to process the FOKUS questionnaires.
 - contents:
   - read_q
   - read_q_supplemental

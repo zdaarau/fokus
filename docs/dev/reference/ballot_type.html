@@ -122,7 +122,7 @@
     <p>Determine ballot type</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ballot_type</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='va'>cantons</span>, ballot_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>ballot_dates</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ballot_type</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='va'>cantons</span>, ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,7 +130,7 @@
     <tr>
       <th>canton</th>
       <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code> )`</p></li>
+<li><p><code>"aargau"</code></p></li>
 </ul></td>
     </tr>
     <tr>
@@ -140,17 +140,19 @@
 <li><p><code>"2018-11-25"</code></p></li>
 <li><p><code>"2019-10-20"</code></p></li>
 <li><p><code>"2020-09-27"</code></p></li>
-<li><p><code>"2020-10-18"</code> )`</p></li>
-</ul></td>
+<li><p><code>"2020-10-18"</code></p></li>
+</ul>
+
+<p>Either as a character or a <a href='https://rdrr.io/r/base/Dates.html'>date</a> scalar.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The ballot type as a character scalar. One of</p><ul>
-<li><p><code>"both_referendum_and_election"</code></p></li>
 <li><p><code>"referendum"</code></p></li>
 <li><p><code>"election"</code></p></li>
+<li><p><code>"both_referendum_and_election"</code></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
