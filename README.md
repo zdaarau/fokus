@@ -15,7 +15,12 @@ The following package-specific R options are used to control the package’s fun
 
 ### Working directory structure
 
-For part of this package’s functionality, the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or enforced (output):
+For part of this package’s functionality, the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or enforced (output).
+
+<details>
+<summary>
+<strong>Working directory structure schema</strong>
+</summary>
 
 ``` fs
 fokus_private/
@@ -120,9 +125,145 @@ The following placeholders are used in the schema above:
 -   `[BALLOT_DATE]` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`
 -   `[STATOFF_DELIVERY_DATE]` for the delivery date of the voting register data provided by the cantonal statistical office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`
 
+</details>
+
 ## Documentation
 
 The documentation of this package is found [here](https://rpkg.dev/fokus).
+
+### Abbreviations
+
+<details>
+<summary>
+<strong>Table of abbreviations</strong>
+</summary>
+
+| **Full expressions**          | **Abbreviation** |
+|:------------------------------|:-----------------|
+| google                        | g                |
+| proceed , procedure           | prcd             |
+| procedures                    | prcds            |
+| questionnaire                 | q                |
+| questionnaires                | q                |
+| statistik aargau              | sa               |
+| abbreviation                  | abbr             |
+| abbreviations                 | abbrs            |
+| absolute                      | abs              |
+| argument                      | arg              |
+| arguments                     | args             |
+| attribute                     | attr             |
+| attributes                    | attrs            |
+| authenticate , authentication | auth             |
+| authentications               | auths            |
+| bibliography                  | bib              |
+| bibliographies                | bibs             |
+| character                     | chr              |
+| characters                    | chrs             |
+| column                        | col              |
+| columns                       | cols             |
+| command                       | cmd              |
+| commands                      | cmds             |
+| combination                   | combo            |
+| combinations                  | combos           |
+| condition                     | cnd              |
+| conditions                    | cnds             |
+| configuration                 | config           |
+| configurations                | configs          |
+| database                      | db               |
+| dataframe                     | df               |
+| dataframes                    | dfs              |
+| dataframe column              | dfc              |
+| dataframe row                 | dfr              |
+| dependency                    | dep              |
+| dependencies                  | deps             |
+| development, developer        | dev              |
+| developments, developers      | devs             |
+| difference                    | diff             |
+| differences                   | diffs            |
+| directory                     | dir              |
+| directories                   | dirs             |
+| distribution                  | distro           |
+| distributions                 | distros          |
+| document                      | doc              |
+| documents                     | docs             |
+| double                        | dbl              |
+| doubles                       | dbls             |
+| element                       | el               |
+| elements                      | els              |
+| environment                   | env              |
+| environments                  | envs             |
+| exclude                       | excl             |
+| expression                    | expr             |
+| expressions                   | exprs            |
+| factor                        | fct              |
+| factors                       | fcts             |
+| filesystem                    | fs               |
+| formula                       | fm               |
+| formulas, formulae            | fms              |
+| function                      | fn               |
+| functions                     | fns              |
+| generate , generation         | gen              |
+| generations                   | gens             |
+| identifier                    | id               |
+| identifiers                   | ids              |
+| include                       | incl             |
+| index                         | i                |
+| indices/indexes               | ix               |
+| information                   | info             |
+| initialize , initialization   | init             |
+| integer                       | int              |
+| integers                      | ints             |
+| label                         | lbl              |
+| labels                        | lbls             |
+| language                      | lang             |
+| languages                     | langs            |
+| level                         | lvl              |
+| levels                        | lvls             |
+| list                          | ls               |
+| logical                       | lgl              |
+| logicals                      | lgls             |
+| Markdown                      | md               |
+| message                       | msg              |
+| messages                      | msgs             |
+| modification                  | mod              |
+| modifications                 | mods             |
+| number                        | nr               |
+| numbers                       | nrs              |
+| number of                     | n                |
+| numeric                       | num              |
+| numerics                      | nums             |
+| object                        | obj              |
+| objects                       | objs             |
+| option                        | opt              |
+| options                       | opts             |
+| package                       | pkg              |
+| packages                      | pkgs             |
+| parameter                     | param            |
+| parameters                    | params           |
+| R Markdown                    | rmd              |
+| reference                     | ref              |
+| references                    | refs             |
+| regular expression(s)         | regex            |
+| relative                      | rel              |
+| remove                        | rm               |
+| roxygen2                      | roxy             |
+| separate , separator          | sep              |
+| separators                    | seps             |
+| sequential, sequence          | seq              |
+| sequences                     | seqs             |
+| specify , specification       | spec             |
+| specifications                | specs            |
+| string                        | str              |
+| strings                       | strs             |
+| temporary                     | tmp              |
+| value                         | val              |
+| values                        | vals             |
+| variable                      | v                |
+| variables                     | vx               |
+| vector                        | vctr             |
+| vectors                       | vctrs            |
+
+</details>
 
 ## Installation
 

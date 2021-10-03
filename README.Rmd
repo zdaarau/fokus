@@ -19,17 +19,34 @@ fokus:::print_opts()
 ### Working directory structure
 
 For part of this package's functionality, the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or
-enforced (output):
+enforced (output).
+
+<details><summary><strong>Working directory structure schema</strong></summary>
 
 ```{r, echo = FALSE, results = "asis"}
 fokus::print_wd_structure()
 ```
+
+</details>
 
 ```{r, pkgdown, eval = !isTRUE(getOption("pal.build_readme.is_pkgdown")), results = "asis", echo = FALSE}
 pkgsnip::md_snip(name = "pkgdown_notice") %>%
   paste0("## Documentation\n\n", .) %>%
   pal::cat_lines()
 ```
+
+### Abbreviations
+
+<details><summary><strong>Table of abbreviations</strong></summary>
+
+```{r, echo = FALSE}
+fokus::abbreviations() %>%
+  dplyr::rename("Full expressions" = full_expressions,
+                "Abbreviation" = abbreviation) %>%
+  pal::pipe_table()
+```
+
+</details>
 
 ## Installation
 

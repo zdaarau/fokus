@@ -1615,17 +1615,29 @@ emphasize <- function(x,
   x
 }
 
-abbreviations <- function() {
+#' Abbreviations used in the **fokus** package
+#'
+#' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
+#'
+#' @return `r pkgsnip::param_label("data")`
+#' @export
+abbreviations <- function(expand = FALSE) {
   
   tibble::tribble(
-    ~full_expression, ~abbreviation,
+    ~full_expressions, ~abbreviation,
     "google", "g",
-    "procedure", "prcd",
+    c("proceed","procedure"), "prcd",
+    "procedures", "prcds",
     "questionnaire", "q",
+    "questionnaires", "q",
     "statistik aargau", "sa"
   ) %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
-    dplyr::arrange(dplyr::across())
+    dplyr::arrange(dplyr::across()) %>%
+    purrr::when(expand ~ tidyr::unnest_longer(data = ., 
+                                              col = full_expressions,
+                                              values_to = "full_expression"), 
+                ~.)
 }
 
 #' Prettify date
