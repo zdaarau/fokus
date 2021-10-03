@@ -1,0 +1,55 @@
+development:
+  mode: auto
+template:
+  opengraph:
+    twitter:
+      card: summary
+      creator: '@2BSalim'
+  params:
+    analytics:
+      goatcounter:
+        endpoint: https://rpkg-dev.goatcounter.com/count
+    bootswatch: yeti
+    mathjax: no
+    selfhost_assets: yes
+url: https://rpkg.dev/fokus
+reference:
+- title: FOKUS "truth anchors"
+- contents:
+  - ballot_dates
+  - ballot_metadata
+  - cantons
+- title: Fundamental predicates
+- contents:
+  - ballot_type
+  - is_election
+  - is_referendum
+- title: Higher predicates
+- contents:
+  - skill_question_answer_nr
+  - n_election_candidates
+- title: Questionnaire
+- contents:
+  - read_q
+  - read_q_supplemental
+  - gen_q
+  - q_tibble
+  - q_md
+  - pick_right
+- title: Variable-related
+- contents:
+  - is_skill_question
+  - v_val_lbls
+- subtitle: Variable name shortening
+- contents:
+  - shorten_v_names
+  - shorten_colnames
+  - restore_colnames
+- title: Miscellaneous
+- contents:
+  - lgl_to_unicode
+  - emphasize
+  - abbreviations
+  - prettify_date
+  - print_wd_structure
+  - read_toml
