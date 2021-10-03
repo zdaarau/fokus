@@ -16,7 +16,7 @@ A logical scalar.
 Determine if variables are skill questions
 }
 \seealso{
-FOKUS-variable-related functions
+Other FOKUS-variable-related functions
 \code{\link{shorten_v_names}()},
 \code{\link{v_val_lbls}()}
 }

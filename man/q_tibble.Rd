@@ -28,11 +28,10 @@ A \link[tibble:tbl_df-class]{tibble}.
 Generate questionnaire tibble
 }
 \seealso{
-Questionnaire-related functions
+Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
-\code{\link{read_q_supplemental}()},
 \code{\link{read_q}()}
 }
 \concept{questionnaire}

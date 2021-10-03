@@ -30,11 +30,10 @@ The value of \code{l} that corresponds to \code{canton} and \code{ballot_date}.
 Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)
 }
 \seealso{
-Questionnaire-related functions
+Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},
-\code{\link{read_q_supplemental}()},
 \code{\link{read_q}()}
 }
 \concept{questionnaire}

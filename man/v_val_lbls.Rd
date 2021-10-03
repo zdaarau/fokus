@@ -18,7 +18,7 @@ A character vector.
 Get pre-defined variable value labels
 }
 \seealso{
-FOKUS-variable-related functions
+Other FOKUS-variable-related functions
 \code{\link{is_skill_question}()},
 \code{\link{shorten_v_names}()}
 }

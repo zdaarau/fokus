@@ -23,7 +23,7 @@ A \link[xfun:strict_list]{strict list}.
 Reads in file \code{questionnaire/YYYY-MM-DD.toml} where \code{YYYY-MM-DD} corresponds to the \code{ballot_date} argument and returns it as a structured list.
 }
 \seealso{
-Questionnaire-related functions
+Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{pick_right}()},
 \code{\link{q_md}()},

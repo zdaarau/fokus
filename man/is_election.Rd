@@ -28,7 +28,7 @@ A logical scalar.
 Determine if ballot type includes an election
 }
 \seealso{
-Fundamental predicates
+Other fundamental predicates
 \code{\link{ballot_type}()},
 \code{\link{is_referendum}()}
 }

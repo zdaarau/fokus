@@ -33,7 +33,7 @@ The ballot type as a character scalar. One of
 Determine ballot type
 }
 \seealso{
-Fundamental predicates
+Other fundamental predicates
 \code{\link{is_election}()},
 \code{\link{is_referendum}()}
 }

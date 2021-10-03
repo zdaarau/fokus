@@ -13,11 +13,10 @@ A \link[xfun:strict_list]{strict list}.
 Reads in file \code{questionnaire/questionnaire.toml} and returns it as a structured list.
 }
 \seealso{
-Questionnaire-related functions
+Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
-\code{\link{q_tibble}()},
-\code{\link{read_q_supplemental}()}
+\code{\link{q_tibble}()}
 }
 \concept{questionnaire}

@@ -29,7 +29,7 @@ This is the main questionnaire generation interface that's doing all the magic. 
 anything.
 }
 \seealso{
-Questionnaire-related functions
+Other questionnaire-related functions
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()},

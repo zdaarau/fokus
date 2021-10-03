@@ -23,7 +23,7 @@ Shorten variable names to a maximum length of 32 characters
 \seealso{
 \code{\link[=shorten_colnames]{shorten_colnames()}}, \code{\link[=restore_colnames]{restore_colnames()}}
 
-FOKUS-variable-related functions
+Other FOKUS-variable-related functions
 \code{\link{is_skill_question}()},
 \code{\link{v_val_lbls}()}
 }

@@ -1,7 +1,7 @@
 list(
-  rd_family_title = list(fct = "Factor-variable-specific functions",
-                         fundamental = "Fundamental predicates",
-                         higher = "Higher predicates",
-                         questionnaire = "Questionnaire-related functions",
-                         variable = "FOKUS-variable-related functions")
+  rd_family_title = list(fct = "Other Factor-variable-specific functions",
+                         fundamental = "Other fundamental predicates",
+                         higher = "Other higher predicates",
+                         questionnaire = "Other questionnaire-related functions",
+                         variable = "Other FOKUS-variable-related functions")
 )
