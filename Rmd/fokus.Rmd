@@ -61,7 +61,9 @@ rex::register_shortcuts(pkg_name = utils::packageName())
 
 ### Basic
 
-#### Assemble a working directory path
+#### `path_wd`
+
+Assemble a working directory path
 
 ```{r}
 path_wd <- function(rel_path) {
@@ -70,7 +72,9 @@ path_wd <- function(rel_path) {
 }
 ```
 
-#### Initialize option `fokus.path_wd`
+#### `init_path_wd`
+
+Initialize option `fokus.path_wd`
 
 ```{r}
 init_path_wd <- function() {
@@ -96,7 +100,9 @@ init_path_wd <- function() {
 }
 ```
 
-#### List package-specific options
+#### `opts`
+
+List package-specific options
 
 ```{r}
 opts <- function(pretty_colnames = FALSE) {
@@ -113,7 +119,9 @@ opts <- function(pretty_colnames = FALSE) {
 }
 ```
 
-#### Pretty-print package-specific options
+#### `print_opts`
+
+Pretty-print package-specific options
 
 ```{r}
 print_opts <- function() {
@@ -128,7 +136,9 @@ print_opts <- function() {
 
 ### Questionnaire
 
-#### Expand questionnaire tibble to long format
+#### `expand_q_tibble`
+
+Expand questionnaire tibble to long format
 
 This function takes an (unexpanded, but well structured) FOKUS Aargau questionnaire tibble, performs various integrity checks, expands it to proper [long
 format](https://en.wikipedia.org/wiki/Wide_and_narrow_data) and returns it as a tibble.
@@ -202,7 +212,9 @@ expand_q_tibble <- function(q_tibble) {
 }
 ```
 
-#### Assemble a footnote or reference-style link for Markdown questionnaire
+#### `assemble_md_ref_item`
+
+Assemble a footnote or reference-style link for Markdown questionnaire
 
 ```{r}
 assemble_md_ref_item <- function(l,
@@ -252,7 +264,9 @@ assemble_md_ref_item <- function(l,
 }
 ```
 
-#### Generate table header for Markdown questionnaire
+#### `gen_table_header`
+
+Generate table header for Markdown questionnaire
 
 ```{r}
 gen_table_header <- function() {
@@ -294,7 +308,9 @@ gen_table_header <- function() {
 }
 ```
 
-#### Generate table body for Markdown questionnaire
+#### `gen_table_body`
+
+Generate table body for Markdown questionnaire
 
 ```{r}
 gen_table_body <- function(q,
@@ -339,7 +355,9 @@ ensure_block_exists <- function(block) {
 }
 ```
 
-#### Traverse questionnaire recursively and assemble questionnaire block
+#### `assemble_deep`
+
+Traverse questionnaire recursively and assemble questionnaire block
 
 Default is to generate Markdown table rows (strings). If `generate_md = FALSE`, a tibble will be returned instead.
 
@@ -372,7 +390,9 @@ assemble_deep <- function(data_q,
 }
 ```
 
-#### Process an "atomic" questionnaire item
+#### `process_item`
+
+Process an "atomic" questionnaire item
 
 ```{r}
 process_item <- function(v_name,
@@ -519,7 +539,9 @@ process_item <- function(v_name,
 }
 ```
 
-#### Assemble a single (or template) table body row for Markdown questionnaire
+#### `assemble_table_row`
+
+Assemble a single (or template) table body row for Markdown questionnaire
 
 ```{r}
 assemble_table_row <- function(i = NULL,
@@ -666,7 +688,9 @@ assemble_table_row <- function(i = NULL,
 }
 ```
 
-#### Assemble a single (or template) subitem to a tibble
+#### `assemble_subitem`
+
+Assemble a single (or template) subitem to a tibble
 
 ```{r}
 assemble_subitem <- function(i = NULL,
@@ -890,7 +914,9 @@ assemble_subitem <- function(i = NULL,
 }
 ```
 
-#### Initialize devisable map of key-value pairs that can be valid for multiple questions (set hierarchically)
+#### `init_devisable_map`
+
+Initialize devisable map of key-value pairs that can be valid for multiple questions (set hierarchically)
 
 ```{r}
 init_devisable_map <- function(block) {
@@ -915,7 +941,9 @@ init_devisable_map <- function(block) {
 }
 ```
 
-#### Complement `map` with key-values from top level of list
+#### `complement_devisable`
+
+Complement `map` with key-values from top level of list
 
 ```{r}
 complement_devisable <- function(map,
@@ -932,7 +960,9 @@ complement_devisable <- function(map,
 }
 ```
 
-#### Check devisable map for completeness
+#### `check_devisable_map_completeness`
+
+Check devisable map for completeness
 
 ```{r}
 check_devisable_map_completeness <- function(devisable_map) {
@@ -966,7 +996,9 @@ check_devisable_map_completeness <- function(devisable_map) {
 
 #### Various helpers
 
-##### Add the who constraint wrapped in parentheses to the end of a string (e.g. `variable_label`)
+##### `add_who_constraint`
+
+Add the who constraint wrapped in parentheses to the end of a string (e.g. `variable_label`)
 
 ```{r}
 add_who_constraint <- function(s,
@@ -983,7 +1015,9 @@ add_who_constraint <- function(s,
 }
 ```
 
-##### Collapse char vector into single string separated by single HTML line breaks (`<br>` tags)
+##### `collapse_break`
+
+Collapse char vector into single string separated by single HTML line breaks (`<br>` tags)
 
 ```{r}
 collapse_break <- function(s) {
@@ -991,7 +1025,9 @@ collapse_break <- function(s) {
 }
 ```
 
-##### Wrap a char vector in backticks
+##### `wrap_backtick`
+
+Wrap a char vector in backticks
 
 ```{r}
 wrap_backtick <- function(s) {
@@ -1029,13 +1065,17 @@ unicode_ellipsis  <- "\u2026"
 The R code chunks below are *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) (`purl = FALSE`). The chunks
 have to be executed at least once to generate the necessary internal data file [`R/sysdata.rda`](https://r-pkgs.org/data.html#data-sysdata).
 
-### Working directory structure
+### `wd_structure`
+
+Working directory structure
 
 ```{r, purl = FALSE}
 wd_structure <- readr::read_file(file = "data-raw/wd_structure.md")
 ```
 
-### Variable name shortening rules
+### `shortening_rules`
+
+Variable name shortening rules
 
 The rules will be applied one by one in the order they are listed below by `shorten_v_names()`.
 
@@ -1172,12 +1212,14 @@ usethis::use_data(wd_structure,
                   version = 3L)
 ```
 
-# FOKUS "TRUTH ANCHORS"
+# EXPORTED
+
+## FOKUS "truth anchors"
 
 Unfortunately, the roxygen2 `@family` tag doesn't seem to work for datasets. Thus, we manually specify the documentation links using `@seealso`. TODO:
 investigate the reason why and ideally file a bug report.
 
-## FOKUS-covered ballot dates
+### `ballot_dates`
 
 ```{r}
 #' List FOKUS-covered ballot dates
@@ -1190,7 +1232,7 @@ investigate the reason why and ideally file a bug report.
 "ballot_dates"
 ```
 
-## FOKUS ballot-date-canton metadata
+### `ballot_metadata`
 
 ```{r}
 #' FOKUS ballot-date-canton metadata
@@ -1203,7 +1245,7 @@ investigate the reason why and ideally file a bug report.
 "ballot_metadata"
 ```
 
-## FOKUS-covered cantons
+### `cantons`
 
 ```{r}
 #' List cantons that are covered in *any* FOKUS survey
@@ -1216,9 +1258,9 @@ investigate the reason why and ideally file a bug report.
 "cantons"
 ```
 
-# FUNDAMENTAL PREDICATES
+## Fundamental predicates
 
-## Determine ballot type
+### `ballot_type`
 
 ```{r}
 #' Determine ballot type
@@ -1249,7 +1291,7 @@ ballot_type <- function(canton = cantons,
 }
 ```
 
-## Determine if ballot type includes an election
+### `is_election`
 
 ```{r}
 #' Determine if ballot type includes an election
@@ -1272,7 +1314,7 @@ is_election <- function(canton = cantons,
 }
 ```
 
-## Determine if ballot type includes a referendum
+### `is_referendum`
 
 ```{r}
 #' Determine if ballot type includes a referendum
@@ -1295,9 +1337,9 @@ is_referendum <- function(canton = cantons,
 }
 ```
 
-# HIGHER PREDICATES
+## Higher predicates
 
-## Get correct skill question answer number
+### `skill_question_answer_nr`
 
 **Note** that `proposal_nr` is ignored when `type = "election"`.
 
@@ -1362,7 +1404,7 @@ skill_question_answer_nr <- function(q_supplemental,
 }
 ```
 
-## Get number of (officially registered) majoritarian election candidates
+### `n_election_candidates`
 
 ```{r}
 #' Get number of (officially registered) majoritarian election candidates
@@ -1393,9 +1435,9 @@ n_election_candidates <- function(q_supplemental,
 }
 ```
 
-# QUESTIONNAIRE
+## Questionnaire
 
-## Read in raw questionnaire data
+### `read_q`
 
 ```{r}
 #' Read in raw questionnaire data
@@ -1410,7 +1452,7 @@ read_q <- function() {
 }
 ```
 
-## Read in raw supplemental date-specific questionnaire data
+### `read_q_supplemental`
 
 ```{r}
 #' Read in raw supplemental date-specific questionnaire data
@@ -1429,7 +1471,7 @@ read_q_supplemental <- function(ballot_date = as.character(ballot_dates)) {
 }
 ```
 
-## Generate questionnaire
+### `gen_q`
 
 ```{r}
 #' Generate questionnaire
@@ -1474,7 +1516,7 @@ gen_q <- function(canton = cantons,
 }
 ```
 
-## Generate questionnaire tibble
+### `q_tibble`
 
 ```{r}
 #' Generate questionnaire tibble
@@ -1541,7 +1583,7 @@ q_tibble <- function(canton = cantons,
 }
 ```
 
-## Generate Markdown questionnaire
+### `q_md`
 
 ```{r}
 #' Generate Markdown questionnaire
@@ -1655,7 +1697,7 @@ q_md <- function(canton = cantons,
 }
 ```
 
-## Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)
+### `pick_right`
 
 ```{r}
 #' Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)
@@ -1746,9 +1788,9 @@ pick_right_helper <- function(l,
 }
 ```
 
-# VARIABLE-RELATED
+## Variable-related
 
-## Determine if variables are skill questions
+### `is_skill_question`
 
 ```{r}
 #' Determine if variables are skill questions
@@ -1765,7 +1807,7 @@ is_skill_question <- function(v_names) {
 }
 ```
 
-## Get pre-defined variable value labels
+### `v_val_lbls`
 
 ```{r}
 #' Get pre-defined variable value labels
@@ -1802,9 +1844,9 @@ variable_value_labels <- tibble::tribble(
 )
 ```
 
-## Variable name shortening
+### Variable name shortening
 
-### Shorten variable names to a maximum length of 32 characters
+#### `shorten_v_names`
 
 **Remarks:**
 
@@ -1889,7 +1931,7 @@ shorten_v_names <- function(v_names,
 }
 ```
 
-### Shorten column names to a maximum length of 32 characters
+#### `shorten_colnames`
 
 ```{r}
 #' Shorten column names to a maximum length of 32 characters
@@ -1912,7 +1954,7 @@ shorten_colnames <- function(x,
 }
 ```
 
-### Restore original/unshortened column names
+#### `restore_colnames`
 
 ```{r}
 #' Restore original/unshortened column names
@@ -1932,9 +1974,9 @@ restore_colnames <- function(x) {
 }
 ```
 
-# MISCELLANEOUS
+## Miscellaneous
 
-## Convert logical vector to Unicode symbols
+### `lgl_to_unicode`
 
 ```{r}
 #' Convert logical vector to Unicode symbols `r unicode_checkmark` and `r unicode_crossmark`
@@ -1954,7 +1996,7 @@ lgl_to_unicode <- function(x) {
 }
 ```
 
-## Emphasize xth element of character vector (Markdown)
+### `emphasize`
 
 ```{r}
 #' Emphasize xth element of character vector (Markdown)
@@ -1974,7 +2016,7 @@ emphasize <- function(x,
 }
 ```
 
-## List abbreviations
+### `abbreviations`
 
 ```{r}
 abbreviations <- function() {
@@ -1991,7 +2033,7 @@ abbreviations <- function() {
 }
 ```
 
-## Prettify date
+### `prettify_date`
 
 Relevant SO question: [What is a reliable way of getting allowed locale names in
 R?](https://stackoverflow.com/questions/20960821/what-is-a-reliable-way-of-getting-allowed-locale-names-in-r)
@@ -2026,7 +2068,7 @@ prettify_date <- function(date,
 }
 ```
 
-## Print working directory structure
+### `print_wd_structure`
 
 TODO:
 
@@ -2045,7 +2087,7 @@ print_wd_structure <- function() {
 }
 ```
 
-## Read in and parse a TOML file as a strict list
+### `read_toml`
 
 TODO: Outsource this into separate pkg *tomlr*.
 
