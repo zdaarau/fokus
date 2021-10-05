@@ -4,14 +4,9 @@
 \name{fokus-package}
 \alias{fokus}
 \alias{fokus-package}
-\title{fokus: Provides API-like functionality around the FOKUS Post-voting
-    Surveys}
+\title{fokus: Provides API-like functionality around the FOKUS Post-voting Surveys}
 \description{
-fokus allows to (pre-)process and clean the raw data, analyze
-    and visualize the cleaned data, create the questionnaires and provides
-    other utility functions around the FOKUS post-voting surveys by the
-    Centre for Democracy Studies Aarau (ZDA) at the University of Zurich,
-    Switzerland.
+fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.
 }
 \section{Package options}{
 

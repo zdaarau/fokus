@@ -76,9 +76,11 @@ init_path_wd <- function() {
   is_valid_path <- if (isTRUE(test_read_access)) fs::file_exists(path = fs::path(getOption("fokus.path_wd"), "questionnaire/questionnaire.toml")) else FALSE
   
   if (!is_valid_path) {
-    rlang::warn(glue::glue("The option `fokus.path_wd` is set to: {getOption('fokus.path_wd')}\n",
-                           "This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
+    cli::cli_warn(paste0("The option {.field fokus.path_wd} is set to: {.path {getOption('fokus.path_wd')}}\n\n",
+                         "This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
   }
+  
+  invisible(getOption("fokus.path_wd"))
 }
 
 opts <- function(pretty_colnames = FALSE) {
@@ -121,7 +123,7 @@ expand_q_tibble <- function(q_tibble) {
           
           dup_v <- q_tibble[[v]][i]
           
-          rlang::warn(glue::glue("`{v}` `\"{dup_v}\"` is included more than once in the questionnaire. Please fix this and run the script again."))
+          cli::cli_warn(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire. Please fix this and run the script again."))
         }
       }
     })
@@ -144,14 +146,11 @@ expand_q_tibble <- function(q_tibble) {
     
     diff_indices <- which(!lengths$has_same_length)
     
-    rlang::warn(glue::glue("The number of ", pal::prose_ls(c("response_options", "variable_values", "value_labels"),
-                                                           wrap = "`"),
-                           " differs for ", dplyr::if_else(length(diff_indices) > 1L,
-                                                           paste0("multiple variables.\nAffected are: ",
-                                                                  pal::prose_ls(q_tibble$variable_name[diff_indices],
-                                                                                wrap = "`")),
-                                                           paste0("the variable `", q_tibble$variable_name[diff_indices], "`.")),
-                           "\nPlease fix this and run the script again."))
+    cli::cli_warn(paste0("The number of {.var {c('response_options', 'variable_values', 'value_labels')}} differs for ",
+                         dplyr::if_else(length(diff_indices) > 1L,
+                                        "multiple variables. Affected are: {.var {q_tibble$variable_name[diff_indices]}}",
+                                        "the variable {.var {q_tibble$variable_name[diff_indices]}}."),
+                         "\n\nPlease fix this first and then run the script again."))
   }
   
   # expand questionnaire data to long format ...
@@ -212,7 +211,7 @@ assemble_md_ref_item <- function(l,
                                    "")))
     }
   } else {
-    rlang::abort("At least one of the keys `id`, `text`/`url` is missing from this reference item!")
+    cli::cli_abort("At least one of the keys {.field id} or {.field text}/{.field url} is missing from this reference item.")
   }
 }
 
@@ -291,7 +290,7 @@ gen_table_body <- function(q,
 ensure_block_exists <- function(block) {
   
   if (is.null(q[[block]])) {
-    rlang::abort(glue::glue("The block '{block}' doesn't exist in `q`!"))
+    cli::cli_abort("The block {.field {block}} doesn't exist in {.var q}.")
   }
 }
 
@@ -401,7 +400,7 @@ process_item <- function(v_name,
     } else if (is.null(devisable_map[["i"]])) {
       
       # this combo doesn't really make sense and should never occur
-      rlang::abort("This should not happen (`j` set, but `i` not set)!")
+      cli::cli_abort("This should not happen ({.var j} set, but {.var i} not set).")
       
       # if (generate_md) {
       #   result <- purrr::map_chr(.x = devisable_map[["j"]],
@@ -689,8 +688,8 @@ assemble_subitem <- function(i = NULL,
     # integrity check: ensure there haven't been any changes to `who` over time (if so, an explcicit `variable_label_common` has to be defined!)
     if (length(devisable_map$who) > 1L) {
       
-      rlang::abort(glue::glue("`who` of variable `{variable_name}` has changed over time. Thus a custom `variable_label_common` must be defined in",
-                              " `questionnaire/questionnaire.toml`!"))
+      cli::cli_abort(paste0("{.field who} of variable {.var {variable_name}} has changed over time. Thus a custom {.field variable_label_common} must be ",
+                            "defined in {.file questionnaire/questionnaire.toml}."))
     } else {
       
       variable_label_common <-
@@ -709,8 +708,8 @@ assemble_subitem <- function(i = NULL,
     
     if (length(devisable_map$who) > 1L) {
       
-      rlang::abort(glue::glue("`who` of variable `{variable_name}` has changed over time. Thus the `who` constraint has to be explicitly specified at the end ",
-                              "of `variable_label_common` in `questionnaire/questionnaire.toml`!"))
+      cli::cli_abort(paste0("{.field who} of variable {.var {variable_name}} has changed over time. Thus the {.field who} constraint has to be explicitly ",
+                            "specified at the end of {.field variable_label_common} in {.file questionnaire/questionnaire.toml}."))
       
     } else variable_label_common %<>% add_who_constraint(who = who_en)
   }
@@ -885,8 +884,7 @@ check_devisable_map_completeness <- function(devisable_map) {
       purrr::keep(.p = is.null) %>%
       names()
     
-    rlang::abort(message = cli::pluralize("The key{?s} {unset_keys} {?is/are} not set for variable ", purrr::chuck(.x = q,
-                                                                                                                   "variable_name")))
+    cli::cli_abort("{cli::qty(unset_keys)}The key{?s} {unset_keys} {?is/are} not set for variable {.var {purrr::chuck(q, 'variable_name')}}.")
   }
 }
 
@@ -1422,9 +1420,7 @@ pick_right_helper <- function(l,
     # integrity check: ensure there aren't any overlapping intervals
     if (length(which(matches_begin_end_subkeys)) > 1L) {
       
-      rlang::abort(paste0("Illegal overlapping interval subkeys found: ", pal::prose_ls(begin_end_subkeys[matches_begin_end_subkeys],
-                                                                                        wrap = "`"),
-                          "\nPlease fix this and run again."))
+      cli::cli_abort("Illegal overlapping interval subkeys found: {.var {begin_end_subkeys[matches_begin_end_subkeys]}}\n\nPlease fix this and run again.")
     }
     
     return(names(l) %>%
@@ -1540,7 +1536,7 @@ shorten_v_names <- function(v_names,
                                                                   . %in% c("begin-middle", "middle") ~ paste0(.y, "(?=_)"),
                                                                   . == "begin-end" ~ paste0(.y, "$"),
                                                                   . == "end" ~ paste0("(?<=_)", .y, "$"),
-                                                                  ~ rlang::abort("This should not happen!"))
+                                                                  ~ cli::cli_abort("This should not happen."))
                                              }))
   
   pattern_replacement <- rules$replacement
@@ -1551,6 +1547,9 @@ shorten_v_names <- function(v_names,
   # ensure we did our job
   if (!is.null(max_n_char) && !reverse && any(nchar(v_names_new) > max_n_char)) {
     
+    # NOTE: `cli::cli_abort()` doesn't properly print the output of `pal::capture_print()` because:
+    #        - it just seems to ignore the output if it includes ANSI escape sequences (this can be worked around by an additional `cli::ansi_strip()`)
+    #        - it normalizes whitespace chars **incl. tabs** to a single regular whitespace, thus breaking the formatting
     rlang::abort(glue::glue("There are still variable names left of a length greater than {max_n_char} characters after applying `shorten_v_names()`. ",
                             "Affected are the following (shortened) variable names:\n\n",
                             tibble::tibble(v_name = v_names,
@@ -1568,9 +1567,9 @@ shorten_v_names <- function(v_names,
 #'
 #' This is useful for DTA export since Stata has a built-in variable name length limit of [32
 #' characters](https://www.stata.com/manuals/r.pdf#rLimits) (see also
-#' [here](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names).
+#' [here](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names)).
 #'
-#' @param x A tabular data object like a data frame or tibble.
+#' @param x `r pkgsnip::param_label("tabular_data")`
 #' @inheritParams shorten_v_names
 #'
 #' @return `x` with column names shortened to a maximum length of 32 characters.
@@ -1635,6 +1634,8 @@ emphasize <- function(x,
 #'
 #' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
 #'
+#' @inheritParams pkgsnip::abbreviations
+#'
 #' @return `r pkgsnip::param_label("data")`
 #' @export
 abbreviations <- function(expand = FALSE) {
@@ -1678,7 +1679,7 @@ prettify_date <- function(date,
                        locale %>%
                        purrr::when(. %in% c("en", "en-US") ~ "%B %d, %Y",
                                    . %in% c("de", "de-CH") ~ "%d. %B %Y",
-                                   ~ rlang::abort("Specified `locale` not implemented yet.")) %>%
+                                   ~ cli::cli_abort("Specified {.arg locale} not implemented yet.")) %>%
                        format(x = lubridate::as_date(date)))
 }
 

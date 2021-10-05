@@ -7,7 +7,7 @@
 restore_colnames(x)
 }
 \arguments{
-\item{x}{A tabular data object like a data frame or tibble.}
+\item{x}{A tabular data object like a \link[base:data.frame]{data frame} or \link[tibble:tbl_df-class]{tibble}.}
 }
 \value{
 \code{x} with original/unshortened column names restored.

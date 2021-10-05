@@ -7,7 +7,7 @@
 shorten_colnames(x, max_n_char = 32L)
 }
 \arguments{
-\item{x}{A tabular data object like a data frame or tibble.}
+\item{x}{A tabular data object like a \link[base:data.frame]{data frame} or \link[tibble:tbl_df-class]{tibble}.}
 
 \item{max_n_char}{The maximum allowed number of characters. \code{NULL} to skip the check or otherwise an integer scalar in which case it is ensured that the
 maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.}
@@ -17,7 +17,7 @@ maximum resulting variable name length doesn't exceed it. Doesn't have any influ
 }
 \description{
 This is useful for DTA export since Stata has a built-in variable name length limit of \href{https://www.stata.com/manuals/r.pdf#rLimits}{32 characters} (see also
-\href{https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names}{here}.
+\href{https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names}{here}).
 }
 \seealso{
 \code{\link[=shorten_v_names]{shorten_v_names()}}, \code{\link[=restore_colnames]{restore_colnames()}}

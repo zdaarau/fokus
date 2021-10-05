@@ -1,7 +1,7 @@
 Package: fokus
 Title: Provides API-like functionality around the FOKUS Post-voting
     Surveys
-Version: 0.0.9005
+Version: 0.0.9006
 Authors@R: 
     c(person(given = "Salim",
              family = "Brüggemann",

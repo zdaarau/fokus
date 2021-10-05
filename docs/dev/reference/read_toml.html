@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9006</span>
       </span>
     </div>
 
@@ -2935,6 +2935,88 @@
 #&gt; 
 #&gt; 
 #&gt; $`03_proposal_specific`$`003_main_motive`
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$i
+#&gt; [1] "seq_along(q_supplemental$federal$proposal)"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$include
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$include$default
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$include$true
+#&gt; [1] "2021-11-28"
+#&gt; 
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$question
+#&gt; [1] "Was war Ihre Hauptmotivation, {salim::definite_article_de(gender = q_supplemental$federal$proposal[[i]]$gender$de, case = 'dative')} _{q_supplemental$federal$proposal[[i]]$shortname$de}_ zuzustimmen? Ich …"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$question_common
+#&gt; [1] "Was war Ihre Hauptmotivation, der eidgenössischen Vorlage {i} zuzustimmen? Ich …"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$response_options
+#&gt; [1] "{q_supplemental$federal$proposal[[i]]$main_motive$yes %&gt;% purrr::map_chr(.f = purrr::pluck, 'de') %&gt;% c(q$response_options$unspecific$de, q$response_options$custom$de)}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$topic
+#&gt; [1] "Ja-Hauptmotiv eidgenössische Vorlage {i}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$value_labels
+#&gt; [1] "{q_supplemental$federal$proposal[[i]]$main_motive$yes %&gt;% purrr::map_chr(.f = purrr::pluck, 'en') %&gt;% c(q$response_options$unspecific$en, q$response_options$custom$en)}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$variable_label
+#&gt; [1] "respondent's main motivation to vote in favor of the federal proposal «{q_supplemental$federal$proposal[[i]]$name$de}»"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$variable_label_common
+#&gt; [1] "respondent's main motivation to vote in favor of the {salim::rank_nr(i)} federal proposal"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$variable_name
+#&gt; [1] "main_motive_federal_proposal_{i}_yes"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$variable_values
+#&gt; [1] "{q_supplemental$federal$proposal[[i]]$main_motive$yes %&gt;% purrr::map_int(.f = purrr::pluck, 'code') %&gt;% c(q$response_options$unspecific$code, q$response_options$custom$code)}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[1]]$who
+#&gt; [1] "Ja-Stimmende eidgenössische Vorlage {i}"
+#&gt; 
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$question
+#&gt; [1] "Was war Ihre Hauptmotivation, {salim::definite_article_de(gender = q_supplemental$federal$proposal[[i]]$gender$de, case = 'accusative')} _{q_supplemental$federal$proposal[[i]]$shortname$de}_ abzulehnen? Ich …"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$question_common
+#&gt; [1] "Was war Ihre Hauptmotivation, die eidgenössische Vorlage {i} abzulehnen? Ich …"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$response_options
+#&gt; [1] "{q_supplemental$federal$proposal[[i]]$main_motive$no %&gt;% purrr::map_chr(.f = purrr::pluck, 'de') %&gt;% c(q$response_options$unspecific$de, q$response_options$custom$de)}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$topic
+#&gt; [1] "Nein-Hauptmotiv eidgenössische Vorlage {i}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$value_labels
+#&gt; [1] "{q_supplemental$federal$proposal[[i]]$main_motive$no %&gt;% purrr::map_chr(.f = purrr::pluck, 'en') %&gt;% c(q$response_options$unspecific$en, q$response_options$custom$en)}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$variable_label
+#&gt; [1] "respondent's main motivation to vote against the federal proposal «{q_supplemental$federal$proposal[[i]]$name$de}»"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$variable_label_common
+#&gt; [1] "respondent's main motivation to vote against the {salim::rank_nr(i)} federal proposal"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$variable_name
+#&gt; [1] "main_motive_federal_proposal_{i}_no"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$variable_values
+#&gt; [1] "{q_supplemental$federal$proposal[[i]]$main_motive$no %&gt;% purrr::map_int(.f = purrr::pluck, 'code') %&gt;% c(q$response_options$unspecific$code, q$response_options$custom$code)}"
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$item[[2]]$who
+#&gt; [1] "Nein-Stimmende eidgenössische Vorlage {i}"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $`03_proposal_specific`$`003_main_motive`$`001_federal`$multiple_answers_allowed
+#&gt; [1] TRUE
+#&gt; 
+#&gt; 
 #&gt; $`03_proposal_specific`$`003_main_motive`$`002_cantonal`
 #&gt; $`03_proposal_specific`$`003_main_motive`$`002_cantonal`$i
 #&gt; [1] "seq_along(q_supplemental$cantonal[[canton]]$proposal)"
