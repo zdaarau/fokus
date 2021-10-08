@@ -134,130 +134,131 @@ The following placeholders are used in the schema above:
 <strong>Table of abbreviations</strong>
 </summary>
 
-  **Full expressions**            **Abbreviation**
-  ------------------------------- ------------------
-  google                          g
-  proceed , procedure             prcd
-  procedures                      prcds
-  questionnaire                   q
-  questionnaires                  q
-  statistik aargau                sa
-  abbreviation                    abbr
-  abbreviations                   abbrs
-  absolute                        abs
-  argument                        arg
-  arguments                       args
-  attribute                       attr
-  attributes                      attrs
-  authenticate , authentication   auth
-  authentications                 auths
-  bibliography                    bib
-  bibliographies                  bibs
-  character                       chr
-  characters                      chrs
-  column                          col
-  columns                         cols
-  command                         cmd
-  commands                        cmds
-  combination                     combo
-  combinations                    combos
-  condition                       cnd
-  conditions                      cnds
-  configuration                   config
-  configurations                  configs
-  database                        db
-  dataframe                       df
-  dataframes                      dfs
-  dataframe column                dfc
-  dataframe row                   dfr
-  dependency                      dep
-  dependencies                    deps
-  development, developer          dev
-  developments, developers        devs
-  difference                      diff
-  differences                     diffs
-  directory                       dir
-  directories                     dirs
-  distribution                    distro
-  distributions                   distros
-  document                        doc
-  documents                       docs
-  double                          dbl
-  doubles                         dbls
-  element                         el
-  elements                        els
-  environment                     env
-  environments                    envs
-  exclude                         excl
-  expression                      expr
-  expressions                     exprs
-  factor                          fct
-  factors                         fcts
-  filesystem                      fs
-  formula                         fm
-  formulas, formulae              fms
-  function                        fn
-  functions                       fns
-  generate , generation           gen
-  generations                     gens
-  identifier                      id
-  identifiers                     ids
-  include                         incl
-  index                           i
-  indices/indexes                 ix
-  information                     info
-  initialize , initialization     init
-  integer                         int
-  integers                        ints
-  label                           lbl
-  labels                          lbls
-  language                        lang
-  languages                       langs
-  level                           lvl
-  levels                          lvls
-  list                            ls
-  logical                         lgl
-  logicals                        lgls
-  Markdown                        md
-  message                         msg
-  messages                        msgs
-  modification                    mod
-  modifications                   mods
-  number                          nr
-  numbers                         nrs
-  number of                       n
-  numeric                         num
-  numerics                        nums
-  object                          obj
-  objects                         objs
-  option                          opt
-  options                         opts
-  package                         pkg
-  packages                        pkgs
-  parameter                       param
-  parameters                      params
-  R Markdown                      rmd
-  reference                       ref
-  references                      refs
-  regular expression(s)           regex
-  relative                        rel
-  remove                          rm
-  roxygen2                        roxy
-  separate , separator            sep
-  separators                      seps
-  sequential, sequence            seq
-  sequences                       seqs
-  specify , specification         spec
-  specifications                  specs
-  string                          str
-  strings                         strs
-  temporary                       tmp
-  value                           val
-  values                          vals
-  variable                        v
-  variables                       vx
-  vector                          vctr
-  vectors                         vctrs
+  **Full expressions**               **Abbreviation**
+  ---------------------------------- ------------------
+  google                             g
+  proceed , procedure                prcd
+  procedures                         prcds
+  questionnaire                      q
+  questionnaires                     q
+  statistik aargau                   sa
+  abbreviate , abbreviation          abbr
+  abbreviations                      abbrs
+  absolute                           abs
+  argument                           arg
+  arguments                          args
+  attribute                          attr
+  attributes                         attrs
+  authenticate , authentication      auth
+  authentications                    auths
+  bibliography                       bib
+  bibliographies                     bibs
+  character                          chr
+  characters                         chrs
+  column                             col
+  columns                            cols
+  command                            cmd
+  commands                           cmds
+  combination                        combo
+  combinations                       combos
+  condition                          cnd
+  conditions                         cnds
+  configure , configuration          config
+  configurations                     configs
+  database                           db
+  dataframe                          df
+  dataframes                         dfs
+  dataframe column                   dfc
+  dataframe row                      dfr
+  depend , dependency                dep
+  dependencies                       deps
+  develop , development, developer   dev
+  developments, developers           devs
+  differentiate, difference          diff
+  differences                        diffs
+  directory                          dir
+  directories                        dirs
+  distribution                       distro
+  distributions                      distros
+  document                           doc
+  documents                          docs
+  double                             dbl
+  doubles                            dbls
+  element                            el
+  elements                           els
+  environment                        env
+  environments                       envs
+  exclude , exclusion                excl
+  expression                         expr
+  expressions                        exprs
+  factor                             fct
+  factors                            fcts
+  filesystem                         fs
+  formula                            fm
+  formulas, formulae                 fms
+  function                           fn
+  functions                          fns
+  generate , generation              gen
+  generations                        gens
+  identify , identifier              id
+  identifiers                        ids
+  include , inclusion                incl
+  index                              i
+  indices/indexes                    ix
+  information                        info
+  initialize , initialization        init
+  integer                            int
+  integers                           ints
+  label                              lbl
+  labels                             lbls
+  language                           lang
+  languages                          langs
+  level                              lvl
+  levels                             lvls
+  list                               ls
+  logical                            lgl
+  logicals                           lgls
+  Markdown                           md
+  message                            msg
+  messages                           msgs
+  modify , modification              mod
+  modifications                      mods
+  number                             nr
+  numbers                            nrs
+  number of                          n
+  numeric                            num
+  numerics                           nums
+  object                             obj
+  objects                            objs
+  option                             opt
+  options                            opts
+  package                            pkg
+  packages                           pkgs
+  parameterize, parameter            param
+  parameters                         params
+  R Markdown                         rmd
+  refer , reference                  ref
+  references                         refs
+  regular expression(s)              regex
+  relative                           rel
+  remove                             rm
+  roxygen2                           roxy
+  separate , separator               sep
+  separators                         seps
+  sequential, sequence               seq
+  sequences                          seqs
+  specify , specification            spec
+  specifications                     specs
+  string                             str
+  strings                            strs
+  temporary                          tmp
+  value                              val
+  values                             vals
+  variable                           v
+  variables                          vx
+  vectorize, vector                  vctr
+  vectors                            vctrs
+  working directory                  wd
 
 </details>
 
