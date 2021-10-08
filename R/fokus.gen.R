@@ -20,7 +20,7 @@
   
   pkgpins::clear(pkg = pkgname,
                  max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
-                                     default = "30 days"))
+                                     default = global_cache_lifespan))
   
   # set pkg opts
   ## local path to FOKUS working directory
@@ -85,12 +85,14 @@ init_path_wd <- function() {
 
 opts <- function(pretty_colnames = FALSE) {
   
-  tibble::tribble(
-    ~name,           ~description,           ~is_auto_init,
-    "fokus.path_wd", paste0("the path to the working directory (the local instance of the ",
-                            "[`fokus_private` repository](https://gitlab.com/c2d-zda/fokus_private)); only set automatically for user=salim"), TRUE,
-    "fokus.global_cache_lifespan", "the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days", TRUE
-  ) %>%
+  tibble::tibble(name = "fokus.path_wd",
+                 description = paste0("the path to the working directory (the local instance of the ",
+                                      "[`fokus_private` repository](https://gitlab.com/c2d-zda/fokus_private)); only set automatically for user=salim"),
+                 is_auto_init = TRUE) %>%
+    tibble::add_row(name = "fokus.global_cache_lifespan",
+                    description = glue::glue("the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
+                                             global_cache_lifespan),
+                    is_auto_init = TRUE) %>%
     purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
                                                                         "set automatically by `init()`" = is_auto_init),
                 ~ .)
@@ -921,6 +923,8 @@ this_pkg <- utils::packageName()
 unicode_checkmark <- "\u2705"
 unicode_crossmark <- "\u274C"
 unicode_ellipsis  <- "\u2026"
+
+global_cache_lifespan <- "30 days"
 
 
 
