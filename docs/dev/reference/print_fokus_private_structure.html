@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine if ballot type includes a referendum — is_referendum • fokus</title>
+<title>Print expected structure of the private FOKUS directory — print_fokus_private_structure • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Determine if ballot type includes a referendum — is_referendum" />
-<meta name="description" content="Determine if ballot type includes a referendum">
-<meta property="og:description" content="Determine if ballot type includes a referendum" />
+<meta property="og:title" content="Print expected structure of the private FOKUS directory — print_fokus_private_structure" />
+<meta name="description" content="Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown fenced code block.">
+<meta property="og:description" content="Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown fenced code block." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -113,46 +113,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine if ballot type includes a referendum</h1>
+    <h1>Print expected structure of the private FOKUS directory</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>is_referendum.Rd</code></div>
+    <div class="hidden name"><code>print_fokus_private_structure.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determine if ballot type includes a referendum</p>
+    <p>Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown <a href='https://pandoc.org/MANUAL.html#extension-fenced_code_blocks'>fenced code block</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_referendum</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='va'>cantons</span>, ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>print_fokus_private_structure</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>ballot_date</th>
-      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
-<li><p><code>"2018-09-23"</code></p></li>
-<li><p><code>"2018-11-25"</code></p></li>
-<li><p><code>"2019-10-20"</code></p></li>
-<li><p><code>"2020-09-27"</code></p></li>
-<li><p><code>"2020-10-18"</code></p></li>
-</ul></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical scalar.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>A character scalar.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p>Other fundamental predicates
-<code><a href='ballot_type.html'>ballot_type</a>()</code>,
-<code><a href='is_election.html'>is_election</a>()</code></p></div>
+    <p>For part of this package’s functionality, a separate private directory
+(defined by the R option <code>fokus.path_private</code>) is required which is
+expected to be organized according to a very specific structure. This
+private directory i.a. must contain additional non-public (survey) data
+under the <code>data/</code> subdirectory and certain files are written to its
+subdirectory <code>output/</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

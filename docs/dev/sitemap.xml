@@ -49,7 +49,10 @@
     <loc>https://rpkg.dev/fokus/reference/prettify_date.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/print_wd_structure.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/print_fokus_private_structure.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/q_md.html</loc>
@@ -58,10 +61,7 @@
     <loc>https://rpkg.dev/fokus/reference/q_tibble.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/read_q.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/read_q_supplemental.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/qx_supplemental.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/read_toml.html</loc>

@@ -18,13 +18,13 @@ fokus:::print_opts()
 
 ### Working directory structure
 
-For part of this package's functionality, the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or
-enforced (output).
+```{r, child = "data-raw/snippets/fokus_private_description.Rmd"}
+```
 
 <details><summary><strong>Working directory structure schema</strong></summary>
 
 ```{r, echo = FALSE, results = "asis"}
-fokus::print_wd_structure()
+fokus::print_fokus_private_structure()
 ```
 
 </details>

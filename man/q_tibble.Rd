@@ -19,9 +19,7 @@ q_tibble(canton = cantons, ballot_date = ballot_dates)
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
-}
-
-Either as a character or a \link[base:Dates]{date} scalar.}
+}}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
@@ -30,11 +28,11 @@ A \link[tibble:tbl_df-class]{tibble}.
 Generate questionnaire tibble
 }
 \seealso{
+\code{\link{qx_supplemental}}
+
 Other questionnaire-related functions
 \code{\link{gen_q}()},
 \code{\link{pick_right}()},
-\code{\link{q_md}()},
-\code{\link{read_q_supplemental}()},
-\code{\link{read_q}()}
+\code{\link{q_md}()}
 }
 \concept{questionnaire}

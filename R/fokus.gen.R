@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 .onUnload <- function(libpath) {
+  
   pkgpins::deregister(pkg = this_pkg)
 }
 
@@ -21,17 +22,17 @@
   pkgpins::clear(pkg = pkgname,
                  max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
                                      default = global_cache_lifespan))
-  
-  # set pkg opts
-  ## local path to FOKUS working directory
-  init_path_wd()
 }
 
 utils::globalVariables(names = c(".",
+                                 # tidyselect fns
+                                 "all_of",
+                                 "everything",
+                                 # other
                                  "alignment",
                                  "allowed",
                                  "has_same_length",
-                                 "is_auto_init",
+                                 "has_auto_fallback",
                                  "n_cantonal_majoritarian_elections",
                                  "n_cantonal_proportional_elections",
                                  "n_cantonal_referendums",
@@ -54,56 +55,53 @@ utils::globalVariables(names = c(".",
 # avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://github.com/kevinushey/rex#using-rex-in-other-packages
 rex::register_shortcuts(pkg_name = utils::packageName())
 
-path_wd <- function(rel_path) {
+path_private <- function(rel_path) {
   
-  fs::path(getOption("fokus.path_wd"), rel_path)
-}
-
-init_path_wd <- function() {
+  dir_private <- getOption("fokus.path_private",
+                           default = switch(EXPR = Sys.info()[["user"]],
+                                            "salim" = "~/Arbeit/ZDA/Git/zdaarau/private/fokus_private/",
+                                            # fall back to current working directory
+                                            getwd()))
   
-  if (is.null(getOption("fokus.path_wd"))) {
-    # user-specific
-    options(fokus.path_wd = switch(EXPR = Sys.info()[["user"]],
-                                   "salim" = "~/Arbeit/ZDA/Git/zdaarau/private/fokus_private/",
-                                   # fall back to current working directory
-                                   getwd()))
-  }
-  
-  ### ensure path is valid (read access plus file `questionnaire/questionnaire.toml` exists)
-  test_read_access <- checkmate::test_directory(getOption("fokus.path_wd"),
-                                                access = "r")
-  
-  is_valid_path <- if (isTRUE(test_read_access)) fs::file_exists(path = fs::path(getOption("fokus.path_wd"), "questionnaire/questionnaire.toml")) else FALSE
+  # ensure path is valid (read access plus file `data/aargau/survey_data_2018-09-23.xlsx` exists)
+  is_valid_path <-
+    checkmate::test_directory(dir_private, access = "r") && fs::file_exists(path = fs::path(dir_private, "data/aargau/survey_data_2018-09-23.xlsx"))
   
   if (!is_valid_path) {
-    cli::cli_warn(paste0("The option {.field fokus.path_wd} is set to: {.path {getOption('fokus.path_wd')}}\n\n",
-                         "This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
+    
+    is_opt_set <- !is.null(getOption("fokus.path_private"))
+    
+    cli::cli_abort(paste0(dplyr::if_else(is_opt_set,
+                                         "The option {.field fokus.path_private} is set to: {.path {dir_private}}\n\n",
+                                         "The option {.field fokus.path_private} is unset, thus we fall back to: {.path {dir_private}}\n\n"),
+                          "This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
   }
   
-  invisible(getOption("fokus.path_wd"))
+  fs::path(dir_private, rel_path)
 }
 
 opts <- function(pretty_colnames = FALSE) {
   
-  tibble::tibble(name = "fokus.path_wd",
+  tibble::tibble(name = "fokus.path_private",
                  description = paste0("the path to the working directory (the local instance of the ",
-                                      "[`fokus_private` repository](https://gitlab.com/c2d-zda/fokus_private)); only set automatically for user=salim"),
-                 is_auto_init = TRUE) %>%
+                                      "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); initialized automatically for ",
+                                      "user=salim, otherwise defaults to the current working directory"),
+                 has_auto_fallback = TRUE) |>
     tibble::add_row(name = "fokus.global_cache_lifespan",
                     description = glue::glue("the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
                                              global_cache_lifespan),
-                    is_auto_init = TRUE) %>%
+                    has_auto_fallback = TRUE) |>
     purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
-                                                                        "set automatically by `init()`" = is_auto_init),
+                                                                        "automatic fallback if unset" = has_auto_fallback),
                 ~ .)
 }
 
 print_opts <- function() {
   
-  opts() %>%
+  opts(pretty_colnames = TRUE) |>
     dplyr::mutate(name = paste0("`", name, "`"),
-                  "set automatically by `init()`" = lgl_to_unicode(is_auto_init)) %>%
-    dplyr::select(-is_auto_init) %>%
+                  dplyr::across(all_of("automatic fallback if unset"),
+                                lgl_to_unicode)) |>
     pal::pipe_table()
 }
 
@@ -560,7 +558,7 @@ assemble_table_row <- function(i = NULL,
       purrr::flatten_chr() %>%
       wrap_backtick() %>%
       purrr::when(is_skill_question(v_name) ~ emphasize(x = .,
-                                                        which = skill_question_answer_nr(q_supplemental = read_q_supplemental(ballot_date = ballot_date),
+                                                        which = skill_question_answer_nr(q_supplemental = qx_supplemental[[ballot_date]],
                                                                                          skill_question_nr = ifelse(is_election(canton = canton,
                                                                                                                                 ballot_date = ballot_date),
                                                                                                                     i,
@@ -934,6 +932,16 @@ global_cache_lifespan <- "30 days"
 
 
 
+
+
+
+
+
+
+
+
+
+
 #' List FOKUS-covered ballot dates
 #'
 #' A vector of ballot dates covered by FOKUS surveys up until `r max(ballot_dates)`.
@@ -1038,7 +1046,7 @@ is_referendum <- function(canton = cantons,
 #' - `canton` is ignored if `level = "federal"`.
 #' - it is considered to be a non-proposal-specific skill question if `proposal_nr = NULL` (usually the case at elections).
 #'
-#' @param q_supplemental Supplemental date-specific questionnaire data. A list. See [read_q_supplemental()].
+#' @param q_supplemental Supplemental date-specific questionnaire data. A list. See [`qx_supplemental`][qx_supplemental].
 #' @param skill_question_nr The skill question number. An integer scalar.
 #' @param level The political level. One of
 #'   - `"cantonal"`
@@ -1050,7 +1058,7 @@ is_referendum <- function(canton = cantons,
 #' @export
 #'
 #' @examples
-#' skill_question_answer_nr(q_supplemental = read_q_supplemental("2018-09-23"),
+#' skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
 #'                          skill_question_nr = 2,
 #'                          level = "cantonal",
 #'                          canton = "aargau",
@@ -1061,6 +1069,10 @@ skill_question_answer_nr <- function(q_supplemental,
                                      canton = cantons,
                                      proposal_nr = NULL) {
   
+  checkmate::assert_list(q_supplemental,
+                         types = c("list", "Date"),
+                         any.missing = FALSE,
+                         min.len = 3L)
   skill_question_nr <- checkmate::assert_count(skill_question_nr,
                                                positive = TRUE)
   level <- rlang::arg_match(level)
@@ -1102,7 +1114,7 @@ skill_question_answer_nr <- function(q_supplemental,
 #' @export
 #'
 #' @examples
-#' n_election_candidates(q_supplemental = read_q_supplemental("2019-10-20"),
+#' n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
 #'                       level = "cantonal",
 #'                       canton = "aargau")
 n_election_candidates <- function(q_supplemental,
@@ -1110,6 +1122,10 @@ n_election_candidates <- function(q_supplemental,
                                   election_nr = 1L,
                                   canton = cantons) {
   
+  checkmate::assert_list(q_supplemental,
+                         types = c("list", "Date"),
+                         any.missing = FALSE,
+                         min.len = 3L)
   level <- rlang::arg_match(level)
   canton <- rlang::arg_match(canton)
   checkmate::assert_count(election_nr,
@@ -1118,33 +1134,23 @@ n_election_candidates <- function(q_supplemental,
   length(q_supplemental[[level]][[canton]][["election"]][["majoritarian"]][[election_nr]][["candidate"]])
 }
 
-#' Read in raw questionnaire data
+#' Raw FOKUS questionnaire data
 #'
-#' Reads in file `questionnaire/questionnaire.toml` and returns it as a structured list.
+#' A structured list of the raw questionnaire data of the FOKUS surveys.
 #'
-#' @return `r pkgsnip::return_label("strict_list")`
-#' @family questionnaire
+#' @format `r pkgsnip::return_label("strict_list")`
+#' @seealso [`qx_supplemental`][qx_supplemental] [gen_q()] [q_tibble()] [q_md()] [pick_right()]
 #' @export
-read_q <- function() {
-  read_toml(path_wd("questionnaire/questionnaire.toml"))
-}
+"q"
 
-#' Read in raw supplemental date-specific questionnaire data
+#' Raw supplemental date-specific FOKUS questionnaire data
 #'
-#' Reads in file `questionnaire/YYYY-MM-DD.toml` where `YYYY-MM-DD` corresponds to the `ballot_date` argument and returns it as a structured list.
+#' A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.
 #'
-#' @inheritParams gen_q
-#'
-#' @inherit read_q return
-#' @family questionnaire
+#' @format `r pkgsnip::return_label("strict_list")`
+#' @seealso [`q`][q] [gen_q()] [q_tibble()] [q_md()] [pick_right()]
 #' @export
-read_q_supplemental <- function(ballot_date = ballot_dates) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  read_toml(path_wd(glue::glue("questionnaire/{ballot_date}.toml")))
-}
+"qx_supplemental"
 
 #' Generate questionnaire
 #'
@@ -1155,38 +1161,63 @@ read_q_supplemental <- function(ballot_date = ballot_dates) {
 #' `r pal::as_md_list(paste0('"', cantons, '"'), wrap = '``')`
 #' @param ballot_date A valid FOKUS-covered cantonal ballot date. One of
 #' `r pal::as_md_list(paste0('"', ballot_dates, '"'), wrap = '``')`
+#' @param quiet `r pkgsnip::param_label("quiet")`
 #'   
 #' Either as a character or a [date][base::Date] scalar.
 #'
 #' @return NULL (invisibly).
 #' @family questionnaire
+#' @seealso [`qx_supplemental`][qx_supplemental]
 #' @export
 gen_q <- function(canton = cantons,
-                  ballot_date = ballot_dates) {
+                  ballot_date = ballot_dates,
+                  quiet = FALSE) {
   
   canton <- rlang::arg_match(canton)
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
+  checkmate::assert_flag(quiet)
   
   # generate questionnaire tibble
+  if (!quiet) {
+    status_msg <- "Generating questionnaire data..."
+    cli::cli_progress_step(msg = status_msg,
+                           msg_done = paste(status_msg, "done"),
+                           msg_failed = paste(status_msg, "failed"))
+  }
+  
   q_tibble <- q_tibble(canton = canton,
                        ballot_date = ballot_date)
   
-  pal::cli_process_expr(msg = "Expanding questionnaire to long data format", {
-    q_tibble %<>% expand_q_tibble()
-  })
+  # expand questionnaire tibble to long data format
+  if (!quiet) {
+    status_msg <- "Expanding questionnaire data to long format..."
+    cli::cli_progress_step(msg = status_msg,
+                           msg_done = paste(status_msg, "done"),
+                           msg_failed = paste(status_msg, "failed"))
+  }
   
-  readr::write_rds(file = path_wd(glue::glue("output/data/internal/r/questionnaire_{ballot_date}_{canton}.rds")),
+  q_tibble %<>% expand_q_tibble()
+  
+  readr::write_rds(file = path_private(glue::glue("output/data/internal/r/questionnaire_{ballot_date}_{canton}.rds")),
                    compress = "xz",
                    compression = 9L)
   
   # generate Markdown questionnaire
-  knitr::knit2pandoc(input = path_wd("rmd/questionnaire.Rmd"),
-                     output = path_wd("output/questionnaires/questionnaire_{ballot_date}_{canton}.md"),
+  if (!quiet) {
+    status_msg <- "Generating Markdown questionnaire..."
+    cli::cli_progress_step(msg = status_msg,
+                           msg_done = paste(status_msg, "done"),
+                           msg_failed = paste(status_msg, "failed"))
+  }
+  
+  knitr::knit2pandoc(input = path_private("rmd/questionnaire.Rmd"),
+                     output = path_private(glue::glue("output/questionnaires/questionnaire_{ballot_date}_{canton}.md")),
+                     quiet = TRUE,
                      tangle = FALSE,
-                     encoding = "UTF-8",
-                     to = "gfm")
+                     to = "gfm",
+                     encoding = "UTF-8")
   
   invisible(NULL)
 }
@@ -1197,6 +1228,7 @@ gen_q <- function(canton = cantons,
 #'
 #' @return `r pkgsnip::return_label("data")`
 #' @family questionnaire
+#' @seealso [`qx_supplemental`][qx_supplemental]
 #' @export
 q_tibble <- function(canton = cantons,
                      ballot_date = ballot_dates) {
@@ -1205,8 +1237,8 @@ q_tibble <- function(canton = cantons,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
-  q <- read_q()
-  q_supplemental <- read_q_supplemental(ballot_date = ballot_date)
+  
+  q_supplemental <- qx_supplemental[[ballot_date]]
   
   # initialize across-block item enumerator
   item_enumerator <- 1L
@@ -1243,7 +1275,7 @@ q_tibble <- function(canton = cantons,
                                                 by = 1L),
                                        block = block) %>%
                          # reorder cols
-                         dplyr::select(nr, block, tidyselect::everything())
+                         dplyr::select(nr, block, everything())
                        
                        # update item enumerator
                        if (prefix == 0L) item_enumerator <<- item_enumerator + nrow(questionnaire)
@@ -1262,6 +1294,7 @@ q_tibble <- function(canton = cantons,
 #'
 #' @return A character vector.
 #' @family questionnaire
+#' @seealso [`qx_supplemental`][qx_supplemental]
 #' @export
 q_md <- function(canton = cantons,
                  ballot_date = ballot_dates) {
@@ -1270,8 +1303,8 @@ q_md <- function(canton = cantons,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
-  q <- read_q()
-  q_supplemental <- read_q_supplemental(ballot_date = ballot_date)
+  
+  q_supplemental <- qx_supplemental[[ballot_date]]
   
   # initialize block enumerator
   block_enumerator <- 1L
@@ -1375,6 +1408,7 @@ q_md <- function(canton = cantons,
 #'
 #' @return The value of `l` that corresponds to `canton` and `ballot_date`.
 #' @family questionnaire
+#' @seealso [`qx_supplemental`][qx_supplemental]
 #' @export
 pick_right <- function(l,
                        canton,
@@ -1650,7 +1684,7 @@ abbreviations <- function(expand = FALSE) {
     c("proceed","procedure"), "prcd",
     "procedures", "prcds",
     "questionnaire", "q",
-    "questionnaires", "q",
+    "questionnaires", "qx",
     "statistik aargau", "sa"
   ) %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
@@ -1687,14 +1721,17 @@ prettify_date <- function(date,
                        format(x = lubridate::as_date(date)))
 }
 
-#' Print working directory structure
+#' Print expected structure of the private FOKUS directory
 #'
-#' For part of this package's functionality, a specific structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or enforced (output). This function returns a textual representation of this structure, formatted as a Markdown [fenced code block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
+#' Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown [fenced code
+#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
+#'
+#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
 #'
 #' @return A character scalar.
 #' @export
-print_wd_structure <- function() {
-  cat(wd_structure)
+print_fokus_private_structure <- function() {
+  cat(fokus_private_structure)
 }
 
 #' Read in and parse a TOML file as a strict list
@@ -1707,11 +1744,6 @@ print_wd_structure <- function() {
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
 #' @export
-#'
-#' @examples
-#' q_path <- fokus:::path_wd("questionnaire/questionnaire.toml")
-#' 
-#' if (fs::file_exists(q_path)) fokus::read_toml(q_path)
 read_toml <- function(path) {
   
   path %>%

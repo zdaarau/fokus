@@ -18,8 +18,3 @@ Reads in a file in \href{https://toml.io/}{Tom's Obvious Minimal Language} forma
 \details{
 The file is parsed using \code{\link[RcppTOML:parseTOML]{RcppTOML::parseTOML(escape = FALSE)}}.
 }
-\examples{
-q_path <- fokus:::path_wd("questionnaire/questionnaire.toml")
-
-if (fs::file_exists(q_path)) fokus::read_toml(q_path)
-}

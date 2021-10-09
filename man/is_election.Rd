@@ -19,9 +19,7 @@ is_election(canton = cantons, ballot_date = ballot_dates)
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
-}
-
-Either as a character or a \link[base:Dates]{date} scalar.}
+}}
 }
 \value{
 A logical scalar.

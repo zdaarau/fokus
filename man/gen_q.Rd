@@ -4,7 +4,7 @@
 \alias{gen_q}
 \title{Generate questionnaire}
 \usage{
-gen_q(canton = cantons, ballot_date = ballot_dates)
+gen_q(canton = cantons, ballot_date = ballot_dates, quiet = FALSE)
 }
 \arguments{
 \item{canton}{A valid FOKUS canton. One of
@@ -19,7 +19,9 @@ gen_q(canton = cantons, ballot_date = ballot_dates)
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
-}
+}}
+
+\item{quiet}{Whether or not to suppress printing status output from internal processing.
 
 Either as a character or a \link[base:Dates]{date} scalar.}
 }
@@ -31,11 +33,11 @@ This is the main questionnaire generation interface that's doing all the magic. 
 anything.
 }
 \seealso{
+\code{\link{qx_supplemental}}
+
 Other questionnaire-related functions
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
-\code{\link{q_tibble}()},
-\code{\link{read_q_supplemental}()},
-\code{\link{read_q}()}
+\code{\link{q_tibble}()}
 }
 \concept{questionnaire}

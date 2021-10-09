@@ -12,7 +12,7 @@ n_election_candidates(
 )
 }
 \arguments{
-\item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link[=read_q_supplemental]{read_q_supplemental()}}.}
+\item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link{qx_supplemental}}.}
 
 \item{level}{The political level. One of
 \itemize{
@@ -34,7 +34,7 @@ An integer scalar.
 Get number of (officially registered) majoritarian election candidates
 }
 \examples{
-n_election_candidates(q_supplemental = read_q_supplemental("2019-10-20"),
+n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
                       level = "cantonal",
                       canton = "aargau")
 }

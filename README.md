@@ -8,14 +8,14 @@ fokus allows to (pre-)process and clean the raw data, analyze and visualize the 
 
 The following package-specific R options are used to control the package’s functionality:
 
-| **name**                      | **description**                                                                                                                                                             | **set automatically by `init()`** |
-|:------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------|
-| `fokus.path_wd`               | the path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/c2d-zda/fokus_private)); only set automatically for user=salim | ✅                                 |
-| `fokus.global_cache_lifespan` | the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                        | ✅                                 |
+| **name**                      | **description**                                                                                                                                                                                                                             | **automatic fallback if unset** |
+|:------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------|
+| `fokus.path_private`          | the path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); initialized automatically for user=salim, otherwise defaults to the current working directory | ✅                               |
+| `fokus.global_cache_lifespan` | the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                                                                                        | ✅                               |
 
 ### Working directory structure
 
-For part of this package’s functionality, the following structure of the working directory (defined by the R option `fokus.path_wd`) is expected (input) or enforced (output).
+For part of this package’s functionality, a separate private directory (defined by the R option `fokus.path_private`) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional non-public (survey) data under the `data/` subdirectory and certain files are written to its subdirectory `output/`.
 
 <details>
 <summary>
@@ -27,6 +27,11 @@ fokus_private/
 ├──bibliography/
 |  ├──zotero_c2d.bib
 |  └──zotero_c2d.json
+├──bin/
+|  └──pandoc/
+|     ├──linux/
+|     ├──macos/
+|     └──windows/
 ├──config/
 |  ├──csl/
 |  ├──css/
@@ -56,11 +61,8 @@ fokus_private/
 |  ├──[CANTON]/
 |  |  └──[BALLOT_DATE]
 |  └──...
-├──questionnaires/
-|  ├──print/
-|  |  └──questionnaire_print_[BALLOT_DATE]_[CANTON].pdf
-|  ├──[BALLOT_DATE].toml
-|  └──questionnaire.toml
+├──print_docs/
+|  └──questionnaire_print_[BALLOT_DATE]_[CANTON].pdf
 ├──rmd/
 |  ├──snippets/
 |  |  ├──[CANTON]/
@@ -107,11 +109,6 @@ fokus_private/
 |     └──[BALLOT_DATE]/
 |        └──[CANTON]/
 |           └──plots/
-├──tools/
-|  └──pandoc/
-|     ├──linux/
-|     ├──macos/
-|     └──windows/
 ├──README.Rmd
 └──...
 ```
@@ -144,7 +141,7 @@ The documentation of this package is found [here](https://rpkg.dev/fokus).
 | proceed , procedure              | prcd             |
 | procedures                       | prcds            |
 | questionnaire                    | q                |
-| questionnaires                   | q                |
+| questionnaires                   | qx               |
 | statistik aargau                 | sa               |
 | abbreviate , abbreviation        | abbr             |
 | abbreviations                    | abbrs            |

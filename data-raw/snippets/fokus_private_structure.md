@@ -37,11 +37,8 @@ fokus_private/
 |  ├──[CANTON]/
 |  |  └──[BALLOT_DATE]
 |  └──...
-├──questionnaires/
-|  ├──print/
-|  |  └──questionnaire_print_[BALLOT_DATE]_[CANTON].pdf
-|  ├──[BALLOT_DATE].toml
-|  └──questionnaire.toml
+├──print_docs/
+|  └──questionnaire_print_[BALLOT_DATE]_[CANTON].pdf
 ├──rmd/
 |  ├──snippets/
 |  |  ├──[CANTON]/

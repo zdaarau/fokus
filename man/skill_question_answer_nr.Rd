@@ -13,7 +13,7 @@ skill_question_answer_nr(
 )
 }
 \arguments{
-\item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link[=read_q_supplemental]{read_q_supplemental()}}.}
+\item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link{qx_supplemental}}.}
 
 \item{skill_question_nr}{The skill question number. An integer scalar.}
 
@@ -41,7 +41,7 @@ Note that
 }
 }
 \examples{
-skill_question_answer_nr(q_supplemental = read_q_supplemental("2018-09-23"),
+skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
                          skill_question_nr = 2,
                          level = "cantonal",
                          canton = "aargau",
