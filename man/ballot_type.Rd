@@ -37,10 +37,14 @@ fokus::ballot_type(canton = "aargau",
                    ballot_date = "2018-09-23")
 }
 \seealso{
-Other fundamental predicates
+Other predicate functions
 \code{\link{has_election}()},
+\code{\link{has_lvl}()},
 \code{\link{has_referendum}()},
+\code{\link{n_election_candidates}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()}
+\code{\link{n_proposals}()},
+\code{\link{n_skill_questions}()},
+\code{\link{skill_question_answer_nr}()}
 }
-\concept{fundamental}
+\concept{predicate}

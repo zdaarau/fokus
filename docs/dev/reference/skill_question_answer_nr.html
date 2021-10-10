@@ -43,8 +43,8 @@
 
 
 <meta property="og:title" content="Get correct skill question answer number — skill_question_answer_nr" />
-<meta name="description" content="Note that canton is ignored if lvl = &quot;federal&quot;. it is considered to be a non-proposal-specific skill question if proposal_nr = NULL (usually the case at elections).">
-<meta property="og:description" content="Note that canton is ignored if lvl = &quot;federal&quot;. it is considered to be a non-proposal-specific skill question if proposal_nr = NULL (usually the case at elections)." />
+<meta name="description" content="Determines the sequential number of the correct answer of a specific skill question.">
+<meta property="og:description" content="Determines the sequential number of the correct answer of a specific skill question." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -119,31 +119,26 @@
     </div>
 
     <div class="ref-description">
-    <p>Note that</p><ul>
-<li><p><code>canton</code> is ignored if <code>lvl = "federal"</code>.</p></li>
-<li><p>it is considered to be a non-proposal-specific skill question if <code>proposal_nr = NULL</code> (usually the case at elections).</p></li>
-</ul>
-
+    <p>Determines the sequential number of the correct answer of a specific skill question.</p>
     </div>
 
     <pre class="usage"><span class='fu'>skill_question_answer_nr</span><span class='op'>(</span>
-  <span class='va'>q_supplemental</span>,
-  <span class='va'>skill_question_nr</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
   canton <span class='op'>=</span> <span class='va'>cantons</span>,
-  proposal_nr <span class='op'>=</span> <span class='cn'>NULL</span>
+  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
+  lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
+  proposal_nr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>skill_question_nr</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>q_supplemental</th>
-      <td><p>Supplemental date-specific questionnaire data. A list. See <code><a href='qx_supplemental.html'>qx_supplemental</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>skill_question_nr</th>
-      <td><p>The skill question number. An integer scalar.</p></td>
+      <th>canton</th>
+      <td><p>A valid FOKUS canton. One of</p><ul>
+<li><p><code>"aargau"</code>
+Only relevant if <code>lvl = "cantonal"</code>.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>lvl</th>
@@ -153,27 +148,43 @@
 </ul></td>
     </tr>
     <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
+      <th>proposal_nr</th>
+      <td><p>The proposal number. An integer scalar or <code>NULL</code>. If <code>NULL</code>, it is considered to be a non-proposal-specific skill question (usually the
+case at elections).</p></td>
     </tr>
     <tr>
-      <th>proposal_nr</th>
-      <td><p>The proposal number. An integer scalar.</p></td>
+      <th>skill_question_nr</th>
+      <td><p>The skill question number. An integer scalar.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An integer scalar.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note that this function just fails with a generic "out-of-index" error like the following one when the specified <code>proposal_nr</code> and/or <code>skill_question_nr</code>
+doesn't exist:</p><pre>Error: Index 6 exceeds the length of plucked object (6 &gt; 5)
+</pre>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other predicate functions
+<code><a href='ballot_type.html'>ballot_type</a>()</code>,
+<code><a href='has_election.html'>has_election</a>()</code>,
+<code><a href='has_lvl.html'>has_lvl</a>()</code>,
+<code><a href='has_referendum.html'>has_referendum</a>()</code>,
+<code><a href='n_election_candidates.html'>n_election_candidates</a>()</code>,
+<code><a href='n_elections.html'>n_elections</a>()</code>,
+<code><a href='n_proposals.html'>n_proposals</a>()</code>,
+<code><a href='n_skill_questions.html'>n_skill_questions</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>skill_question_answer_nr</span><span class='op'>(</span>q_supplemental <span class='op'>=</span> <span class='va'>qx_supplemental</span><span class='op'>[[</span><span class='st'>"2018-09-23"</span><span class='op'>]</span><span class='op'>]</span>,
-                                skill_question_nr <span class='op'>=</span> <span class='fl'>2</span>,
+    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>skill_question_answer_nr</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
+                                ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
                                 lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,
-                                canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-                                proposal_nr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+                                proposal_nr <span class='op'>=</span> <span class='fl'>1</span>,
+                                skill_question_nr <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

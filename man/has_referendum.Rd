@@ -43,10 +43,14 @@ fokus::has_referendum(canton = "aargau",
                       lvl = "federal")
 }
 \seealso{
-Other fundamental predicates
+Other predicate functions
 \code{\link{ballot_type}()},
 \code{\link{has_election}()},
+\code{\link{has_lvl}()},
+\code{\link{n_election_candidates}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()}
+\code{\link{n_proposals}()},
+\code{\link{n_skill_questions}()},
+\code{\link{skill_question_answer_nr}()}
 }
-\concept{fundamental}
+\concept{predicate}

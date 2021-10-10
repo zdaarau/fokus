@@ -5,17 +5,19 @@
 \title{Get correct skill question answer number}
 \usage{
 skill_question_answer_nr(
-  q_supplemental,
-  skill_question_nr,
-  lvl = c("cantonal", "federal"),
   canton = cantons,
-  proposal_nr = NULL
+  ballot_date = ballot_dates,
+  lvl = c("cantonal", "federal"),
+  proposal_nr = NULL,
+  skill_question_nr
 )
 }
 \arguments{
-\item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link{qx_supplemental}}.}
-
-\item{skill_question_nr}{The skill question number. An integer scalar.}
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+Only relevant if \code{lvl = "cantonal"}.
+}}
 
 \item{lvl}{The political level. One of
 \itemize{
@@ -23,27 +25,38 @@ skill_question_answer_nr(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{proposal_nr}{The proposal number. An integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question (usually the
+case at elections).}
 
-\item{proposal_nr}{The proposal number. An integer scalar.}
+\item{skill_question_nr}{The skill question number. An integer scalar.}
 }
 \value{
 An integer scalar.
 }
 \description{
-Note that
-\itemize{
-\item \code{canton} is ignored if \code{lvl = "federal"}.
-\item it is considered to be a non-proposal-specific skill question if \code{proposal_nr = NULL} (usually the case at elections).
+Determines the sequential number of the correct answer of a specific skill question.
+}
+\details{
+Note that this function just fails with a generic "out-of-index" error like the following one when the specified \code{proposal_nr} and/or \code{skill_question_nr}
+doesn't exist:\preformatted{Error: Index 6 exceeds the length of plucked object (6 > 5)
 }
 }
 \examples{
-fokus::skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
-                                skill_question_nr = 2,
+fokus::skill_question_answer_nr(canton = "aargau",
+                                ballot_date = "2018-09-23",
                                 lvl = "cantonal",
-                                canton = "aargau",
-                                proposal_nr = 1)
+                                proposal_nr = 1,
+                                skill_question_nr = 2)
 }
+\seealso{
+Other predicate functions
+\code{\link{ballot_type}()},
+\code{\link{has_election}()},
+\code{\link{has_lvl}()},
+\code{\link{has_referendum}()},
+\code{\link{n_election_candidates}()},
+\code{\link{n_elections}()},
+\code{\link{n_proposals}()},
+\code{\link{n_skill_questions}()}
+}
+\concept{predicate}

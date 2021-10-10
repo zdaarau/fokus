@@ -30,6 +30,7 @@ reference:
   - n_proposals
   - n_elections
   - n_election_candidates
+  - n_skill_questions
   - has_referendum
   - has_election
   - has_lvl

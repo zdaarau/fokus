@@ -5,14 +5,26 @@
 \title{Get number of (officially registered) majoritarian election candidates}
 \usage{
 n_election_candidates(
-  q_supplemental,
+  canton = cantons,
+  ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  election_nr = 1L,
-  canton = cantons
+  election_nr = 1L
 )
 }
 \arguments{
-\item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link{qx_supplemental}}.}
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
+
+\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\itemize{
+\item \code{"2018-09-23"}
+\item \code{"2018-11-25"}
+\item \code{"2019-10-20"}
+\item \code{"2020-09-27"}
+\item \code{"2020-10-18"}
+}}
 
 \item{lvl}{The political level. One of
 \itemize{
@@ -21,21 +33,33 @@ n_election_candidates(
 }}
 
 \item{election_nr}{The election number. An integer scalar (in almost all cases \code{1L}).}
-
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
 }
 \value{
 An integer scalar.
 }
 \description{
-Get number of (officially registered) majoritarian election candidates
+Determines the number of (officially registered) candidates of a majoritarian election at a specific ballot date on a specific political level.
+}
+\details{
+Note that this function just fails with a "out-of-index" error like the following one when the specified \code{election_nr} doesn't exist:\preformatted{Error in qx_supplemental[[ballot_date]][[lvl]][[canton]][["election"]][["majoritarian"]][[election_nr]] : 
+  subscript out of bounds
+}
 }
 \examples{
-fokus::n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
+fokus::n_election_candidates(canton = "aargau",
+                             ballot_date = "2019-10-20",
                              lvl = "cantonal",
-                             canton = "aargau")
+                             election_nr = 1)
 }
-\concept{higher}
+\seealso{
+Other predicate functions
+\code{\link{ballot_type}()},
+\code{\link{has_election}()},
+\code{\link{has_lvl}()},
+\code{\link{has_referendum}()},
+\code{\link{n_elections}()},
+\code{\link{n_proposals}()},
+\code{\link{n_skill_questions}()},
+\code{\link{skill_question_answer_nr}()}
+}
+\concept{predicate}

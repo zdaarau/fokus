@@ -42,3 +42,15 @@ fokus::has_lvl(canton = "aargau",
                ballot_date = "2018-09-23",
                lvl = "federal")
 }
+\seealso{
+Other predicate functions
+\code{\link{ballot_type}()},
+\code{\link{has_election}()},
+\code{\link{has_referendum}()},
+\code{\link{n_election_candidates}()},
+\code{\link{n_elections}()},
+\code{\link{n_proposals}()},
+\code{\link{n_skill_questions}()},
+\code{\link{skill_question_answer_nr}()}
+}
+\concept{predicate}
