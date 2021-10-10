@@ -28,10 +28,10 @@
     <loc>https://rpkg.dev/fokus/reference/gen_q.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/is_election.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/has_election.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/is_referendum.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/has_referendum.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/is_skill_question.html</loc>
@@ -41,6 +41,12 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/n_election_candidates.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/n_elections.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/n_proposals.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/pick_right.html</loc>

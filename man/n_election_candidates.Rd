@@ -6,7 +6,7 @@
 \usage{
 n_election_candidates(
   q_supplemental,
-  level = c("cantonal", "federal"),
+  lvl = c("cantonal", "federal"),
   election_nr = 1L,
   canton = cantons
 )
@@ -14,7 +14,7 @@ n_election_candidates(
 \arguments{
 \item{q_supplemental}{Supplemental date-specific questionnaire data. A list. See \code{\link{qx_supplemental}}.}
 
-\item{level}{The political level. One of
+\item{lvl}{The political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -35,7 +35,7 @@ Get number of (officially registered) majoritarian election candidates
 }
 \examples{
 n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
-                      level = "cantonal",
+                      lvl = "cantonal",
                       canton = "aargau")
 }
 \concept{higher}

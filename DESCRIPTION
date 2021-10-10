@@ -1,7 +1,7 @@
 Package: fokus
 Title: Provides API-like functionality around the FOKUS Post-voting
     Surveys
-Version: 0.0.9007
+Version: 0.0.9008
 Authors@R: c(
     person("Salim", "Brüggemann", , "salim-b@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5329-5987")),

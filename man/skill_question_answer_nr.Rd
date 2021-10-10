@@ -7,7 +7,7 @@
 skill_question_answer_nr(
   q_supplemental,
   skill_question_nr,
-  level = c("cantonal", "federal"),
+  lvl = c("cantonal", "federal"),
   canton = cantons,
   proposal_nr = NULL
 )
@@ -17,7 +17,7 @@ skill_question_answer_nr(
 
 \item{skill_question_nr}{The skill question number. An integer scalar.}
 
-\item{level}{The political level. One of
+\item{lvl}{The political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -36,14 +36,14 @@ An integer scalar.
 \description{
 Note that
 \itemize{
-\item \code{canton} is ignored if \code{level = "federal"}.
+\item \code{canton} is ignored if \code{lvl = "federal"}.
 \item it is considered to be a non-proposal-specific skill question if \code{proposal_nr = NULL} (usually the case at elections).
 }
 }
 \examples{
 skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
                          skill_question_nr = 2,
-                         level = "cantonal",
+                         lvl = "cantonal",
                          canton = "aargau",
                          proposal_nr = 1)
 }

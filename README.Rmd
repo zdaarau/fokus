@@ -16,12 +16,12 @@ The following package-specific R options are used to control the package's funct
 fokus:::print_opts()
 ```
 
-### Working directory structure
+### Private FOKUS directory structure
 
 ```{r, child = "data-raw/snippets/fokus_private_description.Rmd"}
 ```
 
-<details><summary><strong>Working directory structure schema</strong></summary>
+<details><summary><strong>Directory structure schema</strong></summary>
 
 ```{r, echo = FALSE, results = "asis"}
 fokus::print_fokus_private_structure()

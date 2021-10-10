@@ -13,13 +13,13 @@ The following package-specific R options are used to control the package's funct
   `fokus.path_private`            the path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); initialized automatically for user=salim, otherwise defaults to the current working directory   ✅
   `fokus.global_cache_lifespan`   the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                                                                                          ✅
 
-### Working directory structure
+### Private FOKUS directory structure
 
 For part of this package's functionality, a separate private directory (defined by the R option `fokus.path_private`) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional non-public (survey) data under the `data/` subdirectory and certain files are written to its subdirectory `output/`.
 
 <details>
 <summary>
-<strong>Working directory structure schema</strong>
+<strong>Directory structure schema</strong>
 </summary>
 
 ``` fs

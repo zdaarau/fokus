@@ -28,8 +28,10 @@ reference:
   desc: 'TODO: Explain fundamental predicates!'
 - contents:
   - ballot_type
-  - is_election
-  - is_referendum
+  - n_elections
+  - n_proposals
+  - has_election
+  - has_referendum
 - title: Higher predicates
   desc: 'TODO: Explain higher predicates!'
 - contents:
