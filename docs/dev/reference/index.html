@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9008</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9009</span>
       </span>
     </div>
 
@@ -126,10 +126,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-fokus-metadata" class="hasAnchor"><a href="#section-fokus-metadata" class="anchor"></a>FOKUS metadata</h2>
-          <p class="section-desc">
-<p>Metadata about the FOKUS surveys.</p>
-<p>It was generated from the raw supplemental date-specific questionnaire data files found under <code>data-raw/questionnaire/YYYY-MM-DD.toml</code> that serve as a “source of truth” for higher-level functionality of this package.</p>
-</p>
+          <p class="section-desc"><p>Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a> that serve as a “source of truth” for the <a href="#section-predicates">predicate functions</a>.</p></p>
         </th>
       </tr>
       
@@ -159,8 +156,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-fundamental-predicates" class="hasAnchor"><a href="#section-fundamental-predicates" class="anchor"></a>Fundamental predicates</h2>
-          <p class="section-desc"><p>TODO: Explain fundamental predicates!</p></p>
+          <h2 id="section-predicates" class="hasAnchor"><a href="#section-predicates" class="anchor"></a>Predicates</h2>
+          <p class="section-desc"><p>Predicate functions based on the <a href="#section-fokus-metadata">metadata</a>.</p></p>
         </th>
       </tr>
       
@@ -177,15 +174,27 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="n_proposals.html">n_proposals()</a></code> </p>
+        </td>
+        <td><p>Get number of referendum proposals</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="n_elections.html">n_elections()</a></code> </p>
         </td>
         <td><p>Get number of elections</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="n_proposals.html">n_proposals()</a></code> </p>
+          <p><code><a href="n_election_candidates.html">n_election_candidates()</a></code> </p>
         </td>
-        <td><p>Get number of referendum proposals</p></td>
+        <td><p>Get number of (officially registered) majoritarian election candidates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="has_referendum.html">has_referendum()</a></code> </p>
+        </td>
+        <td><p>Determine if ballot type includes a referendum</p></td>
       </tr><tr>
         
         <td>
@@ -195,34 +204,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="has_referendum.html">has_referendum()</a></code> </p>
+          <p><code><a href="has_lvl.html">has_lvl()</a></code> </p>
         </td>
-        <td><p>Determine if ballot type includes a referendum</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-higher-predicates" class="hasAnchor"><a href="#section-higher-predicates" class="anchor"></a>Higher predicates</h2>
-          <p class="section-desc"><p>TODO: Explain higher predicates!</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
+        <td><p>Determine if ballot includes a political level</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="skill_question_answer_nr.html">skill_question_answer_nr()</a></code> </p>
         </td>
         <td><p>Get correct skill question answer number</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="n_election_candidates.html">n_election_candidates()</a></code> </p>
-        </td>
-        <td><p>Get number of (officially registered) majoritarian election candidates</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -344,33 +334,33 @@
       <tr>
         
         <td>
-          <p><code><a href="lgl_to_unicode.html">lgl_to_unicode()</a></code> </p>
-        </td>
-        <td><p>Convert logical vector to Unicode symbols ✅ and ❌</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="emphasize.html">emphasize()</a></code> </p>
-        </td>
-        <td><p>Emphasize xth element of character vector (Markdown)</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="abbreviations.html">abbreviations()</a></code> </p>
         </td>
         <td><p>Abbreviations used in the <strong>fokus</strong> package</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="prettify_date.html">prettify_date()</a></code> </p>
-        </td>
-        <td><p>Prettify date</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="print_fokus_private_structure.html">print_fokus_private_structure()</a></code> </p>
         </td>
         <td><p>Print expected structure of the private FOKUS directory</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="md_emphasize.html">md_emphasize()</a></code> </p>
+        </td>
+        <td><p>Emphasize xth element of character vector (Markdown)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lgl_to_unicode.html">lgl_to_unicode()</a></code> </p>
+        </td>
+        <td><p>Convert logical vector to Unicode symbols ✅ and ❌</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prettify_date.html">prettify_date()</a></code> </p>
+        </td>
+        <td><p>Prettify date</p></td>
       </tr><tr>
         
         <td>

@@ -25,7 +25,7 @@ n_proposals(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level. One or more of
+\item{lvl}{The political level(s). One or more of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}

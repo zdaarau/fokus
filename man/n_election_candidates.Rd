@@ -34,8 +34,8 @@ An integer scalar.
 Get number of (officially registered) majoritarian election candidates
 }
 \examples{
-n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
-                      lvl = "cantonal",
-                      canton = "aargau")
+fokus::n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
+                             lvl = "cantonal",
+                             canton = "aargau")
 }
 \concept{higher}

@@ -16,27 +16,24 @@ url: https://rpkg.dev/fokus
 reference:
 - title: FOKUS metadata
   desc: |-
-    Metadata about the FOKUS surveys.
-
-    It was generated from the raw supplemental date-specific questionnaire data files found under `data-raw/questionnaire/YYYY-MM-DD.toml` that serve as a "source
-    of truth" for higher-level functionality of this package.
+    Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under
+    [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as a "source of truth" for
+    the [predicate functions](#section-predicates).
 - contents:
   - ballot_dates
   - ballot_metadata
   - cantons
-- title: Fundamental predicates
-  desc: 'TODO: Explain fundamental predicates!'
+- title: Predicates
+  desc: Predicate functions based on the [metadata](#section-fokus-metadata).
 - contents:
   - ballot_type
-  - n_elections
   - n_proposals
-  - has_election
-  - has_referendum
-- title: Higher predicates
-  desc: 'TODO: Explain higher predicates!'
-- contents:
-  - skill_question_answer_nr
+  - n_elections
   - n_election_candidates
+  - has_referendum
+  - has_election
+  - has_lvl
+  - skill_question_answer_nr
 - title: Questionnaire
   desc: Functions to process the FOKUS questionnaires.
 - contents:
@@ -57,9 +54,9 @@ reference:
   - restore_colnames
 - title: Miscellaneous
 - contents:
-  - lgl_to_unicode
-  - emphasize
   - abbreviations
-  - prettify_date
   - print_fokus_private_structure
+  - md_emphasize
+  - lgl_to_unicode
+  - prettify_date
   - read_toml

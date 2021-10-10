@@ -41,9 +41,9 @@ Note that
 }
 }
 \examples{
-skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
-                         skill_question_nr = 2,
-                         lvl = "cantonal",
-                         canton = "aargau",
-                         proposal_nr = 1)
+fokus::skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
+                                skill_question_nr = 2,
+                                lvl = "cantonal",
+                                canton = "aargau",
+                                proposal_nr = 1)
 }

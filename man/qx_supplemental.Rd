@@ -13,6 +13,9 @@ qx_supplemental
 \description{
 A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.
 }
+\examples{
+fokus::qx_supplemental[["2018-09-23"]]$mode
+}
 \seealso{
 \code{\link{q}} \code{\link[=gen_q]{gen_q()}} \code{\link[=q_tibble]{q_tibble()}} \code{\link[=q_md]{q_md()}} \code{\link[=pick_right]{pick_right()}}
 }

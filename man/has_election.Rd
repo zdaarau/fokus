@@ -26,13 +26,13 @@ has_election(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level. One or more of
+\item{lvl}{The political level(s). One or more of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
 }}
 
-\item{prcd}{The election procedure. One or more of
+\item{prcd}{The election procedure(s). One or more of
 \itemize{
 \item \code{"proportional"}
 \item \code{"majoritarian"}
@@ -42,7 +42,7 @@ has_election(
 A logical scalar.
 }
 \description{
-Determine if ballot type includes an election
+Determines if ballot type for a canton at a specific ballot date includes an election.
 }
 \examples{
 fokus::has_election(canton = "aargau",

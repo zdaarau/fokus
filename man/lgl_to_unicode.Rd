@@ -16,5 +16,5 @@ A character vector.
 Convert logical vector to Unicode symbols ✅ and ❌
 }
 \examples{
-c(TRUE, TRUE, FALSE, NA) \%>\% lgl_to_unicode()
+fokus::lgl_to_unicode(c(TRUE, TRUE, FALSE, NA))
 }

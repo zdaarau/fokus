@@ -26,13 +26,13 @@ n_elections(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level. One or more of
+\item{lvl}{The political level(s). One or more of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
 }}
 
-\item{prcd}{The election procedure. One or more of
+\item{prcd}{The election procedure(s). One or more of
 \itemize{
 \item \code{"proportional"}
 \item \code{"majoritarian"}

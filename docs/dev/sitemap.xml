@@ -19,9 +19,6 @@
     <loc>https://rpkg.dev/fokus/reference/cantons.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/emphasize.html</loc>
-  </url>
-  <url>
     <loc>https://rpkg.dev/fokus/reference/fokus-package.html</loc>
   </url>
   <url>
@@ -31,6 +28,9 @@
     <loc>https://rpkg.dev/fokus/reference/has_election.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/has_lvl.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/has_referendum.html</loc>
   </url>
   <url>
@@ -38,6 +38,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/lgl_to_unicode.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/md_emphasize.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/n_election_candidates.html</loc>

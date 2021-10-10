@@ -105,6 +105,19 @@ print_opts <- function() {
     pal::pipe_table()
 }
 
+add_who_constraint <- function(s,
+                               who) {
+  if (who != "all") {
+    
+    who %>%
+      purrr::when(stringr::str_detect(string = s,
+                                      pattern = "\\)$") ~ stringr::str_replace(string = s,
+                                                                               pattern = "\\)$",
+                                                                               replacement = paste0("; only ", ., ")")),
+                  ~ paste0(s, " (only ", ., ")"))
+  } else s
+}
+
 assemble_deep <- function(data_q,
                           devisable_map,
                           generate_md = TRUE) {
@@ -498,15 +511,15 @@ assemble_table_row <- function(i = NULL,
                  .na = "-") %>%
       purrr::flatten_chr() %>%
       wrap_backtick() %>%
-      purrr::when(is_skill_question(v_name) ~ emphasize(x = .,
-                                                        which = skill_question_answer_nr(q_supplemental = qx_supplemental[[ballot_date]],
-                                                                                         skill_question_nr = ifelse(has_election(canton = canton,
-                                                                                                                                 ballot_date = ballot_date),
-                                                                                                                    i,
-                                                                                                                    j),
-                                                                                         lvl = fa_v_level(v_name = v_name),
-                                                                                         canton = canton,
-                                                                                         proposal_nr = i)),
+      purrr::when(is_skill_question(v_name) ~ md_emphasize(x = .,
+                                                           which = skill_question_answer_nr(q_supplemental = qx_supplemental[[ballot_date]],
+                                                                                            skill_question_nr = ifelse(has_election(canton = canton,
+                                                                                                                                    ballot_date = ballot_date),
+                                                                                                                       i,
+                                                                                                                       j),
+                                                                                            lvl = fa_v_level(v_name = v_name),
+                                                                                            canton = canton,
+                                                                                            proposal_nr = i)),
                   ~ .) %>%
       collapse_break(),
     # variable values
@@ -782,25 +795,23 @@ process_item <- function(v_name,
     pick_right(canton = canton,
                ballot_date = ballot_date) %>%
     glue::glue(.trim = FALSE) %>%
-    as.integer() %>%
     purrr::when(length(.) == 0L ~ NULL,
                 .) %>%
-    checkmate::assert_integer(.var.name = "i",
-                              any.missing = FALSE,
-                              min.len = 0L,
-                              max.len = 1L)
+    checkmate::assert_character(any.missing = FALSE,
+                                min.len = 0L,
+                                max.len = 1L,
+                                .var.name = "i")
   
   devisable_map[["j"]] %<>%
     pick_right(canton = canton,
                ballot_date = ballot_date) %>%
     glue::glue(.trim = FALSE) %>%
-    as.integer() %>%
     purrr::when(length(.) == 0L ~ NULL,
                 .) %>%
-    checkmate::assert_integer(.var.name = "j",
-                              any.missing = FALSE,
-                              min.len = 0L,
-                              max.len = 1L)
+    checkmate::assert_character(any.missing = FALSE,
+                                min.len = 0L,
+                                max.len = 1L,
+                                .var.name = "j")
   
   # return NULL if item isn't included @ ballot date
   if (!devisable_map[["include"]]
@@ -894,20 +905,8 @@ process_item <- function(v_name,
   result
 }
 
-add_who_constraint <- function(s,
-                               who) {
-  if (who != "all") {
-    
-    who %>%
-      purrr::when(stringr::str_detect(string = s,
-                                      pattern = "\\)$") ~ stringr::str_replace(string = s,
-                                                                               pattern = "\\)$",
-                                                                               replacement = paste0("; only ", ., ")")),
-                  ~ paste0(s, " (only ", ., ")"))
-  } else s
-}
-
 collapse_break <- function(s) {
+  
   paste0(s, collapse = "<br>")
 }
 
@@ -1011,15 +1010,50 @@ ballot_type <- function(canton = cantons,
                    has_referendum ~ "election")
 }
 
+#' Get number of referendum proposals
+#'
+#' Determines the number of referendum proposals for a canton at a specific ballot date.
+#'
+#' @inheritParams n_elections
+#'
+#' @inherit n_elections return
+#' @family fundamental
+#' @export
+#'
+#' @examples
+#' fokus::n_proposals(canton = "aargau",
+#'                    ballot_date = "2018-09-23")
+n_proposals <- function(canton = cantons,
+                        ballot_date = ballot_dates,
+                        lvl = c("cantonal", "federal")) {
+  
+  canton <- rlang::arg_match(canton)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
+  lvl <- checkmate::assert_subset(lvl,
+                                  choices = c("cantonal", "federal"),
+                                  empty.ok = FALSE)
+  
+  data_subset <-
+    ballot_metadata %>%
+    dplyr::filter(canton == !!canton,
+                  ballot_date == !!ballot_date)
+  
+  glue::glue("n_{lvl}_proposals") %>%
+    purrr::map_int(~ data_subset[[.x]]) %>%
+    sum()
+}
+
 #' Get number of elections
 #'
 #' Determines the number of elections for a canton at a specific ballot date.
 #'
 #' @inheritParams ballot_type
-#' @param lvl The political level. One or more of
+#' @param lvl The political level(s). One or more of
 #'   - `"cantonal"`
 #'   - `"federal"`
-#' @param prcd The election procedure. One or more of
+#' @param prcd The election procedure(s). One or more of
 #'   - `"proportional"`
 #'   - `"majoritarian"`
 #'
@@ -1060,42 +1094,63 @@ n_elections <- function(canton = cantons,
     sum()
 }
 
-#' Get number of referendum proposals
+#' Get number of (officially registered) majoritarian election candidates
 #'
-#' Determines the number of referendum proposals for a canton at a specific ballot date.
+#' @param election_nr The election number. An integer scalar (in almost all cases `1L`).
+#' @inheritParams ballot_type
+#' @inheritParams skill_question_answer_nr
+#'
+#' @return An integer scalar.
+#' @family higher
+#' @export
+#'
+#' @examples
+#' fokus::n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
+#'                              lvl = "cantonal",
+#'                              canton = "aargau")
+n_election_candidates <- function(q_supplemental,
+                                  lvl = c("cantonal", "federal"),
+                                  election_nr = 1L,
+                                  canton = cantons) {
+  
+  checkmate::assert_list(q_supplemental,
+                         types = c("list", "Date"),
+                         any.missing = FALSE,
+                         min.len = 3L)
+  lvl <- rlang::arg_match(lvl)
+  canton <- rlang::arg_match(canton)
+  checkmate::assert_count(election_nr,
+                          positive = TRUE)
+  
+  length(q_supplemental[[lvl]][[canton]][["election"]][["majoritarian"]][[election_nr]][["candidate"]])
+}
+
+#' Determine if ballot type includes a referendum
+#'
+#' Determines if ballot type in a canton at a specific ballot date includes a referendum.
 #'
 #' @inheritParams n_elections
 #'
-#' @inherit n_elections return
+#' @inherit has_election return
 #' @family fundamental
 #' @export
 #'
 #' @examples
-#' fokus::n_proposals(canton = "aargau",
-#'                    ballot_date = "2018-09-23")
-n_proposals <- function(canton = cantons,
-                        ballot_date = ballot_dates,
-                        lvl = c("cantonal", "federal")) {
+#' fokus::has_referendum(canton = "aargau",
+#'                       ballot_date = "2018-09-23",
+#'                       lvl = "federal")
+has_referendum <- function(canton = cantons,
+                           ballot_date = ballot_dates,
+                           lvl = c("cantonal", "federal")) {
   
-  canton <- rlang::arg_match(canton)
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  lvl <- checkmate::assert_subset(lvl,
-                                  choices = c("cantonal", "federal"),
-                                  empty.ok = FALSE)
-  
-  data_subset <-
-    ballot_metadata %>%
-    dplyr::filter(canton == !!canton,
-                  ballot_date == !!ballot_date)
-  
-  glue::glue("n_{lvl}_proposals") %>%
-    purrr::map_int(~ data_subset[[.x]]) %>%
-    sum()
+  n_proposals(canton = canton,
+              ballot_date = ballot_date,
+              lvl = lvl) > 0L
 }
 
 #' Determine if ballot type includes an election
+#'
+#' Determines if ballot type for a canton at a specific ballot date includes an election.
 #'
 #' @inheritParams n_elections
 #'
@@ -1117,25 +1172,29 @@ has_election <- function(canton = cantons,
               prcd = prcd) > 0L
 }
 
-#' Determine if ballot type includes a referendum
+#' Determine if ballot includes a political level
+#'
+#' Determines if ballot in a canton at a specific ballot date includes a political level.
 #'
 #' @inheritParams n_elections
 #'
-#' @return A logical scalar.
-#' @family fundamental
+#' @inherit has_election return
 #' @export
 #'
 #' @examples
-#' fokus::has_referendum(canton = "aargau",
-#'                       ballot_date = "2018-09-23",
-#'                       lvl = "federal")
-has_referendum <- function(canton = cantons,
-                           ballot_date = ballot_dates,
-                           lvl = c("cantonal", "federal")) {
+#' fokus::has_lvl(canton = "aargau",
+#'                ballot_date = "2018-09-23",
+#'                lvl = "federal")
+has_lvl <- function(canton = cantons,
+                    ballot_date = ballot_dates,
+                    lvl = c("cantonal", "federal")) {
   
-  n_proposals(canton = canton,
-              ballot_date = ballot_date,
-              lvl = lvl) > 0L
+  has_election(canton = canton,
+               ballot_date = ballot_date,
+               lvl = lvl) ||
+    has_referendum(canton = canton,
+                   ballot_date = ballot_date,
+                   lvl = lvl)
 }
 
 #' Get correct skill question answer number
@@ -1144,23 +1203,23 @@ has_referendum <- function(canton = cantons,
 #' - `canton` is ignored if `lvl = "federal"`.
 #' - it is considered to be a non-proposal-specific skill question if `proposal_nr = NULL` (usually the case at elections).
 #'
+#' @inheritParams n_elections
 #' @param q_supplemental Supplemental date-specific questionnaire data. A list. See [`qx_supplemental`][qx_supplemental].
 #' @param skill_question_nr The skill question number. An integer scalar.
 #' @param lvl The political level. One of
 #'   - `"cantonal"`
 #'   - `"federal"`
 #' @param proposal_nr The proposal number. An integer scalar.
-#' @inheritParams ballot_type
 #'
 #' @return An integer scalar.
 #' @export
 #'
 #' @examples
-#' skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
-#'                          skill_question_nr = 2,
-#'                          lvl = "cantonal",
-#'                          canton = "aargau",
-#'                          proposal_nr = 1)
+#' fokus::skill_question_answer_nr(q_supplemental = qx_supplemental[["2018-09-23"]],
+#'                                 skill_question_nr = 2,
+#'                                 lvl = "cantonal",
+#'                                 canton = "aargau",
+#'                                 proposal_nr = 1)
 skill_question_answer_nr <- function(q_supplemental,
                                      skill_question_nr,
                                      lvl = c("cantonal", "federal"),
@@ -1201,37 +1260,6 @@ skill_question_answer_nr <- function(q_supplemental,
     which()
 }
 
-#' Get number of (officially registered) majoritarian election candidates
-#'
-#' @param election_nr The election number. An integer scalar (in almost all cases `1L`).
-#' @inheritParams ballot_type
-#' @inheritParams skill_question_answer_nr
-#'
-#' @return An integer scalar.
-#' @family higher
-#' @export
-#'
-#' @examples
-#' n_election_candidates(q_supplemental = qx_supplemental[["2019-10-20"]],
-#'                       lvl = "cantonal",
-#'                       canton = "aargau")
-n_election_candidates <- function(q_supplemental,
-                                  lvl = c("cantonal", "federal"),
-                                  election_nr = 1L,
-                                  canton = cantons) {
-  
-  checkmate::assert_list(q_supplemental,
-                         types = c("list", "Date"),
-                         any.missing = FALSE,
-                         min.len = 3L)
-  lvl <- rlang::arg_match(lvl)
-  canton <- rlang::arg_match(canton)
-  checkmate::assert_count(election_nr,
-                          positive = TRUE)
-  
-  length(q_supplemental[[lvl]][[canton]][["election"]][["majoritarian"]][[election_nr]][["candidate"]])
-}
-
 #' Raw FOKUS questionnaire data
 #'
 #' A structured list of the raw questionnaire data of the FOKUS surveys.
@@ -1248,6 +1276,9 @@ n_election_candidates <- function(q_supplemental,
 #' @format `r pkgsnip::return_label("strict_list")`
 #' @seealso [`q`][q] [gen_q()] [q_tibble()] [q_md()] [pick_right()]
 #' @export
+#'
+#' @examples
+#' fokus::qx_supplemental[["2018-09-23"]]$mode
 "qx_supplemental"
 
 #' Generate questionnaire
@@ -1734,38 +1765,6 @@ restore_colnames <- function(x) {
                                                        reverse = TRUE))
 }
 
-#' Convert logical vector to Unicode symbols `r unicode_checkmark` and `r unicode_crossmark`
-#'
-#' @param x A logical vector.
-#'
-#' @return A character vector.
-#' @export
-#'
-#' @examples
-#' c(TRUE, TRUE, FALSE, NA) %>% lgl_to_unicode()
-lgl_to_unicode <- function(x) {
-  
-  dplyr::if_else(checkmate::assert_logical(x),
-                 unicode_checkmark,
-                 unicode_crossmark)
-}
-
-#' Emphasize xth element of character vector (Markdown)
-#'
-#' @param x The input as a character vector.
-#' @param which The indices of the elements to be emphasized.
-#' @param emph The character sequence used for emphasis.
-#'
-#' @return A character vector of the same length as `x`.
-#' @export
-emphasize <- function(x,
-                      which = TRUE,
-                      emph = "**") {
-  
-  x[which] %<>% paste0(emph, ., emph)
-  x
-}
-
 #' Abbreviations used in the **fokus** package
 #'
 #' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
@@ -1793,6 +1792,51 @@ abbreviations <- function(expand = FALSE) {
                 ~.)
 }
 
+#' Print expected structure of the private FOKUS directory
+#'
+#' Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown [fenced code
+#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
+#'
+#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
+#'
+#' @return A character scalar.
+#' @export
+print_fokus_private_structure <- function() {
+  cat(fokus_private_structure)
+}
+
+#' Emphasize xth element of character vector (Markdown)
+#'
+#' @param x The input as a character vector.
+#' @param which The indices of the elements to be emphasized.
+#' @param emph The character sequence used for emphasis.
+#'
+#' @return A character vector of the same length as `x`.
+#' @export
+md_emphasize <- function(x,
+                         which = TRUE,
+                         emph = "**") {
+  
+  x[which] %<>% paste0(emph, ., emph)
+  x
+}
+
+#' Convert logical vector to Unicode symbols `r unicode_checkmark` and `r unicode_crossmark`
+#'
+#' @param x A logical vector.
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' fokus::lgl_to_unicode(c(TRUE, TRUE, FALSE, NA))
+lgl_to_unicode <- function(x) {
+  
+  dplyr::if_else(checkmate::assert_logical(x),
+                 unicode_checkmark,
+                 unicode_crossmark)
+}
+
 #' Prettify date
 #'
 #' Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA...
@@ -1804,7 +1848,7 @@ abbreviations <- function(expand = FALSE) {
 #' @export
 #'
 #' @examples
-#' lubridate::today() %>% prettify_date()
+#' fokus::prettify_date(lubridate::today())
 prettify_date <- function(date,
                           locale = "en-US") {
   
@@ -1817,19 +1861,6 @@ prettify_date <- function(date,
                                    . %in% c("de", "de-CH") ~ "%d. %B %Y",
                                    ~ cli::cli_abort("Specified {.arg locale} not implemented yet.")) %>%
                        format(x = lubridate::as_date(date)))
-}
-
-#' Print expected structure of the private FOKUS directory
-#'
-#' Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown [fenced code
-#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
-#'
-#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
-#'
-#' @return A character scalar.
-#' @export
-print_fokus_private_structure <- function() {
-  cat(fokus_private_structure)
 }
 
 #' Read in and parse a TOML file as a strict list
