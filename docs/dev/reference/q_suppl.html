@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine whether ballot type includes an election — has_election • fokus</title>
+<title>Get raw supplemental date-specific FOKUS questionnaire data — q_suppl • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Determine whether ballot type includes an election — has_election" />
-<meta name="description" content="Determines whether or not the ballot for the specified canton at the specified date on the specified political level(s) includes an election of the specified election procedure(s).">
-<meta property="og:description" content="Determines whether or not the ballot for the specified canton at the specified date on the specified political level(s) includes an election of the specified election procedure(s)." />
+<meta property="og:title" content="Get raw supplemental date-specific FOKUS questionnaire data — q_suppl" />
+<meta name="description" content="Returns a structured list of the raw supplemental date-specific FOKUS questionnaire data for the specified ballot date.">
+<meta property="og:description" content="Returns a structured list of the raw supplemental date-specific FOKUS questionnaire data for the specified ballot date." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -113,22 +113,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine whether ballot type includes an election</h1>
+    <h1>Get raw supplemental date-specific FOKUS questionnaire data</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>has_election.Rd</code></div>
+    <div class="hidden name"><code>q_suppl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determines whether or not the ballot for the specified canton at the specified date on the specified political level(s) includes an election of the specified
-election procedure(s).</p>
+    <p>Returns a structured list of the <a href='qx_suppl.html'>raw supplemental date-specific FOKUS questionnaire data</a> for the specified ballot date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_election</span><span class='op'>(</span>
-  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
-  canton <span class='op'>=</span> <span class='va'>cantons</span>,
-  prcd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"proportional"</span>, <span class='st'>"majoritarian"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>q_suppl</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,47 +137,56 @@ election procedure(s).</p>
 <li><p><code>"2020-10-18"</code></p></li>
 </ul></td>
     </tr>
-    <tr>
-      <th>lvl</th>
-      <td><p>The political level(s). One or more of</p><ul>
-<li><p><code>"cantonal"</code></p></li>
-<li><p><code>"federal"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>prcd</th>
-      <td><p>The election procedure(s). One or more of</p><ul>
-<li><p><code>"proportional"</code></p></li>
-<li><p><code>"majoritarian"</code></p></li>
-</ul></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical scalar.</p>
+    <p>A <a href='https://rdrr.io/pkg/xfun/man/strict_list.html'>strict list</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other predicate functions
-<code><a href='ballot_type.html'>ballot_type</a>()</code>,
-<code><a href='has_lvl.html'>has_lvl</a>()</code>,
-<code><a href='has_referendum.html'>has_referendum</a>()</code>,
-<code><a href='n_election_candidates.html'>n_election_candidates</a>()</code>,
-<code><a href='n_elections.html'>n_elections</a>()</code>,
-<code><a href='n_proposals.html'>n_proposals</a>()</code>,
-<code><a href='n_skill_questions.html'>n_skill_questions</a>()</code>,
-<code><a href='skill_question_answer_nr.html'>skill_question_answer_nr</a>()</code></p></div>
+    <div class='dont-index'><p>Raw questionnaire data <code><a href='q.html'>q</a></code> <code><a href='qx_suppl.html'>qx_suppl</a></code></p>
+<p>Other raw questionnaire data functions
+<code><a href='q_suppl_election.html'>q_suppl_election</a>()</code>,
+<code><a href='q_suppl_lvl_canton.html'>q_suppl_lvl_canton</a>()</code>,
+<code><a href='q_suppl_lvl.html'>q_suppl_lvl</a>()</code>,
+<code><a href='q_suppl_proposal.html'>q_suppl_proposal</a>()</code>,
+<code><a href='q_suppl_skill_questions.html'>q_suppl_skill_questions</a>()</code>,
+<code><a href='q_suppl_skill_question.html'>q_suppl_skill_question</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-                    ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>q_suppl</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span><span class='op'>)</span> <span class='op'>%$%</span> <span class='va'>mode</span>
+</div><div class='output co'>#&gt; $aargau
+#&gt; $aargau$invitation
+#&gt; [1] "online" "print" 
+#&gt; 
+#&gt; $aargau$n
+#&gt; [1] 8000
+#&gt; 
+#&gt; $aargau$postal_dispatch
+#&gt; $aargau$postal_dispatch$date
+#&gt; $aargau$postal_dispatch$date$invitation
+#&gt; [1] "2018-09-18"
+#&gt; 
+#&gt; $aargau$postal_dispatch$date$reminder
+#&gt; [1] "2018-10-02"
+#&gt; 
+#&gt; 
+#&gt; $aargau$postal_dispatch$type
+#&gt; $aargau$postal_dispatch$type$invitation
+#&gt; [1] "B"
+#&gt; 
+#&gt; $aargau$postal_dispatch$type$prepaid_reply_envelope
+#&gt; [1] "A"
+#&gt; 
+#&gt; $aargau$postal_dispatch$type$reminder
+#&gt; [1] "B"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $aargau$reminder
+#&gt; [1] "online" "print" 
+#&gt; 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -37,6 +37,8 @@ pkgsnip::md_snip(name = "pkgdown_notice") %>%
 
 ### Abbreviations
 
+The abbreviations used to name things (function and parameter names etc.) in this package.
+
 <details><summary><strong>Table of abbreviations</strong></summary>
 
 ```{r, echo = FALSE}

@@ -200,34 +200,49 @@
         <td>
           <p><code><a href="has_referendum.html">has_referendum()</a></code> </p>
         </td>
-        <td><p>Determine if ballot type includes a referendum</p></td>
+        <td><p>Determine whether ballot type includes a referendum</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="has_election.html">has_election()</a></code> </p>
         </td>
-        <td><p>Determine if ballot type includes an election</p></td>
+        <td><p>Determine whether ballot type includes an election</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="has_lvl.html">has_lvl()</a></code> </p>
         </td>
-        <td><p>Determine if ballot includes a political level</p></td>
+        <td><p>Determine whether ballot includes a political level</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="skill_question_answer_nr.html">skill_question_answer_nr()</a></code> </p>
         </td>
         <td><p>Get correct skill question answer number</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_candidates.html">election_candidates()</a></code> </p>
+        </td>
+        <td><p>Get election candidates</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-questionnaire" class="hasAnchor"><a href="#section-questionnaire" class="anchor"></a>Questionnaire</h2>
-          <p class="section-desc"><p>Functions to process the FOKUS questionnaires.</p></p>
+          <p class="section-desc"></p>
         </th>
       </tr>
       
+      
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-raw-questionnaire-data" class="hasAnchor"><a href="#section-raw-questionnaire-data" class="anchor"></a>Raw questionnaire data</h3>
+          <p class="section-desc"><p>Functions to access the raw questionnaire data as defined in the <a href="https://toml.io/" class="external-link">TOML</a> files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a>.</p></p>
+        </th>
+      </tr>
       
     </tbody><tbody>
       
@@ -241,10 +256,65 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="qx_supplemental.html">qx_supplemental</a></code> </p>
+          <p><code><a href="qx_suppl.html">qx_suppl</a></code> </p>
         </td>
         <td><p>Raw supplemental date-specific FOKUS questionnaire data</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl.html">q_suppl()</a></code> </p>
+        </td>
+        <td><p>Get raw supplemental date-specific FOKUS questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl_lvl.html">q_suppl_lvl()</a></code> </p>
+        </td>
+        <td><p>Get a political level's raw supplemental date-specific FOKUS questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl_lvl_canton.html">q_suppl_lvl_canton()</a></code> </p>
+        </td>
+        <td><p>Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl_proposal.html">q_suppl_proposal()</a></code> </p>
+        </td>
+        <td><p>Get raw proposal questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl_election.html">q_suppl_election()</a></code> </p>
+        </td>
+        <td><p>Get raw election questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl_skill_questions.html">q_suppl_skill_questions()</a></code> </p>
+        </td>
+        <td><p>Get raw skill question questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_suppl_skill_question.html">q_suppl_skill_question()</a></code> </p>
+        </td>
+        <td><p>Get raw questionnaire data of single skill question</p></td>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-questionnaire-generation" class="hasAnchor"><a href="#section-questionnaire-generation" class="anchor"></a>Questionnaire generation</h3>
+          <p class="section-desc"><p>Functions to process the raw FOKUS questionnaire data.</p></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="gen_q.html">gen_q()</a></code> </p>
@@ -286,7 +356,7 @@
         <td>
           <p><code><a href="is_skill_question.html">is_skill_question()</a></code> </p>
         </td>
-        <td><p>Determine if variables are skill questions</p></td>
+        <td><p>Determine whether variable is skill question</p></td>
       </tr><tr>
         
         <td>

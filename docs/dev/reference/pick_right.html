@@ -122,7 +122,7 @@
     <p>Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pick_right</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>canton</span>, <span class='va'>ballot_date</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>pick_right</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,12 +130,6 @@
     <tr>
       <th>l</th>
       <td><p>The questionnaire subitem. A list object.</p></td>
-    </tr>
-    <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
     </tr>
     <tr>
       <th>ballot_date</th>
@@ -147,6 +141,12 @@
 <li><p><code>"2020-10-18"</code></p></li>
 </ul></td>
     </tr>
+    <tr>
+      <th>canton</th>
+      <td><p>A valid FOKUS canton. One of</p><ul>
+<li><p><code>"aargau"</code></p></li>
+</ul></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -154,8 +154,8 @@
     <p>The value of <code>l</code> that corresponds to <code>canton</code> and <code>ballot_date</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='qx_supplemental.html'>qx_supplemental</a></code></p>
-<p>Other questionnaire-related functions
+    <div class='dont-index'><p><code><a href='qx_suppl.html'>qx_suppl</a></code></p>
+<p>Other questionnaire generation functions
 <code><a href='gen_q.html'>gen_q</a>()</code>,
 <code><a href='q_md.html'>q_md</a>()</code>,
 <code><a href='q_tibble.html'>q_tibble</a>()</code></p></div>

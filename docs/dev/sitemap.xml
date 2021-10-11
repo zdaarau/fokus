@@ -19,6 +19,9 @@
     <loc>https://rpkg.dev/fokus/reference/cantons.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/election_candidates.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/fokus-package.html</loc>
   </url>
   <url>
@@ -70,10 +73,31 @@
     <loc>https://rpkg.dev/fokus/reference/q_md.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl_election.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl_lvl.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl_lvl_canton.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl_proposal.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl_skill_question.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_suppl_skill_questions.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/q_tibble.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/qx_supplemental.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/qx_suppl.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/read_toml.html</loc>

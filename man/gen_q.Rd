@@ -4,14 +4,9 @@
 \alias{gen_q}
 \title{Generate questionnaire}
 \usage{
-gen_q(canton = cantons, ballot_date = ballot_dates, quiet = FALSE)
+gen_q(ballot_date = ballot_dates, canton = cantons, quiet = FALSE)
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -21,23 +16,28 @@ gen_q(canton = cantons, ballot_date = ballot_dates, quiet = FALSE)
 \item \code{"2020-10-18"}
 }}
 
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
+
 \item{quiet}{Whether or not to suppress printing status output from internal processing.
 
 Either as a character or a \link[base:Dates]{date} scalar.}
 }
 \value{
-NULL (invisibly).
+\code{NULL}, invisibly.
 }
 \description{
 This is the main questionnaire generation interface that's doing all the magic. This function is only called for its side effects, it doesn't return
 anything.
 }
 \seealso{
-\code{\link{qx_supplemental}}
+\code{\link{qx_suppl}}
 
-Other questionnaire-related functions
+Other questionnaire generation functions
 \code{\link{pick_right}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()}
 }
-\concept{questionnaire}
+\concept{q_gen}

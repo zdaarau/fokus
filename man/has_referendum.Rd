@@ -2,20 +2,15 @@
 % Please edit documentation in R/fokus.gen.R
 \name{has_referendum}
 \alias{has_referendum}
-\title{Determine if ballot type includes a referendum}
+\title{Determine whether ballot type includes a referendum}
 \usage{
 has_referendum(
-  canton = cantons,
   ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal")
+  lvl = c("cantonal", "federal"),
+  canton = cantons
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -30,17 +25,22 @@ has_referendum(
 \item \code{"cantonal"}
 \item \code{"federal"}
 }}
+
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A logical scalar.
 }
 \description{
-Determines if ballot type in a canton at a specific ballot date includes a referendum.
+Determines whether or not the ballot in the specified canton at the specified date on the specified political level(s) includes a referendum.
 }
 \examples{
-fokus::has_referendum(canton = "aargau",
-                      ballot_date = "2018-09-23",
-                      lvl = "federal")
+fokus::has_referendum(ballot_date = "2018-09-23",
+                      lvl = "federal",
+                      canton = "aargau")
 }
 \seealso{
 Other predicate functions

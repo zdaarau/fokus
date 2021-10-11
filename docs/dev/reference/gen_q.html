@@ -123,17 +123,11 @@
 anything.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gen_q</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='va'>cantons</span>, ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gen_q</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
-    </tr>
     <tr>
       <th>ballot_date</th>
       <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
@@ -145,6 +139,12 @@ anything.</p>
 </ul></td>
     </tr>
     <tr>
+      <th>canton</th>
+      <td><p>A valid FOKUS canton. One of</p><ul>
+<li><p><code>"aargau"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
       <th>quiet</th>
       <td><p>Whether or not to suppress printing status output from internal processing.</p>
 <p>Either as a character or a <a href='https://rdrr.io/r/base/Dates.html'>date</a> scalar.</p></td>
@@ -153,11 +153,11 @@ anything.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>NULL (invisibly).</p>
+    <p><code>NULL</code>, invisibly.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='qx_supplemental.html'>qx_supplemental</a></code></p>
-<p>Other questionnaire-related functions
+    <div class='dont-index'><p><code><a href='qx_suppl.html'>qx_suppl</a></code></p>
+<p>Other questionnaire generation functions
 <code><a href='pick_right.html'>pick_right</a>()</code>,
 <code><a href='q_md.html'>q_md</a>()</code>,
 <code><a href='q_tibble.html'>q_tibble</a>()</code></p></div>

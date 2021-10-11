@@ -5,17 +5,20 @@
 \title{Get number of skill questions}
 \usage{
 n_skill_questions(
-  canton = cantons,
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
+  canton = cantons,
   proposal_nr = NULL
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
+\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
-\item \code{"aargau"}
-Only relevant if \code{lvl = "cantonal"}.
+\item \code{"2018-09-23"}
+\item \code{"2018-11-25"}
+\item \code{"2019-10-20"}
+\item \code{"2020-09-27"}
+\item \code{"2020-10-18"}
 }}
 
 \item{lvl}{The political level. One of
@@ -24,19 +27,26 @@ Only relevant if \code{lvl = "cantonal"}.
 \item \code{"federal"}
 }}
 
-\item{proposal_nr}{The proposal number. An integer scalar or \code{NULL}. If \code{NULL}, the skill questions are considered to be non-proposal-specific (usually the
-case at elections).}
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}
+
+Only relevant if \code{lvl = "cantonal"}.}
+
+\item{proposal_nr}{The proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, the skill questions are considered to be non-proposal-specific
+(the case at elections).}
 }
 \value{
 An integer scalar.
 }
 \description{
-Determines the number of skill questions at a specific ballot date on a specific political level.
+Determines the number of skill questions at the specified ballot date on the specified political level.
 }
 \examples{
-fokus::n_skill_questions(canton = "aargau",
-                         ballot_date = "2018-09-23",
+fokus::n_skill_questions(ballot_date = "2018-09-23",
                          lvl = "cantonal",
+                         canton = "aargau",
                          proposal_nr = 1)
 }
 \seealso{

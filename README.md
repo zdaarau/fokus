@@ -130,6 +130,8 @@ The documentation of this package is found [here](https://rpkg.dev/fokus).
 
 ### Abbreviations
 
+The abbreviations used to name things (function and parameter names etc.) in this package.
+
 <details>
 <summary>
 <strong>Table of abbreviations</strong>
@@ -143,6 +145,7 @@ The documentation of this package is found [here](https://rpkg.dev/fokus).
 | questionnaire                    | q                |
 | questionnaires                   | qx               |
 | statistik aargau                 | sa               |
+| supplemental , supplementary     | suppl            |
 | abbreviate , abbreviation        | abbr             |
 | abbreviations                    | abbrs            |
 | absolute                         | abs              |

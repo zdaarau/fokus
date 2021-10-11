@@ -5,18 +5,13 @@
 \title{Get number of elections}
 \usage{
 n_elections(
-  canton = cantons,
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
+  canton = cantons,
   prcd = c("proportional", "majoritarian")
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -32,6 +27,11 @@ n_elections(
 \item \code{"federal"}
 }}
 
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
+
 \item{prcd}{The election procedure(s). One or more of
 \itemize{
 \item \code{"proportional"}
@@ -42,11 +42,11 @@ n_elections(
 An integer.
 }
 \description{
-Determines the number of elections for a canton at a specific ballot date.
+Determines the number of elections for a canton at the specified ballot date on the specified political level(s) and of the specified election procedure(s).
 }
 \examples{
-fokus::n_elections(canton = "aargau",
-                   ballot_date = "2018-09-23")
+fokus::n_elections(ballot_date = "2018-09-23",
+                   canton = "aargau")
 }
 \seealso{
 Other predicate functions

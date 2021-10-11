@@ -43,8 +43,8 @@
 
 
 <meta property="og:title" content="Get number of skill questions — n_skill_questions" />
-<meta name="description" content="Determines the number of skill questions at a specific ballot date on a specific political level.">
-<meta property="og:description" content="Determines the number of skill questions at a specific ballot date on a specific political level." />
+<meta name="description" content="Determines the number of skill questions at the specified ballot date on the specified political level.">
+<meta property="og:description" content="Determines the number of skill questions at the specified ballot date on the specified political level." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -119,13 +119,13 @@
     </div>
 
     <div class="ref-description">
-    <p>Determines the number of skill questions at a specific ballot date on a specific political level.</p>
+    <p>Determines the number of skill questions at the specified ballot date on the specified political level.</p>
     </div>
 
     <pre class="usage"><span class='fu'>n_skill_questions</span><span class='op'>(</span>
-  canton <span class='op'>=</span> <span class='va'>cantons</span>,
   ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
   lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
+  canton <span class='op'>=</span> <span class='va'>cantons</span>,
   proposal_nr <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -133,10 +133,13 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code>
-Only relevant if <code>lvl = "cantonal"</code>.</p></li>
+      <th>ballot_date</th>
+      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
+<li><p><code>"2018-09-23"</code></p></li>
+<li><p><code>"2018-11-25"</code></p></li>
+<li><p><code>"2019-10-20"</code></p></li>
+<li><p><code>"2020-09-27"</code></p></li>
+<li><p><code>"2020-10-18"</code></p></li>
 </ul></td>
     </tr>
     <tr>
@@ -147,9 +150,17 @@ Only relevant if <code>lvl = "cantonal"</code>.</p></li>
 </ul></td>
     </tr>
     <tr>
+      <th>canton</th>
+      <td><p>A valid FOKUS canton. One of</p><ul>
+<li><p><code>"aargau"</code></p></li>
+</ul>
+
+<p>Only relevant if <code>lvl = "cantonal"</code>.</p></td>
+    </tr>
+    <tr>
       <th>proposal_nr</th>
-      <td><p>The proposal number. An integer scalar or <code>NULL</code>. If <code>NULL</code>, the skill questions are considered to be non-proposal-specific (usually the
-case at elections).</p></td>
+      <td><p>The proposal number. A positive integer scalar or <code>NULL</code>. If <code>NULL</code>, the skill questions are considered to be non-proposal-specific
+(the case at elections).</p></td>
     </tr>
     </table>
 
@@ -169,9 +180,9 @@ case at elections).</p></td>
 <code><a href='skill_question_answer_nr.html'>skill_question_answer_nr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>n_skill_questions</span><span class='op'>(</span>canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-                         ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
+    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>n_skill_questions</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
                          lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,
+                         canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
                          proposal_nr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 5</div></pre>
   </div>

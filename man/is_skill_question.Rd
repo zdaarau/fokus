@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{is_skill_question}
 \alias{is_skill_question}
-\title{Determine if variables are skill questions}
+\title{Determine whether variable is skill question}
 \usage{
 is_skill_question(v_names)
 }
@@ -10,10 +10,10 @@ is_skill_question(v_names)
 \item{v_names}{A character vector of FOKUS variable names.}
 }
 \value{
-A logical scalar.
+A logical vector.
 }
 \description{
-Determine if variables are skill questions
+Determines whether or not a variable is a skill question. Vectorized.
 }
 \seealso{
 Other FOKUS-variable-related functions

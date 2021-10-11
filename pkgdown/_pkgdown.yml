@@ -35,11 +35,25 @@ reference:
   - has_election
   - has_lvl
   - skill_question_answer_nr
+  - election_candidates
 - title: Questionnaire
-  desc: Functions to process the FOKUS questionnaires.
+- subtitle: Raw questionnaire data
+  desc: |-
+    Functions to access the raw questionnaire data as defined in the [TOML](https://toml.io/) files found under
+    [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/).
 - contents:
   - q
-  - qx_supplemental
+  - qx_suppl
+  - q_suppl
+  - q_suppl_lvl
+  - q_suppl_lvl_canton
+  - q_suppl_proposal
+  - q_suppl_election
+  - q_suppl_skill_questions
+  - q_suppl_skill_question
+- subtitle: Questionnaire generation
+  desc: Functions to process the raw FOKUS questionnaire data.
+- contents:
   - gen_q
   - q_tibble
   - q_md

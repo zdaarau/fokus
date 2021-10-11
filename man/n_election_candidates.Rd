@@ -5,18 +5,13 @@
 \title{Get number of (officially registered) majoritarian election candidates}
 \usage{
 n_election_candidates(
-  canton = cantons,
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
+  canton = cantons,
   election_nr = 1L
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -32,23 +27,23 @@ n_election_candidates(
 \item \code{"federal"}
 }}
 
-\item{election_nr}{The election number. An integer scalar (in almost all cases \code{1L}).}
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
+
+\item{election_nr}{The election number. A positive integer scalar (in almost all cases \code{1L}).}
 }
 \value{
 An integer scalar.
 }
 \description{
-Determines the number of (officially registered) candidates of a majoritarian election at a specific ballot date on a specific political level.
-}
-\details{
-Note that this function just fails with a "out-of-index" error like the following one when the specified \code{election_nr} doesn't exist:\preformatted{Error in qx_supplemental[[ballot_date]][[lvl]][[canton]][["election"]][["majoritarian"]][[election_nr]] : 
-  subscript out of bounds
-}
+Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
 }
 \examples{
-fokus::n_election_candidates(canton = "aargau",
-                             ballot_date = "2019-10-20",
+fokus::n_election_candidates(ballot_date = "2019-10-20",
                              lvl = "cantonal",
+                             canton = "aargau",
                              election_nr = 1)
 }
 \seealso{

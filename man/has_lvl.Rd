@@ -2,20 +2,15 @@
 % Please edit documentation in R/fokus.gen.R
 \name{has_lvl}
 \alias{has_lvl}
-\title{Determine if ballot includes a political level}
+\title{Determine whether ballot includes a political level}
 \usage{
 has_lvl(
-  canton = cantons,
   ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal")
+  lvl = c("cantonal", "federal"),
+  canton = cantons
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -30,17 +25,22 @@ has_lvl(
 \item \code{"cantonal"}
 \item \code{"federal"}
 }}
+
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A logical scalar.
 }
 \description{
-Determines if ballot in a canton at a specific ballot date includes a political level.
+Determines whether or not the ballot in the specified canton at the specified date includes the specified political level.
 }
 \examples{
-fokus::has_lvl(canton = "aargau",
-               ballot_date = "2018-09-23",
-               lvl = "federal")
+fokus::has_lvl(ballot_date = "2018-09-23",
+               lvl = "federal",
+               canton = "aargau")
 }
 \seealso{
 Other predicate functions

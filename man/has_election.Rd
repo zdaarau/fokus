@@ -2,21 +2,16 @@
 % Please edit documentation in R/fokus.gen.R
 \name{has_election}
 \alias{has_election}
-\title{Determine if ballot type includes an election}
+\title{Determine whether ballot type includes an election}
 \usage{
 has_election(
-  canton = cantons,
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
+  canton = cantons,
   prcd = c("proportional", "majoritarian")
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -32,6 +27,11 @@ has_election(
 \item \code{"federal"}
 }}
 
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
+
 \item{prcd}{The election procedure(s). One or more of
 \itemize{
 \item \code{"proportional"}
@@ -42,7 +42,8 @@ has_election(
 A logical scalar.
 }
 \description{
-Determines if ballot type for a canton at a specific ballot date includes an election.
+Determines whether or not the ballot for the specified canton at the specified date on the specified political level(s) includes an election of the specified
+election procedure(s).
 }
 \examples{
 fokus::has_election(canton = "aargau",

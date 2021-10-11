@@ -4,15 +4,10 @@
 \alias{pick_right}
 \title{Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)}
 \usage{
-pick_right(l, canton, ballot_date)
+pick_right(l, ballot_date, canton)
 }
 \arguments{
 \item{l}{The questionnaire subitem. A list object.}
-
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
 
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
@@ -22,6 +17,11 @@ pick_right(l, canton, ballot_date)
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
 }}
+
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 The value of \code{l} that corresponds to \code{canton} and \code{ballot_date}.
@@ -30,11 +30,11 @@ The value of \code{l} that corresponds to \code{canton} and \code{ballot_date}.
 Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)
 }
 \seealso{
-\code{\link{qx_supplemental}}
+\code{\link{qx_suppl}}
 
-Other questionnaire-related functions
+Other questionnaire generation functions
 \code{\link{gen_q}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()}
 }
-\concept{questionnaire}
+\concept{q_gen}

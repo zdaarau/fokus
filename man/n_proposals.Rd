@@ -5,17 +5,12 @@
 \title{Get number of referendum proposals}
 \usage{
 n_proposals(
-  canton = cantons,
   ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal")
+  lvl = c("cantonal", "federal"),
+  canton = cantons
 )
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -30,20 +25,25 @@ n_proposals(
 \item \code{"cantonal"}
 \item \code{"federal"}
 }}
+
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 An integer.
 }
 \description{
-Determines the number of referendum proposals for a canton at a specific ballot date.
+Determines the number of referendum proposals for a canton at the specified ballot date on the specified political level(s).
 }
 \details{
-Technically, the number of \emph{federal} proposals is independent from the canton, but this function still expects \code{canton} to be provided. Nonetheless, the
-returned number of \emph{federal} proposals at a specific ballot date is always the same regardless of \code{canton}.
+Technically, the number of \emph{federal} proposals is independent from the canton, but this function still expects a valid \code{canton}. Nonetheless, the returned
+number of \emph{federal} proposals at a specific ballot date is always the same regardless of \code{canton}.
 }
 \examples{
-fokus::n_proposals(canton = "aargau",
-                   ballot_date = "2018-09-23")
+fokus::n_proposals(ballot_date = "2018-09-23",
+                   canton = "aargau")
 }
 \seealso{
 Other predicate functions

@@ -4,14 +4,9 @@
 \alias{q_md}
 \title{Generate Markdown questionnaire}
 \usage{
-q_md(canton = cantons, ballot_date = ballot_dates)
+q_md(ballot_date = ballot_dates, canton = cantons)
 }
 \arguments{
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
-
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
@@ -19,6 +14,11 @@ q_md(canton = cantons, ballot_date = ballot_dates)
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
+}}
+
+\item{canton}{A valid FOKUS canton. One of
+\itemize{
+\item \code{"aargau"}
 }}
 }
 \value{
@@ -28,11 +28,11 @@ A character vector.
 Generate Markdown questionnaire
 }
 \seealso{
-\code{\link{qx_supplemental}}
+\code{\link{qx_suppl}}
 
-Other questionnaire-related functions
+Other questionnaire generation functions
 \code{\link{gen_q}()},
 \code{\link{pick_right}()},
 \code{\link{q_tibble}()}
 }
-\concept{questionnaire}
+\concept{q_gen}

@@ -126,6 +126,8 @@ The following placeholders are used in the schema above:
 
 ### Abbreviations
 
+The abbreviations used to name things (function and parameter names etc.) in this package.
+
 <details>
 <summary>
 <strong>Table of abbreviations</strong>
@@ -139,6 +141,7 @@ The following placeholders are used in the schema above:
   questionnaire                      q
   questionnaires                     qx
   statistik aargau                   sa
+  supplemental , supplementary       suppl
   abbreviate , abbreviation          abbr
   abbreviations                      abbrs
   absolute                           abs

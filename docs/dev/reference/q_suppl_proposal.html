@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Raw supplemental date-specific FOKUS questionnaire data — qx_supplemental • fokus</title>
+<title>Get raw proposal questionnaire data — q_suppl_proposal • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Raw supplemental date-specific FOKUS questionnaire data — qx_supplemental" />
-<meta name="description" content="A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.">
-<meta property="og:description" content="A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys." />
+<meta property="og:title" content="Get raw proposal questionnaire data — q_suppl_proposal" />
+<meta name="description" content="Returns a structured list of raw proposal data from the supplemental date-specific FOKUS questionnaire data.">
+<meta property="og:description" content="Returns a structured list of raw proposal data from the supplemental date-specific FOKUS questionnaire data." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -113,58 +113,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Raw supplemental date-specific FOKUS questionnaire data</h1>
+    <h1>Get raw proposal questionnaire data</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>qx_supplemental.Rd</code></div>
+    <div class="hidden name"><code>q_suppl_proposal.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.</p>
+    <p>Returns a structured list of raw proposal data from the <a href='q_suppl.html'>supplemental date-specific FOKUS questionnaire data</a>.</p>
     </div>
 
-    <pre class="usage"><span class='va'>qx_supplemental</span></pre>
+    <pre class="usage"><span class='fu'>q_suppl_proposal</span><span class='op'>(</span>
+  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
+  lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
+  canton <span class='op'>=</span> <span class='va'>cantons</span>,
+  <span class='va'>proposal_nr</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ballot_date</th>
+      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
+<li><p><code>"2018-09-23"</code></p></li>
+<li><p><code>"2018-11-25"</code></p></li>
+<li><p><code>"2019-10-20"</code></p></li>
+<li><p><code>"2020-09-27"</code></p></li>
+<li><p><code>"2020-10-18"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>lvl</th>
+      <td><p>The political level. One of</p><ul>
+<li><p><code>"cantonal"</code></p></li>
+<li><p><code>"federal"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>canton</th>
+      <td><p>A valid FOKUS canton. One of</p><ul>
+<li><p><code>"aargau"</code></p></li>
+</ul>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+<p>Only relevant if <code>lvl = "cantonal"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>proposal_nr</th>
+      <td><p>The proposal number. A positive integer scalar or <code>NULL</code>. If <code>NULL</code>, it is considered to be a non-proposal-specific skill question
+(the case at elections).</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='https://rdrr.io/pkg/xfun/man/strict_list.html'>strict list</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='q.html'>q</a></code> <code><a href='gen_q.html'>gen_q()</a></code> <code><a href='q_tibble.html'>q_tibble()</a></code> <code><a href='q_md.html'>q_md()</a></code> <code><a href='pick_right.html'>pick_right()</a></code></p></div>
+    <div class='dont-index'><p>Raw questionnaire data <code><a href='q.html'>q</a></code> <code><a href='qx_suppl.html'>qx_suppl</a></code></p>
+<p>Other raw questionnaire data functions
+<code><a href='q_suppl_election.html'>q_suppl_election</a>()</code>,
+<code><a href='q_suppl_lvl_canton.html'>q_suppl_lvl_canton</a>()</code>,
+<code><a href='q_suppl_lvl.html'>q_suppl_lvl</a>()</code>,
+<code><a href='q_suppl_skill_questions.html'>q_suppl_skill_questions</a>()</code>,
+<code><a href='q_suppl_skill_question.html'>q_suppl_skill_question</a>()</code>,
+<code><a href='q_suppl.html'>q_suppl</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>qx_supplemental</span><span class='op'>[[</span><span class='st'>"2018-09-23"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>mode</span>
-</div><div class='output co'>#&gt; $aargau
-#&gt; $aargau$invitation
-#&gt; [1] "online" "print" 
-#&gt; 
-#&gt; $aargau$n
-#&gt; [1] 8000
-#&gt; 
-#&gt; $aargau$postal_dispatch
-#&gt; $aargau$postal_dispatch$date
-#&gt; $aargau$postal_dispatch$date$invitation
-#&gt; [1] "2018-09-18"
-#&gt; 
-#&gt; $aargau$postal_dispatch$date$reminder
-#&gt; [1] "2018-10-02"
-#&gt; 
-#&gt; 
-#&gt; $aargau$postal_dispatch$type
-#&gt; $aargau$postal_dispatch$type$invitation
-#&gt; [1] "B"
-#&gt; 
-#&gt; $aargau$postal_dispatch$type$prepaid_reply_envelope
-#&gt; [1] "A"
-#&gt; 
-#&gt; $aargau$postal_dispatch$type$reminder
-#&gt; [1] "B"
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; $aargau$reminder
-#&gt; [1] "online" "print" 
-#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>q_suppl_proposal</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
+                        lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,
+                        canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
+                        proposal_nr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%$%</span>
+  <span class='va'>gender</span>
+</div><div class='output co'>#&gt; $de
+#&gt; [1] "feminine"
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

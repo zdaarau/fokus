@@ -14,6 +14,8 @@ q
 A structured list of the raw questionnaire data of the FOKUS surveys.
 }
 \seealso{
-\code{\link{qx_supplemental}} \code{\link[=gen_q]{gen_q()}} \code{\link[=q_tibble]{q_tibble()}} \code{\link[=q_md]{q_md()}} \code{\link[=pick_right]{pick_right()}}
+\code{\link{qx_suppl}} \code{\link{q_suppl}} \code{\link{q_suppl_lvl}} \code{\link{q_suppl_lvl_canton}}
+\code{\link{q_suppl_proposal}} \code{\link{q_suppl_election}} \code{\link{q_suppl_skill_questions}}
+\code{\link{q_suppl_skill_question}}
 }
 \keyword{datasets}
