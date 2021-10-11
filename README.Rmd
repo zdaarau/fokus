@@ -8,7 +8,7 @@ output: pal::gitlab_document
 
 ## Details
 
-### R Options
+### R options
 
 The following package-specific R options are used to control the package's functionality:
 

@@ -4,7 +4,7 @@ fokus allows to (pre-)process and clean the raw data, analyze and visualize the 
 
 ## Details
 
-### R Options
+### R options
 
 The following package-specific R options are used to control the package's functionality:
 
