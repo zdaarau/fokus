@@ -1309,7 +1309,7 @@ usethis::use_data(ballot_dates,
 ### DESCRIPTION
 
 Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under
-[`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as a "source of truth" for
+[`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as the "source of truth" for
 the [predicate functions](#section-predicates).
 
 ### `ballot_dates`
