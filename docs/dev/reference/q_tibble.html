@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9009</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9010</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@
     <p>Generate questionnaire tibble</p>
     </div>
 
-    <pre class="usage"><span class='fu'>q_tibble</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>q_tibble</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +143,10 @@
 <li><p><code>"aargau"</code></p></li>
 </ul></td>
     </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Whether or not to print progress information during questionnaire generation.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -150,10 +154,8 @@
     <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='qx_suppl.html'>qx_suppl</a></code></p>
-<p>Other questionnaire generation functions
+    <div class='dont-index'><p>Other questionnaire generation functions
 <code><a href='gen_q.html'>gen_q</a>()</code>,
-<code><a href='pick_right.html'>pick_right</a>()</code>,
 <code><a href='q_md.html'>q_md</a>()</code></p></div>
 
   </div>

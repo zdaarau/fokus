@@ -28,11 +28,8 @@ A character vector.
 Generate Markdown questionnaire
 }
 \seealso{
-\code{\link{qx_suppl}}
-
 Other questionnaire generation functions
 \code{\link{gen_q}()},
-\code{\link{pick_right}()},
 \code{\link{q_tibble}()}
 }
 \concept{q_gen}

@@ -20,7 +20,7 @@ has_lvl(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level(s). One or more of
+\item{lvl}{Political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -43,14 +43,12 @@ fokus::has_lvl(ballot_date = "2018-09-23",
                canton = "aargau")
 }
 \seealso{
-Other predicate functions
+Other fundamental predicate functions
+\code{\link{ballot_types}()},
 \code{\link{ballot_type}()},
 \code{\link{has_election}()},
 \code{\link{has_referendum}()},
-\code{\link{n_election_candidates}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()},
-\code{\link{n_skill_questions}()},
-\code{\link{skill_question_answer_nr}()}
+\code{\link{n_proposals}()}
 }
-\concept{predicate}
+\concept{predicate_fundamental}

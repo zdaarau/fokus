@@ -22,7 +22,7 @@ skill_question_answer_nr(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level. One of
+\item{lvl}{Political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -31,14 +31,12 @@ skill_question_answer_nr(
 \item{canton}{A valid FOKUS canton. One of
 \itemize{
 \item \code{"aargau"}
-}
+}}
 
-Only relevant if \code{lvl = "cantonal"}.}
-
-\item{proposal_nr}{The proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
+\item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}
 
-\item{skill_question_nr}{The skill question number. A positive integer scalar.}
+\item{skill_question_nr}{Skill question number. A positive integer scalar.}
 }
 \value{
 An integer scalar.
@@ -54,14 +52,9 @@ fokus::skill_question_answer_nr(ballot_date = "2018-09-23",
                                 skill_question_nr = 2)
 }
 \seealso{
-Other predicate functions
-\code{\link{ballot_type}()},
-\code{\link{has_election}()},
-\code{\link{has_lvl}()},
-\code{\link{has_referendum}()},
-\code{\link{n_election_candidates}()},
-\code{\link{n_elections}()},
-\code{\link{n_proposals}()},
-\code{\link{n_skill_questions}()}
+Other skill question predicate functions
+\code{\link{n_skill_questions}()},
+\code{\link{skill_question_response_options}()},
+\code{\link{skill_question}()}
 }
-\concept{predicate}
+\concept{predicate_skill_question}

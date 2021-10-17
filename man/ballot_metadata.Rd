@@ -14,6 +14,7 @@ ballot_metadata
 A tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until 2020-10-18.
 }
 \seealso{
-\code{\link{ballot_dates}} \code{\link{cantons}}
+\code{\link{ballot_dates}} \code{\link{cantons}} \code{\link{response_option_types}} \code{\link{q_item_keys}}
+\code{\link{proposal_types}}
 }
 \keyword{datasets}

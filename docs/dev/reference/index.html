@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9009</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9010</span>
       </span>
     </div>
 
@@ -143,15 +143,33 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="cantons.html">cantons</a></code> </p>
+        </td>
+        <td><p>List cantons that are covered in <em>any</em> FOKUS survey</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="ballot_metadata.html">ballot_metadata</a></code> </p>
         </td>
         <td><p>FOKUS ballot-date-canton metadata</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="cantons.html">cantons</a></code> </p>
+          <p><code><a href="proposal_types.html">proposal_types</a></code> </p>
         </td>
-        <td><p>List cantons that are covered in <em>any</em> FOKUS survey</p></td>
+        <td><p>Referendum proposal types</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="response_option_types.html">response_option_types</a></code> </p>
+        </td>
+        <td><p>List available response option types</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="q_item_keys.html">q_item_keys</a></code> </p>
+        </td>
+        <td><p>List supported questionnaire item keys</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -164,8 +182,23 @@
       
     </tbody><tbody>
       
+      <tr>
+        <th colspan="2">
+          <h3 id="section-fundamental-predicates" class="hasAnchor"><a href="#section-fundamental-predicates" class="anchor"></a>Fundamental predicates</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
       
       <tr>
+        
+        <td>
+          <p><code><a href="ballot_types.html">ballot_types()</a></code> </p>
+        </td>
+        <td><p>Determine ballot types</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="ballot_type.html">ballot_type()</a></code> </p>
@@ -186,18 +219,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="n_election_candidates.html">n_election_candidates()</a></code> </p>
-        </td>
-        <td><p>Get number of (officially registered) majoritarian election candidates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="n_skill_questions.html">n_skill_questions()</a></code> </p>
-        </td>
-        <td><p>Get number of skill questions</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="has_referendum.html">has_referendum()</a></code> </p>
         </td>
         <td><p>Determine whether ballot type includes a referendum</p></td>
@@ -213,103 +234,193 @@
           <p><code><a href="has_lvl.html">has_lvl()</a></code> </p>
         </td>
         <td><p>Determine whether ballot includes a political level</p></td>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-proposal-predicates" class="hasAnchor"><a href="#section-proposal-predicates" class="anchor"></a>Proposal predicates</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="proposal_type.html">proposal_type()</a></code> </p>
+        </td>
+        <td><p>Get proposal type</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proposal_name.html">proposal_name()</a></code> </p>
+        </td>
+        <td><p>Get proposal name</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proposal_name_gender.html">proposal_name_gender()</a></code> </p>
+        </td>
+        <td><p>Get German proposal name's grammatical gender</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proposal_arguments.html">proposal_arguments()</a></code> </p>
+        </td>
+        <td><p>Get proposal's arguments</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proposal_main_motives.html">proposal_main_motives()</a></code> </p>
+        </td>
+        <td><p>Get proposal's main motives</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="n_proposal_main_motives.html">n_proposal_main_motives()</a></code> </p>
+        </td>
+        <td><p>Get proposal's number of main motives</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="n_proposal_arguments.html">n_proposal_arguments()</a></code> </p>
+        </td>
+        <td><p>Get proposal's number of arguments</p></td>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-election-predicates" class="hasAnchor"><a href="#section-election-predicates" class="anchor"></a>Election predicates</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="n_election_candidates.html">n_election_candidates()</a></code> </p>
+        </td>
+        <td><p>Get number of (officially registered) majoritarian election candidates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="n_election_seats.html">n_election_seats()</a></code> </p>
+        </td>
+        <td><p>Get number of majoritarian election seats</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_name.html">election_name()</a></code> </p>
+        </td>
+        <td><p>Get election name</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_names_combined.html">election_names_combined()</a></code> </p>
+        </td>
+        <td><p>Get combined elections name</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_candidates.html">election_candidates()</a></code> </p>
+        </td>
+        <td><p>Get majoritarian election's candidates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_candidate_string.html">election_candidate_string()</a></code> </p>
+        </td>
+        <td><p>Assemble majoritarian election's candidate string(s)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_parties.html">election_parties()</a></code> </p>
+        </td>
+        <td><p>Get proportional election's political parties</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="election_tickets.html">election_tickets()</a></code> </p>
+        </td>
+        <td><p>Get proportional election's tickets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="requires_candidate_registration.html">requires_candidate_registration()</a></code> </p>
+        </td>
+        <td><p>Determine whether majoritarian election requires candidate registration</p></td>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-skill-question-predicates" class="hasAnchor"><a href="#section-skill-question-predicates" class="anchor"></a>Skill question predicates</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="n_skill_questions.html">n_skill_questions()</a></code> </p>
+        </td>
+        <td><p>Get number of skill questions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="skill_question.html">skill_question()</a></code> </p>
+        </td>
+        <td><p>Get skill question</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="skill_question_response_options.html">skill_question_response_options()</a></code> </p>
+        </td>
+        <td><p>Get skill question response options</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="skill_question_answer_nr.html">skill_question_answer_nr()</a></code> </p>
         </td>
         <td><p>Get correct skill question answer number</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-other-predicates" class="hasAnchor"><a href="#section-other-predicates" class="anchor"></a>Other predicates</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
-          <p><code><a href="election_candidates.html">election_candidates()</a></code> </p>
+          <p><code><a href="political_issues.html">political_issues()</a></code> </p>
         </td>
-        <td><p>Get election candidates</p></td>
+        <td><p>Get political issues</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-questionnaire" class="hasAnchor"><a href="#section-questionnaire" class="anchor"></a>Questionnaire</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      <tr>
-        <th colspan="2">
-          <h3 id="section-raw-questionnaire-data" class="hasAnchor"><a href="#section-raw-questionnaire-data" class="anchor"></a>Raw questionnaire data</h3>
-          <p class="section-desc"><p>Functions to access the raw questionnaire data as defined in the <a href="https://toml.io/" class="external-link">TOML</a> files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a>.</p></p>
-        </th>
-      </tr>
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="q.html">q</a></code> </p>
-        </td>
-        <td><p>Raw FOKUS questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="qx_suppl.html">qx_suppl</a></code> </p>
-        </td>
-        <td><p>Raw supplemental date-specific FOKUS questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl.html">q_suppl()</a></code> </p>
-        </td>
-        <td><p>Get raw supplemental date-specific FOKUS questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl_lvl.html">q_suppl_lvl()</a></code> </p>
-        </td>
-        <td><p>Get a political level's raw supplemental date-specific FOKUS questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl_lvl_canton.html">q_suppl_lvl_canton()</a></code> </p>
-        </td>
-        <td><p>Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl_proposal.html">q_suppl_proposal()</a></code> </p>
-        </td>
-        <td><p>Get raw proposal questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl_election.html">q_suppl_election()</a></code> </p>
-        </td>
-        <td><p>Get raw election questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl_skill_questions.html">q_suppl_skill_questions()</a></code> </p>
-        </td>
-        <td><p>Get raw skill question questionnaire data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="q_suppl_skill_question.html">q_suppl_skill_question()</a></code> </p>
-        </td>
-        <td><p>Get raw questionnaire data of single skill question</p></td>
-      </tr>
-    </tbody><tbody>
-      
-      <tr>
-        <th colspan="2">
-          <h3 id="section-questionnaire-generation" class="hasAnchor"><a href="#section-questionnaire-generation" class="anchor"></a>Questionnaire generation</h3>
           <p class="section-desc"><p>Functions to process the raw FOKUS questionnaire data.</p></p>
         </th>
       </tr>
+      
       
     </tbody><tbody>
       
@@ -332,12 +443,6 @@
           <p><code><a href="q_md.html">q_md()</a></code> </p>
         </td>
         <td><p>Generate Markdown questionnaire</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pick_right.html">pick_right()</a></code> </p>
-        </td>
-        <td><p>Pick the right value of a certain questionnaire key based on canton and ballot date (recursively)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -360,9 +465,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="v_val_lbls.html">v_val_lbls()</a></code> </p>
+          <p><code><a href="v_lvls.html">v_lvls()</a></code> </p>
         </td>
-        <td><p>Get pre-defined variable value labels</p></td>
+        <td><p>Determine variable's political level(s)</p></td>
       </tr>
     </tbody><tbody>
       

@@ -22,7 +22,7 @@ ballot_type(ballot_date = ballot_dates, canton = cantons)
 }}
 }
 \value{
-The ballot type as a character scalar. One of
+Ballot type as a character scalar. One of
 \itemize{
 \item \code{"referendum"}
 \item \code{"election"}
@@ -37,14 +37,12 @@ fokus::ballot_type(ballot_date = "2018-09-23",
                    canton = "aargau")
 }
 \seealso{
-Other predicate functions
+Other fundamental predicate functions
+\code{\link{ballot_types}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
 \code{\link{has_referendum}()},
-\code{\link{n_election_candidates}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()},
-\code{\link{n_skill_questions}()},
-\code{\link{skill_question_answer_nr}()}
+\code{\link{n_proposals}()}
 }
-\concept{predicate}
+\concept{predicate_fundamental}

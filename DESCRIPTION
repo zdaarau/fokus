@@ -1,6 +1,6 @@
 Package: fokus
 Title: Provides an API around the FOKUS Post-voting Surveys
-Version: 0.0.9009
+Version: 0.0.9010
 Authors@R: c(
     person("Salim", "Brüggemann", , "salim-b@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5329-5987")),
@@ -26,7 +26,7 @@ Imports:
     knitr (>= 1.30),
     lubridate (>= 1.7.9),
     magrittr (>= 2.0.0),
-    pal (>= 0.0.9072),
+    pal (>= 0.0.9073),
     pkgpins (>= 0.6.3),
     purrr (>= 0.3.4),
     readr (>= 1.4.0),

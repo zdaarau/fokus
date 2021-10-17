@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9009</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9010</span>
       </span>
     </div>
 
@@ -116,17 +116,22 @@
 
 <div id="todos" class="section level1">
 
-<ul class="task-list">
+<ul>
 <li>
-<p><input type="checkbox" disabled>
-Consider incorporating the questionnaire source TOML files directly into this pkg.</p>
-<p>Pro: Less error-prone; truth anchor generation would work without fokus_private repo and at build time!</p>
-<p>Contra: Our questionnaire sources would become AGPL-3-licensed and publicly accessible. Any real threats?</p>
+<p>supplemental date-specific TOML questionnaire files:</p>
+<ul>
+<li>figure out why there’s <code>mode = "majority"</code> defined under table <code>cantonal.aargau.election.majoritarian.1</code> (seems bollocks)</li>
+</ul>
 </li>
 <li><p><input type="checkbox" disabled>
-Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found <a href="https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/" class="external-link">here</a></p></li>
+Replace the <code>is_initiative</code> key in the <code>proposal</code> sub-table of the supplementary date-specific TOML questionnaire files with a more informative <code>type</code> key (need to define its possible English values first).</p></li>
 <li><p><input type="checkbox" disabled>
-Create an R package to facilitate creating <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table-Schema</a>-compatible questionnaires in TOML format. Note there’s an R package <a href="https://libraries.frictionlessdata.io/docs/table-schema/rlang" class="external-link">tableschema.r</a> to work with the Table Schema format (validate etc.)</p></li>
+Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found <a href="https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/" class="external-link">here</a></p></li>
+<li>
+<p><input type="checkbox" disabled>
+Create an R package to facilitate creating <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table-Schema</a>-compatible questionnaires in TOML format. Note there’s an R package <a href="https://libraries.frictionlessdata.io/docs/table-schema/rlang" class="external-link">tableschema.r</a> to work with the Table Schema format (validate etc.)</p>
+<p>Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.</p>
+</li>
 </ul>
 </div>
 

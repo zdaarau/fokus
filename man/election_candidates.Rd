@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{election_candidates}
 \alias{election_candidates}
-\title{Get election candidates}
+\title{Get majoritarian election's candidates}
 \usage{
 election_candidates(
   ballot_date = ballot_dates,
@@ -21,7 +21,7 @@ election_candidates(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level. One of
+\item{lvl}{Political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -32,7 +32,7 @@ election_candidates(
 \item \code{"aargau"}
 }}
 
-\item{election_nr}{The election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
@@ -43,6 +43,17 @@ Returns the name and party of all candidates running for the specified majoritar
 \examples{
 fokus::election_candidates(ballot_date = "2019-10-20",
                            lvl = "cantonal",
-                           canton = "aargau",
-                           election_nr = 1)
+                           canton = "aargau")
 }
+\seealso{
+Other election predicate functions
+\code{\link{election_candidate_string}()},
+\code{\link{election_names_combined}()},
+\code{\link{election_name}()},
+\code{\link{election_parties}()},
+\code{\link{election_tickets}()},
+\code{\link{n_election_candidates}()},
+\code{\link{n_election_seats}()},
+\code{\link{requires_candidate_registration}()}
+}
+\concept{predicate_election}

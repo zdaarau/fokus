@@ -21,47 +21,60 @@ reference:
     the [predicate functions](#section-predicates).
 - contents:
   - ballot_dates
-  - ballot_metadata
   - cantons
+  - ballot_metadata
+  - proposal_types
+  - response_option_types
+  - q_item_keys
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata).
+- subtitle: Fundamental predicates
 - contents:
+  - ballot_types
   - ballot_type
   - n_proposals
   - n_elections
-  - n_election_candidates
-  - n_skill_questions
   - has_referendum
   - has_election
   - has_lvl
-  - skill_question_answer_nr
-  - election_candidates
-- title: Questionnaire
-- subtitle: Raw questionnaire data
-  desc: |-
-    Functions to access the raw questionnaire data as defined in the [TOML](https://toml.io/) files found under
-    [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/).
+- subtitle: Proposal predicates
 - contents:
-  - q
-  - qx_suppl
-  - q_suppl
-  - q_suppl_lvl
-  - q_suppl_lvl_canton
-  - q_suppl_proposal
-  - q_suppl_election
-  - q_suppl_skill_questions
-  - q_suppl_skill_question
-- subtitle: Questionnaire generation
+  - proposal_type
+  - proposal_name
+  - proposal_name_gender
+  - proposal_arguments
+  - proposal_main_motives
+  - n_proposal_main_motives
+  - n_proposal_arguments
+- subtitle: Election predicates
+- contents:
+  - n_election_candidates
+  - n_election_seats
+  - election_name
+  - election_names_combined
+  - election_candidates
+  - election_candidate_string
+  - election_parties
+  - election_tickets
+  - requires_candidate_registration
+- subtitle: Skill question predicates
+- contents:
+  - n_skill_questions
+  - skill_question
+  - skill_question_response_options
+  - skill_question_answer_nr
+- subtitle: Other predicates
+- contents: political_issues
+- title: Questionnaire
   desc: Functions to process the raw FOKUS questionnaire data.
 - contents:
   - gen_q
   - q_tibble
   - q_md
-  - pick_right
 - title: Variable-related
 - contents:
   - is_skill_question
-  - v_val_lbls
+  - v_lvls
 - subtitle: Variable name shortening
 - contents:
   - shorten_v_names

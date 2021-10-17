@@ -6,7 +6,7 @@
 \usage{
 has_referendum(
   ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal"),
+  lvls = c("cantonal", "federal"),
   canton = cantons
 )
 }
@@ -20,7 +20,7 @@ has_referendum(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level(s). One or more of
+\item{lvls}{Political level(s). One or more of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -37,20 +37,23 @@ A logical scalar.
 \description{
 Determines whether or not the ballot in the specified canton at the specified date on the specified political level(s) includes a referendum.
 }
+\details{
+Note that if more than one \code{lvls} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls} are included in the specified ballot.
+
+For \href{https://en.wikipedia.org/wiki/Logical_conjunction}{logical conjunction}, use \code{has_referendum(lvls = "cantonal") && has_referendum(lvls = "federal")}.
+}
 \examples{
 fokus::has_referendum(ballot_date = "2018-09-23",
-                      lvl = "federal",
+                      lvls = "federal",
                       canton = "aargau")
 }
 \seealso{
-Other predicate functions
+Other fundamental predicate functions
+\code{\link{ballot_types}()},
 \code{\link{ballot_type}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
-\code{\link{n_election_candidates}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()},
-\code{\link{n_skill_questions}()},
-\code{\link{skill_question_answer_nr}()}
+\code{\link{n_proposals}()}
 }
-\concept{predicate}
+\concept{predicate_fundamental}

@@ -16,10 +16,28 @@
     <loc>https://rpkg.dev/fokus/reference/ballot_type.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/ballot_types.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/cantons.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/election_candidate_string.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/election_candidates.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/election_name.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/election_names_combined.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/election_parties.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/election_tickets.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/fokus-package.html</loc>
@@ -49,7 +67,16 @@
     <loc>https://rpkg.dev/fokus/reference/n_election_candidates.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/n_election_seats.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/n_elections.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/n_proposal_arguments.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/n_proposal_main_motives.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/n_proposals.html</loc>
@@ -58,7 +85,7 @@
     <loc>https://rpkg.dev/fokus/reference/n_skill_questions.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/pick_right.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/political_issues.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/prettify_date.html</loc>
@@ -67,43 +94,100 @@
     <loc>https://rpkg.dev/fokus/reference/print_fokus_private_structure.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/q.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/proposal_arguments.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposal_main_motives.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposal_name.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposal_name_gender.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposal_type.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposal_types.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_item_keys.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/q_item_val.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/q_md.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/q_parties.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl_election.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/q_response_option_codes.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl_lvl.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl_lvl_canton.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl_proposal.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl_skill_question.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/q_suppl_skill_questions.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/q_response_options.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/q_tibble.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/qx_suppl.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/raw_pick_right.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_arguments.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_election.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_election_name.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_elections.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_lvl.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_lvl_canton.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_main_motives.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_proposal.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_proposal_name.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_skill_question.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_q_suppl_skill_questions.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/raw_qx_suppl.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/read_toml.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/requires_candidate_registration.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/response_option_types.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/restore_colnames.html</loc>
@@ -115,9 +199,15 @@
     <loc>https://rpkg.dev/fokus/reference/shorten_v_names.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/skill_question.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/skill_question_answer_nr.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/v_val_lbls.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/skill_question_response_options.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/v_lvls.html</loc>
   </url>
 </urlset>

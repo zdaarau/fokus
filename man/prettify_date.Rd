@@ -7,9 +7,9 @@
 prettify_date(date, locale = "en-US")
 }
 \arguments{
-\item{date}{The date to be prettified. A \link[base:Dates]{date} or something coercible to.}
+\item{date}{Date to be prettified. A \link[base:Dates]{date} or something coercible to.}
 
-\item{locale}{The locale the date should be prettified for. Currently only \code{"en"}/\code{"en-US"} and \code{"de"}/\code{"de-CH"} are implemented.}
+\item{locale}{Locale the date should be prettified for. Currently only \code{"en"}/\code{"en-US"} and \code{"de"}/\code{"de-CH"} are implemented.}
 }
 \value{
 A character scalar.

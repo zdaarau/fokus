@@ -21,7 +21,7 @@ n_election_candidates(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level. One of
+\item{lvl}{Political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -32,7 +32,7 @@ n_election_candidates(
 \item \code{"aargau"}
 }}
 
-\item{election_nr}{The election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
 }
 \value{
 An integer scalar.
@@ -43,18 +43,17 @@ Determines the number of (officially registered) candidates of a majoritarian el
 \examples{
 fokus::n_election_candidates(ballot_date = "2019-10-20",
                              lvl = "cantonal",
-                             canton = "aargau",
-                             election_nr = 1)
+                             canton = "aargau")
 }
 \seealso{
-Other predicate functions
-\code{\link{ballot_type}()},
-\code{\link{has_election}()},
-\code{\link{has_lvl}()},
-\code{\link{has_referendum}()},
-\code{\link{n_elections}()},
-\code{\link{n_proposals}()},
-\code{\link{n_skill_questions}()},
-\code{\link{skill_question_answer_nr}()}
+Other election predicate functions
+\code{\link{election_candidate_string}()},
+\code{\link{election_candidates}()},
+\code{\link{election_names_combined}()},
+\code{\link{election_name}()},
+\code{\link{election_parties}()},
+\code{\link{election_tickets}()},
+\code{\link{n_election_seats}()},
+\code{\link{requires_candidate_registration}()}
 }
-\concept{predicate}
+\concept{predicate_election}

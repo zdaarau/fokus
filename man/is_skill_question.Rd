@@ -16,8 +16,8 @@ A logical vector.
 Determines whether or not a variable is a skill question. Vectorized.
 }
 \seealso{
-Other FOKUS-variable-related functions
+Other variable-related functions
 \code{\link{shorten_v_names}()},
-\code{\link{v_val_lbls}()}
+\code{\link{v_lvls}()}
 }
 \concept{variable}

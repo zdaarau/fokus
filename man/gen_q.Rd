@@ -33,10 +33,7 @@ This is the main questionnaire generation interface that's doing all the magic. 
 anything.
 }
 \seealso{
-\code{\link{qx_suppl}}
-
 Other questionnaire generation functions
-\code{\link{pick_right}()},
 \code{\link{q_md}()},
 \code{\link{q_tibble}()}
 }

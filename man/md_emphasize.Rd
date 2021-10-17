@@ -7,11 +7,11 @@
 md_emphasize(x, which = TRUE, emph = "**")
 }
 \arguments{
-\item{x}{The input as a character vector.}
+\item{x}{Input as a character vector.}
 
-\item{which}{The indices of the elements to be emphasized.}
+\item{which}{Indices of the elements to be emphasized.}
 
-\item{emph}{The character sequence used for emphasis.}
+\item{emph}{Character sequence used for emphasis.}
 }
 \value{
 A character vector of the same length as \code{x}.

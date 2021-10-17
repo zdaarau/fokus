@@ -6,9 +6,9 @@
 \usage{
 n_elections(
   ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal"),
+  lvls = c("cantonal", "federal"),
   canton = cantons,
-  prcd = c("proportional", "majoritarian")
+  prcds = c("proportional", "majoritarian")
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ n_elections(
 \item \code{"2020-10-18"}
 }}
 
-\item{lvl}{The political level(s). One or more of
+\item{lvls}{Political level(s). One or more of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -32,7 +32,7 @@ n_elections(
 \item \code{"aargau"}
 }}
 
-\item{prcd}{The election procedure(s). One or more of
+\item{prcds}{Election procedure(s). One or more of
 \itemize{
 \item \code{"proportional"}
 \item \code{"majoritarian"}
@@ -49,14 +49,12 @@ fokus::n_elections(ballot_date = "2018-09-23",
                    canton = "aargau")
 }
 \seealso{
-Other predicate functions
+Other fundamental predicate functions
+\code{\link{ballot_types}()},
 \code{\link{ballot_type}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
 \code{\link{has_referendum}()},
-\code{\link{n_election_candidates}()},
-\code{\link{n_proposals}()},
-\code{\link{n_skill_questions}()},
-\code{\link{skill_question_answer_nr}()}
+\code{\link{n_proposals}()}
 }
-\concept{predicate}
+\concept{predicate_fundamental}

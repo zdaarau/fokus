@@ -11,7 +11,7 @@ shorten_v_names(v_names, reverse = FALSE, max_n_char = 32L)
 
 \item{reverse}{Whether to apply the inversion of the shortening logic, i.e. to restore original/unshortened variable names.}
 
-\item{max_n_char}{The maximum allowed number of characters. \code{NULL} to skip the check or otherwise an integer scalar in which case it is ensured that the
+\item{max_n_char}{Maximum allowed number of characters. Either \code{NULL} to skip the check or otherwise an integer scalar in which case it is ensured that the
 maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.}
 }
 \value{
@@ -23,8 +23,8 @@ Shorten variable names to a maximum length of 32 characters
 \seealso{
 \code{\link[=shorten_colnames]{shorten_colnames()}}, \code{\link[=restore_colnames]{restore_colnames()}}
 
-Other FOKUS-variable-related functions
+Other variable-related functions
 \code{\link{is_skill_question}()},
-\code{\link{v_val_lbls}()}
+\code{\link{v_lvls}()}
 }
 \concept{variable}

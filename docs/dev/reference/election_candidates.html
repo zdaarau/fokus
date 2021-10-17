@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get election candidates — election_candidates • fokus</title>
+<title>Get majoritarian election's candidates — election_candidates • fokus</title>
 
 
 
@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Get election candidates — election_candidates" />
+<meta property="og:title" content="Get majoritarian election's candidates — election_candidates" />
 <meta name="description" content="Returns the name and party of all candidates running for the specified majoritarian election.">
 <meta property="og:description" content="Returns the name and party of all candidates running for the specified majoritarian election." />
 <meta name="twitter:card" content="summary" />
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9009</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9010</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get election candidates</h1>
+    <h1>Get majoritarian election's candidates</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
     <div class="hidden name"><code>election_candidates.Rd</code></div>
     </div>
@@ -144,7 +144,7 @@
     </tr>
     <tr>
       <th>lvl</th>
-      <td><p>The political level. One of</p><ul>
+      <td><p>Political level. One of</p><ul>
 <li><p><code>"cantonal"</code></p></li>
 <li><p><code>"federal"</code></p></li>
 </ul></td>
@@ -157,19 +157,29 @@
     </tr>
     <tr>
       <th>election_nr</th>
-      <td><p>The election number. A positive integer scalar (in almost all cases <code>1L</code>).</p></td>
+      <td><p>Election number. A positive integer scalar (in almost all cases <code>1L</code>).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other election predicate functions
+<code><a href='election_candidate_string.html'>election_candidate_string</a>()</code>,
+<code><a href='election_names_combined.html'>election_names_combined</a>()</code>,
+<code><a href='election_name.html'>election_name</a>()</code>,
+<code><a href='election_parties.html'>election_parties</a>()</code>,
+<code><a href='election_tickets.html'>election_tickets</a>()</code>,
+<code><a href='n_election_candidates.html'>n_election_candidates</a>()</code>,
+<code><a href='n_election_seats.html'>n_election_seats</a>()</code>,
+<code><a href='requires_candidate_registration.html'>requires_candidate_registration</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>election_candidates</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,
                            lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,
-                           canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-                           election_nr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+                           canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 3</span>
 #&gt;   first_name  last_name party                
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                
