@@ -1,25 +1,38 @@
 # TODOs
 
--   Separaten Corona-Block:
+## Questionnaire 2021-11-28
 
-```{=html}
-<!-- -->
-```
-    Beurteilung Krisenmanagement national / kantonal
+Beurteilung Krisenmanagement national / kantonal
 
-    Vertrauen nationale Institutionen
-    - kantonales Gesundsdepartement
-    - ...
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    Sind Sie gegen Covid-19 geimpft? / Haben Sie sich gegen Covid-19 impfen lassen?
-    - Ja
-    - Ich überlege noch
-    - Nein
-    - Niemals!
+Vertrauen in - wissenschaftliche Fachleute (Epidemologen, Virologen, wissenschaftliche Taskforce) - nationale Institutionen (Bundesrat, BAG) - kantonale
+Institutionen (Gesundsdepartement Gallati)
 
-    - Wünschen Sie sich, dass möglichst alle Ihre Mitmenschen geimpft sind?
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    - Informationsquelle Covid-19
+Zufriedenheit mit den Massnahmen der Regierung: - 4er-Skala
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Sind Sie gegen Covid-19 geimpft? / Haben Sie sich gegen Covid-19 impfen lassen? - Ja - Ich überlege noch - Nein - Niemals!
+
+alternativ: Vertrauen in die bislang zugelassenen Impfstoffe
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Wünschen Sie sich, dass möglichst alle Ihre Mitmenschen geimpft sind?
+
+Informationsquelle Covid-19 (sep. Item für 'Chat-Apps wie Telegram')
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Argumente:
+
+-   Nötigung
+-   ...
+
+## Other
 
 -   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
 
@@ -40,4 +53,3 @@
     etc.)
 
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
-
