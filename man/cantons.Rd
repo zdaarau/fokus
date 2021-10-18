@@ -14,7 +14,6 @@ cantons
 A vector of cantons that were part of at least one FOKUS survey up until 2021-11-28.
 }
 \seealso{
-\code{\link{ballot_dates}} \code{\link{ballot_metadata}} \code{\link{response_option_types}} \code{\link{q_item_keys}}
-\code{\link{proposal_types}}
+\code{\link{ballot_dates}} \code{\link{response_option_types}} \code{\link{q_item_keys}} \code{\link{proposal_types}}
 }
 \keyword{datasets}

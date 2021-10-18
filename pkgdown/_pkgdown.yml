@@ -22,7 +22,6 @@ reference:
 - contents:
   - ballot_dates
   - cantons
-  - ballot_metadata
   - proposal_types
   - response_option_types
   - q_item_keys

@@ -28,11 +28,19 @@ utils::globalVariables(names = c(".",
                                  # tidyselect fns
                                  "all_of",
                                  "everything",
+                                 "where",
                                  # other
                                  "alignment",
                                  "allowed",
+                                 "block",
+                                 "enumerator",
+                                 "enumerator_base",
                                  "has_same_length",
                                  "has_auto_fallback",
+                                 "length_response_options",
+                                 "length_value_labels",
+                                 "length_variable_values",
+                                 "matches_length",
                                  "n_cantonal_majoritarian_elections",
                                  "n_cantonal_proportional_elections",
                                  "n_cantonal_proposals",
@@ -802,48 +810,21 @@ pick_right_helper <- function(x,
   x
 }
 
-#' Generate questionnaire tibble
-#'
-#' @inheritParams ballot_types
-#' @param verbose Whether or not to print progress information during questionnaire generation.
-#'
-#' @return `r pkgsnip::return_label("data")`
-#' @family q_gen
-#' @keywords internal
-gen_q_tibble <- function(ballot_date = ballot_dates,
-                         canton = cantons,
-                         verbose = FALSE) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  canton <- rlang::arg_match(canton)
-  checkmate::assert_flag(verbose)
-  
-  if (!verbose) {
-    status_msg <- "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
+add_who_constraint <- function(x,
+                               who) {
+  if (who != "all") {
+    
+    result <- who %>% purrr::when(stringr::str_detect(string = x, pattern = "\\)$") ~
+                                    stringr::str_replace(string = x,
+                                                         pattern = "\\)$",
+                                                         replacement = paste0("; only *", ., "*)")),
+                                  ~ paste0(x, " (only *", ., "*)"))
+  } else {
+    
+    result <- x
   }
   
-  purrr::map2_dfr(.x = raw_q,
-                  .y = names(raw_q),
-                  .f = ~ {
-                    
-                    if (verbose && !(.y %in% q_non_item_lvls)) cli::cli_h1("BLOCK: {.val {.y}}")
-                    
-                    assemble_q_tibble(ballot_date = ballot_date,
-                                      canton = canton,
-                                      raw_q_branch = .x,
-                                      q_lvl = .y,
-                                      heritable_map = init_heritable_map(block = .y),
-                                      verbose = verbose)
-                  }) %>%
-    # add ballot date and canton
-    dplyr::mutate(ballot_date = !!ballot_date,
-                  canton = !!canton,
-                  .before = 1L)
+  result
 }
 
 assemble_q_tibble <- function(ballot_date,
@@ -1044,7 +1025,8 @@ assemble_q_item_tibble <- function(ballot_date,
                   purrr::detect(~ .x$value$de == stringr::str_replace(string = result$who,
                                                                       pattern = "\\d+",
                                                                       replacement = "{i}")) %>%
-                  purrr::chuck("value", "en")
+                  purrr::chuck("value", "en") %>%
+                  cli::pluralize(.trim = FALSE)
                 
                 ### add who-constraints
                 if (!is.na(result$variable_label_common) && !has_who_constraint(result$variable_label_common)) {
@@ -1064,6 +1046,75 @@ assemble_q_item_tibble <- function(ballot_date,
             })
         })
     })
+}
+
+complement_heritable_map <- function(x,
+                                     from) {
+  names <- names(x)
+  
+  x %>%
+    purrr::map2(.x = names,
+                .y = .,
+                .f = function(k, v) purrr::pluck(.x = from,
+                                                 k,
+                                                 .default = v)) %>%
+    magrittr::set_names(names)
+}
+
+expand_q_tibble <- function(q_tibble) {
+  
+  # run integrity checks...
+    validate_q_tibble(q_tibble) %>%
+    # ...expand questionnaire data to long format...
+    tidyr::unnest(cols = q_item_keys_multival)
+}
+
+#' Generate questionnaire tibble
+#'
+#' @inheritParams ballot_types
+#' @param verbose Whether or not to print progress information during questionnaire generation.
+#'
+#' @return `r pkgsnip::return_label("data")`
+#' @family q_gen
+#' @keywords internal
+gen_q_tibble <- function(ballot_date = ballot_dates,
+                         canton = cantons,
+                         verbose = FALSE) {
+  
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
+  canton <- rlang::arg_match(canton)
+  checkmate::assert_flag(verbose)
+  
+  status_msg <- "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
+  
+  purrr::map2_dfr(.x = raw_q,
+                  .y = names(raw_q),
+                  .f = ~ {
+                    
+                    if (verbose && !(.y %in% q_non_item_lvls)) cli::cli_h1("BLOCK: {.val {.y}}")
+                    
+                    assemble_q_tibble(ballot_date = ballot_date,
+                                      canton = canton,
+                                      raw_q_branch = .x,
+                                      q_lvl = .y,
+                                      heritable_map = init_heritable_map(block = .y),
+                                      verbose = verbose)
+                  }) %>%
+    # add ballot date and canton
+    dplyr::mutate(ballot_date = !!ballot_date,
+                  canton = !!canton,
+                  .before = 1L)
+}
+
+has_who_constraint <- function(x) {
+  
+  isTRUE(stringr::str_detect(string = x,
+                             pattern = "(\\(|; )(\\d{4}-\\d{2}-\\d{2} )?only [^\\)]+\\)$"))
 }
 
 init_heritable_map <- function(block) {
@@ -1089,17 +1140,28 @@ init_heritable_map <- function(block) {
                     include = TRUE)
 }
 
-complement_heritable_map <- function(x,
-                                     from) {
-  names <- names(x)
+interpolate_q_val <- function(vals,
+                              ballot_date,
+                              canton,
+                              key,
+                              lvl,
+                              i,
+                              j) {
   
-  x %>%
-    purrr::map2(.x = names,
-                .y = .,
-                .f = function(k, v) purrr::pluck(.x = from,
-                                                 k,
-                                                 .default = v)) %>%
-    magrittr::set_names(names)
+  if (key %in% q_item_keys$key[q_item_keys$is_scalar]) {
+    
+    vals <- cli::pluralize(vals,
+                           .trim = FALSE)
+  } else {
+    
+    vals %<>%
+      purrr::map(.f = glue::glue,
+                 .envir = environment(),
+                 .trim = FALSE) %>%
+      unlist()
+  }
+  
+  vals
 }
 
 resolve_q_val <- function(x,
@@ -1144,53 +1206,6 @@ resolve_q_val <- function(x,
     )
 }
 
-interpolate_q_val <- function(vals,
-                              ballot_date,
-                              canton,
-                              key,
-                              lvl,
-                              i,
-                              j) {
-  
-  if (key %in% q_item_keys$key[q_item_keys$is_scalar]) {
-    
-    vals <- cli::pluralize(vals,
-                           .trim = FALSE)
-  } else {
-    
-    vals %<>%
-      purrr::map(.f = glue::glue,
-                 .envir = environment(),
-                 .trim = FALSE) %>%
-      unlist()
-  }
-  
-  vals
-}
-
-has_who_constraint <- function(x) {
-  
-  isTRUE(stringr::str_detect(string = x,
-                             pattern = "(\\(|; )(\\d{4}-\\d{2}-\\d{2} )?only [^\\)]+\\)$"))
-}
-
-add_who_constraint <- function(x,
-                               who) {
-  if (who != "all") {
-    
-    result <- who %>% purrr::when(stringr::str_detect(string = x, pattern = "\\)$") ~
-                                    stringr::str_replace(string = x,
-                                                         pattern = "\\)$",
-                                                         replacement = paste0("; only ", ., ")")),
-                                  ~ paste0(x, " (only *", ., "*)"))
-  } else {
-    
-    result <- x
-  }
-  
-  result
-}
-
 strip_md_q_tibble <- function(q_tibble) {
   
   q_tibble %>%
@@ -1202,14 +1217,6 @@ strip_md_q_tibble <- function(q_tibble) {
     # remove placeholders (scalars only)
     dplyr::mutate(dplyr::across(any_of(q_item_keys_multival) & where(~ is.character(.x[[1L]])),
                                 ~ .x %>% purrr::map(~ { if (length(.x) == 1L) stringr::str_replace(.x, "^_.+_$", NA_character_) else .x })))
-}
-
-expand_q_tibble <- function(q_tibble) {
-  
-  # run integrity checks...
-    validate_q_tibble(q_tibble) %>%
-    # ...expand questionnaire data to long format...
-    tidyr::unnest(cols = q_item_keys_multival)
 }
 
 validate_q_tibble <- function(q_tibble) {
@@ -1750,8 +1757,7 @@ q_item_subkeys <- c("true",
 #' A vector of ballot dates covered by FOKUS surveys up until `r max(ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("dates")`
-#' @seealso [`cantons`][cantons] [`ballot_metadata`][ballot_metadata] [`response_option_types`][response_option_types] [`q_item_keys`][q_item_keys]
-#'   [`proposal_types`][proposal_types]
+#' @seealso [`cantons`][cantons] [`response_option_types`][response_option_types] [`q_item_keys`][q_item_keys] [`proposal_types`][proposal_types]
 #' @export
 "ballot_dates"
 
@@ -1760,28 +1766,16 @@ q_item_subkeys <- c("true",
 #' A vector of cantons that were part of at least one FOKUS survey up until `r max(ballot_dates)`.
 #'
 #' @format A character vector.
-#' @seealso [`ballot_dates`][ballot_dates] [`ballot_metadata`][ballot_metadata] [`response_option_types`][response_option_types] [`q_item_keys`][q_item_keys]
-#'   [`proposal_types`][proposal_types]
+#' @seealso [`ballot_dates`][ballot_dates] [`response_option_types`][response_option_types] [`q_item_keys`][q_item_keys] [`proposal_types`][proposal_types]
 #' @export
 "cantons"
-
-#' FOKUS ballot-date-canton metadata
-#'
-#' A tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until `r max(ballot_dates)`.
-#'
-#' @format `r pkgsnip::return_label("data")`
-#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`response_option_types`][response_option_types] [`q_item_keys`][q_item_keys]
-#'   [`proposal_types`][proposal_types]
-#' @export
-"ballot_metadata"
 
 #' Referendum proposal types
 #'
 #' A vector of all [referendum proposal types][proposal_type].
 #'
 #' @format `r pkgsnip::return_label("data")`
-#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`ballot_metadata`][ballot_metadata] [`response_option_types`][response_option_types]
-#'   [`q_item_keys`][q_item_keys]
+#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`response_option_types`][response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
 "proposal_types"
 
@@ -1790,8 +1784,7 @@ q_item_subkeys <- c("true",
 #' A vector of all response option types defined in the [raw FOKUS questionnaire data][raw_q].
 #'
 #' @format A character vector.
-#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`ballot_metadata`][ballot_metadata] [`proposal_types`][proposal_types]
-#'   [`q_item_keys`][q_item_keys]
+#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`proposal_types`][proposal_types] [`q_item_keys`][q_item_keys]
 #' @export
 "response_option_types"
 
@@ -1800,8 +1793,7 @@ q_item_subkeys <- c("true",
 #' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_q].
 #'
 #' @format `r pkgsnip::return_label("data")`
-#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`ballot_metadata`][ballot_metadata] [`response_option_types`][response_option_types]
-#'   [`proposal_types`][proposal_types]
+#' @seealso [`ballot_dates`][ballot_dates] [`cantons`][cantons] [`response_option_types`][response_option_types] [`proposal_types`][proposal_types]
 #' @export
 "q_item_keys"
 
@@ -1892,14 +1884,18 @@ n_proposals <- function(ballot_date = ballot_dates,
                                           choices = c("cantonal", "federal"),
                                           empty.ok = FALSE))
   
-  data_subset <-
-    ballot_metadata %>%
-    dplyr::filter(ballot_date == !!ballot_date,
-                  canton == !!canton)
+  raw <- raw_q_suppl(ballot_date = ballot_date)
+  result <- 0L
   
-  glue::glue("n_{lvls}_proposals") %>%
-    purrr::map_int(~ data_subset[[.x]]) %>%
-    sum()
+  if ("federal" %in% lvls) {
+    result %<>% magrittr::add(length(raw$federal$proposal))
+  }
+  
+  if ("cantonal" %in% lvls) {
+    result %<>% magrittr::add(length(raw$cantonal[[canton]]$proposal))
+  }
+  
+  result
 }
 
 #' Get number of elections
@@ -1936,19 +1932,32 @@ n_elections <- function(ballot_date = ballot_dates,
   prcds <- unique(checkmate::assert_subset(prcds,
                                            choices = c("proportional", "majoritarian"),
                                            empty.ok = FALSE))
+  result <- 0L
+  raw <- raw_q_suppl(ballot_date = ballot_date)
   
-  data_subset <-
-    ballot_metadata %>%
-    dplyr::filter(ballot_date == !!ballot_date,
-                  canton == !!canton)
+  if ("federal" %in% lvls) {
+    
+    result <-
+      prcds %>%
+      purrr::map_int(~ length(raw$federal$election[[.x]])) %>%
+      sum() %>%
+      purrr::when(length(.) == 0L ~ 0L,
+                  ~ .) %>%
+      magrittr::add(result)
+  }
   
-  lvls %>%
-    purrr::map(function(lvls) {
-      glue::glue("n_{lvls}_{prcds}_elections")
-    }) %>%
-    purrr::flatten_chr() %>%
-    purrr::map_int(~ data_subset[[.x]]) %>%
-    sum()
+  if ("cantonal" %in% lvls) {
+    
+    result <-
+      prcds %>%
+      purrr::map_int(~ length(raw$cantonal[[canton]]$election[[.x]])) %>%
+      sum() %>%
+      purrr::when(length(.) == 0L ~ 0L,
+                  ~ .) %>%
+      magrittr::add(result)
+  }
+  
+  result
 }
 
 #' Determine whether ballot type includes a referendum
@@ -2769,7 +2778,7 @@ political_issues <- function(ballot_date = ballot_dates,
 #'
 #' @return `NULL`, invisibly.
 #' @family q_gen
-#' @export
+#' @keywords internal
 gen_q <- function(ballot_date = ballot_dates,
                   canton = cantons,
                   quiet = FALSE) {
@@ -3051,10 +3060,9 @@ lgl_to_unicode <- function(x) {
 #' @examples
 #' fokus::prettify_date(lubridate::today())
 prettify_date <- function(date,
-                          locale = c("en-US", "de-CH")) {
+                          locale = c("en", "de", "en-US", "de-CH")) {
   
-  locale <- rlang::arg_match(locale,
-                             values = c("en", "de", "en-US", "de-CH"))
+  locale <- rlang::arg_match(locale)
   
   withr::with_locale(new = c("LC_TIME" = purrr::when(. = locale,
                                                      . %in% c("en", "en-US") ~ "C",

@@ -14,7 +14,6 @@ response_option_types
 A vector of all response option types defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
 }
 \seealso{
-\code{\link{ballot_dates}} \code{\link{cantons}} \code{\link{ballot_metadata}} \code{\link{proposal_types}}
-\code{\link{q_item_keys}}
+\code{\link{ballot_dates}} \code{\link{cantons}} \code{\link{proposal_types}} \code{\link{q_item_keys}}
 }
 \keyword{datasets}

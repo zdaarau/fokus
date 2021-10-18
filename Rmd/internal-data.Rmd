@@ -45,32 +45,18 @@ raw_qx_suppl <-
   purrr::map(~ fokus::read_toml(glue::glue("data-raw/questionnaire/{.x}.toml")))
 ```
 
-## `ballot_metadata`
-
-FOKUS ballot-date-canton metadata
-
-```{r, purl = FALSE}
-ballot_metadata <-
-  raw_qx_suppl %>%
-  purrr::map_dfr(function(raw_q_suppl) {
-    
-    tibble::tibble(ballot_date = raw_q_suppl$ballot_date,
-                   canton = unique(names(raw_q_suppl$mode))) %>%
-      dplyr::mutate(n_cantonal_proposals = canton %>% purrr::map_int(~ length(raw_q_suppl$cantonal[[.x]]$proposal)),
-                    n_cantonal_proportional_elections = canton %>% purrr::map_int(~ length(raw_q_suppl$cantonal[[.x]]$election$proportional)),
-                    n_cantonal_majoritarian_elections = canton %>% purrr::map_int(~ length(raw_q_suppl$cantonal[[.x]]$election$majoritarian)),
-                    n_federal_proposals = length(raw_q_suppl$federal$proposal),
-                    n_federal_proportional_elections = canton %>% purrr::map_int(~ length(raw_q_suppl$federal[[.x]]$election$proportional)),
-                    n_federal_majoritarian_elections = canton %>% purrr::map_int(~ length(raw_q_suppl$federal[[.x]]$election$majoritarian)))
-  })
-```
-
 ## `cantons`
 
 FOKUS-covered cantons
 
 ```{r, purl = FALSE}
-cantons <- unique(ballot_metadata$canton)
+cantons <-
+  raw_qx_suppl %>%
+  purrr::map(~ .x %>%
+               purrr::chuck("mode") %>%
+               names()) %>%
+  purrr::flatten_chr() %>%
+  unique()
 ```
 
 ## `proposal_types`
