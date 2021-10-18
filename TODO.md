@@ -1,11 +1,36 @@
 # TODOs
 
+-   Separaten Corona-Block:
+
+```{=html}
+<!-- -->
+```
+    Beurteilung Krisenmanagement national / kantonal
+
+    Vertrauen nationale Institutionen
+    - kantonales Gesundsdepartement
+    - ...
+
+    Sind Sie gegen Covid-19 geimpft? / Haben Sie sich gegen Covid-19 impfen lassen?
+    - Ja
+    - Ich überlege noch
+    - Nein
+    - Niemals!
+
+    - Wünschen Sie sich, dass möglichst alle Ihre Mitmenschen geimpft sind?
+
+    - Informationsquelle Covid-19
+
+-   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
+
+    -   variable renamings:
+
+        -   `sighting_political_ads` -> `sighting_political_ads_cantonal_proposals`
+        -   `intensity_political_discussions` -> `intensity_political_discussions_cantonal_proposals`
+
 -   supplemental date-specific TOML questionnaire files:
 
     -   figure out why there's `mode = "majority"` defined under table `cantonal.aargau.election.majoritarian.1` (seems bollocks)
-
--   [ ] Replace the `is_initiative` key in the `proposal` sub-table of the supplementary date-specific TOML questionnaire files with a more informative `type`
-    key (need to define its possible English values first).
 
 -   [ ] Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found
     [here](https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/)
@@ -15,3 +40,4 @@
     etc.)
 
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
+

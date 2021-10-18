@@ -11,7 +11,7 @@ A \link[tibble:tbl_df-class]{tibble}.
 ballot_metadata
 }
 \description{
-A tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until 2020-10-18.
+A tibble of FOKUS-survey-related ballot-date-canton metadata, valid up until 2021-11-28.
 }
 \seealso{
 \code{\link{ballot_dates}} \code{\link{cantons}} \code{\link{response_option_types}} \code{\link{q_item_keys}}

@@ -14,6 +14,7 @@ gen_q(ballot_date = ballot_dates, canton = cantons, quiet = FALSE)
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
+\item \code{"2021-11-28"}
 }}
 
 \item{canton}{A valid FOKUS canton. One of
@@ -34,7 +35,7 @@ anything.
 }
 \seealso{
 Other questionnaire generation functions
-\code{\link{q_md}()},
-\code{\link{q_tibble}()}
+\code{\link{gen_q_md}()},
+\code{\link{gen_q_tibble}()}
 }
 \concept{q_gen}

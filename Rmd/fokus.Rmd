@@ -177,7 +177,7 @@ Functions to access the raw questionnaire data as defined in the [TOML](https://
 #'
 #' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_qx_suppl] for the specified ballot date.
 #'
-#' @inheritParams ballot_type
+#' @inheritParams ballot_types
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -821,7 +821,7 @@ NOTES:
 #' Picks the right value of a certain raw questionnaire key based on ballot date and canton (recursively).
 #'
 #' @param x Questionnaire key. A list object.
-#' @inheritParams ballot_type
+#' @inheritParams ballot_types
 #'
 #' @return Value of `x` that corresponds to `canton` and `ballot_date`.
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -830,6 +830,10 @@ NOTES:
 raw_pick_right <- function(x,
                            ballot_date,
                            canton) {
+  
+  # force evaluation of `ballot_date` and `canton` to ensure immediate error (with better msg) in case they are missing
+  ballot_date
+  canton
   
   if (purrr::vec_depth(x) > 1L) {
     
@@ -907,858 +911,17 @@ pick_right_helper <- function(x,
 
 ### Questionnaire generation
 
-TODO:
-
--   Feed questionnaire keys to `cli::pluralize()` instead of `glue::glue()`, allowing for [cli's pluralization
-    syntax](https://cli.r-lib.org/articles/pluralization.html).
-
-#### `add_who_constraint`
-
-Add the who constraint wrapped in parentheses to the end of a string (e.g. `variable_label`)
-
-```{r}
-add_who_constraint <- function(x,
-                               who) {
-  if (who != "all") {
-    
-    who %>%
-      purrr::when(stringr::str_detect(string = x,
-                                      pattern = "\\)$") ~ stringr::str_replace(string = x,
-                                                                               pattern = "\\)$",
-                                                                               replacement = paste0("; only ", ., ")")),
-                  ~ paste0(x, " (only ", ., ")"))
-  } else x
-}
-```
-
-#### `assemble_deep`
-
-Traverse questionnaire recursively and assemble questionnaire block
-
-Default is to generate Markdown table rows (strings). If `generate_md = FALSE`, a tibble will be returned instead.
-
-```{r}
-assemble_deep <- function(data_q,
-                          lvl_name,
-                          heritable_map,
-                          generate_md = TRUE,
-                          verbose = FALSE) {
-  
-  heritable_map %<>% complement_heritable_map(from = data_q)
-  result <- NULL
-  
-  if ("variable_name" %in% names(data_q)) {
-    
-    if (verbose) cli::cli_text("ITEM: {.val {data_q$variable_name}}")
-    
-    result <- process_item(v_name = data_q$variable_name,
-                           heritable_map = heritable_map,
-                           generate_md = generate_md)
-    
-  } else if (purrr::vec_depth(data_q) > 2L) {
-    
-    result <-
-      purrr::map2(.x = data_q,
-                  .y = names(data_q),
-                  .f = ~ {
-                    
-                    if (verbose) cli::cli_h2("SUB-BLOCK: {.val {.y}}")
-                    
-                    assemble_deep(data_q = .x,
-                                  lvl_name = .y,
-                                  heritable_map = heritable_map,
-                                  generate_md = generate_md,
-                                  verbose = verbose)
-                  }) %>%
-      purrr::compact()
-  }
-  
-  result
-}
-```
-
-#### `assemble_md_ref_item`
-
-```{r}
-assemble_item <- function() {
-  
-}
-```
-
-#### `assemble_md_ref_item`
-
-Assemble a footnote or reference-style link for Markdown questionnaire
-
-```{r}
-assemble_md_ref_item <- function(x,
-                                 canton,
-                                 ballot_date) {
-  
-  # avoid partial matching
-  x %<>% xfun::as_strict_list()
-  
-  if ("id" %in% names(x)
-      && ("text" %in% names(x) || "url" %in% names(x))) {
-    
-    x$include %<>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      as.logical() %>%
-      purrr::when(length(.) == 0L ~ TRUE,
-                  ~ .) %>%
-      checkmate::assert_flag(.var.name = "include")
-    
-    # return NULL if item isn't included @ ballot date
-    if (!x$include) {
-      
-      result <- NULL
-      
-    } else {
-      
-      # determine if item is footnote or reference-style link
-      is_footnote <- "text" %in% names(x)
-      has_link_title <- !is_footnote & "title" %in% names(x)
-      val <- dplyr::if_else(is_footnote,
-                            "text",
-                            "url")
-      
-      result <- paste0("[",
-                       dplyr::if_else(is_footnote,
-                                      "^",
-                                      ""),
-                       glue::glue(x$id,
-                                  .trim = FALSE),
-                       "]: ",
-                       glue::glue(x[[val]],
-                                  .trim = FALSE),
-                       dplyr::if_else(has_link_title,
-                                      paste0(" '", x$title, "'"),
-                                      ""))
-    }
-  } else {
-    cli::cli_abort("At least one of the keys {.field id} or {.field text}/{.field url} is missing from this reference item.")
-  }
-  
-  result
-}
-```
-
-#### `assemble_subitem`
-
-Assemble a single (or template) subitem to a tibble
-
-```{r}
-assemble_subitem <- function(i = NULL,
-                             j = NULL,
-                             v_name,
-                             heritable_map,
-                             canton,
-                             ballot_date) {
-  # parse the variable name
-  v_name %<>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE)
-  
-  # special case: if no `question_common` is defined, use `question.default` instead if it exists
-  question <-
-    heritable_map %>%
-    purrr::pluck("question",
-                 .default = NA_character_)
-  
-  question_common <-
-    heritable_map %>%
-    purrr::pluck("question_common",
-                 .default = NA_character_) %>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.na = NULL,
-               .trim = FALSE) %>%
-    pal::strip_md()
-  
-  if (is.na(question_common) && "default" %in% names(question)) {
-    
-    question_common <-
-      question$default %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.na = NULL,
-                 .trim = FALSE) %>%
-      pal::strip_md()
-  }
-  
-  # special case: if no `variable_label_common` is defined, use `variable_label.default` instead if it exists
-  variable_name <-
-    v_name %>%
-    pal::strip_md()
-  
-  who <-
-    heritable_map %>%
-    purrr::chuck("who") %>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE) %>%
-    pal::strip_md()
-  
-  who_en <-
-    raw_q$who %>%
-    purrr::detect(~ .x$value$de == stringr::str_replace(string = who,
-                                                        pattern = "\\d+",
-                                                        replacement = "{i}")) %>%
-    purrr::chuck("value", "en") %>%
-    glue::glue(.trim = FALSE) %>%
-    pal::strip_md()
-  
-  variable_label <-
-    heritable_map %>%
-    purrr::chuck("variable_label")
-  
-  variable_label_common <-
-    heritable_map %>%
-    purrr::pluck("variable_label_common",
-                 .default = NA_character_) %>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.na = NULL,
-               .trim = FALSE) %>%
-    pal::strip_md()
-  
-  if (is.na(variable_label_common) && "default" %in% names(variable_label)) {
-    
-    # integrity check: ensure there haven't been any changes to `who` over time (if so, an explcicit `variable_label_common` has to be defined!)
-    if (length(heritable_map$who) > 1L) {
-      
-      cli::cli_abort(paste0("{.field who} of variable {.var {variable_name}} has changed over time. Thus a custom {.field variable_label_common} must be ",
-                            "defined in {.file questionnaire/questionnaire.toml}."))
-    } else {
-      
-      variable_label_common <-
-        variable_label$default %>%
-        raw_pick_right(ballot_date = ballot_date,
-                       canton = canton) %>%
-        glue::glue(.na = NULL,
-                   .trim = FALSE) %>%
-        pal::strip_md() %>%
-        add_who_constraint(who = who_en)
-    }
-    # add who constraint if necessary
-  } else if (!is.na(variable_label_common)
-             && !stringr::str_detect(string = variable_label_common,
-                                     pattern = "(\\(|; )only .*?\\)$")) {
-    
-    if (length(heritable_map$who) > 1L) {
-      
-      cli::cli_abort(paste0("{.field who} of variable {.var {variable_name}} has changed over time. Thus the {.field who} constraint has to be explicitly ",
-                            "specified at the end of {.field variable_label_common} in {.file questionnaire/questionnaire.toml}."))
-      
-    } else variable_label_common %<>% add_who_constraint(who = who_en)
-  }
-  
-  tibble::tibble(
-    topic =
-      heritable_map %>%
-      purrr::pluck("topic",
-                   .default = NA_character_) %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.na = NULL,
-                 .trim = FALSE) %>%
-      pal::strip_md(),
-    who = who,
-    question =
-      question %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.na = NULL,
-                 .trim = FALSE) %>%
-      pal::strip_md(),
-    question_common = question_common,
-    multiple_answers_allowed =
-      heritable_map %>%
-      purrr::chuck("multiple_answers_allowed") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      as.logical(),
-    variable_name = variable_name,
-    variable_name_32 =
-      variable_name %>%
-      # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
-      # (except the special-block vx which won't have `time_*` siblings and certain exceptions which will share a common `time_*` v)
-      shorten_v_names(max_n_char = dplyr::if_else(heritable_map$block %in% c("x_publitest", "y_generated", "z_generated")
-                                                  || stringr::str_detect(string = .,
-                                                                         pattern = rex::rex(start, or(c("agreement_contra_argument_",
-                                                                                                        "information_source_",
-                                                                                                        "reason_non_participation_",
-                                                                                                        "political_occasions_")))),
-                                                  32L,
-                                                  30L)),
-    variable_label =
-      variable_label %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      pal::strip_md() %>%
-      add_who_constraint(who = who_en),
-    variable_label_common = variable_label_common,
-    response_options =
-      heritable_map %>%
-      purrr::pluck("response_options",
-                   .default = NA_character_) %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      purrr::map(.f = glue::glue,
-                 .envir = environment(),
-                 .na = NULL,
-                 .trim = FALSE) %>%
-      purrr::flatten_chr() %>%
-      list(),
-    variable_values =
-      heritable_map %>%
-      purrr::pluck("variable_values",
-                   .default = rep(x = NA_integer_,
-                                  times =
-                                    purrr::pluck(.x = heritable_map,
-                                                 "response_options",
-                                                 .default = NA_character_) %>%
-                                    raw_pick_right(ballot_date = ballot_date,
-                                                   canton = canton) %>%
-                                    purrr::map(.f = glue::glue,
-                                               .envir = environment(),
-                                               .na = NULL,
-                                               .trim = FALSE) %>%
-                                    purrr::flatten_chr() %>%
-                                    length())) %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      purrr::map(.f = glue::glue,
-                 .envir = environment(),
-                 .na = NULL,
-                 .trim = FALSE) %>%
-      purrr::map(.f = as.integer) %>%
-      purrr::flatten_int() %>%
-      list(),
-    value_labels =
-      heritable_map %>%
-      purrr::pluck("value_labels",
-                   .default = NA_character_) %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      purrr::map(.f = glue::glue,
-                 .envir = environment(),
-                 .na = NULL,
-                 .trim = FALSE) %>%
-      purrr::flatten_chr() %>%
-      list(),
-    value_scale =
-      heritable_map %>%
-      purrr::chuck("value_scale") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      pal::strip_md(),
-    randomize_response_options =
-      heritable_map %>%
-      purrr::chuck("randomize_response_options") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      as.logical()
-  )
-}
-```
-
-#### `assemble_table_row`
-
-Assemble a single (or template) table body row for Markdown questionnaire
-
-```{r}
-assemble_table_row <- function(i = NULL,
-                               j = NULL,
-                               v_name,
-                               heritable_map,
-                               canton,
-                               ballot_date) {
-  # parse the variable name
-  v_name %<>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE)
-  
-  who <-
-    heritable_map %>%
-    purrr::chuck("who") %>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE)
-  
-  who_en <-
-    raw_q$who %>%
-    purrr::detect(~ .x$value$de == stringr::str_replace(string = who,
-                                                        pattern = "\\d+",
-                                                        replacement = "{i}")) %>%
-    purrr::chuck("value", "en") %>%
-    glue::glue(.trim = FALSE)
-  
-  paste(
-    # topic
-    heritable_map %>%
-      purrr::pluck("topic",
-                   .default = "-") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE,
-                 .na = "-"),
-    # who
-    who,
-    # question
-    heritable_map %>%
-      purrr::pluck("question",
-                   .default = "-") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE,
-                 .na = "-"),
-    # multiple answers allowed?
-    heritable_map %>%
-      purrr::chuck("multiple_answers_allowed") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      as.logical() %>%
-      purrr::when(isTRUE(.) ~ "ja",
-                  ~ "nein"),
-    # variable name
-    v_name %>%
-      wrap_backtick() %>%
-      collapse_break(),
-    # variable_name_32,
-    v_name %>%
-      # we set `max_n_char = 30L` to account for additional `time_*` vx which will be shortened to `t_*`, i.e. add 2 additional chars to the original v name
-      # (except the special-block vx which won't have `time_*` siblings and certain exceptions which will share a common `time_*` v)
-      shorten_v_names(max_n_char = dplyr::if_else(heritable_map$block %in% c("x_publitest", "y_generated", "z_generated")
-                                                  || stringr::str_detect(string = .,
-                                                                         pattern = rex::rex(start, or(c("agreement_contra_argument_",
-                                                                                                        "information_source_",
-                                                                                                        "reason_non_participation_",
-                                                                                                        "political_occasions_")))),
-                                                  32L,
-                                                  30L)) %>%
-      wrap_backtick() %>%
-      collapse_break(),
-    # variable label
-    heritable_map %>%
-      purrr::chuck("variable_label") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      add_who_constraint(who = who_en),
-    # response options
-    heritable_map %>%
-      purrr::pluck("response_options",
-                   .default = "-") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      purrr::map(.envir = environment(),
-                 .f = glue::glue,
-                 .trim = FALSE,
-                 .na = "-") %>%
-      purrr::flatten_chr() %>%
-      wrap_backtick() %>%
-      purrr::when(is_skill_question(v_name) ~ md_emphasize(x = .,
-                                                           which = skill_question_answer_nr(ballot_date = ballot_date,
-                                                                                            lvl = v_lvls(v_name = v_name),
-                                                                                            canton = canton,
-                                                                                            proposal_nr = i,
-                                                                                            skill_question_nr = ifelse(has_election(ballot_date = ballot_date,
-                                                                                                                                    canton = canton),
-                                                                                                                       i,
-                                                                                                                       j))),
-                  ~ .) %>%
-      collapse_break(),
-    # variable values
-    heritable_map %>%
-      purrr::pluck("variable_values",
-                   .default = "-") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      purrr::map(.envir = environment(),
-                 .f = glue::glue,
-                 .trim = FALSE,
-                 .na = "-") %>%
-      purrr::flatten_chr() %>%
-      wrap_backtick() %>%
-      collapse_break(),
-    # value labels
-    heritable_map %>%
-      purrr::pluck("value_labels",
-                   .default = "-") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      purrr::map(.envir = environment(),
-                 .f = glue::glue,
-                 .trim = FALSE,
-                 .na = "-") %>%
-      purrr::flatten_chr() %>%
-      wrap_backtick() %>%
-      collapse_break(),
-    # randomize response options?
-    heritable_map %>%
-      purrr::chuck("randomize_response_options") %>%
-      raw_pick_right(ballot_date = ballot_date,
-                     canton = canton) %>%
-      glue::glue(.trim = FALSE) %>%
-      as.logical() %>%
-      purrr::when(isTRUE(.) ~ "ja",
-                  ~ "nein"),
-    sep = " | "
-  )
-}
-```
-
-#### `assert_heritable_map_complete`
-
-Check heritable map for completeness
-
-NOTES:
-
--   It's assumed that all fields are present. The only property asserted is that *present* fields are not `NULL`.
-
-```{r}
-assert_heritable_map_complete <- function(heritable_map) {
-  
-  heritable_map_essential <-
-    heritable_map %>%
-    purrr::list_modify(i = rlang::zap(),
-                       j = rlang::zap(),
-                       lvl = rlang::zap(),
-                       topic = rlang::zap(),
-                       question = rlang::zap(),
-                       question_common = rlang::zap(),
-                       variable_label_common = rlang::zap(),
-                       response_options = rlang::zap(),
-                       variable_values = rlang::zap(),
-                       value_labels = rlang::zap())
-  
-  if (heritable_map_essential %>%
-      purrr::map_lgl(.f = is.null) %>%
-      any()) {
-    
-    unset_keys <-
-      heritable_map_essential %>%
-      purrr::keep(.p = is.null) %>%
-      names()
-    
-    v_name <-
-      heritable_map_essential %>%
-      purrr::pluck("variable_name") %>%
-      raw_pick_right() %>%
-      glue::glue(.trim = FALSE)
-    
-    cli::cli_abort("{cli::qty(unset_keys)}The key{?s} {unset_keys} {?is/are} not set for variable {.var {v_name}}.")
-  }
-  
-  heritable_map
-}
-```
-
-#### `expand_q_tibble`
-
-Expand questionnaire tibble to long format
-
-This function takes an (unexpanded, but well structured) FOKUS Aargau questionnaire tibble, performs various integrity checks, expands it to proper [long
-format](https://en.wikipedia.org/wiki/Wide_and_narrow_data) and returns it as a tibble.
-
-```{r}
-expand_q_tibble <- function(q_tibble) {
-  
-  # integrity check 1: ensure there are no duplicated topics, variable names and variable labels
-  c("topic",
-    "variable_name",
-    "variable_label") %>%
-    purrr::walk(.f = function(v) {
-      
-      is_dup <- duplicated(q_tibble[[v]])
-      
-      if (any(is_dup)) {
-        
-        dup_indices <- which(is_dup)
-        
-        for (i in dup_indices) {
-          
-          dup_v <- q_tibble[[v]][i]
-          
-          cli::cli_warn(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire. Please fix this and run the script again."))
-        }
-      }
-    })
-  
-  # integrity check 2: ensure the columns `response_options`, `variable_values` and `value_labels` have the same length and if not, tell which ones don't
-  lengths <-
-    q_tibble %>%
-    dplyr::select(response_options,
-                  variable_values,
-                  value_labels) %>%
-    purrr::map_depth(.depth = 2L,
-                     .f = length) %>%
-    purrr::map_depth(.depth = 1L,
-                     .f = purrr::flatten_int) %>%
-    tibble::as_tibble() %>%
-    dplyr::mutate(has_same_length = response_options == variable_values) %>%
-    dplyr::mutate(has_same_length = has_same_length & response_options == value_labels)
-  
-  if (any(!lengths$has_same_length)) {
-    
-    diff_indices <- which(!lengths$has_same_length)
-    
-    cli::cli_warn(paste0("The number of {.var {c('response_options', 'variable_values', 'value_labels')}} differs for ",
-                         dplyr::if_else(length(diff_indices) > 1L,
-                                        "multiple variables. Affected are: {.var {q_tibble$variable_name[diff_indices]}}",
-                                        "the variable {.var {q_tibble$variable_name[diff_indices]}}."),
-                         "\n\nPlease fix this first and then run the script again."))
-  }
-  
-  # expand questionnaire data to long format ...
-  # note that `tidyr::unnest` also performs an implicit integrity check: it ensures that the number of response options, variable values and value labels 
-  # for each variable name is either one or of the same length (or otherwise throws an error); obviously this assertion still isn't as strict as integrity
-  # check 2 above
-  q_tibble %>%
-    tidyr::unnest(cols = c(response_options,
-                           variable_values,
-                           value_labels)) %>%
-    # ... and remove footnote references from topic, question and who
-    dplyr::mutate(dplyr::across(.cols = c(topic,
-                                          question,
-                                          who),
-                                .fns = stringr::str_remove_all,
-                                pattern = "\\[\\^[^\\]]+\\](&nbsp;)?"))
-}
-```
-
-#### `gen_table_header`
-
-Generate table header for Markdown questionnaire
-
-```{r}
-gen_table_header <- function() {
-  
-  tibble::tribble(
-    ~name,                                         ~width, ~alignment,
-    "\\#",                                         2L,     "left",
-    "Thema",                                       5L,     "left",
-    "Wer",                                         3L,     "left",
-    "Frage",                                       15L,    "left",
-    "Mehrfachnennungen",                           3L,     "left",
-    "Variablenname",                               5L,     "left",
-    "Variablenname (gek\u00fcrzt auf 32 Zeichen)", 5L,     "left",
-    "Variablenlabel",                              15L,    "left",
-    "Antwortoptionen",                             5L,     "left",
-    "Variablenauspr\u00e4gungen",                  5L,     "left",
-    "Auspr\u00e4gungslabels",                      5L,     "left",
-    "Antwortoptionen in Zufallsreihenfolge",       3L,     "left"
-  ) %>%
-    dplyr::mutate(separator =
-                    purrr::map2_chr(.x = width,
-                                    .y = alignment,
-                                    .f = ~
-                                      rep(x = "-",
-                                          times = .x) %>%
-                                      paste0(collapse = "") %>%
-                                      purrr::when(.y == "left" ~ stringr::str_replace(string = .,
-                                                                                      pattern = "^.",
-                                                                                      replacement = ":"),
-                                                  .y == "right" ~ stringr::str_replace(string = .,
-                                                                                       pattern = ".$",
-                                                                                       replacement = ":"),
-                                                  .y == "center" ~ stringr::str_replace_all(string = .,
-                                                                                            pattern = "(^.|.$)",
-                                                                                            replacement = ":"),
-                                                  ~ .))) %$%
-    c(paste0(name, collapse = " | "),
-      paste0(separator, collapse = " | "))
-}
-```
-
-#### `gen_table_body`
-
-Generate table body for Markdown questionnaire
-
-```{r}
-gen_table_body <- function(raw_q,
-                           block,
-                           enumeration_start = 1L) {
-  # ensure `block` exists
-  if (is.null(raw_q[[block]])) {
-    cli::cli_abort("The block {.field {block}} doesn't exist in {.var raw_q}.")
-  }
-  
-  # traverse list `raw_q` recursively to assemble questionnaire body
-  body <- assemble_deep(data_q = raw_q[[block]],
-                        heritable_map = init_heritable_map(block = block))
-  
-  if (length(body) > 0L) {
-    
-    # "unpack" results list
-    while (purrr::vec_depth(body) > 2L) {
-      body %<>% purrr::flatten()
-    }
-    body %<>% purrr::flatten_chr()
-    
-    # get block enumeration prefix
-    prefix <- raw_q %>% purrr::pluck(block, "prefix",
-                                     .default = 0L)
-    
-    # enumerate body rows
-    body %<>% paste(seq(from = enumeration_start + prefix,
-                        to = enumeration_start + prefix + length(.) - 1L,
-                        by = 1L), .,
-                    sep = " | ")
-    
-  } else body <- NULL
-  
-  body
-}
-```
-
-#### `process_item`
-
-Process an "atomic" questionnaire item
-
-```{r}
-process_item <- function(v_name,
-                         heritable_map,
-                         generate_md = TRUE,
-                         ballot_date,
-                         canton) {
-  
-  # ensure nothing indispensable is missing
-  assert_heritable_map_complete(heritable_map = heritable_map)
-  
-  # choose correct include iterator and keys and evaluate them
-  heritable_map[["include"]] %<>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE) %>%
-    as.logical() %>%
-    checkmate::assert_flag(.var.name = "include")
-  
-  heritable_map[["ballot_type"]] %<>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE) %>%
-    checkmate::assert_string(.var.name = "ballot_type")
-  
-  heritable_map[["i"]] %<>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE) %>%
-    purrr::when(length(.) == 0L ~ NULL,
-                .) %>%
-    checkmate::assert_character(any.missing = FALSE,
-                                min.len = 0L,
-                                .var.name = "i")
-  
-  heritable_map[["j"]] %<>%
-    raw_pick_right(ballot_date = ballot_date,
-                   canton = canton) %>%
-    glue::glue(.trim = FALSE) %>%
-    purrr::when(length(.) == 0L ~ NULL,
-                .) %>%
-    checkmate::assert_character(any.missing = FALSE,
-                                min.len = 0L,
-                                .var.name = "j")
-  
-  # return NULL if item isn't included @ ballot date
-  if (!heritable_map[["include"]]
-      || (heritable_map$ballot_type != "both_referendum_and_election"
-          && heritable_map$ballot_type != ballot_type(ballot_date = ballot_date, canton = canton))) {
-    
-    result <- NULL
-    
-  } else {
-    
-    # assemble "normal" questionnaire items
-    if (is.null(heritable_map[["i"]]) && is.null(heritable_map[["j"]])) {
-      
-      if (generate_md) {
-        result <- assemble_table_row(v_name = v_name,
-                                     heritable_map = heritable_map,
-                                     canton = canton,
-                                     ballot_date = ballot_date)
-      } else {
-        result <- assemble_subitem(v_name = v_name,
-                                   heritable_map = heritable_map,
-                                   canton = canton,
-                                   ballot_date = ballot_date)
-      }
-    } else if (is.null(heritable_map[["j"]])) {
-      
-      if (generate_md) {
-        result <- purrr::map_chr(.x = heritable_map[["i"]],
-                                 .f = assemble_table_row,
-                                 v_name = v_name,
-                                 heritable_map = heritable_map,
-                                 canton = canton,
-                                 ballot_date = ballot_date)
-      } else {
-        result <- purrr::map_dfr(.x = heritable_map[["i"]],
-                                 .f = assemble_subitem,
-                                 v_name = v_name,
-                                 heritable_map = heritable_map,
-                                 canton = canton,
-                                 ballot_date = ballot_date)
-      }
-      
-      # validity check
-    } else if (is.null(heritable_map[["i"]])) {
-      
-      # this combo doesn't really make sense and should never occur
-      cli::cli_abort("This should not happen ({.var j} set, but {.var i} not set).")
-      
-      # "template" items resulting in multiple questionnaire items
-    } else {
-      
-      if (generate_md) {
-        result <-
-          purrr::map(.x = heritable_map[["i"]],
-                     .f = function(x) {
-                       
-                       i <- x
-                       purrr::map_chr(i = x,
-                                      .x = heritable_map[["j"]],
-                                      .f = assemble_table_row,
-                                      v_name = v_name,
-                                      heritable_map = heritable_map,
-                                      canton = canton,
-                                      ballot_date = ballot_date)
-                     }) %>%
-          purrr::flatten_chr()
-        
-      } else {
-        result <- purrr::map_dfr(.x = heritable_map[["i"]],
-                                 .f = function(x) {
-                                   
-                                   i <- x
-                                   purrr::map_dfr(i = x,
-                                                  .x = heritable_map[["j"]],
-                                                  .f = assemble_subitem,
-                                                  v_name = v_name,
-                                                  heritable_map = heritable_map,
-                                                  canton = canton,
-                                                  ballot_date = ballot_date)
-                                 })
-      }
-    }
-  }
-  
-  result
-}
-```
-
 #### `gen_q_tibble`
 
 ```{r}
+#' Generate questionnaire tibble
+#'
+#' @inheritParams ballot_types
+#' @param verbose Whether or not to print progress information during questionnaire generation.
+#'
+#' @return `r pkgsnip::return_label("data")`
+#' @family q_gen
+#' @keywords internal
 gen_q_tibble <- function(ballot_date = ballot_dates,
                          canton = cantons,
                          verbose = FALSE) {
@@ -1788,7 +951,11 @@ gen_q_tibble <- function(ballot_date = ballot_dates,
                                       q_lvl = .y,
                                       heritable_map = init_heritable_map(block = .y),
                                       verbose = verbose)
-                  })
+                  }) %>%
+    # add ballot date and canton
+    dplyr::mutate(ballot_date = !!ballot_date,
+                  canton = !!canton,
+                  .before = 1L)
 }
 ```
 
@@ -1844,7 +1011,7 @@ assemble_q_item_tibble <- function(ballot_date,
                                    canton,
                                    item_map,
                                    verbose) {
-  
+  # iterate over `lvl`...
   purrr::map_dfr(
     .x = resolve_q_val(x = item_map$lvl,
                        ballot_date = ballot_date,
@@ -1854,7 +1021,7 @@ assemble_q_item_tibble <- function(ballot_date,
                        i = "",
                        j = ""),
     .f = function(lvl) {
-      
+      # ...`i`...
       purrr::map_dfr(
         .x = resolve_q_val(x = item_map$i,
                            ballot_date = ballot_date,
@@ -1866,7 +1033,7 @@ assemble_q_item_tibble <- function(ballot_date,
         lvl = lvl,
         .f = function(i,
                       lvl) {
-          
+          # ...and `j`
           purrr::map_dfr(
             .x = resolve_q_val(x = item_map$j,
                                ballot_date = ballot_date,
@@ -1905,6 +1072,8 @@ assemble_q_item_tibble <- function(ballot_date,
               result <- NULL
               
               if (is_incl && has_ballot_type) {
+                
+                # resolve all keys in item map
                 result <-
                   names(item_map) %>%
                   setdiff(c("lvl",
@@ -1935,8 +1104,84 @@ assemble_q_item_tibble <- function(ballot_date,
                         ~ .
                       )
                   })
+                
+                # handle special cases
+                ## 1: fill empty non-iterator multi-value keys with NA(s) if all other non-empty multi-value keys have the same length
+                lengths_multi_val_keys <-
+                  q_item_keys_multival %>%
+                  magrittr::set_names(., .) %>%
+                  purrr::map_int(~ length(result[[.x]][[1L]]))
+                
+                positive_lengths_multi_val_keys <-
+                  lengths_multi_val_keys %>%
+                  magrittr::extract(. > 0L)
+                
+                if (any(lengths_multi_val_keys == 0L) && length(unique(positive_lengths_multi_val_keys)) == 1L) {
+                  
+                  for (k in (lengths_multi_val_keys %>%
+                             magrittr::extract(. == 0L) %>%
+                             names())) {
+                    
+                    result[[k]] <- list(rep(result[[k]][[1L]][NA],
+                                            times = length(result[[names(positive_lengths_multi_val_keys)[1L]]][[1L]])))
+                  }
+                }
+                
+                ## 2: if no `question_common` is defined, fall back on `question.default` if it exists and actually differs from `question`
+                if (is.na(result$question_common) && "default" %in% names(item_map$question)) {
+                  
+                  default_question <- resolve_q_val(x = item_map$question$default,
+                                                    ballot_date = ballot_date,
+                                                    canton = canton,
+                                                    key = "question",
+                                                    lvl = lvl,
+                                                    i = i,
+                                                    j = j)
+                  
+                  if (isTRUE(default_question != result$question)) {
+                    result$question_common <- default_question
+                  }
+                }
+                
+                ## 3: if no `variable_label_common` is defined, fall back on `variable_label.default` if it exists and actually differs from `variable_label`
+                if (is.na(result$variable_label_common) && "default" %in% names(item_map$variable_label)) {
+                  
+                  default_variable_label <- resolve_q_val(x = item_map$variable_label$default,
+                                                          ballot_date = ballot_date,
+                                                          canton = canton,
+                                                          key = "variable_label",
+                                                          lvl = lvl,
+                                                          i = i,
+                                                          j = j)
+                  
+                  if (isTRUE(default_variable_label != result$variable_label)) {
+                    result$variable_label_common <- default_variable_label
+                  }
+                }
+                
+                ## 4: add `who`-constraint to `variable_label` and `variable_label_common`
+                ### get English `who` value
+                who_en <-
+                  raw_q$who %>%
+                  purrr::detect(~ .x$value$de == stringr::str_replace(string = result$who,
+                                                                      pattern = "\\d+",
+                                                                      replacement = "{i}")) %>%
+                  purrr::chuck("value", "en")
+                
+                ### add who-constraints
+                if (!is.na(result$variable_label_common) && !has_who_constraint(result$variable_label_common)) {
+                  
+                  # ensure `who` doesn't vary over time
+                  if (length(item_map$who) > 1L) {
+                    cli::cli_abort(paste0("{.field who} of variable {.var {result$variable_name}} has changed over time. Thus an explicit {.field who}-",
+                                          "constraint has to be specified at the end of {.field variable_label_common} in the raw {.file questionnaire.toml}."))
+                  }
+                  result$variable_label_common %<>% add_who_constraint(who = who_en)
+                }
+                result$variable_label %<>% add_who_constraint(who = who_en)
               }
               
+              # convert result to tibble
               tibble::as_tibble(result)
             })
         })
@@ -2070,6 +1315,372 @@ interpolate_q_val <- function(vals,
 }
 ```
 
+#### `has_who_constraint`
+
+Determines whether or not a `variable_label`/`variable_label_common` already has a who-constraint at its end.
+
+```{r}
+has_who_constraint <- function(x) {
+  
+  isTRUE(stringr::str_detect(string = x,
+                             pattern = "(\\(|; )(\\d{4}-\\d{2}-\\d{2} )?only [^\\)]+\\)$"))
+}
+```
+
+#### `add_who_constraint`
+
+Adds the who constraint wrapped in parentheses to the end of a string (e.g. `variable_label`).
+
+```{r}
+add_who_constraint <- function(x,
+                               who) {
+  if (who != "all") {
+    
+    result <- who %>% purrr::when(stringr::str_detect(string = x, pattern = "\\)$") ~
+                                    stringr::str_replace(string = x,
+                                                         pattern = "\\)$",
+                                                         replacement = paste0("; only ", ., ")")),
+                                  ~ paste0(x, " (only *", ., "*)"))
+  } else {
+    
+    result <- x
+  }
+  
+  result
+}
+```
+
+#### `strip_md_q_tibble`
+
+-   Removes all Markdown formatting from character columns of a questionnaire tibble.
+-   Replaces placeholder values in multi-value columns with NA.
+
+```{r}
+strip_md_q_tibble <- function(q_tibble) {
+  
+  q_tibble %>%
+    # strip MD
+    dplyr::mutate(dplyr::across(where(is.character),
+                                pal::strip_md)) %>%
+    dplyr::mutate(dplyr::across(where(is.list),
+                                ~ { if (is.character(.x)) pal::strip_md(.x) else .x })) %>%
+    # remove placeholders (scalars only)
+    dplyr::mutate(dplyr::across(any_of(q_item_keys_multival) & where(~ is.character(.x[[1L]])),
+                                ~ .x %>% purrr::map(~ { if (length(.x) == 1L) stringr::str_replace(.x, "^_.+_$", NA_character_) else .x })))
+}
+```
+
+#### `expand_q_tibble`
+
+Expands questionnaire tibble to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
+
+```{r}
+expand_q_tibble <- function(q_tibble) {
+  
+  # run integrity checks...
+    validate_q_tibble(q_tibble) %>%
+    # ...expand questionnaire data to long format...
+    tidyr::unnest(cols = q_item_keys_multival)
+}
+```
+
+#### `validate_q_tibble`
+
+NOTES:
+
+-   Technically, `tidyr::unnest()` used in `expand_q_tibble()` also implicitly performs integrity check 2: it ensures that all of the simultaneously expanded
+    variables are of the same length (or otherwise throws an error); obviously, this isn't as useful since it doesn't tell which `variable_name`s are affected.
+
+```{r}
+validate_q_tibble <- function(q_tibble) {
+  
+  # integrity check 1: ensure there are no duplicated topics, variable names and variable labels
+  c("topic",
+    "variable_name",
+    "variable_label") %>%
+    purrr::walk(.f = function(v) {
+      
+      is_dup <- duplicated(q_tibble[[v]])
+      
+      if (any(is_dup)) {
+        
+        dup_indices <- which(is_dup)
+        
+        for (i in dup_indices) {
+          
+          dup_v <- q_tibble[[v]][i]
+          
+          cli::cli_abort(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire. Please fix this and run the script again."))
+        }
+      }
+    })
+  
+  # integrity check 2: ensure all multi-value columns have the same length and if not, tell which ones don't
+  multi_val_v_lengths <-
+    q_tibble %>%
+    dplyr::transmute(dplyr::across(where(is.list),
+                                   purrr::map_int,
+                                   length)) %>%
+    dplyr::rename_with(~ paste0("length_", .x)) %>%
+    dplyr::mutate(matches_length = length_variable_values == length_value_labels) %>%
+    dplyr::mutate(matches_length = length_response_options == length_value_labels & matches_length)
+  
+  i_violated <- which(!multi_val_v_lengths$matches_length)
+  
+  if (length(i_violated)) {
+    
+    multi_val_v_names <-
+      q_tibble %>%
+      dplyr::select(where(is.list)) %>%
+      colnames()
+    
+    # print affected variable names first since long error msg gets truncated
+    cli::cli({
+      cli::cli_alert_danger("Affected variable names:")
+      cli::cli_ul(items = q_tibble$variable_name[i_violated])
+    })
+    
+    cli::cli_abort(paste0("The number of {.var {multi_val_v_names}} differs for the variable names listed above."))
+  }
+  
+  invisible(q_tibble)
+}
+```
+
+#### Markdown questionnaire
+
+##### `gen_q_md`
+
+```{r}
+#' Generate Markdown questionnaire
+#'
+#' @inheritParams ballot_types
+#'
+#' @return A character vector.
+#' @family q_gen
+#' @keywords internal
+gen_q_md <- function(q_tibble) {
+  
+  status_msg <- "Generating Markdown questionnaire for canton {.val {q_tibble$canton[1L]}} @ {.val {q_tibble$ballot_date[1L]}}..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
+  
+  md_lines <-
+    q_tibble %>%
+    # add block title and across-block item enumerator base/group
+    dplyr::mutate(enumerator_base =
+                    block %>%
+                    purrr::map_int(~ raw_q %>% purrr::pluck(.x, "prefix",
+                                                            .default = 0L))) %>%
+    # add across-block item enumerator
+    dplyr::group_by(enumerator_base) %>%
+    dplyr::group_modify(~ tibble::rowid_to_column(.x,
+                                                  var = "enumerator")) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(enumerator = enumerator_base + enumerator) %>%
+    dplyr::arrange(block, enumerator) %>%
+    # iterate over every block and generate block header plus table
+    dplyr::group_by(block) %>%
+    dplyr::group_map(~ {
+      
+      block <- .y$block
+      block_nr <- block_name_to_nr(block)
+      block_title <- raw_q %>% purrr::chuck(block, "title")
+      block_intro <-
+        raw_q %>%
+        purrr::pluck(block, "intro") %>%
+        raw_pick_right(ballot_date = .x$ballot_date[1L],
+                       canton = .x$canton[1L]) %>%
+        cli::pluralize(.trim = FALSE)
+      
+      c(glue::glue("## Block {block_nr}: {block_title}"),
+        "",
+        block_intro,
+        ""[length(block_intro)],
+        md_table_header(),
+        md_table_body(q_tibble_block = .x,
+                      block = block),
+        "",
+        "")
+    }) %>%
+    purrr::flatten_chr()
+  
+  # add footnotes and link references
+  footnotes <-
+    raw_q$footnote %>%
+    # reduce to footnotes that actually occur in table body
+    purrr::keep(~ any(stringr::str_detect(md_lines, glue::glue("\\[\\^{.x$id}\\]")))) %>%
+    purrr::map(~ c(glue::glue("[^{.x$id}]: {.x$text}"), "")) %>%
+    purrr::flatten_chr()
+  
+  link_refs <-
+    raw_q$link %>%
+    # reduce to link references that actually occur in table body
+    purrr::keep(~ any(stringr::str_detect(md_lines, glue::glue("\\[[^]]+\\]\\[{.x$id}\\]")))) %>%
+    purrr::map(~ c(glue::glue("[{.x$id}]: {.x$url}"), "")) %>%
+    purrr::flatten_chr()
+  
+  c(md_lines,
+    footnotes,
+    link_refs)
+}
+```
+
+##### `md_table_header`
+
+Generate table header for Markdown questionnaire. The tribble below allows easy tweaking of the column widths and alignment.
+
+```{r}
+md_table_header <- function() {
+  
+  tibble::tribble(
+    ~name,                                         ~width, ~alignment,
+    "\\#",                                         2L,     "left",
+    "Thema",                                       5L,     "left",
+    "Wer",                                         3L,     "left",
+    "Frage",                                       15L,    "left",
+    "Mehrfachnennungen",                           3L,     "left",
+    "Variablenname",                               5L,     "left",
+    "Variablenname (gek\u00fcrzt auf 32 Zeichen)", 5L,     "left",
+    "Variablenlabel",                              15L,    "left",
+    "Antwortoptionen",                             5L,     "left",
+    "Variablenauspr\u00e4gungen",                  5L,     "left",
+    "Auspr\u00e4gungslabels",                      5L,     "left",
+    "Antwortoptionen in Zufallsreihenfolge",       3L,     "left"
+  ) %>%
+    dplyr::mutate(separator =
+                    purrr::map2_chr(.x = width,
+                                    .y = alignment,
+                                    .f = ~
+                                      rep(x = "-",
+                                          times = .x) %>%
+                                      paste0(collapse = "") %>%
+                                      purrr::when(.y == "left" ~ stringr::str_replace(string = .,
+                                                                                      pattern = "^.",
+                                                                                      replacement = ":"),
+                                                  .y == "right" ~ stringr::str_replace(string = .,
+                                                                                       pattern = ".$",
+                                                                                       replacement = ":"),
+                                                  .y == "center" ~ stringr::str_replace_all(string = .,
+                                                                                            pattern = "(^.|.$)",
+                                                                                            replacement = ":"),
+                                                  ~ .))) %$%
+    c(paste0(name, collapse = " | "),
+      paste0(separator, collapse = " | "))
+}
+```
+
+##### `md_table_body`
+
+Generate table body for Markdown questionnaire
+
+NOTES:
+
+-   we set `shorten_v_names(max_n_char = 30L)` to account for additional `time_*` variables which will be shortened to `t_*`, i.e. add 2 additional chars to the
+    original variable name (except the special-block variables which won't have `time_*` siblings and certain exceptions which will share a common `time_*`
+    variable).
+
+```{r}
+md_table_body <- function(q_tibble_block,
+                          block) {
+  
+  q_tibble_block %>%
+    # replace logicals by German ja/nein
+    dplyr::mutate(dplyr::across(where(is.logical),
+                                ifelse,
+                                "ja",
+                                "nein"),
+                  dplyr::across()) %>%
+    purrr::pmap_chr(function(ballot_date,
+                             canton,
+                             enumerator,
+                             topic,
+                             who,
+                             question,
+                             multiple_answers_allowed,
+                             variable_name,
+                             variable_label,
+                             response_options,
+                             variable_values,
+                             value_labels,
+                             randomize_response_options,
+                             ...) {
+      paste(enumerator,
+            tidyr::replace_na(topic,
+                              "-"),
+            who,
+            tidyr::replace_na(question,
+                              "-"),
+            multiple_answers_allowed,
+            pal::wrap_chr(variable_name,
+                          wrap = "`"),
+            shorten_v_names(v_names = variable_name,
+                            max_n_char = dplyr::if_else(block %in% c("x_publitest", "y_generated", "z_generated")
+                                                        || stringr::str_detect(string = variable_name,
+                                                                               pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
+                                                                                                                       "information_source_",
+                                                                                                                       "reason_non_participation_",
+                                                                                                                       "political_occasions_")))),
+                                                        32L,
+                                                        30L)) %>%
+              pal::wrap_chr("`"),
+            variable_label,
+            response_options %>%
+              purrr::when(length(.) == 1L && is.na(.) ~
+                            "-",
+                          is_skill_question(variable_name) ~
+                            md_emphasize(x = .,
+                                         which = skill_question_answer_nr(ballot_date = ballot_date,
+                                                                          lvl = v_lvls(v_name = variable_name),
+                                                                          canton = canton,
+                                                                          proposal_nr =
+                                                                            variable_name %>%
+                                                                            stringr::str_extract("(?<=_proposal_)\\d+") %>%
+                                                                            purrr::when(is.na(.) ~ NULL,
+                                                                                        ~ .),
+                                                                          skill_question_nr =
+                                                                            variable_name %>%
+                                                                            stringr::str_extract("(?<=skill_question_)\\d+"))) %>%
+                            collapse_break(),
+                          ~ format_md_multival_col(.)),
+            format_md_multival_col(variable_values),
+            format_md_multival_col(value_labels),
+            randomize_response_options,
+            sep = " | ")
+    })
+}
+```
+
+##### `format_md_multival_col`
+
+```{r}
+format_md_multival_col <- function(x) {
+  
+  result <- x
+  
+  if (length(x) == 1L && is.na(x)) {
+    result <- "-"
+  } else if (length(x) > 1L || !stringr::str_detect(x, "^_.+_$")) {
+    result <- x %>% pal::wrap_chr(wrap = "`") %>% collapse_break()
+  }
+  result
+}
+```
+
+##### `block_name_to_nr`
+
+```{r}
+block_name_to_nr <- function(x) {
+  
+  x %>%
+    stringr::str_extract("^.\\d?(_\\d)?") %>%
+    stringr::str_replace("_(\\d)", "-\\1") %>%
+    stringr::str_remove("^0") %>%
+    stringr::str_to_upper()
+}
+```
+
 #### Questionnaire-internal
 
 ##### `q_item_val`
@@ -2082,7 +1693,7 @@ interpolate_q_val <- function(vals,
 #' 
 #' When used in questionnaire item field values via [string interpolation][glue::glue], be careful to not create infinite loops via circular references.
 #'
-#' @inheritParams ballot_type
+#' @inheritParams ballot_types
 #' @param v_name Variable name, without resolved string interpolation, i.e. 1:1 as stated in the raw FOKUS questionnaire data. A character scalar.
 #' @param branch_path Sequence of questionnaire table levels that lead to the `item` leaf node where `v_name` is defined. A character vector.
 #' @param key Questionnaire item key. One of
@@ -2325,7 +1936,7 @@ assert_integerish <- function(x,
     x
     
   } else {
-    checkmate::assert_integerish(x,
+    checkmate::assert_integerish(as.integer(x),
                                  lower = lower,
                                  upper = upper,
                                  any.missing = any_missing,
@@ -2537,7 +2148,10 @@ Predicate functions based on the [metadata](#section-fokus-metadata).
 #'
 #' Determines the types of the ballot for the specified canton at the specified date.
 #'
-#' @inheritParams ballot_type
+#' @param ballot_date A valid FOKUS-covered cantonal ballot date. One of
+#' `r pal::as_md_list(paste0('"', ballot_dates, '"'), wrap = '``')`
+#' @param canton A valid FOKUS canton. One of
+#' `r pal::as_md_list(paste0('"', cantons, '"'), wrap = '``')`
 #'
 #' @return A character vector of ballot types. One or more of
 #'   - `"referendum"`
@@ -2574,10 +2188,7 @@ ballot_types <- function(ballot_date = ballot_dates,
 #'
 #' Determines the type of the ballot for the specified canton at the specified date.
 #'
-#' @param ballot_date A valid FOKUS-covered cantonal ballot date. One of
-#' `r pal::as_md_list(paste0('"', ballot_dates, '"'), wrap = '``')`
-#' @param canton A valid FOKUS canton. One of
-#' `r pal::as_md_list(paste0('"', cantons, '"'), wrap = '``')`
+#' @inheritParams ballot_types
 #'
 #' @return Ballot type as a character scalar. One of
 #' `r pal::as_md_list(paste0('"', q_ballot_types, '"'), wrap = '``')`
@@ -2646,7 +2257,7 @@ n_proposals <- function(ballot_date = ballot_dates,
 #'
 #' Determines the number of elections for a canton at the specified ballot date on the specified political level(s) and of the specified election procedure(s).
 #'
-#' @inheritParams ballot_type
+#' @inheritParams ballot_types
 #' @param lvls Political level(s). One or more of
 #'   - `"cantonal"`
 #'   - `"federal"`
@@ -2830,7 +2441,7 @@ proposal_type <- function(ballot_date = ballot_dates,
 #'
 #' Returns the name of the specified proposal in the specified language.
 #'
-#' @inheritParams ballot_type
+#' @inheritParams ballot_types
 #' @param lvl Political level. One of
 #'   - `"cantonal"`
 #'   - `"federal"`
@@ -3270,7 +2881,7 @@ election_candidate_string <- function(ballot_date = ballot_dates,
   }
   
   data_candidates %>% purrr::pmap_chr(incl_party = incl_party,
-                                      .f = function(first_name, last_name, party, incl_party) {
+                                      .f = function(first_name, last_name, party, ..., incl_party) {
                                         paste0(first_name, " ", last_name, paste0(" (", party, ")")[incl_party])
                                       })
 }
@@ -3608,15 +3219,15 @@ political_issues <- function(ballot_date = ballot_dates,
 
 Functions to process the raw FOKUS questionnaire data.
 
-### `gen_q`
+### !`gen_q`
 
-```{r}
+```{r, purl FALSE}
 #' Generate questionnaire
 #'
 #' This is the main questionnaire generation interface that's doing all the magic. This function is only called for its side effects, it doesn't return
 #' anything.
 #'
-#' @inheritParams ballot_type
+#' @inheritParams ballot_types
 #' @param quiet `r pkgsnip::param_label("quiet")`
 #'   
 #' Either as a character or a [date][base::Date] scalar.
@@ -3675,194 +3286,6 @@ gen_q <- function(ballot_date = ballot_dates,
                      encoding = "UTF-8")
   
   invisible(NULL)
-}
-```
-
-### `q_tibble`
-
-```{r}
-#' Generate questionnaire tibble
-#'
-#' @inheritParams ballot_type
-#' @param verbose Whether or not to print progress information during questionnaire generation.
-#'
-#' @return `r pkgsnip::return_label("data")`
-#' @family q_gen
-#' @export
-q_tibble <- function(ballot_date = ballot_dates,
-                     canton = cantons,
-                     verbose = FALSE) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  canton <- rlang::arg_match(canton)
-  
-  raw_q_suppl <- raw_q_suppl(ballot_date = ballot_date)
-  
-  # initialize across-block item enumerator
-  item_enumerator <- 1L
-  
-  # assemble questionnaire
-  purrr::map_dfr(.x = names(raw_q),
-                 verbose = verbose,
-                 .f = function(block, verbose) {
-                   
-                   if (verbose) cli::cli_h1("MAIN BLOCK: {.val {block}}")
-                   
-                   # determine item enumeration prefix
-                   prefix <- raw_q %>% purrr::pluck(block, "prefix",
-                                                    .default = 0L)
-                   
-                   # determine item enumeration start
-                   item_enumeration_start <- dplyr::if_else(prefix == 0L,
-                                                            item_enumerator,
-                                                            1L)
-                   
-                   # traverse list `raw_q` recursively and assemble items
-                   questionnaire <- assemble_deep(data_q = raw_q[[block]],
-                                                  lvl_name = block,
-                                                  heritable_map = init_heritable_map(block = block),
-                                                  generate_md = FALSE,
-                                                  verbose = verbose)
-                   
-                   # only proceed if it is an actual questionnaire block (i.e. contains table items)
-                   if (length(questionnaire)) {
-                     
-                     questionnaire %<>%
-                       # "unpack" results list
-                       pal::reduce_df_list() %>%
-                       # add item enumeration
-                       dplyr::mutate(nr = seq(from = item_enumeration_start + prefix,
-                                              to = item_enumeration_start + prefix + nrow(.) - 1L,
-                                              by = 1L),
-                                     block = block) %>%
-                       # reorder cols
-                       dplyr::select(nr, block, everything())
-                     
-                     # update item enumerator
-                     if (prefix == 0L) item_enumerator <<- item_enumerator + nrow(questionnaire)
-                     
-                   } else questionnaire <- NULL
-                   
-                   questionnaire
-                 })
-}
-```
-
-### `q_md`
-
-```{r}
-#' Generate Markdown questionnaire
-#'
-#' @inheritParams ballot_type
-#'
-#' @return A character vector.
-#' @family q_gen
-#' @export
-q_md <- function(ballot_date = ballot_dates,
-                 canton = cantons) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  canton <- rlang::arg_match(canton)
-  
-  raw_q_suppl <- raw_qx_suppl[[ballot_date]]
-  
-  # initialize block enumerator
-  block_enumerator <- 1L
-  
-  # initialize across-block item enumerator
-  item_enumerator <- 1L
-  
-  # traverse list `raw_q` recursively to assemble questionnaire
-  purrr::map(.x = names(raw_q),
-             .f = function(block) {
-               
-               # determine item enumeration prefix
-               prefix <- purrr::pluck(.x = raw_q,
-                                      block, "prefix",
-                                      .default = 0L)
-               
-               # determine item enumeration start
-               item_enumeration_start <- dplyr::if_else(prefix == 0L,
-                                                        item_enumerator,
-                                                        1L)
-               
-               # generate table body
-               table_body <- gen_table_body(raw_q = raw_q,
-                                            block = block,
-                                            enumeration_start = item_enumeration_start)
-               
-               # only proceed if it is an actual questionnaire block (i.e. contains table items)
-               if (length(table_body)) {
-                 
-                 # update item enumerator
-                 if (prefix == 0L) item_enumerator <<- item_enumerator + length(table_body)
-                 
-                 # determine block "number"
-                 block_nr <-
-                   raw_q %>%
-                   purrr::pluck(block, "nr") %>%
-                   glue::glue(.trim = FALSE)
-                 
-                 # handle auto-enumeration
-                 if (length(block_nr) == 0L) {
-                   
-                   block_nr <- block_enumerator
-                   block_enumerator <<- block_enumerator + 1L
-                 }
-                 
-                 # assemble block header
-                 whole_block <-
-                   purrr::pluck(raw_q,
-                                block, "title") %>%
-                   glue::glue(.trim = FALSE) %>%
-                   purrr::when(is.null(.) ~ "",
-                               ~ paste0(": ", .)) %>%
-                   paste0("## Block ", block_nr, ., "\n")
-                 
-                 # add block intro and table
-                 whole_block <-
-                   purrr::pluck(raw_q,
-                                block, "intro") %>%
-                   raw_pick_right(ballot_date = ballot_date,
-                                  canton = canton) %>%
-                   purrr::when(is.null(.) ~ character(),
-                               ~ glue::glue(., "\n",
-                                            .trim = FALSE)) %>%
-                   c(whole_block,
-                     .,
-                     gen_table_header(),
-                     table_body) %>%
-                   paste0(collapse = "\n") %>%
-                   paste0("\n\n")
-                 
-                 return(whole_block)
-                 
-               } else return(NULL)
-             }) %>%
-    purrr::flatten_chr() %>%
-    cat(sep = "\n")
-  
-  # assemble footnotes
-  raw_q$footnote %>%
-    purrr::map(.f = assemble_md_ref_item,
-               canton = canton,
-               ballot_date = ballot_date) %>%
-    purrr::flatten_chr() %>%
-    cat("",
-        sep = "\n\n")
-  
-  # assemble reference-style links
-  raw_q$link %>%
-    purrr::map(.f = assemble_md_ref_item,
-               canton = canton,
-               ballot_date = ballot_date) %>%
-    purrr::flatten_chr() %>%
-    cat("",
-        sep = "\n\n")
 }
 ```
 
@@ -4146,10 +3569,17 @@ lgl_to_unicode <- function(x) {
 
 ### `prettify_date`
 
-Relevant SO question: [What is a reliable way of getting allowed locale names in
-R?](https://stackoverflow.com/questions/20960821/what-is-a-reliable-way-of-getting-allowed-locale-names-in-r)
+TODO:
 
-TODO: Investigate if there's a more sophisticated pkg available fulfilling this task (ideally in a system-locale-independent way).
+-   This fn somehow acts very strangely during questionnaire generation: Although we use `prettify_date(ballot_date, locale = 'de')`, it results in
+    `October 18, 2020`, i.e. doesn't even use the proper format string.
+
+-   Investigate if there's a more sophisticated pkg available fulfilling this task (ideally in a system-locale-independent way).
+
+NOTES:
+
+-   Relevant SO question: [What is a reliable way of getting allowed locale names in
+    R?](https://stackoverflow.com/questions/20960821/what-is-a-reliable-way-of-getting-allowed-locale-names-in-r)
 
 ```{r}
 #' Prettify date
@@ -4165,15 +3595,20 @@ TODO: Investigate if there's a more sophisticated pkg available fulfilling this 
 #' @examples
 #' fokus::prettify_date(lubridate::today())
 prettify_date <- function(date,
-                          locale = "en-US") {
+                          locale = c("en-US", "de-CH")) {
+  
+  locale <- rlang::arg_match(locale,
+                             values = c("en", "de", "en-US", "de-CH"))
   
   withr::with_locale(new = c("LC_TIME" = purrr::when(. = locale,
                                                      . %in% c("en", "en-US") ~ "C",
                                                      . %in% c("de", "de-CH") ~ "de_CH.utf8")),
                      code =
                        locale %>%
-                       purrr::when(. %in% c("en", "en-US") ~ "%B %d, %Y",
-                                   . %in% c("de", "de-CH") ~ "%d. %B %Y",
+                       purrr::when(. %in% c("en", "en-US") ~
+                                     "%B %d, %Y",
+                                   . %in% c("de", "de-CH") ~
+                                     "%d. %B %Y",
                                    ~ cli::cli_abort("Specified {.arg locale} not implemented yet.")) %>%
                        format(x = lubridate::as_date(date)))
 }

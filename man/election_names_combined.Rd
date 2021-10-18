@@ -18,6 +18,7 @@ election_names_combined(
 \item \code{"2019-10-20"}
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
+\item \code{"2021-11-28"}
 }}
 
 \item{lvl}{Political level. One of

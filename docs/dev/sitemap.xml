@@ -46,6 +46,12 @@
     <loc>https://rpkg.dev/fokus/reference/gen_q.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/gen_q_md.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/gen_q_tibble.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/has_election.html</loc>
   </url>
   <url>
@@ -118,9 +124,6 @@
     <loc>https://rpkg.dev/fokus/reference/q_item_val.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/q_md.html</loc>
-  </url>
-  <url>
     <loc>https://rpkg.dev/fokus/reference/q_parties.html</loc>
   </url>
   <url>
@@ -128,9 +131,6 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/q_response_options.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/q_tibble.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/raw_pick_right.html</loc>

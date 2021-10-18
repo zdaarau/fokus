@@ -117,14 +117,46 @@
 <div id="todos" class="section level1">
 
 <ul>
+<li>Separaten Corona-Block:</li>
+</ul>
+<!-- --><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Beurteilung Krisenmanagement national <span class="sc">/</span> kantonal</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Vertrauen nationale Institutionen</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> kantonales Gesundsdepartement</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> ...</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Sind Sie gegen Covid<span class="dv">-19</span> geimpft? <span class="sc">/</span> Haben Sie sich gegen Covid<span class="dv">-19</span> impfen lassen?</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Ja</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Ich überlege noch</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Nein</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Niemals<span class="sc">!</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Wünschen Sie sich, dass möglichst alle Ihre Mitmenschen geimpft sind?</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Informationsquelle Covid<span class="dv">-19</span></span></code></pre></div>
+<ul>
+<li>
+<p>Outstanding adaptions in the old codebase to questionnaire changes in this pkg:</p>
+<ul>
+<li>
+<p>variable renamings:</p>
+<ul>
+<li>
+<code>sighting_political_ads</code> -&gt; <code>sighting_political_ads_cantonal_proposals</code>
+</li>
+<li>
+<code>intensity_political_discussions</code> -&gt; <code>intensity_political_discussions_cantonal_proposals</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>
 <p>supplemental date-specific TOML questionnaire files:</p>
 <ul>
 <li>figure out why there’s <code>mode = "majority"</code> defined under table <code>cantonal.aargau.election.majoritarian.1</code> (seems bollocks)</li>
 </ul>
 </li>
-<li><p><input type="checkbox" disabled>
-Replace the <code>is_initiative</code> key in the <code>proposal</code> sub-table of the supplementary date-specific TOML questionnaire files with a more informative <code>type</code> key (need to define its possible English values first).</p></li>
 <li><p><input type="checkbox" disabled>
 Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found <a href="https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/" class="external-link">here</a></p></li>
 <li>

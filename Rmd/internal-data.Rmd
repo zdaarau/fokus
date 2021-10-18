@@ -55,7 +55,7 @@ ballot_metadata <-
   purrr::map_dfr(function(raw_q_suppl) {
     
     tibble::tibble(ballot_date = raw_q_suppl$ballot_date,
-                   canton = unique(names(raw_q_suppl$cantonal))) %>%
+                   canton = unique(names(raw_q_suppl$mode))) %>%
       dplyr::mutate(n_cantonal_proposals = canton %>% purrr::map_int(~ length(raw_q_suppl$cantonal[[.x]]$proposal)),
                     n_cantonal_proportional_elections = canton %>% purrr::map_int(~ length(raw_q_suppl$cantonal[[.x]]$election$proportional)),
                     n_cantonal_majoritarian_elections = canton %>% purrr::map_int(~ length(raw_q_suppl$cantonal[[.x]]$election$majoritarian)),
@@ -103,27 +103,38 @@ Questionnaire item keys supported in the raw FOKUS questionnaire data
 ```{r, purl = FALSE}
 q_item_keys <- tibble::tribble(
   
-  ~key,                         ~is_scalar, ~is_iterator, ~type,
-  "lvl",                        FALSE,      TRUE,        "character",
-  "i",                          FALSE,      TRUE,        "character",
-  "j",                          FALSE,      TRUE,        "character",
-  "block",                      TRUE,       FALSE,       "character",
-  "variable_name",              TRUE,       FALSE,       "character",
-  "who",                        TRUE,       FALSE,       "character",
-  "topic",                      TRUE,       FALSE,       "character",
-  "question",                   TRUE,       FALSE,       "character",
-  "question_common",            TRUE,       FALSE,       "character",
-  "variable_label",             TRUE,       FALSE,       "character",
-  "variable_label_common",      TRUE,       FALSE,       "character",
-  "response_options",           FALSE,      FALSE,       "character",
-  "variable_values",            FALSE,      FALSE,       "integer",
-  "value_labels",               FALSE,      FALSE,       "character",
-  "value_scale",                TRUE,       FALSE,       "character",
-  "multiple_answers_allowed",   TRUE,       FALSE,       "logical",
-  "randomize_response_options", TRUE,       FALSE,       "logical",
-  "ballot_types",               FALSE,      FALSE,       "character",
-  "include",                    TRUE,       FALSE,       "logical"
+  ~key,                         ~is_scalar, ~is_iterator, ~is_excluder, ~type,
+  "lvl",                        FALSE,      TRUE,         FALSE,        "character",
+  "i",                          FALSE,      TRUE,         FALSE,        "character",
+  "j",                          FALSE,      TRUE,         FALSE,        "character",
+  "block",                      TRUE,       FALSE,        FALSE,        "character",
+  "variable_name",              TRUE,       FALSE,        FALSE,        "character",
+  "who",                        TRUE,       FALSE,        FALSE,        "character",
+  "topic",                      TRUE,       FALSE,        FALSE,        "character",
+  "question",                   TRUE,       FALSE,        FALSE,        "character",
+  "question_common",            TRUE,       FALSE,        FALSE,        "character",
+  "variable_label",             TRUE,       FALSE,        FALSE,        "character",
+  "variable_label_common",      TRUE,       FALSE,        FALSE,        "character",
+  "response_options",           FALSE,      FALSE,        FALSE,        "character",
+  "variable_values",            FALSE,      FALSE,        FALSE,        "integer",
+  "value_labels",               FALSE,      FALSE,        FALSE,        "character",
+  "value_scale",                TRUE,       FALSE,        FALSE,        "character",
+  "multiple_answers_allowed",   TRUE,       FALSE,        FALSE,        "logical",
+  "randomize_response_options", TRUE,       FALSE,        FALSE,        "logical",
+  "ballot_types",               FALSE,      FALSE,        TRUE,         "character",
+  "include",                    TRUE,       FALSE,        TRUE,         "logical"
 )
+```
+
+## `q_item_keys_multival`
+
+Pure convenience.
+
+```{r, purl = FALSE}
+q_item_keys_multival <-
+  q_item_keys %>%
+  dplyr::filter(!is_iterator & !is_scalar & !is_excluder) %$%
+  key
 ```
 
 ## `q_non_item_lvls`
@@ -307,6 +318,7 @@ usethis::use_data(ballot_dates,
                   proposal_types,
                   response_option_types,
                   q_item_keys,
+                  q_item_keys_multival,
                   q_non_item_lvls,
                   q_ballot_types,
                   shortening_rules,

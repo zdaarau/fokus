@@ -4,7 +4,7 @@
 \alias{prettify_date}
 \title{Prettify date}
 \usage{
-prettify_date(date, locale = "en-US")
+prettify_date(date, locale = c("en-US", "de-CH"))
 }
 \arguments{
 \item{date}{Date to be prettified. A \link[base:Dates]{date} or something coercible to.}

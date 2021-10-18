@@ -11,7 +11,7 @@ A vector of \link[base:Dates]{dates}.
 ballot_dates
 }
 \description{
-A vector of ballot dates covered by FOKUS surveys up until 2020-10-18.
+A vector of ballot dates covered by FOKUS surveys up until 2021-11-28.
 }
 \seealso{
 \code{\link{cantons}} \code{\link{ballot_metadata}} \code{\link{response_option_types}} \code{\link{q_item_keys}}
