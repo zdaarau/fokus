@@ -13,3 +13,6 @@ Thumbs.db
 
 # API keys
 .httr-oauth
+
+# ad-hoc TODO dir
+/TODO

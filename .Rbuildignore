@@ -3,6 +3,7 @@
 ^pkgdown$
 ^Rmd$
 ^snippets$
+^TODO$
 ^cran-comments\.md$
 ^TODO\.md$
 ^LICENSE(\.md)?$
