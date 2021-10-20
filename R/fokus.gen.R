@@ -27,6 +27,7 @@
 utils::globalVariables(names = c(".",
                                  # tidyselect fns
                                  "all_of",
+                                 "ends_with",
                                  "everything",
                                  "where",
                                  # other
@@ -56,6 +57,7 @@ utils::globalVariables(names = c(".",
                                  "string",
                                  "topic",
                                  "value_labels",
+                                 "variable_name",
                                  "variable_values",
                                  "who",
                                  "width"))
@@ -784,6 +786,9 @@ pick_right_helper <- function(x,
       cli::cli_abort("Illegal overlapping interval subkeys found: {.var {begin_end_subkeys[matches_begin_end_subkeys]}}\n\nPlease fix this and run again.")
     }
     
+    ballot_types <- ballot_types(ballot_date = ballot_date,
+                                 canton = canton)
+    
     x <- names(x) %>% purrr::when(
       
       # consider overrides for binary keys
@@ -796,8 +801,8 @@ pick_right_helper <- function(x,
       ## begin-end date subkey
       length(which(matches_begin_end_subkeys)) > 0L ~ x[[begin_end_subkeys[matches_begin_end_subkeys]]],
       
-      # consider overrides for ballot types
-      ballot_type(ballot_date = ballot_date, canton = canton) %in% . ~ x[[ballot_type(ballot_date = ballot_date, canton = canton)]],
+      # consider overrides for ballot types (we take the first one in case of ambiguity)
+      . %in% ballot_types ~ x[[intersect(., ballot_types)[1L]]],
       
       # return default value if defined
       "default" %in% . ~ x[["default"]],
@@ -1066,7 +1071,7 @@ expand_q_tibble <- function(q_tibble) {
   # run integrity checks...
     validate_q_tibble(q_tibble) %>%
     # ...expand questionnaire data to long format...
-    tidyr::unnest(cols = q_item_keys_multival)
+    tidyr::unnest(cols = any_of(q_item_keys_multival))
 }
 
 #' Generate questionnaire tibble
@@ -1237,7 +1242,7 @@ validate_q_tibble <- function(q_tibble) {
           
           dup_v <- q_tibble[[v]][i]
           
-          cli::cli_abort(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire. Please fix this and run the script again."))
+          cli::cli_alert_danger(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire. Please fix this and run the script again."))
         }
       }
     })
@@ -1276,18 +1281,33 @@ validate_q_tibble <- function(q_tibble) {
 #' Generate Markdown questionnaire
 #'
 #' @inheritParams ballot_types
+#' @param incl_title Whether or not to generate an `<h1>` questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
+#'   it's recommended to set this to `FALSE` and provide the title via [Pandoc's `--metadata` option](https://pandoc.org/MANUAL.html#option--metadata) instead.
 #'
 #' @return A character vector.
 #' @family q_gen
 #' @keywords internal
-gen_q_md <- function(q_tibble) {
+gen_q_md <- function(q_tibble,
+                     incl_title = FALSE) {
   
-  status_msg <- "Generating Markdown questionnaire for canton {.val {q_tibble$canton[1L]}} @ {.val {q_tibble$ballot_date[1L]}}..."
+  # ensure we have a single ballot date and canton
+  ballot_date <-
+    q_tibble %$%
+    ballot_date %>%
+    unique() %>%
+    checkmate::assert_string(.var.name = "ballot_date")
+  canton <-
+    q_tibble %$%
+    canton %>%
+    unique() %>%
+    checkmate::assert_string(.var.name = "canton")
+  
+  status_msg <- "Generating Markdown questionnaire for canton {.val {canton}} @ {.val {ballot_date}}..."
   cli::cli_progress_step(msg = status_msg,
                          msg_done = paste(status_msg, "done"),
                          msg_failed = paste(status_msg, "failed"))
   
-  md_lines <-
+  block_lines <-
     q_tibble %>%
     # add block title and across-block item enumerator base/group
     dplyr::mutate(enumerator_base =
@@ -1311,43 +1331,93 @@ gen_q_md <- function(q_tibble) {
       block_intro <-
         raw_q %>%
         purrr::pluck(block, "intro") %>%
-        raw_pick_right(ballot_date = .x$ballot_date[1L],
-                       canton = .x$canton[1L]) %>%
+        raw_pick_right(ballot_date = ballot_date,
+                       canton = canton) %>%
         cli::pluralize(.trim = FALSE)
       
       c(glue::glue("## Block {block_nr}: {block_title}"),
         "",
         block_intro,
         ""[length(block_intro)],
-        md_table_header(),
-        md_table_body(q_tibble_block = .x,
-                      block = block),
+        q_md_table_header(),
+        q_md_table_body(q_tibble_block = .x,
+                        block = block),
         "",
         "")
     }) %>%
     purrr::flatten_chr()
   
-  # add footnotes and link references
+  # add title, technical notes, introduction, footnotes and link references
+  title <- paste0("# FOKUS-Aargau-Fragebogen f\u00fcr den ",
+                  ballot_title(ballot_date = ballot_date,
+                               canton = canton),
+                  "\n")
+  
+  technical_notes <-
+    raw_q %$%
+    who %>%
+    # reduce to who's that actually occur in data
+    purrr::keep(~ .x$value$de %>%
+                  stringr::str_replace(pattern = "\\{i\\}",
+                                       replacement = "\\d+") %>%
+                  stringr::str_detect(string = q_tibble$who,
+                                      pattern = .) %>%
+                  any()) %>%
+    # assemble who lines
+    purrr::map_depth(.depth = 1L,
+                     .f = ~ {
+                       
+                       i <-
+                         .x[["i"]] %>%
+                         glue::glue(.trim = FALSE) %>%
+                         as.integer()
+                       
+                       value <-
+                         .x$value$de %>%
+                         glue::glue(.trim = FALSE) %>%
+                         md_emphasize()
+                       
+                       description <-
+                         .x$description$de %>%
+                         glue::glue(.trim = FALSE)
+                       
+                       glue::glue("- {value}: {description}")
+                     }) %>%
+    purrr::flatten_chr() %>%
+    c("## Technische Vorbemerkungen",
+      "",
+      "### `Wer`",
+      "",
+      "Die Spalte `Wer` dient dem Fragebogen-Routing. Sie kennt folgende Werte:",
+      "",
+      .,
+      "",
+      md_snippets$q_technical_notes_multiple_responses,
+      md_snippets$q_technical_notes_free_text_fields)
+  
   footnotes <-
     raw_q$footnote %>%
     # reduce to footnotes that actually occur in table body
-    purrr::keep(~ any(stringr::str_detect(md_lines, glue::glue("\\[\\^{.x$id}\\]")))) %>%
+    purrr::keep(~ any(stringr::str_detect(block_lines, glue::glue("\\[\\^{.x$id}\\]")))) %>%
     purrr::map(~ c(glue::glue("[^{.x$id}]: {.x$text}"), "")) %>%
     purrr::flatten_chr()
   
   link_refs <-
     raw_q$link %>%
     # reduce to link references that actually occur in table body
-    purrr::keep(~ any(stringr::str_detect(md_lines, glue::glue("\\[[^]]+\\]\\[{.x$id}\\]")))) %>%
+    purrr::keep(~ any(stringr::str_detect(block_lines, glue::glue("\\[[^]]+\\]\\[{.x$id}\\]")))) %>%
     purrr::map(~ c(glue::glue("[{.x$id}]: {.x$url}"), "")) %>%
     purrr::flatten_chr()
   
-  c(md_lines,
+  c(title[incl_title],
+    technical_notes,
+    md_snippets$q_introduction,
+    block_lines,
     footnotes,
     link_refs)
 }
 
-md_table_header <- function() {
+q_md_table_header <- function() {
   
   tibble::tribble(
     ~name,                                         ~width, ~alignment,
@@ -1385,16 +1455,15 @@ md_table_header <- function() {
       paste0(separator, collapse = " | "))
 }
 
-md_table_body <- function(q_tibble_block,
-                          block) {
+q_md_table_body <- function(q_tibble_block,
+                            block) {
   
   q_tibble_block %>%
     # replace logicals by German ja/nein
     dplyr::mutate(dplyr::across(where(is.logical),
                                 ifelse,
                                 "ja",
-                                "nein"),
-                  dplyr::across()) %>%
+                                "nein")) %>%
     purrr::pmap_chr(function(ballot_date,
                              canton,
                              enumerator,
@@ -1667,6 +1736,42 @@ q_response_option_codes <- function(types = response_option_types) {
   types %>% purrr::map_int(~ raw_q %>% purrr::chuck("response_options", .x, "code"))
 }
 
+#' Authorize googledrive 
+#'
+#' Authorizes the googledrive package to access and manage files on your Google Drive via a [Google Cloud Platform (GCP) Service
+#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file in JSON format.
+#'
+#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file.
+#'
+#' @return `path_gcp_service_account_key`, invisibly.
+#' @family g_apps
+#' @keywords internal
+auth_g_drive <- function(path_gcp_service_account_key = path_private("config/gcp_service_account_key.json")) {
+  
+  pal::assert_pkg("googledrive")
+  is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
+                                         access = "r")
+  
+  if (is_file) {
+    
+    status_msg <- "Authenticating Google account..."
+    cli::cli_progress_step(msg = status_msg,
+                           msg_done = paste(status_msg, "done"),
+                           msg_failed = paste(status_msg, "failed"))
+    
+    googledrive::drive_auth(path = path_gcp_service_account_key,
+                            email = TRUE)
+    
+  } else {
+    cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
+                          "Instructions to store such a key can be found here: ",
+                          # TODO: the `#` char in the URL somehow breaks cli's class formatting (`{.url ...}`) -> report bug!
+                          "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"))
+  }
+  
+  invisible(path_gcp_service_account_key)
+}
+
 assert_countish <- function(x,
                             positive = TRUE,
                             null_ok = FALSE) {
@@ -1719,6 +1824,18 @@ as_flat_list <- function(x) {
   }
   
   result
+}
+
+ballot_title <- function(ballot_date,
+                         canton) {
+  
+  ballot_types(ballot_date = ballot_date,
+               canton = canton) %>%
+    purrr::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
+                . == "referendum" ~ "Abstimmungs",
+                . == "election" ~ "Wahl",
+                ~ cli::cli_abort("Undefined behavior. Please debug.")) %>%
+    glue::glue("termin vom {prettify_date(ballot_date, locale = 'de')}")
 }
 
 collapse_break <- function(s) {
@@ -1831,29 +1948,6 @@ ballot_types <- function(ballot_date = ballot_dates,
   
   c("referendum"[has_referendum],
     "election"[has_election])
-}
-
-#' Determine ballot type
-#'
-#' Determines the type of the ballot for the specified canton at the specified date.
-#'
-#' @inheritParams ballot_types
-#'
-#' @return Ballot type as a character scalar. One of
-#' `r pal::as_md_list(paste0('"', q_ballot_types, '"'), wrap = '``')`
-#' @family predicate_fundamental
-#' @export
-#'
-#' @examples
-#' fokus::ballot_type(ballot_date = "2018-09-23",
-#'                    canton = "aargau")
-ballot_type <- function(ballot_date = ballot_dates,
-                        canton = cantons) {
-  
-  ballot_types(ballot_date = ballot_date,
-               canton = canton) %>%
-    purrr::when(length(.) > 1L ~ "both_referendum_and_election",
-                ~ .)
 }
 
 #' Get number of referendum proposals
@@ -2972,6 +3066,49 @@ restore_colnames <- function(x) {
                                                        reverse = TRUE))
 }
 
+#' Upload files to Google Drive
+#'
+#' Uploads one or more files to your Google Drive.
+#'
+#' @param filepaths Local path(s) to the file(s) to be uploaded.
+#' @param g_drive_folder Destination path on Google Drive where the files are to be uploaded to.
+#'
+#' @return `filepaths`, invisibly.
+#' @family g_apps
+#' @export
+upload_to_g_drive <- function(filepaths,
+                              g_drive_folder = "fokus_aargau/") {
+  
+  checkmate::assert_character(filepaths,
+                              any.missing = FALSE)
+  checkmate::assert_string(g_drive_folder)
+  pal::assert_pkg("googledrive")
+  
+  # extract filenames
+  filenames <- fs::path_file(filepaths)
+  
+  # authenticate Google account
+  auth_g_drive()
+  
+  # upload files
+  purrr::walk2(.x = filenames,
+               .y = filepaths,
+               .f = ~ {
+                 
+                 status_msg <- "Uploading file {.file {.x}}..."
+                 cli::cli_progress_step(msg = status_msg,
+                                        msg_done = paste(status_msg, "done"),
+                                        msg_failed = paste(status_msg, "failed"))
+                 
+                 # overwrite existing file if possible or create new one otherwise
+                 googledrive::drive_put(media = .y,
+                                        path = g_drive_folder,
+                                        name = .x)
+               })
+  
+  invisible(filepaths)
+}
+
 #' Abbreviations used in the **fokus** package
 #'
 #' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
@@ -3012,7 +3149,7 @@ abbreviations <- function(expand = FALSE) {
 #' @return A character scalar.
 #' @export
 print_fokus_private_structure <- function() {
-  cat(fokus_private_structure)
+  cat(md_snippets$fokus_private_structure)
 }
 
 #' Emphasize xth element of character vector (Markdown)
@@ -3102,6 +3239,9 @@ deploy_q <- function(ballot_date = "2021-11-28",
                      canton = cantons,
                      verbose = FALSE) {
   
+  pal::assert_pkg("rmarkdown")
+  pal::assert_pkg("yay")
+  
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
@@ -3109,19 +3249,92 @@ deploy_q <- function(ballot_date = "2021-11-28",
   
   md_path <- path_private(glue::glue("output/questionnaires/questionnaire_{ballot_date}_{canton}.md"))
   
-  gen_q_tibble(ballot_date = ballot_date,
-               verbose = verbose) %>%
+  # Generate questionnaire tibble and Markdown version
+  q_tibble <- gen_q_tibble(ballot_date = ballot_date,
+                           verbose = verbose)
+  
+  q_tibble %>%
     gen_q_md() %>%
-    brio::write_lines(path = md_path)
+    readr::write_lines(file = md_path)
+  
+  # create CSV version from tibble
+  csv_path <- md_path %>% fs::path_ext_set(ext = "csv")
+  
+  q_tibble %>%
+    strip_md_q_tibble() %>%
+    dplyr::mutate(variable_name_32 =
+                    purrr::map2_chr(.x = variable_name,
+                                    .y = dplyr::if_else(block %in% c("x_publitest", "y_generated", "z_generated")
+                                                        | stringr::str_detect(string = variable_name,
+                                                                              pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
+                                                                                                                      "information_source_",
+                                                                                                                      "reason_non_participation_",
+                                                                                                                      "political_occasions_")))),
+                                                        32L,
+                                                        30L),
+                                    .f = ~ shorten_v_names(v_names = .x,
+                                                           max_n_char = .y)),
+                  .after = variable_name) %>%
+    dplyr::select(-ends_with("_common")) %>%
+    expand_q_tibble() %>%
+    readr::write_csv(file = csv_path,
+                     na = "")
+  
+  # create HTML version from Markdown questionnaire
+  html_path <- fs::path_ext_set(path = md_path,
+                                ext = "html")
+  path_dir <- fs::path_dir(html_path)
+  
+  status_msg <- "Converting Markdown questionnaire to HTML using Pandoc..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
   
   rmarkdown::pandoc_convert(input = md_path,
-                            to = "html",
+                            to = "html5",
                             from = "markdown",
-                            output = fs::path_ext_set(path = md_path,
-                                                      ext = "html"),
-                            options = c("--css=github-pandoc.css"))
+                            output = html_path,
+                            options = c("--standalone",
+                                        "--css=github-pandoc.css",
+                                        paste0('--metadata=title:FOKUS-Aargau-Fragebogen f\u00fcr den ', ballot_title(ballot_date = ballot_date,
+                                                                                                                 canton = canton))),
+                            verbose = FALSE)
+  cli::cli_progress_done()
   
-  yay::deploy_static_site(from_path = fs::path_dir(md_path),
+  # create XLSX version from HTML questionnaire
+  status_msg <- "Converting HTML questionnaire to XLSX using LibreOffice..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
+  
+  system2(command = "flatpak",
+          args = glue::glue("run --command=libreoffice",
+                            "org.libreoffice.LibreOffice",
+                            "--calc",
+                            "--headless",
+                            "--convert-to xlsx",
+                            "--outdir \"{path_dir}\"",
+                            "\"{html_path}\"",
+                            .sep = " "))
+  cli::cli_progress_done()
+  
+  # deploy HTML to GitLab Pages
+  status_msg <- "Deploying questionnaire to GitLab Pages..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
+  
+  yay::deploy_static_site(from_path = path_dir,
                           to_path = "~/Arbeit/ZDA/Git/c2d-zda/c2d-zda.gitlab.io/public/",
                           clean_to_path = FALSE)
+  cli::cli_progress_done()
+  
+  # upload files to Google Drive for publitest
+  upload_to_g_drive(filepaths = c(md_path,
+                                  csv_path,
+                                  html_path,
+                                  fs::path(path_dir, "github-pandoc.css"),
+                                  fs::path_ext_set(path = html_path,
+                                                   ext = "xlsx")),
+                    g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/Fragebogen/")
 }

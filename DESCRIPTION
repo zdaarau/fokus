@@ -40,17 +40,20 @@ Imports:
     withr (>= 2.3.0),
     xfun (>= 0.18)
 Suggests:
+    googledrive (>= 2.0.0),
     pkgsnip (>= 0.0.9024),
     RcppTOML (>= 0.1.6),
     rmarkdown (>= 2.11),
     RSelenium (>= 1.7.7.9000),
-    testthat
+    testthat,
+    yay (>= 0.0.9007)
 VignetteBuilder: 
     knitr
 Remotes:
     github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal,
-    gitlab::salim_b/r/pkgs/pkgsnip
+    gitlab::salim_b/r/pkgs/pkgsnip,
+    gitlab::salim_b/r/pkgs/yay
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true

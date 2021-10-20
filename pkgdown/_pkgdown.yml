@@ -30,7 +30,6 @@ reference:
 - subtitle: Fundamental predicates
 - contents:
   - ballot_types
-  - ballot_type
   - n_proposals
   - n_elections
   - has_referendum
@@ -73,6 +72,8 @@ reference:
   - shorten_v_names
   - shorten_colnames
   - restore_colnames
+- title: Google Apps
+- contents: upload_to_g_drive
 - title: Miscellaneous
 - contents:
   - abbreviations

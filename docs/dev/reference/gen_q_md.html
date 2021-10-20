@@ -134,8 +134,17 @@
     <p>Generate Markdown questionnaire</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gen_q_md</span><span class='op'>(</span><span class='va'>q_tibble</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gen_q_md</span><span class='op'>(</span><span class='va'>q_tibble</span>, incl_title <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>incl_title</th>
+      <td><p>Whether or not to generate an <code>&lt;h1&gt;</code> questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
+it's recommended to set this to <code>FALSE</code> and provide the title via <a href='https://pandoc.org/MANUAL.html#option--metadata'>Pandoc's <code>--metadata</code> option</a> instead.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 

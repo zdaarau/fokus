@@ -4,7 +4,11 @@
 \alias{gen_q_md}
 \title{Generate Markdown questionnaire}
 \usage{
-gen_q_md(q_tibble)
+gen_q_md(q_tibble, incl_title = FALSE)
+}
+\arguments{
+\item{incl_title}{Whether or not to generate an \verb{<h1>} questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
+it's recommended to set this to \code{FALSE} and provide the title via \href{https://pandoc.org/MANUAL.html#option--metadata}{Pandoc's \code{--metadata} option} instead.}
 }
 \value{
 A character vector.

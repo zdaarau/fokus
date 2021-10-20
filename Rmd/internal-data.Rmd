@@ -307,8 +307,15 @@ fokus_private_structure <-
   )
 ```
 
+## `md_snippets`
+
 ```{r, purl = FALSE}
-fokus_private_structure <- readr::read_file(file = "data-raw/snippets/fokus_private_structure.md")
+md_snippets <-
+  fs::dir_ls(path = "data-raw/snippets/",
+             type = "file",
+             glob = "*.md") %>%
+  magrittr::set_names(value = fs::path_file(.) %>% fs::path_ext_remove()) %>%
+  purrr::map(brio::read_file)
 ```
 
 ## Write package-internal data
@@ -327,7 +334,7 @@ usethis::use_data(ballot_dates,
                   q_non_item_lvls,
                   q_ballot_types,
                   shortening_rules,
-                  fokus_private_structure,
+                  md_snippets,
                   internal = TRUE,
                   overwrite = TRUE,
                   compress = "xz",
