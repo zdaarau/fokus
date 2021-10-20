@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raw FOKUS questionnaire schema • fokus</title>
+<title>FOKUS questionnaire schema • fokus</title>
 <!-- jquery --><script src="../jquery.min.js"></script><!-- Bootstrap --><link rel="stylesheet" href="../yeti.min.css">
 <script src="../bootstrap.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="../font-awesome/css/all.min.css">
 <link rel="stylesheet" href="../font-awesome/css/v4-shims.min.css">
 <!-- clipboard.js --><script src="../clipboard.min.js"></script><!-- headroom.js --><script src="../headroom.min.js"></script><script src="../jQuery.headroom.min.js"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Raw FOKUS questionnaire schema">
+<script src="../pkgdown.js"></script><meta property="og:title" content="FOKUS questionnaire schema">
 <meta name="description" content="fokus">
 <meta property="og:description" content="fokus">
 <meta name="twitter:card" content="summary">
@@ -55,7 +55,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/raw_q_schema.html">Raw FOKUS questionnaire schema</a>
+      <a href="../articles/raw_q_schema.html">FOKUS questionnaire schema</a>
     </li>
   </ul>
 </li>
@@ -80,10 +80,10 @@
       </header><script src="raw_q_schema_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Raw FOKUS questionnaire schema</h1>
-            <h3 data-toc-skip class="subtitle">Structure and semantic rules of the TOML questionnaire</h3>
+      <h1 data-toc-skip>FOKUS questionnaire schema</h1>
+            <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-10-19</h4>
+            <h4 data-toc-skip class="date">2021-10-20</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -124,26 +124,52 @@
 <ul>
 <li>
 <p>Only regarded on top level (“block”):</p>
-<ul>
-<li>
-<code>title</code> (block title)</li>
-<li>
-<code>intro</code> (optional text paragraph introducing the questionnaire items of the block)</li>
-<li>
-<code>prefix</code> (optional block numbering prefix for the first questionnaire column <code>\#</code>; if not provided, items will be auto-numbered (across all blocks without prefix))</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="5%">
+<col width="9%">
+<col width="5%">
+<col width="79%">
+</colgroup>
+<thead><tr class="header">
+<th>Key</th>
+<th>Type</th>
+<th>Optional</th>
+<th>Remarks</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>title</code></td>
+<td>character scalar</td>
+<td>❌</td>
+<td>block title</td>
+</tr>
+<tr class="even">
+<td><code>intro</code></td>
+<td>character scalar</td>
+<td>✅</td>
+<td>text paragraph introducing the questionnaire items of the block</td>
+</tr>
+<tr class="odd">
+<td><code>prefix</code></td>
+<td>integer scalar</td>
+<td>✅</td>
+<td>block numbering prefix for the first questionnaire column <code>#</code>; if not provided, items will be auto-numbered (across all blocks without a <code>prefix</code>)</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
 <p>Regarded on all levels incl. individual <code>item</code>-level nodes:</p>
 <table class="table">
 <colgroup>
-<col width="7%">
+<col width="8%">
 <col width="4%">
 <col width="8%">
 <col width="3%">
 <col width="3%">
 <col width="3%">
-<col width="67%">
+<col width="66%">
 </colgroup>
 <thead><tr class="header">
 <th align="left"><strong>Key</strong></th>
@@ -156,7 +182,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">lvl</td>
+<td align="left"><code>lvl</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>"?"</code></td>
 <td align="left">❌</td>
@@ -165,7 +191,7 @@
 <td align="left">political-level iterator</td>
 </tr>
 <tr class="even">
-<td align="left">i</td>
+<td align="left"><code>i</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>"?"</code></td>
 <td align="left">❌</td>
@@ -174,7 +200,7 @@
 <td align="left">2nd-level loop iterator</td>
 </tr>
 <tr class="odd">
-<td align="left">j</td>
+<td align="left"><code>j</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>"?"</code></td>
 <td align="left">❌</td>
@@ -183,7 +209,7 @@
 <td align="left">3rd-level loop iterator, i.e. “for each <code>lvl</code>, iterate over each <code>i</code>, and in turn iterate over every <code>j</code>”</td>
 </tr>
 <tr class="even">
-<td align="left">block</td>
+<td align="left"><code>block</code></td>
 <td align="left">character scalar</td>
 <td align="left">top-level block name</td>
 <td align="left">❌</td>
@@ -192,7 +218,7 @@
 <td align="left">holds the name of the respective top-level block; filled automatically during parsing</td>
 </tr>
 <tr class="odd">
-<td align="left">variable_name</td>
+<td align="left"><code>variable_name</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>"???"</code></td>
 <td align="left">❌</td>
@@ -201,7 +227,7 @@
 <td align="left">aka “Variablenname”; mustn’t have any subkeys (see below); usually not sensible to be inherited since it has to be unique</td>
 </tr>
 <tr class="even">
-<td align="left">who</td>
+<td align="left"><code>who</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">❌</td>
@@ -210,7 +236,7 @@
 <td align="left">aka “Wer”</td>
 </tr>
 <tr class="odd">
-<td align="left">topic</td>
+<td align="left"><code>topic</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -219,7 +245,7 @@
 <td align="left">aka “Thema”</td>
 </tr>
 <tr class="even">
-<td align="left">question</td>
+<td align="left"><code>question</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -228,7 +254,7 @@
 <td align="left">aka “Frage”</td>
 </tr>
 <tr class="odd">
-<td align="left">question_common</td>
+<td align="left"><code>question_common</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -237,7 +263,7 @@
 <td align="left">version of <code>question</code> that stays the same across ballot dates</td>
 </tr>
 <tr class="even">
-<td align="left">variable_label</td>
+<td align="left"><code>variable_label</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">❌</td>
@@ -246,7 +272,7 @@
 <td align="left">aka “Variablenlabel”</td>
 </tr>
 <tr class="odd">
-<td align="left">variable_label_common</td>
+<td align="left"><code>variable_label_common</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -255,7 +281,7 @@
 <td align="left">version of <code>variable_label</code> that stays the same across ballot dates</td>
 </tr>
 <tr class="even">
-<td align="left">response_options</td>
+<td align="left"><code>response_options</code></td>
 <td align="left">character vector</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -264,7 +290,7 @@
 <td align="left">aka “Antwortoptionen”</td>
 </tr>
 <tr class="odd">
-<td align="left">variable_values</td>
+<td align="left"><code>variable_values</code></td>
 <td align="left">integer vector</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -273,7 +299,7 @@
 <td align="left">aka “Variablenausprägungen”</td>
 </tr>
 <tr class="even">
-<td align="left">value_labels</td>
+<td align="left"><code>value_labels</code></td>
 <td align="left">character vector</td>
 <td align="left"></td>
 <td align="left">✅</td>
@@ -282,7 +308,7 @@
 <td align="left">aka “Ausprägungslabels”</td>
 </tr>
 <tr class="odd">
-<td align="left">value_scale</td>
+<td align="left"><code>value_scale</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>"nominal"</code></td>
 <td align="left">❌</td>
@@ -292,7 +318,7 @@
 </td>
 </tr>
 <tr class="even">
-<td align="left">multiple_answers_allowed</td>
+<td align="left"><code>multiple_answers_allowed</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>FALSE</code></td>
 <td align="left">❌</td>
@@ -301,7 +327,7 @@
 <td align="left">aka “Mehrfachnennungen”</td>
 </tr>
 <tr class="odd">
-<td align="left">randomize_response_options</td>
+<td align="left"><code>randomize_response_options</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>FALSE</code></td>
 <td align="left">❌</td>
@@ -310,7 +336,7 @@
 <td align="left">whether or not the <code>response_options</code> are displayed in randomized order to online respondents (<code>response_options</code>) with code <code>80</code>, <code>90</code> and <code>99</code> are still excluded from randomization)</td>
 </tr>
 <tr class="even">
-<td align="left">ballot_types</td>
+<td align="left"><code>ballot_types</code></td>
 <td align="left">character vector</td>
 <td align="left"><code><a href="https://rdrr.io/r/base/c.html" class="external-link">c("referendum", "election")</a></code></td>
 <td align="left">❌</td>
@@ -319,7 +345,7 @@
 <td align="left">ballot-type-specific in- and exclusion of the respective item(s)</td>
 </tr>
 <tr class="odd">
-<td align="left">include</td>
+<td align="left"><code>include</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>TRUE</code></td>
 <td align="left">❌</td>
@@ -343,10 +369,27 @@
 <h1 class="hasAnchor">
 <a href="#further-notes" class="anchor"></a>Further notes</h1>
 <ul>
-<li><p>All keys support <a href="https://glue.tidyverse.org/" class="external-link">glue’s string interpolation</a>, meaning that non-character type keys like . Keys that hold vectors like <code>response_options</code> are fed to <a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a> allowing to use its powerful <a href="https://glue.tidyverse.org/" class="external-link">string interpolation syntax</a>. The remaining keys that hold scalars like <code>include</code> are fed to <a href="https://cli.r-lib.org/reference/pluralize.html" class="external-link"><code>cli::pluralize()</code></a>, which additionally supports a <a href="https://cli.r-lib.org/articles/pluralization.html" class="external-link">handy pluralization syntax</a>. The default behavior of trimming all surrounding whitespaces is disabled in all cases.</p></li>
 <li>
-<p>To vary <em>non-binary keys</em> like <code>topic</code>, <code>question</code> etc. wordings at different ballot dates directly without relying on embedded R code, you can define single-date “subkeys” named <code>YYYYMMDD</code> (the respective ballot date without any <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">-</a></code>) applying to a single ballot date, begin-end interval subkeys named <code>YYYYMMDD_YYYYMMDD</code> applying to all ballot dates that fall into the specified interval, or <code>default</code> (applying to any ballot dates for which no specific subkey exists). Interval subkeys mustn’t overlap. Single-date subkeys have precedence over interval subkeys.</p>
-<p>To vary <em>binary keys</em> like <code>multiple_answers_allowed</code> or <code>include</code> directly, you can define begin-end interval subkeys as described above or alternatively subkeys named <code>true</code> (meaning inclusion) or <code>false</code> (meaning exclusion; has priority over <code>true</code> in case of ambiguity) containing an array of dates (<code>YYYY-MM-DD</code>) as well as <code>default</code> (applying to any ballot dates not included in the <code>true</code> or <code>false</code> subkeys). The <code>true</code>/<code>false</code> subkeys have precedence over begin-end interval subkeys.</p>
+<p>All keys support <a href="https://glue.tidyverse.org/" class="external-link">glue’s string interpolation</a>, meaning that non-character-type keys like <code>include</code> or <code>variable_values</code> can also be specified as string (arrays) which will automatically be converted to their proper type during questionnaire generation.</p>
+<p>More specifically, keys that hold <em>arrays</em> like <code>response_options</code> are fed to <a href="https://glue.tidyverse.org/reference/glue.html" class="external-link"><code>glue::glue()</code></a> allowing to use its powerful <a href="https://glue.tidyverse.org/" class="external-link">string interpolation syntax</a>, while the other keys holding <em>scalars</em> like <code>include</code> are fed to <a href="https://cli.r-lib.org/reference/pluralize.html" class="external-link"><code>cli::pluralize()</code></a> which additionally supports a <a href="https://cli.r-lib.org/articles/pluralization.html" class="external-link">handy pluralization syntax</a>. The default behavior of trimming all surrounding whitespaces is disabled in both cases.</p>
+</li>
+<li>
+<p>To vary <em>non-binary keys</em> like <code>topic</code>, <code>question</code> etc. wordings at different ballot dates directly without relying on embedded R code, you can define</p>
+<ul>
+<li>single-date subkeys named <code>YYYYMMDD</code> (the respective ballot date without any <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">-</a></code>) applying to a single ballot date,</li>
+<li>begin-end interval subkeys named <code>YYYYMMDD_YYYYMMDD</code> applying to all ballot dates that fall into the specified interval, or</li>
+<li>
+<code>default</code> (applying to any ballot dates for which no specific subkey exists).</li>
+</ul>
+<p>Interval subkeys mustn’t overlap. Single-date subkeys have precedence over interval subkeys.</p>
+<p>To vary <em>binary keys</em> like <code>multiple_answers_allowed</code> or <code>include</code> directly, you can define</p>
+<ul>
+<li>begin-end interval subkeys as described above, or alternatively</li>
+<li>subkeys named <code>true</code> (meaning inclusion) or <code>false</code> (meaning exclusion; has priority over <code>true</code> in case of ambiguity) containing an array of dates (<code>YYYY-MM-DD</code>), as well as</li>
+<li>
+<code>default</code> (applying to any ballot dates not included in the <code>true</code> or <code>false</code> subkeys).</li>
+</ul>
+<p>The <code>true</code>/<code>false</code> subkeys have precedence over begin-end interval subkeys.</p>
 <p>To vary keys for different ballot types, just define subkeys named <code>referendum</code> or <code>election</code>.</p>
 <p>Examples:</p>
 <pre><code>topic.default = "bla"
@@ -363,7 +406,7 @@ question.default.referendum = "nenene"</code></pre>
 <li>The <code>default</code> subkeys of <code>question</code>/<code>variable_label</code> are also used as <code>question_common</code>/<code>variable_label_common</code> if the latter are not explicitly defined.</li>
 </ul>
 </li>
-<li><p>If set, the keys <code>lvl</code>, <code>i</code> and <code>j</code> are interpreted as iterators, so you have to define similar questionnaire items only once. If any of them evaluate to <code>NULL</code> or an empty vector, the respective item is automatically excluded, i.e. it’s not necessary to explicitly set <code>include</code> (sub)keys.</p></li>
+<li><p>The keys <code>lvl</code>, <code>i</code> and <code>j</code> are interpreted as iterators which you can refer to via string interpolation (e.g. <code>voting_decision_{lvl}</code>), so you have to define similar questionnaire items only once. If any of them evaluate to <code>NULL</code> or an empty vector, the respective item is automatically excluded, i.e. it’s not necessary to explicitly set <code>include</code> (sub)keys in such case.</p></li>
 <li><p>To explicitly unset a key, i.e. set it to <code>NULL</code>, just assign a string containing <code>NA</code> of the correct type wrapped in curly braces (<code>"{NA_character_}"</code> for values of type string, <code>"{NA_integer_}"</code> for values of type integer etc.). TODO: Is this still valid?</p></li>
 <li><p>A <code>who</code> constraint notice is automatically added to the end of <code>variable_label</code> and <code>variable_label_common</code> if possible (e.g. <code>"blabla (only non-voters)"</code>). Because <code>variable_label_common</code> by definition mustn’t vary over time, it <strong>must</strong> be explicitly specified <em>including such a <code>who</code> constraint notice</em> <strong>if</strong> <code>who</code> varies over time.</p></li>
 <li><p>This questionnaire is <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link">complemented by a <strong>supplemental TOML file <code>YYYY-MM-DD.toml</code></strong> for each ballot date</a> that holds additional date-specific metadata.</p></li>
@@ -383,8 +426,8 @@ question.default.referendum = "nenene"</code></pre>
 <li>
 <p>The following R objects are present in the evaluation environment:</p>
 <ul>
-<li><p><code>ballot_date</code> (character scalar): The ballot date the questionnaire is to be generated for must be set in variable <code>ballot_date</code> (in the format <code>YYYY-MM-DD</code>).</p></li>
-<li><p><code>canton</code> (character scalar): The canton the questionnaire is to be generated for must be set in variable <code>canton</code> (all lowercase).</p></li>
+<li><p><code>ballot_date</code> (character scalar): The ballot date the questionnaire is to be generated for (in the format <code>YYYY-MM-DD</code>).</p></li>
+<li><p><code>canton</code> (character scalar): The canton the questionnaire is to be generated for (all lowercase).</p></li>
 </ul>
 </li>
 </ul>
@@ -404,7 +447,7 @@ question.default.referendum = "nenene"</code></pre>
 </ul>
 <a href="#fnref1" class="footnote-back">↩︎</a>
 </li>
-<li id="fn2"><p>The term “deepest” is kinda misleading here since there can actually be TOML table levels below the level of an “atomic” questionnaire item, namely to define <code>include</code> rules (e.g. <code>include.false = [ YYYY-MM-DD ]</code>) or to account for varying <code>topic</code>, <code>question</code> etc. wordings at different ballot dates (e.g. <code>topic.default = "bla"</code> and <code>topic.YYYYMMDD = "blup"</code>) or for different ballot types (e.g. <code>topic.default.election = "bla"</code> and <code>topic.default.referendum = "blup"</code>).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>The term “deepest” is kind of misleading here since there can actually be TOML table levels below the level of an “atomic” questionnaire item, namely to define <code>include</code> rules (e.g. <code>include.false = [ YYYY-MM-DD ]</code>) or to account for varying <code>topic</code>, <code>question</code> etc. wordings at different ballot dates (e.g. <code>topic.default = "bla"</code> and <code>topic.YYYYMMDD = "blup"</code>) or for different ballot types (e.g. <code>topic.default.election = "bla"</code> and <code>topic.default.referendum = "blup"</code>).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>

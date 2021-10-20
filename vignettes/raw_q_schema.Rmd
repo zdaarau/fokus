@@ -1,6 +1,6 @@
 ---
-title: "Raw FOKUS questionnaire schema"
-subtitle: "Structure and semantic rules of the TOML questionnaire"
+title: "FOKUS questionnaire schema"
+subtitle: "Structure and semantic rules of the raw TOML questionnaire"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -9,7 +9,7 @@ output:
 editor_options:
   chunk_output_type: console
 vignette: >
-  %\VignetteIndexEntry{Raw FOKUS questionnaire schema}
+  %\VignetteIndexEntry{FOKUS questionnaire schema}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -54,7 +54,7 @@ The following main semantic rules apply:
     -   `footnote`
     -   `link`
 
-[^2]: The term "deepest" is kinda misleading here since there can actually be TOML table levels below the level of an "atomic" questionnaire item, namely to
+[^2]: The term "deepest" is kind of misleading here since there can actually be TOML table levels below the level of an "atomic" questionnaire item, namely to
     define `include` rules (e.g. `include.false = [ YYYY-MM-DD ]`) or to account for varying `topic`, `question` etc. wordings at different ballot dates (e.g.
     `topic.default = "bla"` and `topic.YYYYMMDD = "blup"`) or for different ballot types (e.g. `topic.default.election = "bla"` and
     `topic.default.referendum = "blup"`).
@@ -65,10 +65,11 @@ Depending on the table level, the set of possible keys includes:
 
 -   Only regarded on top level ("block"):
 
-    -   `title` (block title)
-    -   `intro` (optional text paragraph introducing the questionnaire items of the block)
-    -   `prefix` (optional block numbering prefix for the first questionnaire column `\#`; if not provided, items will be auto-numbered (across all blocks
-        without prefix))
+    | Key      | Type             | Optional | Remarks                                                                                                                                            |
+    |----------|------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `title`  | character scalar | ❌        | block title                                                                                                                                        |
+    | `intro`  | character scalar | ✅        | text paragraph introducing the questionnaire items of the block                                                                                    |
+    | `prefix` | integer scalar   | ✅        | block numbering prefix for the first questionnaire column `#`; if not provided, items will be auto-numbered (across all blocks without a `prefix`) |
 
 -   Regarded on all levels incl. individual `item`-level nodes:
 
@@ -78,7 +79,8 @@ options(knitr.kable.NA = '')
 
 fokus::q_item_keys %>%
   dplyr::select(key, type, default, is_optional, everything()) %>%
-  dplyr::mutate(type = paste(type, dplyr::if_else(is_scalar,
+  dplyr::mutate(key = pal::wrap_chr(key, wrap = "`"),
+                type = paste(type, dplyr::if_else(is_scalar,
                                                   "scalar",
                                                   "vector")),
                 dplyr::across(where(is.logical),
@@ -103,21 +105,30 @@ The keys regarded on `item`-level nodes are resolved in the following order
 
 # Further notes
 
--   All keys support [glue's string interpolation](https://glue.tidyverse.org/), meaning that non-character type keys like . Keys that hold vectors like
-    `response_options` are fed to [glue::glue()](https://glue.tidyverse.org/reference/glue.html) allowing to use its powerful [string interpolation
-    syntax](https://glue.tidyverse.org/). The remaining keys that hold scalars like `include` are fed to
-    [`cli::pluralize()`](https://cli.r-lib.org/reference/pluralize.html), which additionally supports a [handy pluralization
-    syntax](https://cli.r-lib.org/articles/pluralization.html). The default behavior of trimming all surrounding whitespaces is disabled in all cases.
+-   All keys support [glue's string interpolation](https://glue.tidyverse.org/), meaning that non-character-type keys like `include` or `variable_values` can
+    also be specified as string (arrays) which will automatically be converted to their proper type during questionnaire generation.
+
+    More specifically, keys that hold *arrays* like `response_options` are fed to [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) allowing to
+    use its powerful [string interpolation syntax](https://glue.tidyverse.org/), while the other keys holding *scalars* like `include` are fed to
+    [`cli::pluralize()`](https://cli.r-lib.org/reference/pluralize.html) which additionally supports a [handy pluralization
+    syntax](https://cli.r-lib.org/articles/pluralization.html). The default behavior of trimming all surrounding whitespaces is disabled in both cases.
 
 -   To vary *non-binary keys* like `topic`, `question` etc. wordings at different ballot dates directly without relying on embedded R code, you can define
-    single-date "subkeys" named `YYYYMMDD` (the respective ballot date without any `-`) applying to a single ballot date, begin-end interval subkeys named
-    `YYYYMMDD_YYYYMMDD` applying to all ballot dates that fall into the specified interval, or `default` (applying to any ballot dates for which no specific
-    subkey exists). Interval subkeys mustn't overlap. Single-date subkeys have precedence over interval subkeys.
 
-    To vary *binary keys* like `multiple_answers_allowed` or `include` directly, you can define begin-end interval subkeys as described above or alternatively
-    subkeys named `true` (meaning inclusion) or `false` (meaning exclusion; has priority over `true` in case of ambiguity) containing an array of dates
-    (`YYYY-MM-DD`) as well as `default` (applying to any ballot dates not included in the `true` or `false` subkeys). The `true`/`false` subkeys have precedence
-    over begin-end interval subkeys.
+    -   single-date subkeys named `YYYYMMDD` (the respective ballot date without any `-`) applying to a single ballot date,
+    -   begin-end interval subkeys named `YYYYMMDD_YYYYMMDD` applying to all ballot dates that fall into the specified interval, or
+    -   `default` (applying to any ballot dates for which no specific subkey exists).
+
+    Interval subkeys mustn't overlap. Single-date subkeys have precedence over interval subkeys.
+
+    To vary *binary keys* like `multiple_answers_allowed` or `include` directly, you can define
+
+    -   begin-end interval subkeys as described above, or alternatively
+    -   subkeys named `true` (meaning inclusion) or `false` (meaning exclusion; has priority over `true` in case of ambiguity) containing an array of dates
+        (`YYYY-MM-DD`), as well as
+    -   `default` (applying to any ballot dates not included in the `true` or `false` subkeys).
+
+    The `true`/`false` subkeys have precedence over begin-end interval subkeys.
 
     To vary keys for different ballot types, just define subkeys named `referendum` or `election`.
 
@@ -137,8 +148,9 @@ The keys regarded on `item`-level nodes are resolved in the following order
     -   The `default` subkeys of `question`/`variable_label` are also used as `question_common`/`variable_label_common` if the latter are not explicitly
         defined.
 
--   If set, the keys `lvl`, `i` and `j` are interpreted as iterators, so you have to define similar questionnaire items only once. If any of them evaluate to
-    `NULL` or an empty vector, the respective item is automatically excluded, i.e. it's not necessary to explicitly set `include` (sub)keys.
+-   The keys `lvl`, `i` and `j` are interpreted as iterators which you can refer to via string interpolation (e.g. `voting_decision_{lvl}`), so you have to
+    define similar questionnaire items only once. If any of them evaluate to `NULL` or an empty vector, the respective item is automatically excluded, i.e. it's
+    not necessary to explicitly set `include` (sub)keys in such case.
 
 -   To explicitly unset a key, i.e. set it to `NULL`, just assign a string containing `NA` of the correct type wrapped in curly braces (`"{NA_character_}"` for
     values of type string, `"{NA_integer_}"` for values of type integer etc.). TODO: Is this still valid?
@@ -159,8 +171,6 @@ The keys regarded on `item`-level nodes are resolved in the following order
 
 -   The following R objects are present in the evaluation environment:
 
-    -   `ballot_date` (character scalar): The ballot date the questionnaire is to be generated for must be set in variable `ballot_date` (in the format
-        `YYYY-MM-DD`).
+    -   `ballot_date` (character scalar): The ballot date the questionnaire is to be generated for (in the format `YYYY-MM-DD`).
 
-    -   `canton` (character scalar): The canton the questionnaire is to be generated for must be set in variable `canton` (all lowercase).
-
+    -   `canton` (character scalar): The canton the questionnaire is to be generated for (all lowercase).
