@@ -1,0 +1,214 @@
+ballot_date = 2018-09-23
+
+[mode.aargau]
+n = 8000
+invitation = [ "online", "print" ]
+reminder = [ "online", "print" ]
+[mode.aargau.postal_dispatch.type]
+invitation = "B"
+reminder = "B"
+prepaid_reply_envelope = "A"
+[mode.aargau.postal_dispatch.date]
+invitation = 2018-09-18
+reminder = 2018-10-02
+
+
+[url]
+federal.booklet = "https://www.bk.admin.ch/dam/bk/de/dokumente/Abstimmungsbuechlein/Erlaeuterungen%20des%20Bundesrats-23092018.pdf.download.pdf/erlauterungendesbundesrats_23092018_de.pdf"
+aargau.booklet = "https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/abstimmungen_1/2018_09_23/2018-09-23_Abst.Broschuere_AG.pdf"
+aargau.archive = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/abstimmungen/archiv_1/archiv_details/archiv_details_98505.jsp"
+
+
+[federal.proposal.1]
+type = "citizens' initiative"
+[federal.proposal.1.name.de]
+long.text = "Bundesbeschluss über die Velowege sowie die Fuss- und Wanderwege (Gegenentwurf zur «Velo-Initiative»)"
+long.gender = "masculine"
+short.text = "Velo-Initiative"
+short.gender = "feminine"
+[federal.proposal.2]
+type = "citizens' initiative"
+[federal.proposal.2.name.de]
+long.text = "Für gesunde sowie umweltfreundlich und fair hergestellte Lebensmittel (Fair-Food-Initiative)"
+long.gender = "feminine"
+short.text = "Fair-Food-Initiative"
+short.gender = "feminine"
+[federal.proposal.3]
+type = "citizens' initiative"
+[federal.proposal.3.name.de]
+long.text = "Für Ernährungssouveränität. Die Landwirtschaft betrifft uns alle"
+long.gender = "feminine"
+short.text = "Initiative für Ernährungssouveränität"
+short.gender = "feminine"
+
+
+[cantonal.aargau.proposal.1]
+type = "citizens' initiative"
+[cantonal.aargau.proposal.1.name.de]
+long.text = "Millionärssteuer ─ Für eine faire Vermögenssteuer im Aargau"
+long.gender = "feminine"
+short.text = "Millionärssteuerinitiative"
+short.gender = "feminine"
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "den Kantonshaushalt sanieren"
+en = "to restructure the cantonal budget"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "(Steuer-)Gerechtigkeit herstellen"
+en = "to establish (tax) justice"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "finanzschwache Personen und/oder den Mittelstand entlasten"
+en = "to relieve financially weak persons and/or the middle class"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "einen Ausgleich zwischen Arm und Reich schaffen"
+en = "to create a balance between rich and poor"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "die Reichen stärker zur Kasse bitten"
+en = "to charge the rich more"
+code = 6
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "kein Risiko eingehen"
+en = "to avoid any risks"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "gute Steuerzahler nicht vertreiben"
+en = "not to scare away good tax payers"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "den Wohlstand des Aargaus sichern"
+en = "to secure the prosperity of the Canton of Aargau"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "die Steuerattraktivität des Aargaus erhalten"
+en = "to maintain the tax attractiveness of the Canton of Aargau"
+code = 6
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "nicht einer JUSO-Initiative zustimmen"
+en = "didn't want to support a JUSO initiative"
+code = 7
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Eine Erhöhung der Vermögenssteuer für Reiche ist ein geeignetes Mittel, um den Kantonshaushalt wieder ins Lot zu bringen."
+de.short = "Vermögenssteuer bringt Kantonshaushalt wieder ins Lot"
+en.long = "An increase in wealth tax for the rich is a suitable means to bring the cantonal budget back into balance."
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Eine Erhöhung der Vermögenssteuer für Reiche bringt nichts, denn Wohlhabende finden immer ein Schlupfloch, um sich ihrer Steuerpflicht zu entziehen."
+de.short = "Wohlhabende finden immer ein Schlupfloch"
+en.long = "An increase in wealth tax for the rich is useless because they always find a loophole to avoid their tax liability."
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Die Reichen wurden in der Vergangenheit nicht ausreichend in die finanzielle Verantwortung genommen. Sie sollten sich stärker als heute an der Finanzierung des Staates beteiligen."
+de.short = "Reiche sollten sich stärker an Finanzierung des Staates beteiligen"
+en.long = "In the past, the rich were not sufficiently held financially responsible. They should contribute more to the financing of the state than they do today."
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Der Kanton Aargau braucht höhere Steuereinnahmen, um all seine öffentlichen Aufgaben ohne Leistungsabbau erfüllen zu können."
+de.short = "Höhere Steuereinnahmen gegen Leistungsabbau"
+en.long = "The Canton of Aargau needs higher tax revenues in order to be able to fulfill all its public tasks without reducing services."
+side = "pro"
+nr = 3
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Wird der Vermögenssteuersatz für Reiche erhöht, ziehen diese aus dem Kanton weg. Dies führt zu Steuerausfällen statt höheren Einnahmen."
+de.short = "Reiche ziehen weg, was zu Steuerausfällen führt"
+en.long = "If the millionaire tax initiative is accepted, the wealthy simply move away from the canton. This leads to tax losses instead of higher revenues."
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."
+de.short = "Steuern im Aargau sollten generell tief sein"
+en.long = "Taxes in the Canton of Aargau should generally be as low as possible."
+side = "contra"
+nr = 3
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Die Zahl der AargauerInnen, die Vermögenssteuer zahlen müssen (d. h. ein Vermögen besitzen, das über dem Freibetrag liegt), würde sich durch die Initiative …"
+en = "With the initiative, the number of people in Aargau who have to pay wealth tax (i.e. own more than the tax-free amount) would be …"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "verdoppeln"
+en = "twice the size"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "nicht verändern"
+en = "the same"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "halbieren"
+en = "half the size"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Mit der Initiative würde sich der Höchstsatz der Vermögenssteuer im Kanton Aargau rund …"
+en = "With the initiative, the maximum wealth tax rate in the Canton of Aargau would …"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "verdoppeln"
+en = "double"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "verdreifachen"
+en = "triple"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "verzehnfachen"
+en = "decuple"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Mit der letzten Steuerrevision von 2012 wurde der Vermögenssteuertarif …"
+en = "With the last tax revision of 2012, the wealth tax tariff was …"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "für alle Steuerpflichtigen gesenkt"
+en = "reduced for all taxpayers"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "nur für finanzstarke Personen gesenkt"
+en = "only reduced for financially strong persons"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "für den Mittelstand erhöht"
+en = "increased for the middle classes"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Mit der Initiative würde der Aargau grosse Vermögen über 10 Mio. Franken im Vergleich zu den Nachbarkantonen (BL, BE, LU, SO, ZG, ZH) … besteuern."
+en = "With the initiative, Aargau would tax large assets of more than CHF 10 million … compared to the neighbouring cantons (BL, BE, LU, SO, ZG, ZH)."
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "immer noch unterdurchschnittlich"
+en = "still below-average"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "durchschnittlich"
+en = "on the average"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "am stärksten"
+en = "heaviest"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Die Annahme der Millionärssteuerinitiative würde – unter der heutigen Bevölkerungszusammensetzung des Kantons – zu einer … führen."
+en = "The adoption of the millionaire tax initiative would – under the current population composition of the canton – lead to a …"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "Steigerung der direkten Steuereinnahmen um rund 33 % oder 780 Mio. Franken"
+en = "increase in direct tax revenues by around 33 % or CHF 780 million"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "Steigerung der direkten Steuereinnahmen um rund 7 % oder 160 Mio. Franken"
+en = "increase in direct tax revenues by around 7 % or CHF 160 million"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "Minderung der direkten Steuereinnahmen um rund 0.3 % oder 7 Mio. Franken"
+en = "reduction in direct tax revenues by around 0.3 % or CHF 7 million"
+is_correct = false

@@ -1,0 +1,413 @@
+ballot_date = 2020-09-27
+
+[mode.aargau]
+n = 5000
+invitation = [ "online" ]
+reminder = [ "online", "print" ]
+[mode.aargau.postal_dispatch.type]
+invitation = "B bulk mailing"
+reminder = "B bulk mailing"
+prepaid_reply_envelope = "B"
+[mode.aargau.postal_dispatch.date]
+invitation = 2020-09-21
+reminder = 2020-09-30
+
+
+[url]
+federal.booklet = "https://www.admin.ch/dam/gov/de/Dokumentation/Abstimmungen/September2020/Abstimmungsbroschuere_27-09-2020_de.pdf.download.pdf/Abstimmungsbroschuere_27-09-2020_de.pdf"
+aargau.booklet = "https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/abstimmungen_1/2020_09_27/2020-09-27_Abst.Broschuere_AG_barrierefrei.pdf"
+aargau.archive = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/abstimmungen/archiv_1/archiv_details/archiv_details_140482.jsp"
+
+
+[federal.proposal.1]
+type = "citizens' initiative"
+[federal.proposal.1.name.de]
+long.text = "Volksinitiative «Für eine massvolle Zuwanderung (Begrenzungsinitiative)»"
+long.gender = "feminine"
+short.text = "Begrenzungsinitiative"
+short.gender = "feminine"
+[federal.proposal.1.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/volksinitiative-fuer-eine-massvolle-zuwanderung.html"
+[[federal.proposal.1.skill_question]]
+de = "Um welches Abkommen mit der Europäischen Union (EU) geht es primär bei der Abstimmung über die Begrenzungsinitiative?"
+en = "What agreement with the European Union (EU) is the primary issue in the vote on the federal «Begrenzungsinitiative»"
+[[federal.proposal.1.skill_question.response_option]]
+de = "Landverkehrsabkommen"
+en = "Land Transport Agreement («Landverkehrsabkommen»)"
+is_correct = false
+[[federal.proposal.1.skill_question.response_option]]
+de = "Personenfreizügigkeitsabkommen"
+en = "Treaty on the Free Movement of Persons («Personenfreizügigkeitsabkommen»)"
+is_correct = true
+[[federal.proposal.1.skill_question.response_option]]
+de = "Abkommen über technische Handelshemmnisse"
+en = "Agreement of Technical Barriers to Trade («Abkommen über technische Handelshemmnisse»)"
+is_correct = false
+[[federal.proposal.1.skill_question]]
+de = "Wie hoch war die Nettozuwanderung (Differenz zwischen Ein- und Auswanderungen) aus der EU in die Schweiz letztes Jahr?"
+en = "How large was the net immigration (difference between immigration and emigration) from the EU to Switzerland last year?"
+[[federal.proposal.1.skill_question.response_option]]
+de = "Weniger als 40'000 Personen."
+en = "Less than 40'000 people."
+is_correct = true
+[[federal.proposal.1.skill_question.response_option]]
+de = "Zwischen 40'000 und 60'000 Personen."
+en = "Between 40'000 and 60'000 people."
+is_correct = false
+[[federal.proposal.1.skill_question.response_option]]
+de = "Mehr als 60'000 Personen."
+en = "More than 60'000 people."
+is_correct = false
+[[federal.proposal.1.skill_question]]
+de = "Welche der folgenden Abkommen treten bei einer Kündigung der Personenfreizügigkeit mit der EU innerhalb von sechs Monaten als Folge der sogenannten Guillotine-Klausel automatisch ausser Kraft?"
+en = "If the Treaty on the Free Movement of Persons with the EU is terminated, which of the following agreements automatically cease to be in force within six months as a result of the so-called guillotine clause?"
+[[federal.proposal.1.skill_question.response_option]]
+de = "Das Freihandelsabkommen mit der EU."
+en = "The Free Trade Agreement with the EU."
+is_correct = false
+[[federal.proposal.1.skill_question.response_option]]
+de = "Das Schengen- und das Dublin-Abkommen."
+en = "The Schengen/Dublin agreements."
+is_correct = false
+[[federal.proposal.1.skill_question.response_option]]
+de = "Die anderen sechs Abkommen der Bilateralen I."
+en = "The other six agreements of Bilaterals I."
+is_correct = true
+[federal.proposal.2]
+type = "optional referendum"
+[federal.proposal.2.name.de]
+long.text = "Änderung des Jagdgesetzes"
+long.gender = "feminine"
+short.text = "Jagdgesetz"
+short.gender = "neuter"
+[federal.proposal.2.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/aenderung-des-jagdgesetzes.html"
+[[federal.proposal.2.skill_question]]
+de = "Was ist neu im Vergleich zum geltenden Jagdgesetz?"
+en = "What is new compared to the current hunting law?"
+[[federal.proposal.2.skill_question.response_option]]
+de = "Kantone können den Abschuss eines Wolfes anordnen, wenn er zuvor trotz Herdenschutzmassnahmen Schaden angerichtet hat."
+en = "Cantons can order the shoot-down of a wolf if it has caused damage before despite herd protection measures."
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "Kantone können den Abschuss von Einzelwölfen anordnen, wenn sich diese auffällig verhalten oder gefährlich werden."
+en = "Cantons can order the shoot-down of single wolves if they behave abnormally or become dangerous."
+is_correct = true
+[[federal.proposal.2.skill_question.response_option]]
+de = "Naturschutzorganisationen wie WWF oder Pro Natura können nicht mehr Beschwerde gegen einen von einem Kanton verfügten Wolfsabschuss einreichen."
+en = "Nature conservation organizations such as WWF or Pro Natura can no longer lodge a complaint against a wolf shooting ordered by a canton."
+is_correct = false
+[[federal.proposal.2.skill_question]]
+de = "Wie viele Schafe und Ziegen haben Wölfe seit 2009 _jährlich_ gerissen?"
+en = "How many sheep and goats have been killed by wolves _yearly_ since 2009?"
+[[federal.proposal.2.skill_question.response_option]]
+de = "rund 50–200 Tiere"
+en = "about 50–200 animals"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "rund 300–500 Tiere"
+en = "about 300–500 animals"
+is_correct = true
+[[federal.proposal.2.skill_question.response_option]]
+de = "über 1000 Tiere"
+en = "over 1000 animals"
+is_correct = false
+[[federal.proposal.2.skill_question]]
+de = "Welche der folgenden Parteien bzw. Organisationen haben eine **Ja**-Parole zum Jagdgesetz beschlossen?"
+en = "Which of the following parties and organizations have issued a **Yes** recommendation on the hunting law?"
+[[federal.proposal.2.skill_question.response_option]]
+de = "Grüne und glp"
+en = "Grüne and glp"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "CVP und SVP"
+en = "CVP and SVP"
+is_correct = true
+[[federal.proposal.2.skill_question.response_option]]
+de = "WWF und Pro Natura"
+en = "WWF and Pro Natura"
+is_correct = false
+[federal.proposal.3]
+type = "optional referendum"
+[federal.proposal.3.name.de]
+long.text = "Änderung des Bundesgesetzes über die direkte Bundessteuer (Steuerliche Berücksichtigung der Kinderdrittbetreuungskosten)"
+long.gender = "feminine"
+short.text = "Höheren Kinder- und Fremdbetreuungsabzüge"
+short.gender = "feminine"
+[federal.proposal.3.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/aenderung-des-bundesgesetzes-ueber-die-direkte-bundessteuer.html"
+[federal.proposal.4]
+type = "indirect counterproposal"
+[federal.proposal.4.name.de]
+long.text = "Änderung des Erwerbsersatzgesetzes (indirekter Gegenvorschlag zur Volksinitiative «Für einen vernünftigen Vaterschaftsurlaub – zum Nutzen der ganzen Familie»)"
+long.gender = "feminine"
+short.text = "Vaterschaftsurlaub"
+short.gender = "masculine"
+[federal.proposal.4.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/aenderung-des-erwerbsersatzgesetzes.html"
+[federal.proposal.5]
+type = "optional referendum"
+[federal.proposal.5.name.de]
+long.text = "Bundesbeschluss über die Beschaffung neuer Kampfflugzeuge"
+long.gender = "masculine"
+short.text = "Beschaffung neuer Kampfflugzeuge"
+short.gender = "feminine"
+[federal.proposal.5.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/bundesbeschluss-ueber-die-beschaffung-neuer-kampfflugzeuge.html"
+
+
+[cantonal.aargau.proposal.1]
+type = "citizens' initiative"
+[cantonal.aargau.proposal.1.name.de]
+long.text = "Neuorganisation der Führungsstrukturen der Aargauer Volksschule"
+long.gender = "feminine"
+short.text = "Abschaffung der Schulpflege"
+short.gender = "feminine"
+[cantonal.aargau.proposal.1.url]
+overview = "https://www.ag.ch/de/bks/ueber_uns_bks/dossiers_projekte_bks/optimierung_fuehrungsstrukturen/optimierung_fuehrungsstrukturen.jsp"
+parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=4184524"
+proponents = "https://www.zeitgemaesse-schulfuehrung-ja.ch/"
+opponents = "https://nein-zur-abschaffung-der-schulpflege.ch/"
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte für eine Professionalisierung der Führungsstrukturen der Volksschule sorgen"
+en = "to ensure a professionalization of the management structures of the elementary school"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte die Rolle des Gemeinderates stärken"
+en = "to strengthen the role of the municipal council"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte sicherstellen, dass die gesamte Neuorganisation der Führungsstrukturen so zu Ende umgesetzt werden kann, wie von Anfang an vorgesehen"
+en = "to ensure that the entire reorganization of the management structures can be implemented as planned from the beginning"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "finde grundsätzlich, die Schulpflege gehört abgeschafft"
+en = "to be of the fundamental opinion that the school board ought to be abolished"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte die von den Gegnern befürchtete Kostensteigerung verhindern"
+en = "to prevent the cost increase feared by the opponents"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "bin überzeugt, dass die heutige Schulpflege als demokratisch gewähltes Gremium nicht abgeschafft werden darf"
+en = "to be convinced that the current school board as a democratically elected body must not be abolished"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte verhindern, dass in Zukunft weitgehende Entscheidungsbefugnisse an eine einzelne Person innerhalb des Gemeinderates oder der Schulleitung delegiert werden können (Machtkonzentration)"
+en = "to prevent that in the future far-reaching decision-making powers could be delegated to a single person within the municipal council or school management (concentration of power)"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "bin dafür, die heutige Schulpflege so weiterzuentwickeln, wie vom Schulpflegeverband VASP schon seit Jahren gefordert, statt sie abzuschaffen"
+en = "to be in favor of further developing today's school board system as demanded by the school board association VASP for years, instead of abolishing it"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 6
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Die Abschaffung der Schulpflege trägt zu einem schlanken Staat bei, da Verwaltungsaufwand abgebaut wird und Steuergelder für andere Zwecke frei werden."
+de.short = "Schlankerer Staat"
+en.long = "The abolition of school board system contributes to a lean state, as administrative expenses are reduced and tax money is freed up for other purposes."
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Die Abschaffung der Schulpflege bedeutet einen Abbau an Demokratie, da ohne sie kein schulspezifisches Fachgremium mehr gewählt werden kann."
+de.short = "Demokratieabbau"
+en.long = "The abolition of school boards means a reduction in democracy, because without them no school-specific expert committee can be elected anymore."
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Mit der neuen Schulführung werden Zuständigkeiten und Kompetenzen klarer geregelt und finanzielle und strategische Entscheide kommen aus einer Hand, was deutlich effizienter ist."
+de.short = "Klarere Zuständigkeitsregelung, Effizienzsteigerung"
+en.long = "Under the new school management system, responsibilities and competencies are more clearly defined and financial and strategic decisions come from a single source, which is much more efficient."
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Entscheidungsbefugnisse können neu schrankenlos an einzelne Personen aus dem Gemeinderat oder an die Schulleitung delegiert werden. Dies kann zu einer gefährlichen Machtkonzentration führen."
+de.short = "Gefährliche Machtkonzentration"
+en.long = "With the new system, decision-making powers can be delegated without limits to individual members of the municipal council or to the school management. This can lead to a dangerous concentration of power."
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Die Mitglieder der Schulpflege in einer Gemeinde…"
+en = "The members of the school board in a municipality…"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…werden vom Gemeinderat ernannt."
+en = "…are appointed by the municipal council."
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…werden vom Volk gewählt."
+en = "…are elected by the people."
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…müssen Parteimitglieder sein."
+en = "…must be members of a political party."
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Nach einer Abschaffung der Schulpflege werden deren Aufgaben erfüllt durch…"
+en = "Following the abolition of school boards, their tasks are fulfilled by…"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…den Gemeinderat."
+en = "…the municipal council."
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…die Schulleitung."
+en = "…the school management"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…die Bezirksschulräte."
+en = "…the regional school councils."
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Das neue Schulgesetz erlaubt die Delegation von personalrechtlichen Entscheiden…"
+en = "The new school law allows the delegation of personnel decisions…"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…an ein Mitglied des Gemeinderates oder die Schulleitung."
+en = "…to a member of the municipal council or the school management."
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…an den Erziehungsdirektor des Kantons Aargau."
+en = "…to the superintendent of schools of the Canton of Aargau."
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…an die Gemeindeversammlung oder das Parlament."
+en = "…to the municipal assembly or parliament."
+is_correct = false
+
+
+[cantonal.aargau.proposal.2]
+type = "optional referendum"
+[cantonal.aargau.proposal.2.name.de]
+long.text = "Energiegesetz des Kantons Aargau (EnergieG)"
+long.gender = "neuter"
+short.text = "Energiegesetz"
+short.gender = "neuter"
+[cantonal.aargau.proposal.2.url]
+opponents = "https://energiegesetz-aargau-nein.ch/"
+proponents = "https://ja-zum-energiegesetz.ch/"
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "bin der Ansicht, dass die Neuerungen im Energiegesetz eine Selbstverständlichkeit sein sollten"
+en = "to be of the opinion that the changes in the energy law should be a matter of course"
+code = 2
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte in erster Linie die Nutzung fossiler Energieträger wie Heizöl und -gas einschränken"
+en = "to primarily limit the use of fossil sources of energy such as heating oil and gas"
+code = 3
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte, dass der Aargau unabhängiger wird vom Import fossiler Energieträger"
+en = "to help Aargau become more independent of fossil fuel imports"
+code = 4
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte zur Erreichung der Schweizer Klimaschutzziele beitragen"
+en = "wanted to contribute to the achievement of Swiss climate goals"
+code = 5
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte die lokale Produktion erneuerbarer Energie (bspw. Solarstrom) fördern"
+en = "to promote the local production of renewable energy (e.g. solar power)"
+code = 6
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "wollte höhere Miet- und Wohnkosten verhindern, welche die neuen Umweltauflagen mit sich brächten"
+en = "to avoid higher rental and housing costs, which the new environmental regulations would entail."
+code = 2
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "bin entschieden gegen einzelne Vorschriften des neuen Gesetzes (bspw. Zwang zur Eigenstromerzeugung von Neubauten)"
+en = "to be firmly opposed to specific regulations of the new law (obligation for new buildings to generate own electricity)"
+code = 3
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "bin grundsätzlich gegen Regulierung und staatlichen Zwang"
+en = "to be fundamentally against regulation and state coercion"
+code = 4
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "glaube nicht an einen menschenverursachten Klimawandel, weshalb das neue Gesetz überflüssig ist"
+en = "to not believe in human-induced climate change, making the new law superfluous"
+code = 5
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 6
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Das neue Energiegesetz trägt dazu bei, den Aargau unabhängiger zu machen von Importen (bspw. Heizöl) und damit die Versorgungssicherheit zu erhöhen."
+de.short = "Importunabhängigkeit und Versorgungssicherheit"
+en.long = "The new energy law contributes to making Aargau more independent of imports (e.g. heating oil) and thus to increasing supply security."
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Alles, was sinnvoll Energie einspart, wird sich auch ohne Zwang durchsetzen. Es braucht daher keine neuen Vorschriften."
+de.short = "Was Energie spart, setzt sich auch ohne Zwang durch"
+en.long = "Anything that saves energy in a meaningful way will prevail even without compulsion. Hence there is no need for new regulations."
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Die durch das neue Energiegesetz notwendigen Neuerungen an Gebäuden und Heizungen schaffen Arbeitsplätze im Kanton und leisten damit einen grossen Beitrag zur regionalen Wertschöpfung."
+de.short = "Schaffung von Arbeitsplätzen und Steigerung regionaler Wertschöpfung"
+en.long = "The modifications to buildings and heating systems necessitated by the new energy law will create jobs in the canton and thus make a major contribution to regional value creation."
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Das neue Energiegesetz geht zu weit, da es Regelungen enthält, die nicht zwingend notwendig wären zur Umsetzung des Bundesrechts."
+de.short = "Gesetz schiesst übers Ziel hinaus"
+en.long = "The new energy law goes too far, as it contains regulations that would not be absolutely necessary to implement federal law."
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.2.skill_question]]
+de = "Mit dem kantonalen Energiegesetz soll der Aargau die Energiestrategie 2050 des Bundes im Gebäudebereich umsetzen. Wie viel Prozent des _gesamten Energieverbrauchs in der Schweiz_ entfallen auf den Gebäudesektor?"
+en = "Aargau's cantonal energy law aims to implement the federal government's Energy Strategy 2050 in the building sector. What percentage of _total energy consumption in Switzerland_ is accounted for by the building sector?"
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "rund 10 Prozent"
+en = "about 10 percent"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "rund 30 Prozent"
+en = "about 30 percent"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "rund 50 Prozent"
+en = "about 50 percent"
+is_correct = true
+[[cantonal.aargau.proposal.2.skill_question]]
+de = "Das neue Energiegesetz verlangt, dass beim Heizungsersatz neu ein bestimmter Anteil des Energiebedarfs mit erneuerbarer Energie gedeckt werden muss. Wie hoch ist dieser Anteil?"
+en = "The new energy law requires that a certain percentage of the energy demand must be covered by renewable energy when replacing the heating system. How large is this percentage?"
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "50 Prozent"
+en = "50 percent"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "30 Prozent"
+en = "30 percent"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "10 Prozent"
+en = "10 percent"
+is_correct = true
+[[cantonal.aargau.proposal.2.skill_question]]
+# source: <https://www.ag.ch/grossrat/grweb/de/147/Startseite?FrmEntity=grweb.modules.dok.GrDok&FrmRequest=Download&DokId=4605765&Extension=.pdf>
+de = "Welche Parteien haben bei der Schlussabstimmung im Grossen Rat mehrheitlich _gegen_ das Gesetz gestimmt?"
+en = "In the final vote in the Grand Council, which parties voted by a majority _against_ the law?"
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "SP und Grüne"
+en = "SP and Grüne"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "SVP, EDU und glp"
+en = "SVP, EDU and glp"
+is_correct = true
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "SVP und FDP"
+en = "SVP and FDP"
+is_correct = false

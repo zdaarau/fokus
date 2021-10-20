@@ -1,0 +1,700 @@
+ballot_date = 2019-10-20
+
+[mode.aargau]
+n = 10000
+# NOTE: We made a simple A/B test: We sent 50% of the sample an online-only invitation – they learned about the print channel and received a printed
+#       questionnaire only with the reminder. The other 50% got a printed questionnaire with the invitation and thus could participate through both channels
+#       from the beginning.
+invitation = [ "online", "print" ]
+reminder = [ "online", "print" ]
+[mode.aargau.postal_dispatch.type]
+invitation = "B bulk mailing"
+reminder = "?"
+prepaid_reply_envelope = "B"
+[mode.aargau.postal_dispatch.date]
+invitation = 2019-10-14
+reminder = 2019-10-29
+
+
+[federal.election.url]
+skill_questions_source = "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
+wikipedia.de = "https://de.wikipedia.org/wiki/Schweizer_Parlamentswahlen_2019"
+ch_ch = "https://www.ch.ch/de/wahlen2019/"
+rules = "https://www.media.bk.admin.ch/wahlen/de/#wahlzettel"
+[federal.election.proportional.1.name.de]
+long.text = "Gesamterneuerungswahl des Nationalrats"
+short.text = "Nationalratswahl"
+body.text = "Nationalrat"
+[federal.election.proportional.1.url]
+aargau = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_112069.jsp"
+parliament = "https://www.parlament.ch/de/%C3%BCber-das-parlament/wahlen2019/nationalratswahlen-2019"
+bk = "https://www.bk.admin.ch/bk/de/home/politische-rechte/nationalratswahlen/nationalratswahlen-2019.html"
+
+[federal.aargau.election]
+names_combined.de.short = "National- und Ständeratswahlen"
+[federal.aargau.election.proportional.1.n_seats]
+total = 16
+vacant = 16
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "SVP"
+name.de.run = "Schweizerische Volkspartei"
+name.de.q = "SVP oder Junge SVP"
+code = 1
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "SP"
+name.de.run = "SP und Gewerkschaften"
+name.de.q = "SP oder JUSO"
+code = 2
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "FDP"
+name.de.run = "FDP.Die Liberalen"
+name.de.q = "FDP oder Jungfreisinnige"
+code = 3
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "CVP"
+name.de.run = "CVP"
+name.de.q = "CVP"
+code = 4
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "Grüne"
+name.de.run = "Grüne Partei"
+name.de.q = "Grüne oder Junge Grüne"
+code = 5
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "glp"
+name.de.run = "Grünliberale Partei"
+name.de.q = "glp oder Junge glp"
+code = 6
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "BDP"
+name.de.run = "Bürgerlich-Demokratische Partei"
+name.de.q = "BDP oder Junge BDP"
+code = 7
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "EVP"
+name.de.run = "Evangelische Volkspartei"
+name.de.q = "EVP oder Junge EVP"
+code = 8
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "EDU"
+name.de.run = "Eidgenössisch-Demokratische Union"
+name.de.q = "EDU"
+code = 9
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "PPS"
+name.de.run = "Piratenpartei"
+name.de.q = "PPAG (Piratenpartei)"
+code = 10
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "LOVB"
+name.de.run = "Lösungs-Orientierte Volks-Bewegung"
+name.de.q = "LOVB (Lösungs-Orientierte Volks-Bewegung)"
+code = 11
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "FW AG"
+name.de.run = "Freie Wähler Aargau"
+name.de.q = "FW AG (Freie Wähler)"
+code = 12
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "LS"
+name.de.run = "Luzi Stamm"
+name.de.q = "LS (Luzi Stamm)"
+code = 13
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "TEAM65+"
+name.de.run = "Die Aargauer Seniorenliste"
+name.de.q = "TEAM65+"
+code = 14
+[[federal.aargau.election.proportional.1.party]]
+name.de.short = "DU"
+name.de.run = "Die Unabhängigen"
+name.de.q = "DU (Die Unabhängigen)"
+code = 15
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "01a"
+name = "SVP – Schweizerische Volkspartei"
+party = "SVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "01b"
+name = "JSVP – Junge Schweizerische Volkspartei"
+party = "SVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "02a"
+name = "SP und Gewerkschaften"
+party = "SP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "02b"
+name = "SP und Gewerkschaften – JUSO (Jungsozialist*innen)"
+party = "SP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "02c"
+name = "SP und Gewerkschaften – SP 60+"
+party = "SP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "02d"
+name = "SP und Gewerkschaften – queer*feministisch!"
+party = "SP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "02e"
+name = "SP und Gewerkschaften – SP Migrant*innen"
+party = "SP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "03a"
+name = "FDP.Die Liberalen"
+party = "FDP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "03b"
+name = "FDP.Die Liberalen – Jungfreisinnige"
+party = "FDP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04a"
+name = "CVP.Miteinander.Für den Aargau."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04b"
+name = "CVPLA.Miteinander.Für Land- & Ernährungswirtschaft"
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04c"
+name = "CVPCS.Miteinander.Für die Christlichsozialen."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04d"
+name = "CVPE.Miteinander.Für die Städte und Gemeinden."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04e"
+name = "CVPAZ.Miteinander.Für Aarau und Zofingen."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04f"
+name = "CVPBZ.Miteinander.Für Baden und Zurzach."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04g"
+name = "CVP#1.Miteinander.Für Kulm, Lenzburg, Brugg."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04h"
+name = "CVPFA.Miteinander.Für das Freiamt."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "04i"
+name = "CVPFT.Miteinander.Für das Fricktal."
+party = "CVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "05a"
+name = "Grüne Partei"
+party = "Grüne"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "05b"
+name = "Junge Grüne"
+party = "Grüne"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "06a"
+name = "glp – Grünliberale Partei"
+party = "glp"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "06b"
+name = "jglp – Junge Grünliberale"
+party = "glp"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "06c"
+name = "glp-u – Grünliberale Unternehmer"
+party = "glp"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "07a"
+name = "BDP – Bürgerlich-Demokratische Partei"
+party = "BDP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "07b"
+name = "JBDP – Junge Bürgerlich-Demokratische Partei"
+party = "BDP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "07c"
+name = "BDP3 – Bürgerlich-Demokratische Partei: die Dritte"
+party = "BDP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "08a"
+name = "EVP – Evangelische Volkspartei"
+party = "EVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "08b"
+name = "*jevp – Junge Evangelische Volkspartei"
+party = "EVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "08c"
+name = "EVP+ – EVPplus"
+party = "EVP"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "09"
+name = "EDU – Eidgenössisch-Demokratische Union"
+party = "EDU"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "10"
+name = "PPAG – Piratenpartei"
+party = "PPS"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "11"
+name = "LOVB – Lösungs-Orientierte Volks-Bewegung"
+party = "LOVB"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "12"
+name = "FW AG – Freie Wähler Aargau"
+party = "FW AG"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "13"
+name = "LS – Luzi Stamm"
+party = "LS"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "14"
+name = "TEAM65+ – Die Aargauer Seniorenliste"
+party = "TEAM65+"
+[[federal.aargau.election.proportional.1.ticket]]
+nr = "15"
+name = "DU – Die Unabhängigen"
+party = "DU"
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "SVP"
+name.de.run = "Schweizerische Volkspartei"
+name.de.q = "SVP oder Junge SVP"
+code = 1
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "SP"
+name.de.run = "SP und Gewerkschaften"
+name.de.q = "SP oder JUSO"
+code = 2
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "FDP"
+name.de.run = "FDP.Die Liberalen"
+name.de.q = "FDP oder Jungfreisinnige"
+code = 3
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "CVP"
+name.de.run = "CVP"
+name.de.q = "CVP oder Junge CVP"
+code = 4
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "Grüne"
+name.de.run = "Grüne Partei"
+name.de.q = "Grüne oder Junge Grüne"
+code = 5
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "BDP"
+name.de.run = "Bürgerlich-Demokratische Partei"
+name.de.q = "BDP oder Junge BDP"
+code = 7
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "glp"
+name.de.run = "Grünliberale Partei"
+name.de.q = "glp oder Junge glp"
+code = 6
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "EVP"
+name.de.run = "Evangelische Volkspartei"
+name.de.q = "EVP oder Junge EVP"
+code = 8
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "EDU"
+name.de.run = "Eidgenössisch-Demokratische Union"
+name.de.q = "EDU"
+code = 9
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "PPS"
+name.de.run = "Piratenpartei"
+name.de.q = "PPAG (Piratenpartei)"
+code = 10
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "SLB"
+name.de.run = "Sozial-Liberale-Bewegung"
+name.de.q = "SLB (Sozial-Liberale-Bewegung)"
+code = 12
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "NW"
+name.de.run = "www.Nichtwähler.ch"
+name.de.q = "www.Nichtwähler.ch"
+code = 13
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "LOVB"
+name.de.run = "Lösungs-Orientierte Volks-Bewegung"
+name.de.q = "LOVB (Lösungs-Orientierte Volks-Bewegung)"
+code = 11
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "IP"
+name.de.run = "Integrale Politik Aargau"
+name.de.q = "IP (Integrale Politik)"
+code = 14
+[[federal.aargau.election.proportional.1.past_party]]
+name.de.short = "EP"
+name.de.run = "Ecopop"
+name.de.q = "Ecopop"
+code = 15
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "01a"
+name = "SVP – Schweizerische Volkspartei"
+party = "SVP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "01b"
+name = "JSVP – Junge Schweizerische Volkspartei"
+party = "SVP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "02a"
+name = "SP und Gewerkschaften"
+party = "SP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "02b"
+name = "SP und Gewerkschaften – JUSO (JungsozialistInnen)"
+party = "SP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "03a"
+name = "FDP.Die Liberalen"
+party = "FDP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "03b"
+name = "FDP.Die Liberalen – Jungfreisinnige"
+party = "FDP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "04a"
+name = "CVP – Christlichdemokratische Volkspartei"
+party = "CVP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "04b"
+name = "JCVP – Junge Christlichdemokratische Volkspartei"
+party = "CVP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "05a"
+name = "Grüne"
+party = "Grüne"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "05b"
+name = "Junge Grüne"
+party = "Grüne"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "06a"
+name = "BDP – Bürgerlich-Demokratische Partei"
+party = "BDP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "06b"
+name = "JBDP – Junge Bürgerlich-Demokratische Partei"
+party = "BDP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "07a"
+name = "GLP – Grünliberale Partei"
+party = "glp"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "07b"
+name = "JGLP – Junge Grünliberale Partei"
+party = "glp"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "08a"
+name = "EVP – Evangelische Volkspartei"
+party = "EVP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "08b"
+name = "*JEVP – Junge Evangelische Volkspartei"
+party = "EVP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "09"
+name = "EDU – Eidgenössisch-Demokratische Union"
+party = "EDU"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "10"
+name = "PPAG – Piratenpartei Aargau – Die Progressiven"
+party = "PPS"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "11"
+name = "SLB – Sozial-Liberale-Bewegung"
+party = "SLB"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "12"
+name = "www.Nichtwähler.ch"
+party = "NW"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "13"
+name = "LOVB – Lösungs-Orientierte Volks-Bewegung"
+party = "LOVB"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "14"
+name = "Integrale Politik Aargau"
+party = "IP"
+[[federal.aargau.election.proportional.1.past_ticket]]
+nr = "15"
+name = "Ecopop"
+party = "EP"
+
+
+[federal.election.majoritarian.1.url]
+aargau = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_112067.jsp"
+parliament = "https://www.parlament.ch/de/%C3%BCber-das-parlament/wahlen2019/staenderatswahlen-2019"
+
+[federal.aargau.election.majoritarian.1]
+requires_candidate_registration = false # cf. https://www.ch.ch/de/wahlen2019/kandidatur-fur-das-parlament/wer-kann-zur-standeratswahl-antreten/fur-den-standerat-kandidieren-kanton-aargau#akk-81129
+[federal.aargau.election.majoritarian.1.name.de]
+long.text = "Gesamterneuerungswahl des Ständerats"
+short.text = "Ständeratswahl"
+body.text = "Ständerat"
+[federal.aargau.election.majoritarian.1.n_seats]
+total = 2
+vacant = 2
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Hansjörg"
+last_name = "Knecht"
+party = "SVP"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Cédric"
+last_name = "Wermuth"
+party = "SP"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Thierry"
+last_name = "Burkart"
+party = "FDP"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Marianne"
+last_name = "Binder-Keller"
+party = "CVP"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Ruth"
+last_name = "Müri"
+party = "Grüne"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Beat"
+last_name = "Flach"
+party = "glp"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Maya"
+last_name = "Bally"
+party = "BDP"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Roland"
+last_name = "Frauchiger"
+party = "EVP"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Jean-Pierre"
+last_name = "Leutwyler"
+party = "FW AG"
+[[federal.aargau.election.majoritarian.1.candidate]]
+first_name = "Pius"
+last_name = "Lischer"
+party = "Neue Bundesverfassung"
+
+
+[[federal.skill_question]]
+de = "Wer beschliesst in der Schweiz auf Bundesebene neue Gesetze?"
+en = "Who decides on new laws at federal level in Switzerland?"
+[[federal.skill_question.response_option]]
+de = "das Bundesgericht"
+en = "the Federal Supreme Court"
+is_correct = false
+[[federal.skill_question.response_option]]
+de = "die Präsidentinnen und Präsidenten der Parteien"
+en = "the presidents of the political parties"
+is_correct = false
+[[federal.skill_question.response_option]]
+de = "der Nationalrat und der Ständerat (Bundesversammlung) und allenfalls das Volk (Referendum)"
+en = "the National Council and the Council of States (Federal Assembly) and, if necessary, the people (referendum)"
+is_correct = true
+[[federal.skill_question.response_option]]
+de = "die Bundeskanzlei"
+en = "the Federal Chancellery"
+is_correct = false
+[[federal.skill_question]]
+de = "Wie werden die Mitglieder des Nationalrats ermittelt? Massgebend ist…"
+en = "How are the members of the National Council determined? What matters is…"
+[[federal.skill_question.response_option]]
+de = "wie viele Mitglieder die einzelnen Parteien in den Kantonen haben."
+en = "how many members the individual parties have in the cantons."
+is_correct = false
+[[federal.skill_question.response_option]]
+de = "wie viele Stimmen die Parteien und die einzelnen Kandidierenden bei den Wahlen erzielen."
+en = "how many votes the parties and the individual candidates obtain in the elections."
+is_correct = true
+[[federal.skill_question.response_option]]
+de = "wie gross die Stimmbeteiligung der Wählerinnen und Wähler in den einzelnen Kantonen ausfällt."
+en = "the level of voter turnout in the individual cantons."
+is_correct = false
+[[federal.skill_question.response_option]]
+de = "dass die Parteien im Nationalrat und im Ständerat gleichmässig vertreten sind."
+en = "that the parties are equally represented in the National Council and the Council of States."
+is_correct = false
+[[federal.skill_question]]
+de = "Gegen welche Beschlüsse kann das Referendum ergriffen werden?"
+en = "Against which decisions can the referendum be taken?"
+[[federal.skill_question.response_option]]
+de = "gegen Beschlüsse der Bundespräsidentin oder des Bundespräsidenten"
+en = "against resolutions of the President of the Confederation"
+is_correct = false
+[[federal.skill_question.response_option]]
+de = "gegen Urteile des Bundesgerichts"
+en = "against judgments of the Federal Supreme Court"
+is_correct = false
+[[federal.skill_question.response_option]]
+de = "gegen Gesetzesvorlagen der Bundesversammlung (Nationalrat und Ständerat)"
+en = "against bills proposed by the Federal Assembly (National Council and Council of States)"
+is_correct = true
+[[federal.skill_question.response_option]]
+de = "gegen Massnahmen der Bundesverwaltung"
+en = "against actions of the Federal Administration"
+is_correct = false
+
+
+[cantonal.aargau.election]
+names_combined.de.short = "Regierungsratsersatzwahl"
+skill_questions_source.url = "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
+
+[cantonal.aargau.election.majoritarian.1]
+mode = "majority"
+requires_candidate_registration = false # cf. https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/wahlen_1/regierungsratswahlen/2019_10_10_rr_ersatz__1__wg_/RR_Anleitung_Wahlvorschlag.pdf
+[cantonal.aargau.election.majoritarian.1.name.de]
+long.text = "Ersatzwahl eines Mitglieds des Regierungsrats"
+short.text = "Regierungsratsersatzwahl"
+body.text = "Regierungsrat"
+[cantonal.aargau.election.majoritarian.1.url]
+archive = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_124831.jsp"
+[cantonal.aargau.election.majoritarian.1.n_seats]
+total = 5
+vacant = 1
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Jean-Pierre"
+last_name = "Gallati"
+party = "SVP"
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Yvonne"
+last_name = "Feri"
+party = "SP"
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Jeanine"
+last_name = "Glarner"
+party = "FDP"
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Severin"
+last_name = "Lüscher"
+party = "Grüne"
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Doris"
+last_name = "Aebi"
+party = "glp"
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Pius"
+last_name = "Lischer"
+party = "Neue Bundesverfassung"
+
+
+[[cantonal.aargau.skill_question]]
+de = "Wie werden die Mitglieder der aargauischen Regierung bestimmt?"
+en = "How are the members of the Aargau government appointed?"
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden von den Parteien ernannt."
+en = "They are appointed by the parties."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden vom Grossen Rat (Kantonsparlament) gewählt."
+en = "They are elected by the Grand Council (cantonal parliament)."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden auf Parteiversammlungen gewählt."
+en = "They are elected at party meetings."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden von den Aargauer Stimmberechtigten gewählt."
+en = "They are elected by the voters of Aargau."
+is_correct = true
+[[cantonal.aargau.skill_question]]
+de = "Welches ist die Rolle des Landammanns/der Frau Landammann im Kanton?"
+en = "What is the role of the \"Landammann\" in the canton?"
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er/sie ist oberste/r Chef/in der Polizei."
+en = "He/she's the chief of police."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er/sie präsidiert die kantonale Regierung."
+en = "He/she presides over the cantonal government."
+is_correct = true
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er/sie leitet die Schulpflege."
+en = "He/she is in charge of school supervision."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er/sie ist Präsident/in des Grossen Rats (Kantonsparlament)."
+en = "He/she is president of the Grand Council (cantonal parliament)."
+is_correct = false
+[[cantonal.aargau.skill_question]]
+de = "Was soll der Ressourcenausgleich zwischen Gemeinden im Kanton Aargau sicherstellen?"
+en = "What should the equalization of resources between municipalities in Canton Aargau ensure?"
+[[cantonal.aargau.skill_question.response_option]]
+de = "Der Ressourcenausgleich existiert nur zwischen Kantonen und nicht zwischen Gemeinden."
+en = "Resource equalization exists only between cantons and not between municipalities."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Ausgewogene Verhältnisse in der Steuerbelastung und in den Leistungen der Gemeinden."
+en = "Balanced conditions in the tax burden and in the services provided by the municipalities."
+is_correct = true
+[[cantonal.aargau.skill_question.response_option]]
+de = "Dass alle Gemeinden über die gleichen finanziellen Mittel verfügen."
+en = "That all municipalities have the same financial resources."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Dass reichere Personen im gleichen Kanton gleich besteuert werden."
+en = "That richer people in the same canton are taxed equally."
+is_correct = false
+
+
+[political_issues]
+source.name = "Credit Suisse Sorgenbarometer 2018"
+source.url = "https://www.credit-suisse.com/media/assets/corporate/docs/about-us/responsibility/worry-barometer/cs-bulletin-0318-analysis-worry-barometer-de.pdf"
+[[political_issues.issue]]
+de = "AHV/Altersvorsorge"
+en = "OASI/pension provision"
+[[political_issues.issue]]
+de = "Gesundheit/Krankenkassen"
+en = "health/health insurance"
+[[political_issues.issue]]
+de = "AusländerInnen"
+en = "foreigners"
+[[political_issues.issue]]
+de = "Flüchtlinge/Asyl"
+en = "refugees/asylum"
+[[political_issues.issue]]
+de = "Umweltschutz/Klima"
+en = "environmental protection/climate"
+[[political_issues.issue]]
+de = "Arbeitslosigkeit/Jugendarbeitslosigkeit"
+en = "unemployment/youth unemployment"
+[[political_issues.issue]]
+de = "EU/Bilaterale/Europäische Integration"
+en = "EU/bilateral agreements/European integration"
+[[political_issues.issue]]
+de = "Löhne"
+en = "wages"
+[[political_issues.issue]]
+de = "Staatshaushalt"
+en = "state budget"
+[[political_issues.issue]]
+de = "Verkehr/NEAT"
+en = "traffic/NRLA"
+[[political_issues.issue]]
+de = "Rassismus/Fremdenfeindlichkeit"
+en = "racism/xenophobia"
+[[political_issues.issue]]
+de = "soziale Sicherheit"
+en = "social security"
+[[political_issues.issue]]
+de = "Inflation/Teuerung"
+en = "inflation/rising prices"
+[[political_issues.issue]]
+de = "persönliche Sicherheit"
+en = "personal safety"
+[[political_issues.issue]]
+de = "Gleichstellung"
+en = "gender equality"
+[[political_issues.issue]]
+de = "Atom-/Kernenergie"
+en = "atomic/nuclear energy"
+[[political_issues.issue]]
+de = "Zusammenleben"
+en = "societal coexistence"
+[[political_issues.issue]]
+de = "Bildungswesen"
+en = "educational system"
+[[political_issues.issue]]
+de = "Sicherheit im Internet/Cyberspionage"
+en = "internet security/cyber espionage"

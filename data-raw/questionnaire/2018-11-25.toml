@@ -1,0 +1,278 @@
+ballot_date = 2018-11-25
+
+[mode.aargau]
+n = 5000
+invitation = [ "online", "print" ]
+reminder = [ "online", "print" ]
+[mode.aargau.postal_dispatch.type]
+invitation = "B"
+reminder = "B"
+prepaid_reply_envelope = "A"
+[mode.aargau.postal_dispatch.date]
+invitation = 2018-11-19
+reminder = 2018-12-04
+
+
+[url]
+federal.booklet = "https://www.admin.ch/dam/gov/de/Dokumentation/Abstimmungen/November2018/Volksabstimmung_25.November2018_Erlaeuterungen_Bundesrat.pdf.download.pdf/Erlaeuterungen%20des%20Bundesrates%20zur%20Volksabstimmung%20vom%2025%20November%202018.pdf"
+aargau.booklet = "https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/abstimmungen_1/2018_11_25/2018-11-25_Abst.Broschuere_AG.pdf"
+aargau.archive = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/abstimmungen/archiv_1/archiv_details/archiv_details_102981.jsp"
+
+
+[federal.proposal.1]
+type = "citizens' initiative"
+[federal.proposal.1.name.de]
+long.text = "Für die Würde der landwirtschaftlichen Nutztiere (Hornkuh-Initiative)"
+long.gender = "feminine"
+short.text = "Hornkuh-Initiative"
+short.gender = "feminine"
+[federal.proposal.2]
+type = "citizens' initiative"
+[federal.proposal.2.name.de]
+long.text = "Schweizer Recht statt fremde Richter (Selbstbestimmungsinitiative)"
+long.gender = "feminine"
+short.text = "Selbstbestimmungsinitiative"
+short.gender = "feminine"
+[federal.proposal.3]
+type = "optional referendum"
+[federal.proposal.3.name.de]
+long.text = "Änderung des Bundesgesetzes über den Allgemeinen Teil des Sozialversicherungsrechts (ATSG) (Gesetzliche Grundlage für die Überwachung von Versicherten)"
+long.gender = "feminine"
+short.text = "Überwachung von Sozialversicherten"
+short.gender = "feminine"
+
+
+[cantonal.aargau.proposal.1]
+type = "citizens' initiative"
+[cantonal.aargau.proposal.1.name.de]
+long.text = "JA! für euse Wald"
+long.gender = "feminine"
+short.text = "Waldinitiative"
+short.gender = "feminine"
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte den wegen des tiefen Holzpreises defizitären Forstbetrieben unter die Arme greifen"
+en = "to help the loss-making forestries affected by the low price of wood"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte mich generell für die Umwelt/Natur einsetzen"
+en = "to be generally committed to the environment/nature"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "bin der Überzeugung, wenn mehr Menschen den Wald nutzen, braucht es auch mehr Geld für den Wald"
+en = "to believe that if more people use the forest, more money is needed for the forest"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "finde es grundsätzlich eine sympathische Idee"
+en = "to basically like the idea"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte mich für einheimisches Holz einsetzen"
+en = "to support local wood"
+code = 6
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "finde das Anliegen zu teuer"
+en = "to find the matter too expensive"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "finde, das ist nicht Aufgabe des Kantons, sondern der jeweiligen Eigentümer des Waldes"
+en = "to believe that this is not the duty of the canton, but of the respective owners of the forest"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte nicht, dass der Kanton durch die Mehrausgaben woanders Kürzungen vornehmen muss"
+en = "to prevent the canton from having to make cuts elsewhere because of the additional expenditure"
+code = 5
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Der Wald ist per Gesetz jederzeit frei zugänglich und bietet einer wachsenden Bevölkerung Erholung, Ruhe und saubere Luft. Deshalb ist eine Erhöhung der Kantonsbeiträge gerechtfertigt."
+de.short = "Wald ist für alle frei zugänglich und Bevölkerung wächst"
+en.long = "The forest is freely accessible by law at all times and offers a growing population recreation, peace and clean air. An increase in cantonal contributions is therefore justified."
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Die Gesamtkosten von 16 Millionen Franken sind fast vier Mal so viel wie der jetzige Beitrag für den Aargauer Wald. Das würde das Kantonsbudget zu stark belasten."
+de.short = "Vervierfachung der Ausgaben belastet Kantonsbudget zu stark"
+en.long = "The total cost of CHF 16 million is almost four times as much as the current contribution to the Aargauer Wald. This would place too heavy a burden on the cantonal budget."
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Die von der Initiative geforderten Mehrausgaben für den Wald machen nur 0.3 Prozent des Kantonsbudgets aus. Das sollten wir uns zugunsten des Aargauer Waldes leisten."
+de.short = "Nur geringe Mehrkosten von 0.3 % des Kantonsbudgets"
+en.long = "The additional expenditure for the forest demanded by the initiative accounts for only 0.3 percent of the cantonal budget. We should afford this for the benefit of the Aargau forest."
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "Für Pflege und Bewirtschaftung des Waldes sollen seine Eigentümer – im überwiegenden Teil (Ortsbürger-)Gemeinden oder Private – und nicht der Kanton zuständig sein."
+de.short = "Für Pflege und Bewirtschaftung sollen Waldeigentümer und nicht Kanton zuständig sein"
+en.long = "The owners – mainly local communities or private individuals – should be responsible for the maintenance and management of the forest, and not the canton."
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Wie viele Franken pro Einwohner müsste der Kanton bei einem Ja zur Initiative zweckgebunden für den Wald aufwenden?"
+en = "If the initiative is accepted, the canton would have to spend at least CHF … per inhabitant dedicated to the forest."
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "100 Franken"
+en = "CHF 100"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "50 Franken"
+en = "CHF 50"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "25 Franken"
+en = "CHF 25"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Wie viel Prozent der Fläche des Kantons Aargau sind mit Wald bedeckt?"
+en = "What percentage of the area of Canton Aargau is covered with forest?"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "rund 25 Prozent"
+en = "about 25 percent"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "rund 35 Prozent"
+en = "about 35 percent"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "rund 45 Prozent"
+en = "about 45 percent"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "Welche Partei war im Grossrat einstimmig für die Initiative?"
+en = "Which party in the Grand Council was unanimously in favour of the initiative?"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "SVP"
+en = "SVP"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "FDP"
+en = "FDP"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "Grüne"
+en = "Grüne"
+is_correct = true
+
+
+[cantonal.aargau.proposal.2]
+type = "mandatory referendum"
+[cantonal.aargau.proposal.2.name.de]
+long.text = "Ständeratswahlrecht für Auslandschweizerinnen und Auslandschweizer"
+long.gender = "neuter"
+short.text = "Auslandschweizer-Ständeratswahlrecht"
+short.gender = "neuter"
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "wollte sicherstellen, dass Auslandschweizer/innen die gleichen Wahlrechte haben wie Inlandschweizer/innen"
+en = "to ensure that Swiss abroad have the same voting rights as Swiss nationals"
+code = 2
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "bin der Meinung, dass wer bei Nationalratswahlen teilnehmen kann, auch bei Ständeratswahlen soll teilnehmen dürfen"
+en = "to be of the opinion that anyone who can participate in elections to the National Council should also be allowed to participate in elections to the Council of States"
+code = 3
+[[cantonal.aargau.proposal.2.main_motive.yes]]
+de = "finde, das ist eine Selbstverständlichkeit"
+en = "to think that's a matter of course"
+code = 4
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "bin der Meinung, dass bei kantonalen Wahlen nur teilnehmen dürfen soll, wer auch im Kanton wohnhaft ist"
+en = "to believe that only those who reside in the canton should be allowed to take part in cantonal elections"
+code = 2
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 3
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "bin generell gegen ein Wahlrecht für Auslandschweizer/innen"
+en = "to be opposed in general to the right of Swiss abroad to vote"
+code = 4
+[[cantonal.aargau.proposal.2.main_motive.no]]
+de = "finde, Auslandschweizer/innen sind zu weit weg vom Aargau. Sie sind mit den Gegebenheiten des Kantons nicht vertraut"
+en = "to believe that the Swiss abroad are too far away from Aargau and that they are not familiar with the situation in the canton"
+code = 5
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Es macht keinen Sinn, dass Auslandschweizer/innen an Nationalratswahlen teilnehmen dürfen, aber nicht an den gleichzeitig stattfindenden Ständeratswahlen."
+de.short = "Unsinnig, dass Auslandschweizer/innen an Nationalrats-, nicht aber Ständeratswahlen teilnehmen dürfen"
+en.long = "It makes no sense for Swiss citizens living abroad to be allowed to take part in the National Council elections, but not in the Council of States elections that take place at the same time."
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Wer in den Ständerat gewählt werden kann, soll auch mit den Gegebenheiten des Kantons vertraut sein. Das ist bei jemandem, der im Ausland wohnhaft ist, nicht der Fall."
+de.short = "Im Ausland wohnhafte sind nicht mit den Gegebenheiten des Kantons vertraut"
+en.long = "Anyone who can be elected to the Council of States should also be familiar with the circumstances of the canton. This is not the case for someone who lives abroad."
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Die Einführung des Ständeratswahlrechts für Auslandschweizer/innen ist gerechtfertigt, weil nur sehr geringe Mehrkosten entstehen."
+de.short = "Mehrkosten sind sehr gering"
+en.long = "The introduction of the right to elect members of the Council of States for Swiss citizens living abroad is justified because the additional costs are very low."
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.2.argument]]
+de.long = "Über kantonale Angelegenheiten sollen nur jene entscheiden dürfen, die auch von kantonalen Entscheiden betroffen sind. Das ist bei Schweizern und Schweizerinnen, die im Ausland wohnen, nicht der Fall."
+de.short = "Nur direkt Betroffene sollen über kantonale Angelegenheiten entscheiden"
+en.long = "Only those who are also affected by cantonal decisions should be allowed to decide on cantonal matters. This is not the case for Swiss nationals living abroad."
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.2.skill_question]]
+de = "In wie vielen Kantonen können Auslandschweizer/innen aktuell an den Ständeratswahlen teilnehmen?"
+en = "In how many cantons can the Swiss abroad currently take part in the elections for the Council of States?"
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "in mehr als der Hälfte aller Kantone"
+en = "in more than half of all cantons"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "in weniger als der Hälfte aller Kantone"
+en = "in less than half of all cantons"
+is_correct = true
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "in keinem anderen Kanton"
+en = "in no other canton"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question]]
+de = "An welchen Wahlen können Auslands-Aargauer und -Aargauerinnen aktuell teilnehmen?"
+en = "In which elections can Aargau citizens living abroad currently take part?"
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "an keiner Wahl, denn sie sind im Kanton Aargau nicht stimm- und wahlberechtigt"
+en = "none, because they are not entitled to vote in the Canton of Aargau"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "an Nationalratswahlen"
+en = "in elections to the National Council"
+is_correct = true
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "an allen Wahlen, an welchen auch im Kanton Aargau wohnhafte Stimmberechtigte teilnehmen können"
+en = "in all elections in which voters resident in the Canton of Aargau can participate"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question]]
+de = "Welche der beiden aktuellen Aargauer Ständeratsmitglieder, Pascale Bruderer und Philipp Müller, treten bei den Ständeratswahlen 2019 wieder an?"
+en = "Which of the two current Argovian members of the Council of States, Pascale Bruderer and Philipp Müller, will be standing again in the 2019 elections?"
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "keine der beiden"
+en = "neither of them"
+is_correct = true
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "Pascale Bruderer"
+en = "Pascale Bruderer"
+is_correct = false
+[[cantonal.aargau.proposal.2.skill_question.response_option]]
+de = "Philipp Müller"
+en = "Philipp Müller"
+is_correct = false
