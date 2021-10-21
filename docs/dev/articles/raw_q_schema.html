@@ -109,7 +109,7 @@
 <li>
 <p>Deepest<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> table level named <code>item</code> defines an “atomic” questionnaire item (= single row in Markdown questionnaires) or a template for multiple similar “atomic” questionnaire items. It can be defined multiple times (once for each item) and must be wrapped in double brackets:</p>
 <pre><code>[[blockname.00X_2nd_lvl.00X_3rd_lvl.item]]</code></pre>
-<p>Items appear in the final questionnaire in the same order they are defined here. Technically, the level <code>item</code> is an <a href="https://toml.io/en/v1.0.0#array-of-tables" class="external-link">array of tables</a> which is represented as a list of unnamed lists in R.</p>
+<p>Items appear in the final questionnaire in the same order they are defined here. Technically, the level <code>item</code> is an <a href="https://toml.io/en/latest#array-of-tables" class="external-link">array of tables</a> which is represented as a list of unnamed lists in R.</p>
 </li>
 <li>
 <p>Table levels in between top and deepest level <code>item</code> can be named anything except <code>variable_name</code> and are intended to arrange and/or group items and set keys that hold for multiple questionnaire items hierarchically in order to avoid redundancies.</p>
