@@ -235,7 +235,6 @@ shortening_rules <- tibble::tribble(
   "welfare_state_vs_self_responsibility",    "welfare_vs_self_respon",       "begin-middle-end",
   "equal_opportunity_foreigners",            "equal_opportunity_foreign",    "begin-middle-end",
   "reader_letters_comments",                 "letters_comments",             "begin-middle-end",
-  "scientific_principles_methods",           "scientific_methods",           "begin-middle-end",
   "infectious_disease_specialists",          "infct_disease_spclsts",        "begin-middle-end"
 )
 ```

@@ -3103,15 +3103,14 @@ upload_to_g_drive <- function(filepaths,
   auth_g_drive()
   
   # upload files
+  status_msg <- "Uploading {length(filepaths)} file{?s} to Google Drive folder {.path g_drive_folder}..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
+  
   purrr::walk2(.x = filenames,
                .y = filepaths,
                .f = ~ {
-                 
-                 status_msg <- "Uploading file {.file {.x}}..."
-                 cli::cli_progress_step(msg = status_msg,
-                                        msg_done = paste(status_msg, "done"),
-                                        msg_failed = paste(status_msg, "failed"))
-                 
                  # overwrite existing file if possible or create new one otherwise
                  googledrive::drive_put(media = .y,
                                         path = g_drive_folder,

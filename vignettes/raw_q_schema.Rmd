@@ -39,7 +39,7 @@ The following main semantic rules apply:
         [[blockname.00X_2nd_lvl.00X_3rd_lvl.item]]
 
     Items appear in the final questionnaire in the same order they are defined here. Technically, the level `item` is an [array of
-    tables](https://toml.io/en/v1.0.0#array-of-tables) which is represented as a list of unnamed lists in R.
+    tables](https://toml.io/en/latest#array-of-tables) which is represented as a list of unnamed lists in R.
 
 4.  Table levels in between top and deepest level `item` can be named anything except `variable_name` and are intended to arrange and/or group items and set
     keys that hold for multiple questionnaire items hierarchically in order to avoid redundancies.

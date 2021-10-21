@@ -166,7 +166,7 @@ de = "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung 
 en = "TODO"
 code = 4
 [[federal.proposal.2.main_motive.yes]]
-de = "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequehme Urteile abgewählt zu werden."
+de = "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden."
 en = "TODO"
 code = 5
 [[federal.proposal.2.main_motive.yes]]
@@ -190,13 +190,17 @@ de = "wollte sicherstellen, dass BundesrichterInnen weiterhin Mitglied einer pol
 en = "TODO"
 code = 4
 [[federal.proposal.2.main_motive.no]]
-de = "vertraue dem Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
+de = "finde, die Initiative ist zu vage formuliert. Unklar ist vor allem, wie die Fachkommission zustande kommen soll."
 en = "TODO"
 code = 5
 [[federal.proposal.2.main_motive.no]]
-de = "finde das heutige System ganz in Ordnung und sehe keinen Bedarf, etwas daran zu ändern."
+de = "vertraue dem Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
 en = "TODO"
 code = 6
+[[federal.proposal.2.main_motive.no]]
+de = "finde das heutige System ganz in Ordnung und sehe keinen Bedarf, etwas daran zu ändern."
+en = "TODO"
+code = 7
 [[federal.proposal.2.argument]]
 de.long = "Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der BundesrichterInnen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt."
 de.short = "TODO"
@@ -292,21 +296,25 @@ de = "wollte zusätzliche Finanzhilfen des Staates an krisengebeutelte Unternehm
 en = "TODO"
 code = 2
 [[federal.proposal.3.main_motive.yes]]
-de = "befürworte die Covid-Zertifikatspflicht und wollte das Leben für Geimpfte erleichtern."
+de = "befürworte die Covid-Zertifikatspflicht und wollte das Leben für Geimpfte erleichtern (Veranstaltungen, Auslandsreisen etc.)."
 en = "TODO"
 code = 3
 [[federal.proposal.3.main_motive.yes]]
-de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
+de = "glaube, dass die Covid-Zertifikatspflicht zur Impfung motiviert und dies der wirkungsvollste Weg ist, die Pandemie zu beenden."
 en = "TODO"
 code = 4
 [[federal.proposal.3.main_motive.yes]]
-de = "wollte ein Zeichen setzen gegen MassnahmengegnerInnen und/oder ImpfskeptikerInnen."
+de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
 en = "TODO"
 code = 5
 [[federal.proposal.3.main_motive.yes]]
-de = "wollte, dass der Bund endlich die Kompetenz erhält ein funktionierendes, schweizweites Contact-Tracing-System aufzubauen."
+de = "wollte ein Zeichen setzen gegen MassnahmengegnerInnen und/oder ImpfskeptikerInnen."
 en = "TODO"
 code = 6
+[[federal.proposal.3.main_motive.yes]]
+de = "wollte, dass der Bund endlich die Kompetenz erhält, ein funktionierendes, schweizweites Contact-Tracing-System aufzubauen."
+en = "TODO"
+code = 7
 [[federal.proposal.3.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
 en = "to follow a specific voting recommendation"
@@ -316,29 +324,33 @@ de = "wollte die Covid-Zertifikatspflicht rückgängig machen."
 en = "TODO"
 code = 2
 [[federal.proposal.3.main_motive.no]]
-de = "wollte eine Diskriminierung Ungeimpfter verhindern."
+de = "wollte einen indirekten Impfzwang durch die Covid-Zertifikatspflicht verhindern."
 en = "TODO"
 code = 3
 [[federal.proposal.3.main_motive.no]]
-de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
+de = "wollte eine Diskriminierung Ungeimpfter verhindern."
 en = "TODO"
 code = 4
 [[federal.proposal.3.main_motive.no]]
-de = "wollte zusätzliche Finanzhilfen des Staates an Unternehmen und Selbständige verhindern."
+de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
 en = "TODO"
 code = 5
 [[federal.proposal.3.main_motive.no]]
-de = "wollte eine elektronische Massenüberwachung durch ein schweizweites digitales Contact-Tracing verhindern."
+de = "wollte zusätzliche Finanzhilfen des Staates an Unternehmen und Selbständige verhindern."
 en = "TODO"
 code = 6
 [[federal.proposal.3.main_motive.no]]
-de = "wollte eine Machtausweitung des Bundesrates verhindern."
+de = "wollte eine elektronische Massenüberwachung durch ein schweizweites digitales Contact-Tracing verhindern."
 en = "TODO"
 code = 7
 [[federal.proposal.3.main_motive.no]]
-de = "wollte ein Zeichen setzen gegen MassnahmenbefürworterInnen und/oder ImpfbefürworterInnen."
+de = "wollte eine Machtausweitung des Bundesrates verhindern."
 en = "TODO"
 code = 8
+[[federal.proposal.3.main_motive.no]]
+de = "wollte ein Zeichen setzen gegen MassnahmenbefürworterInnen und/oder ImpfbefürworterInnen."
+en = "TODO"
+code = 9
 [[federal.proposal.3.argument]]
 de.long = "Das Covid-19-Gesetz ermöglicht dem Staat mittels Ausweitung der finanziellen Hilfsprogramme einen grösseren Teil der Schweizer Wirtschaft heil durch die Krise zu bringen."
 de.short = "TODO"
@@ -371,7 +383,7 @@ de = "Sie sind bereits in Kraft."
 en = "TODO"
 is_correct = true
 [[federal.proposal.3.skill_question.response_option]]
-de = "Sie traten am Abstimmungssonntag vom 28. November 2021 in Kraft."
+de = "Sie treten/traten am Abstimmungssonntag vom 28. November 2021 in Kraft."
 en = "TODO"
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
@@ -386,15 +398,15 @@ is_correct = false
 de = "Was wird durch ein gültiges Schweizer Covid-Zertifikat nachgewiesen? Dass die entsprechende Person…"
 en = "TODO"
 [[federal.proposal.3.skill_question.response_option]]
-de = "…sich in den vergangenen 12 Monaten an alle Pandemiemassnahmen (bspw. Maskenpflicht) gehalten hat."
+de = "…gegen COVID-19 geimpft ist."
 en = "TODO"
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "…sich für eine Impfung angemeldet hat."
+de = "…gegen COVID-19 geimpft ist oder sich für eine bestimmte Dauer in Quarantäne begeben hat."
 en = "TODO"
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "…über eine intensivmedizinische Ausbildung in der Behandlung von COVID-19-Patienten verfügt."
+de = "…gegen COVID-19 geimpft oder negativ getestet ist."
 en = "TODO"
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
@@ -409,10 +421,14 @@ de = "Alle Pandemiemassnahmen des Bundes werden aufgehoben und stattdessen erhal
 en = "TODO"
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "Diejenigen Bestimmungen, welche die Bundesversammlung am 19. März 2021 verabschiedete, werden nichtig."
+de = "Diejenigen Bestimmungen/Änderungen, welche die Bundesversammlung am 19. März 2021 verabschiedete, treten _sofort_ ausser Kraft."
+en = "TODO"
+is_correct = false
+[[federal.proposal.3.skill_question.response_option]]
+de = "Diejenigen Bestimmungen/Änderungen, welche die Bundesversammlung am 19. März 2021 verabschiedete, treten _am 19. März 2022_ ausser Kraft."
 en = "TODO"
 is_correct = true
 [[federal.proposal.3.skill_question.response_option]]
-de = "Das gesamte Covid-19-Gesetz tritt ausser Kraft."
+de = "Das gesamte Covid-19-Gesetz tritt bis spätestens Ende Jahr ausser Kraft."
 en = "TODO"
 is_correct = false
