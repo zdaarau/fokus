@@ -92,9 +92,9 @@ q_item_keys <- tibble::tribble(
   ~key,                         ~is_scalar, ~is_iterator, ~is_excluder, ~is_optional, ~type,       ~default,      ~remarks,
   "lvl",                        FALSE,      TRUE,         FALSE,        FALSE,        "character", '`"?"`',       "political-level iterator",
   "i",                          FALSE,      TRUE,         FALSE,        FALSE,        "character", '`"?"`',       "2nd-level loop iterator",
-  "j",                          FALSE,      TRUE,         FALSE,        FALSE,        "character", '`"?"`',       paste0("3rd-level loop iterator, i.e. \"for ",
-                                                                                                                         "each `lvl`, iterate over each `i`, ",
-                                                                                                                         "and in turn iterate over every ",
+  "j",                          FALSE,      TRUE,         FALSE,        FALSE,        "integer",   '`NA_integer_`', paste0("3rd-level loop iterator, i.e. ",
+                                                                                                                         "\"for each `lvl`, iterate over each ",
+                                                                                                                         "`i`, and in turn iterate over every ",
                                                                                                                          "`j`\""),
   "block",                      TRUE,       FALSE,        FALSE,        FALSE,        "character", 'top-level block name', paste0("holds the name of the ",
                                                                                                                                   "respective top-level block;",
@@ -206,6 +206,7 @@ shortening_rules <- tibble::tribble(
   "booklet",                                 "bkl",                          "begin-middle-end",
   "candidate",                               "cand",                         "begin-middle-end",
   "competent",                               "cmp",                          "begin-middle-end",
+  "contentment",                             "cntmnt",                       "begin-middle-end",
   "convincing",                              "cnv",                          "begin-middle-end",
   "custom",                                  "cm",                           "begin-middle-end",
   "decision",                                "dcsn",                         "begin-middle-end",
@@ -215,10 +216,12 @@ shortening_rules <- tibble::tribble(
   "information_source",                      "info_src",                     "begin-middle-end",
   "infrastructure",                          "infra",                        "begin-middle-end",
   "insurance",                               "insrnc",                       "begin-middle-end",
+  "management",                              "mgmt",                         "begin-middle-end",
   "modification",                            "mod",                          "begin-middle-end",
   "options",                                 "opts",                         "begin-middle-end",
   "political",                               "pol",                          "begin-middle-end",
   "positioning",                             "pos",                          "begin-middle-end",
+  "public",                                  "pub",                          "begin-middle-end",
   "reduction",                               "red",                          "begin-middle-end",
   "spending",                                "spend",                        "begin-middle-end",
   "switzerland",                             "ch",                           "begin-middle-end",
@@ -230,7 +233,10 @@ shortening_rules <- tibble::tribble(
   "equivalised_income",                      "equi_inc",                     "begin-middle-end",
   "environmentalism_vs_economic_prosperity", "env_vs_econ",                  "begin-middle-end",
   "welfare_state_vs_self_responsibility",    "welfare_vs_self_respon",       "begin-middle-end",
-  "equal_opportunity_foreigners",            "equal_opportunity_foreign",    "begin-middle-end"
+  "equal_opportunity_foreigners",            "equal_opportunity_foreign",    "begin-middle-end",
+  "reader_letters_comments",                 "letters_comments",             "begin-middle-end",
+  "scientific_principles_methods",           "scientific_methods",           "begin-middle-end",
+  "infectious_disease_specialists",          "infct_disease_spclsts",        "begin-middle-end"
 )
 ```
 

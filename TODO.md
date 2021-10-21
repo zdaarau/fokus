@@ -2,44 +2,34 @@
 
 ## Questionnaire 2021-11-28
 
-Beurteilung Krisenmanagement national / kantonal
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Vertrauen in - wissenschaftliche Fachleute (Epidemologen, Virologen, wissenschaftliche Taskforce) - nationale Institutionen (Bundesrat, BAG) - kantonale
-Institutionen (Gesundsdepartement Gallati)
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Zufriedenheit mit den Massnahmen der Regierung: - 4er-Skala
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Sind Sie gegen Covid-19 geimpft? / Haben Sie sich gegen Covid-19 impfen lassen? - Ja - Ich überlege noch - Nein - Niemals!
-
-alternativ: Vertrauen in die bislang zugelassenen Impfstoffe
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Wünschen Sie sich, dass möglichst alle Ihre Mitmenschen geimpft sind?
-
-Informationsquelle Covid-19 (sep. Item für 'Chat-Apps wie Telegram')
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Argumente:
-
--   Nötigung
--   ...
+...
 
 ## Other
+
+-   Replace all non-integer `i`-assignments in questionnaire with `lvl`-assignments and make `i` of type integer (same as `j`).
 
 -   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
 
     -   variable renamings:
 
+        -   reading in publitest data: `info_src_reader_letters_comments` -> `info_src_letters_comments`
+
+        -   `political_interest` -> split up into `political_interest_cantonal` and `political_interest_federal`
+
         -   `sighting_political_ads` -> `sighting_political_ads_cantonal_proposals`
+
         -   `intensity_political_discussions` -> `intensity_political_discussions_cantonal_proposals`
+
+        -   Information source items:
+
+            -   `information_source_discussions` -> `cantonal_information_source_discussions`
+            -   `information_source_official_easyvote_booklet` -> `information_source_easyvote_booklet`
+            -   `information_source_cantonal_election_booklet` -> `cantonal_information_source_election_booklet`
+            -   `information_source_official_federal_booklet` -> `federal_information_source_official_booklet`
+            -   `information_source_cantonal_online_tutorial` -> `cantonal_information_source_online_tutorial`
+            -   `information_source_official_cantonal_booklet` -> `cantonal_proposals_information_source_official_booklet`
+            -   `information_source_cantonal_webpage` -> `cantonal_proposals_information_source_official_webpage`
+            -   `information_source_*` -> `cantonal_proposals_information_source_*` (all items for cantonal proposals)
 
 -   supplemental date-specific TOML questionnaire files:
 

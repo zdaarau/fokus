@@ -83,7 +83,7 @@
       <h1 data-toc-skip>FOKUS questionnaire schema</h1>
             <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-10-20</h4>
+            <h4 data-toc-skip class="date">2021-10-21</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -95,7 +95,7 @@
 <div id="main-semantic-rules" class="section level1">
 <h1 class="hasAnchor">
 <a href="#main-semantic-rules" class="anchor"></a>Main semantic rules</h1>
-<p>The <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/questionnaire.toml" class="external-link">raw questionnaire</a> is written in the <a href="https://toml.io/en/latest" class="external-link">TOML file format</a>. Basically, all questionnaire items are defined in a tree structure where child nodes inherit the attributes of their parent (and transitively grandparent etc.) nodes.</p>
+<p>The <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/questionnaire.toml" class="external-link">raw questionnaire</a> is written in the <a href="https://toml.io/en/latest" class="external-link">TOML file format</a>. Basically, all questionnaire items are defined in an <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)#Ordered_tree" class="external-link">ordered tree structure</a> where child nodes inherit the attributes of their parent (and transitively grandparent etc.) nodes.</p>
 <p>The following main semantic rules apply:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -201,8 +201,8 @@
 </tr>
 <tr class="odd">
 <td align="left"><code>j</code></td>
-<td align="left">character vector</td>
-<td align="left"><code>"?"</code></td>
+<td align="left">integer vector</td>
+<td align="left"><code>NA_integer_</code></td>
 <td align="left">❌</td>
 <td align="left">✅</td>
 <td align="left">❌</td>
@@ -407,7 +407,8 @@ question.default.referendum = "nenene"</code></pre>
 </ul>
 </li>
 <li><p>The keys <code>lvl</code>, <code>i</code> and <code>j</code> are interpreted as iterators which you can refer to via string interpolation (e.g. <code>voting_decision_{lvl}</code>), so you have to define similar questionnaire items only once. If any of them evaluate to <code>NULL</code> or an empty vector, the respective item is automatically excluded, i.e. it’s not necessary to explicitly set <code>include</code> (sub)keys in such case.</p></li>
-<li><p>To explicitly unset a key, i.e. set it to <code>NULL</code>, just assign a string containing <code>NA</code> of the correct type wrapped in curly braces (<code>"{NA_character_}"</code> for values of type string, <code>"{NA_integer_}"</code> for values of type integer etc.). TODO: Is this still valid?</p></li>
+<li><p>You can even cross-reference keys from non-parent nodes using <a href="https://rpkg.dev/fokus/reference/q_item_val.html"><code>q_item_val()</code></a>. But be careful to not create infinite loops via circular references.</p></li>
+<li><p>To explicitly unset a key, just assign a string containing <code>NA</code> of the correct type wrapped in curly braces (<code>"{NA_character_}"</code> for values of type string, <code>"{NA_integer_}"</code> for values of type integer etc.).</p></li>
 <li><p>A <code>who</code> constraint notice is automatically added to the end of <code>variable_label</code> and <code>variable_label_common</code> if possible (e.g. <code>"blabla (only non-voters)"</code>). Because <code>variable_label_common</code> by definition mustn’t vary over time, it <strong>must</strong> be explicitly specified <em>including such a <code>who</code> constraint notice</em> <strong>if</strong> <code>who</code> varies over time.</p></li>
 <li><p>This questionnaire is <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link">complemented by a <strong>supplemental TOML file <code>YYYY-MM-DD.toml</code></strong> for each ballot date</a> that holds additional date-specific metadata.</p></li>
 </ul>

@@ -12,7 +12,7 @@ q_item_val(
   key = q_item_keys$key,
   lvl = "?",
   i = "?",
-  j = "?"
+  j = NA_integer_
 )
 }
 \arguments{

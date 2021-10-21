@@ -40,7 +40,7 @@ Returns the combined name of all elections at the specified date on the specifie
 }
 \examples{
 fokus::election_names_combined(ballot_date = "2019-10-20",
-                               lvl = "cantonal",
+                               lvl = "federal",
                                canton = "aargau")
 }
 \seealso{

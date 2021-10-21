@@ -802,7 +802,7 @@ pick_right_helper <- function(x,
       length(which(matches_begin_end_subkeys)) > 0L ~ x[[begin_end_subkeys[matches_begin_end_subkeys]]],
       
       # consider overrides for ballot types (we take the first one in case of ambiguity)
-      . %in% ballot_types ~ x[[intersect(., ballot_types)[1L]]],
+      any(ballot_types %in% .) ~ x[[intersect(., ballot_types)[1L]]],
       
       # return default value if defined
       "default" %in% . ~ x[["default"]],
@@ -883,7 +883,7 @@ assemble_q_item_tibble <- function(ballot_date,
                        key = "lvl",
                        lvl = "",
                        i = "",
-                       j = ""),
+                       j = NA_integer_),
     .f = function(lvl) {
       # ...`i`...
       purrr::map_dfr(
@@ -893,7 +893,7 @@ assemble_q_item_tibble <- function(ballot_date,
                            key = "i",
                            lvl = lvl,
                            i = "",
-                           j = ""),
+                           j = NA_integer_),
         lvl = lvl,
         .f = function(i,
                       lvl) {
@@ -905,7 +905,7 @@ assemble_q_item_tibble <- function(ballot_date,
                                key = "j",
                                lvl = lvl,
                                i = i,
-                               j = ""),
+                               j = NA_integer_),
             i = i,
             lvl = lvl,
             .f = function(j,
@@ -1126,7 +1126,7 @@ init_heritable_map <- function(block) {
   
   xfun::strict_list(lvl = "?",
                     i = "?",
-                    j = "?",
+                    j = NA_integer_,
                     block = block,
                     variable_name = "???",
                     topic = NULL,
@@ -1179,7 +1179,7 @@ resolve_q_val <- function(x,
   
   checkmate::assert_scalar(lvl, null.ok = TRUE)
   checkmate::assert_scalar(i, null.ok = TRUE)
-  checkmate::assert_scalar(j, null.ok = TRUE)
+  checkmate::assert_scalar(j, na.ok = TRUE, null.ok = TRUE)
   
   x %>%
     raw_pick_right(ballot_date = ballot_date,
@@ -1211,17 +1211,17 @@ resolve_q_val <- function(x,
     )
 }
 
-strip_md_q_tibble <- function(q_tibble) {
+clean_q_tibble <- function(q_tibble) {
   
   q_tibble %>%
+    # remove (single) placeholders
+    dplyr::mutate(dplyr::across(any_of(q_item_keys_multival) & where(~ is.character(.x[[1L]])),
+                                ~ .x %>% purrr::map(~ { if (length(.x) == 1L && isTRUE(stringr::str_detect(.x, "^_.+_$"))) character() else .x }))) %>%
     # strip MD
     dplyr::mutate(dplyr::across(where(is.character),
-                                pal::strip_md)) %>%
-    dplyr::mutate(dplyr::across(where(is.list),
-                                ~ { if (is.character(.x)) pal::strip_md(.x) else .x })) %>%
-    # remove placeholders (scalars only)
-    dplyr::mutate(dplyr::across(any_of(q_item_keys_multival) & where(~ is.character(.x[[1L]])),
-                                ~ .x %>% purrr::map(~ { if (length(.x) == 1L) stringr::str_replace(.x, "^_.+_$", NA_character_) else .x })))
+                                pal::strip_md),
+                  dplyr::across(where(is.list) & where(~ is.character(.x[[1L]])),
+                                ~ .x %>% purrr::map(pal::strip_md)))
 }
 
 validate_q_tibble <- function(q_tibble) {
@@ -1242,20 +1242,23 @@ validate_q_tibble <- function(q_tibble) {
           
           dup_v <- q_tibble[[v]][i]
           
-          cli::cli_alert_danger(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire. Please fix this and run the script again."))
+          cli::cli_alert_danger(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire."))
         }
       }
     })
   
-  # integrity check 2: ensure all multi-value columns have the same length and if not, tell which ones don't
+  # integrity check 2: ensure all multi-value columns have the same length or alternatively are empty, and if not, tell which ones don't
   multi_val_v_lengths <-
     q_tibble %>%
     dplyr::transmute(dplyr::across(where(is.list),
                                    purrr::map_int,
                                    length)) %>%
     dplyr::rename_with(~ paste0("length_", .x)) %>%
-    dplyr::mutate(matches_length = length_variable_values == length_value_labels) %>%
-    dplyr::mutate(matches_length = length_response_options == length_value_labels & matches_length)
+    dplyr::mutate(matches_length = length_variable_values == 0L | length_value_labels == 0L | length_variable_values == length_value_labels) %>%
+    dplyr::mutate(matches_length =
+                    matches_length & (length_response_options == 0L | length_value_labels == 0L | length_response_options == length_value_labels),
+                  matches_length =
+                    matches_length & (length_response_options == 0L | length_variable_values == 0L | length_response_options == length_variable_values))
   
   i_violated <- which(!multi_val_v_lengths$matches_length)
   
@@ -1528,17 +1531,25 @@ format_md_multival_col <- function(x) {
   result <- x
   
   if (length(x) == 1L && is.na(x)) {
+    
     result <- "-"
-  } else if (length(x) > 1L || !stringr::str_detect(x, "^_.+_$")) {
+    
+  } else if (length(x) > 1L
+             && all(stringr::str_detect(string = x,
+                                        pattern = "^_.+_$",
+                                        negate = TRUE),
+                    na.rm = TRUE)) {
+    
     result <- x %>% pal::wrap_chr(wrap = "`") %>% collapse_break()
   }
+  
   result
 }
 
 block_name_to_nr <- function(x) {
   
   x %>%
-    stringr::str_extract("^.\\d?(_\\d)?") %>%
+    stringr::str_extract("^.[^_]?(_\\d)?") %>%
     stringr::str_replace("_(\\d)", "-\\1") %>%
     stringr::str_remove("^0") %>%
     stringr::str_to_upper()
@@ -1587,7 +1598,7 @@ q_item_val <- function(ballot_date = ballot_dates,
                        key = q_item_keys$key,
                        lvl = "?",
                        i = "?",
-                       j = "?") {
+                       j = NA_integer_) {
   
   checkmate::assert_character(branch_path,
                               any.missing = FALSE,
@@ -1739,7 +1750,8 @@ q_response_option_codes <- function(types = response_option_types) {
 #' Authorize googledrive 
 #'
 #' Authorizes the googledrive package to access and manage files on your Google Drive via a [Google Cloud Platform (GCP) Service
-#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file in JSON format.
+#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file in JSON format. See the [relevant googledrive
+#' documentation](https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly) for details.
 #'
 #' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file.
 #'
@@ -2484,7 +2496,7 @@ election_name <- function(ballot_date = ballot_dates,
 #'
 #' @examples
 #' fokus::election_names_combined(ballot_date = "2019-10-20",
-#'                                lvl = "cantonal",
+#'                                lvl = "federal",
 #'                                canton = "aargau")
 election_names_combined <- function(ballot_date = ballot_dates,
                                     lvl = c("cantonal", "federal"),
@@ -3261,7 +3273,7 @@ deploy_q <- function(ballot_date = "2021-11-28",
   csv_path <- md_path %>% fs::path_ext_set(ext = "csv")
   
   q_tibble %>%
-    strip_md_q_tibble() %>%
+    clean_q_tibble() %>%
     dplyr::mutate(variable_name_32 =
                     purrr::map2_chr(.x = variable_name,
                                     .y = dplyr::if_else(block %in% c("x_publitest", "y_generated", "z_generated")

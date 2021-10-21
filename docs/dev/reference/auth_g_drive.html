@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prettify date — prettify_date • fokus</title>
+<title>Authorize googledrive — auth_g_drive • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Prettify date — prettify_date" />
-<meta name="description" content="Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA...">
-<meta property="og:description" content="Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA..." />
+<meta property="og:title" content="Authorize googledrive — auth_g_drive" />
+<meta name="description" content="Authorizes the googledrive package to access and manage files on your Google Drive via a Google Cloud Platform (GCP) Service Account Key file in JSON format. See the relevant googledrive documentation for details.">
+<meta property="og:description" content="Authorizes the googledrive package to access and manage files on your Google Drive via a Google Cloud Platform (GCP) Service Account Key file in JSON format. See the relevant googledrive documentation for details." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,37 +125,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prettify date</h1>
+    <h1>Authorize googledrive</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>prettify_date.Rd</code></div>
+    <div class="hidden name"><code>auth_g_drive.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA...</p>
+    <p>Authorizes the googledrive package to access and manage files on your Google Drive via a <a href='https://cloud.google.com/iam/docs/creating-managing-service-account-keys'>Google Cloud Platform (GCP) Service Account Key</a> file in JSON format. See the <a href='https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly'>relevant googledrive documentation</a> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prettify_date</span><span class='op'>(</span><span class='va'>date</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"en"</span>, <span class='st'>"de"</span>, <span class='st'>"en-US"</span>, <span class='st'>"de-CH"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>auth_g_drive</span><span class='op'>(</span>
+  path_gcp_service_account_key <span class='op'>=</span> <span class='fu'>path_private</span><span class='op'>(</span><span class='st'>"config/gcp_service_account_key.json"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>date</th>
-      <td><p>Date to be prettified. A <a href='https://rdrr.io/r/base/Dates.html'>date</a> or something coercible to.</p></td>
-    </tr>
-    <tr>
-      <th>locale</th>
-      <td><p>Locale the date should be prettified for. Currently only <code>"en"</code>/<code>"en-US"</code> and <code>"de"</code>/<code>"de-CH"</code> are implemented.</p></td>
+      <th>path_gcp_service_account_key</th>
+      <td><p>Path to the GCP Service Account Key JSON file.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character scalar.</p>
+    <p><code>path_gcp_service_account_key</code>, invisibly.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>prettify_date</span><span class='op'>(</span><span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/now.html'>today</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "October 21, 2021"</div></pre>
+    <div class='dont-index'><p>Other Google Apps functions
+<code><a href='upload_to_g_drive.html'>upload_to_g_drive</a>()</code></p></div>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

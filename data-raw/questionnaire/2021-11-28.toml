@@ -27,119 +27,119 @@ short.gender = "feminine"
 [federal.proposal.1.url]
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20211128/pflegeinitiative.html"
 proponents = "https://www.pflegeinitiative.ch/"
-[[federal.proposal.1.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
-en = "to follow a specific voting recommendation"
-code = 1
-[[federal.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
-code = 2
-[[federal.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
-code = 3
-[[federal.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
-code = 4
-[[federal.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
-code = 5
-[[federal.proposal.1.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
-en = "to follow a specific voting recommendation"
-code = 1
-[[federal.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 2
-[[federal.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 3
-[[federal.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 4
-[[federal.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 5
-[[federal.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 6
-[[federal.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
-side = "pro"
-nr = 1
-[[federal.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
-side = "contra"
-nr = 1
-[[federal.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
-side = "pro"
-nr = 2
-[[federal.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
-side = "contra"
-nr = 2
-[[federal.proposal.1.skill_question]]
-de = "TODO"
-en = "TODO"
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question]]
-de = "TODO"
-en = "TODO"
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question]]
-de = "TODO"
-en = "TODO"
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
-[[federal.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false # TODO: recheck!
+# [[federal.proposal.1.main_motive.yes]]
+# de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+# en = "to follow a specific voting recommendation"
+# code = 1
+# [[federal.proposal.1.main_motive.yes]]
+# de = "TODO"
+# en = "TODO"
+# code = 2
+# [[federal.proposal.1.main_motive.yes]]
+# de = "TODO"
+# en = "TODO"
+# code = 3
+# [[federal.proposal.1.main_motive.yes]]
+# de = "TODO"
+# en = "TODO"
+# code = 4
+# [[federal.proposal.1.main_motive.yes]]
+# de = "TODO"
+# en = "TODO"
+# code = 5
+# [[federal.proposal.1.main_motive.no]]
+# de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+# en = "to follow a specific voting recommendation"
+# code = 1
+# [[federal.proposal.1.main_motive.no]]
+# de = "TODO"
+# en = "TODO"
+# code = 2
+# [[federal.proposal.1.main_motive.no]]
+# de = "TODO"
+# en = "TODO"
+# code = 3
+# [[federal.proposal.1.main_motive.no]]
+# de = "TODO"
+# en = "TODO"
+# code = 4
+# [[federal.proposal.1.main_motive.no]]
+# de = "TODO"
+# en = "TODO"
+# code = 5
+# [[federal.proposal.1.main_motive.no]]
+# de = "TODO"
+# en = "TODO"
+# code = 6
+# [[federal.proposal.1.argument]]
+# de.long = "TODO"
+# de.short = "TODO"
+# en.long = "TODO"
+# side = "pro"
+# nr = 1
+# [[federal.proposal.1.argument]]
+# de.long = "TODO"
+# de.short = "TODO"
+# en.long = "TODO"
+# side = "contra"
+# nr = 1
+# [[federal.proposal.1.argument]]
+# de.long = "TODO"
+# de.short = "TODO"
+# en.long = "TODO"
+# side = "pro"
+# nr = 2
+# [[federal.proposal.1.argument]]
+# de.long = "TODO"
+# de.short = "TODO"
+# en.long = "TODO"
+# side = "contra"
+# nr = 2
+# [[federal.proposal.1.skill_question]]
+# de = "TODO"
+# en = "TODO"
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question]]
+# de = "TODO"
+# en = "TODO"
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question]]
+# de = "TODO"
+# en = "TODO"
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
+# [[federal.proposal.1.skill_question.response_option]]
+# de = "TODO"
+# en = "TODO"
+# is_correct = false # TODO: recheck!
 [federal.proposal.2]
 type = "citizens' initiative"
 [federal.proposal.2.name.de]
@@ -154,65 +154,69 @@ de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.yes]]
-de = "TODO"
+de = "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden."
 en = "TODO"
 code = 2
 [[federal.proposal.2.main_motive.yes]]
-de = "TODO"
+de = "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten."
 en = "TODO"
 code = 3
 [[federal.proposal.2.main_motive.yes]]
-de = "TODO"
+de = "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl."
 en = "TODO"
 code = 4
 [[federal.proposal.2.main_motive.yes]]
-de = "TODO"
+de = "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequehme Urteile abgewählt zu werden."
 en = "TODO"
 code = 5
+[[federal.proposal.2.main_motive.yes]]
+de = "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
+en = "TODO"
+code = 6
 [[federal.proposal.2.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.no]]
-de = "TODO"
+de = "wollte verhindern, dass in Zukunft weitgehend der Zufall über die Wahl der BundesrichterInnen entscheidet."
 en = "TODO"
 code = 2
 [[federal.proposal.2.main_motive.no]]
-de = "TODO"
+de = "wollte verhindern, dass sich die BundesrichterInnen nach erfolgreicher Erstwahl keinerlei Wiederwahl mehr stellen müssen."
 en = "TODO"
 code = 3
 [[federal.proposal.2.main_motive.no]]
-de = "TODO"
+de = "wollte sicherstellen, dass BundesrichterInnen weiterhin Mitglied einer politschen Partei sind, da dies für Transparenz sorgt."
 en = "TODO"
 code = 4
 [[federal.proposal.2.main_motive.no]]
-de = "TODO"
+de = "vertraue dem Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
 en = "TODO"
 code = 5
 [[federal.proposal.2.main_motive.no]]
-de = "TODO"
+de = "finde das heutige System ganz in Ordnung und sehe keinen Bedarf, etwas daran zu ändern."
 en = "TODO"
 code = 6
 [[federal.proposal.2.argument]]
-de.long = "TODO"
+de.long = "Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der BundesrichterInnen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt."
 de.short = "TODO"
 en.long = "TODO"
 side = "pro"
 nr = 1
 [[federal.proposal.2.argument]]
-de.long = "TODO"
+de.long = "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist des Wahnsinns."
 de.short = "TODO"
 en.long = "TODO"
 side = "contra"
 nr = 1
 [[federal.proposal.2.argument]]
-de.long = "TODO"
+de.long = "Dass Bundesrichter-KandidatInnen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit."
 de.short = "TODO"
 en.long = "TODO"
 side = "pro"
 nr = 2
 [[federal.proposal.2.argument]]
-de.long = "TODO"
+de.long = "Die heute gängige Parteizugehörigkeit der BundesrichterInnen schafft Transparenz über deren politische Gesinnung."
 de.short = "TODO"
 en.long = "TODO"
 side = "contra"
@@ -223,49 +227,53 @@ en = "TODO"
 [[federal.proposal.2.skill_question.response_option]]
 de = "Der Bundesrat"
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "Die Bundesversammlung"
 en = "TODO"
-is_correct = true # TODO: recheck!
+is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
 de = "Das Bundesgericht selbst"
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "Das Volk"
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question]]
-de = "TODO"
+de = "Die Justiz-Initiative verlangt, dass in Zukunft…"
 en = "TODO"
 [[federal.proposal.2.skill_question.response_option]]
-de = "TODO"
+de = "BundesrichterInnen keiner Partei mehr angehören dürfen."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "TODO"
+de = "ein Zufallsverfahren über die Wahl fachlich und persönlich geeigneter KandidatInnen entscheidet."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
-de = "TODO"
+de = "BundesrichterInnen zur Gewährleistung ihrer eigenen Sicherheit in Ausnahmefällen anonyme Entscheide fällen dürfen (bspw. Prozesse im Bereich organisierter Kriminalität)."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question]]
-de = "TODO"
+de = "Das heutige Wahlverfahren der BundesrichterInnen stellt sicher, dass…"
 en = "TODO"
 [[federal.proposal.2.skill_question.response_option]]
-de = "TODO"
+de = "…die unterschiedlichen Geschlechter, politischen Gesinnungen und Amtssprachen allesamt gleichmässig vertreten sind."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "TODO"
+de = "…die KandidatInnen keinerlei Parteibindungen aufweisen müssen, um gewählt zu werden."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "TODO"
+de = "…die KandidatInnen alle dieselbe Chance haben, gewählt zu werden."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "…sich die AmtinhaberInnen alle sechs Jahre der Wiederwahl stellen müssen."
+en = "TODO"
+is_correct = true
 [federal.proposal.3]
 type = "optional referendum"
 [federal.proposal.3.name.de]
@@ -280,111 +288,131 @@ de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.3.main_motive.yes]]
-de = "TODO"
+de = "wollte zusätzliche Finanzhilfen des Staates an krisengebeutelte Unternehmen und Selbständige nicht gefährden."
 en = "TODO"
 code = 2
 [[federal.proposal.3.main_motive.yes]]
-de = "TODO"
+de = "befürworte die Covid-Zertifikatspflicht und wollte das Leben für Geimpfte erleichtern."
 en = "TODO"
 code = 3
 [[federal.proposal.3.main_motive.yes]]
-de = "TODO"
+de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
 en = "TODO"
 code = 4
 [[federal.proposal.3.main_motive.yes]]
-de = "TODO"
+de = "wollte ein Zeichen setzen gegen MassnahmengegnerInnen und/oder ImpfskeptikerInnen."
 en = "TODO"
 code = 5
+[[federal.proposal.3.main_motive.yes]]
+de = "wollte, dass der Bund endlich die Kompetenz erhält ein funktionierendes, schweizweites Contact-Tracing-System aufzubauen."
+en = "TODO"
+code = 6
 [[federal.proposal.3.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.3.main_motive.no]]
-de = "TODO"
+de = "wollte die Covid-Zertifikatspflicht rückgängig machen."
 en = "TODO"
 code = 2
 [[federal.proposal.3.main_motive.no]]
-de = "TODO"
+de = "wollte eine Diskriminierung Ungeimpfter verhindern."
 en = "TODO"
 code = 3
 [[federal.proposal.3.main_motive.no]]
-de = "TODO"
+de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
 en = "TODO"
 code = 4
 [[federal.proposal.3.main_motive.no]]
-de = "TODO"
+de = "wollte zusätzliche Finanzhilfen des Staates an Unternehmen und Selbständige verhindern."
 en = "TODO"
 code = 5
 [[federal.proposal.3.main_motive.no]]
-de = "TODO"
+de = "wollte eine elektronische Massenüberwachung durch ein schweizweites digitales Contact-Tracing verhindern."
 en = "TODO"
 code = 6
+[[federal.proposal.3.main_motive.no]]
+de = "wollte eine Machtausweitung des Bundesrates verhindern."
+en = "TODO"
+code = 7
+[[federal.proposal.3.main_motive.no]]
+de = "wollte ein Zeichen setzen gegen MassnahmenbefürworterInnen und/oder ImpfbefürworterInnen."
+en = "TODO"
+code = 8
 [[federal.proposal.3.argument]]
-de.long = "TODO"
+de.long = "Das Covid-19-Gesetz ermöglicht dem Staat mittels Ausweitung der finanziellen Hilfsprogramme einen grösseren Teil der Schweizer Wirtschaft heil durch die Krise zu bringen."
 de.short = "TODO"
 en.long = "TODO"
 side = "pro"
 nr = 1
 [[federal.proposal.3.argument]]
-de.long = "TODO"
+de.long = "Ungeimpfte werden durch neue Massnahmen des Covid-19-Gesetzes wie die Zertifikatspflicht diskriminiert."
 de.short = "TODO"
 en.long = "TODO"
 side = "contra"
 nr = 1
 [[federal.proposal.3.argument]]
-de.long = "TODO"
+de.long = "Die im Covid-19-Gesetz vorgesehene Zertifikatspflicht ist verhältnismässig, da sie eine Normalisierung des wirtschaftlichen und gesellschaftlichen Lebens ermöglicht, ohne das Gesundheitswesen unnötig zu gefährden."
 de.short = "TODO"
 en.long = "TODO"
 side = "pro"
 nr = 2
 [[federal.proposal.3.argument]]
-de.long = "TODO"
+de.long = "Der Bundesrat erhält zu viel Macht, indem er eigenmächtig Kriterien und Richtwerte für Einschränkungen und Erleichterungen festlegen kann."
 de.short = "TODO"
 en.long = "TODO"
 side = "contra"
 nr = 2
 [[federal.proposal.3.skill_question]]
-de = "TODO"
+de = "Wann treten die Änderungen des Covid-19-Gesetzes, über die jetzt abgestimmt werden, in Kraft?"
 en = "TODO"
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "Sie sind bereits in Kraft."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = true
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "Sie traten am Abstimmungssonntag vom 28. November 2021 in Kraft."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "Sie treten einen Monat nach dem Abstimmungstermin in Kraft."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
+[[federal.proposal.3.skill_question.response_option]]
+de = "Sie treten am 1. Januar 2022 in Kraft."
+en = "TODO"
+is_correct = false
 [[federal.proposal.3.skill_question]]
-de = "TODO"
+de = "Was wird durch ein gültiges Schweizer Covid-Zertifikat nachgewiesen? Dass die entsprechende Person…"
 en = "TODO"
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "…sich in den vergangenen 12 Monaten an alle Pandemiemassnahmen (bspw. Maskenpflicht) gehalten hat."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "…sich für eine Impfung angemeldet hat."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "…über eine intensivmedizinische Ausbildung in der Behandlung von COVID-19-Patienten verfügt."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
+[[federal.proposal.3.skill_question.response_option]]
+de = "…gegen COVID-19 geimpft, negativ getestet oder davon genesen ist."
+en = "TODO"
+is_correct = true
 [[federal.proposal.3.skill_question]]
-de = "TODO"
+de = "Was geschieht im Falle einer Ablehnung des geänderten Covid-19-Gesetzes?"
 en = "TODO"
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "Alle Pandemiemassnahmen des Bundes werden aufgehoben und stattdessen erhalten die Kantone zusätzliche Kompetenzen in der Pandemiebekämpfung."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "Diejenigen Bestimmungen, welche die Bundesversammlung am 19. März 2021 verabschiedete, werden nichtig."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = true
 [[federal.proposal.3.skill_question.response_option]]
-de = "TODO"
+de = "Das gesamte Covid-19-Gesetz tritt ausser Kraft."
 en = "TODO"
-is_correct = false # TODO: recheck!
+is_correct = false

@@ -17,8 +17,9 @@ vignette: >
 # Main semantic rules
 
 The [raw questionnaire](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/questionnaire.toml) is written in the [TOML file
-format](https://toml.io/en/latest). Basically, all questionnaire items are defined in a tree structure where child nodes inherit the attributes of their parent
-(and transitively grandparent etc.) nodes.
+format](https://toml.io/en/latest). Basically, all questionnaire items are defined in an [ordered tree
+structure](https://en.wikipedia.org/wiki/Tree_(graph_theory)#Ordered_tree) where child nodes inherit the attributes of their parent (and transitively
+grandparent etc.) nodes.
 
 The following main semantic rules apply:
 
@@ -152,8 +153,11 @@ The keys regarded on `item`-level nodes are resolved in the following order
     define similar questionnaire items only once. If any of them evaluate to `NULL` or an empty vector, the respective item is automatically excluded, i.e. it's
     not necessary to explicitly set `include` (sub)keys in such case.
 
--   To explicitly unset a key, i.e. set it to `NULL`, just assign a string containing `NA` of the correct type wrapped in curly braces (`"{NA_character_}"` for
-    values of type string, `"{NA_integer_}"` for values of type integer etc.). TODO: Is this still valid?
+-   You can even cross-reference keys from non-parent nodes using [`q_item_val()`](https://rpkg.dev/fokus/reference/q_item_val.html). But be careful to not
+    create infinite loops via circular references.
+
+-   To explicitly unset a key, just assign a string containing `NA` of the correct type wrapped in curly braces (`"{NA_character_}"` for values of type string,
+    `"{NA_integer_}"` for values of type integer etc.).
 
 -   A `who` constraint notice is automatically added to the end of `variable_label` and `variable_label_common` if possible (e.g. `"blabla (only non-voters)"`).
     Because `variable_label_common` by definition mustn't vary over time, it **must** be explicitly specified *including such a `who` constraint notice* **if**

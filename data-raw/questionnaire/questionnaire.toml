@@ -245,26 +245,15 @@ topic = "Politisches Interesse auf kantonaler Ebene"
 question = "Wie interessiert sind Sie im Allgemeinen an der Politik im Kanton Aargau? Ich bin …"
 variable_name = "political_interest_cantonal"
 variable_label = "respondent's interest in politics in the canton of Aargau"
-include = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+include.false = [ 2019-10-20 ]
 [[02_political_start.001_general.001_political_interest.item]]
 topic = "Politisches Interesse auf eidgenössischer Ebene"
 question = "Wie interessiert sind Sie im Allgemeinen an der Schweizer Politik? Ich bin …"
 variable_name = "political_interest_federal"
 variable_label = "respondent's interest in Swiss politics"
-include = "{ has_election(ballot_date = ballot_date, lvls = 'federal', canton = canton) || has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) }"
-[[02_political_start.001_general.001_political_interest.item]]
-topic = "Politisches Interesse[^diff-ballottype]"
-question.default.referendum = "Wie interessiert sind Sie im Allgemeinen an der Politik im Kanton Aargau? Ich bin …"
-question.default.election = "Wie interessiert sind Sie im Allgemeinen an der Schweizer Politik? Ich bin …"
-question_common = "Wie interessiert sind Sie im Allgemeinen an der Politik im Kanton Aargau (im Falle von Abstimmungen) bzw. an der Schweizer Politik (im Falle von Wahlen)? Ich bin …"
-variable_name = "political_interest"
-variable_label.default.referendum = "respondent's interest in politics in the canton of Aargau"
-variable_label.default.election = "respondent's interest in Swiss politics"
-variable_label_common = "respondent's interest in Swiss politics (in case of elections) or in politics in the canton of Aargau (in case of referendums)"
-response_options = [ "sehr interessiert", "eher interessiert", "eher nicht interessiert", "überhaupt nicht interessiert", "weiss nicht" ]
-variable_values = [ 1, 2, 3, 4, 99 ]
-value_labels = [ "very interested", "rather interested", "rather uninterested", "not interested at all", "don't know" ]
-value_scale = "ordinal_descending"
+include.default = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[02_political_start.001_general.002_other.item]]
 topic = "Teilnahme"
 question.default.referendum = "Gerade erst fanden Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an der Abstimmung vom { prettify_date(ballot_date, locale = 'de') } teilgenommen oder nicht? (leer einlegen zählt als Teilnahme)"
@@ -313,9 +302,10 @@ variable_label.default.referendum = "whether or not the voting topics being too 
 variable_label.default.election = "whether or not the election being too complicated was a reason for the respondent to abstain from voting"
 variable_label_common = "whether or not complexity was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Verhinderung"
+# NOTE: We don't have a `reason_non_participation_cantonal_hindrance` item since it wouldn't make any sense (how could one be hindered to participate in the cantonal but not the federal ballot?)
+topic = "Grund für Nicht-Teilnahme: Verhinderung"
 question = "_Ich bin verhindert gewesen (z. B. Auslandaufenthalt, Krankheit, Ferien)._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_hindrance"
+variable_name = "reason_non_participation_hindrance"
 variable_label = "whether or not being unable to attend was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
 topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Wirkungslosigkeit"
@@ -516,83 +506,60 @@ value_labels = [ "not used", "used", "don't know" ]
 value_scale = "binary"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten"
-question.election = "Haben Sie die folgenden Quellen genutzt, um sich über die Parteien und KandidatInnen zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
-question.referendum = "Haben Sie die folgenden Quellen genutzt, um sich über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **kantonalen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
-# TODO: make this (federal proposals only) more generic
-# question.referendum.20211128 = "Haben Sie die folgenden Quellen genutzt, um sich über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **eidgenössischen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
-question_common = "Haben Sie _Gratiszeitungen und kostenlosen Online-Journalismus / News-Seiten_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
-variable_label.election = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+question = "Haben Sie die folgenden Quellen genutzt, um sich über die Parteien und KandidatInnen zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
+variable_label = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the parties and candidates"
 variable_name = "information_source_free_newspapers"
-# TODO: make this (federal proposals only) more generic
-#variable_name.20211128 = "federal_proposals_information_source_free_newspapers"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Kostenpflichtige Abonnementszeitungen/-magazine (gedruckt und online)"
 question = "_kostenpflichtige Abonnementszeitungen/-magazine (gedruckt und/oder online)_"
-question_common = "Haben Sie _kostenpflichtige Abonnementszeitungen/-magazine (gedruckt und/oder online)_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
 variable_name = "information_source_paid_newspapers"
-variable_label.election = "whether or not the respondent used paid newspapers / magazines (on- and offline) to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used paid newspapers / magazines (on- and offline) to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used paid newspapers / magazines (on- and offline) to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+variable_label = "whether or not the respondent used paid newspapers / magazines (on- and offline) to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Radiosendungen"
 question = "_Radiosendungen_"
-question_common = "Haben Sie _Radiosendungen_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
 variable_name = "information_source_radio_program"
-variable_label.election = "whether or not the respondent used radio programs to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used radio programs to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used radio programs to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+variable_label = "whether or not the respondent used radio programs to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Fernsehsendungen"
 question = "_Fernsehsendungen_"
-question_common = "Haben Sie _Fernsehsendungen_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
 variable_name = "information_source_tv_program"
-variable_label.election = "whether or not the respondent used television programs to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used television programs to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used television programs to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+variable_label = "whether or not the respondent used television programs to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Kantonale Webseite"
 question = "_Webseite des Kantons_"
-question_common = "Haben Sie die _Webseite des Kantons_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
-variable_name = "information_source_cantonal_webpage"
-variable_label.election = "whether or not the respondent used the official webpage of the canton to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used the official webpage of the canton to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used the official webpage of the canton to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+variable_name = "cantonal_information_source_official_webpage"
+variable_label = "whether or not the respondent used the official webpage of the canton to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
 # PDF 2019: https://www.bk.admin.ch/dam/bk/de/dokumente/pore/Nationalratswahlen%202019.%20Wahlanleitung.pdf.download.pdf/Nationalratswahlen%202019.%20Wahlanleitung.pdf
 topic = "Informationsquelle: Eidgenössische Wahlbroschüre"
 question = "_Wahlanleitung des Bundes (Broschüre oder online)_"
-question_common = "Haben Sie die _Wahlanleitung des Bundes_ genutzt, um sich über die Parteien und KandidatInnen zu informieren und eine Meinung zu bilden?"
-variable_name = "information_source_official_federal_booklet"
+variable_name = "federal_information_source_official_booklet"
 variable_label.election = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the parties and candidates"
 variable_label.referendum = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
 include = "{ has_election(ballot_date = ballot_date, lvls = 'federal', canton = canton) }"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Kantonale Wahlbroschüre"
 question = "_Wahlanleitung des Kantons (Broschüre oder online)_"
-question_common = "Haben Sie die _Wahlanleitung des Kantons_ genutzt, um sich über die Parteien und KandidatInnen zu informieren und eine Meinung zu bilden?"
-variable_name = "information_source_official_cantonal_booklet"
+variable_name = "cantonal_information_source_official_booklet"
 variable_label = "whether or not the respondent used the official cantonal election manual (booklet or online) to learn about the cantonal proposals"
-# NOTE: A cantonal election manual doesn't actually exist in the canton of Aargau. Only a booklet explaining the *election procedure* is available (see `information_source_official_cantonal_booklet`)
+# NOTE: A cantonal election manual doesn't actually exist in the canton of Aargau. Only a booklet explaining the *election procedure* is available (see `cantonal_information_source_election_booklet`)
 include.default = "{ FALSE && has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Leserbriefe/-kommentare"
 question = "_Leserbriefe oder Online-Kommentare_"
-question_common = "Haben Sie _Leserbriefe oder Online-Kommentare_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
 variable_name = "information_source_reader_letters_comments"
-variable_label.election = "whether or not the respondent used readers' letters or online comments to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used readers' letters or online comments to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used readers' letters or online comments to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+variable_label = "whether or not the respondent used readers' letters or online comments to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Soziale Medien wie Facebook oder Twitter"
 question = "_Soziale Medien wie Facebook oder Twitter_"
-question_common = "Haben Sie _Soziale Medien wie Facebook oder Twitter_ genutzt, um sich über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) zu informieren und eine Meinung zu bilden?"
 variable_name = "information_source_social_media"
-variable_label.election = "whether or not the respondent used social media like Facebook or Twitter to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used social media like Facebook or Twitter to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used social media like Facebook or Twitter to learn about the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections)"
+variable_label = "whether or not the respondent used social media like Facebook or Twitter to learn about the parties and candidates"
+[[03_1_election_general.z02_information_source.item]]
+topic = "Informationsquelle: (Halb-)Öffentliche Chatgruppen (bspw. via [Telegram](https://de.wikipedia.org/wiki/Telegram))"
+question = "_(Halb-)Öffentliche Chatgruppen (bspw. via Telegram)_"
+variable_name = "information_source_public_chat_groups"
+variable_label = "whether or not the respondent used public chat groups (e.g. via [Telegram](https://en.wikipedia.org/wiki/Telegram_(software))) to learn about the parties and candidates"
+include.20180923_20201018 = false
 [[03_1_election_general.z02_information_source.item]]
 topic.default = "Informationsquelle: Online-Wahlhilfen wie [smartvote](https://smartvote.ch/) oder [jene von Vimentis](https://www.vimentis.ch/wahlen/)"
 topic.20180923_20201018 = "Informationsquelle: Online-Wahlhilfen wie [smartvote](https://smartvote.ch/)"
@@ -608,29 +575,25 @@ ballot_types = [ "election" ]
 [[03_1_election_general.z02_information_source.z01_help.item]]
 topic = "Informationsquelle: Kantonale Wahlanleitung"
 question = "Von offizieller Seite existieren verschiedene Angebote, um der Stimmbevölkerung das Wahlverfahren besser zu erklären. Haben Sie die folgenden Hilfestellungen genutzt? <br><br>_Wahlanleitung, welche den kantonalen Wahlunterlagen beilag_"
-variable_name = "information_source_cantonal_election_booklet"
+variable_name = "cantonal_information_source_election_booklet"
 variable_label = "whether or not the respondent used the cantonal election booklet to learn about the election procedure"
-include.default = true
+include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z02_information_source.z01_help.item]]
 topic = "Informationsquelle: Kantonale Online-Wahlanleitung in leicht verständlicher Sprache"
 question.default = "_Erklärvideo und/oder Wahlanleitung in leicht verständlicher Sprache, welche auf der Kantonswebseite zur Verfügung stehen_"
 question.20201018 = "_Erklärvideo und/oder Wahlanleitung in leichter Sprache, welche auf der Kantonswebseite zur Verfügung stehen_"
-variable_name = "information_source_cantonal_online_tutorial"
+variable_name = "cantonal_information_source_online_tutorial"
 variable_label = "whether or not the respondent used the video tutorial and/or voting guide in simple language available on the cantonal website to learn about the election procedure"
-include.default = true
+include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z02_information_source.z01_help.item]]
-topic.election = "Informationsquelle: [easyvote-Wahlbroschüre](https://www.easyvote.ch/de/f/angebote/broschuere)"
-topic.referendum = "Informationsquelle: [easyvote-Abstimmungsbroschüre](https://www.easyvote.ch/de/f/angebote/broschuere)"
-question.election.default = "_«easyvote»-Wahlbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ)_"
-question.election.20191020 = "Mit der «easyvote»-Wahlbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ) existiert eine weitere Wahlanleitung, die insbesondere NeuwählerInnen das Wahlprozedere möglichst einfach erklären soll. Haben Sie die «easyvote»-Wahlbroschüre genutzt?"
-question.referendum = "Mit der «easyvote»-Abstimmungsbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ) existiert eine weitere Hilfestellung, die insbesondere jungen Stimmberechtigten die Abstimmungsvorlagen möglichst einfach erklären soll. Haben Sie die «easyvote»-Abstimmungsbroschüre genutzt?"
-question_common = "Mit der «easyvote»-Broschüre des Dachverbandes Schweizer Jugendparlamente (DSJ) existiert eine weitere Hilfestellung, die insbesondere jungen Stimmberechtigten die Abstimmungsvorlagen (im Falle von Abstimmungen) bzw. das Wahlprozedere (im Falle von Wahlen) möglichst einfach erklären soll. Haben Sie die «easyvote»-Broschüre genutzt?"
-variable_name = "information_source_official_easyvote_booklet"
-variable_label.election = "whether or not the respondent used the «easyvote» booklet to learn about the election procedure"
-variable_label.referendum = "whether or not the respondent used the «easyvote» booklet to learn about the cantonal proposals"
-variable_label_common = "whether or not the respondent used the «easyvote» booklet to learn about the cantonal proposals (in case of referendums) or the election procedure (in case of elections) (only *voters* in case of elections, except 2019-10-20 *all*)"
+topic = "Informationsquelle: [easyvote-Wahlbroschüre](https://www.easyvote.ch/de/f/angebote/broschuere)"
+question.default = "_«easyvote»-Wahlbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ)_"
+question.20191020 = "Mit der «easyvote»-Wahlbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ) existiert eine weitere Wahlanleitung, die insbesondere NeuwählerInnen das Wahlprozedere möglichst einfach erklären soll. Haben Sie die «easyvote»-Wahlbroschüre genutzt?"
+variable_name = "information_source_easyvote_booklet"
+variable_label = "whether or not the respondent used the «easyvote» booklet to learn about the election procedure"
+variable_label_common = "whether or not the respondent used the «easyvote» booklet to learn about the election procedure (only *voters*, except 2019-10-20 *all*)"
 who.default = "Teilnehmende"
 who.20191020 = "alle"
 
@@ -638,8 +601,8 @@ who.20191020 = "alle"
 who = "alle"
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_ascending"
-[[03_1_election_general.z03_more.item]]
 ballot_types = [ "election" ]
+[[03_1_election_general.z03_more.item]]
 topic = "Verständnisschwierigkeit Wahlprozedere"
 question = "Wie schwierig war es für Sie, das Wahlprozedere zu verstehen?"
 variable_name = "difficulty_election_procedure"
@@ -650,13 +613,9 @@ include.default = true
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z03_more.item]]
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis"
-question.election = "Wie oft haben Sie sich im Bekanntenkreis über die Parteien und KandidatInnen ausgetauscht bzw. über diese diskutiert?"
-question.referendum = "Wie oft haben Sie sich im Bekanntenkreis über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **kantonalen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } ausgetauscht bzw. über diese diskutiert?"
-question_common = "Wie oft haben Sie sich im Bekanntenkreis über die **kantonale(n)** Vorlage(n) (im Falle von Abstimmungen) bzw. die Parteien und KandidatInnen (im Falle von Wahlen) ausgetauscht bzw. über diese diskutiert?"
+question = "Wie oft haben Sie sich im Bekanntenkreis über die Parteien und KandidatInnen ausgetauscht bzw. über diese diskutiert?"
 variable_name = "intensity_political_discussions"
-variable_label.election = "how often the respondent discussed the parties and candidates with acquaintances"
-variable_label.referendum = "how often the respondent discussed the cantonal proposals with acquaintances"
-variable_label_common = "how often the respondent discussed the cantonal proposals (in case of referendums) or the parties and candidates (in case of elections) with acquaintances"
+variable_label = "how often the respondent discussed the parties and candidates with acquaintances"
 response_options = [ "nie", "selten", "ab und zu", "häufig", "weiss nicht" ]
 value_labels = [ "never", "rarely", "now and then", "frequently", "don't know" ]
 
@@ -1175,89 +1134,80 @@ variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill 
 response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j))) %>% c(q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
-[03_proposal_specific.004_participants.z02_information_source_cantonal]
+[03_proposal_specific.004_participants.z02_information_source]
+# NOTE: non-proposal-specific information source items are defined under `03_1_election_general.z02_information_source`, information is just sourced from there
+lvl = "{ if (has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) 'cantonal' else 'federal' }"
 response_options = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'response_options') }"
 variable_values = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'variable_values') }"
 value_labels = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_labels') }"
 value_scale = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_scale') }"
-include = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
-# NOTE: non-proposal-specific information source items are defined under `03_1_election_general.z02_information_source` and just "sourced" from there.
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'topic') }"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'variable_label_common') }"
-variable_name = "information_source_free_newspapers"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_paid_newspapers', key = 'topic') }"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten"
+question = "Haben Sie die folgenden Quellen genutzt, um sich über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = lvl, canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = lvl, canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **', dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch'), 'en** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
+question_common = "Haben Sie _Gratiszeitungen und kostenlosen Online-Journalismus / News-Seiten_ genutzt, um sich über die **{dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e(n)** Vorlage(n) zu informieren und eine Meinung zu bilden?"
+variable_label = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_free_newspapers"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Kostenpflichtige Abonnementszeitungen/-magazine (gedruckt und online)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_paid_newspapers', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_paid_newspapers', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_paid_newspapers', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_paid_newspapers', key = 'variable_label_common') }"
-variable_name = "information_source_paid_newspapers"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "Informationsquelle: Kantonale Abstimmungsbroschüre"
+variable_label = "whether or not the respondent used paid newspapers / magazines (on- and offline) to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_paid_newspapers"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Kantonale Abstimmungsbroschüre"
 question = "_kantonale Abstimmungsbroschüre_"
-question_common = "Haben Sie die _kantonale Abstimmungsbroschüre_ genutzt, um sich über die **kantonale(n)** Vorlage(n) zu informieren und eine Meinung zu bilden?"
-variable_label = "whether or not the respondent used the official cantonal voting booklet to learn about the cantonal proposals"
-variable_name = "information_source_official_cantonal_booklet"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_radio_program', key = 'topic') }"
+variable_label = "whether or not the respondent used the official {lvl} voting booklet to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_official_booklet"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Radiosendungen"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_radio_program', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_radio_program', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_radio_program', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_radio_program', key = 'variable_label_common') }"
-variable_name = "information_source_radio_program"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_tv_program', key = 'topic') }"
+variable_label = "whether or not the respondent used radio programs to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_radio_program"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Fernsehsendungen"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_tv_program', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_tv_program', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_tv_program', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_tv_program', key = 'variable_label_common') }"
-variable_name = "information_source_tv_program"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_cantonal_webpage', key = 'topic') }"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_cantonal_webpage', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_cantonal_webpage', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_cantonal_webpage', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_cantonal_webpage', key = 'variable_label_common') }"
-variable_name = "information_source_cantonal_webpage"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_reader_letters_comments', key = 'topic') }"
+variable_label = "whether or not the respondent used television programs to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_tv_program"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Kantonale Webseite"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'cantonal_information_source_official_webpage', key = 'question') }"
+variable_label = "whether or not the respondent used the official webpage of the canton to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_official_webpage"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Leserbriefe/-kommentare"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_reader_letters_comments', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_reader_letters_comments', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_reader_letters_comments', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_reader_letters_comments', key = 'variable_label_common') }"
-variable_name = "information_source_reader_letters_comments"
-[[03_proposal_specific.004_participants.z02_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_social_media', key = 'topic') }"
+variable_label = "whether or not the respondent used readers' letters or online comments to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_reader_letters_comments"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: Soziale Medien wie Facebook oder Twitter"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_social_media', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_social_media', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_social_media', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_social_media', key = 'variable_label_common') }"
-variable_name = "information_source_social_media"
+variable_label = "whether or not the respondent used social media like Facebook or Twitter to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_social_media"
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: (Halb-)Öffentliche Chatgruppen (bspw. via [Telegram](https://de.wikipedia.org/wiki/Telegram))"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_public_chat_groups', key = 'question') }"
+variable_name = "{lvl}_proposals_information_source_public_chat_groups"
+variable_label = "whether or not the respondent used public chat groups (e.g. via [Telegram](https://en.wikipedia.org/wiki/Telegram_(software))) to learn about the {lvl} proposals"
+include.20180923_20201018 = false
 
 [03_proposal_specific.005_all]
 who = "alle"
-[03_proposal_specific.005_all.001_information_source_cantonal]
+[03_proposal_specific.005_all.001_information_source]
+lvl = "{ if (has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) 'cantonal' else 'federal' }"
 response_options = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'response_options') }"
 variable_values = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'variable_values') }"
 value_labels = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_labels') }"
 value_scale = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_scale') }"
-include = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
-[[03_proposal_specific.005_all.001_information_source_cantonal.item]]
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source', 'z01_help'), v_name = 'information_source_official_easyvote_booklet', key = 'topic') }"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source', 'z01_help'), v_name = 'information_source_official_easyvote_booklet', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source', 'z01_help'), v_name = 'information_source_official_easyvote_booklet', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source', 'z01_help'), v_name = 'information_source_official_easyvote_booklet', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source', 'z01_help'), v_name = 'information_source_official_easyvote_booklet', key = 'variable_label_common') }"
-variable_name = "information_source_official_easyvote_booklet"
+[[03_proposal_specific.005_all.001_information_source.item]]
+# TODO: are *cantonal* proposals actually covered by easyvote? If not, we can rename the var below to `information_source_easyvote_booklet`
+topic = "Informationsquelle {dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch')}e Vorlagen: [easyvote-Abstimmungsbroschüre](https://www.easyvote.ch/de/f/angebote/broschuere)"
+question = "Mit der «easyvote»-Abstimmungsbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ) existiert eine weitere Hilfestellung, die insbesondere jungen Stimmberechtigten die Abstimmungsvorlagen möglichst einfach erklären soll. Haben Sie die «easyvote»-Abstimmungsbroschüre genutzt?"
+variable_label = "whether or not the respondent used the «easyvote» booklet to learn about the {lvl} proposals"
+variable_name = "{lvl}_proposals_information_source_easyvote_booklet"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[03_proposal_specific.005_all.001_information_source_cantonal.item]]
+[[03_proposal_specific.005_all.001_information_source.item]]
 # NOTE: old 'discussions' item up until 2018-11-25
-topic = "Informationsquelle: Gespräche/Diskussionen im Bekanntenkreis"
-variable_name = "information_source_discussions"
+topic = "Informationsquelle kantonale Vorlagen: Gespräche/Diskussionen im Bekanntenkreis"
+variable_name = "cantonal_proposals_information_source_discussions"
 question = "Haben Sie sich im Bekanntenkreis über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **kantonalen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } ausgetauscht bzw. über diese diskutiert?"
 question_common = "Haben Sie sich im Bekanntenkreis über die **kantonale(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?"
 variable_label = "whether or not the respondent discussed the cantonal proposals with acquaintances"
@@ -1266,20 +1216,28 @@ variable_values = [ 0, 1, 99 ]
 value_labels = [ "no", "yes", "don't know" ]
 include.default = false
 include.true = [ 2018-09-23, 2018-11-25 ]
-[[03_proposal_specific.005_all.002_deliberation_cantonal.item]]
-# NOTE: new 'discussions' item after 2018-11-25
-topic = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'topic') }"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'question') }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'question_common') }"
-variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'variable_label') }"
-variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'variable_label_common') }"
-variable_name = "intensity_political_discussions_cantonal_proposals"
+[03_proposal_specific.005_all.002_deliberation]
 response_options = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'response_options') }"
 variable_values = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'variable_values') }"
 value_labels = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'value_labels') }"
 value_scale = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), v_name = 'intensity_political_discussions', key = 'value_scale') }"
+[[03_proposal_specific.005_all.002_deliberation.001_cantonal.item]]
+# NOTE: new 'discussions' item after 2018-11-25
+topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über kantonale Vorlagen"
+question = "Wie oft haben Sie sich im Bekanntenkreis über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **kantonalen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } ausgetauscht bzw. über diese diskutiert?"
+question_common = "Wie oft haben Sie sich im Bekanntenkreis über die **kantonale(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?"
+variable_label = "how often the respondent discussed the cantonal proposals with acquaintances"
+variable_name = "intensity_political_discussions_cantonal_proposals"
 include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
 include.false = [ 2018-09-23, 2018-11-25 ]
+[[03_proposal_specific.005_all.002_deliberation.002_federal.item]]
+topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über eidgenössische Vorlagen"
+question = "Wie oft haben Sie sich im Bekanntenkreis über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **eidgenössischen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } ausgetauscht bzw. über diese diskutiert?"
+question_common = "Wie oft haben Sie sich im Bekanntenkreis über die **eidgenössische(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?"
+variable_label = "how often the respondent discussed the federal proposals with acquaintances"
+variable_name = "intensity_political_discussions_federal_proposals"
+include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) }"
+include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[03_proposal_specific.005_all.item]]
 topic = "Sichtung politischer Werbung kantonale Vorlagen"
 question = "Ist Ihnen politische Werbung (Strassenplakate, Inserate, Flyers, Online-Anzeigen etc.) für oder gegen { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **kantonalen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } aufgefallen?"
@@ -1404,39 +1362,127 @@ response_options = [ "0 (ganz links)", "1", "2", "3", "4", "5 (Mitte)", "6", "7"
 variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
 value_labels = [ "0 (far left)", "1", "2", "3", "4", "5 (middle)", "6", "7", "8", "9", "10 (far right)", "don't know" ]
 value_scale = "ordinal_ascending"
-[[04_political_general.item]]
+[04_political_general.z01_trust]
+response_options = [ "0 (überhaupt nicht)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (vollständig)", "weiss nicht" ]
+variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
+value_labels = [ "0 (no trust at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (complete trust)", "don't know" ]
+value_scale = "ordinal_ascending"
+[[04_political_general.z01_trust.item]]
 topic = "Vertrauen in kantonale Regierung"
 question = "Wie stark vertrauen Sie den folgenden Institutionen? Bitte stufen Sie Ihr Vertrauen auf einer Skala von 0 (vertraue überhaupt nicht) bis 10 (vertraue vollständig) ein. <br><br>_Aargauer Regierungsrat_"
 variable_name = "trust_in_cantonal_government"
 variable_label = "respondent's trust in the cantonal government of Aargau"
-response_options = [ "0 (überhaupt nicht)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (vollständig)", "weiss nicht" ]
-variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
-value_labels = [ "0 (no trust at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (complete trust)", "don't know" ]
-value_scale = "ordinal_ascending"
 include.default = true
 include.false = [ 2020-09-27 ]
-[[04_political_general.item]]
+[[04_political_general.z01_trust.item]]
 topic = "Vertrauen in kantonales Parlament"
 question = "_Aargauer Grosser Rat (Parlament)_"
 variable_name = "trust_in_cantonal_parliament"
 variable_label = "respondent's trust in the cantonal parliament of Aargau"
-response_options = [ "0 (überhaupt nicht)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (vollständig)", "weiss nicht" ]
-variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
-value_labels = [ "0 (no trust at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (complete trust)", "don't know" ]
-value_scale = "ordinal_ascending"
 include.default = true
 include.false = [ 2020-09-27 ]
-[[04_political_general.item]]
+[[04_political_general.z01_trust.item]]
 topic = "Vertrauen in Schweizer Demokratie"
 question = "_Demokratie in der Schweiz_"
 variable_name = "trust_in_swiss_democracy"
 variable_label = "respondent's trust in the Swiss democracy"
-response_options = [ "0 (überhaupt nicht)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (vollständig)", "weiss nicht" ]
-variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
-value_labels = [ "0 (no trust at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (complete trust)", "don't know" ]
-value_scale = "ordinal_ascending"
 include.default = true
 include.false = [ 2020-09-27 ]
+[[04_political_general.z11_trust_corona.item]]
+topic = "Vertrauen in Bundesrat"
+question = "_Bundesrat_"
+variable_name = "trust_in_federal_government"
+variable_label = "respondent's trust in the federal government"
+include.default = false
+include.true = [ 2021-11-28 ]
+[[04_political_general.z11_trust_corona.item]]
+topic = "Vertrauen in eidgenössisches Parlament"
+question = "_Bundesrat_"
+variable_name = "trust_in_federal_parliament"
+variable_label = "respondent's trust in the federal parliament"
+include.default = false
+include.true = [ 2021-11-28 ]
+[[04_political_general.z11_trust_corona.item]]
+topic = "Vertrauen in Bundesamt für Gesundheit"
+question = "_Bundesamt für Gesundheit (BAG)_"
+variable_name = "trust_in_federal_public_health_office"
+variable_label = "respondent's trust in the federal public health office"
+include.default = false
+include.true = [ 2021-11-28 ]
+[[04_political_general.z11_trust_corona.item]]
+topic = "Vertrauen in kantonales Gesundheitsdepartement"
+question = "_kantonales Gesundheitsdepartement_"
+variable_name = "trust_in_cantonal_public_health_office"
+variable_label = "respondent's trust in the cantonal public health office"
+include.default = false
+include.true = [ 2021-11-28 ]
+[[04_political_general.z11_trust_corona.item]]
+topic = "Vertrauen in wissenschaftliche Erkenntnissprinzipien und Methoden"
+question = "_wissenschaftliche Erkenntnissprinzipien und Methoden_"
+variable_name = "trust_in_scientific_principles_methods"
+variable_label = "respondent's trust in scientific principles of knowledge and methods"
+include.default = false
+include.true = [ 2021-11-28 ]
+[[04_political_general.z11_trust_corona.item]]
+topic = "Vertrauen in Fachleute für ansteckbare Krankheiten"
+question = "_Fachleute für ansteckbare Krankheiten (Epidemiologie, Virologie, wissenschaftliche Taskforce etc.)_"
+variable_name = "trust_in_infectious_disease_specialists"
+variable_label = "respondent's trust in specialists for infectious diseases (epidemiology, virology, scientific task force, etc.)"
+include.default = false
+include.true = [ 2021-11-28 ]
+
+
+[04_2_covid_related]
+title = "COVID-19-Pandemie"
+who = "alle"
+include.default = false
+include.true = [ 2021-11-28 ]
+[[04_2_covid_related.item]]
+topic = "COVID-19-Impfung andere"
+question = "Wünschen Sie sich, dass möglichst viele Ihrer Mitmenschen geimpft sind?"
+variable_name = "attitude_covid_vaccination_others"
+variable_label = "whether the respondent wants as many fellow human beings as possible to be vaccinated"
+response_options = [ "ja, absolut", "eher ja", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, absolutely not", "don't know" ]
+value_scale = "ordinal_descending"
+[[04_2_covid_related.item]]
+# NOTE: a possible alternative question could be about "Vertrauen in die bislang zugelassenen Impfstoffe"
+topic = "COVID-19-Impfung selbst"
+question = "Sind Sie selbst gegen COVID-19 geimpft?"
+variable_name = "vaccination_status_covid"
+variable_label = "respondent's COVID-19 vaccination status"
+response_options = [ "ja", "noch nicht, aber bald", "ich bin noch unschlüssig", "nein" ]
+variable_values = [ 1, 2, 3, 4 ]
+value_labels = [ "yes", "not yet, but soon", "I am still undecided", "no"  ]
+value_scale = "ordinal_descending"
+[[04_2_covid_related.item]]
+topic = "Zufriedenheit mit COVID-19-Massnahmen"
+question = "Wie beurteilen Sie die aktuellen politischen Massnahmen zur Bekämpfung der COVID-19-Pandemie in der Schweiz?"
+variable_name = "assessment_covid_measures"
+variable_label = "respondent's assessment of the current political measures to fight the COVID-19 pandemic in Switzerland"
+response_options = [ "gehen viel zu wenig weit", "gehen eher zu wenig weit", "sind angemessen", "gehen eher zu weit", "gehen viel zu weit", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 5, 99 ]
+value_labels = [ "go way too little far", "tend to go too little far", "are appropriate", "tend to go too far", "go way too far", "don't know" ]
+value_scale = "ordinal_ascending"
+[[04_2_covid_related.item]]
+topic = "Beurteilung COVID-19-Krisenmanagement national"
+question = "Wie beurteilen Sie das bisherige Krisenmanagement auf **eidgenössischer** Ebene? Ich bin…"
+variable_name = "contentment_federal_covid_crisis_management"
+variable_label = "respondent's assessment of the federal COVID-19 crisis management so far"
+response_options = [ "sehr zufrieden", "eher zufrieden", "eher unzufrieden", "sehr unzufrieden", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_labels = [ "very happy", "rather happy", "rather unhappy", "very happy", "don't know" ]
+value_scale = "ordinal_descending"
+[[04_2_covid_related.item]]
+topic = "Beurteilung COVID-19-Krisenmanagement national"
+question = "Wie beurteilen Sie das bisherige Krisenmanagement auf **kantonaler** Ebene? Ich bin…"
+variable_name = "contentment_cantonal_covid_crisis_management"
+variable_label = "respondent's assessment of the federal COVID-19 crisis management so far"
+response_options = [ "sehr zufrieden", "eher zufrieden", "eher unzufrieden", "sehr unzufrieden", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_labels = [ "very happy", "rather happy", "rather unhappy", "very happy", "don't know" ]
+value_scale = "ordinal_descending"
 
 
 [05_political_attitudes]
@@ -1450,7 +1496,7 @@ value_scale = "ordinal_ascending"
 topic = "Amtsdauer BundesrichterInnen"
 question = "Wie lange sollte die Amtsperiode der Mitglieder des Bundesgerichts dauern?"
 variable_name = "attitude_term_of_office_federal_judges"
-variable_label = "respondent's preferred level of Switzerland opening up to foreign countries"
+variable_label = "respondent's preferred term of office for federal judges"
 response_options = [
   "Sechsjährige Amtsperiode, unbeschränkte Wiederwahl",
   "Sechsjährige Amtsperiode, Wiederwahl bis max. 70 Jahre",
@@ -1605,7 +1651,7 @@ variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "disagree strongly", "disagree a little", "neither agree nor disagree", "agree a little", "agree strongly", "don't know" ]
 value_scale = "ordinal_ascending"
 include.default = true
-include.false = [ 2018-11-25, 2020-09-27, 2021-10-18 ]
+include.false = [ 2018-11-25, 2020-09-27, 2021-11-28 ]
 [[06_personality.item]]
 topic = "Persönlichkeitsmerkmal Extraversion 1"
 question = "«Ich bin eher zurückhaltend, reserviert.»"
@@ -2488,7 +2534,7 @@ value_labels = [ "far left (0–2)", "left (3–4)", "center (5)", "right (6–7
 value_scale = "ordinal_ascending"
 [[y_generated.001_all.001_both.item]]
 topic = "Vertrauen in kantonale Regierung (reduziert)"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'trust_in_cantonal_government', key = 'question') }"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_government', key = 'question') }"
 variable_name = "trust_in_cantonal_government_reduced"
 variable_label = "respondent's trust in the cantonal government of Aargau (reduced)"
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
@@ -2498,7 +2544,7 @@ include.default = true
 include.false = [ 2020-09-27 ]
 [[y_generated.001_all.001_both.item]]
 topic = "Vertrauen in kantonales Parlament (reduziert)"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'trust_in_cantonal_parliament', key = 'question') }"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_parliament', key = 'question') }"
 variable_name = "trust_in_cantonal_parliament_reduced"
 variable_label = "respondent's trust in the cantonal parliament of Aargau (reduced)"
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
@@ -2508,7 +2554,7 @@ include.default = true
 include.false = [ 2020-09-27 ]
 [[y_generated.001_all.001_both.item]]
 topic = "Vertrauen in Schweizer Demokratie (reduziert)"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'trust_in_swiss_democracy', key = 'question') }"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_swiss_democracy', key = 'question') }"
 variable_name = "trust_in_swiss_democracy_reduced"
 variable_label = "respondent's trust in the Swiss democracy (reduced)"
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
