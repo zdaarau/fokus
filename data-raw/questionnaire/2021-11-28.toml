@@ -208,7 +208,7 @@ en.long = "TODO"
 side = "pro"
 nr = 1
 [[federal.proposal.2.argument]]
-de.long = "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist des Wahnsinns."
+de.long = "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig."
 de.short = "TODO"
 en.long = "TODO"
 side = "contra"
@@ -364,7 +364,7 @@ en.long = "TODO"
 side = "contra"
 nr = 1
 [[federal.proposal.3.argument]]
-de.long = "Die im Covid-19-Gesetz vorgesehene Zertifikatspflicht ist verhältnismässig, da sie eine Normalisierung des wirtschaftlichen und gesellschaftlichen Lebens ermöglicht, ohne das Gesundheitswesen unnötig zu gefährden."
+de.long = "Die im Covid-19-Gesetz vorgesehene Zertifikatspflicht ist verhältnismässig, da sie eine Normalisierung des wirtschaftlichen und gesellschaftlichen Lebens ermöglicht, ohne das Gesundheitswesen unnötig zu belasten."
 de.short = "TODO"
 en.long = "TODO"
 side = "pro"
