@@ -21,7 +21,7 @@ cantonal.archive = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/absti
 [federal.proposal.1]
 type = "citizens' initiative"
 [federal.proposal.1.name.de]
-long.text = "Volksinitiative «Für eine starke Pflege (Pflegeinitiative)»"
+long.text = "Für eine starke Pflege (Pflegeinitiative)"
 short.text = "Pflegeinitiative"
 short.gender = "feminine"
 [federal.proposal.1.url]
@@ -143,7 +143,7 @@ proponents = "https://www.pflegeinitiative.ch/"
 [federal.proposal.2]
 type = "citizens' initiative"
 [federal.proposal.2.name.de]
-long.text = "Volksinitiative «Bestimmung der Bundesrichterinnen und Bundesrichter im Losverfahren (Justiz-Initiative)»"
+long.text = "Bestimmung der Bundesrichterinnen und Bundesrichter im Losverfahren (Justiz-Initiative)"
 short.text = "Justiz-Initiative"
 short.gender = "feminine"
 [federal.proposal.2.url]
@@ -248,15 +248,15 @@ is_correct = false
 de = "Die Justiz-Initiative verlangt, dass in Zukunft…"
 en = "TODO"
 [[federal.proposal.2.skill_question.response_option]]
-de = "BundesrichterInnen keiner Partei mehr angehören dürfen."
+de = "…BundesrichterInnen keiner Partei mehr angehören dürfen."
 en = "TODO"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "ein Zufallsverfahren über die Wahl fachlich und persönlich geeigneter KandidatInnen entscheidet."
+de = "…ein Zufallsverfahren über die Wahl fachlich und persönlich geeigneter KandidatInnen entscheidet."
 en = "TODO"
 is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
-de = "BundesrichterInnen zur Gewährleistung ihrer eigenen Sicherheit in Ausnahmefällen anonyme Entscheide fällen dürfen (bspw. Prozesse im Bereich organisierter Kriminalität)."
+de = "…BundesrichterInnen zur Gewährleistung ihrer eigenen Sicherheit in Ausnahmefällen anonyme Entscheide fällen dürfen (bspw. Prozesse im Bereich organisierter Kriminalität)."
 en = "TODO"
 is_correct = false
 [[federal.proposal.2.skill_question]]

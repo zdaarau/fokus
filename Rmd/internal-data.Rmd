@@ -90,8 +90,8 @@ Questionnaire item keys supported in the raw FOKUS questionnaire data
 q_item_keys <- tibble::tribble(
   
   ~key,                         ~is_scalar, ~is_iterator, ~is_excluder, ~is_optional, ~type,       ~default,      ~remarks,
-  "lvl",                        FALSE,      TRUE,         FALSE,        FALSE,        "character", '`"?"`',       "political-level iterator",
-  "i",                          FALSE,      TRUE,         FALSE,        FALSE,        "character", '`"?"`',       "2nd-level loop iterator",
+  "lvl",                        FALSE,      TRUE,         FALSE,        FALSE,        "character", '`"?"`',       "political-level loop iterator",
+  "i",                          FALSE,      TRUE,         FALSE,        FALSE,        "integer",   '`NA_integer_`', "2nd-level loop iterator",
   "j",                          FALSE,      TRUE,         FALSE,        FALSE,        "integer",   '`NA_integer_`', paste0("3rd-level loop iterator, i.e. ",
                                                                                                                          "\"for each `lvl`, iterate over each ",
                                                                                                                          "`i`, and in turn iterate over every ",

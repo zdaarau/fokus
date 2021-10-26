@@ -93,12 +93,12 @@ path_private <- function(rel_path) {
 opts <- function(pretty_colnames = FALSE) {
   
   tibble::tibble(name = "fokus.path_private",
-                 description = paste0("the path to the working directory (the local instance of the ",
+                 description = paste0("path to the working directory (the local instance of the ",
                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); initialized automatically for ",
                                       "user=salim, otherwise defaults to the current working directory"),
                  has_auto_fallback = TRUE) |>
     tibble::add_row(name = "fokus.global_cache_lifespan",
-                    description = glue::glue("the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
+                    description = glue::glue("default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
                                              global_cache_lifespan),
                     has_auto_fallback = TRUE) |>
     purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
@@ -261,7 +261,8 @@ raw_q_suppl_proposal <- function(ballot_date = ballot_dates,
                                  proposal_nr) {
   
   lvl <- rlang::arg_match(lvl)
-  proposal_nr <- assert_countish(proposal_nr)
+  checkmate::assert_count(proposal_nr,
+                          positive = TRUE)
   
   proposals <-
     lvl %>%
@@ -505,7 +506,8 @@ raw_q_suppl_election <- function(ballot_date = ballot_dates,
                                  election_nr = 1L) {
   
   prcd <- rlang::arg_match(prcd)
-  election_nr <- assert_countish(election_nr)
+  checkmate::assert_count(election_nr,
+                          positive = TRUE)
   
   result <-
     raw_q_suppl_elections(ballot_date = ballot_date,
@@ -568,7 +570,8 @@ raw_q_suppl_election_name <- function(ballot_date = ballot_dates,
                                       election_nr = 1L) {
   lvl <- rlang::arg_match(lvl)
   prcd <- rlang::arg_match(prcd)
-  election_nr <- assert_countish(election_nr)
+  checkmate::assert_count(election_nr,
+                          positive = TRUE)
   
   # federal proportional election names are defined once for all cantons together
   if (lvl == "federal" && prcd == "proportional") {
@@ -692,8 +695,8 @@ raw_q_suppl_skill_question <- function(ballot_date = ballot_dates,
                                        proposal_nr = NULL,
                                        skill_question_nr) {
   
-  skill_question_nr <- assert_countish(skill_question_nr)
-  
+  checkmate::assert_count(skill_question_nr,
+                          positive = TRUE)
   result <-
     raw_q_suppl_skill_questions(ballot_date = ballot_date,
                                 lvl = lvl,
@@ -882,7 +885,7 @@ assemble_q_item_tibble <- function(ballot_date,
                        canton = canton,
                        key = "lvl",
                        lvl = "",
-                       i = "",
+                       i = NA_integer_,
                        j = NA_integer_),
     .f = function(lvl) {
       # ...`i`...
@@ -892,7 +895,7 @@ assemble_q_item_tibble <- function(ballot_date,
                            canton = canton,
                            key = "i",
                            lvl = lvl,
-                           i = "",
+                           i = NA_integer_,
                            j = NA_integer_),
         lvl = lvl,
         .f = function(i,
@@ -1125,7 +1128,7 @@ has_who_constraint <- function(x) {
 init_heritable_map <- function(block) {
   
   xfun::strict_list(lvl = "?",
-                    i = "?",
+                    i = NA_integer_,
                     j = NA_integer_,
                     block = block,
                     variable_name = "???",
@@ -1178,7 +1181,7 @@ resolve_q_val <- function(x,
                           j) {
   
   checkmate::assert_scalar(lvl, null.ok = TRUE)
-  checkmate::assert_scalar(i, null.ok = TRUE)
+  checkmate::assert_scalar(i, na.ok = TRUE, null.ok = TRUE)
   checkmate::assert_scalar(j, na.ok = TRUE, null.ok = TRUE)
   
   x %>%
@@ -1194,16 +1197,12 @@ resolve_q_val <- function(x,
                 ~ .) %>%
     # convert to proper type
     purrr::when(
-      # character
       key %in% q_item_keys$key[q_item_keys$type == "character"] ~
         as.character(.),
-      # logical
       key %in% q_item_keys$key[q_item_keys$type == "logical"] ~
         as.logical(.),
-      # integer
       key %in% q_item_keys$key[q_item_keys$type == "integer"] ~
         as.integer(.),
-      # double (theoretical only, none present so far)
       key %in% q_item_keys$key[q_item_keys$type == "double"] ~
         as.double(.),
       # undefined behaviour
@@ -1512,11 +1511,13 @@ q_md_table_body <- function(q_tibble_block,
                                                                           proposal_nr =
                                                                             variable_name %>%
                                                                             stringr::str_extract("(?<=_proposal_)\\d+") %>%
+                                                                            as.integer() %>%
                                                                             purrr::when(is.na(.) ~ NULL,
                                                                                         ~ .),
                                                                           skill_question_nr =
                                                                             variable_name %>%
-                                                                            stringr::str_extract("(?<=skill_question_)\\d+"))) %>%
+                                                                            stringr::str_extract("(?<=skill_question_)\\d+") %>%
+                                                                            as.integer())) %>%
                             collapse_break(),
                           ~ format_md_multival_col(.)),
             format_md_multival_col(variable_values),
@@ -1567,8 +1568,8 @@ block_name_to_nr <- function(x) {
 #' @param branch_path Sequence of questionnaire table levels that lead to the `item` leaf node where `v_name` is defined. A character vector.
 #' @param key Questionnaire item key. One of
 #' `r pal::as_md_list(paste0('"', q_item_keys$key, '"'), wrap = '``')`
-#' @param i First-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. A character vector.
-#' @param j Second-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. A character vector.
+#' @param i First-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integer vector.
+#' @param j Second-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integer vector.
 #'
 #' @return A vector of the resolved item field values. Type and length resolved values depend on `key`.
 #' @family q_internal
@@ -1597,7 +1598,7 @@ q_item_val <- function(ballot_date = ballot_dates,
                        v_name,
                        key = q_item_keys$key,
                        lvl = "?",
-                       i = "?",
+                       i = NA_integer_,
                        j = NA_integer_) {
   
   checkmate::assert_character(branch_path,
@@ -1836,18 +1837,6 @@ as_flat_list <- function(x) {
   }
   
   result
-}
-
-ballot_title <- function(ballot_date,
-                         canton) {
-  
-  ballot_types(ballot_date = ballot_date,
-               canton = canton) %>%
-    purrr::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
-                . == "referendum" ~ "Abstimmungs",
-                . == "election" ~ "Wahl",
-                ~ cli::cli_abort("Undefined behavior. Please debug.")) %>%
-    glue::glue("termin vom {prettify_date(ballot_date, locale = 'de')}")
 }
 
 collapse_break <- function(s) {
@@ -2566,10 +2555,11 @@ election_candidate_string <- function(ballot_date = ballot_dates,
                                          canton = canton,
                                          election_nr = election_nr)
   
-  candidate_nrs <- assert_integerish(candidate_nrs,
-                                     lower = 1L,
-                                     upper = nrow(data_candidates),
-                                     null_ok = TRUE)
+  checkmate::assert_integerish(candidate_nrs,
+                               lower = 1L,
+                               upper = nrow(data_candidates),
+                               any.missing = FALSE,
+                               null.ok = TRUE)
   checkmate::assert_flag(incl_party)
   
   if (length(candidate_nrs)) {
@@ -2706,8 +2696,9 @@ n_skill_questions <- function(ballot_date = ballot_dates,
   
   lvl <- rlang::arg_match(lvl)
   canton <- rlang::arg_match(canton)
-  proposal_nr <- assert_countish(proposal_nr,
-                                 null_ok = TRUE)
+  checkmate::assert_count(proposal_nr,
+                          positive = TRUE,
+                          null.ok = TRUE)
   lvl %>%
     purrr::when(
       
@@ -2832,6 +2823,52 @@ skill_question_answer_nr <- function(ballot_date = ballot_dates,
                      .f = ~ .x$is_correct) %>%
     purrr::flatten_lgl() %>%
     which()
+}
+
+#' Get ballot title
+#'
+#' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date in German prose.
+#'
+#' @inheritParams n_elections
+#'
+#' @return A character scalar.
+#' @export
+#'
+#' @examples
+#' ballot_title(ballot_date = "2019-10-20",
+#'              canton = "aargau")
+ballot_title <- function(ballot_date,
+                         canton,
+                         lang = c("de", "en")) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  ballot_types <- ballot_types(ballot_date = ballot_date,
+                               canton = canton)
+  
+  if (!length(ballot_types)) {
+    cli::cli_abort("No ballot type could be determined. Please debug.")
+  }
+  
+  if (lang == "de") {
+    
+    result <-
+      ballot_types %>%
+      purrr::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
+                  . == "referendum" ~ "Abstimmungs",
+                  . == "election" ~ "Wahl") %>%
+      glue::glue("termin vom {prettify_date(ballot_date, locale = lang)}")
+    
+  } else if (lang == "en") {
+    
+    result <-
+      ballot_types %>%
+      purrr::when(length(.) > 1L ~ "Referendum and election",
+                  ~ stringr::str_to_sentence(.)) %>%
+      glue::glue(" date of {prettify_date(ballot_date, locale = lang)}")
+  }
+  
+  result
 }
 
 #' Get political issues
@@ -3206,7 +3243,7 @@ lgl_to_unicode <- function(x) {
 #' @export
 #'
 #' @examples
-#' fokus::prettify_date(lubridate::today())
+#' fokus::prettify_date("2021-12-21")
 prettify_date <- function(date,
                           locale = c("en", "de", "en-US", "de-CH")) {
   

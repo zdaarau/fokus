@@ -11,7 +11,7 @@ q_item_val(
   v_name,
   key = q_item_keys$key,
   lvl = "?",
-  i = "?",
+  i = NA_integer_,
   j = NA_integer_
 )
 }
@@ -58,9 +58,9 @@ q_item_val(
 \item \code{"include"}
 }}
 
-\item{i}{First-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. A character vector.}
+\item{i}{First-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
 
-\item{j}{Second-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. A character vector.}
+\item{j}{Second-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
 }
 \value{
 A vector of the resolved item field values. Type and length resolved values depend on \code{key}.

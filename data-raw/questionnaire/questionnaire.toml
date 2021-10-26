@@ -269,35 +269,35 @@ value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
 
 [02_political_start.002_non_participation]
-i.default = "{ if (has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) && has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton)) c('', 'cantonal') else '' }"
-i.20180923_20181125 = ""
-who = "{ dplyr::if_else(i == 'cantonal', 'kantonal nicht-teilnehmende Online-Respondenten', 'Nicht-Teilnehmende') }"
+lvl.default = "{ if (has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) && has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton)) c('', 'cantonal') else '' }"
+lvl.20180923_20181125 = ""
+who = "{ dplyr::if_else(lvl == 'cantonal', 'kantonal nicht-teilnehmende Online-Respondenten', 'Nicht-Teilnehmende') }"
 response_options = [ "trifft nicht zu", "trifft zu", "weiss nicht" ]
 variable_values = [ 0, 1, 99 ]
 value_labels = [ "is not true", "is true", "don't know" ]
 value_scale = "binary"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Unentschlossenheit"
-question.default.referendum = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(i == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
-question.default.election = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(i == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Wahlen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
-question_common = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen und Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(i == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen/Wahlen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_indecision"
-variable_label = "whether or not indecision was a reason for the respondent to abstain from voting{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' on cantonal matters')  }"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Unentschlossenheit"
+question.default.referendum = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
+question.default.election = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Wahlen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
+question_common = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen und Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen/Wahlen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_indecision"
+variable_label = "whether or not indecision was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Desinteresse"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Desinteresse"
 question.default.referendum = "_Die Abstimmungsthemen haben mich nicht interessiert._"
 question.default.election = "_Ich interessiere mich nicht für Politik._"
 question_common = "Abstimmungen: _Die Abstimmungsthemen haben mich nicht interessiert._; Wahlen: _Ich interessiere mich nicht für Politik._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_disinterest"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_disinterest"
 variable_label.default.referendum = "whether or not disinterest in the voting topics was a reason for the respondent to abstain from voting"
 variable_label.default.election = "whether or not disinterest in politics was a reason for the respondent to abstain from voting"
 variable_label_common = "whether or not disinterest was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Überforderung"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Überforderung"
 question.default.referendum = "_Die Abstimmungsthemen waren zu kompliziert._"
 question.default.election = "_Die Wahlen sind zu kompliziert._"
 question_common = "Abstimmungen: _Die Abstimmungsthemen waren zu kompliziert._; Wahlen: _Die Wahlen sind zu kompliziert._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_complexity"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_complexity"
 variable_label.default.referendum = "whether or not the voting topics being too complicated was a reason for the respondent to abstain from voting"
 variable_label.default.election = "whether or not the election being too complicated was a reason for the respondent to abstain from voting"
 variable_label_common = "whether or not complexity was a reason for the respondent to abstain from voting"
@@ -308,46 +308,46 @@ question = "_Ich bin verhindert gewesen (z. B. Auslandaufenthalt, Krankheit, F
 variable_name = "reason_non_participation_hindrance"
 variable_label = "whether or not being unable to attend was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Wirkungslosigkeit"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Wirkungslosigkeit"
 question.default.referendum = "_Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern._"
 question.default.election = "_Ich bin der Meinung, dass Wahlen ohnehin nichts ändern._"
 question_common = "Abstimmungen: _Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern._; Wahlen: _Ich bin der Meinung, dass Wahlen ohnehin nichts ändern._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_ineffectiveness"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_ineffectiveness"
 variable_label.default.referendum = "whether or not to think that referendums don't change anything anyway was a reason for the respondent to abstain from voting"
 variable_label.default.election = "whether or not to think that elections don't change anything anyway was a reason for the respondent to abstain from voting"
 variable_label_common = "whether or not to think that referendums/elections don't change anything anyway was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Bedeutungslosigkeit der eigenen Stimme"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Bedeutungslosigkeit der eigenen Stimme"
 question = "_Ich bin der Meinung, dass es auf meine Stimme sowieso nicht ankommt._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_insignificance"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_insignificance"
 variable_label = "whether or not to think that your own vote doesn't matter anyway was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Vergessen teilzunehmen"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Vergessen teilzunehmen"
 question.default.referendum = "_Ich habe vergessen, an der Abstimmung teilzunehmen._"
 question.default.election = "_Ich habe vergessen teilzunehmen._"
 question_common = "_Ich habe vergessen teilzunehmen._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_forgetfulness"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_forgetfulness"
 variable_label.default.referendum = "whether or not the respondent forgot to take part in the vote"
 variable_label.default.election = "whether or not the respondent forgot to take part in the election"
 variable_label_common = "whether or not the respondent forgot to take part in the ballot"
 [02_political_start.002_non_participation.002_referendum]
 ballot_types = [ "referendum" ]
 [[02_political_start.002_non_participation.002_referendum.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Ergebnis sowieso klar"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Ergebnis sowieso klar"
 question = "_Ich bin davon ausgegangen, dass das Abstimmungsergebnis sowieso klar gewesen ist._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_outcome_clear"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_outcome_clear"
 variable_label = "whether or not to think that the result of the vote was clear anyway was a reason for the respondent to abstain from voting"
 [02_political_start.002_non_participation.003_election]
 ballot_types = [ "election" ]
 [[02_political_start.002_non_participation.003_election.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Keine valablen KandidatInnen"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Keine valablen KandidatInnen"
 question = "_Keine Partei und kein Kandidat, keine Kandidatin überzeugten mich._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_no_convincing_options"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_no_convincing_options"
 variable_label = "whether or not finding no party or candidate convincing enough was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.003_election.item]]
-topic = "Grund für{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = ' _kantonale_') } Nicht-Teilnahme: Bevorzugte Partei/KandidatIn chancenlos"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Bevorzugte Partei/KandidatIn chancenlos"
 question = "_Meine bevorzugte Partei bzw. meine bevorzugte Kandidatin, mein bevorzugter Kandidat hatte keine Chance, gewählt zu werden._"
-variable_name = "reason_non_participation{ i %>% stringr::str_replace(pattern = 'cantonal', replacement = '_cantonal') }_no_chance"
+variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_no_chance"
 variable_label = "whether or not the favorite party or candidate not standing a chance was a reason for the respondent to abstain from voting"
 [02_political_start.002_non_participation.003_election.z01_hypothetical]
 who = "qualifizierte Nicht-Teilnehmende"
@@ -424,10 +424,10 @@ value_labels = "{ c(q_parties() %$% en.short, q_response_options(type = 'custom'
 randomize_response_options = true
 [[03_1_election_general.item]]
 topic = "Teilnahme vergangene eidgenössische Wahlen"
-question = "Die letzten eidgenössischen { election_names_combined(ballot_date = ballot_date, lvl = 'federal', canton = canton) } fanden **{ ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }** statt. Haben Sie daran teilgenommen?"
+question = "Die letzten eidgenössischen { election_names_combined(ballot_date = ballot_date, lvl = 'federal', canton = canton) } fanden **{ lubridate::year(ballot_date) - 4L }** statt. Haben Sie daran teilgenommen?"
 question_common = "Die letzten eidgenössischen Wahlen fanden vor vier Jahren statt. Haben Sie daran teilgenommen?"
 variable_name = "participation_past_federal_elections"
-variable_label = "respondent's participation status at the past federal elections { ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }"
+variable_label = "respondent's participation status at the past federal elections { lubridate::year(ballot_date) - 4L }"
 variable_label_common = "respondent's participation status at the past federal elections 4 years ago"
 response_options = "{ c(q_response_options(type = 'abstain', lang = 'de', subtypes = 'past'), 'teilgenommen', q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = [ 0, 1, 99 ]
@@ -437,10 +437,10 @@ include = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton
 [[03_1_election_general.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'proportional')) }"
 topic = "Stimmentscheid Partei vergangene eidgenössische Verhältniswahl {i}"
-question = "Welche Partei hatten Sie **{ ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }** in den **{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body') }** gewählt, d. h. von welcher Partei hatten Sie am meisten KandidatInnen gewählt?"
+question = "Welche Partei hatten Sie **{ lubridate::year(ballot_date) - 4L }** in den **{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body') }** gewählt, d. h. von welcher Partei hatten Sie am meisten KandidatInnen gewählt?"
 question_common = "Welche Partei hatten Sie bei der eidgenössischen Verhältniswahl {i} vor vier Jahren gewählt, d. h. von welcher Partei hatten Sie _am meisten_ KandidatInnen gewählt?"
 variable_name = "voting_decision_past_federal_proportional_election_{i}_party"
-variable_label = "the party the respondent voted for in the past federal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') } { ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }»"
+variable_label = "the party the respondent voted for in the past federal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') } { lubridate::year(ballot_date) - 4L }»"
 variable_label_common = "the party the respondent voted for in the past { salim::rank_nr(i) } federal proportional election 4 years ago"
 response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
@@ -448,10 +448,10 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', c
 who = "Teilnehmende vergangene eidgenössische Verhältniswahl"
 [[03_1_election_general.item]]
 topic = "Teilnahme vergangene kantonale Wahlen"
-question = "Die letzten kantonalen { election_names_combined(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) } fanden **{ ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }** statt. Haben Sie daran teilgenommen?"
+question = "Die letzten kantonalen { election_names_combined(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) } fanden **{ lubridate::year(ballot_date) - 4L }** statt. Haben Sie daran teilgenommen?"
 question_common = "Die letzten kantonalen Wahlen fanden vor vier Jahren statt. Haben Sie daran teilgenommen?"
 variable_name = "participation_past_cantonal_elections"
-variable_label = "respondent's participation status at the past cantonal elections { ballot_date %>% lubridate::year() %>% magrittr::subtract(4)  }"
+variable_label = "respondent's participation status at the past cantonal elections { lubridate::year(ballot_date) - 4L  }"
 variable_label_common = "respondent's participation status at the past cantonal elections 4 years ago"
 response_options = "{ c(q_response_options(type = 'abstain', lang = 'de', subtypes = 'past'), 'teilgenommen', q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = [ 0, 1, 99 ]
@@ -462,10 +462,10 @@ include.false = [ 2019-10-20 ]
 [[03_1_election_general.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'proportional')) }"
 topic = "Stimmentscheid Partei vergangene kantonale Verhältniswahl {i}"
-question = "Welche Partei hatten Sie **{ ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }** in den { election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body_alt') } gewählt, d. h. von welcher Partei hatten Sie am meisten KandidatInnen gewählt?"
+question = "Welche Partei hatten Sie **{ lubridate::year(ballot_date) - 4L }** in den { election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body_alt') } gewählt, d. h. von welcher Partei hatten Sie am meisten KandidatInnen gewählt?"
 question_common = "Welche Partei hatten Sie bei der kantonalen Verhältniswahl {i} vor vier Jahren gewählt, d. h. von welcher Partei hatten Sie _am meisten_ KandidatInnen gewählt?"
 variable_name = "voting_decision_past_cantonal_proportional_election_{i}_party"
-variable_label = "the party the respondent voted for in the past cantonal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') } { ballot_date %>% lubridate::year() %>% magrittr::subtract(4) }»"
+variable_label = "the party the respondent voted for in the past cantonal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') } { lubridate::year(ballot_date) - 4L }»"
 variable_label_common = "the party the respondent voted for in the past { salim::rank_nr(i) } cantonal proportional election 4 years ago"
 response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
@@ -1435,56 +1435,56 @@ variable_name = "trust_in_swiss_democracy"
 variable_label = "respondent's trust in the Swiss democracy"
 include.default = true
 include.false = [ 2020-09-27 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in Bundesrat"
 question = "_Bundesrat_"
 variable_name = "trust_in_federal_government"
 variable_label = "respondent's trust in the federal government"
 include.default = false
 include.true = [ 2021-11-28 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in eidgenössisches Parlament"
 question = "_eidgenössisches Parlament_"
 variable_name = "trust_in_federal_parliament"
 variable_label = "respondent's trust in the federal parliament"
 include.default = false
 include.true = [ 2021-11-28 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in Bundesamt für Gesundheit (BAG)"
 question = "_Bundesamt für Gesundheit (BAG)_"
 variable_name = "trust_in_federal_public_health_office"
 variable_label = "respondent's trust in the federal public health office"
 include.default = false
 include.true = [ 2021-11-28 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in kantonales Gesundheitsdepartement"
 question = "_kantonales Gesundheitsdepartement_"
 variable_name = "trust_in_cantonal_public_health_office"
 variable_label = "respondent's trust in the cantonal public health office"
 include.default = false
 include.true = [ 2021-11-28 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen ins Schweizer Radio und Fernsehen (SRF)"
 question = "_Schweizer Radio und Fernsehen (SRF)_"
 variable_name = "trust_in_swiss_radio_tv"
 variable_label = "respondent's trust in the [Swiss Radio and Television (SRF)](https://en.wikipedia.org/wiki/Schweizer_Radio_und_Fernsehen)"
 include.default = false
 include.true = [ 2021-11-28 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in Wissenschaft (als Erkenntnisprinzipien und Methoden)"
 question = "_Wissenschaft (als Erkenntnisprinzipien und Methoden)_"
 variable_name = "trust_in_science"
 variable_label = "respondent's trust in scientific principles of knowledge and methods"
 include.default = true
 include.20180923_20201018 = false
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in Fachleute für ansteckbare Krankheiten (Epidemiologie, Virologie, wissenschaftliche Taskforce etc.)"
 question = "_Fachleute für ansteckbare Krankheiten (Epidemiologie, Virologie, wissenschaftliche Taskforce etc.)_"
 variable_name = "trust_in_infectious_disease_specialists"
 variable_label = "respondent's trust in specialists for infectious diseases (epidemiology, virology, scientific task force, etc.)"
 include.default = false
 include.true = [ 2021-11-28 ]
-[[04_political_general.z11_trust_corona.item]]
+[[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in die Pharmahersteller"
 question = "_Pharmahersteller_"
 variable_name = "trust_in_pharma"
@@ -1823,27 +1823,27 @@ value_labels = [
   "university, ETH"
 ]
 value_scale = "ordinal_ascending"
-[[07_personal_more.item]]
-i.default = "{ c('', 'inactive') }"
-i.20180923_20181125 = ""
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemalige ', '')}Beschäftigungssituation"
-who = "{ dplyr::if_else(i == 'inactive', 'nichterwerbstätige Online-Respondenten', 'alle') }"
-question.default = "Was { dplyr::if_else(i == 'inactive', 'war Ihre letzte', 'ist Ihre aktuelle') } **Haupt**beschäftigung?"
+[07_personal_more.z01_current_former]
+lvl.default = "{ c('', 'inactive') }"
+[[07_personal_more.z01_current_former.item]]
+lvl.20180923_20181125 = ""
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemalige ', '')}Beschäftigungssituation"
+who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'alle') }"
+question.default = "Was { dplyr::if_else(lvl == 'inactive', 'war Ihre letzte', 'ist Ihre aktuelle') } **Haupt**beschäftigung?"
 question.20180923 = "Wie ist Ihre aktuelle Beschäftigungssituation?[^main-emp]"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}employment_situation"
-variable_label = "respondent's { dplyr::if_else(i == 'inactive', 'former', 'current') } employment situation"
-response_options = "{ i %>% purrr::when(i == 'inactive' ~ c('selbständigerwerbend/freischaffend', 'MitarbeiterIn im Betrieb der eigenen Familie', 'AngestellteR', 'Lehrling', 'etwas anderes'), ~ c('selbständigerwerbend/freischaffend', 'MitarbeiterIn im Betrieb der eigenen Familie', 'AngestellteR', 'Lehrling', 'StudentIn oder SchülerIn', 'RentnerIn', 'arbeitslos/erwerbslos', 'Nichterwerbsperson mit Behinderung', 'Hausfrau/Hausmann', 'andere Nichterwerbsperson')) }"
-variable_values = "{ i %>% purrr::when(i == 'inactive' ~ c(1, 2, 3, 4, 77), ~ c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) }"
-value_labels = "{ i %>% purrr::when(i == 'inactive' ~ c('self-employed/freelancer', 'employee in the company of the own family', 'employee', 'apprentice', 'something else'), ~ c('self-employed/freelancer', 'employee in the company of the own family', 'employee', 'apprentice', 'student', 'pensioner', 'unemployed', 'inactive person with disability', 'housewife/househusband', 'other inactive person')) }"
-[[07_personal_more.item]]
-i.default = "{ c('', 'inactive') }"
-i.20180923_20181125 = ""
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemaliger ', '')}Beschäftigungsgrad"
-who = "{ dplyr::if_else(i == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
-question.default = "Wie hoch { dplyr::if_else(i == 'inactive', 'war Ihr', 'ist Ihr aktueller') } Beschäftigungsgrad?"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}employment_situation"
+variable_label = "respondent's { dplyr::if_else(lvl == 'inactive', 'former', 'current') } employment situation"
+response_options = "{ if (lvl == 'inactive') c('selbständigerwerbend/freischaffend', 'MitarbeiterIn im Betrieb der eigenen Familie', 'AngestellteR', 'Lehrling', 'etwas anderes') else c('selbständigerwerbend/freischaffend', 'MitarbeiterIn im Betrieb der eigenen Familie', 'AngestellteR', 'Lehrling', 'StudentIn oder SchülerIn', 'RentnerIn', 'arbeitslos/erwerbslos', 'Nichterwerbsperson mit Behinderung', 'Hausfrau/Hausmann', 'andere Nichterwerbsperson') }"
+variable_values = "{ if (lvl == 'inactive') c(1, 2, 3, 4, 77) else c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) }"
+value_labels = "{ if (lvl == 'inactive') c('self-employed/freelancer', 'employee in the company of the own family', 'employee', 'apprentice', 'something else') else c('self-employed/freelancer', 'employee in the company of the own family', 'employee', 'apprentice', 'student', 'pensioner', 'unemployed', 'inactive person with disability', 'housewife/househusband', 'other inactive person') }"
+[[07_personal_more.z01_current_former.item]]
+lvl.20180923_20181125 = ""
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemaliger ', '')}Beschäftigungsgrad"
+who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
+question.default = "Wie hoch { dplyr::if_else(lvl == 'inactive', 'war Ihr', 'ist Ihr aktueller') } Beschäftigungsgrad?"
 question.20180923_20181125 = "Wie ist Ihr aktueller Beschäftigungsgrad?"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}employment_level"
-variable_label = "respondent's { dplyr::if_else(i == 'inactive', 'former', 'current') } employment level"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}employment_level"
+variable_label = "respondent's { dplyr::if_else(lvl == 'inactive', 'former', 'current') } employment level"
 response_options = [
   "Vollzeit erwerbstätig 90 % oder mehr",
   "Teilzeit erwerbstätig 70–89 %",
@@ -1858,26 +1858,24 @@ value_labels = [
   "part-time employed less than 50 %"
 ]
 value_scale = "ordinal_descending"
-[[07_personal_more.item]]
-i = "{ c('', 'inactive') }"
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemalige ', '')}Berufliche Stellung"
-who = "{ dplyr::if_else(i == 'inactive', 'ehemals Angestellte Online-Respondenten', 'Angestellte') }"
-question = "Was { dplyr::if_else(i == 'inactive', 'war', 'ist') } Ihre berufliche Stellung?"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}professional_position"
-variable_label = "respondent's { dplyr::if_else(i == 'inactive', 'former ', '') }professional position"
+[[07_personal_more.z01_current_former.item]]
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemalige ', '')}Berufliche Stellung"
+who = "{ dplyr::if_else(lvl == 'inactive', 'ehemals Angestellte Online-Respondenten', 'Angestellte') }"
+question = "Was { dplyr::if_else(lvl == 'inactive', 'war', 'ist') } Ihre berufliche Stellung?"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}professional_position"
+variable_label = "respondent's { dplyr::if_else(lvl == 'inactive', 'former ', '') }professional position"
 response_options = [ "AngestellteR ohne Kader-/Direktionsfunktion", "AngestellteR mit Kaderfunktion / AusbildnerIn", "AngestellteR mit Direktionsfunktion" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "normal employee", "employee with management tasks/trainer", "directorial employee" ]
 value_scale = "ordinal_ascending"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
+[[07_personal_more.z01_current_former.item]]
 # NOTE: new 4-category `occupational_sector`
-i = "{ c('', 'inactive') }"
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemaliger ', '')}Berufssektor"
-who = "{ dplyr::if_else(i == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
-question = "In welcher Art von Unternehmen { dplyr::if_else(i == 'inactive', 'waren', 'sind') } Sie beschäftigt?"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}occupational_sector"
-variable_label = "respondent's { dplyr::if_else(i == 'inactive', 'former ', '') }occupational sector"
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemaliger ', '')}Berufssektor"
+who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
+question = "In welcher Art von Unternehmen { dplyr::if_else(lvl == 'inactive', 'waren', 'sind') } Sie beschäftigt?"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}occupational_sector"
+variable_label = "respondent's { dplyr::if_else(lvl == 'inactive', 'former ', '') }occupational sector"
 response_options = [
   "Privatwirtschaft",
   "öffentliche Hand (Bund, Kantone, Gemeinden, staatliche Unternehmen wie SBB oder Post)",
@@ -1892,8 +1890,9 @@ value_labels = [
   "mixed-economy sector"
 ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
+[[07_personal_more.z01_current_former.item]]
 # NOTE: legacy 3-category `occupational_sector`
+lvl = ""
 topic = "Berufssektor[^legacy-occ-sect]"
 who = "Erwerbstätige"
 question = "Arbeiten Sie in der Privatwirtschaft oder bei der öffentlichen Hand?"
@@ -1913,26 +1912,24 @@ value_labels = [
 ]
 include.default = false
 include.true = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
-i = "{ c('', 'inactive') }"
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemalige ', '')}Betriebsgrösse"
-who = "{ dplyr::if_else(i == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
-question = "Wie viele Personen beschäftigt{ dplyr::if_else(i == 'inactive', 'e', '') } Ihr Betrieb insgesamt (einschliesslich Ihrer eigenen Person)?"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}company_size"
+[[07_personal_more.z01_current_former.item]]
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemalige ', '')}Betriebsgrösse"
+who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
+question = "Wie viele Personen beschäftigt{ dplyr::if_else(lvl == 'inactive', 'e', '') } Ihr Betrieb insgesamt (einschliesslich Ihrer eigenen Person)?"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}company_size"
 variable_label = "size of the company the respondent works for"
 response_options = [ "1–9", "10–49", "50–249", "250–999", "1'000 und mehr", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "1–9", "10–49", "50–249", "250–999", "1'000+", "don't know" ]
 value_scale = "ordinal_ascending"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
+[[07_personal_more.z01_current_former.item]]
 # item source: [Fragebogen ZDA-Nachbefragung AG 2016-10-23](https://drive.google.com/drive/u/0/folders/1ACZSaHBbauJUqlCpdof1PveYT8vn5tmr)
-i = "{ c('', 'inactive') }"
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemalige ', '')}Betriebsbranche"
-who = "{ dplyr::if_else(i == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
-question = "In welcher Branche { dplyr::if_else(i == 'inactive', 'ist/war Ihr ehemaliger', 'ist Ihr aktueller') } Betrieb hauptsächlich tätig?"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}company_sector"
-variable_label = "sector of the company the respondent work{ dplyr::if_else(i == 'inactive', 'ed', 's') } for"
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemalige ', '')}Betriebsbranche"
+who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
+question = "In welcher Branche { dplyr::if_else(lvl == 'inactive', 'ist/war Ihr ehemaliger', 'ist Ihr aktueller') } Betrieb hauptsächlich tätig?"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}company_sector"
+variable_label = "sector of the company the respondent work{ dplyr::if_else(lvl == 'inactive', 'ed', 's') } for"
 response_options = [
   "Herstellung von Produkten (Industrie)",
   "Detail- und Grosshandel",
@@ -1969,7 +1966,7 @@ value_labels = [
   "custom answer"
 ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Haushaltsgrösse[^statag-household]"
 question.default = "Wie viele Personen (Sie eingeschlossen) leben in Ihrem Haushalt?"
 question.20180923_20181125 = "Wie viele Personen leben in Ihrem Haushalt?"
@@ -1977,14 +1974,14 @@ variable_name = "household_size"
 variable_label = "number of persons living in respondent's household"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Anzahl Kinder im Haushalt[^statag-kids]"
 question = "Wie viele davon sind minderjährig (unter 18 Jahre alt)?"
 variable_name = "n_kids_in_household"
 variable_label = "number of underaged persons living in respondent's household"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Wohnsituation"
 question = "Sind Sie MieterIn oder EigentümerIn Ihrer Wohnung oder Ihres Hauses?"
 variable_name = "housing_situation"
@@ -1992,7 +1989,7 @@ variable_label = "respondent's housing situation"
 response_options = [ "MieterIn oder PächterIn", "EigentümerIn", "anderes (z. B. Frei-, Dienstwohnung)", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "tenant", "owner", "other (e.g. free or official residence)", "don't know" ]
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Staatsbürgerschaft bei Geburt"
 question = "Welche Staatsbürgerschaft hatten Sie bei der Geburt?"
 variable_name = "citizenship_at_birth"
@@ -2001,7 +1998,7 @@ response_options = [ "Schweiz (CH)", "Schweiz (CH) plus weitere (\"Doppelbürger
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "Switzerland (CH)", "Switzerland (CH) plus other(s) (\"dual citizen\")", "other(s)", "don't know" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Geburtsort der Eltern"
 question = "Wurden Ihre Eltern beide in der Schweiz geboren?"
 variable_name = "birthplace_parents"
@@ -2010,7 +2007,7 @@ response_options = [ "ja, beide in der Schweiz", "nein, ein Elternteil im Auslan
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "yes, both in Switzerland", "no, one parent abroad", "no, both parents abroad", "don't know" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Monatliches Bruttohaushaltseinkommen"
 question = "Wie hoch ist das gesamte monatliche Einkommen Ihres Haushaltes (brutto) ungefähr?"
 variable_name = "monthly_gross_household_income"
@@ -2019,7 +2016,7 @@ response_options = [ "bis CHF 3'000", "CHF 3'001–6'000", "CHF 6'001–9'
 variable_values = [ 1, 2, 3, 4, 5, 6, 80 ]
 value_labels = [ "up to CHF 3000", "CHF 3001–6000", "CHF 6001–9000", "CHF 9001–12000", "CHF 12001–15000", "over CHF 15000", "no answer" ]
 value_scale = "ordinal_ascending"
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Einkommensprekarität"
 question = "Vom Einkommen muss man ja einen Teil gerade wieder ausgeben, z. B. für Miete und Versicherungen. Mit dem, was Ihnen dann noch bleibt: Wie gut kommen Sie damit aus?"
 variable_name = "income_precarity"
@@ -2028,7 +2025,7 @@ response_options = [ "sehr gut", "ziemlich gut", "weniger gut", "gar nicht gut" 
 variable_values = [ 1, 2, 3, 4 ]
 value_labels = [ "very well", "pretty well", "not so well", "not at all well" ]
 value_scale = "ordinal_descending"
-[[07_personal_more.item]]
+[[07_personal_more.z02_more.item]]
 topic = "Persönlicher Anteil am Bruttohaushaltseinkommen"
 who = "Nicht-Alleinwohnende"
 question = "Wie viel bringen Sie persönlich ungefähr ins Haushaltseinkommen (brutto) ein?"
@@ -2530,13 +2527,13 @@ value_labels = [
 ]
 value_scale = "ordinal_ascending"
 [[y_generated.001_all.001_both.item]]
-i.default = "{ c('', 'inactive') }"
-i.20180923_20181125 = ""
-topic = "{ dplyr::if_else(i == 'inactive', 'Ehemalige ', '')}Beschäftigungssituation (reduziert)"
-question.default = "Was { dplyr::if_else(i == 'inactive', 'war Ihre letzte', 'ist Ihre aktuelle') } **Haupt**beschäftigung?"
+lvl.default = "{ c('', 'inactive') }"
+lvl.20180923_20181125 = ""
+topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemalige ', '')}Beschäftigungssituation (reduziert)"
+question.default = "Was { dplyr::if_else(lvl == 'inactive', 'war Ihre letzte', 'ist Ihre aktuelle') } **Haupt**beschäftigung?"
 question.20180923 = "Wie ist Ihre aktuelle Beschäftigungssituation?[^main-emp]"
-variable_name = "{ dplyr::if_else(i == 'inactive', 'former_', '')}employment_situation_reduced"
-variable_label = "respondent's { dplyr::if_else(i == 'inactive', 'former', 'current') } employment situation (reduced)"
+variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '')}employment_situation_reduced"
+variable_label = "respondent's { dplyr::if_else(lvl == 'inactive', 'former', 'current') } employment situation (reduced)"
 response_options = [
   "selbständigerwerbend/freischaffend",
   "AngestellteR",

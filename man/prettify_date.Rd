@@ -18,5 +18,5 @@ A character scalar.
 Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA...
 }
 \examples{
-fokus::prettify_date(lubridate::today())
+fokus::prettify_date("2021-12-21")
 }

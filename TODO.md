@@ -1,12 +1,6 @@
 # TODOs
 
-## Questionnaire 2021-11-28
-
-...
-
 ## Other
-
--   Replace all non-integer `i`-assignments in questionnaire with `lvl`-assignments and make `i` of type integer (same as `j`).
 
 -   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
 

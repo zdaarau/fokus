@@ -62,7 +62,9 @@ reference:
   - skill_question_response_options
   - skill_question_answer_nr
 - subtitle: Other predicates
-- contents: political_issues
+- contents:
+  - ballot_title
+  - political_issues
 - title: Variable-related
 - contents:
   - is_skill_question

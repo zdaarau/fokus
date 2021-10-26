@@ -8,10 +8,10 @@ fokus allows to (pre-)process and clean the raw data, analyze and visualize the 
 
 The following package-specific R options are used to control the package's functionality:
 
-  **name**                        **description**                                                                                                                                                                                                                               **automatic fallback if unset**
-  ------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
-  `fokus.path_private`            the path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); initialized automatically for user=salim, otherwise defaults to the current working directory   ✅
-  `fokus.global_cache_lifespan`   the default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                                                                                          ✅
+  **name**                        **description**                                                                                                                                                                                                                           **automatic fallback if unset**
+  ------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+  `fokus.path_private`            path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); initialized automatically for user=salim, otherwise defaults to the current working directory   ✅
+  `fokus.global_cache_lifespan`   default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                                                                                          ✅
 
 ### Private FOKUS directory structure
 
