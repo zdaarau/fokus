@@ -284,7 +284,7 @@ question_common = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Ab
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_indecision"
 variable_label = "whether or not indecision was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Desinteresse"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Desinteresse"
 question.default.referendum = "_Die Abstimmungsthemen haben mich nicht interessiert._"
 question.default.election = "_Ich interessiere mich nicht für Politik._"
 question_common = "Abstimmungen: _Die Abstimmungsthemen haben mich nicht interessiert._; Wahlen: _Ich interessiere mich nicht für Politik._"
@@ -293,7 +293,7 @@ variable_label.default.referendum = "whether or not disinterest in the voting to
 variable_label.default.election = "whether or not disinterest in politics was a reason for the respondent to abstain from voting"
 variable_label_common = "whether or not disinterest was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Überforderung"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Überforderung"
 question.default.referendum = "_Die Abstimmungsthemen waren zu kompliziert._"
 question.default.election = "_Die Wahlen sind zu kompliziert._"
 question_common = "Abstimmungen: _Die Abstimmungsthemen waren zu kompliziert._; Wahlen: _Die Wahlen sind zu kompliziert._"
@@ -308,7 +308,7 @@ question = "_Ich bin verhindert gewesen (z. B. Auslandaufenthalt, Krankheit, F
 variable_name = "reason_non_participation_hindrance"
 variable_label = "whether or not being unable to attend was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Wirkungslosigkeit"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Wirkungslosigkeit"
 question.default.referendum = "_Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern._"
 question.default.election = "_Ich bin der Meinung, dass Wahlen ohnehin nichts ändern._"
 question_common = "Abstimmungen: _Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern._; Wahlen: _Ich bin der Meinung, dass Wahlen ohnehin nichts ändern._"
@@ -317,12 +317,12 @@ variable_label.default.referendum = "whether or not to think that referendums do
 variable_label.default.election = "whether or not to think that elections don't change anything anyway was a reason for the respondent to abstain from voting"
 variable_label_common = "whether or not to think that referendums/elections don't change anything anyway was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Bedeutungslosigkeit der eigenen Stimme"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Bedeutungslosigkeit der eigenen Stimme"
 question = "_Ich bin der Meinung, dass es auf meine Stimme sowieso nicht ankommt._"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_insignificance"
 variable_label = "whether or not to think that your own vote doesn't matter anyway was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.001_both.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Vergessen teilzunehmen"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Vergessen teilzunehmen"
 question.default.referendum = "_Ich habe vergessen, an der Abstimmung teilzunehmen._"
 question.default.election = "_Ich habe vergessen teilzunehmen._"
 question_common = "_Ich habe vergessen teilzunehmen._"
@@ -333,19 +333,19 @@ variable_label_common = "whether or not the respondent forgot to take part in th
 [02_political_start.002_non_participation.002_referendum]
 ballot_types = [ "referendum" ]
 [[02_political_start.002_non_participation.002_referendum.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Ergebnis sowieso klar"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Ergebnis sowieso klar"
 question = "_Ich bin davon ausgegangen, dass das Abstimmungsergebnis sowieso klar gewesen ist._"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_outcome_clear"
 variable_label = "whether or not to think that the result of the vote was clear anyway was a reason for the respondent to abstain from voting"
 [02_political_start.002_non_participation.003_election]
 ballot_types = [ "election" ]
 [[02_political_start.002_non_participation.003_election.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Keine valablen KandidatInnen"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Keine valablen KandidatInnen"
 question = "_Keine Partei und kein Kandidat, keine Kandidatin überzeugten mich._"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_no_convincing_options"
 variable_label = "whether or not finding no party or candidate convincing enough was a reason for the respondent to abstain from voting"
 [[02_political_start.002_non_participation.003_election.item]]
-topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') }Nicht-Teilnahme: Bevorzugte Partei/KandidatIn chancenlos"
+topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Bevorzugte Partei/KandidatIn chancenlos"
 question = "_Meine bevorzugte Partei bzw. meine bevorzugte Kandidatin, mein bevorzugter Kandidat hatte keine Chance, gewählt zu werden._"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_no_chance"
 variable_label = "whether or not the favorite party or candidate not standing a chance was a reason for the respondent to abstain from voting"
@@ -1471,17 +1471,17 @@ variable_label = "respondent's trust in the [Swiss Radio and Television (SRF)](h
 include.default = false
 include.true = [ 2021-11-28 ]
 [[04_political_general.z01_trust.z01_corona.item]]
-topic = "Vertrauen in Wissenschaft (als Erkenntnisprinzipien und Methoden)"
-question = "_Wissenschaft (als Erkenntnisprinzipien und Methoden)_"
-variable_name = "trust_in_science"
-variable_label = "respondent's trust in scientific principles of knowledge and methods"
-include.default = true
-include.20180923_20201018 = false
+topic = "Vertrauen in wissenschaftliche Taskforce ([*Swiss National COVID-19 Science Task Force*](https://sciencetaskforce.ch/))"
+question = "_wissenschaftliche Taskforce ([*Swiss National COVID-19 Science Task Force*](https://sciencetaskforce.ch/))_"
+variable_name = "trust_in_scientific_task_force"
+variable_label = "respondent's trust in the [*Swiss National COVID-19 Science Task Force*](https://sciencetaskforce.ch/)"
+include.default = false
+include.true = [ 2021-11-28 ]
 [[04_political_general.z01_trust.z01_corona.item]]
-topic = "Vertrauen in Fachleute für ansteckbare Krankheiten (Epidemiologie, Virologie, wissenschaftliche Taskforce etc.)"
-question = "_Fachleute für ansteckbare Krankheiten (Epidemiologie, Virologie, wissenschaftliche Taskforce etc.)_"
+topic = "Vertrauen in Fachleute für ansteckbare Krankheiten (Epidemiologie, Virologie)"
+question = "_Fachleute für ansteckende Krankheiten (Epidemiologie, Virologie etc.)_"
 variable_name = "trust_in_infectious_disease_specialists"
-variable_label = "respondent's trust in specialists for infectious diseases (epidemiology, virology, scientific task force, etc.)"
+variable_label = "respondent's trust in specialists for infectious diseases (epidemiology, virology, etc.)"
 include.default = false
 include.true = [ 2021-11-28 ]
 [[04_political_general.z01_trust.z01_corona.item]]
@@ -1503,9 +1503,9 @@ topic = "COVID-19-Impfung andere"
 question = "Wünschen Sie sich, dass möglichst viele Ihrer Mitmenschen geimpft sind?"
 variable_name = "attitude_covid_vaccination_others"
 variable_label = "whether the respondent wants as many fellow human beings as possible to be vaccinated"
-response_options = [ "ja, absolut", "eher ja", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
-variable_values = [ 1, 2, 3, 4, 99 ]
-value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, absolutely not", "don't know" ]
+response_options = [ "ja, absolut", "eher ja", "ist mir egal", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 5, 99 ]
+value_labels = [ "yes, absolutely", "rather yes", "don't care", "rather no", "no, absolutely not", "don't know" ]
 value_scale = "ordinal_descending"
 [[04_2_covid_related.item]]
 # NOTE: a possible alternative question could be about "Vertrauen in die bislang zugelassenen Impfstoffe"
@@ -1513,9 +1513,9 @@ topic = "COVID-19-Impfung selbst"
 question = "Sind Sie selbst gegen COVID-19 geimpft?"
 variable_name = "vaccination_status_covid"
 variable_label = "respondent's COVID-19 vaccination status"
-response_options = [ "ja, ich bin doppelt geimpft", "ja, ich bin einmal geimpft", "nein, aber ich möchte mich impfen lassen", "nein, ich bin noch unschlüssig", "nein, ich möchte mich nicht impfen lassen" ]
-variable_values = [ 1, 2, 3, 4, 5 ]
-value_labels = [ "yes, I am vaccinated twice", "yes, I am vaccinated once", "no, but I would like to be vaccinated", "no, I am still undecided", "no, I do not want to be vaccinated"  ]
+response_options = [ "ja, ich bin doppelt geimpft", "ja, ich bin einmal geimpft", "nein, aber ich möchte mich impfen lassen", "nein, ich bin noch unschlüssig", "nein, ich möchte mich nicht impfen lassen", "keine Angabe" ]
+variable_values = [ 1, 2, 3, 4, 5, 80 ]
+value_labels = [ "yes, I am vaccinated twice", "yes, I am vaccinated once", "no, but I would like to be vaccinated", "no, I am still undecided", "no, I do not want to be vaccinated", "no answer"  ]
 value_scale = "ordinal_descending"
 [[04_2_covid_related.item]]
 topic = "Zufriedenheit mit COVID-19-Massnahmen"
@@ -1560,8 +1560,8 @@ variable_name = "attitude_term_of_office_federal_judges"
 variable_label = "respondent's preferred term of office for federal judges"
 response_options = [
   "Sechsjährige Amtsperiode, unbeschränkte Wiederwahl",
-  "Sechsjährige Amtsperiode, Wiederwahl bis max. 70 Jahre",
-  "Einmalige Amtsperiode bis zum 70. Altersjahr",
+  "Sechsjährige Amtsperiode, Wiederwahl bis max. 70. Altersjahr",
+  "Bis zum 70. Altersjahr beschränkte einmalige Amtsperiode",
   "Unbeschränkte Amtsdauer",
   "weiss nicht"
 ]
@@ -1613,7 +1613,6 @@ response_options = [ "1 (stärkere staatliche Kontrolle)", "2", "3", "4", "5 (me
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "1 (stronger state control)", "2", "3", "4", "5 (more corporate freedom)", "don't know" ]
 [[05_political_attitudes.item]]
-ballot_types = [ "election" ]
 topic = "Menschengemachter Klimawandel"
 question = "Glauben Sie an eine durch den Menschen verursachte globale Erwärmung (\"Klimawandel\")?"
 variable_name = "attitude_global_warming"
@@ -1622,8 +1621,8 @@ response_options = [ "ja, absolut", "eher ja", "eher nein", "nein, ausgeschlosse
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, impossible", "don't know" ]
 value_scale = "ordinal_descending"
-[[05_political_attitudes.item]]
 ballot_types = [ "election" ]
+[[05_political_attitudes.item]]
 topic = "Klimaneutrale Schweiz"
 question = "Sind Sie der Meinung, dass die Schweiz in absehbarer Zeit vollständig klimaneutral werden muss, also nicht mehr Treibhausgase (CO², Methan etc.) ausstossen darf, als sie gleichzeitig der Atmosphäre zu entziehen vermag?"
 variable_name = "attitude_climate_neutral_switzerland"
@@ -1632,8 +1631,8 @@ response_options = [ "ja, so schnell wie nur möglich", "ja, bis spätestens 203
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "yes, as soon as possible", "yes, by 2035 at the latest", "yes, by 2050 at the latest", "no", "don't know" ]
 value_scale = "ordinal_descending"
-[[05_political_attitudes.item]]
 ballot_types = [ "election" ]
+[[05_political_attitudes.item]]
 who = "Klimaneutrale"
 topic = "Politische Massnahmen für eine klimaneutrale Schweiz"
 question = "Sind Sie der Ansicht, dass die Schweiz einschneidende politische Massnahmen ergreifen muss, um dieses Ziel zu erreichen?"
@@ -1643,8 +1642,8 @@ response_options = [ "ja, absolut", "eher ja", "eher nein", "nein, auf keinen Fa
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, absolutely not", "don't know" ]
 value_scale = "ordinal_descending"
-[[05_political_attitudes.item]]
 ballot_types = [ "election" ]
+[[05_political_attitudes.item]]
 topic = "Rentenaltererhöhung"
 question = "Befürworten Sie eine Erhöhung des ordentlichen Rentenalters _für beide Geschlechter_ in naher Zukunft (bspw. auf 67 Jahre)?"
 variable_name = "attitude_retirement_age_increase"
@@ -1653,8 +1652,8 @@ response_options = [ "klar dafür", "eher dafür", "eher dagegen", "klar dagegen
 value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
-[[05_political_attitudes.item]]
 ballot_types = [ "election" ]
+[[05_political_attitudes.item]]
 topic = "Gleichgeschlechtliche Ehe"
 question = "Sind Sie für die Ehe von gleichgeschlechtlichen Paaren?"
 variable_name = "attitude_same_sex_marriage"
@@ -1663,6 +1662,7 @@ response_options = [ "klar dafür", "eher dafür", "eher dagegen", "klar dagegen
 value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
+ballot_types = [ "election" ]
 [[05_political_attitudes.item]]
 topic = "E-Voting für AuslandschweizerInnen"
 question.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern. <br><br>_Sind Sie für oder gegen die Wiedereinführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
@@ -1676,7 +1676,7 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
 value_scale = "ordinal_descending"
 who.default = "alle"
-who.20201018 = "Online-Respondenten"
+who.20201018_20211128 = "Online-Respondenten"
 include.default = true
 include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[05_political_attitudes.item]]
@@ -1692,7 +1692,7 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
 value_scale = "ordinal_descending"
 who.default = "alle"
-who.20201018 = "Online-Respondenten"
+who.20201018_20211128 = "Online-Respondenten"
 include.default = true
 include.false = [ 2018-09-23, 2020-09-27 ]
 

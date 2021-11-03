@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9012</span>
       </span>
     </div>
 
@@ -189,13 +189,14 @@
 <code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_elections</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,
-                              lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,
-                              canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span> <span class='op'>%$%</span>
-  <span class='va'>skill_questions_source</span>
-</div><div class='output co'>#&gt; $url
-#&gt; [1] "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_elections</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
+<span class='r-in'>                              lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                              canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/exposition.html'>%$%</a></span></span>
+<span class='r-in'>  <span class='va'>skill_questions_source</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $url</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -21,6 +21,12 @@ ballot_title(ballot_date, canton, lang = c("de", "en"))
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{lang}{Language. One of
+\itemize{
+\item \code{"de"}
+\item \code{"en"}
+}}
 }
 \value{
 A character scalar.

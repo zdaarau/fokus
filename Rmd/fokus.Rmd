@@ -3290,7 +3290,7 @@ skill_question_answer_nr <- function(ballot_date = ballot_dates,
 #'
 #' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date in German prose.
 #'
-#' @inheritParams n_elections
+#' @inheritParams proposal_name
 #'
 #' @return A character scalar.
 #' @export

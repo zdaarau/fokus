@@ -27,119 +27,6 @@ short.gender = "feminine"
 [federal.proposal.1.url]
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20211128/pflegeinitiative.html"
 proponents = "https://www.pflegeinitiative.ch/"
-# [[federal.proposal.1.main_motive.yes]]
-# de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
-# en = "to follow a specific voting recommendation"
-# code = 1
-# [[federal.proposal.1.main_motive.yes]]
-# de = "TODO"
-# en = "TODO"
-# code = 2
-# [[federal.proposal.1.main_motive.yes]]
-# de = "TODO"
-# en = "TODO"
-# code = 3
-# [[federal.proposal.1.main_motive.yes]]
-# de = "TODO"
-# en = "TODO"
-# code = 4
-# [[federal.proposal.1.main_motive.yes]]
-# de = "TODO"
-# en = "TODO"
-# code = 5
-# [[federal.proposal.1.main_motive.no]]
-# de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
-# en = "to follow a specific voting recommendation"
-# code = 1
-# [[federal.proposal.1.main_motive.no]]
-# de = "TODO"
-# en = "TODO"
-# code = 2
-# [[federal.proposal.1.main_motive.no]]
-# de = "TODO"
-# en = "TODO"
-# code = 3
-# [[federal.proposal.1.main_motive.no]]
-# de = "TODO"
-# en = "TODO"
-# code = 4
-# [[federal.proposal.1.main_motive.no]]
-# de = "TODO"
-# en = "TODO"
-# code = 5
-# [[federal.proposal.1.main_motive.no]]
-# de = "TODO"
-# en = "TODO"
-# code = 6
-# [[federal.proposal.1.argument]]
-# de.long = "TODO"
-# de.short = "TODO"
-# en.long = "TODO"
-# side = "pro"
-# nr = 1
-# [[federal.proposal.1.argument]]
-# de.long = "TODO"
-# de.short = "TODO"
-# en.long = "TODO"
-# side = "contra"
-# nr = 1
-# [[federal.proposal.1.argument]]
-# de.long = "TODO"
-# de.short = "TODO"
-# en.long = "TODO"
-# side = "pro"
-# nr = 2
-# [[federal.proposal.1.argument]]
-# de.long = "TODO"
-# de.short = "TODO"
-# en.long = "TODO"
-# side = "contra"
-# nr = 2
-# [[federal.proposal.1.skill_question]]
-# de = "TODO"
-# en = "TODO"
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question]]
-# de = "TODO"
-# en = "TODO"
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question]]
-# de = "TODO"
-# en = "TODO"
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
-# [[federal.proposal.1.skill_question.response_option]]
-# de = "TODO"
-# en = "TODO"
-# is_correct = false # TODO: recheck!
 [federal.proposal.2]
 type = "citizens' initiative"
 [federal.proposal.2.name.de]
@@ -275,7 +162,7 @@ de = "…die KandidatInnen alle dieselbe Chance haben, gewählt zu werden."
 en = "TODO"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "…sich die AmtinhaberInnen alle sechs Jahre der Wiederwahl stellen müssen."
+de = "…sich die AmtsinhaberInnen alle sechs Jahre der Wiederwahl stellen müssen."
 en = "TODO"
 is_correct = true
 [federal.proposal.3]
@@ -395,7 +282,7 @@ de = "Sie treten am 1. Januar 2022 in Kraft."
 en = "TODO"
 is_correct = false
 [[federal.proposal.3.skill_question]]
-de = "Was wird durch ein gültiges Schweizer Covid-Zertifikat nachgewiesen? Dass die entsprechende Person…"
+de = "Was umfasst der Nachweis eines gültigen Schweizer Covid-Zertifikates genau? Dass die entsprechende Person…"
 en = "TODO"
 [[federal.proposal.3.skill_question.response_option]]
 de = "…gegen COVID-19 geimpft ist."

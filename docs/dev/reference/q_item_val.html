@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9012</span>
       </span>
     </div>
 
@@ -222,28 +222,30 @@ specified variable name and branch path.</p>
 <code><a href='q_response_options.html'>q_response_options</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_item_val</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
-                   canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-                   branch_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"03_proposal_specific"</span>, <span class='st'>"004_participants"</span><span class='op'>)</span>,
-                   v_name <span class='op'>=</span> <span class='st'>"appeal_federal_proposals"</span>,
-                   key <span class='op'>=</span> <span class='st'>"include"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_item_val</span><span class='op'>(</span>
-  ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,
-  canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-  branch_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"02_political_start"</span>, <span class='st'>"002_non_participation"</span>,
-                  <span class='st'>"003_election"</span>, <span class='st'>"z01_hypothetical"</span><span class='op'>)</span>,
-  v_name <span class='op'>=</span> <span class='st'>"hypothetical_voting_decision_federal_majoritarian_election_{i}_seat_{j}"</span>,
-  key <span class='op'>=</span> <span class='st'>"topic"</span>,
-  i <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
-  j <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Hypothetischer Stimmentscheid Sitz 1 eidgenössische Mehrheitswahl 1"
-#&gt; [2] "Hypothetischer Stimmentscheid Sitz 2 eidgenössische Mehrheitswahl 1"
-#&gt; [3] "Hypothetischer Stimmentscheid Sitz 3 eidgenössische Mehrheitswahl 1"
-#&gt; [4] "Hypothetischer Stimmentscheid Sitz 1 eidgenössische Mehrheitswahl 2"
-#&gt; [5] "Hypothetischer Stimmentscheid Sitz 2 eidgenössische Mehrheitswahl 2"
-#&gt; [6] "Hypothetischer Stimmentscheid Sitz 3 eidgenössische Mehrheitswahl 2"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_item_val</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                   canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                   branch_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"03_proposal_specific"</span>, <span class='st'>"004_participants"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                   v_name <span class='op'>=</span> <span class='st'>"appeal_federal_proposals"</span>,</span>
+<span class='r-in'>                   key <span class='op'>=</span> <span class='st'>"include"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_item_val</span><span class='op'>(</span></span>
+<span class='r-in'>  ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
+<span class='r-in'>  canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>  branch_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"02_political_start"</span>, <span class='st'>"002_non_participation"</span>,</span>
+<span class='r-in'>                  <span class='st'>"003_election"</span>, <span class='st'>"z01_hypothetical"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  v_name <span class='op'>=</span> <span class='st'>"hypothetical_voting_decision_federal_majoritarian_election_{i}_seat_{j}"</span>,</span>
+<span class='r-in'>  key <span class='op'>=</span> <span class='st'>"topic"</span>,</span>
+<span class='r-in'>  i <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,</span>
+<span class='r-in'>  j <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Hypothetischer Stimmentscheid Sitz 1 eidgenössische Mehrheitswahl 1"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "Hypothetischer Stimmentscheid Sitz 2 eidgenössische Mehrheitswahl 1"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "Hypothetischer Stimmentscheid Sitz 3 eidgenössische Mehrheitswahl 1"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4] "Hypothetischer Stimmentscheid Sitz 1 eidgenössische Mehrheitswahl 2"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "Hypothetischer Stimmentscheid Sitz 2 eidgenössische Mehrheitswahl 2"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [6] "Hypothetischer Stimmentscheid Sitz 3 eidgenössische Mehrheitswahl 2"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

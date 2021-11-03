@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9012</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <h1 data-toc-skip>FOKUS questionnaire schema</h1>
             <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-10-26</h4>
+            <h4 data-toc-skip class="date">2021-11-03</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -338,7 +338,7 @@
 <tr class="even">
 <td align="left"><code>ballot_types</code></td>
 <td align="left">character vector</td>
-<td align="left"><code><a href="https://rdrr.io/r/base/c.html" class="external-link">c("referendum", "election")</a></code></td>
+<td align="left"><code>c("referendum", "election")</code></td>
 <td align="left">❌</td>
 <td align="left">❌</td>
 <td align="left">✅</td>
@@ -376,7 +376,7 @@
 <li>
 <p>To vary <em>non-binary keys</em> like <code>topic</code>, <code>question</code> etc. wordings at different ballot dates directly without relying on embedded R code, you can define</p>
 <ul>
-<li>single-date subkeys named <code>YYYYMMDD</code> (the respective ballot date without any <code><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">-</a></code>) applying to a single ballot date,</li>
+<li>single-date subkeys named <code>YYYYMMDD</code> (the respective ballot date without any <code>-</code>) applying to a single ballot date,</li>
 <li>begin-end interval subkeys named <code>YYYYMMDD_YYYYMMDD</code> applying to all ballot dates that fall into the specified interval, or</li>
 <li>
 <code>default</code> (applying to any ballot dates for which no specific subkey exists).</li>

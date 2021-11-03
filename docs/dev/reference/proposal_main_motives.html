@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9012</span>
       </span>
     </div>
 
@@ -196,21 +196,22 @@
 <code><a href='proposal_type.html'>proposal_type</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>proposal_main_motives</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
-                             lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,
-                             canton <span class='op'>=</span> <span class='st'>"aargau"</span>,
-                             proposal_nr <span class='op'>=</span> <span class='fl'>1</span>,
-                             type <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 3</span>
-#&gt;    code de                                             en                       
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    
-#&gt; <span style='color: #BCBCBC;'>1</span>     1 einer bestimmten Abstimmungsempfehlung folgen  to follow a specific vot…
-#&gt; <span style='color: #BCBCBC;'>2</span>     2 kein Risiko eingehen                           to avoid any risks       
-#&gt; <span style='color: #BCBCBC;'>3</span>     3 dafür sorgen, dass alles so bleibt, wie es ist to keep things the way t…
-#&gt; <span style='color: #BCBCBC;'>4</span>     4 gute Steuerzahler nicht vertreiben             not to scare away good t…
-#&gt; <span style='color: #BCBCBC;'>5</span>     5 den Wohlstand des Aargaus sichern              to secure the prosperity…
-#&gt; <span style='color: #BCBCBC;'>6</span>     6 die Steuerattraktivität des Aargaus erhalten   to maintain the tax attr…
-#&gt; <span style='color: #BCBCBC;'>7</span>     7 nicht einer JUSO-Initiative zustimmen          didn't want to support a…</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>proposal_main_motives</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                             lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                             canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                             proposal_nr <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>                             type <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 7 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    code de                                             en                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1 einer bestimmten Abstimmungsempfehlung folgen  to follow a specific vot…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     2 kein Risiko eingehen                           to avoid any risks       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     3 dafür sorgen, dass alles so bleibt, wie es ist to keep things the way t…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     4 gute Steuerzahler nicht vertreiben             not to scare away good t…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     5 den Wohlstand des Aargaus sichern              to secure the prosperity…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     6 die Steuerattraktivität des Aargaus erhalten   to maintain the tax attr…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span>     7 nicht einer JUSO-Initiative zustimmen          didn't want to support a…</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
