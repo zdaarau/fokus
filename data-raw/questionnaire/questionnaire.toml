@@ -1561,7 +1561,7 @@ variable_label = "respondent's preferred term of office for federal judges"
 response_options = [
   "Sechsjährige Amtsperiode, unbeschränkte Wiederwahl",
   "Sechsjährige Amtsperiode, Wiederwahl bis max. 70. Altersjahr",
-  "Bis zum 70. Altersjahr beschränkte einmalige Amtsperiode",
+  "Bis zum 70. Altersjahr beschränkte einmalige Amtsdauer",
   "Unbeschränkte Amtsdauer",
   "weiss nicht"
 ]
