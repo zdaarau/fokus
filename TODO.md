@@ -1,5 +1,7 @@
 # TODOs
 
+-   Rename all occurences of `publitest` to `polling_agency`
+
 ## Other
 
 -   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:

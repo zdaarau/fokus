@@ -297,7 +297,7 @@ fokus_private_structure <-
                                                                  "spss/",
                                                                  "stata/"),
                                               "public/",
-                                              "publitest/"),
+                                              "polling_agency/"),
                                "images/" = list("[BALLOT_DATE]/" = list("[CANTON]/" = list("...")),
                                                 "qr_codes/" = list("[BALLOT_DATE]_[CANTON].zip")),
                                "questionnaires/" = list("questionnaire_[BALLOT_DATE]_[CANTON].csv",

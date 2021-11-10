@@ -3951,7 +3951,7 @@ deploy_q <- function(ballot_date = "2021-11-28",
                           clean_to_path = FALSE)
   cli::cli_progress_done()
   
-  # upload files to Google Drive for publitest
+  # upload files to Google Drive for polling agency
   upload_to_g_drive(filepaths = c(md_path,
                                   csv_path,
                                   html_path,

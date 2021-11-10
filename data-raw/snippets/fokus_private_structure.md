@@ -1,4 +1,4 @@
-``` {.fs}
+``` fs
 fokus_private/
 ├──bibliography/
 |  ├──zotero_c2d.bib
@@ -66,7 +66,7 @@ fokus_private/
 |  |  |  ├──spss/
 |  |  |  └──stata/
 |  |  ├──public/
-|  |  └──publitest/
+|  |  └──polling_agency/
 |  ├──images/
 |  |  ├──[BALLOT_DATE]/
 |  |  |  └──[CANTON]/

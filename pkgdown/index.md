@@ -90,7 +90,7 @@ fokus_private/
 |  |  |  ├──spss/
 |  |  |  └──stata/
 |  |  ├──public/
-|  |  └──publitest/
+|  |  └──polling_agency/
 |  ├──images/
 |  |  ├──[BALLOT_DATE]/
 |  |  |  └──[CANTON]/
@@ -218,6 +218,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   list                               ls
   logical                            lgl
   logicals                           lgls
+  management                         mgmt
   Markdown                           md
   message                            msg
   messages                           msgs
