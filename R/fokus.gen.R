@@ -12,16 +12,11 @@
 # 
 # You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-.onUnload <- function(libpath) {
-  
-  pkgpins::deregister(pkg = this_pkg)
-}
-
 .onLoad <- function(libname, pkgname) {
   
-  pkgpins::clear(pkg = pkgname,
-                 max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
-                                     default = global_cache_lifespan))
+  pkgpins::clear_cache(board = pkgpins::board(pkg = pkgname),
+                       max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
+                                           default = global_cache_lifespan))
 }
 
 utils::globalVariables(names = c(".",

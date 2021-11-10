@@ -8,16 +8,11 @@ editor_options:
 ## Package load/unload
 
 ```{r}
-.onUnload <- function(libpath) {
-  
-  pkgpins::deregister(pkg = this_pkg)
-}
-
 .onLoad <- function(libname, pkgname) {
   
-  pkgpins::clear(pkg = pkgname,
-                 max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
-                                     default = global_cache_lifespan))
+  pkgpins::clear_cache(board = pkgpins::board(pkg = pkgname),
+                       max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
+                                           default = global_cache_lifespan))
 }
 ```
 
