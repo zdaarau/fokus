@@ -7,7 +7,7 @@
     <loc>https://rpkg.dev/fokus/reference/abbreviations.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/auth_g_drive.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/auth_g_drive_gcp.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/ballot_dates.html</loc>
@@ -40,10 +40,19 @@
     <loc>https://rpkg.dev/fokus/reference/election_tickets.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/fokus-package.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/expand_q_tibble.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/gen_q.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/export_print_recipients.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/export_q.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/export_qr_codes.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/fokus-package.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/gen_q_md.html</loc>
@@ -61,7 +70,7 @@
     <loc>https://rpkg.dev/fokus/reference/has_referendum.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/is_skill_question.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/is_skill_question_v.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/lgl_to_unicode.html</loc>
@@ -212,6 +221,12 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/v_lvls.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/v_proposal_nr.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/v_skill_question_nr.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/articles/raw_q_schema.html</loc>

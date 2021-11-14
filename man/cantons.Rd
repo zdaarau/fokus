@@ -3,7 +3,7 @@
 \docType{data}
 \name{cantons}
 \alias{cantons}
-\title{List cantons that are covered in \emph{any} FOKUS survey}
+\title{Cantons covered in \emph{any} FOKUS survey}
 \format{
 A character vector.
 }

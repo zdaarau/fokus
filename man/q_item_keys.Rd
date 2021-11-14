@@ -3,7 +3,7 @@
 \docType{data}
 \name{q_item_keys}
 \alias{q_item_keys}
-\title{List supported questionnaire item keys}
+\title{Questionnaire item keys}
 \format{
 A \link[tibble:tbl_df-class]{tibble}.
 }

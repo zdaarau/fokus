@@ -3,7 +3,7 @@
 \docType{data}
 \name{response_option_types}
 \alias{response_option_types}
-\title{List available response option types}
+\title{Response option types}
 \format{
 A character vector.
 }

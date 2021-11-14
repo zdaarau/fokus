@@ -2,6 +2,11 @@
 
 -   Rename all occurences of `publitest` to `polling_agency`
 
+-   Rename `id_statistik_aargau` to `id_statistical_office`
+
+-   Remove `github::jeroen/rsvg#27` remote from DESCRIPTION as soon as [PR #27](https://github.com/jeroen/rsvg/pull/27) is nerged and new rsvg version is
+    released.
+
 ## Other
 
 -   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
@@ -10,7 +15,7 @@
 
         -   reading in publitest data: `info_src_reader_letters_comments` -> `info_src_letters_comments`
 
-        -   `political_interest` -> split up into `political_interest_cantonal` and `political_interest_federal`
+        -   `political_interest` -> rename to `political_interest_cantonal` \@ \[ 2018-09-23, 2018-11-25, 2020-09-27 \]
 
         -   `sighting_political_ads` -> `sighting_political_ads_cantonal_proposals`
 
@@ -39,3 +44,4 @@
     etc.)
 
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
+

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9014</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@
 <tbody>
 <tr class="odd">
 <td align="left"><code>fokus.path_private</code></td>
-<td align="left">path to the working directory (the local instance of the <a href="https://gitlab.com/zdaarau/private/fokus_private" class="external-link"><code>fokus_private</code> repository</a>); initialized automatically for user=salim, otherwise defaults to the current working directory</td>
+<td align="left">path to the working directory (the local instance of the <a href="https://gitlab.com/zdaarau/private/fokus_private" class="external-link"><code>fokus_private</code> repository</a>); defaults to the current working directory</td>
 <td align="left">✅</td>
 </tr>
 <tr class="even">
@@ -183,27 +183,29 @@
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>|  |  |  ├──spss/</span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>|  |  |  └──stata/</span>
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>|  |  ├──public/</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>|  |  └──publitest/</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>|  ├──images/</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>|  |  ├──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>/</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>|  |  |  └──<span class="op">[</span>CANTON<span class="op">]</span>/</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>|  |  |     └──...</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>|  |  └──qr_codes/</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>|  |     └──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.zip</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>|  ├──questionnaires/</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>|  |  ├──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.csv</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>|  |  ├──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.html</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>|  |  ├──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.md</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>|  |  └──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.xlsx</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>|  ├──publications/</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>|  |  ├──libs/</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>|  |  └──...</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>|  └──rmd/</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>|     └──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>/</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>|        └──<span class="op">[</span>CANTON<span class="op">]</span>/</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>|           └──plots/</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>├──README<span class="kw">.</span>Rmd</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>└──...</span></code></pre></div>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>|  |  └──polling_agency/</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>|  |     └──<span class="op">[</span>CANTON<span class="op">]</span>/</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>|  |        └──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_print_recipients.csv</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>|  ├──images/</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>|  |  ├──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>/</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>|  |  |  └──<span class="op">[</span>CANTON<span class="op">]</span>/</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>|  |  |     └──...</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>|  |  └──qr_codes/</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>|  |     └──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.zip</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>|  ├──questionnaires/</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>|  |  ├──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.csv</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>|  |  ├──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.html</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>|  |  ├──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.md</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>|  |  └──questionnaire_<span class="op">[</span>BALLOT_DATE<span class="op">]</span>_<span class="op">[</span>CANTON<span class="op">]</span>.xlsx</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>|  ├──publications/</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>|  |  ├──libs/</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>|  |  └──...</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>|  └──rmd/</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>|     └──<span class="op">[</span>BALLOT_DATE<span class="op">]</span>/</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>|        └──<span class="op">[</span>CANTON<span class="op">]</span>/</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>|           └──plots/</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>├──README<span class="kw">.</span>Rmd</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>└──...</span></code></pre></div>
 <p>The following placeholders are used in the schema above:</p>
 <ul>
 <li>
@@ -568,166 +570,170 @@
 <td align="left">lgls</td>
 </tr>
 <tr class="even">
+<td align="left">management</td>
+<td align="left">mgmt</td>
+</tr>
+<tr class="odd">
 <td align="left">Markdown</td>
 <td align="left">md</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">message</td>
 <td align="left">msg</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">messages</td>
 <td align="left">msgs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">modify , modification</td>
 <td align="left">mod</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">modifications</td>
 <td align="left">mods</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">number</td>
 <td align="left">nr</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">numbers</td>
 <td align="left">nrs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">number of</td>
 <td align="left">n</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">numeric</td>
 <td align="left">num</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">numerics</td>
 <td align="left">nums</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">object</td>
 <td align="left">obj</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">objects</td>
 <td align="left">objs</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">option</td>
 <td align="left">opt</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">options</td>
 <td align="left">opts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">package</td>
 <td align="left">pkg</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">packages</td>
 <td align="left">pkgs</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">parameterize, parameter</td>
 <td align="left">param</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">parameters</td>
 <td align="left">params</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">R Markdown</td>
 <td align="left">rmd</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">refer , reference</td>
 <td align="left">ref</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">references</td>
 <td align="left">refs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">regular expression(s)</td>
 <td align="left">regex</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">relative</td>
 <td align="left">rel</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">remove</td>
 <td align="left">rm</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">roxygen2</td>
 <td align="left">roxy</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">separate , separator</td>
 <td align="left">sep</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">separators</td>
 <td align="left">seps</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">sequential, sequence</td>
 <td align="left">seq</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">sequences</td>
 <td align="left">seqs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">specify , specification</td>
 <td align="left">spec</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">specifications</td>
 <td align="left">specs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">string</td>
 <td align="left">str</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">strings</td>
 <td align="left">strs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">temporary</td>
 <td align="left">tmp</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">value</td>
 <td align="left">val</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">values</td>
 <td align="left">vals</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">variable</td>
 <td align="left">v</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">variables</td>
 <td align="left">vx</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">vectorize, vector</td>
 <td align="left">vctr</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">vectors</td>
 <td align="left">vctrs</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">working directory</td>
 <td align="left">wd</td>
 </tr>

@@ -65,10 +65,19 @@ reference:
 - contents:
   - ballot_title
   - political_issues
+- title: Questionnaire and survey
+  desc: Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-data\]
+    and other functions to conduct a survey.
+- contents:
+  - export_q
+  - export_qr_codes
+  - export_print_recipients
 - title: Variable-related
 - contents:
-  - is_skill_question
+  - is_skill_question_v
   - v_lvls
+  - v_proposal_nr
+  - v_skill_question_nr
 - subtitle: Variable name shortening
 - contents:
   - shorten_v_names

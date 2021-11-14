@@ -67,6 +67,8 @@ fokus_private/
 |  |  |  └──stata/
 |  |  ├──public/
 |  |  └──polling_agency/
+|  |     └──[CANTON]/
+|  |        └──[BALLOT_DATE]_print_recipients.csv
 |  ├──images/
 |  |  ├──[BALLOT_DATE]/
 |  |  |  └──[CANTON]/

@@ -3,7 +3,7 @@
 \docType{data}
 \name{ballot_dates}
 \alias{ballot_dates}
-\title{List FOKUS-covered ballot dates}
+\title{FOKUS-covered ballot dates}
 \format{
 A vector of \link[base:Dates]{dates}.
 }

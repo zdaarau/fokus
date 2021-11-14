@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9014</span>
       </span>
     </div>
 
@@ -151,13 +151,13 @@
         <td>
           <p><code><a href="ballot_dates.html">ballot_dates</a></code> </p>
         </td>
-        <td><p>List FOKUS-covered ballot dates</p></td>
+        <td><p>FOKUS-covered ballot dates</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="cantons.html">cantons</a></code> </p>
         </td>
-        <td><p>List cantons that are covered in <em>any</em> FOKUS survey</p></td>
+        <td><p>Cantons covered in <em>any</em> FOKUS survey</p></td>
       </tr><tr>
         
         <td>
@@ -169,13 +169,13 @@
         <td>
           <p><code><a href="response_option_types.html">response_option_types</a></code> </p>
         </td>
-        <td><p>List available response option types</p></td>
+        <td><p>Response option types</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="q_item_keys.html">q_item_keys</a></code> </p>
         </td>
-        <td><p>List supported questionnaire item keys</p></td>
+        <td><p>Questionnaire item keys</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -422,6 +422,37 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-questionnaire-and-survey" class="hasAnchor"><a href="#section-questionnaire-and-survey" class="anchor"></a>Questionnaire and survey</h2>
+          <p class="section-desc"><p>Functions to process the [raw FOKUS questionnaire data][#raw-questionnaire-data] and other functions to conduct a survey.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="export_q.html">export_q()</a></code> </p>
+        </td>
+        <td><p>Export questionnaire data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="export_qr_codes.html">export_qr_codes()</a></code> </p>
+        </td>
+        <td><p>Export QR codes with personalized survey URL</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="export_print_recipients.html">export_print_recipients()</a></code> </p>
+        </td>
+        <td><p>Export print recipients data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-variable-related" class="hasAnchor"><a href="#section-variable-related" class="anchor"></a>Variable-related</h2>
           <p class="section-desc"></p>
         </th>
@@ -434,7 +465,7 @@
       <tr>
         
         <td>
-          <p><code><a href="is_skill_question.html">is_skill_question()</a></code> </p>
+          <p><code><a href="is_skill_question_v.html">is_skill_question_v()</a></code> </p>
         </td>
         <td><p>Determine whether variable is skill question</p></td>
       </tr><tr>
@@ -443,6 +474,18 @@
           <p><code><a href="v_lvls.html">v_lvls()</a></code> </p>
         </td>
         <td><p>Determine variable's political level(s)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="v_proposal_nr.html">v_proposal_nr()</a></code> </p>
+        </td>
+        <td><p>Determine variable's proposal number</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="v_skill_question_nr.html">v_skill_question_nr()</a></code> </p>
+        </td>
+        <td><p>Determine variable's skill question number</p></td>
       </tr>
     </tbody><tbody>
       
