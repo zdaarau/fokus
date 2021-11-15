@@ -1153,6 +1153,10 @@ init_heritable_map <- function(block) {
                     topic = NULL,
                     who = NULL,
                     question = NULL,
+                    question_full = NULL,
+                    question_intro_lvl = NULL,
+                    question_intro_i = NULL,
+                    question_intro_j = NULL,
                     question_common = NULL,
                     multiple_answers_allowed = FALSE,
                     variable_label = NULL,
@@ -1162,6 +1166,7 @@ init_heritable_map <- function(block) {
                     value_labels = NULL,
                     value_scale = "nominal",
                     randomize_response_options = FALSE,
+                    is_mandatory = FALSE,
                     ballot_types = c("referendum", "election"),
                     include = TRUE)
 }
@@ -1398,28 +1403,51 @@ gen_q_md <- function(q_tibble,
                   any()) %>%
     # assemble who lines
     purrr::map_depth(.depth = 1L,
-                     .f = ~ {
+                     .f = function(who_map) {
                        
-                       i <-
-                         .x[["i"]] %>%
-                         glue::glue(.trim = FALSE) %>%
-                         as.integer()
+                       i <- resolve_q_val(x = who_map$i %||% 1L,
+                                          ballot_date = ballot_date,
+                                          canton = canton,
+                                          key = "i",
+                                          lvl = "",
+                                          i = NA_character_,
+                                          j = NA_character_)
                        
-                       j <-
-                         .x[["j"]] %>%
-                         glue::glue(.trim = FALSE) %>%
-                         as.integer()
-                       
+                       j <- resolve_q_val(x = who_map$j %||% 1L,
+                                          ballot_date = ballot_date,
+                                          canton = canton,
+                                          key = "j",
+                                          lvl = "",
+                                          i = NA_character_,
+                                          j = NA_character_)
                        value <-
-                         .x$value$de %>%
-                         glue::glue(.null = NA_character_,
-                                    .trim = FALSE) %>%
-                         md_emphasize()
+                         i %>%
+                         purrr::map(function(i) {
+                           j %>%
+                             purrr::map_chr(i = i,
+                                            .f = function(i, j) {
+                                              
+                                              who_map$value$de %>%
+                                                glue::glue(.null = NA_character_,
+                                                           .trim = FALSE) %>%
+                                                md_emphasize()
+                                            })
+                         }) %>%
+                         purrr::flatten_chr()
                        
                        description <-
-                         .x$description$de %>%
-                         glue::glue(.null = NA_character_,
-                                    .trim = FALSE)
+                         i %>%
+                         purrr::map(function(i) {
+                           j %>%
+                             purrr::map_chr(i = i,
+                                            .f = function(i, j) {
+                                              
+                                              who_map$description$de %>%
+                                                glue::glue(.null = NA_character_,
+                                                           .trim = FALSE)
+                                            })
+                         }) %>%
+                         purrr::flatten_chr()
                        
                        glue::glue("- {value}: {description}")
                      }) %>%
@@ -1440,7 +1468,9 @@ gen_q_md <- function(q_tibble,
     # reduce to footnotes that actually occur in table body
     purrr::keep(~ any(stringr::str_detect(block_lines, glue::glue("\\[\\^{.x$id}\\]",
                                                                   .null = NA_character_)))) %>%
-    purrr::map(~ c(glue::glue("[^{.x$id}]: {.x$text}",
+    purrr::map(~ c(glue::glue("[^{.x$id}]: ", glue::glue(.x$text,
+                                                         .null = NA_character_,
+                                                         .trim = FALSE),
                               .null = NA_character_,
                               .trim = FALSE),
                    "")) %>%
@@ -1479,7 +1509,8 @@ q_md_table_header <- function() {
     "Antwortoptionen",                             5L,     "left",
     "Variablenauspr\u00e4gungen",                  5L,     "left",
     "Auspr\u00e4gungslabels",                      5L,     "left",
-    "Antwortoptionen in Zufallsreihenfolge",       3L,     "left"
+    "Antwortoptionen in Zufallsreihenfolge",       3L,     "left",
+    "Antwort obligatorisch",                       3L,     "left"
   ) %>%
     dplyr::mutate(separator =
                     purrr::map2_chr(.x = width,
@@ -1517,6 +1548,9 @@ q_md_table_body <- function(q_tibble_block,
                              topic,
                              who,
                              question,
+                             question_intro_lvl,
+                             question_intro_i,
+                             question_intro_j,
                              multiple_answers_allowed,
                              variable_name,
                              variable_label,
@@ -1524,13 +1558,16 @@ q_md_table_body <- function(q_tibble_block,
                              variable_values,
                              value_labels,
                              randomize_response_options,
+                             is_mandatory,
                              ...) {
       paste(enumerator,
             tidyr::replace_na(topic,
                               "-"),
             who,
-            tidyr::replace_na(question,
-                              "-"),
+            question %>% purrr::when(is.na(.) ~ "-",
+                                     ~ c(question_intro_lvl, question_intro_i, question_intro_j, .) %>%
+                                       magrittr::extract(!is.na(.)) %>%
+                                       pal::as_string(sep = " ")),
             multiple_answers_allowed,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
@@ -1562,6 +1599,7 @@ q_md_table_body <- function(q_tibble_block,
             format_md_multival_col(variable_values),
             format_md_multival_col(value_labels),
             randomize_response_options,
+            is_mandatory,
             sep = " | ")
     })
 }
@@ -1680,28 +1718,26 @@ q_item_val <- function(ballot_date = ballot_dates,
   
   lvl %>%
     purrr::map(function(lvl) {
-      
-      purrr::map(.x = i,
-                 lvl = lvl,
-                 .f = function(i,
-                               lvl) {
-                   
-                   purrr::map(.x = j,
-                              i = i,
-                              lvl = lvl,
-                              .f = function(j,
-                                            i,
-                                            lvl) {
-                                
-                                resolve_q_val(x = raw_val,
-                                              ballot_date = ballot_date,
-                                              canton = canton,
-                                              key = key,
-                                              lvl = lvl,
-                                              i = i,
-                                              j = j)
-                              })
-                 })
+      i %>%
+        purrr::map(lvl = lvl,
+                   .f = function(i,
+                                 lvl) {
+                     j %>%
+                       purrr::map(i = i,
+                                  lvl = lvl,
+                                  .f = function(j,
+                                                i,
+                                                lvl) {
+                                    
+                                    resolve_q_val(x = raw_val,
+                                                  ballot_date = ballot_date,
+                                                  canton = canton,
+                                                  key = key,
+                                                  lvl = lvl,
+                                                  i = i,
+                                                  j = j)
+                                  })
+                   })
     }) %>%
     unlist()
 }
@@ -1792,8 +1828,8 @@ q_response_option_codes <- function(types = response_option_types) {
   types %>% purrr::map_int(~ raw_q %>% purrr::chuck("response_options", .x, "code"))
 }
 
-online_participation_codes <- function(ballot_date = ballot_dates,
-                                       canton = cantons) {
+read_online_participation_codes <- function(ballot_date = ballot_dates,
+                                            canton = cantons) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
@@ -1809,8 +1845,8 @@ online_participation_codes <- function(ballot_date = ballot_dates,
                     skip_empty_rows = TRUE)
 }
 
-voting_register_data_extra <- function(ballot_date = ballot_dates,
-                                       canton = cantons) {
+read_voting_register_data_extra <- function(ballot_date = ballot_dates,
+                                            canton = cantons) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
@@ -1911,6 +1947,21 @@ voting_register_data_extra <- function(ballot_date = ballot_dates,
   # }
   
   data
+}
+
+read_voting_register_ids <- function(ballot_date = ballot_dates,
+                                     canton = cantons) {
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
+  canton <- rlang::arg_match(canton)
+  
+  path_private(glue::glue("data/{canton}/voting_register_ids_{ballot_date}.csv")) %>%
+    readr::read_csv(col_types = "i") %>%
+    # integrity check
+    purrr::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug."),
+                ~ .) %>%
+    dplyr::first()
 }
 
 #' Authorize googledrive using GCP Service Account Key
@@ -3087,8 +3138,8 @@ political_issues <- function(ballot_date = ballot_dates,
 #' @param incl_xlsx Whether or not to also generate and export an XLSX version of the questionnaire.
 #' @param deploy Whether or not to deploy the generated files as a static site to the Git repository specified under `local_deploy_path`.
 #' @param local_deploy_path Local filesystem path to the Git repository of the static site to deploy the generated files files to. Ignored if `deploy = FALSE`.
-#' @param upload_to_g_drive Whether or not to upload the generated files files to the Google Drive folder `g_drive_folder`.
-#' @param g_drive_folder Google Drive folder to deploy the questionnaire files to. Ignored if `upload_to_g_drive = FALSE`.
+#' @param upload_to_g_drive Whether or not to upload the generated files to the Google Drive folder `g_drive_folder`.
+#' @param g_drive_folder Google Drive folder to deploy the generated files to. Ignored if `upload_to_g_drive = FALSE`.
 #'
 #' @family q_gen
 #' @export
@@ -3237,7 +3288,7 @@ export_q <- function(ballot_date = ballot_dates,
 #' Exports a ZIP file that contains a [QR code](https://en.wikipedia.org/wiki/QR_code) in SVG and in EPS format for each survey participant storing the
 #' personalized survey URL to the [private FOKUS directory][print_fokus_private_structure].
 #'
-#' @inheritParams ballot_types
+#' @inheritParams export_q
 #'
 #' @return A [tibble][tibble::tbl_df] containing metadata about the contents of the created ZIP archive, invisibly.
 #' @export
@@ -3251,8 +3302,8 @@ export_qr_codes <- function(ballot_date = ballot_dates,
   pal::assert_pkg("qrencoder")
   pal::assert_pkg("rsvg")
   
-  participation_codes <- online_participation_codes(ballot_date = ballot_date,
-                                                    canton = canton)
+  participation_codes <- read_online_participation_codes(ballot_date = ballot_date,
+                                                         canton = canton)
   tmp_dir <-
     glue::glue("fokus_qr_codes_{ballot_date}_{canton}") %>%
     fs::path_temp() %>%
@@ -3310,6 +3361,9 @@ export_qr_codes <- function(ballot_date = ballot_dates,
   archive_metadata <- archive::archive_write_dir(archive = path_zip,
                                                  dir = tmp_dir,
                                                  format = "zip")
+  
+  # TODO: remove `cli::cli_process_done()` and increase dep version as soon as my PR got merged and released: https://github.com/r-lib/archive/pull/60
+  cli::cli_process_done()
   cli::cli_progress_done()
   
   # upload files to Google Drive for polling agency if requested
@@ -3340,20 +3394,14 @@ export_print_recipients <- function(ballot_date = ballot_dates,
   canton <- rlang::arg_match(canton)
   
   # read in statistical office IDs used for current survey
-  ids_statistical_office <-
-    path_private(glue::glue("data/{canton}/voting_register_ids_{ballot_date}.csv")) %>%
-    readr::read_csv(col_types = "i") %>%
-    # integrity check
-    purrr::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug."),
-                ~ .) %>%
-    dplyr::first()
-  
+  ids_statistical_office <- read_voting_register_ids(ballot_date = ballot_date,
+                                                     canton = canton)
   # ensure output folder exists
   fs::dir_create(path_private(glue::glue("output/data/polling_agency/{canton}")))
   
   # export data
-  voting_register_data_extra(ballot_date = ballot_date,
-                             canton = canton) %>%
+  read_voting_register_data_extra(ballot_date = ballot_date,
+                                  canton = canton) %>%
     dplyr::filter(id_statistical_office %in% !!ids_statistical_office) %>%
     dplyr::mutate(receives_print = year_of_birth_official < 1970L) %>%
     dplyr::select(id_statistical_office, receives_print) %>%

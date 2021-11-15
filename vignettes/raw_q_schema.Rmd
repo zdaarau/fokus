@@ -10,8 +10,8 @@ editor_options:
   chunk_output_type: console
 vignette: >
   %\VignetteIndexEntry{FOKUS questionnaire schema}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 # Main semantic rules
@@ -66,11 +66,11 @@ Depending on the table level, the set of possible keys includes:
 
 -   Only regarded on top level ("block"):
 
-    | Key      | Type             | Optional | Remarks                                                                                                                                            |
-    |----------|------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-    | `title`  | character scalar | ❌        | block title                                                                                                                                        |
-    | `intro`  | character scalar | ✅        | text paragraph introducing the questionnaire items of the block                                                                                    |
-    | `prefix` | integer scalar   | ✅        | block numbering prefix for the first questionnaire column `#`; if not provided, items will be auto-numbered (across all blocks without a `prefix`) |
+    | Key      | Type             | Optional | Remarks                                                                                                                                          |
+    |----------|------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `title`  | character scalar | ❌        | block title                                                                                                                                      |
+    | `intro`  | character scalar | ✅        | text paragraph introducing the questionnaire items of the block                                                                                  |
+    | `prefix` | integer scalar   | ✅        | block numbering prefix for the first questionnaire column `#`; if not provided, items will be auto-numbered across all blocks without a `prefix` |
 
 -   Regarded on all levels incl. individual `item`-level nodes:
 

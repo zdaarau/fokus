@@ -26,6 +26,10 @@ export_qr_codes(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
+
+\item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble} containing metadata about the contents of the created ZIP archive, invisibly.

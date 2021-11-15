@@ -45,9 +45,9 @@ export_q(
 
 \item{local_deploy_path}{Local filesystem path to the Git repository of the static site to deploy the generated files files to. Ignored if \code{deploy = FALSE}.}
 
-\item{upload_to_g_drive}{Whether or not to upload the generated files files to the Google Drive folder \code{g_drive_folder}.}
+\item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
-\item{g_drive_folder}{Google Drive folder to deploy the questionnaire files to. Ignored if \code{upload_to_g_drive = FALSE}.}
+\item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 }
 \description{
 Generates the \link[=gen_q_tibble]{questionnaire tibble}, the \link[=gen_q_md]{Markdown questionnaire} and optionally a CSV, an HTML and an XLSX version of it, and

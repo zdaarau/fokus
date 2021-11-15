@@ -4,6 +4,7 @@ ballot_date = 2021-11-28
 n = 8000
 invitation = [ "online" ]
 reminder = [ "online", "print" ]
+constraints = "reminder_print_1970" # only persons with year of birth < 1970 received a print questionnaire!
 [mode.aargau.postal_dispatch.type]
 invitation = "B bulk mailing"
 reminder = "B bulk mailing"

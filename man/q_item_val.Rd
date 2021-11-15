@@ -45,6 +45,10 @@ q_item_val(
 \item \code{"who"}
 \item \code{"topic"}
 \item \code{"question"}
+\item \code{"question_full"}
+\item \code{"question_intro_lvl"}
+\item \code{"question_intro_i"}
+\item \code{"question_intro_j"}
 \item \code{"question_common"}
 \item \code{"variable_label"}
 \item \code{"variable_label_common"}
@@ -54,6 +58,7 @@ q_item_val(
 \item \code{"value_scale"}
 \item \code{"multiple_answers_allowed"}
 \item \code{"randomize_response_options"}
+\item \code{"is_mandatory"}
 \item \code{"ballot_types"}
 \item \code{"include"}
 }}

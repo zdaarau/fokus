@@ -211,6 +211,7 @@ variable_name = "year_of_birth"
 variable_label = "respondent's year of birth (own statement)"
 response_options = "_Jahreszahl (4 Ziffern)_"
 value_scale = "interval"
+is_mandatory = true
 [[01_personal.item]]
 topic = "Geschlecht (Kontrollfrage)"
 question = "Welches ist Ihr Geschlecht?"
@@ -219,6 +220,7 @@ variable_label = "respondent's sex (own statement)"
 response_options = [ "männlich", "weiblich", "unbestimmt/anderes" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "male", "female", "indeterminate/other" ]
+is_mandatory = true
 [[01_personal.item]]
 topic = "Verbundenheit mit dem Kanton"
 question = "Wie verbunden fühlen Sie sich mit dem Kanton Aargau auf einer Skala von 0 (gar nicht verbunden) bis 4 (stark verbunden)?"
@@ -267,6 +269,7 @@ response_options = [ "nicht teilgenommen", "teilgenommen" ]
 variable_values = [ 0, 1 ]
 value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
+is_mandatory = true
 
 [02_political_start.002_non_participation]
 lvl.default = "{ if (has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) && has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton)) c('', 'cantonal') else '' }"
@@ -864,6 +867,7 @@ variable_label_common = "the party the respondent voted for in the { salim::rank
 response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'proportional')), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'abstain'), ., q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+is_mandatory = true
 [[03_2_election_specific.001_federal_proportional.item]]
 who = "teilnehmende Online-Respondenten"
 topic = "Stimmentscheid Liste eidgenössische Verhältniswahl {i}"
@@ -874,6 +878,7 @@ variable_label_common = "the ticket the respondent opted for in the { salim::ran
 response_options = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'de', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% nr %>% seq_along() %>% c(q_response_option_codes(types = 'none'), ., q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'en', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+is_mandatory = true
 [[03_2_election_specific.001_federal_proportional.item]]
 topic = "Listenabänderung eidgenössische Verhältniswahl {i}"
 question = "Haben Sie bei der **{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'short') }** eine unveränderte Liste eingeworfen oder eine bestehende Liste abgeändert bzw. eine eigene Liste zusammengestellt?"
@@ -1012,6 +1017,7 @@ variable_label_common = "the party the respondent voted for in the { salim::rank
 response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'proportional')), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'abstain'), ., q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+is_mandatory = true
 [[03_2_election_specific.003_cantonal_proportional.item]]
 who = "teilnehmende Online-Respondenten"
 topic = "Stimmentscheid Liste kantonale Verhältniswahl {i}"
@@ -1022,6 +1028,7 @@ variable_label_common = "the ticket the respondent opted for in the { salim::ran
 response_options = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'de', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% nr %>% seq_along() %>% c(q_response_option_codes(types = 'none'), ., q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'en', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+is_mandatory = true
 include.default = false
 [[03_2_election_specific.003_cantonal_proportional.item]]
 topic = "Listenabänderung kantonale Verhältniswahl {i}"
@@ -1161,6 +1168,7 @@ variable_label_common = "the { salim::rank_nr(j) } candidate the respondent vote
 response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% c(q_response_option_codes(types = 'abstain'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_option_codes(types = 'other'))) %>% c(q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+is_mandatory = true
 
 [03_2_election_specific.005_decision_moment]
 response_options = [ "es ist immer klar gewesen", "einige Wochen vor den Wahlen", "einige Tage vor den Wahlen", "im letzten Moment", "weiss nicht mehr" ]
@@ -1207,6 +1215,7 @@ ballot_types = [ "referendum" ]
 
 [03_proposal_specific.001_decision]
 who = "Teilnehmende"
+is_mandatory = true
 [[03_proposal_specific.001_decision.item]]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 topic = "Stimmentscheid eidgenössische Vorlage {i}"
@@ -1691,7 +1700,30 @@ value_labels = [ "no", "yes, for the better", "yes, for the worse", "don't know"
 [[03_proposal_specific.002_all.002_affectedness.item]]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 topic = "Betroffenheit eidgenössische Vorlage {i}"
-question.20180923_20201018 = "Würde sich durch die Annahme { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short'), case = 'genitive') } _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }{ dplyr::if_else(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', '', 's') }_ für Sie persönlich etwas ändern?"
+question.20180923_20201018 = """
+Würde sich durch die Annahme {
+  salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                           lvl = 'federal',
+                                                           canton = canton,
+                                                           proposal_nr = i,
+                                                           type = 'short'),
+                                                           case = 'genitive')
+} _{
+  proposal_name(ballot_date = ballot_date,
+                lvl = 'federal',
+                canton = canton,
+                proposal_nr = i,
+                lang = 'de',
+                type = 'short')
+}{
+  dplyr::if_else(proposal_name_gender(ballot_date = ballot_date,
+                                      lvl = 'federal',
+                                      canton = canton,
+                                      proposal_nr = i,
+                                      type = 'short') == 'feminine',
+                 '',
+                 's')
+}_ für Sie persönlich etwas ändern?"""
 question.default = """
 Würde sich durch die {
   dplyr::if_else(proposal_type(ballot_date = ballot_date,
@@ -1940,7 +1972,7 @@ Hätten Sie auch an der Abstimmung teilgenommen, wenn nicht über {
   dplyr::if_else(n_proposals(ballot_date = ballot_date,
                              lvls = 'cantonal',
                              canton = canton) > 1L,
-                 paste0('die',
+                 paste0('die ',
                         salim::write_out_n(n_proposals(ballot_date = ballot_date,
                                                        lvls = 'cantonal',
                                                        canton = canton),
@@ -1953,7 +1985,7 @@ Hätten Sie auch an der Abstimmung teilgenommen, wenn nicht über {
                                                                                  proposal_nr = 1L,
                                                                                  type = 'short'),
                                                    case = 'accusative'),
-                        'kantonale',
+                        ' kantonale',
                         dplyr::if_else(proposal_name_gender(ballot_date = ballot_date,
                                                             lvl = 'cantonal',
                                                             canton = canton,
@@ -2460,7 +2492,37 @@ value_labels = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_
 value_scale = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_scale') }"
 [[03_proposal_specific.004_participants.z02_information_source.item]]
 topic = "Informationsquelle { dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e Vorlagen: Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten"
-question = "Haben Sie die folgenden Quellen genutzt, um sich über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = lvl, canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = lvl, canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **', dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch'), 'en** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
+question = """
+Haben Sie die folgenden Quellen genutzt, um sich über {
+  dplyr::if_else(n_proposals(ballot_date = ballot_date,
+                             lvls = lvl,
+                             canton = canton) > 1L,
+                 paste0('die ',
+                        salim::write_out_n(n_proposals(ballot_date = ballot_date,
+                                                       lvls = lvl,
+                                                       canton = canton),
+                                           lang = 'de',
+                                           use_dual = TRUE),
+                        ' **',
+                        dplyr::if_else(lvl == 'cantonal',
+                                       'kantonal',
+                                       'eidgenössisch'),
+                        'en** Vorlagen'),
+                 paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                                 lvl = lvl,
+                                                                                 canton = canton,
+                                                                                 proposal_nr = 1L,
+                                                                                 type = 'short'),
+                                                   case = 'accusative'),
+                        ' _',
+                        proposal_name(ballot_date = ballot_date,
+                                      lvl = lvl,
+                                      canton = canton,
+                                      proposal_nr = 1L,
+                                      lang = 'de',
+                                      type = 'short'),
+                        '_'))
+} zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"""
 question_common = "Haben Sie _Gratiszeitungen und kostenlosen Online-Journalismus / News-Seiten_ genutzt, um sich über die **{ dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e(n)** Vorlage(n) zu informieren und eine Meinung zu bilden?"
 variable_label = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the {lvl} proposals"
 variable_name = "{lvl}_proposals_information_source_free_newspapers"
@@ -2600,7 +2662,33 @@ include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal'
 include.false = [ 2018-09-23, 2018-11-25 ]
 [[03_proposal_specific.005_all.002_deliberation.002_federal.item]]
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über eidgenössische Vorlagen"
-question = "Wie oft haben Sie sich im Bekanntenkreis über { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **eidgenössischen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } ausgetauscht bzw. über diese diskutiert?"
+question = """
+Wie oft haben Sie sich im Bekanntenkreis über {
+  dplyr::if_else(n_proposals(ballot_date = ballot_date,
+                             lvls = 'federal',
+                             canton = canton) > 1L,
+                 paste0('die ',
+                        salim::write_out_n(n_proposals(ballot_date = ballot_date,
+                                                       lvls = 'federal',
+                                                       canton = canton),
+                                           lang = 'de',
+                                           use_dual = TRUE),
+                        ' **eidgenössischen** Vorlagen'),
+                 paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                                 lvl = 'federal',
+                                                                                 canton = canton,
+                                                                                 proposal_nr = 1L,
+                                                                                 type = 'short'),
+                                                   case = 'accusative'),
+                        ' _',
+                        proposal_name(ballot_date = ballot_date,
+                                      lvl = 'federal',
+                                      canton = canton,
+                                      proposal_nr = 1L,
+                                      lang = 'de',
+                                      type = 'short'),
+                        '_'))
+} ausgetauscht bzw. über diese diskutiert?"""
 question_common = "Wie oft haben Sie sich im Bekanntenkreis über die **eidgenössische(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?"
 variable_label = "how often the respondent discussed the federal proposals with acquaintances"
 variable_name = "intensity_political_discussions_federal_proposals"
@@ -2608,7 +2696,33 @@ include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal',
 include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[03_proposal_specific.005_all.item]]
 topic = "Sichtung politischer Werbung kantonale Vorlagen"
-question = "Ist Ihnen politische Werbung (Strassenplakate, Inserate, Flyers, Online-Anzeigen etc.) für oder gegen { dplyr::if_else(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('die ', n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de', use_dual = TRUE), ' **kantonalen** Vorlagen'), paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, type = 'short'), case = 'accusative'), ' _', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = 1L, lang = 'de', type = 'short'), '_')) } aufgefallen?"
+question = """
+Ist Ihnen politische Werbung (Strassenplakate, Inserate, Flyers, Online-Anzeigen etc.) für oder gegen {
+  dplyr::if_else(n_proposals(ballot_date = ballot_date,
+                             lvls = 'cantonal',
+                             canton = canton) > 1L,
+                 paste0('die ',
+                        salim::write_out_n(n_proposals(ballot_date = ballot_date,
+                                                       lvls = 'cantonal',
+                                                       canton = canton),
+                                           lang = 'de',
+                                           use_dual = TRUE),
+                        ' **kantonalen** Vorlagen'),
+                 paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                                 lvl = 'cantonal',
+                                                                                 canton = canton,
+                                                                                 proposal_nr = 1L,
+                                                                                 type = 'short'),
+                                                   case = 'accusative'),
+                        ' _',
+                        proposal_name(ballot_date = ballot_date,
+                                      lvl = 'cantonal',
+                                      canton = canton,
+                                      proposal_nr = 1L,
+                                      lang = 'de',
+                                      type = 'short'),
+                        '_'))
+} aufgefallen?"""
 question_common = "Ist Ihnen politische Werbung (Strassenplakate, Inserate, Flyers, Online-Anzeigen etc.) für oder gegen die **kantonale(n)** Vorlage(n) aufgefallen?"
 variable_name = "sighting_political_ads_cantonal_proposals"
 variable_label = "whether or not the respondent saw political advertisings such as street posters, flyers, online advertisements, etc. for or against the cantonal proposals"
@@ -3145,8 +3259,9 @@ value_labels = [
 ]
 value_scale = "ordinal_ascending"
 [07_personal_more.z01_current_former]
-lvl.default = [ "", "inactive" ]
+lvl = [ "", "inactive" ]
 [[07_personal_more.z01_current_former.item]]
+lvl.default = [ "", "inactive" ]
 lvl.20180923_20181125 = ""
 topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemalige ', '') }Beschäftigungssituation"
 who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'alle') }"
@@ -3198,6 +3313,7 @@ value_labels = """
   }
 }"""
 [[07_personal_more.z01_current_former.item]]
+lvl.default = [ "", "inactive" ]
 lvl.20180923_20181125 = ""
 topic = "{ dplyr::if_else(lvl == 'inactive', 'Ehemaliger ', '') }Beschäftigungsgrad"
 who = "{ dplyr::if_else(lvl == 'inactive', 'nichterwerbstätige Online-Respondenten', 'Erwerbstätige') }"
@@ -4587,7 +4703,6 @@ en = "dplyr::filter(as.integer(employment_situation) > 4L & (employment_situatio
 value.de = "Nichterwerbstätige"
 value.en = "economically inactive persons"
 description.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _Nein_ (`2`) beantwortet haben."
-include.default = false
 [who.filter.positive]
 de = "dplyr::filter(as.integer(employment_situation) > 4L | employment_situation_routing == 'nein')"
 en = "dplyr::filter(as.integer(employment_situation) > 4L | employment_situation_routing == 'no (not working)')"
@@ -4599,7 +4714,6 @@ en = "dplyr::filter(as.integer(employment_situation) < 5L & (employment_situatio
 value.de = "nichterwerbstätige Online-Respondenten"
 value.en = "economically inactive online respondents"
 description.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _nein_ (`2`) beantwortet haben."
-include.false = [ 2018-09-23, 2018-11-25 ]
 [who.filter.positive]
 de = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | employment_situation_routing == 'nein'))"
 en = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | employment_situation_routing == 'no (not working)'))"
@@ -4611,7 +4725,6 @@ en = "dplyr::filter(questionnaire_channel == 'print' & (as.integer(employment_si
 value.de = "Angestellte"
 value.en = "employees"
 description.de = "All jene Respondenten, welche die Frage zur Beschäftigungssituation (`employment_situation`) mit _AngestellteR_ (`3`) beantwortet haben."
-include.false = [ 2018-09-23, 2018-11-25 ]
 [who.filter.positive]
 de = "dplyr::filter(employment_situation == 'AngestellteR')"
 en = "dplyr::filter(employment_situation == 'employee')"
@@ -4623,7 +4736,6 @@ en = "dplyr::filter(employment_situation != 'employee' | is.na(employment_situat
 value.de = "ehemals Angestellte Online-Respondenten"
 value.en = "economically inactive online respondents"
 description.de = "All jene nichterwerbstätige Online-Respondenten (`questionnaire_channel = 1 & employment_situation > 4`), welche die Frage zur ehemaligen Beschäftigungssituation (`former_employment_situation`) mit _AngestellteR_ (`3`) beantwortet haben."
-include.false = [ 2018-09-23, 2018-11-25 ]
 [who.filter.positive]
 de = "dplyr::filter(former_employment_situation == 'AngestellteR')"
 en = "dplyr::filter(former_employment_situation == 'employee')"
@@ -4695,7 +4807,6 @@ en = "dplyr::filter(participation == 'not participated' | (participation == 'par
 value.de = "Klimaneutrale"
 value.en = "climate neutrals"
 description.de = "All jene Respondenten, welche die Frage zur Schweizer Klimaneutralität bejahten (`attitude_climate_neutral_switzerland in (1, 2, 3)`.)"
-include.false = [ 2018-09-23, 2018-11-25 ]
 [who.filter.positive]
 de = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('ja, so schnell wie nur möglich', 'ja, bis spätestens 2035', 'ja, bis spätestens 2050'))"
 en = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('yes, as soon as possible', 'yes, by 2035 at the latest', 'yes, by 2050 at the latest'))"
@@ -4805,45 +4916,33 @@ text = "Diese Variable wird nur ans Umfrageinstitut publitest geliefert und zwec
 [[footnote]]
 id = "no-data"
 text = "Leider erhalten wir für den Abstimmungstermin vom { prettify_date(ballot_date, locale = 'de') } die für diese Variable notwendigen Registerdaten von Statistik Aargau (noch) nicht."
-include.default = false # disabled because items referencing this footnote aren't included anyway
 [[footnote]]
 id = "dup"
 text = "In darauffolgenden Abstimmungsterminen wurden bei dieser Variable Mehrfachnennungen zugelassen (`Mehrfachnennungen = 'ja'`)."
-include.default = false
-include.true = [ 2018-09-23 ]
 [[footnote]]
 id = "no-party"
 text = "Diese Variable wurde erst in darauffolgenden Abstimmungsterminen um die Antwortoption `keine` mit Variablenausprägung `0` ergänzt. In der Analyse wurde diese Ausprägung nachträglich auch für den { ballot_date } gebildet. Dafür wurden ihr einerseits alle `custom answer`s mit entsprechender Aussage (\"keine Partei\", \"parteilos\" etc.) und andererseits alle `don't know`-Antworten zugewiesen. Letzteres Vorgehen führt natürlich dazu, dass die Anzahl Respondenten, welche keine Parteisympathie aufweisen, künstlich zu hoch eingeschätzt wird."
-include.default = false
-include.true = [ 2018-09-23 ]
 [[footnote]]
 id = "main-emp"
 text = """
 Um Mehrfachnennungen im Print-Fragebogen vorzubeugen, wurde diese Frage in darauffolgenden Abstimmungsterminen leicht umformuliert in:
 
     _Was ist Ihre aktuelle **Haupt**beschäftigung?_"""
-include.default = false
-include.true = [ 2018-09-23 ]
 [[footnote]]
 id = "att-econ"
 text = """
-Diese Frage wurde in darauffolgenden Abstimmungsterminen leicht umformuliert in:
-
-    _{
-       q_item_val(ballot_date = '2018-11-25',
-                  canton = canton,
-                  branch_path = '05_political_attitudes',
-                  v_name = 'attitude_regulation_vs_free_market',
-                  key = 'question') %>%
-         stringr::str_replace(pattern = 'stärker',
-                              replacement = '**stärker**')
-     }_"""
-include.default = false
-include.true = [ 2018-09-23 ]
+Diese Frage wurde in darauffolgenden Abstimmungsterminen leicht umformuliert in: _{
+   q_item_val(ballot_date = "2018-11-25",
+              canton = canton,
+              branch_path = "05_political_attitudes",
+              v_name = "attitude_regulation_vs_free_market",
+              key = "question") %>%
+     stringr::str_replace(pattern = "stärker",
+                          replacement = "**stärker**")
+}_"""
 [[footnote]]
 id = "pseudon"
 text = "Diese Variable wird von Statistik Aargau direkt ans ZDA geliefert und ist über den eineindeutigen Identifikator `id_statistik_aargau` den vom Umfrageinstitut publitest gelieferten Daten zuordenbar."
-include.false = [ 2018-09-23, 2018-11-25 ]
 [[footnote]]
 id = "statag-household"
 text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch direkt aus dem Einwohnerregister von Statistik Aargau (Variable `household_size_official`)."
@@ -4853,8 +4952,6 @@ text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch d
 [[footnote]]
 id = "legacy-occ-sect"
 text = "Beginnend mit dem Wahltermin 2019-10-20 wurde in `occupational_sector` die dritte Antwortkategorie `anderes (z. B. gemischtwirtschaftlich)` aufgeteilt in die zwei Kategorien `gemeinnützig/nicht-gewinnorientiert (z. B. WWF, Caritas)` und `gemischtwirtschaftlich (z. B. Swisscom oder SNB)`, weshalb diese Variable nachträglich in `legacy_occupational_sector` umbenannt wurde."
-include.default = false
-include.true = [ 2018-09-23, 2018-11-25 ]
 [[footnote]]
 id = "irt-params"
 text = "Wenn immer möglich wird ein 3-Parameter-Modell geschätzt. Bieten die Daten dem [Schätzalgorithmus](https://rdrr.io/cran/mirt/man/mirt.html) dafür nicht genug Freiheitsgrade, wird automatisch auf ein 2-Parameter-Modell ausgewichen."

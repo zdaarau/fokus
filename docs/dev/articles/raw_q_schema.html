@@ -83,7 +83,7 @@
       <h1 data-toc-skip>FOKUS questionnaire schema</h1>
             <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-11-14</h4>
+            <h4 data-toc-skip class="date">2021-11-15</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -154,7 +154,8 @@
 <td><code>prefix</code></td>
 <td>integer scalar</td>
 <td>✅</td>
-<td>block numbering prefix for the first questionnaire column <code>#</code>; if not provided, items will be auto-numbered (across all blocks without a <code>prefix</code>)</td>
+<td>block numbering prefix for the first questionnaire column <code>#</code>; if not provided, items will be auto-numbered across all blocks without a <code>prefix</code>
+</td>
 </tr>
 </tbody>
 </table>
@@ -251,7 +252,44 @@
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
-<td align="left">aka “Frage”</td>
+<td align="left">last-priority part of “Frage”</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>question_full</code></td>
+<td align="left">character scalar</td>
+<td align="left"></td>
+<td align="left">✅</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">alternative fully formulated version of “Frage” that can refer to <code>question</code>
+</td>
+</tr>
+<tr class="even">
+<td align="left"><code>question_intro_lvl</code></td>
+<td align="left">character scalar</td>
+<td align="left"></td>
+<td align="left">✅</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">1st-priority part of “Frage”</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>question_intro_i</code></td>
+<td align="left">character scalar</td>
+<td align="left"></td>
+<td align="left">✅</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">2nd-priority part of “Frage”</td>
+</tr>
+<tr class="even">
+<td align="left"><code>question_intro_j</code></td>
+<td align="left">character scalar</td>
+<td align="left"></td>
+<td align="left">✅</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">3rd-priority part of “Frage”</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>question_common</code></td>
@@ -336,6 +374,15 @@
 <td align="left">whether or not the <code>response_options</code> are displayed in randomized order to online respondents (<code>response_options</code>) with code <code>80</code>, <code>90</code> and <code>99</code> are still excluded from randomization)</td>
 </tr>
 <tr class="even">
+<td align="left"><code>is_mandatory</code></td>
+<td align="left">logical scalar</td>
+<td align="left"><code>FALSE</code></td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">aka “Antwort obligatorisch”</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>ballot_types</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>c("referendum", "election")</code></td>
@@ -344,7 +391,7 @@
 <td align="left">✅</td>
 <td align="left">ballot-type-specific in- and exclusion of the respective item(s)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>include</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>TRUE</code></td>
