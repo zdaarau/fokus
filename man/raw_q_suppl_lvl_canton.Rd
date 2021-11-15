@@ -56,6 +56,7 @@ Other raw questionnaire data functions
 \code{\link{raw_q_suppl_election}()},
 \code{\link{raw_q_suppl_lvl}()},
 \code{\link{raw_q_suppl_main_motives}()},
+\code{\link{raw_q_suppl_mode}()},
 \code{\link{raw_q_suppl_proposal_name}()},
 \code{\link{raw_q_suppl_proposal}()},
 \code{\link{raw_q_suppl_skill_questions}()},

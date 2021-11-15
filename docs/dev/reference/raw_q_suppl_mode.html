@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get raw supplemental election name questionnaire data — raw_q_suppl_election_name • fokus</title>
+<title>Get raw supplemental survey mode questionnaire data — raw_q_suppl_mode • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Get raw supplemental election name questionnaire data — raw_q_suppl_election_name" />
-<meta name="description" content="Returns a structured list of an election's name data from the political-level-specific raw supplemental date-specific FOKUS questionnaire data.">
-<meta property="og:description" content="Returns a structured list of an election's name data from the political-level-specific raw supplemental date-specific FOKUS questionnaire data." />
+<meta property="og:title" content="Get raw supplemental survey mode questionnaire data — raw_q_suppl_mode" />
+<meta name="description" content="Returns a structured list of survey mode data from the raw supplemental date-specific FOKUS questionnaire data.">
+<meta property="og:description" content="Returns a structured list of survey mode data from the raw supplemental date-specific FOKUS questionnaire data." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,22 +125,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get raw supplemental election name questionnaire data</h1>
+    <h1>Get raw supplemental survey mode questionnaire data</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>raw_q_suppl_election_name.Rd</code></div>
+    <div class="hidden name"><code>raw_q_suppl_mode.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns a structured list of an election's name data from the <a href='raw_q_suppl_lvl.html'>political-level-specific raw supplemental date-specific FOKUS questionnaire data</a>.</p>
+    <p>Returns a structured list of survey mode data from the <a href='raw_q_suppl.html'>raw supplemental date-specific FOKUS questionnaire data</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_q_suppl_election_name</span><span class='op'>(</span>
-  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
-  canton <span class='op'>=</span> <span class='va'>cantons</span>,
-  prcd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"proportional"</span>, <span class='st'>"majoritarian"</span><span class='op'>)</span>,
-  election_nr <span class='op'>=</span> <span class='fl'>1L</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>raw_q_suppl_mode</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,28 +151,10 @@
 </ul></td>
     </tr>
     <tr>
-      <th>lvl</th>
-      <td><p>Political level. One of</p><ul>
-<li><p><code>"cantonal"</code></p></li>
-<li><p><code>"federal"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
       <th>canton</th>
       <td><p>A valid FOKUS canton. One of</p><ul>
 <li><p><code>"aargau"</code></p></li>
 </ul></td>
-    </tr>
-    <tr>
-      <th>prcd</th>
-      <td><p>Election procedure. One of</p><ul>
-<li><p><code>"proportional"</code></p></li>
-<li><p><code>"majoritarian"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>election_nr</th>
-      <td><p>Election number. A positive integer scalar (in almost all cases <code>1L</code>).</p></td>
     </tr>
     </table>
 
@@ -191,12 +167,12 @@
 <p>Other raw questionnaire data functions
 <code><a href='raw_pick_right.html'>raw_pick_right</a>()</code>,
 <code><a href='raw_q_suppl_arguments.html'>raw_q_suppl_arguments</a>()</code>,
+<code><a href='raw_q_suppl_election_name.html'>raw_q_suppl_election_name</a>()</code>,
 <code><a href='raw_q_suppl_elections.html'>raw_q_suppl_elections</a>()</code>,
 <code><a href='raw_q_suppl_election.html'>raw_q_suppl_election</a>()</code>,
 <code><a href='raw_q_suppl_lvl_canton.html'>raw_q_suppl_lvl_canton</a>()</code>,
 <code><a href='raw_q_suppl_lvl.html'>raw_q_suppl_lvl</a>()</code>,
 <code><a href='raw_q_suppl_main_motives.html'>raw_q_suppl_main_motives</a>()</code>,
-<code><a href='raw_q_suppl_mode.html'>raw_q_suppl_mode</a>()</code>,
 <code><a href='raw_q_suppl_proposal_name.html'>raw_q_suppl_proposal_name</a>()</code>,
 <code><a href='raw_q_suppl_proposal.html'>raw_q_suppl_proposal</a>()</code>,
 <code><a href='raw_q_suppl_skill_questions.html'>raw_q_suppl_skill_questions</a>()</code>,
@@ -204,26 +180,37 @@
 <code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_election_name</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
-<span class='r-in'>                                  lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
-<span class='r-in'>                                  canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
-<span class='r-in'>                                  prcd <span class='op'>=</span> <span class='st'>"majoritarian"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$body</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$body$text</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Regierungsrat"</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_mode</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                         canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $invitation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "online" "print" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $n</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 8000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$date</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$date$invitation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2018-09-18"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$date$reminder</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2018-10-02"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$long</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$long$text</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Ersatzwahl eines Mitglieds des Regierungsrats"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$type$invitation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "B"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$type$prepaid_reply_envelope</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "A"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $postal_dispatch$type$reminder</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "B"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$short</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$short$text</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Regierungsratsersatzwahl"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $reminder</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "online" "print" </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 </pre>
   </div>

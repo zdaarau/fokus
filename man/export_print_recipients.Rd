@@ -22,6 +22,9 @@ export_print_recipients(ballot_date = ballot_dates, canton = cantons)
 \item \code{"aargau"}
 }}
 }
+\value{
+\code{NULL} if no export for the specified ballot date is possible, otherwise a \link[tibble:tbl_df-class]{tibble} of the exported data, invisibly.
+}
 \description{
 Exports a CSV dataset containing the two variables \code{id_statistical_office} and \code{receives_print} to the \link[=print_fokus_private_structure]{private FOKUS directory}.
 }

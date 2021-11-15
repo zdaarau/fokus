@@ -1,14 +1,12 @@
 # TODOs
 
--   Update `export_print_recipients` to respect q key `mode.{canton}.constraints`
-
--   Finish to implement `question_intro_lvl`, `question_intro_i` and `question_intro_j`
+-   Split `question` into `question_intro_lvl`, `question_intro_i` and `question_intro_j` where appropriate.
 
 -   Rename all occurences of `publitest` to `polling_agency`
 
 -   Rename `id_statistik_aargau` to `id_statistical_office`
 
--   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing PR [#27](https://github.com/jeroen/rsvg/pull/27)).
+-   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing [PR #27](https://github.com/jeroen/rsvg/pull/27)).
 
 ## Other
 

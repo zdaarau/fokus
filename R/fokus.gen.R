@@ -37,12 +37,15 @@ utils::globalVariables(names = c(".",
                                  "Haushaltsgr\u00f6sse Anzahl Personen Total",
                                  "Haushaltsgr\u00f6sse Anzahl Personen \u00fcber 18 Jahren",
                                  "household_size_official",
+                                 "i",
                                  "ID-Nummer",
                                  "id_statistical_office",
+                                 "j",
                                  "Jahrgang",
                                  "length_response_options",
                                  "length_value_labels",
                                  "length_variable_values",
+                                 "lvl",
                                  "marital_status_official",
                                  "matches_length",
                                  "n_adults_in_household_official",
@@ -613,6 +616,42 @@ raw_q_suppl_election_name <- function(ballot_date = ballot_dates,
   result
 }
 
+#' Get raw supplemental survey mode questionnaire data
+#'
+#' Returns a structured list of survey mode data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
+#' 
+#' @inheritParams ballot_types 
+#'
+#' @inherit raw_q_suppl return
+#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
+#' @family q_raw
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::raw_q_suppl_mode(ballot_date = "2018-09-23",
+#'                          canton = "aargau")
+raw_q_suppl_mode <- function(ballot_date = ballot_dates,
+                             canton = cantons) {
+  
+  canton <- rlang::arg_match(canton)
+  
+  result <-
+    raw_q_suppl(ballot_date = ballot_date) %>%
+    purrr::pluck("mode", canton)
+  
+  if (is.null(result)) {
+    
+    # reduce to proper arg values for error msg
+    ballot_date %<>% as.character()
+    ballot_date <- rlang::arg_match(ballot_date,
+                                    values = as.character(ballot_dates))
+    
+    cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.")
+  }
+  
+  result
+}
+
 #' Get raw supplemental skill question questionnaire data
 #'
 #' Returns a structured list of skill question data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
@@ -1111,9 +1150,8 @@ expand_q_tibble <- function(q_tibble) {
 export_q_all <- function(incl_xlsx = FALSE,
                          upload_to_g_drive = FALSE,
                          deploy = FALSE) {
-  
-  fokus::ballot_dates %>%
-    purrr::walk(fokus::export_q,
+  ballot_dates %>%
+    purrr::walk(export_q,
                 canton = "aargau",
                 incl_xlsx = incl_xlsx,
                 upload_to_g_drive = upload_to_g_drive,
@@ -3331,6 +3369,10 @@ export_qr_codes <- function(ballot_date = ballot_dates,
                             upload_to_g_drive = TRUE,
                             g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/QR-Codes/") {
   
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
+  canton <- rlang::arg_match(canton)
   checkmate::assert_flag(upload_to_g_drive)
   pal::assert_pkg("archive")
   pal::assert_pkg("qrencoder")
@@ -3363,22 +3405,22 @@ export_qr_codes <- function(ballot_date = ballot_dates,
   participation_codes %>%
     cli::cli_progress_along() %>%
     purrr::walk2(.x = participation_codes,
-                .y = .,
-                .f = ~ {
-                  
-                  path_svg <- fs::path(tmp_dir_svg, .x,
-                                       ext = "svg")
-                  
-                  # create SVG file
-                  qrencoder::qrencode_svg(to_encode = glue::glue("{url_survey_host$aargau}?{url_parameter_survey$aargau}={.x}"),
-                                          level = 3) %>%
-                    readr::write_file(file = path_svg)
-                  
-                  # create EPS file from SVG file
-                  rsvg::rsvg_eps(svg = path_svg,
-                                 file = fs::path(tmp_dir_eps, .x,
-                                                 ext = "eps"))
-                })
+                 .y = .,
+                 .f = ~ {
+                   
+                   path_svg <- fs::path(tmp_dir_svg, .x,
+                                        ext = "svg")
+                   
+                   # create SVG file
+                   qrencoder::qrencode_svg(to_encode = glue::glue("{url_survey_host$aargau}?{url_parameter_survey$aargau}={.x}"),
+                                           level = 3) %>%
+                     readr::write_file(file = path_svg)
+                   
+                   # create EPS file from SVG file
+                   rsvg::rsvg_eps(svg = path_svg,
+                                  file = fs::path(tmp_dir_eps, .x,
+                                                  ext = "eps"))
+                 })
   
   cli::cli_progress_done()
   
@@ -3392,9 +3434,9 @@ export_qr_codes <- function(ballot_date = ballot_dates,
   dir_output <- fs::dir_create(path_private("output/images/qr_codes"))
   path_zip <- fs::path(dir_output, glue::glue("{ballot_date}_{canton}.zip"))
   
-  archive_metadata <- archive::archive_write_dir(archive = path_zip,
-                                                 dir = tmp_dir,
-                                                 format = "zip")
+  result <- archive::archive_write_dir(archive = path_zip,
+                                       dir = tmp_dir,
+                                       format = "zip")
   
   # TODO: remove `cli::cli_process_done()` and increase dep version as soon as archive v1.1.3+ is released
   #       (containing [PR #60](https://github.com/r-lib/archive/pull/60)).
@@ -3408,7 +3450,7 @@ export_qr_codes <- function(ballot_date = ballot_dates,
                       g_drive_folder = g_drive_folder)
   }
   
-  invisible(archive_metadata)
+  invisible(result)
 }
 
 #' Export print recipients data
@@ -3418,6 +3460,7 @@ export_qr_codes <- function(ballot_date = ballot_dates,
 #'
 #' @inheritParams ballot_types
 #'
+#' @return `NULL` if no export for the specified ballot date is possible, otherwise a [tibble][tibble::tbl_df] of the exported data, invisibly.
 #' @family q_gen
 #' @export
 export_print_recipients <- function(ballot_date = ballot_dates,
@@ -3428,19 +3471,40 @@ export_print_recipients <- function(ballot_date = ballot_dates,
                                   values = as.character(ballot_dates))
   canton <- rlang::arg_match(canton)
   
-  # read in statistical office IDs used for current survey
-  ids_statistical_office <- read_voting_register_ids(ballot_date = ballot_date,
-                                                     canton = canton)
-  # ensure output folder exists
-  fs::dir_create(path_private(glue::glue("output/data/polling_agency/{canton}")))
+  # only export if `reminder_print_*` constraint present
+  if (raw_q_suppl_mode(ballot_date = ballot_date,
+                       canton = canton) %>%
+      purrr::pluck("constraints") %>%
+      stringr::str_detect("^reminder_print_.+") %>%
+      any()) {
+    
+    status_msg <- "Exporting print recipients data for canton {.val {canton}} @ {.val {ballot_date}}..."
+    cli::cli_progress_step(msg = status_msg,
+                           msg_done = paste(status_msg, "done"),
+                           msg_failed = paste(status_msg, "failed"))
+    
+    # read in statistical office IDs used for current survey
+    ids_statistical_office <- read_voting_register_ids(ballot_date = ballot_date,
+                                                       canton = canton)
+    # ensure output folder exists
+    fs::dir_create(path_private(glue::glue("output/data/polling_agency/{canton}")))
+    
+    # export data
+    result <-
+      read_voting_register_data_extra(ballot_date = ballot_date,
+                                      canton = canton) %>%
+      dplyr::filter(id_statistical_office %in% !!ids_statistical_office) %>%
+      dplyr::mutate(receives_print = year_of_birth_official < 1970L) %>%
+      dplyr::select(id_statistical_office, receives_print) %>%
+      readr::write_csv(file = path_private(glue::glue("output/data/polling_agency/{canton}/{ballot_date}_print_recipients.csv")))
+    
+  } else {
+    
+    cli::cli_alert_info("No print recipients data export sensible or possible for canton {.val {canton}} @ {.val {ballot_date}}.")
+    result <- NULL
+  }
   
-  # export data
-  read_voting_register_data_extra(ballot_date = ballot_date,
-                                  canton = canton) %>%
-    dplyr::filter(id_statistical_office %in% !!ids_statistical_office) %>%
-    dplyr::mutate(receives_print = year_of_birth_official < 1970L) %>%
-    dplyr::select(id_statistical_office, receives_print) %>%
-    readr::write_csv(file = path_private(glue::glue("output/data/polling_agency/{canton}/{ballot_date}_print_recipients.csv")))
+  invisible(result)
 }
 
 #' Determine whether variable is skill question
