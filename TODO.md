@@ -8,7 +8,7 @@
 
 -   Rename `id_statistik_aargau` to `id_statistical_office`
 
--   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released.
+-   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing PR [#27](https://github.com/jeroen/rsvg/pull/27)).
 
 ## Other
 

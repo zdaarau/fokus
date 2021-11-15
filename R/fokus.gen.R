@@ -976,7 +976,11 @@ assemble_q_item_tibble <- function(ballot_date,
                                 list(.),
                               ~ .
                             )
-                        })
+                        }) %>%
+                        # add iterators
+                        c(lvl = lvl,
+                          i = i,
+                          j = j)
                       
                       # handle special cases
                       ## 1: fill empty non-iterator multi-value keys with NA(s) if all other non-empty multi-value keys have the same length
@@ -1093,6 +1097,27 @@ expand_q_tibble <- function(q_tibble) {
   validate_q_tibble(q_tibble) %>%
     # ...expand questionnaire data to long format...
     tidyr::unnest(cols = any_of(q_item_keys_multival))
+}
+
+#' Export all questionnaires
+#'
+#' Exports *all* questionnaires, *softly* by default (i.e. without an XLSX version and deploying/uploading).
+#'
+#' Useful to test and inspect latest changes in generated questionnaire files.
+#'
+#' @inheritParams export_q
+#'
+#' @keywords internal
+export_q_all <- function(incl_xlsx = FALSE,
+                         upload_to_g_drive = FALSE,
+                         deploy = FALSE) {
+  
+  fokus::ballot_dates %>%
+    purrr::walk(fokus::export_q,
+                canton = "aargau",
+                incl_xlsx = incl_xlsx,
+                upload_to_g_drive = upload_to_g_drive,
+                deploy = deploy)
 }
 
 #' Generate questionnaire tibble
@@ -1559,15 +1584,22 @@ q_md_table_body <- function(q_tibble_block,
                              value_labels,
                              randomize_response_options,
                              is_mandatory,
+                             i,
+                             j,
                              ...) {
       paste(enumerator,
             tidyr::replace_na(topic,
                               "-"),
             who,
             question %>% purrr::when(is.na(.) ~ "-",
-                                     ~ c(question_intro_lvl, question_intro_i, question_intro_j, .) %>%
+                                     ~ c(c(question_intro_lvl,
+                                           question_intro_i[isTRUE(j == 1L)],
+                                           question_intro_j[isTRUE(i == 1L && j == 1L)]) %>%
+                                           magrittr::extract(!is.na(.)) %>%
+                                           pal::as_string(),
+                                         .) %>%
                                        magrittr::extract(!is.na(.)) %>%
-                                       pal::as_string(sep = " ")),
+                                       pal::as_string(sep = " <br><br>")),
             multiple_answers_allowed,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
@@ -1650,10 +1682,11 @@ block_name_to_nr <- function(x) {
 #' @param branch_path Sequence of questionnaire table levels that lead to the `item` leaf node where `v_name` is defined. A character vector.
 #' @param key Questionnaire item key. One of
 #' `r pal::as_md_list(paste0('"', q_item_keys$key, '"'), wrap = '``')`
-#' @param i First-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integer vector.
-#' @param j Second-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integer vector.
+#' @param lvl Political-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. A character vector.
+#' @param i Second-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integer vector.
+#' @param j Third-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integer vector.
 #'
-#' @return A vector of the resolved item field values. Type and length resolved values depend on `key`.
+#' @return A vector of the resolved item field values. Type and length of resolved values depend on `key`.
 #' @family q_internal
 #' @keywords internal
 #'
@@ -3206,7 +3239,8 @@ export_q <- function(ballot_date = ballot_dates,
                                       .f = ~ shorten_v_names(v_names = .x,
                                                              max_n_char = .y)),
                     .after = variable_name) %>%
-      dplyr::select(-ends_with("_common")) %>%
+      dplyr::select(-ends_with("_common"),
+                    -c(lvl, i, j)) %>%
       expand_q_tibble() %>%
       readr::write_csv(file = csv_path,
                        na = "")
@@ -3362,7 +3396,8 @@ export_qr_codes <- function(ballot_date = ballot_dates,
                                                  dir = tmp_dir,
                                                  format = "zip")
   
-  # TODO: remove `cli::cli_process_done()` and increase dep version as soon as my PR got merged and released: https://github.com/r-lib/archive/pull/60
+  # TODO: remove `cli::cli_process_done()` and increase dep version as soon as archive v1.1.3+ is released
+  #       (containing [PR #60](https://github.com/r-lib/archive/pull/60)).
   cli::cli_process_done()
   cli::cli_progress_done()
   

@@ -204,18 +204,22 @@ specified variable name and branch path.</p>
 </ul></td>
     </tr>
     <tr>
+      <th>lvl</th>
+      <td><p>Political-level loop iterator that can be referred to in field value via <a href='https://glue.tidyverse.org/reference/glue.html'>string interpolation</a>. A character vector.</p></td>
+    </tr>
+    <tr>
       <th>i</th>
-      <td><p>First-level loop iterator that can be referred to in field value via <a href='https://glue.tidyverse.org/reference/glue.html'>string interpolation</a>. An integer vector.</p></td>
+      <td><p>Second-level loop iterator that can be referred to in field value via <a href='https://glue.tidyverse.org/reference/glue.html'>string interpolation</a>. An integer vector.</p></td>
     </tr>
     <tr>
       <th>j</th>
-      <td><p>Second-level loop iterator that can be referred to in field value via <a href='https://glue.tidyverse.org/reference/glue.html'>string interpolation</a>. An integer vector.</p></td>
+      <td><p>Third-level loop iterator that can be referred to in field value via <a href='https://glue.tidyverse.org/reference/glue.html'>string interpolation</a>. An integer vector.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of the resolved item field values. Type and length resolved values depend on <code>key</code>.</p>
+    <p>A vector of the resolved item field values. Type and length of resolved values depend on <code>key</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>When used in questionnaire item field values via <a href='https://glue.tidyverse.org/reference/glue.html'>string interpolation</a>, be careful to not create infinite loops via circular references.</p>

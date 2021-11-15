@@ -63,12 +63,14 @@ q_item_val(
 \item \code{"include"}
 }}
 
-\item{i}{First-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
+\item{lvl}{Political-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. A character vector.}
 
-\item{j}{Second-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
+\item{i}{Second-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
+
+\item{j}{Third-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
 }
 \value{
-A vector of the resolved item field values. Type and length resolved values depend on \code{key}.
+A vector of the resolved item field values. Type and length of resolved values depend on \code{key}.
 }
 \description{
 Extracts a single questionnaire item field value for every first- for every second-level iterator from the \link[=raw_q]{raw FOKUS questionnaire data} based on the

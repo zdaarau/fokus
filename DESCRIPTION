@@ -47,7 +47,7 @@ Suggests:
     RcppTOML (>= 0.1.6),
     readxl (>= 1.3.1),
     rmarkdown (>= 2.11),
-    RSelenium (>= 1.7.7.9000),
+    RSelenium (>= 1.7.7.9002),
     rsvg (>= 2.1.2.9000),
     testthat,
     yay (>= 0.0.9007)
@@ -55,7 +55,7 @@ VignetteBuilder:
     knitr
 Remotes:
     github::hrbrmstr/qrencoder,
-    github::jeroen/rsvg#27,
+    github::jeroen/rsvg,
     github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal,
     gitlab::salim_b/r/pkgs/pkgpins,

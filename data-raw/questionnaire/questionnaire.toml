@@ -175,6 +175,7 @@ variable_label = "respondent's sex (official cantonal register information)"
 response_options = [ "männlich", "weiblich", "unbestimmt" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "male", "female", "indeterminate" ]
+include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_statistik_aargau.003_to_zda.item]]
 topic = "Zivilstand (amtliche Information)[^pseudon]"
 variable_name = "marital_status_official"
@@ -386,49 +387,41 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', c
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'majoritarian')) }"
 j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, type = 'vacant')) }"
 topic = "Hypothetischer Stimmentscheid Sitz {j} eidgenössische Mehrheitswahl {i}"
+question_intro_i = "Wenn Sie an den Wahlen teilgenommen hätten, "
+question_intro_j = """
+{
+  dplyr::if_else(n_election_seats(ballot_date = ballot_date,
+                                         lvl = 'federal',
+                                         canton = canton,
+                                         election_nr = i,
+                                         type = 'vacant') > 1L,
+                 paste0('welche ',
+                        salim::write_out_n(n_election_seats(ballot_date = ballot_date,
+                                                            lvl = 'federal',
+                                                            canton = canton,
+                                                            election_nr = i,
+                                                            type = 'vacant'),
+                                                            lang = 'de'),
+                        ' KandidatInnen'),
+                 'wen')
+} hätten Sie in den eidgenössischen **{
+  election_name(ballot_date = ballot_date,
+                lvl = 'federal',
+                canton = canton,
+                prcd = 'majoritarian',
+                election_nr = i,
+                lang = 'de',
+                type = 'body')
+}** gewählt?"""
 question = """
 {
-  dplyr::if_else(i == 1L
-                 && j == 1L
-                 && n_elections(ballot_date = ballot_date,
-                                lvls = 'federal',
-                                canton = canton,
-                                prcds = 'proportional') == 0,
-                 'Wenn Sie an den Wahlen teilgenommen hätten: <br><br>',
-                 '')
-}{
-  dplyr::if_else(j == 1L,
-                 paste0(dplyr::if_else(n_election_seats(ballot_date = ballot_date,
-                                                        lvl = 'federal',
-                                                        canton = canton,
-                                                        election_nr = i,
-                                                        type = 'vacant') > 1L,
-                                       paste0('Welche ',
-                                              salim::write_out_n(n_election_seats(ballot_date = ballot_date,
-                                                                                  lvl = 'federal',
-                                                                                  canton = canton,
-                                                                                  election_nr = i,
-                                                                                  type = 'vacant'),
-                                                                                  lang = 'de'),
-                                              ' KandidatInnen'),
-                                       'Wen'),
-                        paste0(' hätten Sie in den eidgenössischen **',
-                               election_name(ballot_date = ballot_date,
-                               lvl = 'federal',
-                               canton = canton,
-                               prcd = 'majoritarian',
-                               election_nr = i,
-                               lang = 'de',
-                               type = 'body'), '** gewählt? <br><br>')),
-                 '')
-}{
   dplyr::if_else(n_election_seats(ballot_date = ballot_date,
                                   lvl = 'federal',
                                   canton = canton,
                                   election_nr = i,
                                   type = 'vacant') > 1L,
-                 paste0('_KandidatIn ', j, '_'),
-                 '')
+                 glue::glue('_KandidatIn {j}_'),
+                 glue::glue(''))
 }"""
 question_common = "Wen hätten Sie bei der eidgenössischen Mehrheitswahl {i} gewählt? _KandidatIn {j}_"
 variable_name = "hypothetical_voting_decision_federal_majoritarian_election_{i}_seat_{j}"
@@ -3973,6 +3966,7 @@ respondent's age at the end of the year of the `ballot_date` (derived from `{
 variable_label_common = "respondent's age at the end of the year of the `ballot_date` (derived from `year_of_birth_official` if available, otherwise from `year_of_birth`)"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
+include = "{ any(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_statistik_aargau', '003_to_zda'), v_name = 'year_of_birth_official', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '01_personal', v_name = 'year_of_birth', key = 'include')) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Altersgruppe"
 variable_name = "age_group"
@@ -3980,6 +3974,7 @@ variable_label = "respondent's age group (derived from `age`)"
 response_options = [ "18–29 Jahre", "30–39 Jahre", "40–49 Jahre", "50–59 Jahre", "60–69 Jahre", "70+ Jahre" ]
 value_labels = [ "18–29 years", "30–39 years", "40–49 years", "50–59 years", "60–69 years", "70+ years" ]
 value_scale = "ordinal_ascending"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('y_generated', '001_all', '001_both'), v_name = 'age', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Zivilstand (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'marital_status', key = 'question') }"
@@ -3987,6 +3982,7 @@ variable_name = "marital_status_reduced"
 variable_label = "respondent's marital status (own statement; reduced)"
 response_options = [ "ledig", "verheiratet/in eingetragener Partnerschaft", "verwitwet", "geschieden/aufgelöste Partnerschaft" ]
 value_labels = [ "single", "married/in civil union", "widowed", "divorced/dissolved civil union" ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'marital_status', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Konfession (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'denomination', key = 'question') }"
@@ -3994,6 +3990,7 @@ variable_name = "denomination_reduced"
 variable_label = "respondent's denomination or religious community (reduced)"
 response_options = [ "keine/konfessionslos", "protestantisch/reformiert/evangelisch", "katholisch/christkatholisch/altkatholisch", "andere" ]
 value_labels = [   "none/undenominational", "Protestant/Reformed/Evangelical", "Catholic/Christian Catholic/Old Catholic", "other" ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'denomination', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Höchste abgeschlossene Ausbildung (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'highest_education', key = 'question') }"
@@ -4012,6 +4009,7 @@ value_labels = [
   "polytechnic, university, ETH"
 ]
 value_scale = "ordinal_ascending"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'highest_education', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 lvl.default = [ "", "inactive" ]
 lvl.20180923_20181125 = ""
@@ -4038,12 +4036,26 @@ value_labels = [
   "housewife/househusband",
   "other inactive person"
 ]
+include = """
+{
+  q_item_val(ballot_date = ballot_date,
+             canton = canton,
+             branch_path = c("07_personal_more", "z01_current_former"),
+             v_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '') }employment_situation",
+             key = "include") &&
+    lvl %in% q_item_val(ballot_date = ballot_date,
+                        canton = canton,
+                        branch_path = c("07_personal_more", "z01_current_former"),
+                        v_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '') }employment_situation",
+                        key = "lvl")
+}"""
 [[y_generated.001_all.001_both.item]]
 topic = "Monatliches Bruttoäquivalenzeinkommen ([OECD-Quadratwurzel-Skala](https://de.wikipedia.org/wiki/OECD-Skala))"
 variable_name = "monthly_gross_equivalised_income"
 variable_label = "respondent's monthly gross equivalised income (OECD square root scale) based on average monthly gross household income"
 response_options = "_Gleitkommazahl_"
 value_scale = "ratio" # only pseudo-ratio because underlying data is on ordinal-scale
+include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('07_personal_more', 'z02_more'), v_name = 'monthly_gross_household_income', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('07_personal_more', 'z02_more'), v_name = 'household_size', key = 'include')) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Empirisches Viertel des monatlichen Bruttoäquivalenzeinkommens"
 variable_name = "quarter_monthly_gross_equivalised_income"
@@ -4051,6 +4063,7 @@ variable_label = "empirical quarter the respondent's monthly gross equivalised i
 response_options = [ "unterstes Einkommensviertel", "zweites Einkommensviertel", "drittes Einkommensviertel", "oberstes Einkommensviertel" ]
 value_labels = [ "bottom income quarter", "second income quarter", "third income quarter", "top income quarter" ]
 value_scale = "ordinal_ascending"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('y_generated', '001_all', '001_both'), v_name = 'monthly_gross_equivalised_income', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Parteisympathie (erweitert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'favored_party', key = 'question') }"
@@ -4058,6 +4071,7 @@ variable_name = "favored_party_extended"
 variable_label = "the political party (recoded extended set) the respondent feels closest to his/her own political stance"
 response_options = "{ c(q_parties() %$% de.short, 'andere', 'mehrere (links)', 'mehrere (mitte-rechts)', 'mehrere (beliebig)', q_response_options(type = 'none', lang = 'de', subtypes = 'plural'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 value_labels = "{ c(q_parties() %$% en.short, 'other', 'multiple (left)', 'multiple (center-right)', 'multiple (arbitrary)',  q_response_options(type = 'none', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'favored_party', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Wichtigstes politisches Problem (erweitert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '03_1_election_general', v_name = 'main_political_issue', key = 'question') }"
@@ -4066,6 +4080,8 @@ variable_label = "issue in Swiss politics the respondent considers the most impo
 response_options = "{ political_issues(ballot_date = ballot_date, lang = 'de') %>% c('COVID-19-Pandemie', 'sonstiges', q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 value_labels = "{ political_issues(ballot_date = ballot_date, lang = 'en') %>% c('COVID-19 pandemic', 'other', q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options = true
+# NOTE: excluded by default since it is based on hand-curated recodings (result is hardly comparable across ballots)
+#include.default = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '03_1_election_general', v_name = 'main_political_issue', key = 'include') }"
 include.default = false
 include.true = [ 2020-10-18 ]
 [[y_generated.001_all.001_both.item]]
@@ -4076,6 +4092,7 @@ variable_label = "respondent's left-right self-positioning (reduced)"
 response_options = [ "links aussen (0–2)", "links (3–4)", "Mitte (5)", "rechts (6–7)", "rechts aussen (8–10)", "weiss nicht" ]
 value_labels = [ "far left (0–2)", "left (3–4)", "center (5)", "right (6–7)", "far right (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'left_right_self_positioning', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Vertrauen in kantonale Regierung (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_government', key = 'question') }"
@@ -4084,8 +4101,7 @@ variable_label = "respondent's trust in the cantonal government of Aargau (reduc
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
-include.default = true
-include.false = [ 2020-09-27 ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_government', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Vertrauen in kantonales Parlament (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_parliament', key = 'question') }"
@@ -4094,8 +4110,7 @@ variable_label = "respondent's trust in the cantonal parliament of Aargau (reduc
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
-include.default = true
-include.false = [ 2020-09-27 ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_parliament', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Vertrauen in Schweizer Demokratie (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_swiss_democracy', key = 'question') }"
@@ -4104,8 +4119,7 @@ variable_label = "respondent's trust in the Swiss democracy (reduced)"
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
-include.default = true
-include.false = [ 2020-09-27 ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_swiss_democracy', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Teilnahme eidgenössisch"
 variable_name = "participation_federal"
@@ -4160,7 +4174,7 @@ variable_label = "dummy value indicating whether or not the respondent automatic
 response_options = [ "erhält keine «easyvote»-Broschüre von der Gemeinde", "erhält «easyvote»-Broschüre von der Gemeinde" ]
 value_labels = [ "receives no «easyvote» booklet from the municipality", "receives «easyvote» booklet from the municipality" ]
 value_scale = "binary"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('x_publitest', '001_all'), v_name = 'easyvote_municipality_min_age', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('x_publitest', '001_all'), v_name = 'easyvote_municipality_max_age', key = 'include')) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Kontrolle Geschlecht"
 variable_name = "matches_sex"
@@ -4168,14 +4182,14 @@ variable_label = "dummy value indicating whether or not the respondent's own sta
 response_options = [ "Divergenz", "Übereinstimmung" ]
 value_labels = [ "mismatch", "match" ]
 value_scale = "binary"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_statistik_aargau', '003_to_zda'), v_name = 'sex_official', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Kontrolle Geburtsjahr"
 variable_name = "birth_year_divergence"
 variable_label = "difference in years between the respondent's own statement about his/her year of birth and the official cantonal register information"
 response_options = "_Ganzzahl_"
 value_scale = "interval"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_statistik_aargau', '003_to_zda'), v_name = 'year_of_birth_official', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '01_personal', v_name = 'year_of_birth', key = 'include')) }"
 
 [y_generated.001_all.002_referendum]
 ballot_types = [ "referendum" ]
@@ -4220,6 +4234,7 @@ variable_label = "respondent's latent expertise on the federal political system 
 variable_label_common = "respondent's latent expertise on the cantonal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L }"
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise eidgenössische Politik (5 Kategorien)"
 variable_name = "latent_expertise_federal_5cat"
@@ -4227,6 +4242,7 @@ variable_label = "respondent's latent expertise on the federal political system,
 response_options = [ "sehr gering", "eher gering", "mittel", "eher hoch", "sehr hoch" ]
 value_labels = [ "very low", "rather low", "medium", "rather high", "very high" ]
 value_scale = "ordinal_ascending"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L }"
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise kantonale Politik (kontinuierlich)"
 variable_name = "latent_expertise_cantonal"
@@ -4234,6 +4250,7 @@ variable_label = "respondent's latent expertise on the cantonal political system
 variable_label_common = "respondent's latent expertise on the cantonal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_cantonal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise kantonale Politik (5 Kategorien)"
 variable_name = "latent_expertise_cantonal_5cat"
@@ -4241,6 +4258,7 @@ variable_label = "respondent's latent expertise on the cantonal political system
 response_options = [ "sehr gering", "eher gering", "mittel", "eher hoch", "sehr hoch" ]
 value_labels = [ "very low", "rather low", "medium", "rather high", "very high" ]
 value_scale = "ordinal_ascending"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise eidgenössische und kantonale Politik (kontinuierlich)"
 variable_name = "latent_expertise"
@@ -4248,13 +4266,15 @@ variable_label = "respondent's latent expertise on the cantonal and federal poli
 variable_label_common = "respondent's latent expertise on the cantonal and federal political system together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal` and `passed_skill_question_*_cantonal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L && n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
 [[y_generated.001_all.003_election.item]]
-topic = "Latente Expertise (5 Kategorien)"
+topic = "Latente Expertise eidgenössische und kantonale Politik (5 Kategorien)"
 variable_name = "latent_expertise_5cat"
 variable_label = "respondent's latent expertise on the cantonal and federal political system together, measured in 5 discrete categories (based on `latent_expertise`)"
 response_options = [ "sehr gering", "eher gering", "mittel", "eher hoch", "sehr hoch" ]
 value_labels = [ "very low", "rather low", "medium", "rather high", "very high" ]
 value_scale = "ordinal_ascending"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L && n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
 
 [y_generated.002_participants]
 who = "Teilnehmende"
