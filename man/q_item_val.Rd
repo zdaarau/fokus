@@ -46,7 +46,6 @@ q_item_val(
 \item \code{"topic"}
 \item \code{"question"}
 \item \code{"question_full"}
-\item \code{"question_intro_lvl"}
 \item \code{"question_intro_i"}
 \item \code{"question_intro_j"}
 \item \code{"question_common"}
