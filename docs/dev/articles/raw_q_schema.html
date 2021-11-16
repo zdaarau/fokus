@@ -83,7 +83,7 @@
       <h1 data-toc-skip>FOKUS questionnaire schema</h1>
             <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-11-16</h4>
+            <h4 data-toc-skip class="date">2021-11-17</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -230,7 +230,7 @@
 <tr class="even">
 <td align="left"><code>who</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>"alle"</code></td>
 <td align="left">❌</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -246,13 +246,33 @@
 <td align="left">aka “Thema”</td>
 </tr>
 <tr class="even">
+<td align="left"><code>question_intro_i</code></td>
+<td align="left">character scalar</td>
+<td align="left"></td>
+<td align="left">✅</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">1st-priority part of “Frage”, only included if <code>i == 1</code> and <code>j %in% c(1, NA)</code>
+</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>question_intro_j</code></td>
+<td align="left">character scalar</td>
+<td align="left"></td>
+<td align="left">✅</td>
+<td align="left">❌</td>
+<td align="left">❌</td>
+<td align="left">2nd-priority part of “Frage”, only included if <code>j == 1</code>
+</td>
+</tr>
+<tr class="even">
 <td align="left"><code>question</code></td>
 <td align="left">character scalar</td>
 <td align="left"></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
-<td align="left">last-priority part of “Frage”</td>
+<td align="left">last-priority part of “Frage”, always included</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>question_full</code></td>
@@ -263,24 +283,6 @@
 <td align="left">❌</td>
 <td align="left">alternative fully formulated version of “Frage” that can refer to <code>question</code>
 </td>
-</tr>
-<tr class="even">
-<td align="left"><code>question_intro_i</code></td>
-<td align="left">character scalar</td>
-<td align="left"></td>
-<td align="left">✅</td>
-<td align="left">❌</td>
-<td align="left">❌</td>
-<td align="left">1st-priority part of “Frage”</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>question_intro_j</code></td>
-<td align="left">character scalar</td>
-<td align="left"></td>
-<td align="left">✅</td>
-<td align="left">❌</td>
-<td align="left">❌</td>
-<td align="left">2nd-priority part of “Frage”</td>
 </tr>
 <tr class="even">
 <td align="left"><code>question_common</code></td>
@@ -294,7 +296,7 @@
 <tr class="odd">
 <td align="left"><code>variable_label</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>"???"</code></td>
 <td align="left">❌</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -441,7 +443,8 @@ question.default.referendum = "nenene"</code></pre>
 <ul>
 <li>
 <code>variable_name</code> is the only key that mustn’t have any subkeys.</li>
-<li>The <code>default</code> subkeys of <code>question</code>/<code>variable_label</code> are also used as <code>question_common</code>/<code>variable_label_common</code> if the latter are not explicitly defined.</li>
+<li>If <code>variable_label_common</code> is not explicitly defined, it falls back to <code>variable_label.default</code>.</li>
+<li>If <code>question_common</code> is not explicitly defined, it falls back to a) the <code>question_full.default</code>, b) <code>question.default</code>, or c) <code>question_full</code>.</li>
 </ul>
 </li>
 <li><p>The keys <code>lvl</code>, <code>i</code> and <code>j</code> are interpreted as iterators which you can refer to via string interpolation (e.g. <code>voting_decision_{lvl}</code>), so you have to define similar questionnaire items only once. If any of them evaluate to <code>NULL</code> or an empty vector, the respective item is automatically excluded, i.e. it’s not necessary to explicitly set <code>include</code> (sub)keys in such case.</p></li>

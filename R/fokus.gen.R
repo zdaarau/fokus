@@ -29,6 +29,8 @@ utils::globalVariables(names = c(".",
                                  "alignment",
                                  "allowed",
                                  "block",
+                                 "date_begin",
+                                 "date_end",
                                  "enumerator",
                                  "enumerator_base",
                                  "Geschlecht",
@@ -999,13 +1001,27 @@ assemble_q_item_tibble <- function(ballot_date,
                           
                           if (verbose) cli::cli_progress_step(".. .. KEY: {.field {.x}}")
                           
+                          # pre-resolve `question` for dependent `question_full` resolution
+                          if (.x == "question_full") {
+                            question <- resolve_q_val(x = item_map[["question"]],
+                                                      ballot_date = ballot_date,
+                                                      canton = canton,
+                                                      key = "question",
+                                                      lvl = lvl,
+                                                      i = i,
+                                                      j = j)
+                          } else {
+                            question <- NA_character_
+                          }
+                          
                           resolve_q_val(x = item_map[[.x]],
                                         ballot_date = ballot_date,
                                         canton = canton,
                                         key = .x,
                                         lvl = lvl,
                                         i = i,
-                                        j = j) %>%
+                                        j = j,
+                                        question = question) %>%
                             purrr::when(
                               # replace empty scalars with NA
                               length(.) == 0L && .x %in% q_item_keys$key[q_item_keys$is_scalar] ~
@@ -1043,19 +1059,35 @@ assemble_q_item_tibble <- function(ballot_date,
                         }
                       }
                       
-                      ## 2: if no `question_common` is defined, fall back on `question.default` if it exists and actually differs from `question`
-                      if (is.na(result$question_common) && "default" %in% names(item_map$question)) {
+                      ## 2: if no `question_common` is defined, fall back on
+                      ##    a) `question_full.default`
+                      ##    b) `question.default`
+                      ##    c) `question_full`
+                      ##    if either exists and actually differs from `question`
+                      if (is.na(result$question_common)) {
                         
-                        default_question <- resolve_q_val(x = item_map$question$default,
-                                                          ballot_date = ballot_date,
-                                                          canton = canton,
-                                                          key = "question",
-                                                          lvl = lvl,
-                                                          i = i,
-                                                          j = j)
+                        question_common_fallback <-
+                          item_map %>%
+                          purrr::when("default" %in% names(.$question_full) ~
+                                        resolve_q_val(x = item_map$question_full$default,
+                                                      ballot_date = ballot_date,
+                                                      canton = canton,
+                                                      key = "question_full",
+                                                      lvl = lvl,
+                                                      i = i,
+                                                      j = j),
+                                      "default" %in% names(.$question) ~
+                                        resolve_q_val(x = item_map$question$default,
+                                                      ballot_date = ballot_date,
+                                                      canton = canton,
+                                                      key = "question",
+                                                      lvl = lvl,
+                                                      i = i,
+                                                      j = j),
+                                      ~ result$question_full)
                         
-                        if (isTRUE(default_question != result$question)) {
-                          result$question_common <- default_question
+                        if (isTRUE(question_common_fallback != result$question)) {
+                          result$question_common <- question_common_fallback
                         }
                       }
                       
@@ -1142,20 +1174,29 @@ expand_q_tibble <- function(q_tibble) {
 #'
 #' Exports *all* questionnaires, *softly* by default (i.e. without an XLSX version and deploying/uploading).
 #'
-#' Useful to test and inspect latest changes in generated questionnaire files.
+#' Useful to efficiently test and inspect latest changes in generated questionnaire files.
 #'
 #' @inheritParams export_q
 #'
 #' @keywords internal
-export_q_all <- function(incl_xlsx = FALSE,
+export_q_all <- function(verbose = FALSE,
+                         incl_csv = TRUE,
+                         incl_html = TRUE,
+                         incl_xlsx = FALSE,
+                         deploy = FALSE,
+                         local_deploy_path = getOption("fokus.q.local_deploy_path"),
                          upload_to_g_drive = FALSE,
-                         deploy = FALSE) {
+                         g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/Fragebogen/") {
   ballot_dates %>%
     purrr::walk(export_q,
                 canton = "aargau",
+                incl_csv = incl_csv,
+                incl_html = incl_html,
                 incl_xlsx = incl_xlsx,
+                deploy = deploy,
+                local_deploy_path = local_deploy_path,
                 upload_to_g_drive = upload_to_g_drive,
-                deploy = deploy)
+                g_drive_folder = g_drive_folder)
 }
 
 #' Generate questionnaire tibble
@@ -1214,14 +1255,14 @@ init_heritable_map <- function(block) {
                     block = block,
                     variable_name = "???",
                     topic = NULL,
-                    who = NULL,
-                    question = NULL,
-                    question_full = NULL,
+                    who = "alle",
                     question_intro_i = NULL,
                     question_intro_j = NULL,
+                    question = NULL,
+                    question_full = NULL,
                     question_common = NULL,
                     multiple_answers_allowed = FALSE,
-                    variable_label = NULL,
+                    variable_label = "???",
                     variable_label_common = NULL,
                     response_options = NULL,
                     variable_values = NULL,
@@ -1239,7 +1280,12 @@ interpolate_q_val <- function(x,
                               key,
                               lvl,
                               i,
-                              j) {
+                              j,
+                              ...) {
+  
+  # assign objects in dots to current env ensuring glue/cli fns respect them
+  rlang::env_bind(.env = rlang::current_env(),
+                  ...)
   
   if (key %in% q_item_keys$key[q_item_keys$is_scalar]) {
     
@@ -1251,7 +1297,7 @@ interpolate_q_val <- function(x,
     result <-
       x %>%
       purrr::map(.f = glue::glue,
-                 .envir = environment(),
+                 .envir = rlang::current_env(),
                  .null = NA_character_,
                  .trim = FALSE) %>%
       unlist()
@@ -1266,7 +1312,8 @@ resolve_q_val <- function(x,
                           key,
                           lvl,
                           i,
-                          j) {
+                          j,
+                          ...) {
   
   checkmate::assert_scalar(lvl, null.ok = TRUE)
   checkmate::assert_scalar(i, na.ok = TRUE, null.ok = TRUE)
@@ -1281,7 +1328,8 @@ resolve_q_val <- function(x,
                                                     key = key,
                                                     lvl = lvl,
                                                     i = i,
-                                                    j = j),
+                                                    j = j,
+                                                    ... = ...),
                 ~ .) %>%
     # convert to proper type
     purrr::when(
@@ -1609,9 +1657,9 @@ q_md_table_body <- function(q_tibble_block,
                              enumerator,
                              topic,
                              who,
-                             question,
                              question_intro_i,
                              question_intro_j,
+                             question,
                              multiple_answers_allowed,
                              variable_name,
                              variable_label,
@@ -1628,8 +1676,8 @@ q_md_table_body <- function(q_tibble_block,
                               "-"),
             who,
             question %>% purrr::when(is.na(.) ~ "-",
-                                     ~ c(c(question_intro_i[isTRUE(j == 1L)],
-                                           question_intro_j[isTRUE(i == 1L && j == 1L)]) %>%
+                                     ~ c(c(question_intro_i[isTRUE(i == 1L && j %in% c(1L, NA_integer_))],
+                                           question_intro_j[isTRUE(j == 1L)]) %>%
                                            magrittr::extract(!is.na(.)) %>%
                                            pal::as_string(),
                                          .) %>%
@@ -1812,17 +1860,29 @@ q_item_val <- function(ballot_date = ballot_dates,
 
 #' Political parties
 #'
-#' A tibble of political party metadata defined in the [raw FOKUS questionnaire data][raw_q].
+#' A tibble of ballot-date-specific political party metadata defined in the [raw FOKUS questionnaire data][raw_q].
 #'
 #' @return `r pkgsnip::return_label("data")`
 #' @family q_internal
 #' @keywords internal
-q_parties <- function() {
+q_parties <- function(ballot_date = ballot_dates) {
+  
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
+  ballot_date %<>% lubridate::as_date()
   
   raw_q %>%
     purrr::chuck("party") %>%
-    purrr::map(as_flat_list) %>%
-    purrr::map_dfr(tibble::as_tibble)
+    purrr::map_dfr(~ {
+      tibble::tibble_row(code = .x$code,
+                         de.long = .x$de$long,
+                         de.short = .x$de$short,
+                         en.short = .x$en$short %||% .x$de$short,
+                         date_begin = .x$date_begin %||% lubridate::as_date("1970-01-01"),
+                         date_end = .x$date_end %||% lubridate::as_date("2099-12-31"))
+    }) %>%
+    dplyr::filter(date_begin <= ballot_date & date_end >= ballot_date)
 }
 
 #' Extract response options

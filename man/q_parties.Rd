@@ -4,13 +4,13 @@
 \alias{q_parties}
 \title{Political parties}
 \usage{
-q_parties()
+q_parties(ballot_date = ballot_dates)
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-A tibble of political party metadata defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
+A tibble of ballot-date-specific political party metadata defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
 }
 \seealso{
 Other questionnaire-internal functions

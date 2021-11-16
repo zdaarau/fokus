@@ -4,19 +4,38 @@
 \alias{export_q_all}
 \title{Export all questionnaires}
 \usage{
-export_q_all(incl_xlsx = FALSE, upload_to_g_drive = FALSE, deploy = FALSE)
+export_q_all(
+  verbose = FALSE,
+  incl_csv = TRUE,
+  incl_html = TRUE,
+  incl_xlsx = FALSE,
+  deploy = FALSE,
+  local_deploy_path = getOption("fokus.q.local_deploy_path"),
+  upload_to_g_drive = FALSE,
+  g_drive_folder = "fokus_aargau/Umfragen/Dateien für publitest/Fragebogen/"
+)
 }
 \arguments{
+\item{verbose}{Whether or not to print progress information during questionnaire generation.}
+
+\item{incl_csv}{Whether or not to also generate and export a CSV version of the questionnaire.}
+
+\item{incl_html}{Whether or not to also generate and export an HTML version of the questionnaire.}
+
 \item{incl_xlsx}{Whether or not to also generate and export an XLSX version of the questionnaire.}
+
+\item{deploy}{Whether or not to deploy the generated files as a static site to the Git repository specified under \code{local_deploy_path}.}
+
+\item{local_deploy_path}{Local filesystem path to the Git repository of the static site to deploy the generated files files to. Ignored if \code{deploy = FALSE}.}
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
-\item{deploy}{Whether or not to deploy the generated files as a static site to the Git repository specified under \code{local_deploy_path}.}
+\item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 }
 \description{
 Exports \emph{all} questionnaires, \emph{softly} by default (i.e. without an XLSX version and deploying/uploading).
 }
 \details{
-Useful to test and inspect latest changes in generated questionnaire files.
+Useful to efficiently test and inspect latest changes in generated questionnaire files.
 }
 \keyword{internal}

@@ -1,12 +1,17 @@
 # TODOs
 
--   Split `question` into `question_intro_lvl`, `question_intro_i` and `question_intro_j` where appropriate.
+-   Change `complement_heritable_map()` to merge instead of overwrite keys and thus **preserve** subkeys (use `purrr::list_modify()`).
 
--   Rename all occurences of `publitest` to `polling_agency`
+-   q clean-ups:
 
--   Rename `id_statistik_aargau` to `id_statistical_office`
+    -   Rename all occurences of `publitest` to `polling_agency`
+    -   Rename `id_statistik_aargau` to `id_statistical_office`
+    -   Use EN instead of DE values in `who` key
 
 -   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing [PR #27](https://github.com/jeroen/rsvg/pull/27)).
+
+-   q: Consider introducing a mechanism to define truly hierarchical first-item question intros on table lvl above `item` lvl. But maybe not worth the effort?
+    Wait until we conduct an online survey by ourselves to get better understanding of requirements!
 
 ## Other
 
@@ -45,3 +50,4 @@
     etc.)
 
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
+

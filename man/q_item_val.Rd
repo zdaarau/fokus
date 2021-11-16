@@ -44,10 +44,10 @@ q_item_val(
 \item \code{"variable_name"}
 \item \code{"who"}
 \item \code{"topic"}
-\item \code{"question"}
-\item \code{"question_full"}
 \item \code{"question_intro_i"}
 \item \code{"question_intro_j"}
+\item \code{"question"}
+\item \code{"question_full"}
 \item \code{"question_common"}
 \item \code{"variable_label"}
 \item \code{"variable_label_common"}

@@ -280,18 +280,22 @@ response_options = [ "trifft nicht zu", "trifft zu", "weiss nicht" ]
 variable_values = [ 0, 1, 99 ]
 value_labels = [ "is not true", "is true", "don't know" ]
 value_scale = "binary"
+[02_political_start.002_non_participation.001_both]
+question_intro_i.referendum = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht."
+question_intro_i.election = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Wahlen**', 'Sie') } zutrifft oder nicht."
+question_full = "Trifft «{question}» als Grund für Ihre Nichtteilnahme/Enthaltung an den { dplyr::if_else(lvl == 'cantonal', '**kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 [[02_political_start.002_non_participation.001_both.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
 topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Unentschlossenheit"
-question.default.referendum = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
-question.default.election = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Wahlen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
-question_common = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen und Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen/Wahlen**', 'Sie') } zutrifft oder nicht. <br><br>_Ich konnte mich nicht entscheiden._"
+question = "_Ich konnte mich nicht entscheiden._"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_indecision"
 variable_label = "whether or not indecision was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 [[02_political_start.002_non_participation.001_both.item]]
 topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Desinteresse"
 question.default.referendum = "_Die Abstimmungsthemen haben mich nicht interessiert._"
 question.default.election = "_Ich interessiere mich nicht für Politik._"
-question_common = "Abstimmungen: _Die Abstimmungsthemen haben mich nicht interessiert._; Wahlen: _Ich interessiere mich nicht für Politik._"
+question_common = "Trifft «Die Abstimmungsthemen haben mich nicht interessiert.» (Abstimmungen) bzw. «Ich interessiere mich nicht für Politik.» (Wahlen) als Grund für Ihre Nichtteilnahme/Enthaltung an den { dplyr::if_else(lvl == 'cantonal', '**kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_disinterest"
 variable_label.default.referendum = "whether or not disinterest in the voting topics was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 variable_label.default.election = "whether or not disinterest in politics was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
@@ -300,7 +304,7 @@ variable_label_common = "whether or not disinterest was a reason for the respond
 topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Überforderung"
 question.default.referendum = "_Die Abstimmungsthemen waren zu kompliziert._"
 question.default.election = "_Die Wahlen sind zu kompliziert._"
-question_common = "Abstimmungen: _Die Abstimmungsthemen waren zu kompliziert._; Wahlen: _Die Wahlen sind zu kompliziert._"
+question_common = "Trifft «Die Abstimmungsthemen waren zu kompliziert.» (Abstimmungen) bzw. «Die Wahlen sind zu kompliziert.» (Wahlen) als Grund für Ihre Nichtteilnahme/Enthaltung an den { dplyr::if_else(lvl == 'cantonal', '**kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_complexity"
 variable_label.default.referendum = "whether or not the voting topics being too complicated was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 variable_label.default.election = "whether or not the election being too complicated was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
@@ -317,7 +321,7 @@ variable_label = "whether or not being unable to attend was a reason for the res
 topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Wirkungslosigkeit"
 question.default.referendum = "_Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern._"
 question.default.election = "_Ich bin der Meinung, dass Wahlen ohnehin nichts ändern._"
-question_common = "Abstimmungen: _Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern._; Wahlen: _Ich bin der Meinung, dass Wahlen ohnehin nichts ändern._"
+question_common = "Trifft «Ich bin der Meinung, dass Abstimmungen ohnehin nichts ändern.» (Abstimmungen) bzw. «Ich bin der Meinung, dass Wahlen ohnehin nichts ändern.» (Wahlen) als Grund für Ihre Nichtteilnahme/Enthaltung an den { dplyr::if_else(lvl == 'cantonal', '**kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_ineffectiveness"
 variable_label.default.referendum = "whether or not to think that referendums don't change anything anyway was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 variable_label.default.election = "whether or not to think that elections don't change anything anyway was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
@@ -329,9 +333,9 @@ variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_c
 variable_label = "whether or not to think that your own vote doesn't matter anyway was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 [[02_political_start.002_non_participation.001_both.item]]
 topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Vergessen teilzunehmen"
-question.default.referendum = "_Ich habe vergessen, an der Abstimmung teilzunehmen._"
+question.default.referendum = "_Ich habe vergessen an der Abstimmung teilzunehmen._"
 question.default.election = "_Ich habe vergessen teilzunehmen._"
-question_common = "_Ich habe vergessen teilzunehmen._"
+question_common = "Trifft «Ich habe vergessen teilzunehmen.» als Grund für Ihre Nichtteilnahme/Enthaltung an den { dplyr::if_else(lvl == 'cantonal', '**kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 variable_name = "reason_non_participation{ dplyr::if_else(lvl == 'cantonal', '_cantonal', '') }_forgetfulness"
 variable_label.default.referendum = "whether or not the respondent forgot to take part in the{ dplyr::if_else(lvl == 'cantonal', ' cantonal', '') } vote"
 variable_label.default.election = "whether or not the respondent forgot to take part in the{ dplyr::if_else(lvl == 'cantonal', ' cantonal', '') } election"
@@ -362,12 +366,9 @@ lvl = ""
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'proportional')) }"
 topic = "Hypothetischer Stimmentscheid Partei eidgenössische Verhältniswahl {i}"
+question_intro_i = "Wenn Sie an den Wahlen teilgenommen hätten:"
 question = """
-{
-  dplyr::if_else(i == 1L,
-                 'Wenn Sie an den Wahlen teilgenommen hätten: <br><br>',
-                 '')
-}Welche Partei hätten Sie in den eidgenössischen **{
+Welche Partei hätten Sie in den eidgenössischen **{
   election_name(ballot_date = ballot_date,
                 lvl = 'federal',
                 canton = canton,
@@ -387,9 +388,8 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', c
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'majoritarian')) }"
 j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, type = 'vacant')) }"
 topic = "Hypothetischer Stimmentscheid Sitz {j} eidgenössische Mehrheitswahl {i}"
-question_intro_i = "Wenn Sie an den Wahlen teilgenommen hätten, "
 question_intro_j = """
-{
+Wenn Sie an den Wahlen teilgenommen hätten, {
   dplyr::if_else(n_election_seats(ballot_date = ballot_date,
                                          lvl = 'federal',
                                          canton = canton,
@@ -449,15 +449,9 @@ value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'fe
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'proportional')) }"
 topic = "Hypothetischer Stimmentscheid Partei kantonale Verhältniswahl {i}"
+question_intro_i = "Wenn Sie an den Wahlen teilgenommen hätten:"
 question = """
-{
-  dplyr::if_else(i == 1L
-                 && has_election(ballot_date = ballot_date,
-                                 lvls = 'cantonal',
-                                 canton = canton),
-                 'Wenn Sie an den Wahlen teilgenommen hätten: <br><br>',
-                 '')
-}Welche Partei hätten Sie in den kantonalen **{
+Welche Partei hätten Sie in den kantonalen **{
   election_name(ballot_date = ballot_date,
                 lvl = 'cantonal',
                 canton = canton,
@@ -477,53 +471,40 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', 
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'majoritarian')) }"
 j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, type = 'vacant')) }"
 topic = "Hypothetischer Stimmentscheid Sitz {j} kantonale Mehrheitswahl {i}"
-question = """
-{
-  dplyr::if_else(i == 1L
-                 && j == 1L
-                 && n_elections(ballot_date = ballot_date,
-                                lvls = 'cantonal',
-                                canton = canton,
-                                prcds = 'proportional') == 0
-                 && n_elections(ballot_date = ballot_date,
-                                lvls = 'federal',
-                                canton = canton) == 0,
-                 'Wenn Sie an den Wahlen teilgenommen hätten: <br><br>',
-                 '')
-}{
-  dplyr::if_else(j == 1L,
-                 paste0(dplyr::if_else(n_election_seats(ballot_date = ballot_date,
-                                                        lvl = 'cantonal',
-                                                        canton = canton,
-                                                        election_nr = i,
-                                                        type = 'vacant') > 1L,
-                                       paste0('Welche ',
-                                              salim::write_out_n(n_election_seats(ballot_date = ballot_date,
-                                                                                  lvl = 'cantonal',
-                                                                                  canton = canton,
-                                                                                  election_nr = i,
-                                                                                  type = 'vacant'),
-                                                                lang = 'de'),
-                                              ' KandidatInnen'),
-                                       'Wen'),
-                        paste0(' hätten Sie in den kantonalen **',
-                               election_name(ballot_date = ballot_date,
-                                             lvl = 'cantonal',
-                                             canton = canton,
-                                             prcd = 'majoritarian',
-                                             election_nr = i,
-                                             lang = 'de',
-                                             type = 'body'),
-                               '** gewählt? <br><br>')),
-                 '')
-}{
+question_intro_j = """
+Wenn Sie an den Wahlen teilgenommen hätten, {
   dplyr::if_else(n_election_seats(ballot_date = ballot_date,
                                   lvl = 'cantonal',
                                   canton = canton,
                                   election_nr = i,
                                   type = 'vacant') > 1L,
-                 paste0('_KandidatIn ', j, '_'),
-                 '')
+                 paste0('welche ',
+                        salim::write_out_n(n_election_seats(ballot_date = ballot_date,
+                                                            lvl = 'cantonal',
+                                                            canton = canton,
+                                                            election_nr = i,
+                                                            type = 'vacant'),
+                                          lang = 'de'),
+                        ' KandidatInnen'),
+                 'wen')
+} hätten Sie in den kantonalen **{
+  election_name(ballot_date = ballot_date,
+                lvl = 'cantonal',
+                canton = canton,
+                prcd = 'majoritarian',
+                election_nr = i,
+                lang = 'de',
+                type = 'body')
+}** gewählt?"""
+question = """
+{
+  dplyr::if_else(n_election_seats(ballot_date = ballot_date,
+                                  lvl = 'cantonal',
+                                  canton = canton,
+                                  election_nr = i,
+                                  type = 'vacant') > 1L,
+                 glue::glue('_KandidatIn {j}_'),
+                 glue::glue(''))
 }"""
 question_common = "Wen hätten Sie bei der kantonalen Mehrheitswahl {i} gewählt? _KandidatIn {j}_"
 variable_name = "hypothetical_voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
@@ -612,23 +593,8 @@ randomize_response_options.20180923_20191020 = false
 [[03_1_election_general.z01_skill_questions.item]]
 i = "{ seq_len(n_skill_questions(canton = canton, ballot_date = ballot_date, lvl = 'federal')) }"
 topic = "Wissensfrage {i} zur eidgenössischen Politik"
-question = """
-{
-  dplyr::if_else(i == 1L,
-                 paste0('Nachfolgend ',
-                        n_skill_questions(ballot_date = ballot_date,
-                                          lvl = 'federal',
-                                          canton = canton) %>%
-                          salim::write_out_n(lang = 'de'),
-                        ' Fragen zum politischen System der Schweiz. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten. <br><br>'),
-                 '')
-}_{
-  skill_question(ballot_date = ballot_date,
-                 lvl = 'federal',
-                 canton = canton,
-                 skill_question_nr = i,
-                 lang = 'de')
-}_"""
+question_intro_i = "Nachfolgend { n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) %>% salim::write_out_n(lang = 'de') } Fragen zum politischen System der Schweiz. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten."
+question = "_{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i, lang = 'de') }_"
 question_common = "Wissensfrage {i} zu den eidgenössischen Wahlen"
 variable_name = "skill_question_{i}_federal"
 variable_label = "respondent's answer to the skill question «{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i, lang = 'en') }» about the federal political system ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'federal', skill_question_nr = i) %>% salim::rank_nr() } answer is correct)"
@@ -639,7 +605,25 @@ value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl
 [[03_1_election_general.z01_skill_questions.item]]
 i = "{ seq_len(n_skill_questions(canton = canton, ballot_date = ballot_date, lvl = 'cantonal')) }"
 topic = "Wissensfrage {i} zur kantonalen Politik"
-question = "{ dplyr::if_else(i == 1L, paste0(dplyr::if_else(n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L, 'Nun ', 'Nachfolgend '), n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) %>% salim::write_out_n(lang = 'de'), ' Fragen zum politischen System des Kantons Aargau. Bitte kreuzen Sie ', dplyr::if_else(n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L, 'wiederum ', ' '), 'die Antwortoption an, die Sie am ehesten für korrekt halten. <br><br>'), '') }_{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i, lang = 'de') }_"
+question_intro_i = """
+{
+  paste0(dplyr::if_else(n_skill_questions(ballot_date = ballot_date,
+                                          lvl = 'federal',
+                                          canton = canton) > 0L,
+                        'Nun ',
+                        'Nachfolgend '),
+         salim::write_out_n(n_skill_questions(ballot_date = ballot_date,
+                                              lvl = 'cantonal',
+                                              canton = canton),
+                            lang = 'de'))
+} Fragen zum politischen System des Kantons Aargau. Bitte kreuzen Sie {
+  dplyr::if_else(n_skill_questions(ballot_date = ballot_date,
+                                   lvl = 'federal',
+                                   canton = canton) > 0L,
+                 'wiederum',
+                 'jeweils')
+} die Antwortoption an, die Sie am ehesten für korrekt halten."""
+question = "_{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i, lang = 'de') }_"
 question_common = "Wissensfrage {i} zu den kantonalen Wahlen"
 variable_name = "skill_question_{i}_cantonal"
 variable_label = "respondent's answer to the skill question «{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i, lang = 'en') }» about the cantonal political system ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', skill_question_nr = i) %>% salim::rank_nr() } answer is correct)"
@@ -654,9 +638,12 @@ response_options = [ "nicht genutzt", "genutzt", "weiss nicht" ]
 variable_values = [ 0, 1, 99 ]
 value_labels = [ "not used", "used", "don't know" ]
 value_scale = "binary"
+question_intro_i = "Haben Sie die folgenden Quellen genutzt, um sich über die Parteien und KandidatInnen zu informieren und eine Meinung zu bilden?"
 [[03_1_election_general.z02_information_source.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
 topic = "Informationsquelle: Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten"
-question = "Haben Sie die folgenden Quellen genutzt, um sich über die Parteien und KandidatInnen zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
+question = "_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"
 variable_label = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the parties and candidates"
 variable_name = "information_source_free_newspapers"
 [[03_1_election_general.z02_information_source.item]]
@@ -722,9 +709,12 @@ variable_label.default = "whether or not the respondent used online voting advic
 variable_label.20180923_20201018 = "whether or not the respondent used online voting advice applications like [smartvote](https://smartvote.ch/) to learn about the parties and candidates"
 [03_1_election_general.z02_information_source.z01_help]
 ballot_types = [ "election" ]
+question_intro_i = "Von offizieller Seite existieren verschiedene Angebote, um der Stimmbevölkerung das Wahlverfahren besser zu erklären. Haben Sie die folgenden Hilfestellungen genutzt?"
 [[03_1_election_general.z02_information_source.z01_help.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
 topic = "Informationsquelle: Kantonale Wahlanleitung"
-question = "Von offizieller Seite existieren verschiedene Angebote, um der Stimmbevölkerung das Wahlverfahren besser zu erklären. Haben Sie die folgenden Hilfestellungen genutzt? <br><br>_Wahlanleitung, welche den kantonalen Wahlunterlagen beilag_"
+question = "_Wahlanleitung, welche den kantonalen Wahlunterlagen beilag_"
 variable_name = "cantonal_information_source_election_booklet"
 variable_label = "whether or not the respondent used the cantonal election booklet to learn about the election procedure"
 include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
@@ -775,9 +765,12 @@ response_options = [ "nein", "ja" ]
 variable_values = [ 0, 1 ]
 value_labels = [ "no", "yes" ]
 value_scale = "binary"
+question_intro_i = "Parteien und Kandidierende suchen im Wahlkampf den direkten, persönlichen Kontakt zur Wählerschaft. Bei welchen der folgenden Anlässe/Aktionen kamen Sie in Kontakt mit Parteien und Kandidierenden?"
 [[03_1_election_general.z04_political_occasions.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
 topic = "Politische Anlässe/Aktionen: Standaktionen"
-question = "Parteien und Kandidierende suchen im Wahlkampf den direkten, persönlichen Kontakt zur Wählerschaft. Bei welchen der folgenden Anlässe/Aktionen kamen Sie in Kontakt mit Parteien und Kandidierenden? <br><br>_Standaktionen_"
+question = "_Standaktionen_"
 variable_name = "political_occasions_stand_actions"
 variable_label = "whether or not the respondent came into contact with parties and candidates via stand actions"
 [[03_1_election_general.z04_political_occasions.item]]
@@ -889,19 +882,23 @@ response_options = [ "trifft nicht zu", "trifft zu", "weiss nicht mehr" ]
 variable_values = [ 0, 1, 99 ]
 value_labels = [ "is not true", "is true", "can't remember" ]
 value_scale = "binary"
-[[03_2_election_specific.001_federal_proportional.z01_type.item]]
+[03_2_election_specific.001_federal_proportional.z01_type.001_modification]
+question_intro_j = "Wie haben Sie die Liste verändert/zusammengestellt? Ich habe…"
+[[03_2_election_specific.001_federal_proportional.z01_type.001_modification.item]]
+# set iterator to trigger `question_intro_j`
+j = 1
 topic = "Listenabänderung eidgenössische Verhältniswahl {i}: Kumulieren"
-question = "Wie haben Sie die Liste verändert/zusammengestellt? Ich habe… <br><br>_kumuliert, d. h. einzelne KandidatInnen doppelt aufgeführt._"
+question = "_kumuliert, d. h. einzelne KandidatInnen doppelt aufgeführt._"
 variable_name = "ticket_modification_federal_proportional_election_{i}_cumulated"
 variable_label = "whether or not the respondent has cumulated candidates on the ticket in the federal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }»"
 variable_label_common = "whether or not the respondent has cumulated candidates on the ticket in the { salim::rank_nr(i) } federal proportional election"
-[[03_2_election_specific.001_federal_proportional.z01_type.item]]
+[[03_2_election_specific.001_federal_proportional.z01_type.001_modification.item]]
 topic = "Listenabänderung eidgenössische Verhältniswahl {i}: Streichen"
 question = "_einzelne KandidatInnen von der Liste gestrichen._"
 variable_name = "ticket_modification_federal_proportional_election_{i}_delisted"
 variable_label = "whether or not the respondent has removed candidates from the ticket in the federal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }»"
 variable_label_common = "whether or not the respondent has removed candidates from the ticket in the { salim::rank_nr(i) } federal proportional election"
-[[03_2_election_specific.001_federal_proportional.z01_type.item]]
+[[03_2_election_specific.001_federal_proportional.z01_type.001_modification.item]]
 topic = "Listenabänderung eidgenössische Verhältniswahl {i}: Panaschieren"
 question = "_panaschiert, d. h. KandidatInnen von anderen Listen eingetragen._"
 variable_name = "ticket_modification_federal_proportional_election_{i}_panached"
@@ -1002,7 +999,59 @@ value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'fe
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'proportional')) }"
 [[03_2_election_specific.003_cantonal_proportional.item]]
 topic = "Stimmentscheid Partei kantonale Verhältniswahl {i}"
-question = "{ dplyr::if_else(i == 1L, paste0(dplyr::if_else(has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton), paste0('Weiter fand', dplyr::if_else(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, 'en', ''), ' am ', prettify_date(ballot_date, locale = 'de')), paste0('Am ', prettify_date(ballot_date, locale = 'de'), ' fand', dplyr::if_else(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, 'en', ''))), ' die kantonale', dplyr::if_else(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('n ', election_names_combined(ballot_date = ballot_date, lvl = 'cantonal', canton = canton), ' statt. <br><br>'), paste0(' ', election_names_combined(ballot_date = ballot_date, lvl = 'cantonal', canton = canton), ' statt. '))), '') }Welche Partei haben Sie { dplyr::if_else(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) > 1L, paste0('in den **', election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body_alt'), '** '), '') }gewählt, d. h. von welcher Partei haben Sie _am meisten_ KandidatInnen gewählt?"
+question = """
+{
+  dplyr::if_else(i == 1L,
+                 paste0(dplyr::if_else(has_lvl(ballot_date = ballot_date,
+                                               lvl = 'federal',
+                                               canton = canton),
+                                       paste0('Weiter fand',
+                                              dplyr::if_else(n_elections(ballot_date = ballot_date,
+                                                                         lvls = 'cantonal',
+                                                                         canton = canton) > 1L,
+                                                             'en',
+                                                             ''),
+                                              ' am ',
+                                              prettify_date(ballot_date,
+                                                            locale = 'de')),
+                                       paste0('Am ',
+                                              prettify_date(ballot_date,
+                                                            locale = 'de'),
+                                              ' fand',
+                                              dplyr::if_else(n_elections(ballot_date = ballot_date,
+                                                                         lvls = 'cantonal',
+                                                                         canton = canton) > 1L,
+                                                             'en',
+                                                             ''))),
+                        ' die kantonale',
+                        dplyr::if_else(n_elections(ballot_date = ballot_date,
+                                                   lvls = 'cantonal',
+                                                   canton = canton) > 1L,
+                                       paste0('n ',
+                                              election_names_combined(ballot_date = ballot_date,
+                                                                      lvl = 'cantonal',
+                                                                      canton = canton),
+                                              ' statt. <br><br>'),
+                                       paste0(' ',
+                                              election_names_combined(ballot_date = ballot_date,
+                                                                      lvl = 'cantonal',
+                                                                      canton = canton),
+                                              ' statt. '))), '')
+}Welche Partei haben Sie {
+  dplyr::if_else(n_elections(ballot_date = ballot_date,
+                             lvls = 'cantonal',
+                             canton = canton) > 1L,
+                 paste0('in den **',
+                        election_name(ballot_date = ballot_date,
+                                      lvl = 'cantonal',
+                                      canton = canton,
+                                      prcd = 'proportional',
+                                      election_nr = i,
+                                      lang = 'de',
+                                      type = 'body_alt'),
+                        '** '),
+                 '')
+}gewählt, d. h. von welcher Partei haben Sie _am meisten_ KandidatInnen gewählt?"""
 question_common = "Welche Partei haben Sie bei der kantonalen Verhältniswahl {i} gewählt, d. h. von welcher Partei haben Sie _am meisten_ KandidatInnen gewählt?"
 variable_name = "voting_decision_cantonal_proportional_election_{i}_party"
 variable_label = "the party the respondent voted for in the cantonal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }»"
@@ -1040,19 +1089,23 @@ response_options = [ "trifft nicht zu", "trifft zu", "weiss nicht mehr" ]
 variable_values = [ 0, 1, 99 ]
 value_labels = [ "is not true", "is true", "can't remember" ]
 value_scale = "binary"
-[[03_2_election_specific.003_cantonal_proportional.z01_type.item]]
+[03_2_election_specific.003_cantonal_proportional.z01_type.001_modification]
+question_intro_j = "Wie haben Sie die Liste verändert/zusammengestellt? Ich habe…"
+[[03_2_election_specific.003_cantonal_proportional.z01_type.001_modification.item]]
+# set iterator to trigger `question_intro_j`
+j = 1
 topic = "Listenabänderung kantonale Verhältniswahl {i}: Kumulieren"
-question = "Wie haben Sie die Liste verändert/zusammengestellt? Ich habe… <br><br>_kumuliert, d. h. einzelne KandidatInnen doppelt aufgeführt._"
+question = "_kumuliert, d. h. einzelne KandidatInnen doppelt aufgeführt._"
 variable_name = "ticket_modification_cantonal_proportional_election_{i}_cumulated"
 variable_label = "whether or not the respondent has cumulated candidates on the ticket in the cantonal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }»"
 variable_label_common = "whether or not the respondent has cumulated candidates on the ticket in the { salim::rank_nr(i) } cantonal proportional election"
-[[03_2_election_specific.003_cantonal_proportional.z01_type.item]]
+[[03_2_election_specific.003_cantonal_proportional.z01_type.001_modification.item]]
 topic = "Listenabänderung kantonale Verhältniswahl {i}: Streichen"
 question = "_einzelne KandidatInnen von der Liste gestrichen._"
 variable_name = "ticket_modification_cantonal_proportional_election_{i}_delisted"
 variable_label = "whether or not the respondent has removed candidates from the ticket in the cantonal proportional election «{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }»"
 variable_label_common = "whether or not the respondent has removed candidates from the ticket in the { salim::rank_nr(i) } cantonal proportional election"
-[[03_2_election_specific.003_cantonal_proportional.z01_type.item]]
+[[03_2_election_specific.003_cantonal_proportional.z01_type.001_modification.item]]
 topic = "Listenabänderung kantonale Verhältniswahl {i}: Panaschieren"
 question = "_panaschiert, d. h. KandidatInnen von anderen Listen eingetragen._"
 variable_name = "ticket_modification_cantonal_proportional_election_{i}_panached"
@@ -2227,32 +2280,24 @@ i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton =
 j = "{ seq_len(n_proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)) }"
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.001_federal.item]]
 topic = "Zustimmung { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } eidgenössische Vorlage {i}"
-question = """
-{
-  dplyr::if_else(j == 1L,
-                 paste0('Nachfolgend einige Argumente zu',
-                        dplyr::if_else(proposal_name_gender(ballot_date = ballot_date,
-                                                            lvl = 'federal',
-                                                            canton = canton,
-                                                            proposal_nr = i,
-                                                            type = 'short') == 'feminine',
-                                       'r',
-                                       'm'),
-                        paste0(' _',
-                               proposal_name(ballot_date = ballot_date,
-                                             lvl = 'federal',
-                                             canton = canton,
-                                             proposal_nr = i,
-                                             lang = 'de',
-                                             type = 'short'),
-                               '_, die im Abstimmungskampf vorgebracht wurden. Geben Sie bitte jeweils an, was Sie von diesen Argumenten halten. <br><br>')),
-                 '')
-}Ich bin mit dem Argument _«{
-  proposal_arguments(ballot_date = ballot_date,
-                     lvl = 'federal',
-                     canton = canton,
-                     proposal_nr = i)$de.long[j]
-}»_ …"""
+question_intro_j = """
+Nachfolgend einige Argumente zu{
+  dplyr::if_else(proposal_name_gender(ballot_date = ballot_date,
+                                      lvl = 'federal',
+                                      canton = canton,
+                                      proposal_nr = i,
+                                      type = 'short') == 'feminine',
+                 'r',
+                 'm')
+} _{
+  proposal_name(ballot_date = ballot_date,
+                lvl = 'federal',
+                canton = canton,
+                proposal_nr = i,
+                lang = 'de',
+                type = 'short')
+}_, die im Abstimmungskampf vorgebracht wurden. Geben Sie bitte jeweils an, was Sie von diesen Argumenten halten."""
+question = "Ich bin mit dem Argument _«{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$de.long[j] }»_ …"
 question_common = "Ich bin mit dem { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } …"
 variable_name = "agreement_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] }_federal_proposal_{i}"
 variable_label = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument «{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$en.long[j] }» { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the federal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }»"
@@ -2261,17 +2306,8 @@ response_options = [ "voll und ganz einverstanden", "eher einverstanden", "eher 
 value_labels = [ "fully agree", "rather agree", "rather disagree", "strongly disagree", "don't know" ]
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.001_federal.item]]
 topic = "Bedeutung { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } eidgenössische Vorlage {i}"
-question = """
-{
-  dplyr::if_else(j == 1L,
-                 'Geben Sie bitte zudem an, wie wichtig das jeweilige Argument für Ihren Entscheid war. <br><br>',
-                 '')
-}Ich empfand das Argument _«{
-  proposal_arguments(ballot_date = ballot_date,
-                     lvl = 'federal',
-                     canton = canton,
-                     proposal_nr = i)$de.long[j]
-}»_ als …"""
+question_intro_j = "Geben Sie bitte zudem an, wie wichtig das jeweilige Argument für Ihren Entscheid war."
+question = "Ich empfand das Argument _«{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$de.long[j] }»_ als …"
 question_common = "Ich empfand das { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } als …"
 variable_name = "importance_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] }_federal_proposal_{i}"
 variable_label = "importance the respondent attaches to the { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument «{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$en.long[j] }» { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the federal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }»"
@@ -2283,32 +2319,24 @@ i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton 
 j = "{ seq_len(n_proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)) }"
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.002_cantonal.item]]
 topic = "Zustimmung { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } kantonale Vorlage {i}"
-question = """
-{
-  dplyr::if_else(j == 1L,
-                 paste0('Nachfolgend einige Argumente zu',
-                        dplyr::if_else(proposal_name_gender(ballot_date = ballot_date,
-                                                            lvl = 'cantonal',
-                                                            canton = canton,
-                                                            proposal_nr = i,
-                                                            type = 'short') == 'feminine',
-                                       'r',
-                                       'm'),
-                        paste0(' _',
-                               proposal_name(ballot_date = ballot_date,
-                                             lvl = 'cantonal',
-                                             canton = canton,
-                                             proposal_nr = i,
-                                             lang = 'de',
-                                             type = 'short'),
-                               '_, die im Abstimmungskampf vorgebracht wurden. Geben Sie bitte jeweils an, was Sie von diesen Argumenten halten. <br><br>')),
-                 '')
-}Ich bin mit dem Argument _«{
-  proposal_arguments(ballot_date = ballot_date,
-                     lvl = 'cantonal',
-                     canton = canton,
-                     proposal_nr = i)$de.long[j]
-}»_ …"""
+question_intro_j = """
+Nachfolgend einige Argumente zu{
+  dplyr::if_else(proposal_name_gender(ballot_date = ballot_date,
+                                      lvl = 'cantonal',
+                                      canton = canton,
+                                      proposal_nr = i,
+                                      type = 'short') == 'feminine',
+                 'r',
+                 'm')
+} _{
+  proposal_name(ballot_date = ballot_date,
+                lvl = 'cantonal',
+                canton = canton,
+                proposal_nr = i,
+                lang = 'de',
+                type = 'short')
+}_, die im Abstimmungskampf vorgebracht wurden. Geben Sie bitte jeweils an, was Sie von diesen Argumenten halten."""
+question = "Ich bin mit dem Argument _«{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$de.long[j] }»_ …"
 question_common = "Ich bin mit dem { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } …"
 variable_name = "agreement_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] }_cantonal_proposal_{i}"
 variable_label = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument «{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$en.long[j] }» { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the cantonal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }»"
@@ -2317,16 +2345,8 @@ response_options = [ "voll und ganz einverstanden", "eher einverstanden", "eher 
 value_labels = [ "fully agree", "rather agree", "rather disagree", "strongly disagree", "don't know" ]
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.002_cantonal.item]]
 topic = "Bedeutung { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } kantonale Vorlage {i}"
-question = """
-{
-  dplyr::if_else(j == 1L,
-                 'Geben Sie bitte zudem an, wie wichtig das jeweilige Argument für Ihren Entscheid war. <br><br>', '')
-}Ich empfand das Argument _«{
-  proposal_arguments(ballot_date = ballot_date,
-                     lvl = 'cantonal',
-                     canton = canton,
-                     proposal_nr = i)$de.long[j]
-}»_ als …"""
+question_intro_j = "Geben Sie bitte zudem an, wie wichtig das jeweilige Argument für Ihren Entscheid war."
+question = "Ich empfand das Argument _«{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$de.long[j] }»_ als …"
 question_common = "Ich empfand das { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } als …"
 variable_name = "importance_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] }_cantonal_proposal_{i}"
 variable_label = "importance the respondent attaches to the { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument «{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$en.long[j] }» { dplyr::if_else(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the cantonal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }»"
@@ -2337,66 +2357,29 @@ value_labels = [ "very important", "rather important", "rather unimportant", "ir
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 j = "{ seq_len(n_skill_questions(canton = canton, ballot_date = ballot_date, lvl = 'federal', proposal_nr = i)) }"
 topic = "Wissensfrage {j} eidgenössische Vorlage {i}"
-question.default = """
-{
-  dplyr::if_else(j == 1L,
-                 paste0('Nachfolgend ',
-                        salim::write_out_n(n_skill_questions(ballot_date = ballot_date,
-                                                             lvl = 'federal',
-                                                             canton = canton,
-                                                             proposal_nr = i),
-                                           lang = 'de'),
-                        ' inhaltliche Fragen im Zusammenhang mit ',
-                        salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
-                                                                                 lvl = 'federal',
-                                                                                 canton = canton,
-                                                                                 proposal_nr = i,
-                                                                                 type = 'short'),
-                                                   case = 'dative'),
-                        paste0(' _',
-                               proposal_name(ballot_date = ballot_date,
-                                             lvl = 'federal',
-                                             canton = canton,
-                                             proposal_nr = i,
-                                             lang = 'de',
-                                             type = 'short'),
-                               '_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten. <br><br>')),
-                 '')
-}_{
-  skill_question(ballot_date = ballot_date,
-                 lvl = 'federal',
-                 canton = canton,
-                 proposal_nr = i,
-                 skill_question_nr = j,
-                 lang = 'de')
-}_"""
-question.20180923_20181125 = """
-{
-  dplyr::if_else(j == 1L,
-                 paste0('Nachfolgend einige inhaltliche Fragen im Zusammenhang mit ',
-                        salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
-                                                                                 lvl = 'federal',
-                                                                                 canton = canton,
-                                                                                 proposal_nr = i,
-                                                                                 type = 'short'),
-                                                   case = 'dative'),
-                        paste0(' _',
-                               proposal_name(ballot_date = ballot_date,
-                                             lvl = 'federal',
-                                             canton = canton,
-                                             proposal_nr = i,
-                                             lang = 'de',
-                                             type = 'short'),
-                               '_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten. <br><br>')),
-                 '')
-}_{
-  skill_question(ballot_date = ballot_date,
-                 lvl = 'federal',
-                 canton = canton,
-                 proposal_nr = i,
-                 skill_question_nr = j,
-                 lang = 'de')
-}_"""
+question_intro_j = """
+Nachfolgend {
+  salim::write_out_n(n_skill_questions(ballot_date = ballot_date,
+                                       lvl = 'federal',
+                                       canton = canton,
+                                       proposal_nr = i),
+                     lang = 'de')
+} inhaltliche Fragen im Zusammenhang mit {
+  paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                  lvl = 'federal',
+                                                                  canton = canton,
+                                                                  proposal_nr = i,
+                                                                  type = 'short'),
+                                    case = 'dative'),
+         ' _',
+         proposal_name(ballot_date = ballot_date,
+                       lvl = 'federal',
+                       canton = canton,
+                       proposal_nr = i,
+                       lang = 'de',
+                       type = 'short'))
+}_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten."""
+question = "_{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'de') }_"
 question_common = "Wissensfrage {j} zur eidgenössischen Vorlage {i}"
 variable_name = "skill_question_{j}_federal_proposal_{i}"
 variable_label = "respondent's answer to the skill question «{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'en') }» about the federal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }» ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'federal', proposal_nr = i, skill_question_nr = j) %>% salim::rank_nr() } answer is correct)"
@@ -2408,67 +2391,45 @@ value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 j = "{ seq_len(n_skill_questions(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', proposal_nr = i)) }"
 topic = "Wissensfrage {j} kantonale Vorlage {i}"
-question.default = """
-{
-  dplyr::if_else(j == 1L,
-                 paste0('Nachfolgend ',
-                        salim::write_out_n(nrow(skill_question_response_options(ballot_date = ballot_date,
-                                                                                lvl = 'cantonal',
-                                                                                canton = canton,
-                                                                                proposal_nr = i,
-                                                                                skill_question_nr = j)),
-                                           lang = 'de'),
-                        ' inhaltliche Fragen im Zusammenhang mit ',
-                        salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
-                                                                                 lvl = 'cantonal',
-                                                                                 canton = canton,
-                                                                                 proposal_nr = i,
-                                                                                 type = 'short'),
-                                                   case = 'dative'),
-                        paste0(' _',
-                               proposal_name(ballot_date = ballot_date,
-                                             lvl = 'cantonal',
-                                             canton = canton,
-                                             proposal_nr = i,
-                                             lang = 'de',
-                                             type = 'short'),
-                               '_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten. <br><br>')),
-                 '')
-}_{
-  skill_question(ballot_date = ballot_date,
-                 lvl = 'cantonal',
-                 canton = canton,
-                 proposal_nr = i,
-                 skill_question_nr = j,
-                 lang = 'de')
-}_"""
-question.20180923_20181125 = """
-{
-  dplyr::if_else(j == 1L,
-                 paste0('Nachfolgend einige inhaltliche Fragen im Zusammenhang mit ',
-                        salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
-                                                                                 lvl = 'cantonal',
-                                                                                 canton = canton,
-                                                                                 proposal_nr = i,
-                                                                                 type = 'short'),
-                                                   case = 'dative'),
-                        paste0(' _',
-                               proposal_name(ballot_date = ballot_date,
-                                             lvl = 'cantonal',
-                                             canton = canton,
-                                             proposal_nr = i,
-                                             lang = 'de',
-                                             type = 'short'),
-                               '_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten. <br><br>')),
-                 '')
-}_{
-  skill_question(ballot_date = ballot_date,
-                 lvl = 'cantonal',
-                 canton = canton,
-                 proposal_nr = i,
-                 skill_question_nr = j,
-                 lang = 'de')
-}_"""
+question_intro_j.default = """
+Nachfolgend {
+  salim::write_out_n(n_skill_questions(ballot_date = ballot_date,
+                                       lvl = 'cantonal',
+                                       canton = canton,
+                                       proposal_nr = i),
+                     lang = 'de')
+} inhaltliche Fragen im Zusammenhang mit {
+  paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                  lvl = 'cantonal',
+                                                                  canton = canton,
+                                                                  proposal_nr = i,
+                                                                  type = 'short'),
+                                    case = 'dative'),
+         ' _',
+         proposal_name(ballot_date = ballot_date,
+                       lvl = 'cantonal',
+                       canton = canton,
+                       proposal_nr = i,
+                       lang = 'de',
+                       type = 'short'))
+}_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten."""
+question_intro_j.20180923_20181125 = """
+Nachfolgend einige inhaltliche Fragen im Zusammenhang mit {
+  paste0(salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                  lvl = 'cantonal',
+                                                                  canton = canton,
+                                                                  proposal_nr = i,
+                                                                  type = 'short'),
+                                    case = 'dative'),
+         ' _',
+         proposal_name(ballot_date = ballot_date,
+                       lvl = 'cantonal',
+                       canton = canton,
+                       proposal_nr = i,
+                       lang = 'de',
+                       type = 'short'))
+}_. Bitte kreuzen Sie jeweils die Antwortoption an, die Sie am ehesten für korrekt halten."""
+question = "_{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'de') }_"
 question_common = "Wissensfrage {j} zur kantonalen Vorlage {i}"
 variable_name = "skill_question_{j}_cantonal_proposal_{i}"
 variable_label = "respondent's answer to the skill question «{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'en') }» about the cantonal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }» ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', proposal_nr = i, skill_question_nr = j) %>% salim::rank_nr() } answer is correct)"
@@ -2483,9 +2444,7 @@ response_options = "{ q_item_val(ballot_date = ballot_date, canton = canton, bra
 variable_values = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'variable_values') }"
 value_labels = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_labels') }"
 value_scale = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'value_scale') }"
-[[03_proposal_specific.004_participants.z02_information_source.item]]
-topic = "Informationsquelle { dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e Vorlagen: Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten"
-question = """
+question_intro_i = """
 Haben Sie die folgenden Quellen genutzt, um sich über {
   dplyr::if_else(n_proposals(ballot_date = ballot_date,
                              lvls = lvl,
@@ -2515,7 +2474,12 @@ Haben Sie die folgenden Quellen genutzt, um sich über {
                                       lang = 'de',
                                       type = 'short'),
                         '_'))
-} zu informieren und eine Meinung zu bilden? <br><br>_Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten_"""
+} zu informieren und eine Meinung zu bilden?"""
+[[03_proposal_specific.004_participants.z02_information_source.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
+topic = "Informationsquelle { dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e Vorlagen: Gratiszeitungen und kostenloser Online-Journalismus / News-Seiten"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), v_name = 'information_source_free_newspapers', key = 'question') }"
 question_common = "Haben Sie _Gratiszeitungen und kostenlosen Online-Journalismus / News-Seiten_ genutzt, um sich über die **{ dplyr::if_else(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e(n)** Vorlage(n) zu informieren und eine Meinung zu bilden?"
 variable_label = "whether or not the respondent used free newspapers and free online journalism / news sites to learn about the {lvl} proposals"
 variable_name = "{lvl}_proposals_information_source_free_newspapers"
@@ -2842,9 +2806,12 @@ response_options = [ "0 (überhaupt nicht)", "1", "2", "3", "4", "5", "6", "7", 
 variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
 value_labels = [ "0 (no trust at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (complete trust)", "don't know" ]
 value_scale = "ordinal_ascending"
+question_intro_i = "Wie stark vertrauen Sie den folgenden Institutionen? Bitte stufen Sie Ihr Vertrauen auf einer Skala von 0 (vertraue überhaupt nicht) bis 10 (vertraue vollständig) ein."
 [[04_political_general.z01_trust.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
 topic = "Vertrauen in kantonale Regierung"
-question = "Wie stark vertrauen Sie den folgenden Institutionen? Bitte stufen Sie Ihr Vertrauen auf einer Skala von 0 (vertraue überhaupt nicht) bis 10 (vertraue vollständig) ein. <br><br>_Aargauer Regierungsrat_"
+question = "_Aargauer Regierungsrat_"
 variable_name = "trust_in_cantonal_government"
 variable_label = "respondent's trust in the cantonal government of Aargau"
 include.default = true
@@ -3091,10 +3058,15 @@ value_labels = [ "clearly in favor", "rather in favor", "rather against", "clear
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
 ballot_types = [ "election" ]
-[[05_political_attitudes.item]]
+[05_political_attitudes.z01_evoting]
+question_intro_i.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
+question_intro_i.20191020 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen in letzter Zeit immer wieder wegen Sicherheitsbedenken in der Kritik. Dessen ungeachtet möchte der Aargauer Regierungsrat E-Voting grundsätzlich weiterverfolgen. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung."
+[[05_political_attitudes.z01_evoting.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
 topic = "E-Voting für AuslandschweizerInnen"
-question.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern. <br><br>_Sind Sie für oder gegen die Wiedereinführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
-question.20191020 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen in letzter Zeit immer wieder wegen Sicherheitsbedenken in der Kritik. Dessen ungeachtet möchte der Aargauer Regierungsrat E-Voting grundsätzlich weiterverfolgen. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung. <br><br>_Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
+question.default = "_Sind Sie für oder gegen die Wiedereinführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
+question.20191020 = "_Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
 question_common = "Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?"
 variable_name = "attitude_e_voting_swiss_abroad"
 variable_label = "respondent's attitude towards the continuation of e-voting for Swiss abroad in the Canton of Aargau"
@@ -3105,9 +3077,8 @@ value_labels = [ "clearly in favor", "rather in favor", "rather against", "clear
 value_scale = "ordinal_descending"
 who.default = "alle"
 who.20201018_20211128 = "Online-Respondenten"
-include.default = true
 include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
-[[05_political_attitudes.item]]
+[[05_political_attitudes.z01_evoting.item]]
 topic = "E-Voting für alle Stimmberechtigten"
 question.default = "_Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** im Kanton Aargau?_"
 question.20181125 = "Der Kanton Aargau plant für 2019 in einigen Pilotgemeinden das Abstimmen via Internet (E-Voting) zu testen. Sind Sie für oder gegen die Einführung von E-Voting im Kanton Aargau?"
@@ -3121,7 +3092,6 @@ value_labels = [ "clearly in favor", "rather in favor", "rather against", "clear
 value_scale = "ordinal_descending"
 who.default = "alle"
 who.20201018_20211128 = "Online-Respondenten"
-include.default = true
 include.false = [ 2018-09-23, 2020-09-27 ]
 
 
@@ -4836,47 +4806,49 @@ en = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('no', NA))"
 
 
 ## political parties
-## NOTE: we don't actually translate party names because it seems to be a quite hopeless endeavor
+## NOTES:
+## - `date_begin` defaults to `1970-01-01`.
+## - `date_ends` defaults to `2099-12-31`.
+## - `en.short` defaults to `de.short` (we don't actually translate party names because it seems to be a quite hopeless endeavor).
 [[party]]
 code = 1
 de.long = "Schweizerische Volkspartei"
 de.short = "SVP"
-en.short = "SVP"
 [[party]]
 code = 2
 de.long = "Sozialdemokratische Partei"
 de.short = "SP"
-en.short = "SP"
 [[party]]
 code = 3
 de.long = "FDP.Die Liberalen"
 de.short = "FDP"
-en.short = "FDP"
 [[party]]
 code = 4
 de.long = "Christlichdemokratische Volkspartei"
 de.short = "CVP"
-en.short = "CVP"
+date_end = 2020-10-31
+[[party]]
+code = 9
+de.long = "Die Mitte"
+de.short = "Mitte"
+date_begin = 2021-01-01
 [[party]]
 code = 5
 de.long = "Grüne Partei"
 de.short = "Grüne"
-en.short = "Grüne"
 [[party]]
 code = 6
 de.long = "Grünliberale Partei"
 de.short = "glp"
-en.short = "glp"
 [[party]]
 code = 7
 de.long = "Evangelische Volkspartei"
 de.short = "EVP"
-en.short = "EVP"
 [[party]]
 code = 8
 de.long = "Bürgerlich-Demokratische Partei"
 de.short = "BDP"
-en.short = "BDP"
+date_end = 2020-10-31
 
 
 ## recurring response option

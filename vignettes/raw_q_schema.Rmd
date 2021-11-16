@@ -146,8 +146,8 @@ The keys regarded on `item`-level nodes are resolved in the following order
     **NOTES:**
 
     -   `variable_name` is the only key that mustn't have any subkeys.
-    -   The `default` subkeys of `question`/`variable_label` are also used as `question_common`/`variable_label_common` if the latter are not explicitly
-        defined.
+    -   If `variable_label_common` is not explicitly defined, it falls back to `variable_label.default`.
+    -   If `question_common` is not explicitly defined, it falls back to a) the `question_full.default`, b) `question.default`, or c) `question_full`.
 
 -   The keys `lvl`, `i` and `j` are interpreted as iterators which you can refer to via string interpolation (e.g. `voting_decision_{lvl}`), so you have to
     define similar questionnaire items only once. If any of them evaluate to `NULL` or an empty vector, the respective item is automatically excluded, i.e. it's
