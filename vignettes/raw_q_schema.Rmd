@@ -106,7 +106,9 @@ The keys regarded on `item`-level nodes are resolved in the following order
 1.  `lvl`
 2.  `i`
 3.  `j`
-4.  All the other item-level keys.
+4.  All the other item-level keys[^3].
+
+[^3]: Except for `question` which can be referenced by `question_full` via string interpolation and hence is resolved before the latter.
 
 # Further notes
 
