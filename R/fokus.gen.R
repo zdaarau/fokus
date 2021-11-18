@@ -775,6 +775,8 @@ raw_q_suppl_skill_question <- function(ballot_date = ballot_dates,
 #' Picks the right value of a certain raw questionnaire key based on ballot date and canton (recursively).
 #'
 #' @param x Questionnaire key. A list object.
+#' @param key Questionnaire key name, used to determine the correct default value fallback. A character scalar or `NULL`. If `NULL`, no fallback is used (and an
+#'   error is thrown in case none of the subkeys matches).
 #' @inheritParams ballot_types
 #'
 #' @return Value of `x` that corresponds to `canton` and `ballot_date`.
@@ -782,22 +784,25 @@ raw_q_suppl_skill_question <- function(ballot_date = ballot_dates,
 #' @family q_raw
 #' @keywords internal
 raw_pick_right <- function(x,
+                           key = NULL,
                            ballot_date,
                            canton) {
   
-  # force evaluation of `ballot_date` and `canton` to ensure immediate error (with better msg) in case they are missing
+  # force evaluation of `ballot_date`, `canton` and `key` to ensure immediate error (with better msg) in case they are missing
   ballot_date
   canton
+  key
   
   if (purrr::vec_depth(x) > 1L) {
     
     x <-
       pick_right_helper(x = x,
+                        key = key,
                         ballot_date = ballot_date,
                         canton = canton) %>%
-      raw_pick_right(ballot_date = ballot_date,
+      raw_pick_right(key = key,
+                     ballot_date = ballot_date,
                      canton = canton)
-    
   }
   
   x
@@ -805,7 +810,8 @@ raw_pick_right <- function(x,
 
 pick_right_helper <- function(x,
                               ballot_date,
-                              canton) {
+                              canton,
+                              key) {
   
   if (purrr::is_list(x) && (length(x) > 1L || purrr::vec_depth(x) > 1L)) {
     
@@ -857,8 +863,11 @@ pick_right_helper <- function(x,
       # return default value if defined
       "default" %in% . ~ x[["default"]],
       
-      # return TRUE in any remaining cases (implicit `include`)
-      ~ TRUE
+      # fall back on key's default value if no subkey matches canton and ballot date
+      key %in% q_item_keys$key ~ unlist(q_item_keys$default_val[q_item_keys$key == key]),
+      
+      # abort in any remaining case
+      ~ cli::cli_abort("Undefined behavior, please debug. {.arg {key}} is {.val {key}}, {.arg {x}} is {.field {x}}.")
     )
   }
   
@@ -1328,7 +1337,8 @@ resolve_q_val <- function(x,
   checkmate::assert_scalar(j, na.ok = TRUE, null.ok = TRUE)
   
   x %>%
-    raw_pick_right(ballot_date = ballot_date,
+    raw_pick_right(key = key,
+                   ballot_date = ballot_date,
                    canton = canton) %>%
     purrr::when(is.character(.) ~ interpolate_q_val(.,
                                                     ballot_date = ballot_date,
@@ -1477,7 +1487,8 @@ gen_q_md <- function(q_tibble,
       block_intro <-
         raw_q %>%
         purrr::pluck(block, "intro") %>%
-        raw_pick_right(ballot_date = ballot_date,
+        raw_pick_right(key = "intro",
+                       ballot_date = ballot_date,
                        canton = canton) %>%
         cli::pluralize(.trim = FALSE)
       

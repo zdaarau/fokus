@@ -4,10 +4,13 @@
 \alias{raw_pick_right}
 \title{Pick right raw questionnaire value}
 \usage{
-raw_pick_right(x, ballot_date, canton)
+raw_pick_right(x, key = NULL, ballot_date, canton)
 }
 \arguments{
 \item{x}{Questionnaire key. A list object.}
+
+\item{key}{Questionnaire key name, used to determine the correct default value fallback. A character scalar or \code{NULL}. If \code{NULL}, no fallback is used (and an
+error is thrown in case none of the subkeys matches).}
 
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
 \itemize{

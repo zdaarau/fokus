@@ -134,7 +134,7 @@
     <p>Picks the right value of a certain raw questionnaire key based on ballot date and canton (recursively).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_pick_right</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>raw_pick_right</span><span class='op'>(</span><span class='va'>x</span>, key <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +142,11 @@
     <tr>
       <th>x</th>
       <td><p>Questionnaire key. A list object.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>Questionnaire key name, used to determine the correct default value fallback. A character scalar or <code>NULL</code>. If <code>NULL</code>, no fallback is used (and an
+error is thrown in case none of the subkeys matches).</p></td>
     </tr>
     <tr>
       <th>ballot_date</th>

@@ -80,13 +80,17 @@ options(knitr.kable.NA = '')
 
 fokus::q_item_keys %>%
   dplyr::select(key, type, default, is_optional, everything()) %>%
-  dplyr::mutate(key = pal::wrap_chr(key, wrap = "`"),
+  dplyr::mutate(key = pal::wrap_chr(key,
+                                    wrap = "`"),
                 type = paste(type, dplyr::if_else(is_scalar,
                                                   "scalar",
                                                   "vector")),
+                default = pal::wrap_chr(default,
+                                        wrap = "`"),
                 dplyr::across(where(is.logical),
                               fokus:::lgl_to_unicode)) %>%
-  dplyr::select(-is_scalar) %>%
+  dplyr::select(-c(is_scalar,
+                   default_val)) %>%
   dplyr::rename("Default value" = default) %>%
   dplyr::rename_with(.cols = starts_with("is_"),
                      .fn = stringr::str_remove,
