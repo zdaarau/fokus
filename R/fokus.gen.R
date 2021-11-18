@@ -888,8 +888,16 @@ assemble_q_tibble <- function(ballot_date,
                               q_lvl,
                               heritable_map,
                               verbose) {
+  map <- heritable_map
   
-  map <- heritable_map %>% complement_heritable_map(from = raw_q_branch)
+  # only complement with non-table-array q lvls
+  # (`purrr::list_modify()` leads to completely undesired results with *unnamed* lists like the `item` table arrays)
+  if (rlang::is_named(raw_q_branch)) {
+    map %<>%
+      purrr::list_modify(!!!raw_q_branch) %>%
+      pal::list_keep(keep = fokus::q_item_keys$key)
+  }
+  
   result <- NULL
   
   if ("variable_name" %in% names(raw_q_branch)) {
@@ -1064,7 +1072,7 @@ assemble_q_item_tibble <- function(ballot_date,
                       ##    b) `question.default`
                       ##    c) `question_full`
                       ##    if either exists and actually differs from `question`
-                      if (is.na(result$question_common)) {
+                      if (is.null(result$question_common)) {
                         
                         question_common_fallback <-
                           item_map %>%
@@ -1093,7 +1101,7 @@ assemble_q_item_tibble <- function(ballot_date,
                       
                       ## 3: if no `variable_label_common` is defined, fall back on `variable_label.default` if it exists and actually differs from
                       ##    variable_label`
-                      if (is.na(result$variable_label_common) && "default" %in% names(item_map$variable_label)) {
+                      if (is.null(result$variable_label_common) && "default" %in% names(item_map$variable_label)) {
                         
                         default_variable_label <- resolve_q_val(x = item_map$variable_label$default,
                                                                 ballot_date = ballot_date,
@@ -1120,7 +1128,7 @@ assemble_q_item_tibble <- function(ballot_date,
                                        .trim = FALSE)
                       
                       ### add who-constraints
-                      if (!is.na(result$variable_label_common) && !has_who_constraint(result$variable_label_common)) {
+                      if (!is.null(result$variable_label_common) && !has_who_constraint(result$variable_label_common)) {
                         
                         # ensure `who` doesn't vary over time
                         if (length(item_map$who) > 1L) {
@@ -1802,16 +1810,11 @@ q_item_val <- function(ballot_date = ballot_dates,
   checkmate::assert_character(branch_path,
                               any.missing = FALSE,
                               min.len = 1L)
+  if ("item" %in% branch_path) {
+    cli::cli_abort("{.arg branch_path} must be specified {.emph without} the {.val item} leaf node.")
+  }
   checkmate::assert_string(v_name)
   key <- rlang::arg_match(key)
-  
-  # traverse questionnaire branch path and complement inheritable map
-  parent_map <- init_heritable_map(block = branch_path[1L])
-  
-  for (branch_depth in purrr::accumulate(branch_path, c)) {
-    
-    parent_map %<>% complement_heritable_map(from = purrr::chuck(raw_q, !!!branch_depth))
-  }
   
   item_map <-
     raw_q %>%
@@ -1827,9 +1830,23 @@ q_item_val <- function(ballot_date = ballot_dates,
                           "}."))
   }
   
+  # traverse questionnaire branch path and complement heritable map
+  parent_map <- init_heritable_map(block = branch_path[1L])
+  
+  for (branch_depth in purrr::accumulate(branch_path, c)) {
+    
+    parent_map <-
+      raw_q %>%
+      purrr::chuck(!!!branch_depth) %>%
+      purrr::list_modify(.x = parent_map,
+                         !!!.) %>%
+      pal::list_keep(keep = fokus::q_item_keys$key)
+  }
+  
+  # evaluate requested item value
   raw_val <-
     parent_map %>%
-    complement_heritable_map(from = item_map) %>%
+    purrr::list_modify(!!!item_map) %>%
     purrr::chuck(key)
   
   lvl %>%

@@ -1,7 +1,5 @@
 # TODOs
 
--   Change `complement_heritable_map()` to merge instead of overwrite keys and thus **preserve** subkeys (use `purrr::list_modify()`).
-
 -   q clean-ups:
 
     -   Rename all occurences of `publitest` to `polling_agency`
@@ -50,4 +48,3 @@
     etc.)
 
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
-
