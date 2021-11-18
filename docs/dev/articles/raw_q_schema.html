@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9014</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9015</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <h1 data-toc-skip>FOKUS questionnaire schema</h1>
             <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-11-17</h4>
+            <h4 data-toc-skip class="date">2021-11-18</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -212,7 +212,7 @@
 <tr class="even">
 <td align="left"><code>block</code></td>
 <td align="left">character scalar</td>
-<td align="left">top-level block name</td>
+<td align="left"><code>*top-level block name*</code></td>
 <td align="left">❌</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -239,7 +239,7 @@
 <tr class="odd">
 <td align="left"><code>topic</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -248,7 +248,7 @@
 <tr class="even">
 <td align="left"><code>question_intro_i</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -258,7 +258,7 @@
 <tr class="odd">
 <td align="left"><code>question_intro_j</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -268,7 +268,7 @@
 <tr class="even">
 <td align="left"><code>question</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -277,7 +277,7 @@
 <tr class="odd">
 <td align="left"><code>question_full</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -287,7 +287,7 @@
 <tr class="even">
 <td align="left"><code>question_common</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -305,7 +305,7 @@
 <tr class="even">
 <td align="left"><code>variable_label_common</code></td>
 <td align="left">character scalar</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -314,7 +314,7 @@
 <tr class="odd">
 <td align="left"><code>response_options</code></td>
 <td align="left">character vector</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -323,7 +323,7 @@
 <tr class="even">
 <td align="left"><code>variable_values</code></td>
 <td align="left">integer vector</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -332,7 +332,7 @@
 <tr class="odd">
 <td align="left"><code>value_labels</code></td>
 <td align="left">character vector</td>
-<td align="left"></td>
+<td align="left"><code>NA</code></td>
 <td align="left">✅</td>
 <td align="left">❌</td>
 <td align="left">❌</td>
@@ -402,7 +402,7 @@
 <li><code>lvl</code></li>
 <li><code>i</code></li>
 <li><code>j</code></li>
-<li>All the other item-level keys.</li>
+<li>All the other item-level keys<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</li>
 </ol>
 </div>
 <div id="further-notes" class="section level1">
@@ -490,6 +490,7 @@ question.default.referendum = "nenene"</code></pre>
 <a href="#fnref1" class="footnote-back">↩︎</a>
 </li>
 <li id="fn2"><p>The term “deepest” is kind of misleading here since there can actually be TOML table levels below the level of an “atomic” questionnaire item, namely to define <code>include</code> rules (e.g. <code>include.false = [ YYYY-MM-DD ]</code>) or to account for varying <code>topic</code>, <code>question</code> etc. wordings at different ballot dates (e.g. <code>topic.default = "bla"</code> and <code>topic.YYYYMMDD = "blup"</code>) or for different ballot types (e.g. <code>topic.default.election = "bla"</code> and <code>topic.default.referendum = "blup"</code>).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Except for <code>question</code> which can be referenced by <code>question_full</code> via string interpolation and hence is resolved before the latter.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
