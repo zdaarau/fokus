@@ -749,7 +749,6 @@ variable_name = "difficulty_election_procedure"
 variable_label = "level of difficulty in understanding the election procedure for the respondent"
 response_options = [ "sehr leicht", "eher leicht", "eher schwer", "sehr schwer", "weiss nicht" ]
 value_labels = [ "very easy", "rather easy", "rather difficult", "very difficult", "don't know" ]
-include.default = true
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z03_more.item]]
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis"
@@ -1845,7 +1844,6 @@ question_common = "Würde sich durch die Annahme bzw. Ablehnung der kantonalen V
 variable_name = "affectedness_cantonal_proposal_{i}"
 variable_label = "whether or not the respondent would be personally affected by the adoption of the cantonal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }»"
 variable_label_common = "whether or not the respondent would be personally affected by the adoption of the { salim::rank_nr(i) } cantonal proposal"
-include.default = true
 include.false = [ 2018-11-25 ]
 [03_proposal_specific.002_all.003_information_level]
 response_options = [ "0 (überhaupt nicht informiert)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (sehr gut informiert)", "weiss nicht" ]
@@ -1944,7 +1942,6 @@ question_common = "Wie gut informiert fühlten Sie sich? Bitte geben Sie für di
 variable_name = "information_level_cantonal_proposal_{i}"
 variable_label = "respondent's information level on the cantonal proposal «{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }»"
 variable_label_common = "respondent's information level on the { salim::rank_nr(i) } cantonal proposal"
-include.default = true
 include.false = [ 2018-09-23, 2018-11-25 ]
 
 [03_proposal_specific.003_main_motive.001_federal]
@@ -2748,7 +2745,6 @@ value_labels = [
   "very important",
   "don't know"
 ]
-include.default = true
 include.false = [ 2018-09-23 ]
 [[03_proposal_specific.006_importance_position.item]]
 topic = "Bedeutung Position kantonales Parlament kantonale Vorlage {i}"
@@ -2774,7 +2770,6 @@ value_labels = [
   "very important",
   "don't know"
 ]
-include.default = true
 include.false = [ 2018-09-23 ]
 
 
@@ -2814,21 +2809,18 @@ topic = "Vertrauen in kantonale Regierung"
 question = "_Aargauer Regierungsrat_"
 variable_name = "trust_in_cantonal_government"
 variable_label = "respondent's trust in the cantonal government of Aargau"
-include.default = true
 include.false = [ 2020-09-27 ]
 [[04_political_general.z01_trust.item]]
 topic = "Vertrauen in kantonales Parlament"
 question = "_Aargauer Grosser Rat (Parlament)_"
 variable_name = "trust_in_cantonal_parliament"
 variable_label = "respondent's trust in the cantonal parliament of Aargau"
-include.default = true
 include.false = [ 2020-09-27 ]
 [[04_political_general.z01_trust.item]]
 topic = "Vertrauen in Schweizer Demokratie"
 question = "_Demokratie in der Schweiz_"
 variable_name = "trust_in_swiss_democracy"
 variable_label = "respondent's trust in the Swiss democracy"
-include.default = true
 include.false = [ 2020-09-27 ]
 [[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in Bundesrat"
@@ -3109,7 +3101,6 @@ response_options = [ "trifft überhaupt nicht zu", "trifft eher nicht zu", "wede
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "disagree strongly", "disagree a little", "neither agree nor disagree", "agree a little", "agree strongly", "don't know" ]
 value_scale = "ordinal_ascending"
-include.default = true
 include.false = [ 2018-11-25, 2020-09-27, 2021-11-28 ]
 [[06_personality.item]]
 topic = "Persönlichkeitsmerkmal Extraversion 1"
