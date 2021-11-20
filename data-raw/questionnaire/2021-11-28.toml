@@ -169,12 +169,13 @@ is_correct = true
 [federal.proposal.3]
 type = "optional referendum"
 [federal.proposal.3.name.de]
-long.text = "Änderung vom 19. März 2021 des Bundesgesetzes über die gesetzlichen Grundlagen für Verordnungen des Bundesrates zur Bewältigung der Covid-19-Epidemie"
-short.text = "Covid-19-Gesetz"
+long.text = "Änderung vom 19. März 2021 des Bundesgesetzes über die gesetzlichen Grundlagen für Verordnungen des Bundesrates zur Bewältigung der Covid-19-Epidemie (Covid-Gesetz)"
+short.text = "Covid-Gesetz"
 short.gender = "neuter"
 [federal.proposal.3.url]
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20211128/aenderung-vom-19-maerz-2021-des-covid-19-gesetzes.html"
-opponents = "https://covidgesetz-nein.ch/"
+opponents = [ "https://covidgesetz-nein.ch/", "https://zertifikat-nein.ch/" ]
+proponents = [ "https://covid19gesetzja.ch/", "https://zertifikat-ja.ch/" ]
 [[federal.proposal.3.main_motive.yes]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
 en = "to follow a specific voting recommendation"
@@ -264,7 +265,7 @@ en.long = "TODO"
 side = "contra"
 nr = 2
 [[federal.proposal.3.skill_question]]
-de = "Wann treten die Änderungen des Covid-19-Gesetzes, über die jetzt abgestimmt werden, in Kraft?"
+de = "Wann treten die Änderungen des Covid-19-Gesetzes, über die jetzt abgestimmt wird, in Kraft?"
 en = "TODO"
 [[federal.proposal.3.skill_question.response_option]]
 de = "Sie sind bereits in Kraft."

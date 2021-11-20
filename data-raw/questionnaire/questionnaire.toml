@@ -993,6 +993,7 @@ variable_label_common = "the { salim::rank_nr(j) } candidate the respondent vote
 response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% c(q_response_option_codes(types = 'abstain'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_option_codes(types = 'other'))) %>% c(q_response_option_codes(types = 'dunno')) }"
 value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+is_mandatory = true
 
 [03_2_election_specific.003_cantonal_proportional]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'proportional')) }"
@@ -2887,7 +2888,7 @@ include.default = false
 include.true = [ 2021-11-28 ]
 [[04_2_covid_related.item]]
 topic = "COVID-19-Impfung andere"
-question = "Wünschen Sie sich, dass möglichst viele Ihrer Mitmenschen geimpft sind?"
+question = "Wünschen Sie sich, dass möglichst viele Ihrer Mitmenschen gegen COVID-19 geimpft sind?"
 variable_name = "attitude_covid_vaccination_others"
 variable_label = "whether the respondent wants as many fellow human beings as possible to be vaccinated"
 response_options = [ "ja, absolut", "eher ja", "ist mir egal", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
@@ -3051,7 +3052,8 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
 ballot_types = [ "election" ]
 [05_political_attitudes.z01_evoting]
-question_intro_i.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
+question_intro_i.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit dem Frühling 2019 sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
+question_intro_i.20201018 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
 question_intro_i.20191020 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen in letzter Zeit immer wieder wegen Sicherheitsbedenken in der Kritik. Dessen ungeachtet möchte der Aargauer Regierungsrat E-Voting grundsätzlich weiterverfolgen. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung."
 [[05_political_attitudes.z01_evoting.item]]
 # set iterator to trigger `question_intro_i`
@@ -3223,7 +3225,52 @@ question.default = "Was { dplyr::if_else(lvl == 'inactive', 'war Ihre letzte', '
 question.20180923 = "Wie ist Ihre aktuelle Beschäftigungssituation?[^main-emp]"
 variable_name = "{ dplyr::if_else(lvl == 'inactive', 'former_', '') }employment_situation"
 variable_label = "respondent's { dplyr::if_else(lvl == 'inactive', 'former', 'current') } employment situation"
-response_options = """
+response_options.default = """
+{
+  if (lvl == 'inactive') {
+    c('war nie berufstätig',
+      'selbständigerwerbend/freischaffend',
+      'MitarbeiterIn im Betrieb der eigenen Familie',
+      'AngestellteR',
+      'Lehrling',
+      'etwas anderes')
+  } else {
+    c('selbständigerwerbend/freischaffend',
+      'MitarbeiterIn im Betrieb der eigenen Familie',
+      'AngestellteR',
+      'Lehrling',
+      'StudentIn oder SchülerIn',
+      'RentnerIn',
+      'arbeitslos/erwerbslos',
+      'Nichterwerbsperson mit Behinderung',
+      'Hausfrau/Hausmann',
+      'andere Nichterwerbsperson')
+  }
+}"""
+variable_values.default = "{ if (lvl == 'inactive') c(11, 1, 2, 3, 4, 77) else c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) }"
+value_labels.default = """
+{
+  if (lvl == 'inactive') {
+    c('never had a job',
+      'self-employed/freelancer',
+      'employee in the company of the own family',
+      'employee',
+      'apprentice',
+      'something else')
+  } else {
+    c('self-employed/freelancer',
+      'employee in the company of the own family',
+      'employee',
+      'apprentice',
+      'student',
+      'pensioner',
+      'unemployed',
+      'inactive person with disability',
+      'housewife/househusband',
+      'other inactive person')
+  }
+}"""
+response_options.20180923_20201018 = """
 {
   if (lvl == 'inactive') {
     c('selbständigerwerbend/freischaffend',
@@ -3244,8 +3291,8 @@ response_options = """
       'andere Nichterwerbsperson')
   }
 }"""
-variable_values = "{ if (lvl == 'inactive') c(1, 2, 3, 4, 77) else c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) }"
-value_labels = """
+variable_values.20180923_20201018 = "{ if (lvl == 'inactive') c(1, 2, 3, 4, 77) else c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) }"
+value_labels.20180923_20201018 = """
 {
   if (lvl == 'inactive') {
     c('self-employed/freelancer',
@@ -3266,6 +3313,7 @@ value_labels = """
       'other inactive person')
   }
 }"""
+is_mandatory = true
 [[07_personal_more.z01_current_former.item]]
 lvl.default = [ "", "inactive" ]
 lvl.20180923_20181125 = ""
@@ -3405,6 +3453,7 @@ variable_name = "household_size"
 variable_label = "number of persons living in respondent's household"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
+is_mandatory = true
 [[07_personal_more.z02_more.item]]
 topic = "Anzahl Kinder im Haushalt[^statag-kids]"
 question = "Wie viele davon sind minderjährig (unter 18 Jahre alt)?"
@@ -3842,6 +3891,7 @@ response_options = [ "ja", "nein" ]
 variable_values = [ 1, 2 ]
 value_labels = [ "yes (working)", "no (not working)" ]
 value_scale = "binary"
+is_mandatory = true
 [[x_publitest.008_online.item]]
 topic = "Browser"
 variable_name = "web_browser"
