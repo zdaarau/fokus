@@ -1023,8 +1023,7 @@ assemble_q_tibble <- function(ballot_date,
                               verbose) {
   map <- heritable_map
   
-  # only complement with non-table-array q lvls
-  # (`purrr::list_modify()` leads to completely undesired results with *unnamed* lists like the `item` table arrays)
+  # only complement with non-table-array q lvls (would be completely wrong to complement with the `item` table arrays which are always *unnamed* lists)
   if (rlang::is_named(raw_q_branch)) {
     map %<>%
       purrr::list_modify(!!!raw_q_branch) %>%
