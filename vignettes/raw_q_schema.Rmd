@@ -120,30 +120,35 @@ The keys regarded on `item`-level nodes are resolved in the following order
     [`cli::pluralize()`](https://cli.r-lib.org/reference/pluralize.html) which additionally supports a [handy pluralization
     syntax](https://cli.r-lib.org/articles/pluralization.html). The default behavior of trimming all surrounding whitespaces is disabled in both cases.
 
--   To vary *non-binary keys* like `topic`, `question` etc. wordings at different ballot dates directly without relying on embedded R code, you can define
+-   To vary *non-binary keys* like `topic`, `question` etc. wordings for different cantons and/or ballot dates directly without relying on embedded R code, you
+    can define
 
-    -   single-date subkeys named `YYYYMMDD` (the respective ballot date without any `-`) applying to a single ballot date,
+    -   single-canton subkeys named by the lowercase English canton name (e.g. `aargau`) applying to a specific canton,
+    -   single-date subkeys named `YYYYMMDD` (the respective ballot date without any `-`) applying to a specific ballot date,
     -   begin-end interval subkeys named `YYYYMMDD_YYYYMMDD` applying to all ballot dates that fall into the specified interval, or
-    -   `default` (applying to any ballot dates for which no specific subkey exists).
+    -   `default` applying to any canton or ballot date for which no more specific subkey exists.
 
-    Interval subkeys mustn't overlap. Single-date subkeys have precedence over interval subkeys.
+    Interval subkeys mustn't overlap. Single-date subkeys have precedence over interval subkeys and canton subkeys have precedence over any date subkeys.
 
     To vary *binary keys* like `multiple_answers_allowed` or `include` directly, you can define
 
     -   begin-end interval subkeys as described above, or alternatively
-    -   subkeys named `true` (meaning inclusion) or `false` (meaning exclusion; has priority over `true` in case of ambiguity) containing an array of dates
-        (`YYYY-MM-DD`), as well as
-    -   `default` (applying to any ballot dates not included in the `true` or `false` subkeys).
+    -   subkeys named `true` (meaning inclusion) or `false` (meaning exclusion; has priority over `true` in case of ambiguity) containing an array of cantons or
+        dates (`YYYY-MM-DD`), as well as
+    -   `default` (applying to any cantons or ballot dates not included in the `true` or `false` subkeys).
 
-    The `true`/`false` subkeys have precedence over begin-end interval subkeys.
+    The `true`/`false` subkeys have precedence over begin-end interval subkeys. Subkey can be combined by nesting them.
 
     To vary keys for different ballot types, just define subkeys named `referendum` or `election`.
 
     Examples:
 
         topic.default = "bla"
-        topic.20180923 = "blup"
-        topic.20180923_20191020 = "boing"
+        topic.aargau = "oops"
+        topic.zurich = "upsala"
+        who.20180923 = "alle"
+        who.20181125_20201018 = "Online-Respondenten"
+        who.20181125_20201018.zurich = "Print-Respondenten"
         include.default = true
         include.false = [ 2018-09-23 ]
         question.default.election = "lalala"

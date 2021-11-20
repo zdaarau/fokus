@@ -847,14 +847,17 @@ pick_right_helper <- function(x,
     
     x <- names(x) %>% purrr::when(
       
-      # consider overrides for binary keys
-      ballot_date %in% x[["false"]] ~ FALSE,
-      ballot_date %in% x[["true"]] ~ TRUE,
+      # canton and ballot date
+      ## consider overrides for binary keys
+      canton %in% x[["false"]] || ballot_date %in% x[["false"]] ~ FALSE,
+      canton %in% x[["true"]] || ballot_date %in% x[["true"]] ~ TRUE,
       
-      # consider overrides for non-binary keys
-      ## single date subkey
+      ## consider overrides for non-binary keys
+      ### single canton subkey
+      canton %in% . ~ x[[canton]],
+      ### single date subkey
       ballot_date_squeezed %in% . ~ x[[ballot_date_squeezed]],
-      ## begin-end date subkey
+      ### begin-end date subkey
       length(which(matches_begin_end_subkeys)) > 0L ~ x[[begin_end_subkeys[matches_begin_end_subkeys]]],
       
       # consider overrides for ballot types (we take the first one in case of ambiguity)
@@ -2226,12 +2229,6 @@ wrap_backtick <- function(s) {
 
 this_pkg <- utils::packageName()
 
-# questionnaire item subkeys (lowest level only, i.e. without ballot types)
-q_item_subkeys <- c("true",
-                    "false",
-                    "default",
-                    "YYYYMMDD",
-                    "YYYYMMDD_YYYYMMDD")
 # URLs
 url_survey_host <- list(aargau = "https://umfrage.fokus.ag")
 url_parameter_survey <- list(aargau = "pw")

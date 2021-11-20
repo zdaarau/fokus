@@ -83,7 +83,7 @@
       <h1 data-toc-skip>FOKUS questionnaire schema</h1>
             <h3 data-toc-skip class="subtitle">Structure and semantic rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2021-11-18</h4>
+            <h4 data-toc-skip class="date">2021-11-20</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/vignettes/raw_q_schema.Rmd" class="external-link"><code>vignettes/raw_q_schema.Rmd</code></a></small>
       <div class="hidden name"><code>raw_q_schema.Rmd</code></div>
@@ -414,27 +414,31 @@
 <p>More specifically, keys that hold <em>arrays</em> like <code>response_options</code> are fed to <a href="https://glue.tidyverse.org/reference/glue.html" class="external-link"><code>glue::glue()</code></a> allowing to use its powerful <a href="https://glue.tidyverse.org/" class="external-link">string interpolation syntax</a>, while the other keys holding <em>scalars</em> like <code>include</code> are fed to <a href="https://cli.r-lib.org/reference/pluralize.html" class="external-link"><code>cli::pluralize()</code></a> which additionally supports a <a href="https://cli.r-lib.org/articles/pluralization.html" class="external-link">handy pluralization syntax</a>. The default behavior of trimming all surrounding whitespaces is disabled in both cases.</p>
 </li>
 <li>
-<p>To vary <em>non-binary keys</em> like <code>topic</code>, <code>question</code> etc. wordings at different ballot dates directly without relying on embedded R code, you can define</p>
+<p>To vary <em>non-binary keys</em> like <code>topic</code>, <code>question</code> etc. wordings for different cantons and/or ballot dates directly without relying on embedded R code, you can define</p>
 <ul>
-<li>single-date subkeys named <code>YYYYMMDD</code> (the respective ballot date without any <code>-</code>) applying to a single ballot date,</li>
+<li>single-canton subkeys named by the lowercase English canton name (e.g. <code>aargau</code>) applying to a specific canton,</li>
+<li>single-date subkeys named <code>YYYYMMDD</code> (the respective ballot date without any <code>-</code>) applying to a specific ballot date,</li>
 <li>begin-end interval subkeys named <code>YYYYMMDD_YYYYMMDD</code> applying to all ballot dates that fall into the specified interval, or</li>
 <li>
-<code>default</code> (applying to any ballot dates for which no specific subkey exists).</li>
+<code>default</code> applying to any canton or ballot date for which no more specific subkey exists.</li>
 </ul>
-<p>Interval subkeys mustn’t overlap. Single-date subkeys have precedence over interval subkeys.</p>
+<p>Interval subkeys mustn’t overlap. Single-date subkeys have precedence over interval subkeys and canton subkeys have precedence over any date subkeys.</p>
 <p>To vary <em>binary keys</em> like <code>multiple_answers_allowed</code> or <code>include</code> directly, you can define</p>
 <ul>
 <li>begin-end interval subkeys as described above, or alternatively</li>
-<li>subkeys named <code>true</code> (meaning inclusion) or <code>false</code> (meaning exclusion; has priority over <code>true</code> in case of ambiguity) containing an array of dates (<code>YYYY-MM-DD</code>), as well as</li>
+<li>subkeys named <code>true</code> (meaning inclusion) or <code>false</code> (meaning exclusion; has priority over <code>true</code> in case of ambiguity) containing an array of cantons or dates (<code>YYYY-MM-DD</code>), as well as</li>
 <li>
-<code>default</code> (applying to any ballot dates not included in the <code>true</code> or <code>false</code> subkeys).</li>
+<code>default</code> (applying to any cantons or ballot dates not included in the <code>true</code> or <code>false</code> subkeys).</li>
 </ul>
-<p>The <code>true</code>/<code>false</code> subkeys have precedence over begin-end interval subkeys.</p>
+<p>The <code>true</code>/<code>false</code> subkeys have precedence over begin-end interval subkeys. Subkey can be combined by nesting them.</p>
 <p>To vary keys for different ballot types, just define subkeys named <code>referendum</code> or <code>election</code>.</p>
 <p>Examples:</p>
 <pre><code>topic.default = "bla"
-topic.20180923 = "blup"
-topic.20180923_20191020 = "boing"
+topic.aargau = "oops"
+topic.zurich = "upsala"
+who.20180923 = "alle"
+who.20181125_20201018 = "Online-Respondenten"
+who.20181125_20201018.zurich = "Print-Respondenten"
 include.default = true
 include.false = [ 2018-09-23 ]
 question.default.election = "lalala"
