@@ -38,7 +38,10 @@ fokus_private/
 |  |  └──[BALLOT_DATE]
 |  └──...
 ├──print_docs/
-|  └──questionnaire_print_[BALLOT_DATE]_[CANTON].pdf
+|  └──[CANTON]/
+|     ├──invitation_[BALLOT_DATE].pdf
+|     ├──questionnaire_print_[BALLOT_DATE].pdf
+|     └──reminder_[BALLOT_DATE].pdf
 ├──rmd/
 |  ├──snippets/
 |  |  ├──[CANTON]/
