@@ -13,6 +13,8 @@ NOTES:
 -   After asciicasts are regenerated (and stored as JSON files under `inst/asciicasts/`), the package must be rebuilt in order to actually include the updated
     JSON files.
 
+-   The asciicast player width of 116 chars (`cols = 116L`) is optimized for the current pkgdown layout of `rpkg.dev`.
+
 ## Verbose FOKUS questionnaire generation (Aargau \@ 2018-09-23)
 
 ```{r, purl = FALSE, include = FALSE, eval = FALSE}
@@ -28,11 +30,11 @@ c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
 
 asciicast::record(script = tmp_file,
                   title = "Verbose FOKUS questionnaire generation (Aargau @ 2018-09-23)",
-                  startup = quote(options(cli.width = 119L)),
+                  startup = quote(options(cli.width = 115L)),
                   timeout = 180L,
                   typing_speed = 0L,
                   rows = 50L,
-                  cols = 120L,
+                  cols = 116L,
                   speed = 0.75) %>%
   asciicast::write_json(path = "inst/asciicasts/gen_q_tibble-success.json")
 
@@ -56,11 +58,11 @@ c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
 
 asciicast::record(script = tmp_file,
                   title = "Failed verbose FOKUS questionnaire generation (Aargau @ 2018-09-23)",
-                  startup = quote(options(cli.width = 119L)),
+                  startup = quote(options(cli.width = 115L)),
                   timeout = 180L,
                   typing_speed = 0L,
                   rows = 50L,
-                  cols = 120L,
+                  cols = 116L,
                   speed = 0.75) %>%
   asciicast::write_json(path = "inst/asciicasts/gen_q_tibble-failed.json")
 

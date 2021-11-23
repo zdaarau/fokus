@@ -9,7 +9,7 @@
 
 -   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing [PR #27](https://github.com/jeroen/rsvg/pull/27)).
 
--   Remove `github::r-lib/asciicast#28` remote from DESCRIPTION as soon as asciicast v1.0.1+ is released (containing [PR
+-   Remove `github::r-lib/asciicast` remote from DESCRIPTION as soon as asciicast v1.0.1+ is released (containing [PR
     #28](https://github.com/r-lib/asciicast/pull/28))
 
 -   q: Consider introducing a mechanism to define truly hierarchical first-item question intros on table lvl above `item` lvl. But maybe not worth the effort?

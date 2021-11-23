@@ -41,7 +41,7 @@ Imports:
     xfun (>= 0.18)
 Suggests:
     archive (>= 1.1.2),
-    asciicast (>= 1.0.0),
+    asciicast (>= 1.0.0.9000),
     googledrive (>= 2.0.0),
     htmlwidgets (>= 1.5.4),
     pkgsnip (>= 0.0.9026),
@@ -58,6 +58,7 @@ VignetteBuilder:
 Remotes:
     github::hrbrmstr/qrencoder,
     github::jeroen/rsvg,
+    github::r-lib/asciicast,
     github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal,
     gitlab::salim_b/r/pkgs/pkgpins,

@@ -3,7 +3,7 @@ pkgdown: 1.6.1.9000
 pkgdown_sha: ~
 articles:
   raw_q_schema: raw_q_schema.html
-last_built: 2021-11-23T03:37Z
+last_built: 2021-11-23T13:02Z
 urls:
   reference: https://rpkg.dev/fokus/reference
   article: https://rpkg.dev/fokus/articles
