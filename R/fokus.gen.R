@@ -900,10 +900,16 @@ assemble_q_tibble <- function(ballot_date,
                               q_lvl,
                               heritable_map,
                               verbose) {
+  
+  if (verbose && stringr::str_detect(q_lvl, "\\..+\\.item$")) {
+    cli::cli_h2("BRANCH PATH: {.val {stringr::str_remove(q_lvl, '\\\\.item$')}}")
+  }
+  
   map <- heritable_map
   
-  # only complement with non-table-array q lvls (would be completely wrong to complement with the `item` table arrays which are always *unnamed* lists)
+  # only complement with non-table-array q lvls (would be completely wrong to complement with the `item` table arrays, which are also *unnamed* lists)
   if (rlang::is_named(raw_q_branch)) {
+    
     map %<>%
       purrr::list_modify(!!!raw_q_branch) %>%
       pal::list_keep(keep = fokus::q_item_keys$key)
@@ -913,18 +919,12 @@ assemble_q_tibble <- function(ballot_date,
   
   if ("variable_name" %in% names(raw_q_branch)) {
     
-    if (verbose) cli::cli_progress_step(".. ITEM: {.var {map$variable_name}}")
-    
     result <- assemble_q_item_tibble(ballot_date = ballot_date,
                                      canton = canton,
                                      item_map = map,
                                      verbose = verbose)
     
   } else if (purrr::vec_depth(raw_q_branch) > 2L) {
-    
-    if (verbose && dplyr::last(stringr::str_split(q_lvl, "\\.")[[1L]]) == "item") {
-      cli::cli_progress_step("Q TABLE LVL: {.val {q_lvl}}")
-    }
     
     result <- purrr::map2_dfr(.x = raw_q_branch,
                               .y = names(raw_q_branch) %||% seq_along(raw_q_branch),
@@ -1006,6 +1006,8 @@ assemble_q_item_tibble <- function(ballot_date,
                     
                     if (is_incl && has_ballot_type) {
                       
+                      if (verbose) cli::cli_h3("ITEM: {.var {item_map$variable_name}}")
+                      
                       # resolve all keys in item map
                       result <-
                         names(item_map) %>%
@@ -1018,7 +1020,7 @@ assemble_q_item_tibble <- function(ballot_date,
                                             value = .) %>%
                         purrr::map(~ {
                           
-                          if (verbose) cli::cli_progress_step(".. .. KEY: {.field {.x}}")
+                          if (verbose) cli::cli_progress_step("KEY: {.field {.x}}")
                           
                           # pre-resolve `question` for dependent `question_full` resolution
                           if (.x == "question_full") {
@@ -1236,6 +1238,7 @@ gen_q_tibble <- function(ballot_date = ballot_dates,
   canton <- rlang::arg_match(canton)
   checkmate::assert_flag(verbose)
   
+  cli::start_app(theme = cli_theme)
   status_msg <- "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}..."
   cli::cli_progress_step(msg = status_msg,
                          msg_done = paste(status_msg, "done"),
@@ -2238,6 +2241,11 @@ unicode_crossmark <- "\u274C"
 unicode_ellipsis  <- "\u2026"
 
 global_cache_lifespan <- "30 days"
+
+cli_theme <-
+  cli::builtin_theme() %>%
+  purrr::list_modify(h2 = list("margin-bottom" = 0),
+                     h3 = list("margin-top" = 0))
 
 #' FOKUS-covered ballot dates
 #'
