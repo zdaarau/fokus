@@ -189,3 +189,22 @@ The keys regarded on `item`-level nodes are resolved in the following order
     -   `ballot_date` (character scalar): The ballot date the questionnaire is to be generated for (in the format `YYYY-MM-DD`).
 
     -   `canton` (character scalar): The canton the questionnaire is to be generated for (all lowercase).
+
+# Debugging
+
+The R function [`fokus:::gen_q_tibble()`](https://rpkg.dev/fokus/reference/gen_q_tibble.html), which is designed to turn the raw questionnaire into a
+[tibble](https://tibble.tidyverse.org/reference/tbl_df-class.html) containing the questionnaire data for a specific ballot date and canton, prints helpful
+progress information when its `verbose` argument is set to `TRUE` (default is `FALSE`).
+
+For the questionnaire \@ 2018-09-23 in Aargau, this looks as follows:
+
+```{r, echo = FALSE}
+fs::path_package("asciicasts/gen_q_tibble-success.json",
+                 package = "fokus") %>%
+  asciicast::read_cast() %>%
+  # playback speed is not stored in the asciicast itself, so has to be set here
+  asciicast::asciinema_player(speed = 0.75)
+```
+
+If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, the progress
+output would stop immediately, allowing to easily locate the source position of the mistake.

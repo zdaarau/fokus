@@ -41,7 +41,9 @@ Imports:
     xfun (>= 0.18)
 Suggests:
     archive (>= 1.1.2),
+    asciicast (>= 1.0.0),
     googledrive (>= 2.0.0),
+    htmlwidgets (>= 1.5.4),
     pkgsnip (>= 0.0.9026),
     qrencoder (>= 0.2.1),
     RcppTOML (>= 0.1.6),

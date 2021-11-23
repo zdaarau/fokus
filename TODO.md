@@ -9,8 +9,32 @@
 
 -   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing [PR #27](https://github.com/jeroen/rsvg/pull/27)).
 
+-   Remove `github::r-lib/asciicast#28` remote from DESCRIPTION as soon as asciicast v1.0.1+ is released (containing [PR
+    #28](https://github.com/r-lib/asciicast/pull/28))
+
 -   q: Consider introducing a mechanism to define truly hierarchical first-item question intros on table lvl above `item` lvl. But maybe not worth the effort?
     Wait until we conduct an online survey by ourselves to get better understanding of requirements!
+
+-   Somehow, including multiple asciicasts in the same Rmd fails (both via asciicast's knitr engine as well as embedding the generated asciicast htmlwidget via
+    `asciicast::asciinema_player()`), thus the second asciicast containing an intentionally triggered error in the raw q had to be removed.
+
+    -> Investigate the actual reason of the inclusion failure (and report/fix upstream)!
+
+    The removed part is:
+
+        If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, an error is thrown
+        and the progress output stops, allowing to easily locate the source position of the mistake:
+
+        ```{r, echo = FALSE}
+        fs::path_package("asciicasts/gen_q_tibble-failed.json",
+                         package = "fokus") %>%
+          asciicast::read_cast() %>%
+          # playback speed is not stored in the asciicast itself, so has to be set here
+          asciicast::asciinema_player(speed = 0.75)
+        ```
+
+        As one can see from the output above, the error occurred when processing key `variable_label`, and from further above we can see that the key belongs to the
+        item `first_name` which in turn is defined under branch path `00_statistik_aargau.002_to_publitest`.
 
 ## Other
 
