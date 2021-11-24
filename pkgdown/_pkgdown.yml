@@ -69,6 +69,7 @@ reference:
   desc: Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-data\]
     and other functions to conduct a survey.
 - contents:
+  - qx
   - export_q
   - export_qr_codes
   - export_print_recipients

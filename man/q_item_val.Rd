@@ -55,7 +55,7 @@ q_item_val(
 \item \code{"variable_values"}
 \item \code{"value_labels"}
 \item \code{"value_scale"}
-\item \code{"multiple_answers_allowed"}
+\item \code{"allow_multiple_answers"}
 \item \code{"randomize_response_options"}
 \item \code{"is_mandatory"}
 \item \code{"ballot_types"}

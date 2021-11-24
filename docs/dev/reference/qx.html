@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine ballot type — ballot_type • fokus</title>
+<title>Questionnaires — qx • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Determine ballot type — ballot_type" />
-<meta name="description" content="Determines the type of the ballot for the specified canton at the specified date.">
-<meta property="og:description" content="Determines the type of the ballot for the specified canton at the specified date." />
+<meta property="og:title" content="Questionnaires — qx" />
+<meta name="description" content="A tibble containing the data of all FOKUS questionnaires.">
+<meta property="og:description" content="A tibble containing the data of all FOKUS questionnaires." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9011</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9015</span>
       </span>
     </div>
 
@@ -125,61 +125,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine ballot type</h1>
+    <h1>Questionnaires</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>ballot_type.Rd</code></div>
+    <div class="hidden name"><code>qx.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determines the type of the ballot for the specified canton at the specified date.</p>
+    <p>A tibble containing the data of all FOKUS questionnaires.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>qx</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>ballot_date</th>
-      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
-<li><p><code>"2018-09-23"</code></p></li>
-<li><p><code>"2018-11-25"</code></p></li>
-<li><p><code>"2019-10-20"</code></p></li>
-<li><p><code>"2020-09-27"</code></p></li>
-<li><p><code>"2020-10-18"</code></p></li>
-<li><p><code>"2021-11-28"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Ballot type as a character scalar. One of</p><ul>
-<li><p><code>"referendum"</code></p></li>
-<li><p><code>"election"</code></p></li>
-<li><p><code>"both_referendum_and_election"</code></p></li>
-</ul>
+    <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>q</code> was generated based on the following steps:</p><ol>
+<li><p><code><a href='gen_q_tibble.html'>gen_q_tibble()</a></code> was run for all valid combinations of <code>canton</code> and <code>ballot_date</code>, some validation checks were performed, and the results were merged into
+a single tibble.</p></li>
+<li><p>List columns were <a href='expand_q_tibble.html'>expanded</a> to <a href='https://en.wikipedia.org/wiki/Wide_and_narrow_data'>long format</a>.</p></li>
+<li><p>Columns <a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys'><code>question_intro_i</code> and <code>question_intro_j</code></a> were merged into the single column
+<code>question_intro</code>.</p></li>
+<li><p>Column <a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys'><code>question_full</code></a> was complemented, i.e. made to fall back on <code>question</code> if <code>NA</code>.</p></li>
+<li><p>Markdown formatting was <a href='https://rpkg.dev/pal/reference/strip_md.html'>stripped</a> from all character columns.</p></li>
+</ol>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other fundamental predicate functions
-<code><a href='ballot_types.html'>ballot_types</a>()</code>,
-<code><a href='has_election.html'>has_election</a>()</code>,
-<code><a href='has_lvl.html'>has_lvl</a>()</code>,
-<code><a href='has_referendum.html'>has_referendum</a>()</code>,
-<code><a href='n_elections.html'>n_elections</a>()</code>,
-<code><a href='n_proposals.html'>n_proposals</a>()</code></p></div>
+    <div class='dont-index'><p>Other questionnaire generation functions
+<code><a href='expand_q_tibble.html'>expand_q_tibble</a>()</code>,
+<code><a href='export_print_recipients.html'>export_print_recipients</a>()</code>,
+<code><a href='export_q.html'>export_q</a>()</code>,
+<code><a href='gen_q_md.html'>gen_q_md</a>()</code>,
+<code><a href='gen_q_tibble.html'>gen_q_tibble</a>()</code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,
-                   canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "referendum"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

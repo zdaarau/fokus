@@ -44,6 +44,7 @@ Suggests:
     asciicast (>= 1.0.0.9000),
     googledrive (>= 2.0.0),
     htmlwidgets (>= 1.5.4),
+    pkgpurl (>= 0.0.9011),
     pkgsnip (>= 0.0.9026),
     qrencoder (>= 0.2.1),
     RcppTOML (>= 0.1.6),
@@ -62,6 +63,7 @@ Remotes:
     github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal,
     gitlab::salim_b/r/pkgs/pkgpins,
+    gitlab::salim_b/r/pkgs/pkgpurl,
     gitlab::salim_b/r/pkgs/pkgsnip,
     gitlab::salim_b/r/pkgs/salim,
     gitlab::salim_b/r/pkgs/yay

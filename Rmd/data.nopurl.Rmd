@@ -17,7 +17,7 @@ NOTES:
 
 ## Verbose FOKUS questionnaire generation (Aargau \@ 2018-09-23)
 
-```{r, purl = FALSE, include = FALSE, eval = FALSE}
+```{r, include = FALSE, eval = FALSE}
 # NOTE: this chunk is disabled due to the large delay it causes; to regenerate the asciicast, run the chunk manually, rebuild the package and finally re-build
 #       the vignette
 fs::dir_create("inst/asciicasts")
@@ -48,7 +48,7 @@ NOTES:
 -   This the code chunk generates a **failing** example. To properly regenerate, it requires an artificial mistake to be present in the raw q. To trigger the
     same error again, add `{ print('intentional illustrative' 'error') }` at the beginning of item `first_name`'s `variable_label`.
 
-```{r, purl = FALSE, include = FALSE, eval = FALSE}
+```{r, include = FALSE, eval = FALSE}
 tmp_file <- fs::file_temp(ext = "R")
 
 c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
@@ -69,7 +69,7 @@ asciicast::record(script = tmp_file,
 fs::file_delete(tmp_file)
 ```
 
-# Data
+# Internal data
 
 NOTES:
 
@@ -84,7 +84,7 @@ NOTES:
 
 FOKUS-covered ballot dates
 
-```{r, purl = FALSE}
+```{r}
 ballot_dates <-
   fs::dir_ls(path = "data-raw/questionnaire",
              type = "file",
@@ -96,7 +96,7 @@ ballot_dates <-
 
 Raw questionnaire data as a structured list
 
-```{r, purl = FALSE}
+```{r}
 raw_q <- fokus::read_toml("data-raw/questionnaire/questionnaire.toml")
 ```
 
@@ -104,7 +104,7 @@ raw_q <- fokus::read_toml("data-raw/questionnaire/questionnaire.toml")
 
 Raw supplemental date-specific questionnaire data as a structured list
 
-```{r, purl = FALSE}
+```{r}
 raw_qx_suppl <-
   ballot_dates %>%
   magrittr::set_names(., .) %>%
@@ -115,7 +115,7 @@ raw_qx_suppl <-
 
 FOKUS-covered cantons
 
-```{r, purl = FALSE}
+```{r}
 cantons <-
   raw_qx_suppl %>%
   purrr::map(~ .x %>%
@@ -132,7 +132,7 @@ NOTES:
 -   counterproposals types are explained e.g.
     [here](https://www.ch.ch/de/demokratie/politische-rechte/volksinitiative/was-ist-ein-direkter-gegenentwurf-was-ein-indirekter-gegenvo/)
 
-```{r, purl = FALSE}
+```{r}
 proposal_types <- c("citizens' initiative",
                     "direct counterproposal",
                     "indirect counterproposal",
@@ -144,7 +144,7 @@ proposal_types <- c("citizens' initiative",
 
 Response option types defined in the raw FOKUS questionnaire data
 
-```{r, purl = FALSE}
+```{r}
 response_option_types <- names(raw_q$response_options)
 ```
 
@@ -152,7 +152,7 @@ response_option_types <- names(raw_q$response_options)
 
 Questionnaire item keys supported in the raw FOKUS questionnaire data
 
-```{r, purl = FALSE}
+```{r}
 q_item_keys <- tibble::tribble(
   
   ~key,                         ~is_scalar, ~is_iterator, ~is_excluder, ~is_optional, ~type,       ~default,      ~remarks,
@@ -193,7 +193,7 @@ q_item_keys <- tibble::tribble(
   "value_scale",                TRUE,       FALSE,        FALSE,        FALSE,        "character", '"nominal"',   paste0(
     "item's [scale of measure (aka \"level of measurement\")](https://en.wikipedia.org/wiki/Level_of_measurement); possible values include ",
     "`\"binary\"`, `\"nominal\"`, `\"ordinal_ascending\"`, `\"ordinal_descending\"`, `\"interval\"` and `\"ratio\"`"),
-  "multiple_answers_allowed",   TRUE,       FALSE,        FALSE,        FALSE,        "logical",   'FALSE',       "aka \"Mehrfachnennungen\"",
+  "allow_multiple_answers",     TRUE,       FALSE,        FALSE,        FALSE,        "logical",   'FALSE',       "aka \"Mehrfachnennungen\"",
   "randomize_response_options", TRUE,       FALSE,        FALSE,        FALSE,        "logical",   'FALSE',       paste0("whether or not the ",
                                                                                                                          "`response_options` are displayed in ",
                                                                                                                          "randomized order to online ",
@@ -222,7 +222,7 @@ q_item_keys <- tibble::tribble(
 
 Pure convenience.
 
-```{r, purl = FALSE}
+```{r}
 q_item_keys_multival <-
   q_item_keys %>%
   dplyr::filter(!is_iterator & !is_scalar & !is_excluder) %$%
@@ -233,7 +233,7 @@ q_item_keys_multival <-
 
 Not yet used anywhere, thus disabled.
 
-```{r, purl = FALSE, eval = FALSE}
+```{r, eval = FALSE}
 q_item_subkeys <- c("true",
                     "false",
                     cantons,
@@ -246,7 +246,7 @@ q_item_subkeys <- c("true",
 
 ## `q_non_item_lvls`
 
-```{r, purl = FALSE}
+```{r}
 q_non_item_lvls <- c("title",
                      "who",
                      "party",
@@ -257,7 +257,7 @@ q_non_item_lvls <- c("title",
 
 ## `q_ballot_types`
 
-```{r, purl = FALSE}
+```{r}
 q_ballot_types <- c("referendum",
                     "election",
                     "both_referendum_and_election")
@@ -269,7 +269,7 @@ Variable name shortening rules
 
 The rules will be applied one by one in the order they are listed below by `shorten_v_names()`.
 
-```{r, purl = FALSE}
+```{r}
 shortening_rules <- tibble::tribble(
   
   ~string,                                   ~replacement,                   ~allowed,
@@ -346,7 +346,7 @@ Expected structure for the `fokus_private` directory/repository
 
 TODO: convert to pretty textual dir structure
 
-```{r, purl = FALSE}
+```{r}
 fokus_private_structure <-
   list("fokus_private/" =
          list("bibliography/" = list("zotero_c2d.bib",
@@ -417,7 +417,7 @@ fokus_private_structure <-
 
 ## `md_snippets`
 
-```{r, purl = FALSE}
+```{r}
 md_snippets <-
   fs::dir_ls(path = "data-raw/snippets/",
              type = "file",
@@ -426,11 +426,12 @@ md_snippets <-
   purrr::map(brio::read_file)
 ```
 
-## Write package-internal data
+## Write internal datasets
 
-Save all the internal data objects to `R/sysdata.rda`.
+Save all the small data objects as a single internal file `R/sysdata.rda`. Note that when documenting them, they must be explicitly `@export`ed to be available
+to package users.
 
-```{r, purl = FALSE}
+```{r}
 usethis::use_data(ballot_dates,
                   raw_q,
                   raw_qx_suppl,
@@ -444,6 +445,52 @@ usethis::use_data(ballot_dates,
                   shortening_rules,
                   md_snippets,
                   internal = TRUE,
+                  overwrite = TRUE,
+                  compress = "xz",
+                  version = 3L)
+```
+
+# External data
+
+## `q`
+
+Questionnaire data as a single
+
+```{r}
+qx <-
+  fokus::ballot_dates %>%
+  purrr::map_dfr(function(ballot_date) {
+    
+    fokus::cantons %>% purrr::map_dfr(~ fokus:::gen_q_tibble(ballot_date = ballot_date,
+                                                             canton = .x) %>%
+                                        fokus:::validate_q_tibble())
+  }) %>%
+  # expand list cols
+  tidyr::unnest(cols = any_of(fokus:::q_item_keys_multival)) %>%
+  # modify some vx
+  dplyr::mutate(
+    ## complete `question_full`
+    question_full = question_full %|% question,
+    ## merge `question_intro_i/j` into `question_intro`
+    question_intro = paste(tidyr::replace_na(data = question_intro_i,
+                                             replace = ""),
+                           tidyr::replace_na(data = question_intro_j,
+                                             replace = ""))) %>%
+  dplyr::select(-c(question_intro_i,
+                   question_intro_j)) %>%
+  # strip Markdown formatting from chr cols
+  dplyr::mutate(dplyr::across(where(is.character),
+                              pal::strip_md))
+```
+
+## Write external datasets
+
+Save all the bigger data objects to separate files under `data/*.rda`. Note that when documenting them, they mustn't be explicitly `@export`ed since they're
+already automatically exported and thus available to package users.
+
+```{r}
+usethis::use_data(qx,
+                  internal = FALSE,
                   overwrite = TRUE,
                   compress = "xz",
                   version = 3L)

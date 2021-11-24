@@ -1283,7 +1283,7 @@ init_heritable_map <- function(block) {
                     question = NULL,
                     question_full = NULL,
                     question_common = NULL,
-                    multiple_answers_allowed = FALSE,
+                    allow_multiple_answers = FALSE,
                     variable_label = "???",
                     variable_label_common = NULL,
                     response_options = NULL,
@@ -1502,7 +1502,7 @@ gen_q_md <- function(q_tibble,
         "",
         block_intro,
         ""[length(block_intro)],
-        q_md_table_header(),
+        q_md_table_header,
         q_md_table_body(q_tibble_block = .x,
                         block = block),
         "",
@@ -1628,45 +1628,6 @@ gen_q_md <- function(q_tibble,
     link_refs)
 }
 
-q_md_table_header <- function() {
-  
-  tibble::tribble(
-    ~name,                                         ~width, ~alignment,
-    "\\#",                                         2L,     "left",
-    "Thema",                                       5L,     "left",
-    "Wer",                                         3L,     "left",
-    "Frage",                                       15L,    "left",
-    "Mehrfachnennungen",                           3L,     "left",
-    "Variablenname",                               5L,     "left",
-    "Variablenname (gek\u00fcrzt auf 32 Zeichen)", 5L,     "left",
-    "Variablenlabel",                              15L,    "left",
-    "Antwortoptionen",                             5L,     "left",
-    "Variablenauspr\u00e4gungen",                  5L,     "left",
-    "Auspr\u00e4gungslabels",                      5L,     "left",
-    "Antwortoptionen in Zufallsreihenfolge",       3L,     "left",
-    "Antwort obligatorisch",                       3L,     "left"
-  ) %>%
-    dplyr::mutate(separator =
-                    purrr::map2_chr(.x = width,
-                                    .y = alignment,
-                                    .f = ~
-                                      rep(x = "-",
-                                          times = .x) %>%
-                                      paste0(collapse = "") %>%
-                                      purrr::when(.y == "left" ~ stringr::str_replace(string = .,
-                                                                                      pattern = "^.",
-                                                                                      replacement = ":"),
-                                                  .y == "right" ~ stringr::str_replace(string = .,
-                                                                                       pattern = ".$",
-                                                                                       replacement = ":"),
-                                                  .y == "center" ~ stringr::str_replace_all(string = .,
-                                                                                            pattern = "(^.|.$)",
-                                                                                            replacement = ":"),
-                                                  ~ .))) %$%
-    c(paste0(name, collapse = " | "),
-      paste0(separator, collapse = " | "))
-}
-
 q_md_table_body <- function(q_tibble_block,
                             block) {
   
@@ -1684,7 +1645,7 @@ q_md_table_body <- function(q_tibble_block,
                              question_intro_i,
                              question_intro_j,
                              question,
-                             multiple_answers_allowed,
+                             allow_multiple_answers,
                              variable_name,
                              variable_label,
                              response_options,
@@ -1707,7 +1668,7 @@ q_md_table_body <- function(q_tibble_block,
                                          .) %>%
                                        magrittr::extract(!is.na(.)) %>%
                                        pal::as_string(sep = " <br><br>")),
-            multiple_answers_allowed,
+            allow_multiple_answers,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
             shorten_v_names(v_names = variable_name,
@@ -2235,6 +2196,43 @@ this_pkg <- utils::packageName()
 # URLs
 url_survey_host <- list(aargau = "https://umfrage.fokus.ag")
 url_parameter_survey <- list(aargau = "pw")
+
+q_md_table_header <-
+  tibble::tribble(
+    ~name,                                         ~width, ~alignment,
+    "\\#",                                         2L,     "left",
+    "Thema",                                       5L,     "left",
+    "Wer",                                         3L,     "left",
+    "Frage",                                       15L,    "left",
+    "Mehrfachnennungen",                           3L,     "left",
+    "Variablenname",                               5L,     "left",
+    "Variablenname (gek\u00fcrzt auf 32 Zeichen)", 5L,     "left",
+    "Variablenlabel",                              15L,    "left",
+    "Antwortoptionen",                             5L,     "left",
+    "Variablenauspr\u00e4gungen",                  5L,     "left",
+    "Auspr\u00e4gungslabels",                      5L,     "left",
+    "Antwortoptionen in Zufallsreihenfolge",       3L,     "left",
+    "Antwort obligatorisch",                       3L,     "left"
+  ) %>%
+  dplyr::mutate(separator =
+                  purrr::map2_chr(.x = width,
+                                  .y = alignment,
+                                  .f = ~
+                                    rep(x = "-",
+                                        times = .x) %>%
+                                    paste0(collapse = "") %>%
+                                    purrr::when(.y == "left" ~ stringr::str_replace(string = .,
+                                                                                    pattern = "^.",
+                                                                                    replacement = ":"),
+                                                .y == "right" ~ stringr::str_replace(string = .,
+                                                                                     pattern = ".$",
+                                                                                     replacement = ":"),
+                                                .y == "center" ~ stringr::str_replace_all(string = .,
+                                                                                          pattern = "(^.|.$)",
+                                                                                          replacement = ":"),
+                                                ~ .))) %$%
+  c(paste0(name, collapse = " | "),
+    paste0(separator, collapse = " | "))
 
 unicode_checkmark <- "\u2705"
 unicode_crossmark <- "\u274C"
@@ -3285,6 +3283,24 @@ political_issues <- function(ballot_date = ballot_dates,
     purrr::map_depth(1L, purrr::chuck, lang) %>%
     purrr::flatten_chr()
 }
+
+#' Questionnaires
+#'
+#' A tibble containing the data of all FOKUS questionnaires.
+#'
+#' `q` was generated based on the following steps:
+#' 
+#' 1. [gen_q_tibble()] was run for all valid combinations of `canton` and `ballot_date`, some validation checks were performed, and the results were merged into
+#'    a single tibble.
+#' 2. List columns were [expanded][expand_q_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
+#' 3. Columns [`question_intro_i` and `question_intro_j`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) were merged into the single column
+#'    `question_intro`.
+#' 4. Column [`question_full`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) was complemented, i.e. made to fall back on `question` if `NA`.
+#' 5. Markdown formatting was [stripped][pal::strip_md] from all character columns.
+#'
+#' @format `r pkgsnip::return_label("data")`
+#' @family q_gen
+"qx"
 
 #' Export questionnaire data
 #'

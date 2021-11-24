@@ -130,7 +130,7 @@ The keys regarded on `item`-level nodes are resolved in the following order
 
     Interval subkeys mustn't overlap. Single-date subkeys have precedence over interval subkeys and canton subkeys have precedence over any date subkeys.
 
-    To vary *binary keys* like `multiple_answers_allowed` or `include` directly, you can define
+    To vary *binary keys* like `allow_multiple_answers` or `include` directly, you can define
 
     -   begin-end interval subkeys as described above, or alternatively
     -   subkeys named `true` (meaning inclusion) or `false` (meaning exclusion; has priority over `true` in case of ambiguity) containing an array of cantons or

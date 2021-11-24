@@ -1,5 +1,7 @@
 # TODOs
 
+-   Fix regression in `question_common` generation (`NA`)
+
 -   q clean-ups:
 
     -   Rename all occurences of `publitest` to `polling_agency`

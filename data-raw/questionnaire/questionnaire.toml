@@ -283,7 +283,7 @@ value_scale = "binary"
 [02_political_start.002_non_participation.001_both]
 question_intro_i.referendum = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht."
 question_intro_i.election = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { dplyr::if_else(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Wahlen**', 'Sie') } zutrifft oder nicht."
-question_full = "Trifft «{question}» als Grund für Ihre Nichtteilnahme/Enthaltung an den { dplyr::if_else(lvl == 'cantonal', '**kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
+question_full = "Trifft «{question}» als Grund für Ihre Nichtteilnahme/Enthaltung an den{ dplyr::if_else(lvl == 'cantonal', ' **kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 [[02_political_start.002_non_participation.001_both.item]]
 # set iterator to trigger `question_intro_i`
 i = 1
@@ -310,7 +310,7 @@ variable_label.default.referendum = "whether or not the voting topics being too 
 variable_label.default.election = "whether or not the election being too complicated was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 variable_label_common = "whether or not complexity was a reason for the respondent to abstain from voting{ dplyr::if_else(lvl == 'cantonal', ' on cantonal matters', '') }"
 [[02_political_start.002_non_participation.001_both.item]]
-# NOTE: We deprecated the `reason_non_participation_cantonal_hindrance` item since it doesn't really make sense (how could one be hindered to participate in the cantonal but not the federal ballot?)
+# NOTE: We deprecated the `reason_non_participation_cantonal_hindrance` item since it doesn't really make sense (how could one possibly be hindered to participate in the cantonal but not the federal ballot?)
 lvl.default = ""
 lvl.20191020 = [ "", "cantonal"]
 topic = "Grund für{ dplyr::if_else(lvl == 'cantonal', ' _kantonale_', '') } Nicht-Teilnahme: Verhinderung"
@@ -905,7 +905,7 @@ variable_label = "whether or not the respondent has panached, i.e. added candida
 variable_label_common = "whether or not the respondent has panached, i.e. added candidates from other tickets onto the ticket submitted in the { salim::rank_nr(i) } federal proportional election"
 [[03_2_election_specific.001_federal_proportional.z01_type.item]]
 who = "Panaschierende eidgenössische Verhältniswahl {i}"
-multiple_answers_allowed = true
+allow_multiple_answers = true
 topic = "Panaschierte Parteien eidgenössische Verhältniswahl {i}"
 question = "Von welchen anderen Parteien haben Sie KandidatInnen auf Ihre { election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body') }sliste gesetzt?"
 question_common = "Von welchen anderen Parteien haben Sie KandidatInnen auf Ihre Liste bei der eidgenössischen Verhältniswahl {i} gesetzt?"
@@ -1113,7 +1113,7 @@ variable_label = "whether or not the respondent has panached, i.e. added candida
 variable_label_common = "whether or not the respondent has panached, i.e. added candidates from other tickets onto the ticket submitted in the { salim::rank_nr(i) } cantonal proportional election"
 [[03_2_election_specific.003_cantonal_proportional.z01_type.item]]
 who = "Panaschierende kantonale Verhältniswahl {i}"
-multiple_answers_allowed = true
+allow_multiple_answers = true
 topic = "Panaschierte Parteien kantonale Verhältniswahl {i}"
 question = "Von welchen anderen Parteien haben Sie KandidatInnen auf Ihre { election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'body') }sliste gesetzt?"
 question_common = "Von welchen anderen Parteien haben Sie KandidatInnen auf Ihre Liste bei der kantonalen Verhältniswahl {i} gesetzt?"
@@ -1947,7 +1947,7 @@ include.false = [ 2018-09-23, 2018-11-25 ]
 
 [03_proposal_specific.003_main_motive.001_federal]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
-multiple_answers_allowed = true
+allow_multiple_answers = true
 [[03_proposal_specific.003_main_motive.001_federal.item]]
 topic = "Ja-Hauptmotiv eidgenössische Vorlage {i}"
 who = "Ja-Stimmende eidgenössische Vorlage {i}"
@@ -1975,8 +1975,8 @@ include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal',
 
 [03_proposal_specific.003_main_motive.002_cantonal]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
-multiple_answers_allowed.default = true
-multiple_answers_allowed.false = [ 2018-09-23 ]
+allow_multiple_answers.default = true
+allow_multiple_answers.false = [ 2018-09-23 ]
 [[03_proposal_specific.003_main_motive.002_cantonal.item]]
 topic.default = "Ja-Hauptmotiv kantonale Vorlage {i}"
 topic.20180923 = "Ja-Hauptmotiv kantonale Vorlage {i}[^dup]"
