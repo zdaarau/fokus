@@ -1141,7 +1141,9 @@ assemble_q_item_tibble <- function(ballot_date,
                                        .trim = FALSE)
                       
                       ### add who-constraints
-                      if (!is.null(result$variable_label_common) && !has_who_constraint(result$variable_label_common)) {
+                      if (!is.null(result$variable_label_common)
+                          && !is.na(result$variable_label_common)
+                          && !has_who_constraint(result$variable_label_common)) {
                         
                         # ensure `who` doesn't vary over time
                         if (length(item_map$who) > 1L) {
