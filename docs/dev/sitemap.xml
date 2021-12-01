@@ -43,6 +43,9 @@
     <loc>https://rpkg.dev/fokus/reference/expand_q_tibble.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/export_easyvote_municipalities.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/export_print_recipients.html</loc>
   </url>
   <url>
@@ -227,6 +230,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/upload_to_g_drive.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/v_lbl.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/v_lvls.html</loc>

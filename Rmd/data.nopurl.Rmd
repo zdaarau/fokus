@@ -452,9 +452,9 @@ usethis::use_data(ballot_dates,
 
 # External data
 
-## `q`
+## `qx`
 
-Questionnaire data as a single
+Questionnaire data as one single long-format tibble.
 
 ```{r}
 qx <-
@@ -475,9 +475,17 @@ qx <-
     question_intro = paste(tidyr::replace_na(data = question_intro_i,
                                              replace = ""),
                            tidyr::replace_na(data = question_intro_j,
-                                             replace = ""))) %>%
+                                             replace = "")),
+    ## complete `*_common` vars with their ballot-date/canton-specific siblings
+    question_common = question_common %|% question_full,
+    variable_label_common = variable_label_common %|% variable_label) %>%
   dplyr::select(-c(question_intro_i,
-                   question_intro_j)) %>%
+                   question_intro_j,
+                   lvl,
+                   i,
+                   j)) %>%
+  dplyr::relocate(question_intro,
+                  .before = question) %>%
   # strip Markdown formatting from chr cols
   dplyr::mutate(dplyr::across(where(is.character),
                               pal::strip_md))

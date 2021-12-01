@@ -22,12 +22,16 @@ a single tibble.
 \item Columns \href{https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys}{\code{question_intro_i} and \code{question_intro_j}} were merged into the single column
 \code{question_intro}.
 \item Column \href{https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys}{\code{question_full}} was complemented, i.e. made to fall back on \code{question} if \code{NA}.
+\item Columns \href{https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys}{\code{question_common}} and
+\href{https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys}{\code{variable_label_common}} were complemented, i.e. made to fall back on \code{question_full}
+and \code{variable_label} respectively if \code{NA}.
 \item Markdown formatting was \link[pal:strip_md]{stripped} from all character columns.
 }
 }
 \seealso{
 Other questionnaire generation functions
 \code{\link{expand_q_tibble}()},
+\code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
 \code{\link{export_q}()},
 \code{\link{gen_q_md}()},

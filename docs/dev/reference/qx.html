@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9015</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9016</span>
       </span>
     </div>
 
@@ -149,6 +149,9 @@ a single tibble.</p></li>
 <li><p>Columns <a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys'><code>question_intro_i</code> and <code>question_intro_j</code></a> were merged into the single column
 <code>question_intro</code>.</p></li>
 <li><p>Column <a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys'><code>question_full</code></a> was complemented, i.e. made to fall back on <code>question</code> if <code>NA</code>.</p></li>
+<li><p>Columns <a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys'><code>question_common</code></a> and
+<a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys'><code>variable_label_common</code></a> were complemented, i.e. made to fall back on <code>question_full</code>
+and <code>variable_label</code> respectively if <code>NA</code>.</p></li>
 <li><p>Markdown formatting was <a href='https://rpkg.dev/pal/reference/strip_md.html'>stripped</a> from all character columns.</p></li>
 </ol>
 
@@ -156,6 +159,7 @@ a single tibble.</p></li>
 
     <div class='dont-index'><p>Other questionnaire generation functions
 <code><a href='expand_q_tibble.html'>expand_q_tibble</a>()</code>,
+<code><a href='export_easyvote_municipalities.html'>export_easyvote_municipalities</a>()</code>,
 <code><a href='export_print_recipients.html'>export_print_recipients</a>()</code>,
 <code><a href='export_q.html'>export_q</a>()</code>,
 <code><a href='gen_q_md.html'>gen_q_md</a>()</code>,

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get ballot title — ballot_title • fokus</title>
+<title>Export easyvote municipality details — export_easyvote_municipalities • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Get ballot title — ballot_title" />
-<meta name="description" content="Returns the ballot title consisting of the ballot type and the ballot date in German prose.">
-<meta property="og:description" content="Returns the ballot title consisting of the ballot type and the ballot date in German prose." />
+<meta property="og:title" content="Export easyvote municipality details — export_easyvote_municipalities" />
+<meta name="description" content="Exports a CSV dataset containing the columns municipality, municipality_id, min_age and max_age to the private FOKUS directory.">
+<meta property="og:description" content="Exports a CSV dataset containing the columns municipality, municipality_id, min_age and max_age to the private FOKUS directory." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,16 +125,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get ballot title</h1>
+    <h1>Export easyvote municipality details</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>ballot_title.Rd</code></div>
+    <div class="hidden name"><code>export_easyvote_municipalities.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns the ballot title consisting of the <a href='ballot_types.html'>ballot type</a> and the ballot date in German prose.</p>
+    <p>Exports a CSV dataset containing the columns <code>municipality</code>, <code>municipality_id</code>, <code>min_age</code> and <code>max_age</code> to the <a href='print_fokus_private_structure.html'>private FOKUS directory</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ballot_title</span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span>, lang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"de"</span>, <span class='st'>"en"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>export_easyvote_municipalities</span><span class='op'>(</span>
+  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
+  canton <span class='op'>=</span> <span class='va'>cantons</span>,
+  upload_to_g_drive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  g_drive_folder <span class='op'>=</span> <span class='st'>"fokus_aargau/Umfragen/Dateien für publitest/easyvote-Gemeinden/"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,23 +162,39 @@
 </ul></td>
     </tr>
     <tr>
-      <th>lang</th>
-      <td><p>Language. One of</p><ul>
-<li><p><code>"de"</code></p></li>
-<li><p><code>"en"</code></p></li>
-</ul></td>
+      <th>upload_to_g_drive</th>
+      <td><p>Whether or not to upload the generated files to the Google Drive folder <code>g_drive_folder</code>.</p></td>
+    </tr>
+    <tr>
+      <th>g_drive_folder</th>
+      <td><p>Google Drive folder to deploy the generated files to. Ignored if <code>upload_to_g_drive = FALSE</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character scalar.</p>
+    <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a> of the exported data, invisibly.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>ballot_title</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
-<span class='r-in'>             canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Wahltermin vom 20. Oktober 2019</span>
-</pre>
+    <p>The meaning of the individual columns is as follows:</p><table class='table'>
+<tr><td><strong>column name</strong></td><td><strong>description</strong></td></tr>
+<tr><td><code>municipality</code></td><td>official name of the municipality</td></tr>
+<tr><td><code>municipality_id</code></td><td><a href='https://en.wikipedia.org/wiki/Community_Identification_Number#Switzerland'>official Swiss community identification number</a> (also called "GEOSTAT"/"BFS" number, see the <a href='https://de.wikipedia.org/wiki/Gemeindenummer'>corresponding German Wikipedia article</a>)</td></tr>
+<tr><td><code>min_age</code></td><td>lower age limit of the municipal subscription of the «easyvote» booklet</td></tr>
+<tr><td><code>max_age</code></td><td>upper age limit of the municipal subscription of the «easyvote» booklet</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other questionnaire generation functions
+<code><a href='expand_q_tibble.html'>expand_q_tibble</a>()</code>,
+<code><a href='export_print_recipients.html'>export_print_recipients</a>()</code>,
+<code><a href='export_q.html'>export_q</a>()</code>,
+<code><a href='gen_q_md.html'>gen_q_md</a>()</code>,
+<code><a href='gen_q_tibble.html'>gen_q_tibble</a>()</code>,
+<code><a href='qx.html'>qx</a></code></p></div>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

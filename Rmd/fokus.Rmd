@@ -42,6 +42,7 @@ utils::globalVariables(names = c(".",
                                  "Haushaltsgr\u00f6sse Anzahl Personen \u00fcber 18 Jahren",
                                  "household_size_official",
                                  "i",
+                                 "is_likely_default",
                                  "ID-Nummer",
                                  "id_statistical_office",
                                  "j",
@@ -52,6 +53,8 @@ utils::globalVariables(names = c(".",
                                  "lvl",
                                  "marital_status_official",
                                  "matches_length",
+                                 "max_age",
+                                 "min_age",
                                  "n_adults_in_household_official",
                                  "n_cantonal_majoritarian_elections",
                                  "n_cantonal_proportional_elections",
@@ -64,6 +67,7 @@ utils::globalVariables(names = c(".",
                                  "name",
                                  "nr",
                                  "question",
+                                 "qx",
                                  "receives_print",
                                  "response_options",
                                  "separator",
@@ -71,6 +75,8 @@ utils::globalVariables(names = c(".",
                                  "string",
                                  "topic",
                                  "value_labels",
+                                 "variable_label",
+                                 "variable_label_common",
                                  "variable_name",
                                  "variable_values",
                                  "who",
@@ -2186,15 +2192,37 @@ q_response_option_codes <- function(types = response_option_types) {
 
 ### Data import
 
+#### `read_easyvote_municipalities`
+
+```{r}
+read_easyvote_municipalities <- function(ballot_date,
+                                         canton) {
+  
+  # get date of latest dataset delivered *before 20 days after ballot date*
+  date_data <-
+    path_private("data", canton) %>%
+    fs::dir_ls(type = "file",
+               regexp = "easyvote_municipalities_\\d{4}-\\d{2}-\\d{2}\\.csv$") %>%
+    stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.csv$)") %>%
+    lubridate::as_date() %>%
+    magrittr::extract(. < (lubridate::as_date(ballot_date) + 20L))
+  
+  if (length(date_data)) {
+    date_data %<>% max()
+  } else {
+    cli::cli_abort("No easyvote municipality data present for canton {.val {canton}} with effective date before the ballot date {.val {ballot_date}}.")
+  }
+  
+  path_private("data", canton, glue::glue("easyvote_municipalities_{date_data}.csv")) %>%
+    readr::read_csv(col_types = "ciii")
+}
+```
+
 #### `read_online_participation_codes`
 
 ```{r}
-read_online_participation_codes <- function(ballot_date = ballot_dates,
-                                            canton = cantons) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  canton <- rlang::arg_match(canton)
+read_online_participation_codes <- function(ballot_date,
+                                            canton) {
   
   path_input <- path_private(glue::glue("data/{canton}/online_participation_codes_{ballot_date}.txt"))
   
@@ -2210,12 +2238,8 @@ read_online_participation_codes <- function(ballot_date = ballot_dates,
 #### `read_voting_register_data_extra`
 
 ```{r}
-read_voting_register_data_extra <- function(ballot_date = ballot_dates,
-                                            canton = cantons) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  canton <- rlang::arg_match(canton)
+read_voting_register_data_extra <- function(ballot_date,
+                                            canton) {
   pal::assert_pkg("readxl")
   
   # get date of latest dataset delivered *before* ballot date
@@ -2225,8 +2249,13 @@ read_voting_register_data_extra <- function(ballot_date = ballot_dates,
                regexp = "voting_register_data_extra_\\d{4}-\\d{2}-\\d{2}\\.xlsx$") %>%
     stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.xlsx$)") %>%
     lubridate::as_date() %>%
-    magrittr::extract(. < lubridate::as_date(ballot_date)) %>%
-    max()
+    magrittr::extract(. < lubridate::as_date(ballot_date))
+  
+  if (length(date_data)) {
+    date_data %<>% max()
+  } else {
+    cli::cli_abort("No voting register data present for canton {.val {canton}} with effective date before the ballot on {.val {ballot_date}}.")
+  }
   
   data <-
     path_private(glue::glue("data/{canton}/voting_register_data_extra_{date_data}.xlsx")) %>%
@@ -2318,12 +2347,8 @@ read_voting_register_data_extra <- function(ballot_date = ballot_dates,
 #### `read_voting_register_ids`
 
 ```{r}
-read_voting_register_ids <- function(ballot_date = ballot_dates,
-                                     canton = cantons) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(ballot_dates))
-  canton <- rlang::arg_match(canton)
+read_voting_register_ids <- function(ballot_date,
+                                     canton) {
   
   path_private(glue::glue("data/{canton}/voting_register_ids_{ballot_date}.csv")) %>%
     readr::read_csv(col_types = "i") %>%
@@ -2377,7 +2402,7 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = path_private("config
 }
 ```
 
-### Miscellaneous
+### Validation
 
 #### `assert_countish`
 
@@ -2433,6 +2458,31 @@ assert_integerish <- function(x,
   }
 }
 ```
+
+#### `assert_v_names`
+
+```{r}
+assert_v_names <- function(v_names,
+                           as_scalar = FALSE,
+                           null_ok = FALSE) {
+  
+  if (checkmate::assert_flag(as_scalar)) {
+    
+    checkmate::assert_choice(v_names,
+                             choices = unique(qx$variable_name),
+                             null.ok = null_ok)
+    
+  } else {
+    
+    purrr::map_chr(v_names,
+                   checkmate::assert_choice,
+                   choices = unique(qx$variable_name),
+                   null.ok = null_ok)
+  }
+}
+```
+
+### Miscellaneous
 
 #### `as_flat_list`
 
@@ -3791,7 +3841,10 @@ Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-da
 #' 3. Columns [`question_intro_i` and `question_intro_j`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) were merged into the single column
 #'    `question_intro`.
 #' 4. Column [`question_full`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) was complemented, i.e. made to fall back on `question` if `NA`.
-#' 5. Markdown formatting was [stripped][pal::strip_md] from all character columns.
+#' 5. Columns [`question_common`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) and
+#'    [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) were complemented, i.e. made to fall back on `question_full`
+#'    and `variable_label` respectively if `NA`.
+#' 6. Markdown formatting was [stripped][pal::strip_md] from all character columns.
 #'
 #' @format `r pkgsnip::return_label("data")`
 #' @family q_gen
@@ -4050,10 +4103,6 @@ export_qr_codes <- function(ballot_date = ballot_dates,
   result <- archive::archive_write_dir(archive = path_zip,
                                        dir = tmp_dir,
                                        format = "zip")
-  
-  # TODO: remove `cli::cli_process_done()` and increase dep version as soon as archive v1.1.3+ is released
-  #       (containing [PR #60](https://github.com/r-lib/archive/pull/60)).
-  cli::cli_process_done()
   cli::cli_progress_done()
   
   # upload files to Google Drive for polling agency if requested
@@ -4072,7 +4121,7 @@ export_qr_codes <- function(ballot_date = ballot_dates,
 ```{r}
 #' Export print recipients data
 #'
-#' Exports a CSV dataset containing the two variables `id_statistical_office` and `receives_print` to the [private FOKUS
+#' Exports a CSV dataset containing the two columns `id_statistical_office` and `receives_print` to the [private FOKUS
 #' directory][print_fokus_private_structure].
 #'
 #' @inheritParams ballot_types
@@ -4082,7 +4131,6 @@ export_qr_codes <- function(ballot_date = ballot_dates,
 #' @export
 export_print_recipients <- function(ballot_date = ballot_dates,
                                     canton = cantons) {
-  
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))
@@ -4125,6 +4173,72 @@ export_print_recipients <- function(ballot_date = ballot_dates,
 }
 ```
 
+### `export_easyvote_municipalities`
+
+NOTES:
+
+-   If both `min_age` and `max_age` are `NA` in the data returned by `read_easyvote_municipalities()`, it means that
+
+    -   the municipality did not provide easyvote with specific information on the target age range, and
+    -   the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
+        adults between 18--25 years.
+
+```{r}
+#' Export easyvote municipality details
+#'
+#' Exports a CSV dataset containing the columns `municipality`, `municipality_id`, `min_age` and `max_age` to the [private FOKUS
+#' directory][print_fokus_private_structure].
+#' 
+#' The meaning of the individual columns is as follows:
+#' 
+#' | **column name** | **description** |
+#' | --------------- | --------------- |
+#' | `municipality` | official name of the municipality |
+#' | `municipality_id` | [official Swiss community identification number](https://en.wikipedia.org/wiki/Community_Identification_Number#Switzerland) (also called "GEOSTAT"/"BFS" number, see the [corresponding German Wikipedia article](https://de.wikipedia.org/wiki/Gemeindenummer)) |
+#' | `min_age` | `r v_lbl("easyvote_municipality_min_age")` |
+#' | `max_age` | `r v_lbl("easyvote_municipality_max_age")` |
+#'
+#' @inheritParams export_q
+#'
+#' @return A [tibble][tibble::tbl_df] of the exported data, invisibly.
+#' @family q_gen
+#' @export
+export_easyvote_municipalities <- function(ballot_date = ballot_dates,
+                                           canton = cantons,
+                                           upload_to_g_drive = TRUE,
+                                           g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/easyvote-Gemeinden/") {
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(ballot_dates))
+  canton <- rlang::arg_match(canton)
+  checkmate::assert_flag(upload_to_g_drive)
+  
+  path_csv <- path_private(glue::glue("output/data/polling_agency/{canton}/{ballot_date}_easyvote_municipalities.csv"))
+  
+  result <-
+    read_easyvote_municipalities(ballot_date = ballot_date,
+                                 canton = canton) %>%
+    # assume 18-25 age range if both min/max age are NA
+    dplyr::mutate(is_likely_default = is.na(min_age) & is.na(max_age),
+                  min_age = dplyr::if_else(is_likely_default,
+                                           18L,
+                                           min_age),
+                  max_age = dplyr::if_else(is_likely_default,
+                                           25L,
+                                           max_age)) %>%
+    dplyr::select(-is_likely_default) %>%
+    readr::write_csv(file = path_csv)
+  
+  if (upload_to_g_drive) {
+    
+    upload_to_g_drive(filepaths = path_csv,
+                      g_drive_folder = g_drive_folder)
+  }
+  
+  invisible(result)
+}
+```
+
 ## Variable-related
 
 ### `is_skill_question_v`
@@ -4149,6 +4263,82 @@ is_skill_question_v <- function(v_names) {
 }
 ```
 
+### `v_lbl`
+
+```{r}
+#' Get variable label
+#'
+#' Extracts a variable's (common) label from the [questionnaire data][qx].
+#' 
+#' If no `ballot_date` and `canton` are specified, [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) is returned,
+#' otherwise [`variable_label`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be
+#' `NULL` or set to a valid canton name and ballot date respectively.
+#'
+#' @param v_name Variable name. A character scalar.
+#' @param ballot_date `NULL` or a valid FOKUS-covered cantonal ballot date, i.e. one of
+#' `r pal::as_md_list(paste0('"', ballot_dates, '"'), wrap = '``')`
+#' @param canton `NULL` or a valid FOKUS canton, i.e. one of
+#' `r pal::as_md_list(paste0('"', cantons, '"'), wrap = '``')`
+#'
+#' @return A character scalar.
+#' @export
+#'
+#' @examples
+#' # if `ballot_date` and `canton` are not supplied, `variable_label_common` is returned:
+#' fokus::v_lbl("participation_federal")
+#' 
+#' # otherwise `variable_label`:
+#' fokus::v_lbl(v_name = "participation_federal",
+#'              ballot_date = "2018-09-23",
+#'              canton = "aargau")
+#'             
+#' fokus::v_lbl(v_name = "participation_federal",
+#'              ballot_date = "2019-10-20",
+#'              canton = "aargau")
+v_lbl <- function(v_name,
+                  ballot_date = NULL,
+                  canton = NULL) {
+  
+  assert_v_names(v_names = v_name,
+                 as_scalar = TRUE)
+  
+  is_common <- is.null(ballot_date) && is.null(canton)
+  
+  if (is_common) {
+    
+    result <-
+      qx %>%
+      dplyr::filter(variable_name == !!v_name) %$%
+      variable_label_common
+    
+  } else {
+    
+    is_arg_invalid <- purrr::map_lgl(list(ballot_date, canton),
+                                     is.null)
+    arg_names <- c('ballot_date', 'canton')
+    
+    if (any(is_arg_invalid)) {
+      cli::cli_abort(paste0("Either {.arg ballot_date} and {.arg canton} must both be {.val NULL} or set to a valid canton name and ballot date, but ",
+                            "{.arg {arg_names[is_arg_invalid]}} is {.val NULL} while {.arg {arg_names[!is_arg_invalid]}} is ",
+                            "{.val {get(arg_names[!is_arg_invalid])}}."))
+    }
+    
+    result <-
+      qx %>%
+      dplyr::filter(canton == !!canton
+                    & ballot_date == !!ballot_date
+                    & variable_name == !!v_name) %$%
+      variable_label
+  }
+  
+  (checkmate::assert_string(unique(result),
+                            na.ok = TRUE,
+                            .var.name = dplyr::if_else(is_common,
+                                                       "variable_label_common",
+                                                       "variable_label")))
+}
+```
+
 ### `v_lvls`
 
 ```{r}
@@ -4158,7 +4348,7 @@ is_skill_question_v <- function(v_names) {
 #' 
 #' Note that the political levels are determined by simply parsing `v_name`.
 #'
-#' @param v_name Variable name. A character scalar.
+#' @inheritParams v_lbl
 #'
 #' @return A character vector of political levels, of length 0 if no specific levels could be determined.
 #' @family variable

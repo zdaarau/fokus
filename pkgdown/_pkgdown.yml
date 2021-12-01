@@ -73,9 +73,11 @@ reference:
   - export_q
   - export_qr_codes
   - export_print_recipients
+  - export_easyvote_municipalities
 - title: Variable-related
 - contents:
   - is_skill_question_v
+  - v_lbl
   - v_lvls
   - v_proposal_nr
   - v_skill_question_nr
