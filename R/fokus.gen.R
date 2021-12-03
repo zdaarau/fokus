@@ -1408,7 +1408,7 @@ validate_q_tibble <- function(q_tibble) {
           
           dup_v <- q_tibble[[v]][i]
           
-          cli::cli_alert_danger(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire."))
+          cli::cli_alert_warning(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire."))
         }
       }
     })
