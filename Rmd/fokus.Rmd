@@ -1851,13 +1851,13 @@ q_md_table_body <- function(q_tibble_block,
     purrr::pmap_chr(function(ballot_date,
                              canton,
                              enumerator,
+                             variable_name,
                              topic,
                              who,
                              question_intro_i,
                              question_intro_j,
                              question,
                              allow_multiple_answers,
-                             variable_name,
                              variable_label,
                              response_options,
                              variable_values,
@@ -3935,7 +3935,12 @@ export_q <- function(ballot_date = ballot_dates,
                                                              max_n_char = .y)),
                     .after = variable_name) %>%
       dplyr::select(-ends_with("_common"),
-                    -c(lvl, i, j)) %>%
+                    -c(lvl,
+                       i,
+                       j,
+                       question_intro_i,
+                       question_intro_j,
+                       question_full)) %>%
       expand_q_tibble() %>%
       readr::write_csv(file = csv_path,
                        na = "")
