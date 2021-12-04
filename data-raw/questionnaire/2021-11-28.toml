@@ -43,23 +43,23 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.yes]]
 de = "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden."
-en = "TODO"
+en = "wanted to allow non-party candidates to have the same chances as party members to be elected to the Federal Supreme Court."
 code = 2
 [[federal.proposal.2.main_motive.yes]]
 de = "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten."
-en = "TODO"
+en = "believe the current electoral system cannot guarantee the independence of federal judges."
 code = 3
 [[federal.proposal.2.main_motive.yes]]
 de = "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl."
-en = "TODO"
+en = "believe the use of the lottery ticket prevents bribery or otherwise influencing the election."
 code = 4
 [[federal.proposal.2.main_motive.yes]]
 de = "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden."
-en = "TODO"
+en = "wanted to ensure that federal judges need not fear being voted out of office for politically inconvenient rulings."
 code = 5
 [[federal.proposal.2.main_motive.yes]]
 de = "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
-en = "TODO"
+en = "have no confidence in the Parliament to elect the best and most capable candidates to the Federal Supreme Court."
 code = 6
 [[federal.proposal.2.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
@@ -67,104 +67,104 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.no]]
 de = "wollte verhindern, dass in Zukunft weitgehend der Zufall über die Wahl der BundesrichterInnen entscheidet."
-en = "TODO"
+en = "wanted to prevent a future situation in which the election of federal judges is largely decided by chance."
 code = 2
 [[federal.proposal.2.main_motive.no]]
 de = "wollte verhindern, dass sich die BundesrichterInnen nach erfolgreicher Erstwahl keinerlei Wiederwahl mehr stellen müssen."
-en = "TODO"
+en = "wanted to prevent federal judges from not having to face any kind of re-election after a successful first election."
 code = 3
 [[federal.proposal.2.main_motive.no]]
 de = "wollte sicherstellen, dass BundesrichterInnen weiterhin Mitglied einer politschen Partei sind, da dies für Transparenz sorgt."
-en = "TODO"
+en = "wanted to ensure that federal judges continue to be members of a political party, as this provides transparency."
 code = 4
 [[federal.proposal.2.main_motive.no]]
 de = "finde, die Initiative ist zu vage formuliert. Unklar ist vor allem, wie die Fachkommission zustande kommen soll."
-en = "TODO"
+en = "think the initiative is formulated too loosely Above all, it is unclear how the expert commission is to be formed."
 code = 5
 [[federal.proposal.2.main_motive.no]]
 de = "vertraue dem Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
-en = "TODO"
+en = "have confidence in the Parliament to elect the best and most capable candidates to the Federal Supreme Court."
 code = 6
 [[federal.proposal.2.main_motive.no]]
 de = "finde das heutige System ganz in Ordnung und sehe keinen Bedarf, etwas daran zu ändern."
-en = "TODO"
+en = "think the current system is just fine and see no need to change anything."
 code = 7
 [[federal.proposal.2.argument]]
 de.long = "Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der BundesrichterInnen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Verletzung Gewaltenteilung"
+en.long = "By having the parliament decide on the (re)election of federal judges every six years, the separation of powers between the legislative and judicial branches is violated."
 side = "pro"
 nr = 1
 [[federal.proposal.2.argument]]
 de.long = "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Zufallsbasierte Wahl unvernünftig"
+en.long = "Leaving anything to chance (drawing lots) in the election for such an important office as that of federal judges is unreasonable."
 side = "contra"
 nr = 1
 [[federal.proposal.2.argument]]
 de.long = "Dass Bundesrichter-KandidatInnen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Parteimitgliedschaft und Mandatsabgabe gefährden Unabhängigkeit"
+en.long = "The fact that, under the current system, federal judge candidates de facto have to be party members and commit to paying a mandate tax to their party jeopardizes their independence."
 side = "pro"
 nr = 2
 [[federal.proposal.2.argument]]
 de.long = "Die heute gängige Parteizugehörigkeit der BundesrichterInnen schafft Transparenz über deren politische Gesinnung."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Parteizugehörigkeit schafft Transparenz"
+en.long = "The common party affiliation of federal judges today creates transparency about their political views."
 side = "contra"
 nr = 2
 [[federal.proposal.2.skill_question]]
 de = "Wer hat bisher die Mitglieder des Bundesgerichts gewählt?"
-en = "TODO"
+en = "Who has elected the members of the Federal Supreme Court so far?"
 [[federal.proposal.2.skill_question.response_option]]
 de = "Der Bundesrat"
-en = "TODO"
+en = "The Federal Council"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "Die Bundesversammlung"
-en = "TODO"
+en = "The Federal Assembly"
 is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
 de = "Das Bundesgericht selbst"
-en = "TODO"
+en = "The Federal Supreme Court itself"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "Das Volk"
-en = "TODO"
+en = "The people"
 is_correct = false
 [[federal.proposal.2.skill_question]]
 de = "Die Justiz-Initiative verlangt, dass in Zukunft…"
-en = "TODO"
+en = "The Justice Initiative demands that from now…"
 [[federal.proposal.2.skill_question.response_option]]
 de = "…BundesrichterInnen keiner Partei mehr angehören dürfen."
-en = "TODO"
+en = "…federal judges may no longer belong to any party."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…ein Zufallsverfahren über die Wahl fachlich und persönlich geeigneter KandidatInnen entscheidet."
-en = "TODO"
+en = "…a random procedure should decide on the election of professionally and personally suitable candidates."
 is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
 de = "…BundesrichterInnen zur Gewährleistung ihrer eigenen Sicherheit in Ausnahmefällen anonyme Entscheide fällen dürfen (bspw. Prozesse im Bereich organisierter Kriminalität)."
-en = "TODO"
+en = "…federal judges be allowed to make anonymous decisions in exceptional cases in order to guarantee their own security (e.g. trials in the area of organized crime)."
 is_correct = false
 [[federal.proposal.2.skill_question]]
 de = "Das heutige Wahlverfahren der BundesrichterInnen stellt sicher, dass…"
-en = "TODO"
+en = "The current election procedure for federal judges ensures that…"
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die unterschiedlichen Geschlechter, politischen Gesinnungen und Amtssprachen allesamt gleichmässig vertreten sind."
-en = "TODO"
+en = "…the different genders, political views and official languages are all equally represented."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die KandidatInnen keinerlei Parteibindungen aufweisen müssen, um gewählt zu werden."
-en = "TODO"
+en = "…candidates do not have to have any party ties to get elected."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die KandidatInnen alle dieselbe Chance haben, gewählt zu werden."
-en = "TODO"
+en = "…candidates all have an equal chance of being elected."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…sich die AmtsinhaberInnen alle sechs Jahre der Wiederwahl stellen müssen."
-en = "TODO"
+en = "…incumbents must stand for re-election every six years."
 is_correct = true
 [federal.proposal.3]
 type = "optional referendum"
@@ -182,27 +182,27 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.3.main_motive.yes]]
 de = "wollte zusätzliche Finanzhilfen des Staates an krisengebeutelte Unternehmen und Selbständige nicht gefährden."
-en = "TODO"
+en = "did not want to jeopardize additional financial aid from the state to crisis-hit companies and the self-employed."
 code = 2
 [[federal.proposal.3.main_motive.yes]]
 de = "befürworte die Covid-Zertifikatspflicht und wollte das Leben für Geimpfte erleichtern (Veranstaltungen, Auslandsreisen etc.)."
-en = "TODO"
+en = "support the Covid certificate requirement and wanted to make life easier for vaccinated people (events, foreign travel, etc.)."
 code = 3
 [[federal.proposal.3.main_motive.yes]]
 de = "glaube, dass die Covid-Zertifikatspflicht zur Impfung motiviert und dies der wirkungsvollste Weg ist, die Pandemie zu beenden."
-en = "TODO"
+en = "believe that the Covid certificate requirement motivates vaccination and that this is the most effective way to end the pandemic."
 code = 4
 [[federal.proposal.3.main_motive.yes]]
 de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
-en = "TODO"
+en = "wanted to prevent a further split in Swiss society."
 code = 5
 [[federal.proposal.3.main_motive.yes]]
 de = "wollte ein Zeichen setzen gegen MassnahmengegnerInnen und/oder ImpfskeptikerInnen."
-en = "TODO"
+en = "wanted to set an example against opponents of measures and/or vaccination skeptics."
 code = 6
 [[federal.proposal.3.main_motive.yes]]
 de = "wollte, dass der Bund endlich die Kompetenz erhält, ein funktionierendes, schweizweites Contact-Tracing-System aufzubauen."
-en = "TODO"
+en = "wanted the federal government to finally have the authority to set up a working, nationwide contact tracing system."
 code = 7
 [[federal.proposal.3.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
@@ -210,114 +210,114 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.3.main_motive.no]]
 de = "wollte die Covid-Zertifikatspflicht rückgängig machen."
-en = "TODO"
+en = "wanted to rescind the Covid certificate requirement."
 code = 2
 [[federal.proposal.3.main_motive.no]]
 de = "wollte einen indirekten Impfzwang durch die Covid-Zertifikatspflicht verhindern."
-en = "TODO"
+en = "wanted to prevent indirect compulsory vaccination through the Covid certificate requirement."
 code = 3
 [[federal.proposal.3.main_motive.no]]
 de = "wollte eine Diskriminierung Ungeimpfter verhindern."
-en = "TODO"
+en = "wanted to prevent discrimination against the unvaccinated."
 code = 4
 [[federal.proposal.3.main_motive.no]]
 de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
-en = "TODO"
+en = "wanted to prevent a further split in Swiss society."
 code = 5
 [[federal.proposal.3.main_motive.no]]
 de = "wollte zusätzliche Finanzhilfen des Staates an Unternehmen und Selbständige verhindern."
-en = "TODO"
+en = "wanted to prevent additional financial aid from the state to companies and the self-employed."
 code = 6
 [[federal.proposal.3.main_motive.no]]
 de = "wollte eine elektronische Massenüberwachung durch ein schweizweites digitales Contact-Tracing verhindern."
-en = "TODO"
+en = "wanted to prevent electronic mass surveillance through Switzerland-wide digital contact tracing."
 code = 7
 [[federal.proposal.3.main_motive.no]]
 de = "wollte eine Machtausweitung des Bundesrates verhindern."
-en = "TODO"
+en = "wanted to prevent an extension of the Federal Council's power."
 code = 8
 [[federal.proposal.3.main_motive.no]]
 de = "wollte ein Zeichen setzen gegen MassnahmenbefürworterInnen und/oder ImpfbefürworterInnen."
-en = "TODO"
+en = "wanted to set an example against supporters of measures and/or vaccination."
 code = 9
 [[federal.proposal.3.argument]]
 de.long = "Das Covid-19-Gesetz ermöglicht dem Staat mittels Ausweitung der finanziellen Hilfsprogramme einen grösseren Teil der Schweizer Wirtschaft heil durch die Krise zu bringen."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Ermöglicht Wirtschaftshilfe"
+en.long = "The Covid-19 Act enables the state to get a larger part of the Swiss economy through the crisis intact by expanding financial aid programs."
 side = "pro"
 nr = 1
 [[federal.proposal.3.argument]]
 de.long = "Ungeimpfte werden durch neue Massnahmen des Covid-19-Gesetzes wie die Zertifikatspflicht diskriminiert."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Diskriminierung Ungeimpfter"
+en.long = "The unvaccinated are being discriminated against by new measures in the Covid-19 Act, such as the certificate requirement."
 side = "contra"
 nr = 1
 [[federal.proposal.3.argument]]
 de.long = "Die im Covid-19-Gesetz vorgesehene Zertifikatspflicht ist verhältnismässig, da sie eine Normalisierung des wirtschaftlichen und gesellschaftlichen Lebens ermöglicht, ohne das Gesundheitswesen unnötig zu belasten."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Zertifikatspflicht ist verhältnismässig"
+en.long = "The certificate requirement in the Covid-19 Act is proportionate because it allows for normalization of economic and social life without unnecessarily burdening the health care system."
 side = "pro"
 nr = 2
 [[federal.proposal.3.argument]]
 de.long = "Der Bundesrat erhält zu viel Macht, indem er eigenmächtig Kriterien und Richtwerte für Einschränkungen und Erleichterungen festlegen kann."
-de.short = "TODO"
-en.long = "TODO"
+de.short = "Bundesrat erhält zu viel Macht"
+en.long = "The Federal Council is given too much power by being able to set criteria and benchmarks for restrictions and relaxations on its own."
 side = "contra"
 nr = 2
 [[federal.proposal.3.skill_question]]
 de = "Wann treten die Änderungen des Covid-19-Gesetzes, über die jetzt abgestimmt wird, in Kraft?"
-en = "TODO"
+en = "When do the changes to the Covid-19 Act now being voted on go into effect?"
 [[federal.proposal.3.skill_question.response_option]]
 de = "Sie sind bereits in Kraft."
-en = "TODO"
+en = "They are already in force."
 is_correct = true
 [[federal.proposal.3.skill_question.response_option]]
 de = "Sie treten/traten am Abstimmungssonntag vom 28. November 2021 in Kraft."
-en = "TODO"
+en = "They become/became effective on the voting Sunday of November 28, 2021."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "Sie treten einen Monat nach dem Abstimmungstermin in Kraft."
-en = "TODO"
+en = "They become effective one month after the date of voting."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "Sie treten am 1. Januar 2022 in Kraft."
-en = "TODO"
+en = "They will become effective on January 1, 2022."
 is_correct = false
 [[federal.proposal.3.skill_question]]
 de = "Was umfasst der Nachweis eines gültigen Schweizer Covid-Zertifikates genau? Dass die entsprechende Person…"
-en = "TODO"
+en = "What exactly does proof of a valid Swiss Covid certificate entail? That the person in question…"
 [[federal.proposal.3.skill_question.response_option]]
 de = "…gegen COVID-19 geimpft ist."
-en = "TODO"
+en = "…has been vaccinated against COVID-19."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "…gegen COVID-19 geimpft ist oder sich für eine bestimmte Dauer in Quarantäne begeben hat."
-en = "TODO"
+en = "…has been vaccinated against COVID-19 or has been in quarantine for a certain period of time."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "…gegen COVID-19 geimpft oder negativ getestet ist."
-en = "TODO"
+en = "…has been vaccinated against COVID-19 or has tested negative."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "…gegen COVID-19 geimpft, negativ getestet oder davon genesen ist."
-en = "TODO"
+en = "…has been vaccinated against, tested negative for, or recovered from COVID-19."
 is_correct = true
 [[federal.proposal.3.skill_question]]
 de = "Was geschieht im Falle einer Ablehnung des geänderten Covid-19-Gesetzes?"
-en = "TODO"
+en = "What happens if the changes to the Covid-19 Act are rejected?"
 [[federal.proposal.3.skill_question.response_option]]
 de = "Alle Pandemiemassnahmen des Bundes werden aufgehoben und stattdessen erhalten die Kantone zusätzliche Kompetenzen in der Pandemiebekämpfung."
-en = "TODO"
+en = "All federal pandemic measures will be repealed and instead the cantons will be given additional powers in pandemic response."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "Diejenigen Bestimmungen/Änderungen, welche die Bundesversammlung am 19. März 2021 verabschiedete, treten _sofort_ ausser Kraft."
-en = "TODO"
+en = "Those provisions/amendments adopted by the Federal Assembly on March 19, 2021, cease to apply _immediately_."
 is_correct = false
 [[federal.proposal.3.skill_question.response_option]]
 de = "Diejenigen Bestimmungen/Änderungen, welche die Bundesversammlung am 19. März 2021 verabschiedete, treten _am 19. März 2022_ ausser Kraft."
-en = "TODO"
+en = "Those provisions/amendments adopted by the Federal Assembly on March 19, 2021, expire _on March 19, 2022_"
 is_correct = true
 [[federal.proposal.3.skill_question.response_option]]
 de = "Das gesamte Covid-19-Gesetz tritt bis spätestens Ende Jahr ausser Kraft."
-en = "TODO"
+en = "The entire Covid-19 Act will expire no later than the end of the year."
 is_correct = false
