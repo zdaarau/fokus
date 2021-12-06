@@ -42,8 +42,8 @@ The meaning of the individual columns is as follows:\tabular{ll}{
    \strong{column name} \tab \strong{description} \cr
    \code{municipality} \tab official name of the municipality \cr
    \code{municipality_id} \tab \href{https://en.wikipedia.org/wiki/Community_Identification_Number#Switzerland}{official Swiss community identification number} (also called "GEOSTAT"/"BFS" number, see the \href{https://de.wikipedia.org/wiki/Gemeindenummer}{corresponding German Wikipedia article}) \cr
-   \code{min_age} \tab lower age limit of the municipal subscription of the «easyvote» booklet \cr
-   \code{max_age} \tab upper age limit of the municipal subscription of the «easyvote» booklet \cr
+   \code{min_age} \tab lower age limit of the municipal subscription of the "easyvote" booklet \cr
+   \code{max_age} \tab upper age limit of the municipal subscription of the "easyvote" booklet \cr
 }
 }
 \seealso{
