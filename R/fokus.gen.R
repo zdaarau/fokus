@@ -87,11 +87,8 @@ rex::register_shortcuts(pkg_name = utils::packageName())
 
 path_private <- function(...) {
   
-  dir_private <-
-    getOption("fokus.path_private",
-              default = getwd()) %>%
-    # TODO: remove `fs::path_expand()` below as soon as [issue #325](https://github.com/r-lib/fs/issues/325) is resolved
-    fs::path_expand()
+  dir_private <- getOption("fokus.path_private",
+                           default = getwd())
   
   # ensure `fokus.path_private` is valid (read access plus file `data/aargau/survey_data_2018-09-23.xlsx` exists)
   is_valid_path <-
