@@ -49,7 +49,7 @@ fokus::has_referendum(ballot_date = "2018-09-23",
                       canton = "aargau")
 }
 \seealso{
-Other fundamental predicate functions
+Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},

@@ -34,8 +34,8 @@ utils::globalVariables(names = c(".",
                                  "enumerator",
                                  "enumerator_base",
                                  "Geschlecht",
+                                 "has_fallback",
                                  "has_same_length",
-                                 "has_auto_fallback",
                                  "Haushaltsgr\u00f6sse Anzahl Personen Total",
                                  "Haushaltsgr\u00f6sse Anzahl Personen \u00fcber 18 Jahren",
                                  "household_size_official",
@@ -65,7 +65,9 @@ utils::globalVariables(names = c(".",
                                  "name",
                                  "nr",
                                  "question",
-                                 "qx",
+                                 "question_full",
+                                 "question_intro_i",
+                                 "question_intro_j",
                                  "receives_print",
                                  "response_options",
                                  "separator",
@@ -85,50 +87,134 @@ utils::globalVariables(names = c(".",
 # avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://github.com/kevinushey/rex#using-rex-in-other-packages
 rex::register_shortcuts(pkg_name = utils::packageName())
 
+#' Abbreviations used in the **fokus** package
+#'
+#' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
+#'
+#' @inheritParams pkgsnip::abbreviations
+#'
+#' @return `r pkgsnip::param_label("data")`
+#' @keywords internal
+abbreviations <- function(expand = FALSE) {
+  
+  pal::assert_pkg("pkgsnip")
+  
+  tibble::tribble(
+    ~full_expressions, ~abbreviation,
+    "google", "g",
+    c("proceed","procedure"), "prcd",
+    "procedures", "prcds",
+    "questionnaire", "q",
+    "questionnaires", "qx",
+    "statistik aargau", "sa",
+    c("supplemental", "supplementary"), "suppl"
+  ) %>%
+    dplyr::bind_rows(pkgsnip::abbreviations()) %>%
+    dplyr::arrange(dplyr::across()) %>%
+    purrr::when(expand ~ tidyr::unnest_longer(data = ., 
+                                              col = full_expressions,
+                                              values_to = "full_expression"), 
+                ~.)
+}
+
+#' Assemble a private FOKUS directory path
+#'
+#' Assembles a path from the private FOKUS directory root plus any additional path elements supplied.
+#' 
+#' See [print_fokus_private_structure()] for details about the private FOKUS directory.
+#'
+#' @param ... Filesystem path elements as unnamed vectors.
+#'
+#' @return `r pkgsnip::param_label("path")`
+#' @keywords internal
 path_private <- function(...) {
   
   dir_private <- getOption("fokus.path_private",
                            default = getwd())
   
   # ensure `fokus.path_private` is valid (read access plus file `data/aargau/survey_data_2018-09-23.xlsx` exists)
-  is_valid_path <-
+  is_dir_private_valid <-
     checkmate::test_directory(dir_private, access = "r") &&
     fs::file_exists(path = fs::path(dir_private, "data/aargau/survey_data_2018-09-23.xlsx"))
   
-  if (!is_valid_path) {
+  if (!is_dir_private_valid) {
     
-    is_opt_set <- !is.null(getOption("fokus.path_private"))
-    
-    cli::cli_abort(paste0(dplyr::if_else(is_opt_set,
-                                         "The option {.field fokus.path_private} is set to: {.path {dir_private}}\n\n",
-                                         "The option {.field fokus.path_private} is unset, thus we fall back to: {.path {dir_private}}\n\n"),
-                          "This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
+    cli::cli_abort(paste0(dplyr::if_else(!is.null(getOption("fokus.path_private")),
+                                         "The option {.field fokus.path_private} is set to {.path {dir_private}}.",
+                                         "The option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}."),
+                          " This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
   }
   
   fs::path(dir_private, ...)
 }
 
+#' Print expected structure of the private FOKUS directory
+#'
+#' Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown [fenced code
+#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
+#'
+#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
+#'
+#' @return A character scalar.
+#' @keywords internal
+print_fokus_private_structure <- function() {
+  
+  pal::cat_lines("``` fs")
+  fokus_private_structure %>% pal::flatten_path_tree() %>% pal::draw_path_tree()
+  pal::cat_lines("```",
+                 "",
+                 "The following placeholders are used in the schema above:",
+                 "",
+                 "-   `...` for further files and/or folders",
+                 "-   `*` for a variable character sequence",
+                 "-   `#` for a count starting with `1`",
+                 "-   `{canton}` for the name of the FOKUS canton (in lower case), e.g. `aargau`",
+                 "-   `{ballot_date}` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`",
+                 paste0("-   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical ",
+                        "office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`"))
+}
+
+#' List package-specific options
+#'
+#' Returns a tibble of R options specific to the FOKUS package.
+#'
+#' @param pretty_colnames Whether or not to return prose colnames. If `FALSE`, snake-cased colnames safe to use in R expressions are returned.
+#'
+#' @return `r pkgsnip::param_label("data")`
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::opts()
 opts <- function(pretty_colnames = FALSE) {
   
   tibble::tibble(name = "fokus.path_private",
                  description = paste0("path to the working directory (the local instance of the ",
                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
                                       "directory"),
-                 has_auto_fallback = TRUE) |>
+                 has_fallback = TRUE) |>
     tibble::add_row(name = "fokus.global_cache_lifespan",
                     description = glue::glue("default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
                                              global_cache_lifespan),
-                    has_auto_fallback = TRUE) |>
+                    has_fallback = TRUE) |>
     purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
-                                                                        "automatic fallback if unset" = has_auto_fallback),
+                                                                        "has fallback if unset" = has_fallback),
                 ~ .)
 }
 
+#' Pretty-print package-specific options
+#'
+#' Pretty-prints the output of [opts()] as a Markdown [pipe table][pal::pipe_table].
+#'
+#' @inherit pal::pipe_table return
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::print_opts()
 print_opts <- function() {
   
   opts(pretty_colnames = TRUE) |>
     dplyr::mutate(name = paste0("`", name, "`"),
-                  dplyr::across(all_of("automatic fallback if unset"),
+                  dplyr::across(all_of("has fallback if unset"),
                                 lgl_to_unicode)) |>
     pal::pipe_table()
 }
@@ -1959,17 +2045,38 @@ q_response_option_codes <- function(types = response_option_types) {
   types %>% purrr::map_int(~ raw_q %>% purrr::chuck("response_options", .x, "code"))
 }
 
+#' Read in easyvote municipality data
+#'
+#' Reads in the latest dataset of easyvote municipality information provided to us up until 20 days after the `ballot_date`.
+#'
+#' If both columns `min_age` and `max_age` are `NA` in the data returned, it means that
+#' 
+#' -   the municipality did not provide easyvote with specific information on the target age range, and
+#' -   the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
+#'     adults between 18--25 years.
+#'
+#' @inheritParams ballot_types
+#'
+#' @return `r pkgsnip::param_label("data")`
+#' @keywords internal
+#'
+#' @examples
+#' # private FOKUS directory needs to be accessible for this function to work
+#' try(
+#'   fokus:::read_easyvote_municipalities(ballot_date = "2020-09-27",
+#'                                        canton = "aargau")
+#' )
 read_easyvote_municipalities <- function(ballot_date,
                                          canton) {
   
-  # get date of latest dataset delivered *before 20 days after ballot date*
+  # get date of latest dataset delivered *up until 20 days after ballot date*
   date_data <-
     path_private("data", canton) %>%
     fs::dir_ls(type = "file",
                regexp = "easyvote_municipalities_\\d{4}-\\d{2}-\\d{2}\\.csv$") %>%
     stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.csv$)") %>%
     lubridate::as_date() %>%
-    magrittr::extract(. < (lubridate::as_date(ballot_date) + 20L))
+    magrittr::extract(. <= (lubridate::as_date(ballot_date) + 20L))
   
   if (length(date_data)) {
     date_data %<>% max()
@@ -2187,14 +2294,14 @@ assert_v_names <- function(v_names,
   if (checkmate::assert_flag(as_scalar)) {
     
     checkmate::assert_choice(v_names,
-                             choices = unique(qx$variable_name),
+                             choices = unique(fokus::qx$variable_name),
                              null.ok = null_ok)
     
   } else {
     
     purrr::map_chr(v_names,
                    checkmate::assert_choice,
-                   choices = unique(qx$variable_name),
+                   choices = unique(fokus::qx$variable_name),
                    null.ok = null_ok)
   }
 }
@@ -3331,7 +3438,7 @@ political_issues <- function(ballot_date = ballot_dates,
 #'
 #' A tibble containing the data of all FOKUS questionnaires.
 #'
-#' `q` was generated based on the following steps:
+#' `qx` was generated based on the following steps:
 #' 
 #' 1. [gen_q_tibble()] was run for all valid combinations of `canton` and `ballot_date`, some validation checks were performed, and the results were merged into
 #'    a single tibble.
@@ -3771,7 +3878,7 @@ v_lbl <- function(v_name,
   if (is_common) {
     
     result <-
-      qx %>%
+      fokus::qx %>%
       dplyr::filter(variable_name == !!v_name) %$%
       variable_label_common
     
@@ -3788,7 +3895,7 @@ v_lbl <- function(v_name,
     }
     
     result <-
-      qx %>%
+      fokus::qx %>%
       dplyr::filter(canton == !!canton
                     & ballot_date == !!ballot_date
                     & variable_name == !!v_name) %$%
@@ -4009,49 +4116,6 @@ upload_to_g_drive <- function(filepaths,
                })
   
   invisible(filepaths)
-}
-
-#' Abbreviations used in the **fokus** package
-#'
-#' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
-#'
-#' @inheritParams pkgsnip::abbreviations
-#'
-#' @return `r pkgsnip::param_label("data")`
-#' @export
-abbreviations <- function(expand = FALSE) {
-  
-  pal::assert_pkg("pkgsnip")
-  
-  tibble::tribble(
-    ~full_expressions, ~abbreviation,
-    "google", "g",
-    c("proceed","procedure"), "prcd",
-    "procedures", "prcds",
-    "questionnaire", "q",
-    "questionnaires", "qx",
-    "statistik aargau", "sa",
-    c("supplemental", "supplementary"), "suppl"
-  ) %>%
-    dplyr::bind_rows(pkgsnip::abbreviations()) %>%
-    dplyr::arrange(dplyr::across()) %>%
-    purrr::when(expand ~ tidyr::unnest_longer(data = ., 
-                                              col = full_expressions,
-                                              values_to = "full_expression"), 
-                ~.)
-}
-
-#' Print expected structure of the private FOKUS directory
-#'
-#' Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown [fenced code
-#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
-#'
-#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
-#'
-#' @return A character scalar.
-#' @export
-print_fokus_private_structure <- function() {
-  cat(md_snippets$fokus_private_structure)
 }
 
 #' Emphasize xth element of character vector (Markdown)

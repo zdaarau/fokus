@@ -26,7 +26,7 @@ Imports:
     knitr (>= 1.30),
     lubridate (>= 1.7.9),
     magrittr (>= 2.0.0),
-    pal (>= 0.0.9073),
+    pal (>= 0.0.9075),
     pkgpins (>= 0.7.0),
     purrr (>= 0.3.4),
     readr (>= 1.4.0),

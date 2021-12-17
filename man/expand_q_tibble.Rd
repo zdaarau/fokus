@@ -16,7 +16,7 @@ A \link[tibble:tbl_df-class]{tibble}.
 Expands a \link[=gen_q_tibble]{questionnaire tibble} to \href{https://en.wikipedia.org/wiki/Wide_and_narrow_data}{long format}.
 }
 \seealso{
-Other questionnaire generation functions
+Other questionnaire generation functions:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
 \code{\link{export_q}()},

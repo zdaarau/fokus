@@ -13,7 +13,7 @@ A \link[tibble:tbl_df-class]{tibble}.
 A tibble of ballot-date-specific political party metadata defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
 }
 \seealso{
-Other questionnaire-internal functions
+Other questionnaire-internal functions:
 \code{\link{q_item_val}()},
 \code{\link{q_response_option_codes}()},
 \code{\link{q_response_options}()}

@@ -24,7 +24,7 @@ fokus:::print_opts()
 <details><summary><strong>Directory structure schema</strong></summary>
 
 ```{r, echo = FALSE, results = "asis"}
-fokus::print_fokus_private_structure()
+fokus:::print_fokus_private_structure()
 ```
 
 </details>
@@ -42,7 +42,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 <details><summary><strong>Table of abbreviations</strong></summary>
 
 ```{r, echo = FALSE}
-fokus::abbreviations() %>%
+fokus:::abbreviations() %>%
   dplyr::rename("Full expressions" = full_expressions,
                 "Abbreviation" = abbreviation) %>%
   pal::pipe_table()

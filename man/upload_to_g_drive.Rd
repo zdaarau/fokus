@@ -18,7 +18,7 @@ upload_to_g_drive(filepaths, g_drive_folder = "fokus_aargau/")
 Uploads one or more files to your Google Drive.
 }
 \seealso{
-Other Google Apps functions
+Other Google Apps functions:
 \code{\link{auth_g_drive_gcp}()}
 }
 \concept{g_apps}

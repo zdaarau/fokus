@@ -19,7 +19,7 @@ Determines the proposal number each variable corresponds to. In case no proposal
 Note that the determination is performed by simply parsing \code{v_names}.
 }
 \seealso{
-Other variable-related functions
+Other variable-related functions:
 \code{\link{is_skill_question_v}()},
 \code{\link{shorten_v_names}()},
 \code{\link{v_lvls}()},

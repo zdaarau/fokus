@@ -47,7 +47,7 @@ fokus::n_election_candidates(ballot_date = "2019-10-20",
                              canton = "aargau")
 }
 \seealso{
-Other election predicate functions
+Other election predicate functions:
 \code{\link{election_candidate_string}()},
 \code{\link{election_candidates}()},
 \code{\link{election_names_combined}()},

@@ -90,8 +90,6 @@ reference:
 - contents: upload_to_g_drive
 - title: Miscellaneous
 - contents:
-  - abbreviations
-  - print_fokus_private_structure
   - md_emphasize
   - lgl_to_unicode
   - prettify_date

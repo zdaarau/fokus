@@ -3,6 +3,13 @@ editor_options:
   chunk_output_type: console
 ---
 
+NOTES:
+
+-   This file is *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) because of the [`.nopurl` suffix in the
+    filename](https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling).
+
+-   The chunks below have to be manually executed in order to regenerate the package data.
+
 # asciicasts
 
 NOTES:
@@ -45,7 +52,7 @@ fs::file_delete(tmp_file)
 
 NOTES:
 
--   This the code chunk generates a **failing** example. To properly regenerate, it requires an artificial mistake to be present in the raw q. To trigger the
+-   This code chunk generates a **failing** example. To properly regenerate it, an artificial mistake is required to be present in the raw q. To trigger that
     same error again, add `{ print('intentional illustrative' 'error') }` at the beginning of item `first_name`'s `variable_label`.
 
 ```{r, include = FALSE, eval = FALSE}
@@ -73,11 +80,9 @@ fs::file_delete(tmp_file)
 
 NOTES:
 
--   The R code chunks below are *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) (`purl = FALSE`). The
-    chunks have to be executed at least once to generate the necessary internal data file [`R/sysdata.rda`](https://r-pkgs.org/data.html#data-sysdata).
-
--   Although the datasets below are saved as "internal data" in `R/sysdata.rda`, some of them are still exported and documented (in the main `.Rmd` document),
-    something [not explicitly mentioned](https://coolbutuseless.github.io/2018/12/10/r-packages-internal-and-external-data/) in the book [R
+-   Although the datasets below are saved as ["internal data" in `R/sysdata.rda`](https://r-pkgs.org/data.html#data-sysdata), some of them are still exported
+    and documented (in the main `.Rmd` document), something [not explicitly
+    mentioned](https://coolbutuseless.github.io/2018/12/10/r-packages-internal-and-external-data/) in the book [R
     Packages](https://r-pkgs.org/data.html#data-data).
 
 ## `ballot_dates`
@@ -426,7 +431,7 @@ md_snippets <-
   purrr::map(brio::read_file)
 ```
 
-## Write internal datasets
+## Write data
 
 Save all the small data objects as a single internal file `R/sysdata.rda`. Note that when documenting them, they must be explicitly `@export`ed to be available
 to package users.
@@ -443,6 +448,7 @@ usethis::use_data(ballot_dates,
                   q_non_item_lvls,
                   q_ballot_types,
                   shortening_rules,
+                  fokus_private_structure,
                   md_snippets,
                   internal = TRUE,
                   overwrite = TRUE,
@@ -450,7 +456,11 @@ usethis::use_data(ballot_dates,
                   version = 3L)
 ```
 
-# External data
+# Exported data
+
+NOTES:
+
+-   When used internally, other than internal data, exported data must always be referred to by its explicit namespace, i.e. e.g. `fokus::qx`.
 
 ## `qx`
 
@@ -491,7 +501,7 @@ qx <-
                               pal::strip_md))
 ```
 
-## Write external datasets
+## Write data
 
 Save all the bigger data objects to separate files under `data/*.rda`. Note that when documenting them, they mustn't be explicitly `@export`ed since they're
 already automatically exported and thus available to package users.

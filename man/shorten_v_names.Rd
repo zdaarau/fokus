@@ -23,7 +23,7 @@ Shorten variable names to a maximum length of 32 characters
 \seealso{
 \code{\link[=shorten_colnames]{shorten_colnames()}}, \code{\link[=restore_colnames]{restore_colnames()}}
 
-Other variable-related functions
+Other variable-related functions:
 \code{\link{is_skill_question_v}()},
 \code{\link{v_lvls}()},
 \code{\link{v_proposal_nr}()},

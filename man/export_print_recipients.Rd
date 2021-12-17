@@ -29,7 +29,7 @@ export_print_recipients(ballot_date = ballot_dates, canton = cantons)
 Exports a CSV dataset containing the two columns \code{id_statistical_office} and \code{receives_print} to the \link[=print_fokus_private_structure]{private FOKUS directory}.
 }
 \seealso{
-Other questionnaire generation functions
+Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_q}()},

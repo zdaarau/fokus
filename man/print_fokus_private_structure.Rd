@@ -20,3 +20,4 @@ private directory i.a. must contain additional non-public (survey) data
 under the \verb{data/} subdirectory and certain files are written to its
 subdirectory \verb{output/}.
 }
+\keyword{internal}

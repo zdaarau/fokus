@@ -14,7 +14,7 @@ qx
 A tibble containing the data of all FOKUS questionnaires.
 }
 \details{
-\code{q} was generated based on the following steps:
+\code{qx} was generated based on the following steps:
 \enumerate{
 \item \code{\link[=gen_q_tibble]{gen_q_tibble()}} was run for all valid combinations of \code{canton} and \code{ballot_date}, some validation checks were performed, and the results were merged into
 a single tibble.
@@ -29,7 +29,7 @@ and \code{variable_label} respectively if \code{NA}.
 }
 }
 \seealso{
-Other questionnaire generation functions
+Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},

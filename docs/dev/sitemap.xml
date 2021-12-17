@@ -106,6 +106,12 @@
     <loc>https://rpkg.dev/fokus/reference/n_skill_questions.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/opts.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/path_private.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/political_issues.html</loc>
   </url>
   <url>
@@ -113,6 +119,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/print_fokus_private_structure.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/print_opts.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/proposal_arguments.html</loc>
@@ -197,6 +206,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/raw_qx_suppl.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/read_easyvote_municipalities.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/read_toml.html</loc>

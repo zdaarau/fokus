@@ -55,7 +55,7 @@ fokus::proposal_type(ballot_date = "2018-09-23",
                      proposal_nr = 1)
 }
 \seealso{
-Other proposal predicate functions
+Other proposal predicate functions:
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},

@@ -17,7 +17,7 @@ A character vector.
 Generate Markdown questionnaire
 }
 \seealso{
-Other questionnaire generation functions
+Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},

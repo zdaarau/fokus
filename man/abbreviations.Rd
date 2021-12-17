@@ -16,3 +16,4 @@ A \link[tibble:tbl_df-class]{tibble}.
 \description{
 Returns a \link[tibble:tbl_df-class]{tibble} listing an opinionated set of abbreviations used in the \R code and documentation of the \strong{fokus} package.
 }
+\keyword{internal}

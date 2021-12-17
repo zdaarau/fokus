@@ -1,7 +1,5 @@
 # TODOs
 
--   Fix regression in `question_common` generation (`NA`)
-
 -   q clean-ups:
 
     -   Rename all occurences of `publitest` to `polling_agency`
@@ -15,7 +13,7 @@
     #28](https://github.com/r-lib/asciicast/pull/28))
 
 -   q: Consider introducing a mechanism to define truly hierarchical first-item question intros on table lvl above `item` lvl. But maybe not worth the effort?
-    Wait until we conduct an online survey by ourselves to get better understanding of requirements!
+    Wait until we conduct an online survey by ourselves to get better understanding of actual requirements!
 
 -   Somehow, including multiple asciicasts in the same Rmd fails (both via asciicast's knitr engine as well as embedding the generated asciicast htmlwidget via
     `asciicast::asciinema_player()`), thus the second asciicast containing an intentionally triggered error in the raw q had to be removed.
@@ -24,8 +22,8 @@
 
     The removed part is:
 
-        If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, an error is thrown
-        and the progress output stops, allowing to easily locate the source position of the mistake:
+        If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, an error
+        is thrown and the progress output stops, allowing to easily locate the source position of the mistake:
 
         ```{r, echo = FALSE}
         fs::path_package("asciicasts/gen_q_tibble-failed.json",
@@ -35,8 +33,8 @@
           asciicast::asciinema_player(speed = 0.75)
         ```
 
-        As one can see from the output above, the error occurred when processing key `variable_label`, and from further above we can see that the key belongs to the
-        item `first_name` which in turn is defined under branch path `00_statistik_aargau.002_to_publitest`.
+        As one can see from the output above, the error occurred when processing key `variable_label`, and from further above we can see that the key belongs to
+        the item `first_name` which in turn is defined under branch path `00_statistik_aargau.002_to_publitest`.
 
 ## Other
 
@@ -44,17 +42,8 @@
 
     -   variable renamings:
 
-        -   reading in publitest data: `info_src_reader_letters_comments` -> `info_src_letters_comments`
-
-        -   `political_interest` -> rename to `political_interest_cantonal` \@ \[ 2018-09-23, 2018-11-25, 2020-09-27 \]
-
-        -   `sighting_political_ads` -> `sighting_political_ads_cantonal_proposals`
-
-        -   `intensity_political_discussions` -> `intensity_political_discussions_cantonal_proposals`
-
         -   Information source items:
 
-            -   `information_source_discussions` -> `cantonal_information_source_discussions`
             -   `information_source_official_easyvote_booklet` -> `information_source_easyvote_booklet`
             -   `information_source_cantonal_election_booklet` -> `cantonal_information_source_election_booklet`
             -   `information_source_official_federal_booklet` -> `federal_information_source_official_booklet`

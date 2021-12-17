@@ -38,7 +38,7 @@ fokus:::q_response_option_codes(types = c("dunno",
                                           "abstain"))
 }
 \seealso{
-Other questionnaire-internal functions
+Other questionnaire-internal functions:
 \code{\link{q_item_val}()},
 \code{\link{q_parties}()},
 \code{\link{q_response_options}()}

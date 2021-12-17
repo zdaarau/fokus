@@ -56,7 +56,7 @@ fokus::proposal_main_motives(ballot_date = "2018-09-23",
                              type = "no")
 }
 \seealso{
-Other proposal predicate functions
+Other proposal predicate functions:
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},

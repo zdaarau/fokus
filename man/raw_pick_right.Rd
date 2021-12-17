@@ -36,7 +36,7 @@ Picks the right value of a certain raw questionnaire key based on ballot date an
 \seealso{
 Raw questionnaire data \code{\link{raw_q}} \code{\link{raw_qx_suppl}}
 
-Other raw questionnaire data functions
+Other raw questionnaire data functions:
 \code{\link{raw_q_suppl_arguments}()},
 \code{\link{raw_q_suppl_election_name}()},
 \code{\link{raw_q_suppl_elections}()},

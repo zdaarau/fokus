@@ -50,7 +50,7 @@ fokus::n_skill_questions(ballot_date = "2018-09-23",
                          proposal_nr = 1)
 }
 \seealso{
-Other skill question predicate functions
+Other skill question predicate functions:
 \code{\link{skill_question_answer_nr}()},
 \code{\link{skill_question_response_options}()},
 \code{\link{skill_question}()}

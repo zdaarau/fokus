@@ -55,7 +55,7 @@ writes all of them to the \link[=print_fokus_private_structure]{private FOKUS di
 uploads them to a Google Drive folder (\code{g_drive_folder}).
 }
 \seealso{
-Other questionnaire generation functions
+Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},

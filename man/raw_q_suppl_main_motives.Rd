@@ -50,7 +50,7 @@ fokus:::proposal_main_motives(ballot_date = "2018-11-25",
 \seealso{
 Raw questionnaire data \code{\link{raw_q}} \code{\link{raw_qx_suppl}}
 
-Other raw questionnaire data functions
+Other raw questionnaire data functions:
 \code{\link{raw_pick_right}()},
 \code{\link{raw_q_suppl_arguments}()},
 \code{\link{raw_q_suppl_election_name}()},
