@@ -207,4 +207,4 @@ fs::path_package("asciicasts/gen_q_tibble-success.json",
 ```
 
 If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, the progress
-output would stop immediately, allowing to easily locate the source position of the mistake.
+output stops immediately, allowing to easily locate the source position of the mistake.

@@ -16,8 +16,8 @@ Returns a textual representation of the expected structure of the private FOKUS 
 For part of this package’s functionality, a separate private directory
 (defined by the R option \code{fokus.path_private}) is required which is
 expected to be organized according to a very specific structure. This
-private directory i.a. must contain additional non-public (survey) data
-under the \verb{data/} subdirectory and certain files are written to its
-subdirectory \verb{output/}.
+private directory i.a. must contain additional sensitive, non-public
+(survey) data under the \verb{data/} subdirectory and certain files are
+written to its \verb{output/} subdirectory.
 }
 \keyword{internal}
