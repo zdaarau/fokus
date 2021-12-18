@@ -219,6 +219,35 @@ print_opts <- function() {
     pal::pipe_table()
 }
 
+#' Generate package data
+#'
+#' Generates all the data included in this package that is generated from code not included in the [source
+#' package](https://r-pkgs.org/package-structure-state.html#source-package), i.e. outsourced to files with the [`.nopurl` suffix in their
+#' filenames](https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling).
+#'
+#' @param data_files Data `.Rmd` source files to execute. They are stored under the paths `Rmd/data_{data_files}.nopurl.Rmd`.
+#'
+#' @return The paths to the specified `data_files`, invisibly.
+#' @keywords internal
+gen_pkg_data <- function(data_files = c("internal", "exported", "asciicasts")) {
+  
+  checkmate::assert_subset(data_files,
+                           choices = eval(formals()$data_files),
+                           empty.ok = FALSE)
+  
+  input_paths <- fs::path(glue::glue("Rmd/data_{data_files}.nopurl.Rmd"))
+  
+  input_paths %>%
+    purrr::walk(~ source(file = knitr::purl(input = .x,
+                                            output = fs::file_temp(pattern = fs::path_ext_remove(fs::path_file(.x)),
+                                                                   ext = "R"),
+                                            quiet = TRUE),
+                         encoding = "UTF-8",
+                         echo = FALSE))
+  
+  invisible(input_paths)
+}
+
 #' Raw FOKUS questionnaire data
 #'
 #' A structured list of the raw questionnaire data of the FOKUS surveys.
@@ -1302,7 +1331,7 @@ export_q_all <- function(verbose = FALSE,
                          deploy = FALSE,
                          local_deploy_path = getOption("fokus.q.local_deploy_path"),
                          upload_to_g_drive = FALSE,
-                         g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/Fragebogen/") {
+                         g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
   ballot_dates %>%
     purrr::walk(export_q,
                 canton = "aargau",
@@ -1767,7 +1796,7 @@ q_md_table_body <- function(q_tibble_block,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
             shorten_v_names(v_names = variable_name,
-                            max_n_char = dplyr::if_else(block %in% c("x_publitest", "y_generated", "z_generated")
+                            max_n_char = dplyr::if_else(block %in% c("x_polling_agency", "y_generated", "z_generated")
                                                         || stringr::str_detect(string = variable_name,
                                                                                pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
                                                                                                                        "information_source_",
@@ -2047,7 +2076,7 @@ q_response_option_codes <- function(types = response_option_types) {
 
 #' Read in easyvote municipality data
 #'
-#' Reads in the latest dataset of easyvote municipality information provided to us up until 20 days after the `ballot_date`.
+#' Reads in the latest dataset of easyvote municipality information provided to us not earlier than 90 days before and up until 20 days after the `ballot_date`.
 #'
 #' If both columns `min_age` and `max_age` are `NA` in the data returned, it means that
 #' 
@@ -2069,19 +2098,23 @@ q_response_option_codes <- function(types = response_option_types) {
 read_easyvote_municipalities <- function(ballot_date,
                                          canton) {
   
-  # get date of latest dataset delivered *up until 20 days after ballot date*
+  # get date of latest dataset delivered *not earlier than 90 days before ballot date* and *up until 20 days after ballot date*
+  date_boundary_lower <- lubridate::as_date(ballot_date) - 90L
+  date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
+  
   date_data <-
     path_private("data", canton) %>%
     fs::dir_ls(type = "file",
                regexp = "easyvote_municipalities_\\d{4}-\\d{2}-\\d{2}\\.csv$") %>%
     stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.csv$)") %>%
     lubridate::as_date() %>%
-    magrittr::extract(. <= (lubridate::as_date(ballot_date) + 20L))
+    magrittr::extract(. >= date_boundary_lower & . <= date_boundary_upper)
   
   if (length(date_data)) {
     date_data %<>% max()
   } else {
-    cli::cli_abort("No easyvote municipality data present for canton {.val {canton}} with effective date before the ballot date {.val {ballot_date}}.")
+    cli::cli_abort(paste0("No easyvote municipality data present for canton {.val {canton}} with effective date at minimum 90 days before and at maximum 20 ",
+                          "days after the ballot date {.val {ballot_date}}."))
   }
   
   path_private("data", canton, glue::glue("easyvote_municipalities_{date_data}.csv")) %>%
@@ -2209,7 +2242,13 @@ read_voting_register_data_extra <- function(ballot_date,
 read_voting_register_ids <- function(ballot_date,
                                      canton) {
   
-  path_private(glue::glue("data/{canton}/voting_register_ids_{ballot_date}.csv")) %>%
+  path_input <- path_private(glue::glue("data/{canton}/voting_register_ids_{ballot_date}.csv"))
+  
+  if (!fs::file_exists(path_input)) {
+    cli::cli_abort("No voting register ID data present for canton {.val {canton}} @ {.val {ballot_date}}.")
+  }
+  
+  path_input %>%
     readr::read_csv(col_types = "i") %>%
     # integrity check
     purrr::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug."),
@@ -3481,7 +3520,7 @@ export_q <- function(ballot_date = ballot_dates,
                      deploy = TRUE,
                      local_deploy_path = getOption("fokus.q.local_deploy_path"),
                      upload_to_g_drive = TRUE,
-                     g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/Fragebogen/") {
+                     g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
   
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
@@ -3524,7 +3563,7 @@ export_q <- function(ballot_date = ballot_dates,
       clean_q_tibble() %>%
       dplyr::mutate(variable_name_32 =
                       purrr::map2_chr(.x = variable_name,
-                                      .y = dplyr::if_else(block %in% c("x_publitest", "y_generated", "z_generated")
+                                      .y = dplyr::if_else(block %in% c("x_polling_agency", "y_generated", "z_generated")
                                                           | stringr::str_detect(string = variable_name,
                                                                                 pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
                                                                                                                         "information_source_",
@@ -3630,7 +3669,7 @@ export_q <- function(ballot_date = ballot_dates,
 export_qr_codes <- function(ballot_date = ballot_dates,
                             canton = cantons,
                             upload_to_g_drive = TRUE,
-                            g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/QR-Codes/") {
+                            g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/") {
   
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
@@ -3787,7 +3826,7 @@ export_print_recipients <- function(ballot_date = ballot_dates,
 export_easyvote_municipalities <- function(ballot_date = ballot_dates,
                                            canton = cantons,
                                            upload_to_g_drive = TRUE,
-                                           g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr publitest/easyvote-Gemeinden/") {
+                                           g_drive_folder = "fokus_aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/easyvote-Gemeinden/") {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(ballot_dates))

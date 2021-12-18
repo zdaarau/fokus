@@ -8,7 +8,8 @@ export_easyvote_municipalities(
   ballot_date = ballot_dates,
   canton = cantons,
   upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus_aargau/Umfragen/Dateien für publitest/easyvote-Gemeinden/"
+ 
+    g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/easyvote-Gemeinden/"
 )
 }
 \arguments{

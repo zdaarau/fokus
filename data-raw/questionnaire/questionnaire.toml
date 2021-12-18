@@ -25,42 +25,42 @@ response_options = [ "Abstimmung", "Wahl", "beides" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "referendum", "election", "both_referendum_and_election" ]
 
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Nachname (amtliche Information)[^anon]"
 variable_name = "last_name"
 variable_label = "respondent's last name (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Vorname (amtliche Information)[^anon]"
 variable_name = "first_name"
 variable_label = "respondent's first name (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Weitere Vornamen (amtliche Information)[^anon]"
 variable_name = "middle_name"
 variable_label = "respondent's middle name(s) (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Strasse (amtliche Information)[^anon]"
 variable_name = "street"
 variable_label = "street name of respondent's place of residence (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Hausnummer (amtliche Information)[^anon]"
 variable_name = "street_number"
 variable_label = "street number of respondent's place of residence (official cantonal register information)"
 response_options = "_Hausnummer (Text)_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Postleitzahl (amtliche Information)[^anon]"
 variable_name = "zip_code"
 variable_label = "zip code of respondent's place of residence (official cantonal register information)"
 response_options = "_Postleitzahl (4 Ziffern)_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Ort (amtliche Information)[^anon]"
 variable_name = "place"
 variable_label = "respondent's place of residence (official cantonal register information)"
 response_options = "_Ort (Text)_"
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Typ des Privathaushalts (amtliche Information)[^no-data]"
 variable_name = "household_type"
 variable_label = "type of household the respondent lives in (official cantonal register information)"
@@ -84,14 +84,14 @@ value_labels = [
   "multi-family household"
 ]
 include.default = false
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Zuzugsdatum (amtliche Information)[^no-data]"
 variable_name = "arrival_date"
 variable_label = "respondent's date of arrival in the Canton of Aargau (official cantonal register information)"
 response_options = "_Datum ([ISO 8601][iso8601])_"
 value_scale = "interval"
 include.default = false
-[[00_statistik_aargau.002_to_publitest.item]]
+[[00_statistik_aargau.002_to_polling_agency.item]]
 topic = "Herkunftskanton (amtliche Information)[^no-data]"
 variable_name = "origin_canton"
 variable_label = "canton where the respondent lived before moving to Aargau (official cantonal register information)"
@@ -157,7 +157,7 @@ include.default = false
 [[00_statistik_aargau.003_to_zda.item]]
 topic = "Statistik-Aargau-Identifikator"
 variable_name = "id_statistik_aargau"
-variable_label = "identifier to match the demographic data supplied by Statistik Aargau with the survey data supplied by publitest"
+variable_label = "identifier to match the demographic data supplied by Statistik Aargau with the survey data supplied by the polling agency"
 response_options = "_Ganzzahl_"
 include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_statistik_aargau.003_to_zda.item]]
@@ -3610,22 +3610,22 @@ variable_name = "attitude_police_expansion"
 variable_label = "whether the respondent thinks that significantly more police forces should be employed to ensure public safety (smartvote question)"
 
 
-[x_publitest]
-title = "Von publitest generierte Zusatzvariablen"
+[x_polling_agency]
+title = "Vom Umfrageinstitut generierte Zusatzvariablen"
 intro = """
-Die folgenden Elemente des Blockes X sind nicht für die Aufnahme in den Fragebogen vorgesehen und werden dementsprechend auch nicht abgefragt. \
-Stattdessen werden sie von publitest während (Paradaten der Online-Befragung) bzw. nach der Befragung (zwecks Validierung bzw. Anonymisierung) generiert. \
+Die folgenden Elemente des Blockes X sind nicht für die Aufnahme in den Fragebogen vorgesehen und werden dementsprechend auch nicht abgefragt. Stattdessen \
+werden sie vom Umfrageinstitut während (Paradaten der Online-Befragung) bzw. nach der Befragung (zwecks Validierung bzw. Anonymisierung) generiert. \
 Zur Abgrenzung wird den Elementen des Blockes X dabei in der Nummerierung (#) die Zahl `2000` vorangestellt."""
 prefix = 2000
 
-[x_publitest.001_all]
+[x_polling_agency.001_all]
 who = "alle"
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "Fragebogennummer"
 variable_name = "questionnaire_nr"
 variable_label = "respondent's questionnaire number (every (partially) completed questionnaire gets a sequential number assigned starting from 1)"
 response_options = "_Ganzzahl_"
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "Fragebogenkanal"
 variable_name = "questionnaire_channel"
 variable_label = "the channel through which the respondent answered the questionnaire"
@@ -3633,21 +3633,21 @@ response_options = [ "online", "print" ]
 variable_values = [ 1, 2 ]
 value_labels = [ "online", "print" ]
 value_scale = "binary"
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "Fragebogenbereitstellungsart"
 variable_name = "questionnaire_provision_type"
 variable_label = "the way the questionnaire was provisioned to the respondent"
 response_options = [ "online und print gleichzeitig", "zuerst online, print erst mit Erinnerungsschreiben", "nur online" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "online and print simultaneously", "online first, print only later with reminder letter", "online only" ]
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "Fragebogenbeantwortungsstatus"
 variable_name = "questionnaire_status"
 variable_label = "respondent's questionnaire completion status"
 response_options = [ "ohne Unterbrechung beendet", "nach Unterbrechung beendet", "nicht beendet" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "finished without interruption", "finished after interruption", "unfinished" ]
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "Erinnerungsschreiben (Dummy)"
 variable_name = "received_reminder"
 variable_label = "dummy value indicating whether or not the respondent received a postal reminder"
@@ -3656,14 +3656,14 @@ variable_values = [ 0, 1 ]
 value_labels = [ "received no reminder", "received reminder" ]
 value_scale = "binary"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "Bezirk"
 variable_name = "district"
 variable_label = "respondent's district of residence"
 response_options = [ "Aarau", "Baden", "Bremgarten", "Brugg", "Kulm", "Laufenburg", "Lenzburg", "Muri", "Rheinfelden", "Zofingen", "Zurzach" ]
 variable_values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 value_labels = [ "Aarau", "Baden", "Bremgarten", "Brugg", "Kulm", "Laufenburg", "Lenzburg", "Muri", "Rheinfelden", "Zofingen", "Zurzach" ]
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "[«easyvote»-Broschüre](https://www.easyvote.ch/de/f/angebote/broschuere): Untere Altersgrenze des Gemeinde-Abonnements"
 variable_name = "easyvote_municipality_min_age"
 variable_label = "lower age limit of the municipal subscription of the [\"easyvote\" booklet](https://www.easyvote.ch/de/f/angebote/broschuere)"
@@ -3672,7 +3672,7 @@ variable_values.default = [ 0, 18, 19, 20, 21, 22, 23, 24, 25, 80 ]
 variable_values.20191020 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 80 ]
 value_labels = [ "none (municipality has not subscribed to the \"easyvote\" booklet)", "18", "19", "20", "21", "22", "23", "24", "25", "not specified" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[x_publitest.001_all.item]]
+[[x_polling_agency.001_all.item]]
 topic = "[«easyvote»-Broschüre](https://www.easyvote.ch/de/f/angebote/broschuere): Obere Altersgrenze des Gemeinde-Abonnements"
 variable_name = "easyvote_municipality_max_age"
 variable_label = "upper age limit of the municipal subscription of the [\"easyvote\" booklet](https://www.easyvote.ch/de/f/angebote/broschuere)"
@@ -3681,9 +3681,9 @@ variable_values.default = [ 0, 18, 19, 20, 21, 22, 23, 24, 25, 80 ]
 variable_values.20191020 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 80 ]
 value_labels = [ "none (municipality has not subscribed to the \"easyvote\" booklet)", "18", "19", "20", "21", "22", "23", "24", "25", "not specified" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[x_publitest.001_all.z01_fso]
+[x_polling_agency.001_all.z01_fso]
 value_scale = "ordinal_descending"
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Gemeinde-Grössenklasse"
 variable_name = "fso_municipality_size_class"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: Municipality size class (\"Gemeinde-Grössenklasse\")"
@@ -3708,7 +3708,7 @@ value_labels = [
   "1000–1999 inhabitants",
   "< 1,000 inhabitants"
 ]
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Raum mit städtischem Charakter 2012"
 variable_name = "fso_urban_character_2012"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: Space with urban character (\"Raum mit städtischem Charakter 2012\")"
@@ -3731,7 +3731,7 @@ value_labels = [
   "core municipality outside agglomerations",
   "rural municipality without urban character"
 ]
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Agglomerationsgrössenklasse 2012"
 variable_name = "fso_agglomeration_size_class_2012"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: Agglomeration size class 2012 (\"Agglomerationsgrössenklasse 2012\")"
@@ -3752,7 +3752,7 @@ value_labels = [
   "< 50000 inhabitants",
   "no agglomeration affiliation"
 ]
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: (Statistische) Städte 2012"
 variable_name = "fso_statistical_cities_2012"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: (Statistical) cities 2012 (\"(Statistische) Städte 2012\")"
@@ -3760,14 +3760,14 @@ response_options = [ "Stadt", "keine Stadt" ]
 variable_values = [ 1, 0 ]
 value_labels = [ "city", "no city" ]
 value_scale = "binary"
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Degree of urbanisation 2011 (DEGURBA) – Eurostat-Urbanisierungsgrad"
 variable_name = "fso_degurba_2011"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: Eurostat's degree of urbanisation 2011 (DEGURBA)"
 response_options = [ "dichtbesiedeltes Gebiet", "mitteldicht besiedeltes Gebiet", "geringbesiedeltes Gebiet" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "densely populated area", "intermediate density area", "thinly populated area" ]
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Gemeindetypologie 2012 (9 Kategorien)"
 variable_name = "fso_municipality_typology_2012_9cat"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: Municipality typology 2012 in 9 categories (\"Gemeindetypologie 2012 (9 Kategorien)\")"
@@ -3794,7 +3794,7 @@ value_labels = [
   "rural centrally located municipality",
   "rural peripheral municipality"
 ]
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Gemeindetypologie 2012 (25 Kategorien)"
 variable_name = "fso_municipality_typology_2012_25cat"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: Municipality typology 2012 in 25 categories (\"Gemeindetypologie 2012 (25 Kategorien)\")"
@@ -3853,16 +3853,16 @@ value_labels = [
   "rural peripheral agricultural municipality",
   "rural peripheral mixed municipality"
 ]
-[[x_publitest.001_all.z01_fso.item]]
+[[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Stadt/Land-Typologie 2012"
 variable_name = "fso_city_rural_typology_2012"
 variable_label = "Spatial typology by the Federal Statistical Office (FSO) of respondent's place of residence: City/rural typology 2012 (\"Stadt/Land-Typologie 2012\")"
 response_options = [ "städtisch", "intermediär", "ländlich" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "urban", "intermediary", "rural" ]
-[x_publitest.001_all.z02_quality_control]
+[x_polling_agency.001_all.z02_quality_control]
 value_scale = "binary"
-[[x_publitest.001_all.z02_quality_control.item]]
+[[x_polling_agency.001_all.z02_quality_control.item]]
 topic = "Kontrolle Geschlecht (Dummy)"
 variable_name = "matches_sex"
 variable_label = "dummy value indicating whether or not the respondent's own statement about his/her sex matches the official cantonal register information"
@@ -3871,17 +3871,17 @@ variable_values = [ 0, 1 ]
 value_labels = [ "mismatch", "match" ]
 include.default = false
 include.true = [ 2018-09-23, 2018-11-25 ]
-[[x_publitest.001_all.z02_quality_control.item]]
-topic = "Plausibilitätskontrolle publitest (Dummy)"
+[[x_polling_agency.001_all.z02_quality_control.item]]
+topic = "Plausibilitätskontrolle Umfrageinstitut (Dummy)"
 variable_name = "passes_plausibility_check"
 variable_label = "dummy value indicating whether or not the respondent's answer behavior passes basic plausibility checks"
 response_options = [ "nicht bestanden", "bestanden" ]
 variable_values = [ 0, 1 ]
 value_labels = [ "fail", "pass" ]
 
-[x_publitest.008_online]
+[x_polling_agency.008_online]
 who = "Online-Respondenten"
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Zusatzfrage zum Teilzeiterwerb für Schüler-, Studenten- und RentnerInnen (Dummy)"
 question.default = "Sind Sie daneben Teilzeit erwerbstätig?"
 question.20180923_20191020 = "Sind Sie zumindest Teilzeit erwerbstätig?"
@@ -3892,51 +3892,51 @@ variable_values = [ 1, 2 ]
 value_labels = [ "yes (working)", "no (not working)" ]
 value_scale = "binary"
 is_mandatory = true
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Browser"
 variable_name = "web_browser"
 variable_label = "the User-Agent string of the respondent's web browser"
 response_options = "_Text_"
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "HTTP-Referrer"
 variable_name = "http_referrer"
 variable_label = "the HTTP referrer the respondent's web browser sent when accessing the questionnaire"
 response_options = "_Text_"
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Interviewstartzeitpunkt"
 variable_name = "start_date_time"
 variable_label = "date and time when the respondent started to answer the questionnaire"
 response_options = "_Datum/Uhrzeit ([ISO 8601][iso8601])_"
 value_scale = "interval"
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Letzter Fragebogenzugriffszeitpunkt"
 variable_name = "last_access_date_time"
 variable_label = "date and time when the respondent last accessed the questionnaire"
 response_options = "_Datum/Uhrzeit ([ISO 8601][iso8601])_"
 value_scale = "interval"
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Gesamte Interviewdauer"
 variable_name = "total_time"
 variable_label = "time in seconds it took the respondent to complete the whole questionnaire"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Verweildauer Einstiegsseite"
 variable_name = "time_introduction"
 variable_label = "time in seconds the respondent spent on the survey introduction page"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[x_publitest.008_online.item]]
+[[x_polling_agency.008_online.item]]
 topic = "Interviewdauer Thema/Themen XYZ"
 variable_name = "time_xyz"
 variable_label = "time in seconds it took the respondent to complete the variable(s) xyz"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
 
-[x_publitest.009_print]
+[x_polling_agency.009_print]
 who = "Print-Respondenten"
-[[x_publitest.009_print.item]]
+[[x_polling_agency.009_print.item]]
 topic = "Rückempfangsdatum Print-Fragebogen"
 variable_name = "postal_reception_date"
 variable_label = "date on which the survey institute received the print questionnaire back by postal mail"
@@ -4185,7 +4185,7 @@ variable_label = "dummy value indicating whether or not the respondent automatic
 response_options = [ "erhält keine «easyvote»-Broschüre von der Gemeinde", "erhält «easyvote»-Broschüre von der Gemeinde" ]
 value_labels = [ "receives no \"easyvote\" booklet from the municipality", "receives \"easyvote\" booklet from the municipality" ]
 value_scale = "binary"
-include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('x_publitest', '001_all'), v_name = 'easyvote_municipality_min_age', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('x_publitest', '001_all'), v_name = 'easyvote_municipality_max_age', key = 'include')) }"
+include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('x_polling_agency', '001_all'), v_name = 'easyvote_municipality_min_age', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('x_polling_agency', '001_all'), v_name = 'easyvote_municipality_max_age', key = 'include')) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Kontrolle Geschlecht"
 variable_name = "matches_sex"
@@ -4535,7 +4535,7 @@ title = "Vom ZDA generierte Drittvariablen"
 intro = """
 Die folgenden Elemente des Blockes Z sind gleich wie jene des Blockes Y nicht für die Aufnahme in den Fragebogen vorgesehen und werden dementsprechend auch \
 nicht abgefragt. Stattdessen werden sie vom ZDA nach der Befragung generiert. Im Gegensatz zum Block Y beziehen sich die folgenden Elemente _nicht_ auf den \
-von publitest gelieferten Hauptdatensatz. Zur Abgrenzung wird den Elementen des Blockes Z in der Nummerierung (#) die Zahl `4000` vorangestellt."""
+vom Umfrageinstitut gelieferten Hauptdatensatz. Zur Abgrenzung wird den Elementen des Blockes Z in der Nummerierung (#) die Zahl `4000` vorangestellt."""
 prefix = 4000
 who = "alle"
 
@@ -4945,7 +4945,7 @@ en.main = "no (negative vote)"
 ## footnotes for Markdown questionnaire
 [[footnote]]
 id = "anon"
-text = "Diese Variable wird nur ans Umfrageinstitut publitest geliefert und zwecks Anonymisierung der TeilnehmerInnen nach Befragungsende gelöscht, d. h. das ZDA hat zu keinem Zeitpunkt Zugriff auf sie."
+text = "Diese Variable wird nur ans Umfrageinstitut geliefert und zwecks Anonymisierung der TeilnehmerInnen nach Befragungsende gelöscht, d. h. das ZDA hat zu keinem Zeitpunkt Zugriff auf sie."
 [[footnote]]
 id = "no-data"
 text = "Leider erhalten wir für den Abstimmungstermin vom { prettify_date(ballot_date, locale = 'de') } die für diese Variable notwendigen Registerdaten von Statistik Aargau (noch) nicht."
@@ -4975,7 +4975,7 @@ Diese Frage wurde in darauffolgenden Abstimmungsterminen leicht umformuliert in:
 }_"""
 [[footnote]]
 id = "pseudon"
-text = "Diese Variable wird von Statistik Aargau direkt ans ZDA geliefert und ist über den eineindeutigen Identifikator `id_statistik_aargau` den vom Umfrageinstitut publitest gelieferten Daten zuordenbar."
+text = "Diese Variable wird von Statistik Aargau direkt ans ZDA geliefert und ist über den eineindeutigen Identifikator `id_statistik_aargau` den vom Umfrageinstitut gelieferten Daten zuordenbar."
 [[footnote]]
 id = "statag-household"
 text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch direkt aus dem Einwohnerregister von Statistik Aargau (Variable `household_size_official`)."

@@ -1,0 +1,101 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+NOTES:
+
+-   This file is *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) because of the [`.nopurl` suffix in the
+    filename](https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling).
+
+-   The chunks below have to be manually executed in order to regenerate the package data.
+
+# asciicasts
+
+NOTES:
+
+-   asciicasts are only regenerated manually because their generation takes a considerable amount of time. To regenerate an asciicast, manually run its code
+    chunk, rebuild the package and finally re-build the vignette(s) where it's included.
+
+-   After asciicasts are regenerated (and stored as JSON files under `inst/asciicasts/`), the package must be rebuilt in order to actually include the updated
+    JSON files.
+
+-   The asciicast player width of 116 chars (`cols = 116L`) is optimized for the current pkgdown layout of `rpkg.dev`.
+
+## Verbose FOKUS questionnaire generation (Aargau \@ 2018-09-23)
+
+```{r}
+fs::dir_create("inst/asciicasts")
+tmp_file <- fs::file_temp(ext = "R")
+
+c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
+  '                     canton = "aargau",',
+  '                     verbose = TRUE)') %>%
+  readr::write_lines(file = tmp_file)
+
+asciicast::record(script = tmp_file,
+                  title = "Verbose FOKUS questionnaire generation (Aargau @ 2018-09-23)",
+                  startup = quote(options(cli.width = 115L)),
+                  timeout = 180L,
+                  typing_speed = 0L,
+                  rows = 50L,
+                  cols = 116L,
+                  speed = 0.75) %>%
+  asciicast::write_json(path = "inst/asciicasts/gen_q_tibble-success.json")
+
+fs::file_delete(tmp_file)
+```
+
+## Failed verbose FOKUS questionnaire generation (Aargau \@ 2018-09-23)
+
+NOTES:
+
+-   This code chunk generates a **failing** example. To trigger the error, an artificial mistake is temporarily added to the raw q
+    (`the invalid inline code { 'intentional illustrative' 'error' }` at the beginning of item `first_name`'s `variable_label`).
+
+```{r}
+# temporarily add artificial mistake in raw q
+yay::str_replace_file(path = "data-raw/questionnaire/questionnaire.toml",
+                      pattern = c("(variable_label = \")(respondent's first name \\(official cantonal register information\\)\")" =
+                                    "\\1{ 'intentional illustrative' 'error' }\\2"),
+                      run_dry = FALSE,
+                      verbose = FALSE)
+fokus:::gen_pkg_data(data_files = "internal")
+pkgload::unload()
+devtools::install(quick = TRUE,
+                  quiet = TRUE,
+                  upgrade = "never")
+
+# generate asciicast
+tmp_file <- fs::file_temp(ext = "R")
+
+c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
+  '                     canton = "aargau",',
+  '                     verbose = TRUE)') %>%
+  readr::write_lines(file = tmp_file)
+
+asciicast::record(script = tmp_file,
+                  title = "Failed verbose FOKUS questionnaire generation (Aargau @ 2018-09-23)",
+                  startup = quote(options(cli.width = 115L)),
+                  timeout = 180L,
+                  typing_speed = 0L,
+                  rows = 50L,
+                  cols = 116L,
+                  speed = 0.75) %>%
+  asciicast::write_json(path = "inst/asciicasts/gen_q_tibble-failed.json")
+
+fs::file_delete(tmp_file)
+
+# restore raw q
+yay::str_replace_file(path = "data-raw/questionnaire/questionnaire.toml",
+                      pattern = c("(variable_label = \")\\{ 'intentional illustrative' 'error' \\}" =
+                                    "\\1"),
+                      run_dry = FALSE,
+                      verbose = FALSE)
+
+fokus:::gen_pkg_data(data_files = "internal")
+pkgload::unload()
+devtools::install(quick = TRUE,
+                  quiet = TRUE,
+                  upgrade = "never")
+```

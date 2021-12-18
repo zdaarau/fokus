@@ -12,7 +12,7 @@ export_q_all(
   deploy = FALSE,
   local_deploy_path = getOption("fokus.q.local_deploy_path"),
   upload_to_g_drive = FALSE,
-  g_drive_folder = "fokus_aargau/Umfragen/Dateien für publitest/Fragebogen/"
+  g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
 )
 }
 \arguments{

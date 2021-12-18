@@ -8,7 +8,7 @@ export_qr_codes(
   ballot_date = ballot_dates,
   canton = cantons,
   upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus_aargau/Umfragen/Dateien für publitest/QR-Codes/"
+  g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/"
 )
 }
 \arguments{

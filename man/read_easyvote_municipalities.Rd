@@ -26,7 +26,7 @@ read_easyvote_municipalities(ballot_date, canton)
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-Reads in the latest dataset of easyvote municipality information provided to us up until 20 days after the \code{ballot_date}.
+Reads in the latest dataset of easyvote municipality information provided to us not earlier than 90 days before and up until 20 days after the \code{ballot_date}.
 }
 \details{
 If both columns \code{min_age} and \code{max_age} are \code{NA} in the data returned, it means that

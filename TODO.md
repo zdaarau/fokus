@@ -2,7 +2,6 @@
 
 -   q clean-ups:
 
-    -   Rename all occurences of `publitest` to `polling_agency`
     -   Rename `id_statistik_aargau` to `id_statistical_office`
     -   Use EN instead of DE values in `who` key
     -   Replace all hardcoded occurences of "Aargau"/"aargau" with `canton`-based R code
@@ -34,7 +33,7 @@
         ```
 
         As one can see from the output above, the error occurred when processing key `variable_label`, and from further above we can see that the key belongs to
-        the item `first_name` which in turn is defined under branch path `00_statistik_aargau.002_to_publitest`.
+        the item `first_name` which in turn is defined under branch path `00_statistik_aargau.002_to_polling_agency`.
 
 ## Other
 

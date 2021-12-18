@@ -1,0 +1,69 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+NOTES:
+
+-   This file is *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) because of the [`.nopurl` suffix in the
+    filename](https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling).
+
+-   The chunks below have to be manually executed in order to regenerate the package data.
+
+# Exported data
+
+NOTES:
+
+-   When used internally, other than internal data, exported data must always be referred to by its explicit namespace, i.e. e.g. `fokus::qx`.
+
+## `qx`
+
+Questionnaire data as one single long-format tibble.
+
+```{r}
+qx <-
+  fokus::ballot_dates %>%
+  purrr::map_dfr(function(ballot_date) {
+    
+    fokus::cantons %>% purrr::map_dfr(~ fokus:::gen_q_tibble(ballot_date = ballot_date,
+                                                             canton = .x) %>%
+                                        fokus:::validate_q_tibble())
+  }) %>%
+  # expand list cols
+  tidyr::unnest(cols = any_of(fokus:::q_item_keys_multival)) %>%
+  # modify some vx
+  dplyr::mutate(
+    ## complete `question_full`
+    question_full = question_full %|% question,
+    ## merge `question_intro_i/j` into `question_intro`
+    question_intro = paste(tidyr::replace_na(data = question_intro_i,
+                                             replace = ""),
+                           tidyr::replace_na(data = question_intro_j,
+                                             replace = "")),
+    ## complete `*_common` vars with their ballot-date/canton-specific siblings
+    question_common = question_common %|% question_full,
+    variable_label_common = variable_label_common %|% variable_label) %>%
+  dplyr::select(-c(question_intro_i,
+                   question_intro_j,
+                   lvl,
+                   i,
+                   j)) %>%
+  dplyr::relocate(question_intro,
+                  .before = question) %>%
+  # strip Markdown formatting from chr cols
+  dplyr::mutate(dplyr::across(where(is.character),
+                              pal::strip_md))
+```
+
+## Write data
+
+Save all the bigger data objects to separate files under `data/*.rda`. Note that when documenting them, they mustn't be explicitly `@export`ed since they're
+already automatically exported and thus available to package users.
+
+```{r}
+usethis::use_data(qx,
+                  internal = FALSE,
+                  overwrite = TRUE,
+                  compress = "xz",
+                  version = 3L)
+```

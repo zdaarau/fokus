@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assemble a private FOKUS directory path — path_private • fokus</title>
+<title>Generate package data — gen_pkg_data • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Assemble a private FOKUS directory path — path_private" />
-<meta name="description" content="Assembles a path from the private FOKUS directory root plus any additional path elements supplied.">
-<meta property="og:description" content="Assembles a path from the private FOKUS directory root plus any additional path elements supplied." />
+<meta property="og:title" content="Generate package data — gen_pkg_data" />
+<meta name="description" content="Generates all the data included in this package that is generated from code not included in the source package, i.e. outsourced to files with the .nopurl suffix in their filenames.">
+<meta property="og:description" content="Generates all the data included in this package that is generated from code not included in the source package, i.e. outsourced to files with the .nopurl suffix in their filenames." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,32 +125,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Assemble a private FOKUS directory path</h1>
+    <h1>Generate package data</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>path_private.Rd</code></div>
+    <div class="hidden name"><code>gen_pkg_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Assembles a path from the private FOKUS directory root plus any additional path elements supplied.</p>
+    <p>Generates all the data included in this package that is generated from code not included in the <a href='https://r-pkgs.org/package-structure-state.html#source-package'>source package</a>, i.e. outsourced to files with the <a href='https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling'><code>.nopurl</code> suffix in their filenames</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>path_private</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gen_pkg_data</span><span class='op'>(</span>data_files <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"internal"</span>, <span class='st'>"exported"</span>, <span class='st'>"asciicasts"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Filesystem path elements as unnamed vectors.</p></td>
+      <th>data_files</th>
+      <td><p>Data <code>.Rmd</code> source files to execute. They are stored under the paths <code>Rmd/data_{data_files}.nopurl.Rmd</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://fs.r-lib.org/reference/fs_path.html'>path</a>.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>See <code><a href='print_fokus_private_structure.html'>print_fokus_private_structure()</a></code> for details about the private FOKUS directory.</p>
+    <p>The paths to the specified <code>data_files</code>, invisibly.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
