@@ -4,7 +4,11 @@
 \alias{gen_q_tibble}
 \title{Generate questionnaire tibble}
 \usage{
-gen_q_tibble(ballot_date = ballot_dates, canton = cantons, verbose = FALSE)
+gen_q_tibble(
+  ballot_date = ballot_dates,
+  canton = cantons(ballot_date),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -17,10 +21,7 @@ gen_q_tibble(ballot_date = ballot_dates, canton = cantons, verbose = FALSE)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{verbose}{Whether or not to print progress information during questionnaire generation.}
 }
@@ -35,6 +36,7 @@ Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
+\code{\link{export_q_all}()},
 \code{\link{export_q}()},
 \code{\link{gen_q_md}()},
 \code{\link{qx}}

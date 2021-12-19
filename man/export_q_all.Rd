@@ -12,7 +12,7 @@ export_q_all(
   deploy = FALSE,
   local_deploy_path = getOption("fokus.q.local_deploy_path"),
   upload_to_g_drive = FALSE,
-  g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
+  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
 )
 }
 \arguments{
@@ -33,9 +33,19 @@ export_q_all(
 \item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 }
 \description{
-Exports \emph{all} questionnaires, \emph{softly} by default (i.e. without an XLSX version and deploying/uploading).
+Exports \emph{all} questionnaires, \emph{softly} by default (i.e. without an XLSX version, without deploying as a static site and without uploading to Google Drive).
 }
 \details{
 Useful to efficiently test and inspect latest changes in generated questionnaire files.
 }
-\keyword{internal}
+\seealso{
+Other questionnaire generation functions:
+\code{\link{expand_q_tibble}()},
+\code{\link{export_easyvote_municipalities}()},
+\code{\link{export_print_recipients}()},
+\code{\link{export_q}()},
+\code{\link{gen_q_md}()},
+\code{\link{gen_q_tibble}()},
+\code{\link{qx}}
+}
+\concept{q_gen}

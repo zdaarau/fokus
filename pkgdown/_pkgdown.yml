@@ -21,7 +21,6 @@ reference:
     the [predicate functions](#section-predicates).
 - contents:
   - ballot_dates
-  - cantons
   - proposal_types
   - response_option_types
   - q_item_keys
@@ -29,6 +28,7 @@ reference:
   desc: Predicate functions based on the [metadata](#section-fokus-metadata).
 - subtitle: Fundamental predicates
 - contents:
+  - cantons
   - ballot_types
   - n_proposals
   - n_elections
@@ -71,6 +71,7 @@ reference:
 - contents:
   - qx
   - export_q
+  - export_q_all
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities

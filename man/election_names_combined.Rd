@@ -7,7 +7,7 @@
 election_names_combined(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons
+  canton = cantons(ballot_date)
 )
 }
 \arguments{
@@ -27,10 +27,7 @@ election_names_combined(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A character scalar.

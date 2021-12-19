@@ -33,6 +33,7 @@ Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
+\code{\link{export_q_all}()},
 \code{\link{export_q}()},
 \code{\link{gen_q_md}()},
 \code{\link{gen_q_tibble}()}

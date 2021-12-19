@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9017</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9018</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@
     <p>Determines the types of the ballot for the specified canton at the specified date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,9 +152,7 @@
     </tr>
     <tr>
       <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
+      <td><p>A valid FOKUS canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>.</p></td>
     </tr>
     </table>
 
@@ -168,6 +166,7 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other fundamental predicate functions:
+<code><a href='cantons.html'>cantons</a>()</code>,
 <code><a href='has_election.html'>has_election</a>()</code>,
 <code><a href='has_lvl.html'>has_lvl</a>()</code>,
 <code><a href='has_referendum.html'>has_referendum</a>()</code>,

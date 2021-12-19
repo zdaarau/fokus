@@ -14,6 +14,6 @@ proposal_types
 A vector of all \link[=proposal_type]{referendum proposal types}.
 }
 \seealso{
-\code{\link{ballot_dates}} \code{\link{cantons}} \code{\link{response_option_types}} \code{\link{q_item_keys}}
+\code{\link{ballot_dates}} \code{\link{response_option_types}} \code{\link{q_item_keys}}
 }
 \keyword{datasets}

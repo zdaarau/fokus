@@ -14,6 +14,6 @@ ballot_dates
 A vector of ballot dates covered by FOKUS surveys up until 2021-11-28.
 }
 \seealso{
-\code{\link{cantons}} \code{\link{response_option_types}} \code{\link{q_item_keys}} \code{\link{proposal_types}}
+\code{\link{proposal_types}} \code{\link{response_option_types}} \code{\link{q_item_keys}}
 }
 \keyword{datasets}

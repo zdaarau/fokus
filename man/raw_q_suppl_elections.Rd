@@ -7,7 +7,7 @@
 raw_q_suppl_elections(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons
+  canton = cantons(ballot_date)
 )
 }
 \arguments{
@@ -27,10 +27,7 @@ raw_q_suppl_elections(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

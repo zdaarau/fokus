@@ -6,7 +6,7 @@
 \usage{
 export_q(
   ballot_date = ballot_dates,
-  canton = cantons,
+  canton = cantons(ballot_date),
   verbose = FALSE,
   incl_csv = TRUE,
   incl_html = TRUE,
@@ -14,7 +14,7 @@ export_q(
   deploy = TRUE,
   local_deploy_path = getOption("fokus.q.local_deploy_path"),
   upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
+  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
 )
 }
 \arguments{
@@ -28,10 +28,7 @@ export_q(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{verbose}{Whether or not to print progress information during questionnaire generation.}
 
@@ -59,6 +56,7 @@ Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
+\code{\link{export_q_all}()},
 \code{\link{gen_q_md}()},
 \code{\link{gen_q_tibble}()},
 \code{\link{qx}}

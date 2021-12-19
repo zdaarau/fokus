@@ -4,7 +4,7 @@
 \alias{upload_to_g_drive}
 \title{Upload files to Google Drive}
 \usage{
-upload_to_g_drive(filepaths, g_drive_folder = "fokus_aargau/")
+upload_to_g_drive(filepaths, g_drive_folder = "fokus/aargau/")
 }
 \arguments{
 \item{filepaths}{Local path(s) to the file(s) to be uploaded.}

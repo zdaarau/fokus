@@ -4,7 +4,11 @@
 \alias{ballot_title}
 \title{Get ballot title}
 \usage{
-ballot_title(ballot_date, canton, lang = c("de", "en"))
+ballot_title(
+  ballot_date = ballot_dates,
+  canton = cantons(ballot_date),
+  lang = c("de", "en")
+)
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -17,10 +21,7 @@ ballot_title(ballot_date, canton, lang = c("de", "en"))
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{lang}{Language. One of
 \itemize{
@@ -35,6 +36,6 @@ A character scalar.
 Returns the ballot title consisting of the \link[=ballot_types]{ballot type} and the ballot date in German prose.
 }
 \examples{
-ballot_title(ballot_date = "2019-10-20",
-             canton = "aargau")
+fokus::ballot_title(ballot_date = "2019-10-20",
+                    canton = "aargau")
 }

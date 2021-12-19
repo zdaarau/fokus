@@ -23,11 +23,14 @@ Questionnaire data as one single long-format tibble.
 ```{r}
 qx <-
   fokus::ballot_dates %>%
-  purrr::map_dfr(function(ballot_date) {
+  magrittr::set_names(., .) %>%
+  purrr::map(fokus::cantons) %>%
+  purrr::imap_dfr(function(cantons, ballot_date) {
     
-    fokus::cantons %>% purrr::map_dfr(~ fokus:::gen_q_tibble(ballot_date = ballot_date,
-                                                             canton = .x) %>%
-                                        fokus:::validate_q_tibble())
+    cantons %>%
+      purrr::map_dfr(~ fokus:::gen_q_tibble(ballot_date = ballot_date,
+                                            canton = .x) %>%
+                       fokus:::validate_q_tibble())
   }) %>%
   # expand list cols
   tidyr::unnest(cols = any_of(fokus:::q_item_keys_multival)) %>%

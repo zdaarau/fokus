@@ -6,10 +6,10 @@
 \usage{
 export_easyvote_municipalities(
   ballot_date = ballot_dates,
-  canton = cantons,
+  canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
- 
-    g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/easyvote-Gemeinden/"
+  g_drive_folder = paste0("fokus/aargau/Umfragen/Dateien für Umfrageinstitut/",
+    "easyvote-Gemeinden/")
 )
 }
 \arguments{
@@ -23,10 +23,7 @@ export_easyvote_municipalities(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
@@ -51,6 +48,7 @@ The meaning of the individual columns is as follows:\tabular{ll}{
 Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_print_recipients}()},
+\code{\link{export_q_all}()},
 \code{\link{export_q}()},
 \code{\link{gen_q_md}()},
 \code{\link{gen_q_tibble}()},

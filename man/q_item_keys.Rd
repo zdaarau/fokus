@@ -14,6 +14,6 @@ q_item_keys
 A tibble of item keys supported in the \link[=raw_q]{raw FOKUS questionnaire data}.
 }
 \seealso{
-\code{\link{ballot_dates}} \code{\link{cantons}} \code{\link{response_option_types}} \code{\link{proposal_types}}
+\code{\link{ballot_dates}} \code{\link{proposal_types}} \code{\link{response_option_types}}
 }
 \keyword{datasets}

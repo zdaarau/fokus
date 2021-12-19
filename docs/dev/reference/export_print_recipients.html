@@ -43,8 +43,8 @@
 
 
 <meta property="og:title" content="Export print recipients data — export_print_recipients" />
-<meta name="description" content="Exports a CSV dataset containing the two columns id_statistical_office and receives_print to the private FOKUS directory.">
-<meta property="og:description" content="Exports a CSV dataset containing the two columns id_statistical_office and receives_print to the private FOKUS directory." />
+<meta name="description" content="Exports a CSV dataset containing the two columns id and receives_print to the private FOKUS directory.">
+<meta property="og:description" content="Exports a CSV dataset containing the two columns id and receives_print to the private FOKUS directory." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9017</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9018</span>
       </span>
     </div>
 
@@ -131,10 +131,13 @@
     </div>
 
     <div class="ref-description">
-    <p>Exports a CSV dataset containing the two columns <code>id_statistical_office</code> and <code>receives_print</code> to the <a href='print_fokus_private_structure.html'>private FOKUS directory</a>.</p>
+    <p>Exports a CSV dataset containing the two columns <code>id</code> and <code>receives_print</code> to the <a href='print_fokus_private_structure.html'>private FOKUS directory</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>export_print_recipients</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>cantons</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>export_print_recipients</span><span class='op'>(</span>
+  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
+  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,9 +155,7 @@
     </tr>
     <tr>
       <th>canton</th>
-      <td><p>A valid FOKUS canton. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
+      <td><p>A valid FOKUS canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>.</p></td>
     </tr>
     </table>
 
@@ -166,6 +167,7 @@
     <div class='dont-index'><p>Other questionnaire generation functions:
 <code><a href='expand_q_tibble.html'>expand_q_tibble</a>()</code>,
 <code><a href='export_easyvote_municipalities.html'>export_easyvote_municipalities</a>()</code>,
+<code><a href='export_q_all.html'>export_q_all</a>()</code>,
 <code><a href='export_q.html'>export_q</a>()</code>,
 <code><a href='gen_q_md.html'>gen_q_md</a>()</code>,
 <code><a href='gen_q_tibble.html'>gen_q_tibble</a>()</code>,

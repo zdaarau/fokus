@@ -2,8 +2,8 @@
 title = "questionnaire"
 
 
-[00_statistik_aargau]
-title = "Von Statistik Aargau gelieferte sowie allgemeine Angaben"
+[00_cantonal_statistical_office]
+title = "Vom kantonalen Statistikamt gelieferte sowie allgemeine Angaben"
 intro = """
 Die Elemente des Blockes 0 sind nicht für die Aufnahme in den Fragebogen vorgesehen und werden dementsprechend auch nicht abgefragt. \
 Vielmehr sind Sie in diesem Dokument enthalten, um Datenkonsistenz zwischen diesen Metadaten und den eigentlichen Fragebogenitems herzustellen. \
@@ -11,13 +11,13 @@ Zur Abgrenzung wird den Elementen des Blockes 0 dabei in der Nummerierung (#) di
 prefix = 1000
 who = "alle"
 
-[[00_statistik_aargau.001_general.item]]
+[[00_cantonal_statistical_office.001_general.item]]
 topic = "Abstimmungs-/Wahltermin"
 variable_name = "ballot_date"
 variable_label = "date of the ballot"
 response_options = "_Datum ([ISO 8601][iso8601])_"
 value_scale = "interval"
-[[00_statistik_aargau.001_general.item]]
+[[00_cantonal_statistical_office.001_general.item]]
 topic = "Urnengang-Typ"
 variable_name = "ballot_type"
 variable_label = "type of the ballot"
@@ -25,42 +25,42 @@ response_options = [ "Abstimmung", "Wahl", "beides" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "referendum", "election", "both_referendum_and_election" ]
 
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Nachname (amtliche Information)[^anon]"
 variable_name = "last_name"
 variable_label = "respondent's last name (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Vorname (amtliche Information)[^anon]"
 variable_name = "first_name"
 variable_label = "respondent's first name (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Weitere Vornamen (amtliche Information)[^anon]"
 variable_name = "middle_name"
 variable_label = "respondent's middle name(s) (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Strasse (amtliche Information)[^anon]"
 variable_name = "street"
 variable_label = "street name of respondent's place of residence (official cantonal register information)"
 response_options = "_Text_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Hausnummer (amtliche Information)[^anon]"
 variable_name = "street_number"
 variable_label = "street number of respondent's place of residence (official cantonal register information)"
 response_options = "_Hausnummer (Text)_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Postleitzahl (amtliche Information)[^anon]"
 variable_name = "zip_code"
 variable_label = "zip code of respondent's place of residence (official cantonal register information)"
 response_options = "_Postleitzahl (4 Ziffern)_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Ort (amtliche Information)[^anon]"
 variable_name = "place"
 variable_label = "respondent's place of residence (official cantonal register information)"
 response_options = "_Ort (Text)_"
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Typ des Privathaushalts (amtliche Information)[^no-data]"
 variable_name = "household_type"
 variable_label = "type of household the respondent lives in (official cantonal register information)"
@@ -84,17 +84,17 @@ value_labels = [
   "multi-family household"
 ]
 include.default = false
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Zuzugsdatum (amtliche Information)[^no-data]"
 variable_name = "arrival_date"
-variable_label = "respondent's date of arrival in the Canton of Aargau (official cantonal register information)"
+variable_label = "respondent's date of arrival in the current `canton` (official cantonal register information)"
 response_options = "_Datum ([ISO 8601][iso8601])_"
 value_scale = "interval"
 include.default = false
-[[00_statistik_aargau.002_to_polling_agency.item]]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Herkunftskanton (amtliche Information)[^no-data]"
 variable_name = "origin_canton"
-variable_label = "canton where the respondent lived before moving to Aargau (official cantonal register information)"
+variable_label = "canton where the respondent lived before moving to the current `canton` (official cantonal register information)"
 response_options = [
   "Zürich",
   "Bern",
@@ -154,20 +154,20 @@ value_labels = [
 ]
 include.default = false
 
-[[00_statistik_aargau.003_to_zda.item]]
-topic = "Statistik-Aargau-Identifikator"
-variable_name = "id_statistik_aargau"
-variable_label = "identifier to match the demographic data supplied by Statistik Aargau with the survey data supplied by the polling agency"
+[[00_cantonal_statistical_office.003_to_zda.item]]
+topic = "Identifikator des kantonalen Statistikamtes"
+variable_name = "id_cantonal_statistical_office"
+variable_label = "identifier to match the demographic data supplied by the cantonal statistical office with the survey data supplied by the polling agency"
 response_options = "_Ganzzahl_"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[00_statistik_aargau.003_to_zda.item]]
+[[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Geburtsjahr (amtliche Information)[^pseudon]"
 variable_name = "year_of_birth_official"
 variable_label = "respondent's year of birth (official cantonal register information)"
 response_options = "_Ganzzahl_"
 value_scale = "interval"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[00_statistik_aargau.003_to_zda.item]]
+[[00_cantonal_statistical_office.003_to_zda.item]]
 topic.default = "Geschlecht (amtliche Information)[^pseudon]"
 topic.20180923_20181125 = "Geschlecht (amtliche Information)[^anon]"
 variable_name = "sex_official"
@@ -176,7 +176,7 @@ response_options = [ "männlich", "weiblich", "unbestimmt" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "male", "female", "indeterminate" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[00_statistik_aargau.003_to_zda.item]]
+[[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Zivilstand (amtliche Information)[^pseudon]"
 variable_name = "marital_status_official"
 variable_label = "respondent's marital status (official cantonal register information)"
@@ -184,14 +184,14 @@ response_options = [ "ledig", "verheiratet", "verwitwet", "geschieden", "in eing
 variable_values = [ 1, 2, 3, 4, 6, 7 ]
 value_labels = [ "single", "married", "widowed", "divorced", "in civil union", "dissolved civil union" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[00_statistik_aargau.003_to_zda.item]]
+[[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Haushaltsgrösse (amtliche Information)[^pseudon]"
 variable_name = "household_size_official"
 variable_label = "number of persons living in respondent's household (official cantonal register information)"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
 include.false = [ 2018-09-23, 2018-11-25 ]
-[[00_statistik_aargau.003_to_zda.item]]
+[[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Anzahl Kinder im Haushalt (amtliche Information)[^pseudon]"
 variable_name = "n_kids_in_household_official"
 variable_label = "number of underaged persons living in respondent's household (official cantonal register information)"
@@ -224,9 +224,10 @@ value_labels = [ "male", "female", "indeterminate/other" ]
 is_mandatory = true
 [[01_personal.item]]
 topic = "Verbundenheit mit dem Kanton"
-question = "Wie verbunden fühlen Sie sich mit dem Kanton Aargau auf einer Skala von 0 (gar nicht verbunden) bis 4 (stark verbunden)?"
+question = "Wie verbunden fühlen Sie sich mit dem Kanton { stringr::str_to_sentence(canton) } auf einer Skala von 0 (gar nicht verbunden) bis 4 (stark verbunden)?"
 variable_name = "cantonal_attachment"
-variable_label = "how attached the respondent feels to the Canton of Aargau"
+variable_label = "how attached the respondent feels to the canton of { stringr::str_to_sentence(canton) }"
+variable_label_common = "how attached the respondent feels to his/her current `canton` of residence"
 response_options = [ "0 (gar nicht verbunden)", "1", "2", "3", "4 (stark verbunden)", "weiss nicht" ]
 variable_values = [ 0, 1, 2, 3, 4, 99 ]
 value_labels = [ "0 (not attached at all)", "1", "2", "3", "4 (strongly attached)", "don't know" ]
@@ -245,9 +246,10 @@ value_labels = [ "very interested", "rather interested", "rather uninterested", 
 value_scale = "ordinal_descending"
 [[02_political_start.001_general.001_political_interest.item]]
 topic = "Politisches Interesse kantonal"
-question = "Wie interessiert sind Sie im Allgemeinen an der Politik im Kanton Aargau? Ich bin …"
+question = "Wie interessiert sind Sie im Allgemeinen an der Politik im Kanton { stringr::str_to_sentence(canton) }? Ich bin …"
 variable_name = "political_interest_cantonal"
-variable_label = "respondent's interest in politics in the canton of Aargau"
+variable_label = "respondent's interest in politics in the canton of { stringr::str_to_sentence(canton) }"
+variable_label_common = "respondent's interest in cantonal politics"
 include.default = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 include.false = [ 2019-10-20 ]
 [[02_political_start.001_general.001_political_interest.item]]
@@ -616,7 +618,7 @@ question_intro_i = """
                                               lvl = 'cantonal',
                                               canton = canton),
                             lang = 'de'))
-} Fragen zum politischen System des Kantons Aargau. Bitte kreuzen Sie {
+} Fragen zum politischen System des Kantons { stringr::str_to_sentence(canton) }. Bitte kreuzen Sie {
   dplyr::if_else(n_skill_questions(ballot_date = ballot_date,
                                    lvl = 'federal',
                                    canton = canton) > 0L,
@@ -2727,8 +2729,8 @@ topic = "Bedeutung Position kantonale Regierung kantonale Vorlage {i}"
 question = "Wie wichtig war die Position des Regierungsrats für Ihren Entscheid zu{ dplyr::if_else(proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', 'r', 'm') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_?"
 question_common = "Wie wichtig war die Position des Regierungsrats für Ihren Entscheid zur kantonalen Vorlage {i}?"
 variable_name = "importance_position_cantonal_government_cantonal_proposal_{i}"
-variable_label = "importance the respondent attaches to the position of the cantonal government of Aargau regarding his/her voting decision on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "importance the respondent attaches to the position of the cantonal government of Aargau regarding his/her voting decision on the { salim::rank_nr(i) } cantonal proposal"
+variable_label = "importance the respondent attaches to the position of the cantonal government of { stringr::str_to_sentence(canton) } regarding his/her voting decision on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
+variable_label_common = "importance the respondent attaches to the position of the cantonal government regarding his/her voting decision on the { salim::rank_nr(i) } cantonal proposal"
 response_options = [
   "kenne die Position der Regierung zu dieser Vorlage nicht",
   "bedeutungslos",
@@ -2752,8 +2754,8 @@ topic = "Bedeutung Position kantonales Parlament kantonale Vorlage {i}"
 question = "Wie wichtig war die Position des Grossen Rats (Parlament) für Ihren Entscheid zu{ dplyr::if_else(proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', 'r', 'm') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_?"
 question_common = "Wie wichtig war die Position des Grossen Rats (Parlament) für Ihren Entscheid zur kantonalen Vorlage {i}?"
 variable_name = "importance_position_cantonal_parliament_cantonal_proposal_{i}"
-variable_label = "importance the respondent attaches to the position of the cantonal parliament of Aargau regarding his/her voting decision on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "importance the respondent attaches to the position of the cantonal parliament of Aargau regarding his/her voting decision on the { salim::rank_nr(i) } cantonal proposal"
+variable_label = "importance the respondent attaches to the position of the cantonal parliament of { stringr::str_to_sentence(canton) } regarding his/her voting decision on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
+variable_label_common = "importance the respondent attaches to the position of the cantonal parliament regarding his/her voting decision on the { salim::rank_nr(i) } cantonal proposal"
 response_options = [
   "kenne die Position des Parlamentes zu dieser Vorlage nicht",
   "bedeutungslos",
@@ -2807,15 +2809,19 @@ question_intro_i = "Wie stark vertrauen Sie den folgenden Institutionen? Bitte s
 # set iterator to trigger `question_intro_i`
 i = 1
 topic = "Vertrauen in kantonale Regierung"
-question = "_Aargauer Regierungsrat_"
+question.default = "_kantonale Regierung_"
+question.aargau = "_Aargauer Regierungsrat_"
 variable_name = "trust_in_cantonal_government"
-variable_label = "respondent's trust in the cantonal government of Aargau"
+variable_label = "respondent's trust in the cantonal government of { stringr::str_to_sentence(canton) }"
+variable_label_common = "respondent's trust in the cantonal government"
 include.false = [ 2020-09-27 ]
 [[04_political_general.z01_trust.item]]
 topic = "Vertrauen in kantonales Parlament"
-question = "_Aargauer Grosser Rat (Parlament)_"
+question.default = "_kantonales Parlament_"
+question.aargau = "_Aargauer Grosser Rat (Parlament)_"
 variable_name = "trust_in_cantonal_parliament"
-variable_label = "respondent's trust in the cantonal parliament of Aargau"
+variable_label = "respondent's trust in the cantonal parliament of { stringr::str_to_sentence(canton) }"
+variable_label_common = "respondent's trust in the cantonal parliament"
 include.false = [ 2020-09-27 ]
 [[04_political_general.z01_trust.item]]
 topic = "Vertrauen in Schweizer Demokratie"
@@ -3052,19 +3058,19 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
 ballot_types = [ "election" ]
 [05_political_attitudes.z01_evoting]
-question_intro_i.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit dem Frühling 2019 sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
-question_intro_i.20201018 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
-question_intro_i.20191020 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen in letzter Zeit immer wieder wegen Sicherheitsbedenken in der Kritik. Dessen ungeachtet möchte der Aargauer Regierungsrat E-Voting grundsätzlich weiterverfolgen. Bislang stand E-Voting im Kanton Aargau ausschliesslich den AuslandschweizerInnen zur Verfügung."
+question_intro_i.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit dem Frühling 2019 sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton { stringr::str_to_sentence(canton) } ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
+question_intro_i.20201018 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton { stringr::str_to_sentence(canton) } ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
+question_intro_i.20191020 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen in letzter Zeit immer wieder wegen Sicherheitsbedenken in der Kritik. Dessen ungeachtet möchte der { stringr::str_to_sentence(canton) }er Regierungsrat E-Voting grundsätzlich weiterverfolgen. Bislang stand E-Voting im Kanton { stringr::str_to_sentence(canton) } ausschliesslich den AuslandschweizerInnen zur Verfügung."
 [[05_political_attitudes.z01_evoting.item]]
 # set iterator to trigger `question_intro_i`
 i = 1
 topic = "E-Voting für AuslandschweizerInnen"
-question.default = "_Sind Sie für oder gegen die Wiedereinführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
-question.20191020 = "_Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?_"
-question_common = "Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** des Kantons Aargau?"
+question.default = "_Sind Sie für oder gegen die Wiedereinführung von E-Voting **für AuslandschweizerInnen** des Kantons { stringr::str_to_sentence(canton) }?_"
+question.20191020 = "_Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** des Kantons { stringr::str_to_sentence(canton) }?_"
+question_common = "Sind Sie für oder gegen die Weiterführung von E-Voting **für AuslandschweizerInnen** Ihres Wohnkantons?"
 variable_name = "attitude_e_voting_swiss_abroad"
-variable_label = "respondent's attitude towards the continuation of e-voting for Swiss abroad in the Canton of Aargau"
-variable_label_common = "respondent's attitude towards the continuation of e-voting for Swiss abroad in the Canton of Aargau (2020-10-18 only *online respondents*)"
+variable_label = "respondent's attitude towards the continuation of e-voting for Swiss abroad in the canton of { stringr::str_to_sentence(canton) }"
+variable_label_common = "respondent's attitude towards the continuation of e-voting for Swiss abroad in his/her canton of residence (2020-10-18 only *online respondents*)"
 response_options = [ "klar dafür", "eher dafür", "eher dagegen", "klar dagegen", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
@@ -3074,12 +3080,12 @@ who.20201018_20211128 = "Online-Respondenten"
 include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[05_political_attitudes.z01_evoting.item]]
 topic = "E-Voting für alle Stimmberechtigten"
-question.default = "_Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** im Kanton Aargau?_"
-question.20181125 = "Der Kanton Aargau plant für 2019 in einigen Pilotgemeinden das Abstimmen via Internet (E-Voting) zu testen. Sind Sie für oder gegen die Einführung von E-Voting im Kanton Aargau?"
-question_common = "Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** im Kanton Aargau?"
+question.default = "_Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** im Kanton { stringr::str_to_sentence(canton) }?_"
+question.20181125 = "Der Kanton { stringr::str_to_sentence(canton) } plant für 2019 in einigen Pilotgemeinden das Abstimmen via Internet (E-Voting) zu testen. Sind Sie für oder gegen die Einführung von E-Voting im Kanton { stringr::str_to_sentence(canton) }?"
+question_common = "Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** in Ihrem Wohnkanton?"
 variable_name = "attitude_e_voting"
-variable_label = "respondent's attitude towards the general introduction of e-voting in the Canton of Aargau"
-variable_label_common = "respondent's attitude towards the general introduction of e-voting in the Canton of Aargau (2020-10-18 only *online respondents*)"
+variable_label = "respondent's attitude towards the general introduction of e-voting in the canton of { stringr::str_to_sentence(canton) }"
+variable_label_common = "respondent's attitude towards the general introduction of e-voting in his/her canton of residence (2020-10-18 only *online respondents*)"
 response_options = [ "klar dafür", "eher dafür", "eher dagegen", "klar dagegen", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
@@ -3968,7 +3974,7 @@ variable_label = """
 respondent's age at the end of the year of the `ballot_date` (derived from `{
   dplyr::if_else(q_item_val(ballot_date = ballot_date,
                             canton = canton,
-                            branch_path = c('00_statistik_aargau', '003_to_zda'),
+                            branch_path = c('00_cantonal_statistical_office', '003_to_zda'),
                             v_name = 'year_of_birth_official',
                             key = 'include'),
                  'year_of_birth_official',
@@ -3977,7 +3983,7 @@ respondent's age at the end of the year of the `ballot_date` (derived from `{
 variable_label_common = "respondent's age at the end of the year of the `ballot_date` (derived from `year_of_birth_official` if available, otherwise from `year_of_birth`)"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-include = "{ any(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_statistik_aargau', '003_to_zda'), v_name = 'year_of_birth_official', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '01_personal', v_name = 'year_of_birth', key = 'include')) }"
+include = "{ any(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_cantonal_statistical_office', '003_to_zda'), v_name = 'year_of_birth_official', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '01_personal', v_name = 'year_of_birth', key = 'include')) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Altersgruppe"
 variable_name = "age_group"
@@ -4108,7 +4114,8 @@ include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path 
 topic = "Vertrauen in kantonale Regierung (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_government', key = 'question') }"
 variable_name = "trust_in_cantonal_government_reduced"
-variable_label = "respondent's trust in the cantonal government of Aargau (reduced)"
+variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_government', key = 'variable_label') %>% paste0(' (reduced)') }"
+variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_government', key = 'variable_label_common') %>% paste0(' (reduced)') }"
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
@@ -4117,7 +4124,8 @@ include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path 
 topic = "Vertrauen in kantonales Parlament (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_parliament', key = 'question') }"
 variable_name = "trust_in_cantonal_parliament_reduced"
-variable_label = "respondent's trust in the cantonal parliament of Aargau (reduced)"
+variable_label = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_parliament', key = 'variable_label') %>% paste0(' (reduced)') }"
+variable_label_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('04_political_general', 'z01_trust'), v_name = 'trust_in_cantonal_parliament', key = 'variable_label_common') %>% paste0(' (reduced)') }"
 response_options = [ "sehr tief (0–2)", "eher tief (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
@@ -4193,14 +4201,14 @@ variable_label = "dummy value indicating whether or not the respondent's own sta
 response_options = [ "Divergenz", "Übereinstimmung" ]
 value_labels = [ "mismatch", "match" ]
 value_scale = "binary"
-include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_statistik_aargau', '003_to_zda'), v_name = 'sex_official', key = 'include') }"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_cantonal_statistical_office', '003_to_zda'), v_name = 'sex_official', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Kontrolle Geburtsjahr"
 variable_name = "birth_year_divergence"
 variable_label = "difference in years between the respondent's own statement about his/her year of birth and the official cantonal register information"
 response_options = "_Ganzzahl_"
 value_scale = "interval"
-include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_statistik_aargau', '003_to_zda'), v_name = 'year_of_birth_official', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '01_personal', v_name = 'year_of_birth', key = 'include')) }"
+include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_cantonal_statistical_office', '003_to_zda'), v_name = 'year_of_birth_official', key = 'include'), q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '01_personal', v_name = 'year_of_birth', key = 'include')) }"
 
 [y_generated.001_all.002_referendum]
 ballot_types = [ "referendum" ]
@@ -4539,7 +4547,7 @@ vom Umfrageinstitut gelieferten Hauptdatensatz. Zur Abgrenzung wird den Elemente
 prefix = 4000
 who = "alle"
 
-[[z_generated.statistik_aargau.item]]
+[[z_generated.based_on_extra_voting_register_data.item]]
 topic = "Umfrageteilnahme"
 variable_name = "survey_participation"
 variable_label = "dummy value indicating whether or not the proband participated in the survey"
@@ -4948,7 +4956,7 @@ id = "anon"
 text = "Diese Variable wird nur ans Umfrageinstitut geliefert und zwecks Anonymisierung der TeilnehmerInnen nach Befragungsende gelöscht, d. h. das ZDA hat zu keinem Zeitpunkt Zugriff auf sie."
 [[footnote]]
 id = "no-data"
-text = "Leider erhalten wir für den Abstimmungstermin vom { prettify_date(ballot_date, locale = 'de') } die für diese Variable notwendigen Registerdaten von Statistik Aargau (noch) nicht."
+text = "Leider erhalten wir für den Abstimmungstermin vom { prettify_date(ballot_date, locale = 'de') } die für diese Variable notwendigen Registerdaten vom kantonalen Statistikamt (noch) nicht."
 [[footnote]]
 id = "dup"
 text = "In darauffolgenden Abstimmungsterminen wurden bei dieser Variable Mehrfachnennungen zugelassen (`Mehrfachnennungen = 'ja'`)."
@@ -4975,13 +4983,13 @@ Diese Frage wurde in darauffolgenden Abstimmungsterminen leicht umformuliert in:
 }_"""
 [[footnote]]
 id = "pseudon"
-text = "Diese Variable wird von Statistik Aargau direkt ans ZDA geliefert und ist über den eineindeutigen Identifikator `id_statistik_aargau` den vom Umfrageinstitut gelieferten Daten zuordenbar."
+text = "Diese Variable wird vom kantonalen Statistikamt (bspw. [Statistik Aargau](https://www.ag.ch/statistik) direkt ans ZDA geliefert und ist über den eineindeutigen Identifikator `id_cantonal_statistical_office` den vom Umfrageinstitut gelieferten Daten zuordenbar."
 [[footnote]]
 id = "statag-household"
-text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch direkt aus dem Einwohnerregister von Statistik Aargau (Variable `household_size_official`)."
+text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch direkt aus dem Einwohnerregister vom kantonalen Statistikamt (Variable `household_size_official`)."
 [[footnote]]
 id = "statag-kids"
-text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch direkt aus dem Einwohnerregister von Statistik Aargau (Variable `n_kids_in_household_official`)."
+text = "Diese Angabe erhalten wir beginnend mit dem Wahltermin 2019-10-20 auch direkt aus dem Einwohnerregister vom kantonalen Statistikamt (Variable `n_kids_in_household_official`)."
 [[footnote]]
 id = "legacy-occ-sect"
 text = "Beginnend mit dem Wahltermin 2019-10-20 wurde in `occupational_sector` die dritte Antwortkategorie `anderes (z. B. gemischtwirtschaftlich)` aufgeteilt in die zwei Kategorien `gemeinnützig/nicht-gewinnorientiert (z. B. WWF, Caritas)` und `gemischtwirtschaftlich (z. B. Swisscom oder SNB)`, weshalb diese Variable nachträglich in `legacy_occupational_sector` umbenannt wurde."

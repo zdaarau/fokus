@@ -19,10 +19,7 @@ v_lbl(v_name, ballot_date = NULL, canton = NULL)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{\code{NULL} or a valid FOKUS canton, i.e. one of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{\code{NULL} or a valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A character scalar.

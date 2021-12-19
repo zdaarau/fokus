@@ -2,9 +2,7 @@
 
 -   q clean-ups:
 
-    -   Rename `id_statistik_aargau` to `id_statistical_office`
     -   Use EN instead of DE values in `who` key
-    -   Replace all hardcoded occurences of "Aargau"/"aargau" with `canton`-based R code
 
 -   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing [PR #27](https://github.com/jeroen/rsvg/pull/27)).
 
@@ -17,9 +15,9 @@
 -   Somehow, including multiple asciicasts in the same Rmd fails (both via asciicast's knitr engine as well as embedding the generated asciicast htmlwidget via
     `asciicast::asciinema_player()`), thus the second asciicast containing an intentionally triggered error in the raw q had to be removed.
 
-    -> Investigate the actual reason of the inclusion failure (and report/fix upstream)!
+    -> Investigate the actual cause of the inclusion failure (and report/fix upstream)!
 
-    The removed part is:
+    The removed vignette part is:
 
         If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, an error
         is thrown and the progress output stops, allowing to easily locate the source position of the mistake:
@@ -33,13 +31,15 @@
         ```
 
         As one can see from the output above, the error occurred when processing key `variable_label`, and from further above we can see that the key belongs to
-        the item `first_name` which in turn is defined under branch path `00_statistik_aargau.002_to_polling_agency`.
+        the item `first_name` which in turn is defined under branch path `00_cantonal_statistical_office.002_to_polling_agency`.
 
 ## Other
 
 -   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
 
     -   variable renamings:
+
+        -   `id_statistik_aargau` -> `id_cantonal_statistical_office`
 
         -   Information source items:
 

@@ -91,11 +91,11 @@ en = "not to scare away good tax payers"
 code = 4
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "den Wohlstand des Aargaus sichern"
-en = "to secure the prosperity of the Canton of Aargau"
+en = "to secure the prosperity of the canton of Aargau"
 code = 5
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "die Steuerattraktivität des Aargaus erhalten"
-en = "to maintain the tax attractiveness of the Canton of Aargau"
+en = "to maintain the tax attractiveness of the canton of Aargau"
 code = 6
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "nicht einer JUSO-Initiative zustimmen"
@@ -122,7 +122,7 @@ nr = 2
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Der Kanton Aargau braucht höhere Steuereinnahmen, um all seine öffentlichen Aufgaben ohne Leistungsabbau erfüllen zu können."
 de.short = "Höhere Steuereinnahmen gegen Leistungsabbau"
-en.long = "The Canton of Aargau needs higher tax revenues in order to be able to fulfill all its public tasks without reducing services."
+en.long = "The canton of Aargau needs higher tax revenues in order to be able to fulfill all its public tasks without reducing services."
 side = "pro"
 nr = 3
 [[cantonal.aargau.proposal.1.argument]]
@@ -134,7 +134,7 @@ nr = 2
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."
 de.short = "Steuern im Aargau sollten generell tief sein"
-en.long = "Taxes in the Canton of Aargau should generally be as low as possible."
+en.long = "Taxes in the canton of Aargau should generally be as low as possible."
 side = "contra"
 nr = 3
 [[cantonal.aargau.proposal.1.skill_question]]
@@ -154,7 +154,7 @@ en = "half the size"
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question]]
 de = "Mit der Initiative würde sich der Höchstsatz der Vermögenssteuer im Kanton Aargau rund …"
-en = "With the initiative, the maximum wealth tax rate in the Canton of Aargau would …"
+en = "With the initiative, the maximum wealth tax rate in the canton of Aargau would …"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "verdoppeln"
 en = "double"

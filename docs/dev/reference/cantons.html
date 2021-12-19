@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cantons covered in any FOKUS survey — cantons • fokus</title>
+<title>Cantons covered by FOKUS survey — cantons • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Cantons covered in any FOKUS survey — cantons" />
-<meta name="description" content="A vector of cantons that were part of at least one FOKUS survey up until 2021-11-28.">
-<meta property="og:description" content="A vector of cantons that were part of at least one FOKUS survey up until 2021-11-28." />
+<meta property="og:title" content="Cantons covered by FOKUS survey — cantons" />
+<meta name="description" content="Determines the cantons covered by the FOKUS survey at the specified ballot date.">
+<meta property="og:description" content="Determines the cantons covered by the FOKUS survey at the specified ballot date." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9017</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9018</span>
       </span>
     </div>
 
@@ -125,25 +125,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cantons covered in <em>any</em> FOKUS survey</h1>
+    <h1>Cantons covered by FOKUS survey</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
     <div class="hidden name"><code>cantons.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A vector of cantons that were part of at least one FOKUS survey up until 2021-11-28.</p>
+    <p>Determines the cantons covered by the FOKUS survey at the specified ballot date.</p>
     </div>
 
-    <pre class="usage"><span class='va'>cantons</span></pre>
+    <pre class="usage"><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ballot_date</th>
+      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
+<li><p><code>"2018-09-23"</code></p></li>
+<li><p><code>"2018-11-25"</code></p></li>
+<li><p><code>"2019-10-20"</code></p></li>
+<li><p><code>"2020-09-27"</code></p></li>
+<li><p><code>"2020-10-18"</code></p></li>
+<li><p><code>"2021-11-28"</code></p></li>
+</ul></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A character vector.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ballot_dates.html'>ballot_dates</a></code> <code><a href='response_option_types.html'>response_option_types</a></code> <code><a href='q_item_keys.html'>q_item_keys</a></code> <code><a href='proposal_types.html'>proposal_types</a></code></p></div>
+    <div class='dont-index'><p>Other fundamental predicate functions:
+<code><a href='ballot_types.html'>ballot_types</a>()</code>,
+<code><a href='has_election.html'>has_election</a>()</code>,
+<code><a href='has_lvl.html'>has_lvl</a>()</code>,
+<code><a href='has_referendum.html'>has_referendum</a>()</code>,
+<code><a href='n_elections.html'>n_elections</a>()</code>,
+<code><a href='n_proposals.html'>n_proposals</a>()</code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "aargau"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># determine the cantons covered in *any* FOKUS survey</span></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'><a href='ballot_dates.html'>ballot_dates</a></span> |&gt;</span>
+<span class='r-in'>  <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_chr</a></span><span class='op'>(</span><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>cantons</span><span class='op'>)</span> |&gt;</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "aargau"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

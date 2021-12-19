@@ -2,6 +2,9 @@
 
 ## Direcories to ignore
 --ignore-dir=.Rproj.user
+--ignore-dir=docs
+--ignore-dir=inst/asciicasts
+--ignore-dir=R
 
 ## File types to ignore
 --ignore-file=ext:RData

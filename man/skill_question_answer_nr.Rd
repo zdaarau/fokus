@@ -7,7 +7,7 @@
 skill_question_answer_nr(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons,
+  canton = cantons(ballot_date),
   proposal_nr = NULL,
   skill_question_nr
 )
@@ -29,10 +29,7 @@ skill_question_answer_nr(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}

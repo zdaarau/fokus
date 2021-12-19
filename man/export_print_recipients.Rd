@@ -4,7 +4,10 @@
 \alias{export_print_recipients}
 \title{Export print recipients data}
 \usage{
-export_print_recipients(ballot_date = ballot_dates, canton = cantons)
+export_print_recipients(
+  ballot_date = ballot_dates,
+  canton = cantons(ballot_date)
+)
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -17,21 +20,19 @@ export_print_recipients(ballot_date = ballot_dates, canton = cantons)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 \code{NULL} if no export for the specified ballot date is possible, otherwise a \link[tibble:tbl_df-class]{tibble} of the exported data, invisibly.
 }
 \description{
-Exports a CSV dataset containing the two columns \code{id_statistical_office} and \code{receives_print} to the \link[=print_fokus_private_structure]{private FOKUS directory}.
+Exports a CSV dataset containing the two columns \code{id} and \code{receives_print} to the \link[=print_fokus_private_structure]{private FOKUS directory}.
 }
 \seealso{
 Other questionnaire generation functions:
 \code{\link{expand_q_tibble}()},
 \code{\link{export_easyvote_municipalities}()},
+\code{\link{export_q_all}()},
 \code{\link{export_q}()},
 \code{\link{gen_q_md}()},
 \code{\link{gen_q_tibble}()},

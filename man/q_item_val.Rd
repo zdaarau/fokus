@@ -6,7 +6,7 @@
 \usage{
 q_item_val(
   ballot_date = ballot_dates,
-  canton = cantons,
+  canton = cantons(ballot_date),
   branch_path,
   v_name,
   key = q_item_keys$key,
@@ -26,10 +26,7 @@ q_item_val(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{branch_path}{Sequence of questionnaire table levels that lead to the \code{item} leaf node where \code{v_name} is defined. A character vector.}
 

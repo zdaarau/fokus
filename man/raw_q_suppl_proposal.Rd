@@ -7,7 +7,7 @@
 raw_q_suppl_proposal(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons,
+  canton = cantons(ballot_date),
   proposal_nr
 )
 }
@@ -28,10 +28,7 @@ raw_q_suppl_proposal(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}

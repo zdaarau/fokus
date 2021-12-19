@@ -7,7 +7,7 @@
 election_name(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons,
+  canton = cantons(ballot_date),
   prcd = c("proportional", "majoritarian"),
   election_nr = 1L,
   lang = c("de", "en"),
@@ -31,10 +31,7 @@ election_name(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{prcd}{Election procedure. One of
 \itemize{

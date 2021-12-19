@@ -102,7 +102,7 @@ nr = 1
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Die Gesamtkosten von 16 Millionen Franken sind fast vier Mal so viel wie der jetzige Beitrag für den Aargauer Wald. Das würde das Kantonsbudget zu stark belasten."
 de.short = "Vervierfachung der Ausgaben belastet Kantonsbudget zu stark"
-en.long = "The total cost of CHF 16 million is almost four times as much as the current contribution to the Aargauer Wald. This would place too heavy a burden on the cantonal budget."
+en.long = "The total cost of CHF 16 million is almost four times as much as the current contribution to the Aargau forest. This would place too heavy a burden on the cantonal budget."
 side = "contra"
 nr = 1
 [[cantonal.aargau.proposal.1.argument]]
@@ -134,7 +134,7 @@ en = "CHF 25"
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question]]
 de = "Wie viel Prozent der Fläche des Kantons Aargau sind mit Wald bedeckt?"
-en = "What percentage of the area of Canton Aargau is covered with forest?"
+en = "What percentage of the area of the canton of Aargau is covered with forest?"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "rund 25 Prozent"
 en = "about 25 percent"
@@ -251,7 +251,7 @@ de = "An welchen Wahlen können Auslands-Aargauer und -Aargauerinnen aktuell tei
 en = "In which elections can Aargau citizens living abroad currently take part?"
 [[cantonal.aargau.proposal.2.skill_question.response_option]]
 de = "an keiner Wahl, denn sie sind im Kanton Aargau nicht stimm- und wahlberechtigt"
-en = "none, because they are not entitled to vote in the Canton of Aargau"
+en = "none, because they are not entitled to vote in the canton of Aargau"
 is_correct = false
 [[cantonal.aargau.proposal.2.skill_question.response_option]]
 de = "an Nationalratswahlen"
@@ -259,7 +259,7 @@ en = "in elections to the National Council"
 is_correct = true
 [[cantonal.aargau.proposal.2.skill_question.response_option]]
 de = "an allen Wahlen, an welchen auch im Kanton Aargau wohnhafte Stimmberechtigte teilnehmen können"
-en = "in all elections in which voters resident in the Canton of Aargau can participate"
+en = "in all elections in which voters resident in the canton of Aargau can participate"
 is_correct = false
 [[cantonal.aargau.proposal.2.skill_question]]
 de = "Welche der beiden aktuellen Aargauer Ständeratsmitglieder, Pascale Bruderer und Philipp Müller, treten bei den Ständeratswahlen 2019 wieder an?"

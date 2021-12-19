@@ -275,7 +275,7 @@ en = "…to a member of the municipal council or the school management."
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…an den Erziehungsdirektor des Kantons Aargau."
-en = "…to the superintendent of schools of the Canton of Aargau."
+en = "…to the superintendent of schools of the canton of Aargau."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…an die Gemeindeversammlung oder das Parlament."

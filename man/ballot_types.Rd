@@ -4,7 +4,7 @@
 \alias{ballot_types}
 \title{Determine ballot types}
 \usage{
-ballot_types(ballot_date = ballot_dates, canton = cantons)
+ballot_types(ballot_date = ballot_dates, canton = cantons(ballot_date))
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -17,10 +17,7 @@ ballot_types(ballot_date = ballot_dates, canton = cantons)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A character vector of ballot types. One or more of
@@ -38,6 +35,7 @@ fokus::ballot_types(ballot_date = "2018-09-23",
 }
 \seealso{
 Other fundamental predicate functions:
+\code{\link{cantons}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
 \code{\link{has_referendum}()},

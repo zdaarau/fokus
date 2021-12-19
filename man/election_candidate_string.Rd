@@ -7,7 +7,7 @@
 election_candidate_string(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons,
+  canton = cantons(ballot_date),
   election_nr = 1L,
   candidate_nrs = NULL,
   incl_party = TRUE
@@ -30,10 +30,7 @@ election_candidate_string(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
 

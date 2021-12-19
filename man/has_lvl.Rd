@@ -7,7 +7,7 @@
 has_lvl(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons
+  canton = cantons(ballot_date)
 )
 }
 \arguments{
@@ -27,10 +27,7 @@ has_lvl(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A logical scalar.
@@ -46,6 +43,7 @@ fokus::has_lvl(ballot_date = "2018-09-23",
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
+\code{\link{cantons}()},
 \code{\link{has_election}()},
 \code{\link{has_referendum}()},
 \code{\link{n_elections}()},

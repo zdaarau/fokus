@@ -619,7 +619,7 @@ en = "He/she is president of the Grand Council (cantonal parliament)."
 is_correct = false
 [[cantonal.aargau.skill_question]]
 de = "Was soll der Ressourcenausgleich zwischen Gemeinden im Kanton Aargau sicherstellen?"
-en = "What should the equalization of resources between municipalities in Canton Aargau ensure?"
+en = "What should the equalization of resources between municipalities in the canton of Aargau ensure?"
 [[cantonal.aargau.skill_question.response_option]]
 de = "Der Ressourcenausgleich existiert nur zwischen Kantonen und nicht zwischen Gemeinden."
 en = "Resource equalization exists only between cantons and not between municipalities."

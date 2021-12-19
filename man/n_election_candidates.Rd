@@ -7,7 +7,7 @@
 n_election_candidates(
   ballot_date = ballot_dates,
   lvl = c("cantonal", "federal"),
-  canton = cantons,
+  canton = cantons(ballot_date),
   election_nr = 1L
 )
 }
@@ -28,10 +28,7 @@ n_election_candidates(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
 }

@@ -6,9 +6,9 @@
 \usage{
 export_qr_codes(
   ballot_date = ballot_dates,
-  canton = cantons,
+  canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus_aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/"
+  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/"
 )
 }
 \arguments{
@@ -22,10 +22,7 @@ export_qr_codes(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 

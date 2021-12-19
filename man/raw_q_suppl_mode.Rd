@@ -4,7 +4,7 @@
 \alias{raw_q_suppl_mode}
 \title{Get raw supplemental survey mode questionnaire data}
 \usage{
-raw_q_suppl_mode(ballot_date = ballot_dates, canton = cantons)
+raw_q_suppl_mode(ballot_date = ballot_dates, canton = cantons(ballot_date))
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
@@ -17,10 +17,7 @@ raw_q_suppl_mode(ballot_date = ballot_dates, canton = cantons)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.
