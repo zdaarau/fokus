@@ -1,5 +1,9 @@
 # TODOs
 
+-   Ask Uwe whether easyvote booklet actually covers *cantonal* proposals. If not, the distinction between
+    `cantonal_proposals_information_source_easyvote_booklet` and `federal_proposals_information_source_easyvote_booklet` doesn't make sense and we could merge
+    the variable with `information_source_easyvote_booklet` (which currently refers to the election booklet only).
+
 -   q clean-ups:
 
     -   Use EN instead of DE values in `who` key
@@ -34,22 +38,6 @@
         the item `first_name` which in turn is defined under branch path `00_cantonal_statistical_office.002_to_polling_agency`.
 
 ## Other
-
--   Outstanding adaptions in the old codebase to questionnaire changes in this pkg:
-
-    -   variable renamings:
-
-        -   `id_statistik_aargau` -> `id_cantonal_statistical_office`
-
-        -   Information source items:
-
-            -   `information_source_official_easyvote_booklet` -> `information_source_easyvote_booklet`
-            -   `information_source_cantonal_election_booklet` -> `cantonal_information_source_election_booklet`
-            -   `information_source_official_federal_booklet` -> `federal_information_source_official_booklet`
-            -   `information_source_cantonal_online_tutorial` -> `cantonal_information_source_online_tutorial`
-            -   `information_source_official_cantonal_booklet` -> `cantonal_proposals_information_source_official_booklet`
-            -   `information_source_cantonal_webpage` -> `cantonal_proposals_information_source_official_webpage`
-            -   `information_source_*` -> `cantonal_proposals_information_source_*` (all items for cantonal proposals)
 
 -   supplemental date-specific TOML questionnaire files:
 

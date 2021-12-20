@@ -129,6 +129,7 @@
 <div id="todos" class="section level1">
 
 <ul>
+<li><p>Ask Uwe whether easyvote booklet actually covers <em>cantonal</em> proposals. If not, the distinction between <code>cantonal_proposals_information_source_easyvote_booklet</code> and <code>federal_proposals_information_source_easyvote_booklet</code> doesn’t make sense and we could merge the variable with <code>information_source_easyvote_booklet</code> (which currently refers to the election booklet only).</p></li>
 <li>
 <p>q clean-ups:</p>
 <ul>
@@ -161,42 +162,6 @@
 <h2 class="hasAnchor">
 <a href="#other" class="anchor"></a>Other</h2>
 <ul>
-<li>
-<p>Outstanding adaptions in the old codebase to questionnaire changes in this pkg:</p>
-<ul>
-<li>
-<p>variable renamings:</p>
-<ul>
-<li><p><code>id_statistik_aargau</code> -&gt; <code>id_cantonal_statistical_office</code></p></li>
-<li>
-<p>Information source items:</p>
-<ul>
-<li>
-<code>information_source_official_easyvote_booklet</code> -&gt; <code>information_source_easyvote_booklet</code>
-</li>
-<li>
-<code>information_source_cantonal_election_booklet</code> -&gt; <code>cantonal_information_source_election_booklet</code>
-</li>
-<li>
-<code>information_source_official_federal_booklet</code> -&gt; <code>federal_information_source_official_booklet</code>
-</li>
-<li>
-<code>information_source_cantonal_online_tutorial</code> -&gt; <code>cantonal_information_source_online_tutorial</code>
-</li>
-<li>
-<code>information_source_official_cantonal_booklet</code> -&gt; <code>cantonal_proposals_information_source_official_booklet</code>
-</li>
-<li>
-<code>information_source_cantonal_webpage</code> -&gt; <code>cantonal_proposals_information_source_official_webpage</code>
-</li>
-<li>
-<code>information_source_*</code> -&gt; <code>cantonal_proposals_information_source_*</code> (all items for cantonal proposals)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
 <li>
 <p>supplemental date-specific TOML questionnaire files:</p>
 <ul>
