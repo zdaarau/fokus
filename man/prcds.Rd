@@ -42,3 +42,16 @@ fokus::prcds(ballot_date = "2019-10-20",
              lvls = "cantonal",
              canton = "aargau")
 }
+\seealso{
+Other fundamental predicate functions:
+\code{\link{ballot_types}()},
+\code{\link{cantons}()},
+\code{\link{has_ballot_types}()},
+\code{\link{has_election}()},
+\code{\link{has_lvl}()},
+\code{\link{has_referendum}()},
+\code{\link{lvls}()},
+\code{\link{n_elections}()},
+\code{\link{n_proposals}()}
+}
+\concept{predicate_fundamental}

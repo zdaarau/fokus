@@ -36,6 +36,7 @@ reference:
   - ballot_types
   - n_proposals
   - n_elections
+  - has_ballot_types
   - has_referendum
   - has_election
   - has_lvl

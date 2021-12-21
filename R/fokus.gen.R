@@ -2674,6 +2674,38 @@ n_elections <- function(ballot_date = all_ballot_dates,
   result
 }
 
+#' Determine whether ballot types are included
+#'
+#' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) includes the specified
+#' [ballot types][ballot_types].
+#'
+#' @inheritParams cantons
+#' @param ballot_types Ballot type(s). One or more of
+#' `r pal::as_md_val_list(all_ballot_types)`
+#'
+#' @return A logical vector of the same length as `ballot_types`.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::has_ballot_types(ballot_date = "2018-09-23",
+#'                         canton = "aargau")
+#'                         
+#' fokus::has_ballot_types(ballot_date = "2018-09-23",
+#'                         canton = "aargau",
+#'                         ballot_types = "election")
+has_ballot_types <- function(ballot_date = all_ballot_dates,
+                             lvls = all_lvls,
+                             canton = all_cantons,
+                             ballot_types = all_ballot_types) {
+
+  ballot_types <- unique(checkmate::assert_subset(ballot_types,
+                                                  choices = all_ballot_types,
+                                                  empty.ok = FALSE))
+  ballot_types %>%
+    purrr::map_lgl(~ eval(parse(text = glue::glue("has_{.x}(ballot_date = ballot_date, lvls = lvls, canton = canton)"))))
+}
+
 #' Determine whether ballot type includes a referendum
 #'
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered a referendum.
@@ -2736,11 +2768,9 @@ has_election <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams has_ballot_types
 #' @param lvl Political level to test for. One of
 #' `r pal::as_md_val_list(all_lvls)`
-#' @param ballot_types Ballot type(s). One or more of
-#' `r pal::as_md_val_list(all_ballot_types)`
 #'
 #' @inherit has_election return
 #' @family predicate_fundamental
@@ -2780,6 +2810,7 @@ has_lvl <- function(ballot_date = all_ballot_dates,
 #' @inheritParams has_lvl
 #'
 #' @return A character vector of [political levels][all_lvls].
+#' @family predicate_fundamental
 #' @export
 #'
 #' @examples
@@ -2810,6 +2841,7 @@ lvls <- function(ballot_date = all_ballot_dates,
 #' @inheritParams n_elections
 #'
 #' @return A character vector of [election procedures][all_prcds].
+#' @family predicate_fundamental
 #' @export
 #'
 #' @examples

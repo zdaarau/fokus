@@ -155,12 +155,6 @@
 </ul></td>
     </tr>
     <tr>
-      <th>canton</th>
-      <td><p>A valid FOKUS canton name. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
       <th>ballot_types</th>
       <td><p>Ballot type(s). One or more of</p><ul>
 <li><p><code>"referendum"</code></p></li>
@@ -172,6 +166,18 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A character vector of <a href='all_lvls.html'>political levels</a>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other fundamental predicate functions:
+<code><a href='ballot_types.html'>ballot_types</a>()</code>,
+<code><a href='cantons.html'>cantons</a>()</code>,
+<code><a href='has_ballot_types.html'>has_ballot_types</a>()</code>,
+<code><a href='has_election.html'>has_election</a>()</code>,
+<code><a href='has_lvl.html'>has_lvl</a>()</code>,
+<code><a href='has_referendum.html'>has_referendum</a>()</code>,
+<code><a href='n_elections.html'>n_elections</a>()</code>,
+<code><a href='n_proposals.html'>n_proposals</a>()</code>,
+<code><a href='prcds.html'>prcds</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>lvls</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>

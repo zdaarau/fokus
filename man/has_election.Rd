@@ -59,9 +59,12 @@ fokus::has_election(ballot_date = "2018-09-23",
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
+\code{\link{has_ballot_types}()},
 \code{\link{has_lvl}()},
 \code{\link{has_referendum}()},
+\code{\link{lvls}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()}
+\code{\link{n_proposals}()},
+\code{\link{prcds}()}
 }
 \concept{predicate_fundamental}
