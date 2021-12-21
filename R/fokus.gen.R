@@ -333,7 +333,8 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level][raw_q_suppl_lvl]
 #' that applies for the specified canton only.
 #'
-#' @inheritParams election_name
+#' @inheritParams ballot_types
+#' @inheritParams proposal_name
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -374,7 +375,8 @@ raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns a structured list of a proposal's data from the [supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
 #'
-#' @inheritParams skill_question
+#' @inheritParams raw_q_suppl_lvl_canton
+#' @param proposal_nr Proposal number. A positive integer scalar.
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -442,7 +444,7 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of proposal name data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
 #' data][raw_q_suppl_proposal].
 #'
-#' @inheritParams proposal_name
+#' @inheritParams raw_q_suppl_proposal
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -487,7 +489,7 @@ raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of argument data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
 #' data][raw_q_suppl_proposal].
 #'
-#' @inheritParams proposal_name
+#' @inheritParams raw_q_suppl_proposal
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -532,7 +534,7 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of main motive data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
 #' data][raw_q_suppl_proposal].
 #'
-#' @inheritParams proposal_name
+#' @inheritParams raw_q_suppl_proposal
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -578,7 +580,7 @@ raw_q_suppl_main_motives <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of election data from the [canton's political-level-specific raw supplemental date-specific FOKUS questionnaire
 #' data][raw_q_suppl_lvl_canton].
 #'
-#' @inheritParams election_name
+#' @inheritParams raw_q_suppl_lvl_canton
 #'
 #' @inherit raw_q_suppl return
 #' @family q_raw
@@ -618,6 +620,7 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of an election's data from the [canton's political-level-specific raw supplemental date-specific FOKUS questionnaire
 #' data][raw_q_suppl_lvl_canton].
 #'
+#' @inheritParams raw_q_suppl_lvl_canton
 #' @inheritParams election_name
 #'
 #' @inherit raw_q_suppl return
@@ -683,7 +686,7 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of an election's name data from the [political-level-specific raw supplemental date-specific FOKUS questionnaire
 #' data][raw_q_suppl_lvl].
 #'
-#' @inheritParams election_name
+#' @inheritParams raw_q_suppl_election
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -779,7 +782,7 @@ raw_q_suppl_mode <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns a structured list of skill question data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
 #'
-#' @inheritParams skill_question
+#' @inheritParams raw_q_suppl_proposal
 #' @param proposal_nr Proposal number. A positive integer scalar or `NULL`. If `NULL`, non-proposal-specific skill question data is returned.
 #'
 #' @inherit raw_q_suppl return
@@ -844,6 +847,7 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns a structured list of a single skill question's data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
 #'
+#' @inheritParams raw_q_suppl_lvl_canton
 #' @inheritParams skill_question
 #'
 #' @inherit raw_q_suppl return
@@ -1316,7 +1320,7 @@ expand_q_tibble <- function(q_tibble) {
 
 #' Generate questionnaire tibble
 #'
-#' @inheritParams ballot_types
+#' @inheritParams ballot_title
 #' @param verbose Whether or not to print progress information during questionnaire generation.
 #'
 #' @return `r pkgsnip::return_label("data")`
@@ -1841,7 +1845,7 @@ block_name_to_nr <- function(x) {
 #'
 #' When used in questionnaire item field values via [string interpolation][glue::glue], be careful to not create infinite loops via circular references.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams ballot_title
 #' @param v_name Variable name, without resolved string interpolation, i.e. 1:1 as stated in the raw FOKUS questionnaire data. A character scalar.
 #' @param branch_path Sequence of questionnaire table levels that lead to the `item` leaf node where `v_name` is defined. A character vector.
 #' @param key Questionnaire item key. One of
@@ -2517,11 +2521,11 @@ cantons <- function(ballot_date = all_ballot_dates) {
 #' Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
 #'
 #' @inheritParams cantons
-#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
+#' @param canton A valid FOKUS canton name. One of
+#' `r pal::as_md_val_list(all_cantons)`
 #'
 #' @return A character vector of ballot types. One or more of
-#'   - `"referendum"`
-#'   - `"election"`
+#' `r pal::as_md_val_list(all_ballot_types)`
 #' @family predicate_fundamental
 #' @export
 #'
@@ -2592,11 +2596,9 @@ n_proposals <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams ballot_types
 #' @param lvls Political level(s). One or more of
-#'   - `"cantonal"`
-#'   - `"federal"`
+#' `r pal::as_md_val_list(all_lvls)`
 #' @param prcds Election procedure(s). One or more of
-#'   - `"proportional"`
-#'   - `"majoritarian"`
+#' `r pal::as_md_val_list(all_prcds)`
 #'
 #' @return An integer.
 #' @family predicate_fundamental
@@ -2710,7 +2712,9 @@ has_election <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
 #'
-#' @inheritParams election_name
+#' @inheritParams ballot_types
+#' @param lvl Political level to test for. One of
+#' `r pal::as_md_val_list(all_lvls)`
 #' @param ballot_types Ballot type(s). One or more of
 #' `r pal::as_md_val_list(all_ballot_types)`
 #'
@@ -2840,10 +2844,11 @@ proposal_type <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the name of the specified proposal in the specified language.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams cantons
+#' 
 #' @param lvl Political level. One of
-#'   - `"cantonal"`
-#'   - `"federal"`
+#' `r pal::as_md_val_list(all_lvls)`
+#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`. Only relevant if `lvl = "cantonal"`.
 #' @param proposal_nr Proposal number. A positive integer scalar.
 #' @param lang Language. One of
 #'   - `"de"`
@@ -3100,10 +3105,10 @@ n_election_seats <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the name of the specified election in the specified language.
 #'
+#' @inheritParams ballot_title
 #' @inheritParams proposal_name
 #' @param prcd Election procedure. One of
-#'   - `"proportional"`
-#'   - `"majoritarian"`
+#' `r pal::as_md_val_list(all_prcds)`
 #' @param election_nr Election number. A positive integer scalar (in almost all cases `1L`).
 #' @param type Name type. One of
 #'   - `"short"`
@@ -3146,6 +3151,7 @@ election_name <- function(ballot_date = all_ballot_dates,
 #' Returns the combined name of all elections at the specified date on the specified level for the specified canton.
 #'
 #' @inheritParams election_name
+#' @param federal_first Whether or not to list federal elections before cantonal ones. Only relevant if `"federal" %in% lvls`.
 #'
 #' @return A character scalar.
 #' @family predicate_election
@@ -3153,16 +3159,38 @@ election_name <- function(ballot_date = all_ballot_dates,
 #'
 #' @examples
 #' fokus::election_names_combined(ballot_date = "2019-10-20",
-#'                                lvl = "federal",
+#'                                lvls = "federal",
 #'                                canton = "aargau")
+#'
+#' fokus::election_names_combined(ballot_date = "2019-10-20",
+#'                                canton = "aargau")
+#'
+#' fokus::election_names_combined(ballot_date = "2019-10-20",
+#'                                canton = "aargau",
+#'                                federal_first = FALSE)
 election_names_combined <- function(ballot_date = all_ballot_dates,
-                                    lvl = all_lvls,
-                                    canton = cantons(ballot_date)) {
-
-  raw_q_suppl_elections(ballot_date = ballot_date,
-                        lvl = lvl,
-                        canton = canton) %>%
-    purrr::chuck("names_combined", "de", "short")
+                                    lvls = all_lvls,
+                                    canton = cantons(ballot_date),
+                                    lang = c("de", "en"),
+                                    federal_first = TRUE) {
+  
+  lvls <- unique(checkmate::assert_subset(lvls,
+                                          choices = all_lvls,
+                                          empty.ok = FALSE))
+  lang <- rlang::arg_match(lang)
+  checkmate::assert_flag(federal_first)
+  
+  lvls %>%
+    purrr::map_chr(~ raw_q_suppl_elections(ballot_date = ballot_date,
+                                           lvl = .x,
+                                           canton = canton) %>%
+                     purrr::chuck("names_combined", lang, "short")) %>%
+    purrr::when(federal_first ~ .[sort(x = seq_along(.),
+                                       decreasing = TRUE)],
+                ~ .) %>%
+    pal::prose_ls(last_sep = switch(EXPR = lang,
+                                    "de" = " sowie ",
+                                    "en" = " as well as "))
 }
 
 #' Get majoritarian election's candidates
@@ -3341,7 +3369,7 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines the number of skill questions at the specified ballot date on the specified political level.
 #'
-#' @inheritParams election_name
+#' @inheritParams proposal_name
 #' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' Only relevant if `lvl = "cantonal"`.
@@ -3498,6 +3526,7 @@ skill_question_answer_nr <- function(ballot_date = all_ballot_dates,
 #' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date in German prose.
 #'
 #' @inheritParams proposal_name
+#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' @return A character scalar.
 #' @export
@@ -3903,7 +3932,7 @@ export_qr_codes <- function(ballot_date = all_ballot_dates,
 #'
 #' Exports a CSV dataset containing the two columns `id` and `receives_print` to the [private FOKUS directory][print_fokus_private_structure].
 #'
-#' @inheritParams ballot_types
+#' @inheritParams ballot_title
 #'
 #' @return `NULL` if no export for the specified ballot date is possible, otherwise a [tibble][tibble::tbl_df] of the exported data, invisibly.
 #' @family q_gen

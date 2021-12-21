@@ -22,13 +22,16 @@ has_lvl(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvl}{Political level. One of
+\item{lvl}{Political level to test for. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 
 \item{ballot_types}{Ballot type(s). One or more of
 \itemize{

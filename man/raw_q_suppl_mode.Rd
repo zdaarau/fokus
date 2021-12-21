@@ -17,7 +17,10 @@ raw_q_suppl_mode(ballot_date = all_ballot_dates, canton = all_cantons)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

@@ -27,7 +27,10 @@ raw_q_suppl_lvl_canton(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

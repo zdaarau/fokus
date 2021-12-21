@@ -17,7 +17,10 @@ read_easyvote_municipalities(ballot_date, canton)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.

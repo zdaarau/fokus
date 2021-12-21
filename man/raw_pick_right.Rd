@@ -22,7 +22,10 @@ error is thrown in case none of the subkeys matches).}
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 Value of \code{x} that corresponds to \code{canton} and \code{ballot_date}.

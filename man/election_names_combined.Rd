@@ -6,8 +6,10 @@
 \usage{
 election_names_combined(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
-  canton = cantons(ballot_date)
+  lvls = all_lvls,
+  canton = cantons(ballot_date),
+  lang = c("de", "en"),
+  federal_first = TRUE
 )
 }
 \arguments{
@@ -21,13 +23,15 @@ election_names_combined(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvl}{Political level. One of
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+
+\item{lang}{Language. One of
 \itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
+\item \code{"de"}
+\item \code{"en"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{federal_first}{Whether or not to list federal elections before cantonal ones. Only relevant if \code{"federal" \%in\% lvls}.}
 }
 \value{
 A character scalar.
@@ -37,8 +41,15 @@ Returns the combined name of all elections at the specified date on the specifie
 }
 \examples{
 fokus::election_names_combined(ballot_date = "2019-10-20",
-                               lvl = "federal",
+                               lvls = "federal",
                                canton = "aargau")
+
+fokus::election_names_combined(ballot_date = "2019-10-20",
+                               canton = "aargau")
+
+fokus::election_names_combined(ballot_date = "2019-10-20",
+                               canton = "aargau",
+                               federal_first = FALSE)
 }
 \seealso{
 Other election predicate functions:
