@@ -3181,6 +3181,9 @@ election_names_combined <- function(ballot_date = all_ballot_dates,
   checkmate::assert_flag(federal_first)
   
   lvls %>%
+    intersect(lvls(ballot_date = ballot_date,
+                   canton = canton,
+                   ballot_types = "election")) %>%
     purrr::map_chr(~ raw_q_suppl_elections(ballot_date = ballot_date,
                                            lvl = .x,
                                            canton = canton) %>%
