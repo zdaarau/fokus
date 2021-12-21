@@ -20,9 +20,13 @@ reference:
     [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as the "source of truth" for
     the [predicate functions](#section-predicates).
 - contents:
-  - ballot_dates
-  - proposal_types
-  - response_option_types
+  - all_ballot_dates
+  - all_cantons
+  - all_ballot_types
+  - all_lvls
+  - all_prcds
+  - all_proposal_types
+  - all_response_option_types
   - q_item_keys
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata).
@@ -35,6 +39,8 @@ reference:
   - has_referendum
   - has_election
   - has_lvl
+  - lvls
+  - prcds
 - subtitle: Proposal predicates
 - contents:
   - proposal_type

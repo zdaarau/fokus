@@ -5,7 +5,7 @@
 \title{Extract response options}
 \usage{
 q_response_options(
-  type = response_option_types,
+  type = all_response_option_types,
   lang = c("de", "en"),
   subtypes = NULL
 )

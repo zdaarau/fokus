@@ -7,10 +7,28 @@
     <loc>https://rpkg.dev/fokus/reference/abbreviations.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/auth_g_drive_gcp.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/all_ballot_dates.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/ballot_dates.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/all_ballot_types.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/all_cantons.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/all_lvls.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/all_prcds.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/all_proposal_types.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/all_response_option_types.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/auth_g_drive_gcp.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/ballot_title.html</loc>
@@ -85,6 +103,9 @@
     <loc>https://rpkg.dev/fokus/reference/lgl_to_unicode.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/lvls.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/md_emphasize.html</loc>
   </url>
   <url>
@@ -118,6 +139,9 @@
     <loc>https://rpkg.dev/fokus/reference/political_issues.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/prcds.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/prettify_date.html</loc>
   </url>
   <url>
@@ -140,9 +164,6 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/proposal_type.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/proposal_types.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/q_item_keys.html</loc>
@@ -221,9 +242,6 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/requires_candidate_registration.html</loc>
-  </url>
-  <url>
-    <loc>https://rpkg.dev/fokus/reference/response_option_types.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/restore_colnames.html</loc>

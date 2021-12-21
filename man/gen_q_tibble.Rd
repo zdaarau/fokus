@@ -5,13 +5,13 @@
 \title{Generate questionnaire tibble}
 \usage{
 gen_q_tibble(
-  ballot_date = ballot_dates,
+  ballot_date = all_ballot_dates,
   canton = cantons(ballot_date),
   verbose = FALSE
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

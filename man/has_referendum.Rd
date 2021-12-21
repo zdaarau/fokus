@@ -5,13 +5,13 @@
 \title{Determine whether ballot type includes a referendum}
 \usage{
 has_referendum(
-  ballot_date = ballot_dates,
-  lvls = c("cantonal", "federal"),
-  canton = cantons(ballot_date)
+  ballot_date = all_ballot_dates,
+  lvls = all_lvls,
+  canton = all_cantons
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -33,7 +33,7 @@ has_referendum(
 A logical scalar.
 }
 \description{
-Determines whether or not the ballot in the specified canton at the specified date on the specified political level(s) includes a referendum.
+Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered a referendum.
 }
 \details{
 Note that if more than one \code{lvls} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls} are included in the specified ballot.

@@ -4,10 +4,10 @@
 \alias{raw_q_suppl_lvl}
 \title{Get a political level's raw supplemental date-specific FOKUS questionnaire data}
 \usage{
-raw_q_suppl_lvl(ballot_date = ballot_dates, lvl = c("cantonal", "federal"))
+raw_q_suppl_lvl(ballot_date = all_ballot_dates, lvl = all_lvls)
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

@@ -4,10 +4,10 @@
 \alias{raw_q_suppl}
 \title{Get raw supplemental date-specific FOKUS questionnaire data}
 \usage{
-raw_q_suppl(ballot_date = ballot_dates)
+raw_q_suppl(ballot_date = all_ballot_dates)
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

@@ -134,14 +134,14 @@
     <p>Determines the cantons covered by the FOKUS survey at the specified ballot date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ballot_date</th>
-      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
+      <td><p>A valid FOKUS-covered ballot date. One of</p><ul>
 <li><p><code>"2018-09-23"</code></p></li>
 <li><p><code>"2018-11-25"</code></p></li>
 <li><p><code>"2019-10-20"</code></p></li>
@@ -170,7 +170,7 @@
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "aargau"</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># determine the cantons covered in *any* FOKUS survey</span></span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'><a href='ballot_dates.html'>ballot_dates</a></span> |&gt;</span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'><a href='all_ballot_dates.html'>all_ballot_dates</a></span> |&gt;</span>
 <span class='r-in'>  <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_chr</a></span><span class='op'>(</span><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>cantons</span><span class='op'>)</span> |&gt;</span>
 <span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "aargau"</span>

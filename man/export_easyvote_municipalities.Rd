@@ -5,7 +5,7 @@
 \title{Export easyvote municipality details}
 \usage{
 export_easyvote_municipalities(
-  ballot_date = ballot_dates,
+  ballot_date = all_ballot_dates,
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
   g_drive_folder = paste0("fokus/aargau/Umfragen/Dateien für Umfrageinstitut/",
@@ -13,7 +13,7 @@ export_easyvote_municipalities(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

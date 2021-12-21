@@ -5,15 +5,15 @@
 \title{Get raw supplemental election name questionnaire data}
 \usage{
 raw_q_suppl_election_name(
-  ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal"),
+  ballot_date = all_ballot_dates,
+  lvl = all_lvls,
   canton = cantons(ballot_date),
-  prcd = c("proportional", "majoritarian"),
+  prcd = all_prcds,
   election_nr = 1L
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

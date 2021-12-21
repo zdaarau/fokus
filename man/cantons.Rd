@@ -4,10 +4,10 @@
 \alias{cantons}
 \title{Cantons covered by FOKUS survey}
 \usage{
-cantons(ballot_date = ballot_dates)
+cantons(ballot_date = all_ballot_dates)
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -27,7 +27,7 @@ Determines the cantons covered by the FOKUS survey at the specified ballot date.
 fokus::cantons(ballot_date = "2018-09-23")
 
 # determine the cantons covered in *any* FOKUS survey
-fokus::ballot_dates |>
+fokus::all_ballot_dates |>
   purrr::map_chr(fokus::cantons) |>
   unique()
 }

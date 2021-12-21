@@ -4,10 +4,10 @@
 \alias{ballot_types}
 \title{Determine ballot types}
 \usage{
-ballot_types(ballot_date = ballot_dates, canton = cantons(ballot_date))
+ballot_types(ballot_date = all_ballot_dates, canton = all_cantons)
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -27,7 +27,7 @@ A character vector of ballot types. One or more of
 }
 }
 \description{
-Determines the types of the ballot for the specified canton at the specified date.
+Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
 }
 \examples{
 fokus::ballot_types(ballot_date = "2018-09-23",
