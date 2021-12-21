@@ -70,7 +70,7 @@ utils::globalVariables(names = c(".",
                                  "question_intro_j",
                                  "receives_print",
                                  "response_options",
-                                 "separator",
+                                 "sep",
                                  "sex_official",
                                  "string",
                                  "topic",
@@ -1898,8 +1898,8 @@ q_item_val <- function(ballot_date = all_ballot_dates,
   if (!rlang::has_name(x = item_map, name = "variable_name")) {
     cli::cli_abort(paste0("There is no item with {.arg variable_name} {.val {v_name}} defined under the questionnaire branch path {.field ",
                           pal::prose_ls(x = branch_path,
-                                        separator = " -> ",
-                                        last_separator = " -> "),
+                                        sep = " -> ",
+                                        last_sep = " -> "),
                           "}."))
   }
 
@@ -2375,7 +2375,7 @@ q_md_table_header <-
     "Antwortoptionen in Zufallsreihenfolge",       3L,     "left",
     "Antwort obligatorisch",                       3L,     "left"
   ) %>%
-  dplyr::mutate(separator =
+  dplyr::mutate(sep =
                   purrr::map2_chr(.x = width,
                                   .y = alignment,
                                   .f = ~
@@ -2393,7 +2393,7 @@ q_md_table_header <-
                                                                                           replacement = ":"),
                                                 ~ .))) %$%
   c(paste0(name, collapse = " | "),
-    paste0(separator, collapse = " | "))
+    paste0(sep, collapse = " | "))
 
 unicode_checkmark <- "\u2705"
 unicode_crossmark <- "\u274C"
