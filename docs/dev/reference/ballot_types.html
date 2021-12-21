@@ -43,8 +43,8 @@
 
 
 <meta property="og:title" content="Determine ballot types — ballot_types" />
-<meta name="description" content="Determines the types of the ballot for the specified canton at the specified date.">
-<meta property="og:description" content="Determines the types of the ballot for the specified canton at the specified date." />
+<meta name="description" content="Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.">
+<meta property="og:description" content="Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -131,17 +131,17 @@
     </div>
 
     <div class="ref-description">
-    <p>Determines the types of the ballot for the specified canton at the specified date.</p>
+    <p>Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>, canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>, canton <span class='op'>=</span> <span class='va'>all_cantons</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ballot_date</th>
-      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
+      <td><p>A valid FOKUS-covered ballot date. One of</p><ul>
 <li><p><code>"2018-09-23"</code></p></li>
 <li><p><code>"2018-11-25"</code></p></li>
 <li><p><code>"2019-10-20"</code></p></li>

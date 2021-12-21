@@ -5,14 +5,14 @@
 \title{Determine whether ballot type includes an election}
 \usage{
 has_election(
-  ballot_date = ballot_dates,
-  lvls = c("cantonal", "federal"),
-  canton = cantons(ballot_date),
-  prcds = c("proportional", "majoritarian")
+  ballot_date = all_ballot_dates,
+  lvls = all_lvls,
+  canton = all_cantons,
+  prcds = all_prcds
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -40,8 +40,8 @@ has_election(
 A logical scalar.
 }
 \description{
-Determines whether or not the ballot for the specified canton at the specified date on the specified political level(s) includes an election of the specified
-election procedure(s).
+Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered an election of
+the specified election procedure(s).
 }
 \details{
 Note that if more than one \code{lvls}/\code{prcds} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls}/\code{prcds} are included in the specified ballot.

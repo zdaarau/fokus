@@ -5,7 +5,7 @@
 \title{Extract questionnaire item field value}
 \usage{
 q_item_val(
-  ballot_date = ballot_dates,
+  ballot_date = all_ballot_dates,
   canton = cantons(ballot_date),
   branch_path,
   v_name,
@@ -16,7 +16,7 @@ q_item_val(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

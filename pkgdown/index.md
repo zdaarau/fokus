@@ -145,7 +145,6 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   procedures                         prcds
   questionnaire                      q
   questionnaires                     qx
-  statistik aargau                   sa
   supplemental , supplementary       suppl
   abbreviate , abbreviation          abbr
   abbreviations                      abbrs

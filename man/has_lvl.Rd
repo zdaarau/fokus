@@ -5,13 +5,14 @@
 \title{Determine whether ballot includes a political level}
 \usage{
 has_lvl(
-  ballot_date = ballot_dates,
-  lvl = c("cantonal", "federal"),
-  canton = cantons(ballot_date)
+  ballot_date = all_ballot_dates,
+  lvl = all_lvls,
+  canton = all_cantons,
+  ballot_types = all_ballot_types
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -28,17 +29,28 @@ has_lvl(
 }}
 
 \item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+
+\item{ballot_types}{Ballot type(s). One or more of
+\itemize{
+\item \code{"referendum"}
+\item \code{"election"}
+}}
 }
 \value{
 A logical scalar.
 }
 \description{
-Determines whether or not the ballot in the specified canton at the specified date includes the specified political level.
+Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
 }
 \examples{
 fokus::has_lvl(ballot_date = "2018-09-23",
                lvl = "federal",
                canton = "aargau")
+
+fokus::has_lvl(ballot_date = "2018-09-23",
+               lvl = "federal",
+               canton = "aargau",
+               ballot_types = "election")
 }
 \seealso{
 Other fundamental predicate functions:

@@ -4,7 +4,7 @@
 \alias{q_response_option_codes}
 \title{Extract response option codes}
 \usage{
-q_response_option_codes(types = response_option_types)
+q_response_option_codes(types = all_response_option_types)
 }
 \arguments{
 \item{types}{Response option types. One or more of

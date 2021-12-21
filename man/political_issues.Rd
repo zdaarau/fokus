@@ -4,10 +4,10 @@
 \alias{political_issues}
 \title{Get political issues}
 \usage{
-political_issues(ballot_date = ballot_dates, lang = c("de", "en"))
+political_issues(ballot_date = all_ballot_dates, lang = c("de", "en"))
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

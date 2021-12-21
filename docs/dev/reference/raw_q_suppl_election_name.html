@@ -135,10 +135,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>raw_q_suppl_election_name</span><span class='op'>(</span>
-  ballot_date <span class='op'>=</span> <span class='va'>ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cantonal"</span>, <span class='st'>"federal"</span><span class='op'>)</span>,
-  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
-  prcd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"proportional"</span>, <span class='st'>"majoritarian"</span><span class='op'>)</span>,
+  ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
+  lvl <span class='op'>=</span> <span class='va'>all_lvls</span>,
+  canton <span class='op'>=</span> <span class='va'>all_cantons</span>,
+  prcd <span class='op'>=</span> <span class='va'>all_prcds</span>,
   election_nr <span class='op'>=</span> <span class='fl'>1L</span>
 <span class='op'>)</span></pre>
 
@@ -147,7 +147,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ballot_date</th>
-      <td><p>A valid FOKUS-covered cantonal ballot date. One of</p><ul>
+      <td><p>A valid FOKUS-covered ballot date. One of</p><ul>
 <li><p><code>"2018-09-23"</code></p></li>
 <li><p><code>"2018-11-25"</code></p></li>
 <li><p><code>"2019-10-20"</code></p></li>

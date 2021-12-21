@@ -5,13 +5,13 @@
 \title{Get number of referendum proposals}
 \usage{
 n_proposals(
-  ballot_date = ballot_dates,
-  lvls = c("cantonal", "federal"),
-  canton = cantons(ballot_date)
+  ballot_date = all_ballot_dates,
+  lvls = all_lvls,
+  canton = all_cantons
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered cantonal ballot date. One of
+\item{ballot_date}{A valid FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -33,7 +33,8 @@ n_proposals(
 An integer.
 }
 \description{
-Determines the number of referendum proposals for a canton at the specified ballot date on the specified political level(s).
+Determines the number of referendum proposals covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
+level(s).
 }
 \details{
 Technically, the number of \emph{federal} proposals is independent from the canton, but this function still expects a valid \code{canton}. Nonetheless, the returned

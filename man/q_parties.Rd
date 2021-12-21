@@ -4,7 +4,7 @@
 \alias{q_parties}
 \title{Political parties}
 \usage{
-q_parties(ballot_date = ballot_dates)
+q_parties(ballot_date = all_ballot_dates)
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
