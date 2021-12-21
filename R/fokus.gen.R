@@ -2418,6 +2418,9 @@ cli_theme <-
 #' @seealso [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_ballot_dates
 "all_ballot_dates"
 
 #' FOKUS-covered cantons
@@ -2428,6 +2431,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_cantons
 "all_cantons"
 
 #' Ballot types
@@ -2438,6 +2444,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_ballot_types
 "all_ballot_types"
 
 #' Political levels
@@ -2448,6 +2457,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_lvls
 "all_lvls"
 
 #' Election procedures
@@ -2458,6 +2470,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_prcds
 "all_prcds"
 
 #' Referendum proposal types
@@ -2468,6 +2483,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_proposal_types
 "all_proposal_types"
 
 #' Response option types
@@ -2478,6 +2496,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`q_item_keys`][q_item_keys]
 #' @export
+#'
+#' @examples
+#' fokus::all_response_option_types
 "all_response_option_types"
 
 #' Questionnaire item keys
@@ -2488,6 +2509,9 @@ cli_theme <-
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
 #' @export
+#'
+#' @examples
+#' fokus::q_item_keys
 "q_item_keys"
 
 #' Cantons covered by FOKUS survey
@@ -3151,6 +3175,7 @@ election_name <- function(ballot_date = all_ballot_dates,
 #' Returns the combined name of all elections at the specified date on the specified level for the specified canton.
 #'
 #' @inheritParams election_name
+#' @inheritParams n_elections
 #' @param federal_first Whether or not to list federal elections before cantonal ones. Only relevant if `"federal" %in% lvls`.
 #'
 #' @return A character scalar.

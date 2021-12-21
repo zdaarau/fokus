@@ -23,6 +23,12 @@ election_names_combined(
 \item \code{"2021-11-28"}
 }}
 
+\item{lvls}{Political level(s). One or more of
+\itemize{
+\item \code{"cantonal"}
+\item \code{"federal"}
+}}
+
 \item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{lang}{Language. One of

@@ -13,6 +13,9 @@ all_prcds
 \description{
 A vector of all possible \link[=prcds]{election procedures}.
 }
+\examples{
+fokus::all_prcds
+}
 \seealso{
 \code{\link{all_ballot_dates}} \code{\link{all_cantons}} \code{\link{all_ballot_types}} \code{\link{all_lvls}}
 \code{\link{all_proposal_types}} \code{\link{all_response_option_types}} \code{\link{q_item_keys}}

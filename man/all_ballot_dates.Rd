@@ -13,6 +13,9 @@ all_ballot_dates
 \description{
 A vector of ballot dates covered by FOKUS surveys up until 2021-11-28.
 }
+\examples{
+fokus::all_ballot_dates
+}
 \seealso{
 \code{\link{all_cantons}} \code{\link{all_ballot_types}} \code{\link{all_lvls}} \code{\link{all_prcds}}
 \code{\link{all_proposal_types}} \code{\link{all_response_option_types}} \code{\link{q_item_keys}}

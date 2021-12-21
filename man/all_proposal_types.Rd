@@ -13,6 +13,9 @@ all_proposal_types
 \description{
 A vector of all possible \link[=proposal_type]{referendum proposal types}.
 }
+\examples{
+fokus::all_proposal_types
+}
 \seealso{
 \code{\link{all_ballot_dates}} \code{\link{all_cantons}} \code{\link{all_ballot_types}} \code{\link{all_lvls}}
 \code{\link{all_prcds}} \code{\link{all_response_option_types}} \code{\link{q_item_keys}}
