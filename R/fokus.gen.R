@@ -3783,7 +3783,7 @@ political_issues <- function(ballot_date = all_ballot_dates,
     purrr::flatten_chr()
 }
 
-#' Questionnaires
+#' Questionnaire data
 #'
 #' A tibble containing the data of all FOKUS questionnaires.
 #'
@@ -3803,6 +3803,22 @@ political_issues <- function(ballot_date = all_ballot_dates,
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
 "qx"
+
+#' Proposal data
+#'
+#' A tibble containing basic referendum proposal data of all FOKUS questionnaires.
+#'
+#' @family q_survey
+#' @format `r pkgsnip::return_label("data")`
+"proposals"
+
+#' Election data
+#'
+#' A tibble containing basic election data of all FOKUS questionnaires.
+#'
+#' @family q_survey
+#' @format `r pkgsnip::return_label("data")`
+"elections"
 
 #' Export questionnaire data
 #'

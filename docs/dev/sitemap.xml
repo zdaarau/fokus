@@ -58,6 +58,9 @@
     <loc>https://rpkg.dev/fokus/reference/election_tickets.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/elections.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/expand_q_tibble.html</loc>
   </url>
   <url>
@@ -173,6 +176,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/proposal_type.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposals.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/q_item_keys.html</loc>

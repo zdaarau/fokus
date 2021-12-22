@@ -40,10 +40,12 @@ Useful to efficiently test and inspect latest changes in generated questionnaire
 }
 \seealso{
 Other questionnaire and survey functions and datasets:
+\code{\link{elections}},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
 \code{\link{export_qr_codes}()},
 \code{\link{export_q}()},
+\code{\link{proposals}},
 \code{\link{qx}}
 }
 \concept{q_survey}

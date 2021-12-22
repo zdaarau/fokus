@@ -541,7 +541,7 @@ value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, q_respons
 randomize_response_options = true
 [[03_1_election_general.item]]
 topic = "Teilnahme vergangene eidgenössische Wahlen"
-question = "Die letzten eidgenössischen { election_names_combined(ballot_date = ballot_date, lvl = 'federal', canton = canton) } fanden **{ lubridate::year(ballot_date) - 4L }** statt. Haben Sie daran teilgenommen?"
+question = "Die letzten eidgenössischen { election_names_combined(ballot_date = ballot_date, lvls = 'federal', canton = canton) } fanden **{ lubridate::year(ballot_date) - 4L }** statt. Haben Sie daran teilgenommen?"
 question_common = "Die letzten eidgenössischen Wahlen fanden vor vier Jahren statt. Haben Sie daran teilgenommen?"
 variable_name = "participation_past_federal_elections"
 variable_label = "respondent's participation status at the past federal elections { lubridate::year(ballot_date) - 4L }"
@@ -565,7 +565,7 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', c
 who = "Teilnehmende vergangene eidgenössische Verhältniswahl"
 [[03_1_election_general.item]]
 topic = "Teilnahme vergangene kantonale Wahlen"
-question = "Die letzten kantonalen { election_names_combined(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) } fanden **{ lubridate::year(ballot_date) - 4L }** statt. Haben Sie daran teilgenommen?"
+question = "Die letzten kantonalen { election_names_combined(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) } fanden **{ lubridate::year(ballot_date) - 4L }** statt. Haben Sie daran teilgenommen?"
 question_common = "Die letzten kantonalen Wahlen fanden vor vier Jahren statt. Haben Sie daran teilgenommen?"
 variable_name = "participation_past_cantonal_elections"
 variable_label = "respondent's participation status at the past cantonal elections { lubridate::year(ballot_date) - 4L  }"
@@ -823,12 +823,12 @@ question = """
                                                    canton = canton) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'federal',
+                                                                      lvls = 'federal',
                                                                       canton = canton),
                                               ' statt. <br><br>'),
                                        paste0(' **',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'federal',
+                                                                      lvls = 'federal',
                                                                       canton = canton),
                                               '** statt. '))),
                  '')
@@ -945,12 +945,12 @@ question = """
                                                    canton = canton) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'federal',
+                                                                      lvls = 'federal',
                                                                       canton = canton),
                                               ' statt. <br><br>'),
                                        paste0(' ',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'federal',
+                                                                      lvls = 'federal',
                                                                       canton = canton),
                                               ' statt. '))), '')
 }{
@@ -1031,12 +1031,12 @@ question = """
                                                    canton = canton) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'cantonal',
+                                                                      lvls = 'cantonal',
                                                                       canton = canton),
                                               ' statt. <br><br>'),
                                        paste0(' ',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'cantonal',
+                                                                      lvls = 'cantonal',
                                                                       canton = canton),
                                               ' statt. '))), '')
 }Welche Partei haben Sie {
@@ -1165,12 +1165,12 @@ question = """
                                                    canton = canton) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'cantonal',
+                                                                      lvls = 'cantonal',
                                                                       canton = canton),
                                               ' statt. <br><br>'),
                                        paste0(' **',
                                               election_names_combined(ballot_date = ballot_date,
-                                                                      lvl = 'cantonal',
+                                                                      lvls = 'cantonal',
                                                                       canton = canton),
                                               '** statt. '))),
                  '')

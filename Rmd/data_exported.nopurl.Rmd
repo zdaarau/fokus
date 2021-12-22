@@ -22,7 +22,7 @@ Questionnaire data as one single long-format tibble.
 
 ```{r}
 qx <-
-  fokus::ballot_dates %>%
+  fokus::all_ballot_dates %>%
   magrittr::set_names(., .) %>%
   purrr::map(fokus::cantons) %>%
   purrr::imap_dfr(function(cantons, ballot_date) {
@@ -58,6 +58,131 @@ qx <-
                               pal::strip_md))
 ```
 
+## `proposals`
+
+```{r}
+proposals <- 
+  fokus::all_ballot_dates %>%
+  purrr::map_dfr(function(ballot_date) {
+    
+    fokus::cantons(ballot_date) %>%
+      purrr::map_dfr(ballot_date = ballot_date,
+                     .f = function(canton,
+                                   ballot_date) {
+                       
+                       proposals_present <-
+                         fokus::has_proposal_nrs(ballot_date = ballot_date,
+                                                 canton = canton) %>%
+                         names() %>%
+                         stringr::str_split(pattern = "\\.")
+                       
+                       tibble::tibble(ballot_date = ballot_date,
+                                      lvl =
+                                        proposals_present %>%
+                                        purrr::map_depth(.depth = 1L,
+                                                         .f = purrr::chuck,
+                                                         1L) %>%
+                                        purrr::flatten_chr(),
+                                      canton = canton,
+                                      nr =
+                                        proposals_present %>%
+                                        purrr::map_depth(.depth = 1L,
+                                                         .f = purrr::chuck,
+                                                         2L) %>%
+                                        as.integer(),
+                                      type = purrr::map2_chr(lvl,
+                                                             nr,
+                                                             ~ fokus::proposal_type(ballot_date = !!ballot_date,
+                                                                                    lvl = .x,
+                                                                                    canton = !!canton,
+                                                                                    proposal_nr = .y)),
+                                      name.de.short = purrr::map2_chr(lvl,
+                                                                      nr,
+                                                                      ~ fokus::proposal_name(ballot_date = !!ballot_date,
+                                                                                             lvl = .x,
+                                                                                             canton = !!canton,
+                                                                                             proposal_nr = .y,
+                                                                                             type = "short")),
+                                      name.de.long = purrr::map2_chr(lvl,
+                                                                     nr,
+                                                                     ~ fokus::proposal_name(ballot_date = !!ballot_date,
+                                                                                            lvl = .x,
+                                                                                            canton = !!canton,
+                                                                                            proposal_nr = .y,
+                                                                                            type = "long")))
+                     })
+  })
+```
+
+## `elections`
+
+```{r}
+elections <- 
+  fokus::all_ballot_dates %>%
+  purrr::map_dfr(function(ballot_date) {
+    
+    fokus::cantons(ballot_date) %>%
+      purrr::map_dfr(ballot_date = ballot_date,
+                     .f = function(canton,
+                                   ballot_date) {
+                       
+                       elections_present <-
+                         fokus::has_election_nrs(ballot_date = ballot_date,
+                                                 canton = canton) %>%
+                         names() %>%
+                         stringr::str_split(pattern = "\\.")
+                       
+                       tibble::tibble(ballot_date = ballot_date,
+                                      lvl =
+                                        elections_present %>%
+                                        purrr::map_depth(.depth = 1L,
+                                                         .f = purrr::chuck,
+                                                         1L) %>%
+                                        purrr::flatten_chr(),
+                                      canton = canton,
+                                      prcd =
+                                        elections_present %>%
+                                        purrr::map_depth(.depth = 1L,
+                                                         .f = purrr::chuck,
+                                                         2L) %>%
+                                        purrr::flatten_chr(),
+                                      nr =
+                                        elections_present %>%
+                                        purrr::map_depth(.depth = 1L,
+                                                         .f = purrr::chuck,
+                                                         3L) %>%
+                                        as.integer(),
+                                      name.de.short = purrr::pmap_chr(list(lvl,
+                                                                           prcd,
+                                                                           nr),
+                                                                      ~ fokus::election_name(ballot_date = !!ballot_date,
+                                                                                             lvl = ..1,
+                                                                                             canton = !!canton,
+                                                                                             prcd = ..2,
+                                                                                             election_nr = ..3,
+                                                                                             type = "short")),
+                                      name.de.long = purrr::pmap_chr(list(lvl,
+                                                                          prcd,
+                                                                          nr),
+                                                                     ~ fokus::election_name(ballot_date = !!ballot_date,
+                                                                                            lvl = ..1,
+                                                                                            canton = !!canton,
+                                                                                            prcd = ..2,
+                                                                                            election_nr = ..3,
+                                                                                            type = "long")),
+                                      name.de.body = purrr::pmap_chr(list(lvl,
+                                                                          prcd,
+                                                                          nr),
+                                                                     ~ fokus::election_name(ballot_date = !!ballot_date,
+                                                                                            lvl = ..1,
+                                                                                            canton = !!canton,
+                                                                                            prcd = ..2,
+                                                                                            election_nr = ..3,
+                                                                                            type = "body")))
+                     })
+  })
+```
+
 ## Write data
 
 Save all the bigger data objects to separate files under `data/*.rda`. Note that when documenting them, they mustn't be explicitly `@export`ed since they're
@@ -65,6 +190,8 @@ already automatically exported and thus available to package users.
 
 ```{r}
 usethis::use_data(qx,
+                  proposals,
+                  elections,
                   internal = FALSE,
                   overwrite = TRUE,
                   compress = "xz",

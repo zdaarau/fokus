@@ -30,10 +30,12 @@ Exports a CSV dataset containing the two columns \code{id} and \code{receives_pr
 }
 \seealso{
 Other questionnaire and survey functions and datasets:
+\code{\link{elections}},
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_q_all}()},
 \code{\link{export_qr_codes}()},
 \code{\link{export_q}()},
+\code{\link{proposals}},
 \code{\link{qx}}
 }
 \concept{q_survey}

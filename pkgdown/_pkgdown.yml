@@ -82,6 +82,8 @@ reference:
     and other functions to conduct a survey.
 - contents:
   - qx
+  - proposals
+  - elections
   - export_q
   - export_q_all
   - export_qr_codes

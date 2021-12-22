@@ -4335,7 +4335,7 @@ Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-da
 ### `qx`
 
 ```{r}
-#' Questionnaires
+#' Questionnaire data
 #'
 #' A tibble containing the data of all FOKUS questionnaires.
 #'
@@ -4355,6 +4355,30 @@ Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-da
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
 "qx"
+```
+
+### `proposals`
+
+```{r}
+#' Proposal data
+#'
+#' A tibble containing basic referendum proposal data of all FOKUS questionnaires.
+#'
+#' @family q_survey
+#' @format `r pkgsnip::return_label("data")`
+"proposals"
+```
+
+### `elections`
+
+```{r}
+#' Election data
+#'
+#' A tibble containing basic election data of all FOKUS questionnaires.
+#'
+#' @family q_survey
+#' @format `r pkgsnip::return_label("data")`
+"elections"
 ```
 
 ### `export_q`
