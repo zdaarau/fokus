@@ -52,13 +52,11 @@ writes all of them to the \link[=print_fokus_private_structure]{private FOKUS di
 uploads them to a Google Drive folder (\code{g_drive_folder}).
 }
 \seealso{
-Other questionnaire generation functions:
-\code{\link{expand_q_tibble}()},
+Other questionnaire and survey functions and datasets:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
 \code{\link{export_q_all}()},
-\code{\link{gen_q_md}()},
-\code{\link{gen_q_tibble}()},
+\code{\link{export_qr_codes}()},
 \code{\link{qx}}
 }
-\concept{q_gen}
+\concept{q_survey}

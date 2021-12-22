@@ -47,7 +47,7 @@ Determines whether or not the FOKUS survey for the specified canton at the speci
 the specified election procedure(s).
 }
 \details{
-Note that if more than one \code{lvls}/\code{prcds} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls}/\code{prcds} are included in the specified ballot.
+If more than one \code{lvls}/\code{prcds} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls}/\code{prcds} are included in the specified ballot.
 
 For \href{https://en.wikipedia.org/wiki/Logical_conjunction}{logical conjunction}, use e.g. \code{has_election(lvls = "cantonal") && has_election(lvls = "federal")}.
 }
@@ -60,7 +60,9 @@ Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
 \code{\link{has_ballot_types}()},
+\code{\link{has_election_nrs}()},
 \code{\link{has_lvl}()},
+\code{\link{has_proposal_nrs}()},
 \code{\link{has_referendum}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},

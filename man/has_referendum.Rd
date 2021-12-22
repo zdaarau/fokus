@@ -39,7 +39,7 @@ A logical scalar.
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered a referendum.
 }
 \details{
-Note that if more than one \code{lvls} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls} are included in the specified ballot.
+If more than one \code{lvls} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls} are included in the specified ballot.
 
 For \href{https://en.wikipedia.org/wiki/Logical_conjunction}{logical conjunction}, use \code{has_referendum(lvls = "cantonal") && has_referendum(lvls = "federal")}.
 }
@@ -53,8 +53,10 @@ Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
 \code{\link{has_ballot_types}()},
+\code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
+\code{\link{has_proposal_nrs}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},

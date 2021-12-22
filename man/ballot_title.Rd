@@ -39,3 +39,8 @@ Returns the ballot title consisting of the \link[=ballot_types]{ballot type} and
 fokus::ballot_title(ballot_date = "2019-10-20",
                     canton = "aargau")
 }
+\seealso{
+Other predicate functions:
+\code{\link{political_issues}()}
+}
+\concept{predicate_other}

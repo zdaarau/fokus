@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine whether ballot type includes a referendum — has_referendum • fokus</title>
+<title>Determine whether ballot includes proposals — has_proposal_nrs • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Determine whether ballot type includes a referendum — has_referendum" />
-<meta name="description" content="Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered a referendum.">
-<meta property="og:description" content="Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered a referendum." />
+<meta property="og:title" content="Determine whether ballot includes proposals — has_proposal_nrs" />
+<meta name="description" content="Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified proposal numbers.">
+<meta property="og:description" content="Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified proposal numbers." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,19 +125,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine whether ballot type includes a referendum</h1>
+    <h1>Determine whether ballot includes proposals</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>has_referendum.Rd</code></div>
+    <div class="hidden name"><code>has_proposal_nrs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered a referendum.</p>
+    <p>Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified
+proposal numbers.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_referendum</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>has_proposal_nrs</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
   lvls <span class='op'>=</span> <span class='va'>all_lvls</span>,
-  canton <span class='op'>=</span> <span class='va'>all_cantons</span>
+  canton <span class='op'>=</span> <span class='va'>all_cantons</span>,
+  proposal_nrs <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -167,15 +169,16 @@
 <li><p><code>"aargau"</code></p></li>
 </ul></td>
     </tr>
+    <tr>
+      <th>proposal_nrs</th>
+      <td><p>Proposals number(s) to check. An integerish vector. If <code>NULL</code>, falls back to the <a href='n_proposals.html'>number of proposals</a> present matching the
+specified parameters.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical scalar.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If more than one <code>lvls</code> are provided (the default), they are interpreted according to the rules of <a href='https://en.wikipedia.org/wiki/Logical_disjunction'>logical disjunction</a>, i.e. <code>TRUE</code> is returned if <em>any</em> <code>lvls</code> are included in the specified ballot.</p>
-<p>For <a href='https://en.wikipedia.org/wiki/Logical_conjunction'>logical conjunction</a>, use <code>has_referendum(lvls = "cantonal") &amp;&amp; has_referendum(lvls = "federal")</code>.</p>
+    <p>A logical vector of the length of the number of proposals present matching the specified parameters (<code>lvls</code> × <code>proposal_nrs</code>).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other fundamental predicate functions:
@@ -185,17 +188,25 @@
 <code><a href='has_election_nrs.html'>has_election_nrs</a>()</code>,
 <code><a href='has_election.html'>has_election</a>()</code>,
 <code><a href='has_lvl.html'>has_lvl</a>()</code>,
-<code><a href='has_proposal_nrs.html'>has_proposal_nrs</a>()</code>,
+<code><a href='has_referendum.html'>has_referendum</a>()</code>,
 <code><a href='lvls.html'>lvls</a>()</code>,
 <code><a href='n_elections.html'>n_elections</a>()</code>,
 <code><a href='n_proposals.html'>n_proposals</a>()</code>,
 <code><a href='prcds.html'>prcds</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_referendum</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                      lvls <span class='op'>=</span> <span class='st'>"federal"</span>,</span>
-<span class='r-in'>                      canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_proposal_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.1  federal.1  federal.2  federal.3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       TRUE       TRUE       TRUE       TRUE </span>
+<span class='r-in'>                        </span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_proposal_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                        proposal_nrs <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.1 cantonal.2 cantonal.3 cantonal.4 cantonal.5  federal.1  federal.2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       TRUE      FALSE      FALSE      FALSE      FALSE       TRUE       TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  federal.3  federal.4  federal.5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       TRUE      FALSE      FALSE </span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -183,7 +183,7 @@ the specified election procedure(s).</p>
     <p>A logical scalar.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that if more than one <code>lvls</code>/<code>prcds</code> are provided (the default), they are interpreted according to the rules of <a href='https://en.wikipedia.org/wiki/Logical_disjunction'>logical disjunction</a>, i.e. <code>TRUE</code> is returned if <em>any</em> <code>lvls</code>/<code>prcds</code> are included in the specified ballot.</p>
+    <p>If more than one <code>lvls</code>/<code>prcds</code> are provided (the default), they are interpreted according to the rules of <a href='https://en.wikipedia.org/wiki/Logical_disjunction'>logical disjunction</a>, i.e. <code>TRUE</code> is returned if <em>any</em> <code>lvls</code>/<code>prcds</code> are included in the specified ballot.</p>
 <p>For <a href='https://en.wikipedia.org/wiki/Logical_conjunction'>logical conjunction</a>, use e.g. <code>has_election(lvls = "cantonal") &amp;&amp; has_election(lvls = "federal")</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -191,7 +191,9 @@ the specified election procedure(s).</p>
 <code><a href='ballot_types.html'>ballot_types</a>()</code>,
 <code><a href='cantons.html'>cantons</a>()</code>,
 <code><a href='has_ballot_types.html'>has_ballot_types</a>()</code>,
+<code><a href='has_election_nrs.html'>has_election_nrs</a>()</code>,
 <code><a href='has_lvl.html'>has_lvl</a>()</code>,
+<code><a href='has_proposal_nrs.html'>has_proposal_nrs</a>()</code>,
 <code><a href='has_referendum.html'>has_referendum</a>()</code>,
 <code><a href='lvls.html'>lvls</a>()</code>,
 <code><a href='n_elections.html'>n_elections</a>()</code>,

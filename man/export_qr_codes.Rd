@@ -35,3 +35,12 @@ A \link[tibble:tbl_df-class]{tibble} containing metadata about the contents of t
 Exports a ZIP file that contains a \href{https://en.wikipedia.org/wiki/QR_code}{QR code} in SVG and in EPS format for each survey participant storing the
 personalized survey URL to the \link[=print_fokus_private_structure]{private FOKUS directory}.
 }
+\seealso{
+Other questionnaire and survey functions and datasets:
+\code{\link{export_easyvote_municipalities}()},
+\code{\link{export_print_recipients}()},
+\code{\link{export_q_all}()},
+\code{\link{export_q}()},
+\code{\link{qx}}
+}
+\concept{q_survey}

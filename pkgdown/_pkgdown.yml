@@ -40,6 +40,8 @@ reference:
   - has_referendum
   - has_election
   - has_lvl
+  - has_proposal_nrs
+  - has_election_nrs
   - lvls
   - prcds
 - subtitle: Proposal predicates

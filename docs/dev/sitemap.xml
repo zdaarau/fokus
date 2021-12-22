@@ -94,7 +94,13 @@
     <loc>https://rpkg.dev/fokus/reference/has_election.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/has_election_nrs.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/has_lvl.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/has_proposal_nrs.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/has_referendum.html</loc>

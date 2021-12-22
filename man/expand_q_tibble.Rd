@@ -17,13 +17,8 @@ Expands a \link[=gen_q_tibble]{questionnaire tibble} to \href{https://en.wikiped
 }
 \seealso{
 Other questionnaire generation functions:
-\code{\link{export_easyvote_municipalities}()},
-\code{\link{export_print_recipients}()},
-\code{\link{export_q_all}()},
-\code{\link{export_q}()},
 \code{\link{gen_q_md}()},
-\code{\link{gen_q_tibble}()},
-\code{\link{qx}}
+\code{\link{gen_q_tibble}()}
 }
 \concept{q_gen}
 \keyword{internal}

@@ -29,13 +29,11 @@ export_print_recipients(
 Exports a CSV dataset containing the two columns \code{id} and \code{receives_print} to the \link[=print_fokus_private_structure]{private FOKUS directory}.
 }
 \seealso{
-Other questionnaire generation functions:
-\code{\link{expand_q_tibble}()},
+Other questionnaire and survey functions and datasets:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_q_all}()},
+\code{\link{export_qr_codes}()},
 \code{\link{export_q}()},
-\code{\link{gen_q_md}()},
-\code{\link{gen_q_tibble}()},
 \code{\link{qx}}
 }
-\concept{q_gen}
+\concept{q_survey}

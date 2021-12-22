@@ -33,4 +33,8 @@ Returns the political issues in the specified language.
 fokus::political_issues(ballot_date = "2019-10-20",
                         lang = "en")
 }
+\seealso{
+Other predicate functions:
+\code{\link{ballot_title}()}
+}
 \concept{predicate_other}

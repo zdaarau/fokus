@@ -28,6 +28,11 @@ has_lvl(
 \item \code{"federal"}
 }}
 
+\item{canton}{A valid FOKUS canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
+
 \item{ballot_types}{Ballot type(s). One or more of
 \itemize{
 \item \code{"referendum"}
@@ -55,7 +60,9 @@ Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
 \code{\link{has_ballot_types}()},
+\code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
+\code{\link{has_proposal_nrs}()},
 \code{\link{has_referendum}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
