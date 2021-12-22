@@ -1037,7 +1037,7 @@ assemble_q_tibble <- function(ballot_date,
 
     map %<>%
       purrr::list_modify(!!!raw_q_branch) %>%
-      pal::list_keep(keep = fokus::q_item_keys$key)
+      pal::list_keep(keep = q_item_keys$key)
   }
 
   result <- NULL
@@ -1917,7 +1917,7 @@ q_item_val <- function(ballot_date = all_ballot_dates,
       purrr::chuck(!!!branch_depth) %>%
       purrr::list_modify(.x = parent_map,
                          !!!.) %>%
-      pal::list_keep(keep = fokus::q_item_keys$key)
+      pal::list_keep(keep = q_item_keys$key)
   }
 
   # evaluate requested item value
@@ -1979,49 +1979,7 @@ q_parties <- function(ballot_date = all_ballot_dates) {
     dplyr::filter(date_begin <= ballot_date & date_end >= ballot_date)
 }
 
-#' Extract response options
-#'
-#' Extracts response options of the specified type and optionally subtype(s) from the [raw FOKUS questionnaire data][raw_q].
-#'
-#' Note that only recurring response options are returned which are defined under the `response_options` top-level key in the file
-#' `data-raw/questionnaire/questionnaire.toml`.
-#'
-#' @inheritParams election_name
-#' @param type Response option type. One of
-#' `r pal::as_md_val_list(all_response_option_types)`
-#' @param subtypes Hierarchical response option subtypes as a character vector, or `NULL`. If `NULL`, all subtypes are returned.
-#'
-#' @return A character vector.
-#' @family q_internal
-#' @keywords internal
-#'
-#' @examples
-#' fokus:::q_response_options(type = "abstain",
-#'                            lang = "de")
-#'
-#' fokus:::q_response_options(type = "abstain",
-#'                            lang = "de",
-#'                            subtypes = "election")
-#'
-#' fokus:::q_response_options(type = "abstain",
-#'                            lang = "de",
-#'                            subtypes = c("election", "proportional"))
-q_response_options <- function(type = all_response_option_types,
-                               lang = c("de", "en"),
-                               subtypes = NULL) {
-
-  type <- rlang::arg_match(type)
-  lang <- rlang::arg_match(lang)
-  checkmate::assert_character(subtypes,
-                              any.missing = FALSE,
-                              min.len = 1L,
-                              null.ok = TRUE)
-  raw_q %>%
-    purrr::chuck("response_options", type, lang, !!!subtypes) %>%
-    pal::as_chr()
-}
-
-#' Extract response option codes
+#' Get response option codes
 #'
 #' Extracts response option codes of the specified type(s) from the [raw FOKUS questionnaire data][raw_q].
 #'
@@ -2362,6 +2320,19 @@ this_pkg <- utils::packageName()
 url_survey_host <- list(aargau = "https://umfrage.fokus.ag")
 url_parameter_survey <- list(aargau = "pw")
 
+#' Questionnaire item keys
+#'
+#' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_q].
+#'
+#' @format `r pkgsnip::return_label("data")`
+#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
+#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::q_item_keys
+"q_item_keys"
+
 q_md_table_header <-
   tibble::tribble(
     ~name,                                         ~width, ~alignment,
@@ -2416,7 +2387,7 @@ cli_theme <-
 #'
 #' @format `r pkgsnip::return_label("dates")`
 #' @seealso [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
 #' @export
 #'
 #' @examples
@@ -2429,7 +2400,7 @@ cli_theme <-
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
 #' @export
 #'
 #' @examples
@@ -2442,7 +2413,7 @@ cli_theme <-
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
 #' @export
 #'
 #' @examples
@@ -2455,7 +2426,7 @@ cli_theme <-
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
 #' @export
 #'
 #' @examples
@@ -2468,7 +2439,7 @@ cli_theme <-
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
 #' @export
 #'
 #' @examples
@@ -2481,7 +2452,7 @@ cli_theme <-
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types] [`q_item_keys`][q_item_keys]
+#'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types]
 #' @export
 #'
 #' @examples
@@ -2494,27 +2465,14 @@ cli_theme <-
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`q_item_keys`][q_item_keys]
+#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types]
 #' @export
 #'
 #' @examples
 #' fokus::all_response_option_types
 "all_response_option_types"
 
-#' Questionnaire item keys
-#'
-#' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_q].
-#'
-#' @format `r pkgsnip::return_label("data")`
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
-#' @export
-#'
-#' @examples
-#' fokus::q_item_keys
-"q_item_keys"
-
-#' Cantons covered by FOKUS survey
+#' Get cantons covered by FOKUS survey
 #'
 #' Determines the cantons covered by the FOKUS survey at the specified ballot date.
 #'
@@ -2540,7 +2498,7 @@ cantons <- function(ballot_date = all_ballot_dates) {
   cantons_at[[ballot_date]]
 }
 
-#' Determine ballot types
+#' Get ballot types
 #'
 #' Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
 #'
@@ -2916,7 +2874,7 @@ has_election_nrs <- function(ballot_date = all_ballot_dates,
                 ~ .)
 }
 
-#' Determine ballot's political levels
+#' Get ballot's political levels
 #'
 #' Determines the political levels covered by the FOKUS survey for the specified canton at the specified ballot date.
 #'
@@ -2947,7 +2905,7 @@ lvls <- function(ballot_date = all_ballot_dates,
                       ballot_types = ballot_types)])
 }
 
-#' Determine ballot's election procedures
+#' Get ballot's election procedures
 #'
 #' Determines the election procedures covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s).
 #'
@@ -3783,6 +3741,48 @@ political_issues <- function(ballot_date = all_ballot_dates,
     purrr::flatten_chr()
 }
 
+#' Get response options
+#'
+#' Returns response options of the specified type and optionally subtype(s) from the [raw FOKUS questionnaire data][raw_q].
+#'
+#' Note that only recurring response options are returned which are defined under the `response_options` top-level key in the file
+#' `data-raw/questionnaire/questionnaire.toml`.
+#'
+#' @inheritParams election_name
+#' @param type Response option type. One of
+#' `r pal::as_md_val_list(all_response_option_types)`
+#' @param subtypes Hierarchical response option subtypes as a character vector, or `NULL`. If `NULL`, all subtypes are returned.
+#'
+#' @return A character vector.
+#' @family predicate_other
+#' @export
+#'
+#' @examples
+#' fokus:::response_options(type = "abstain",
+#'                          lang = "de")
+#'
+#' fokus:::response_options(type = "abstain",
+#'                          lang = "de",
+#'                          subtypes = "election")
+#'
+#' fokus:::response_options(type = "abstain",
+#'                          lang = "de",
+#'                          subtypes = c("election", "proportional"))
+response_options <- function(type = all_response_option_types,
+                             lang = c("de", "en"),
+                             subtypes = NULL) {
+
+  type <- rlang::arg_match(type)
+  lang <- rlang::arg_match(lang)
+  checkmate::assert_character(subtypes,
+                              any.missing = FALSE,
+                              min.len = 1L,
+                              null.ok = TRUE)
+  raw_q %>%
+    purrr::chuck("response_options", type, lang, !!!subtypes) %>%
+    pal::as_chr()
+}
+
 #' Questionnaire data
 #'
 #' A tibble containing the data of all FOKUS questionnaires.
@@ -4398,31 +4398,31 @@ shorten_v_names <- function(v_names,
   checkmate::assert_character(v_names,
                               any.missing = FALSE)
   checkmate::assert_flag(reverse)
-  checkmate::assert_count(max_n_char)
+  checkmate::assert_count(max_n_char,
+                          null.ok = TRUE)
   rules <- shortening_rules
 
   if (reverse) colnames(rules) %<>% .[c(2L, 1L, 3L)]
 
-  rules %<>% dplyr::mutate(pattern =
-                             allowed %>%
-                             purrr::map_chr(function(allowed) {
-
-                               allowed %>% purrr::when(. %in% c("begin-middle", "begin-middle-end") ~ "(?<=(^|_))",
-                                                       . %in% c("middle", "middle-end") ~ "(?<=_)",
-                                                       . %in% c("begin", "begin-end") ~ "^",
-                                                       ~ "")
-                             }) %>%
-                             paste0(string) %>%
-                             purrr::map2_chr(.x = allowed,
-                                             .f = ~ {
-
-                                               .x %>% purrr::when(. == "begin" ~ .y,
-                                                                  . %in% c("begin-middle-end", "middle-end") ~ paste0(.y, "(?=(_|$))"),
-                                                                  . %in% c("begin-middle", "middle") ~ paste0(.y, "(?=_)"),
-                                                                  . == "begin-end" ~ paste0(.y, "$"),
-                                                                  . == "end" ~ paste0("(?<=_)", .y, "$"),
-                                                                  ~ cli::cli_abort("This should not happen."))
-                                             }))
+  rules %<>% dplyr::mutate(pattern = purrr::map2_chr(
+    .x = string,
+    .y = allowed,
+    .f = ~ .y %>% purrr::when(. == "begin" ~
+                                paste0("^", .x, "(?=_)"),
+                              . == "middle" ~
+                                paste0("(?<=_)", .x, "(?=_)"),
+                              . == "end" ~
+                                paste0("(?<=_)", .x, "$"),
+                              . == "begin-middle" ~
+                                paste0("(?<=(^|_))", .x, "(?=_)"),
+                              . == "begin-end" ~
+                                paste0("(^", .x, "(?=_)|(?<=_)", .x, "$)"),
+                              . == "middle-end" ~
+                                paste0("(?<=_)", .x, "(?=(_|$))"),
+                              . == "begin-middle-end" ~
+                                paste0("(?<=(^|_))", .x, "(?=(_|$))"),
+                              ~ cli::cli_abort("Unknown {.var allowed} type: {.val {.}}."))
+  ))
 
   pattern_replacement <- rules$replacement
   names(pattern_replacement) <- rules$pattern

@@ -78,7 +78,7 @@ Depending on the table level, the set of possible keys includes:
 library(magrittr)
 options(knitr.kable.NA = '')
 
-fokus::q_item_keys %>%
+fokus:::q_item_keys %>%
   dplyr::select(key, type, default, is_optional, everything()) %>%
   dplyr::mutate(key = pal::wrap_chr(key,
                                     wrap = "`"),

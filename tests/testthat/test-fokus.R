@@ -32,3 +32,16 @@ test_that("`shortening_rules` are non-overlapping", {
       all()
   )
 })
+
+## shorten_v_names ----
+test_that("`shorten_v_names` is reversible for all q variable names", {
+
+  comparison <- tibble::tibble(name = unique(qx$variable_name),
+                               shortened = shorten_v_names(v_names = name,
+                                                           max_n_char = NULL),
+                               reversed = shorten_v_names(v_names = shortened,
+                                                          reverse = TRUE,
+                                                          max_n_char = NULL))
+  expect_identical(object = comparison$reversed,
+                   expected = comparison$name)
+})

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{lvls}
 \alias{lvls}
-\title{Determine ballot's political levels}
+\title{Get ballot's political levels}
 \usage{
 lvls(
   ballot_date = all_ballot_dates,

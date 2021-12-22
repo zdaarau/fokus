@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{ballot_types}
 \alias{ballot_types}
-\title{Determine ballot types}
+\title{Get ballot types}
 \usage{
 ballot_types(ballot_date = all_ballot_dates, canton = all_cantons)
 }

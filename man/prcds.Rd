@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{prcds}
 \alias{prcds}
-\title{Determine ballot's election procedures}
+\title{Get ballot's election procedures}
 \usage{
 prcds(ballot_date = all_ballot_dates, lvls = all_lvls, canton = all_cantons)
 }

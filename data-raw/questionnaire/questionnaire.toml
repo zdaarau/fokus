@@ -383,9 +383,9 @@ question_common = "Welche Partei hätten Sie bei der eidgenössischen Verhältni
 variable_name = "hypothetical_voting_decision_federal_proportional_election_{i}_party"
 variable_label = "the party the respondent would have voted for in the federal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "the party the respondent would have voted for in the { salim::rank_nr(i) } federal proportional election if the respondent would have participated"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'majoritarian')) }"
 j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, type = 'vacant')) }"
@@ -439,15 +439,15 @@ response_options = """
                                                 lvl = 'federal',
                                                 canton = canton,
                                                 election_nr = i) ~ .,
-                ~ c(., q_response_options(type = 'other',
-                                          lang = 'de',
-                                          subtypes = 'candidate'))) %>%
-    c(q_response_options(type = 'dunno',
-                         lang = 'de',
-                         subtypes = 'main'))
+                ~ c(., response_options(type = 'other',
+                                        lang = 'de',
+                                        subtypes = 'candidate'))) %>%
+    c(response_options(type = 'dunno',
+                       lang = 'de',
+                       subtypes = 'main'))
 }"""
 variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_option_codes(types = 'other'))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'proportional')) }"
 topic = "Hypothetischer Stimmentscheid Partei kantonale Verhältniswahl {i}"
@@ -466,9 +466,9 @@ question_common = "Welche Partei hätten Sie bei der kantonalen Verhältniswahl 
 variable_name = "hypothetical_voting_decision_cantonal_proportional_election_{i}_party"
 variable_label = "the party the respondent would have voted for in the cantonal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "the party the respondent would have voted for in the { salim::rank_nr(i) } cantonal proportional election if the respondent would have participated"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'majoritarian')) }"
 j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, type = 'vacant')) }"
@@ -512,9 +512,9 @@ question_common = "Wen hätten Sie bei der kantonalen Mehrheitswahl {i} gewählt
 variable_name = "hypothetical_voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the { salim::rank_nr(i) } cantonal majoritarian election if the respondent would have participated"
-response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_option_codes(types = 'other'))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 
 
 [03_1_election_general]
@@ -526,18 +526,18 @@ topic = "Wichtigstes politisches Problem"
 question = "Welches ist Ihrer Meinung nach gegenwärtig das **wichtigste politische Problem**, mit dem die Schweiz konfrontiert ist?"
 variable_name = "main_political_issue"
 variable_label = "issue in Swiss politics the respondent considers the most important one (choice of response options is based on the most recent [\"Credit Suisse Sorgenbarometer\"](https://de.wikipedia.org/wiki/Sorgenbarometer))"
-response_options = "{ political_issues(ballot_date = ballot_date, lang = 'de') %>% c(q_response_options(type = 'custom', lang = 'de', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ political_issues(ballot_date = ballot_date, lang = 'de') %>% c(response_options(type = 'custom', lang = 'de', subtypes = 'main'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_along(political_issues(ballot_date = ballot_date)) %>% c(q_response_option_codes(types = c('custom', 'dunno'))) }"
-value_labels = "{ political_issues(ballot_date = ballot_date, lang = 'en') %>% c(q_response_options(type = 'custom', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ political_issues(ballot_date = ballot_date, lang = 'en') %>% c(response_options(type = 'custom', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options = true
 [[03_1_election_general.item]]
 topic = "Kompetenteste Partei zur Lösung des wichtigsten politischen Problems"
 question = "Welches ist Ihrer Meinung nach die kompetenteste Partei für die Lösung dieses Problems?"
 variable_name = "most_competent_party_main_political_issue"
 variable_label = "party the respondent considers to be most competent to solve the main political issue in Swiss politics"
-response_options = "{ c(q_parties(ballot_date = ballot_date) %$% de.short, q_response_options(type = 'custom', lang = 'de', subtypes = 'party'), q_response_options(type = 'none', lang = 'de', subtypes = 'plural'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ c(q_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ c(q_parties(ballot_date = ballot_date) %$% code, q_response_option_codes(types = c('custom', 'none', 'dunno'))) }"
-value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, q_response_options(type = 'custom', lang = 'en', subtypes = 'main'), q_response_options(type = 'none', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, response_options(type = 'custom', lang = 'en', subtypes = 'main'), response_options(type = 'none', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options = true
 [[03_1_election_general.item]]
 topic = "Teilnahme vergangene eidgenössische Wahlen"
@@ -546,9 +546,9 @@ question_common = "Die letzten eidgenössischen Wahlen fanden vor vier Jahren st
 variable_name = "participation_past_federal_elections"
 variable_label = "respondent's participation status at the past federal elections { lubridate::year(ballot_date) - 4L }"
 variable_label_common = "respondent's participation status at the past federal elections 4 years ago"
-response_options = "{ c(q_response_options(type = 'abstain', lang = 'de', subtypes = 'past'), 'teilgenommen', q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ c(response_options(type = 'abstain', lang = 'de', subtypes = 'past'), 'teilgenommen', response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = [ 0, 1, 99 ]
-value_labels = "{ c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'past'), 'participated', q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ c(response_options(type = 'abstain', lang = 'en', subtypes = 'past'), 'participated', response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 value_scale = "binary"
 include = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 [[03_1_election_general.item]]
@@ -559,9 +559,9 @@ question_common = "Welche Partei hatten Sie bei der eidgenössischen Verhältnis
 variable_name = "voting_decision_past_federal_proportional_election_{i}_party"
 variable_label = "the party the respondent voted for in the past federal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') } { lubridate::year(ballot_date) - 4L }\""
 variable_label_common = "the party the respondent voted for in the past { salim::rank_nr(i) } federal proportional election 4 years ago"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% name.de.q %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% name.de.short %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, past = TRUE) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 who = "Teilnehmende vergangene eidgenössische Verhältniswahl"
 [[03_1_election_general.item]]
 topic = "Teilnahme vergangene kantonale Wahlen"
@@ -570,9 +570,9 @@ question_common = "Die letzten kantonalen Wahlen fanden vor vier Jahren statt. H
 variable_name = "participation_past_cantonal_elections"
 variable_label = "respondent's participation status at the past cantonal elections { lubridate::year(ballot_date) - 4L  }"
 variable_label_common = "respondent's participation status at the past cantonal elections 4 years ago"
-response_options = "{ c(q_response_options(type = 'abstain', lang = 'de', subtypes = 'past'), 'teilgenommen', q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ c(response_options(type = 'abstain', lang = 'de', subtypes = 'past'), 'teilgenommen', response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = [ 0, 1, 99 ]
-value_labels = "{ c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'past'), 'participated', q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ c(response_options(type = 'abstain', lang = 'en', subtypes = 'past'), 'participated', response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 value_scale = "binary"
 include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
 include.false = [ 2019-10-20 ]
@@ -584,9 +584,9 @@ question_common = "Welche Partei hatten Sie bei der kantonalen Verhältniswahl {
 variable_name = "voting_decision_past_cantonal_proportional_election_{i}_party"
 variable_label = "the party the respondent voted for in the past cantonal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') } { lubridate::year(ballot_date) - 4L }\""
 variable_label_common = "the party the respondent voted for in the past { salim::rank_nr(i) } cantonal proportional election 4 years ago"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% name.de.q %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% name.de.short %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, past = TRUE) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 who = "Teilnehmende vergangene kantonale Verhältniswahl"
 
 [03_1_election_general.z01_skill_questions]
@@ -601,9 +601,9 @@ question_common = "Wissensfrage {i} zu den eidgenössischen Wahlen"
 variable_name = "skill_question_{i}_federal"
 variable_label = "respondent's answer to the skill question \"{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i, lang = 'en') }\" about the federal political system ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'federal', skill_question_nr = i) %>% salim::rank_nr() } answer is correct)"
 variable_label_common = "respondent's answer to the { salim::rank_nr(i) } skill question about the federal political system"
-response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i) %$% de %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i) %$% de %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i) %$% en %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, skill_question_nr = i) %$% en %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[03_1_election_general.z01_skill_questions.item]]
 i = "{ seq_len(n_skill_questions(canton = canton, ballot_date = ballot_date, lvl = 'cantonal')) }"
 topic = "Wissensfrage {i} zur kantonalen Politik"
@@ -630,9 +630,9 @@ question_common = "Wissensfrage {i} zu den kantonalen Wahlen"
 variable_name = "skill_question_{i}_cantonal"
 variable_label = "respondent's answer to the skill question \"{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i, lang = 'en') }\" about the cantonal political system ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', skill_question_nr = i) %>% salim::rank_nr() } answer is correct)"
 variable_label_common = "respondent's answer to the { salim::rank_nr(i) } skill question about the cantonal political system"
-response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i) %$% de %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i) %$% de %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i) %$% en %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, skill_question_nr = i) %$% en %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 
 [03_1_election_general.z02_information_source]
 who = "Teilnehmende"
@@ -851,9 +851,9 @@ question_common = "Welche Partei haben Sie bei der eidgenössischen Verhältnisw
 variable_name = "voting_decision_federal_proportional_election_{i}_party"
 variable_label = "the party the respondent voted for in the federal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the party the respondent voted for in the { salim::rank_nr(i) } federal proportional election"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'proportional')), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'proportional')), ., response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'abstain'), ., q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), ., response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 [[03_2_election_specific.001_federal_proportional.item]]
 who = "teilnehmende Online-Respondenten"
@@ -862,9 +862,9 @@ question = "Für welche Liste dieser Partei haben Sie sich entschieden? Falls Si
 variable_name = "voting_decision_federal_proportional_election_{i}_ticket"
 variable_label = "the ticket the respondent opted for in the federal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the ticket the respondent opted for in the { salim::rank_nr(i) } federal proportional election"
-response_options = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'de', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(response_options(type = 'none', lang = 'de', subtypes = 'ticket'), ., response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% nr %>% seq_along() %>% c(q_response_option_codes(types = 'none'), ., q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'en', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_tickets(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(response_options(type = 'none', lang = 'en', subtypes = 'ticket'), ., response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 [[03_2_election_specific.001_federal_proportional.item]]
 topic = "Listenabänderung eidgenössische Verhältniswahl {i}"
@@ -914,9 +914,9 @@ question_common = "Von welchen anderen Parteien haben Sie KandidatInnen auf Ihre
 variable_name = "panached_parties_federal_proportional_election_{i}"
 variable_label = "the parties the respondent has panached, i.e. added from other tickets onto the ticket submitted in the federal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the parties the respondent has panached, i.e. added from other tickets onto the ticket submitted in the { salim::rank_nr(i) } federal proportional election"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.q %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 
 [[03_2_election_specific.002_federal_majoritarian.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'majoritarian')) }"
@@ -992,9 +992,9 @@ question_common = "Wen haben Sie bei der eidgenössischen Mehrheitswahl {i} gew�
 variable_name = "voting_decision_federal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent voted for in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent voted for in the { salim::rank_nr(i) } federal majoritarian election"
-response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% c(q_response_option_codes(types = 'abstain'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_option_codes(types = 'other'))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 
 [03_2_election_specific.003_cantonal_proportional]
@@ -1058,9 +1058,9 @@ question_common = "Welche Partei haben Sie bei der kantonalen Verhältniswahl {i
 variable_name = "voting_decision_cantonal_proportional_election_{i}_party"
 variable_label = "the party the respondent voted for in the cantonal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the party the respondent voted for in the { salim::rank_nr(i) } cantonal proportional election"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'proportional')), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'proportional')), ., response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'abstain'), ., q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), ., response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 [[03_2_election_specific.003_cantonal_proportional.item]]
 who = "teilnehmende Online-Respondenten"
@@ -1069,9 +1069,9 @@ question = "Für welche Liste dieser Partei haben Sie sich entschieden? Falls Si
 variable_name = "voting_decision_cantonal_proportional_election_{i}_ticket"
 variable_label = "the ticket the respondent opted for in the cantonal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the ticket the respondent opted for in the { salim::rank_nr(i) } cantonal proportional election"
-response_options = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'de', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(response_options(type = 'none', lang = 'de', subtypes = 'ticket'), ., response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% nr %>% seq_along() %>% c(q_response_option_codes(types = 'none'), ., q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(q_response_options(type = 'none', lang = 'en', subtypes = 'ticket'), ., q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_tickets(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% glue::glue('{ nr }: { name }') %>% c(response_options(type = 'none', lang = 'en', subtypes = 'ticket'), ., response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 include.default = false
 [[03_2_election_specific.003_cantonal_proportional.item]]
@@ -1122,9 +1122,9 @@ question_common = "Von welchen anderen Parteien haben Sie KandidatInnen auf Ihre
 variable_name = "panached_parties_cantonal_proportional_election_{i}"
 variable_label = "the parties the respondent has panached, i.e. added from other tickets onto the ticket submitted in the cantonal proportional election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the parties the respondent has panached, i.e. added from other tickets onto the ticket submitted in the { salim::rank_nr(i) } cantonal proportional election"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.q %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% code %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 
 [[03_2_election_specific.004_cantonal_majoritarian.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'majoritarian')) }"
@@ -1213,9 +1213,9 @@ question_common = "Wen haben Sie bei der kantonalen Mehrheitswahl {i} gewählt? 
 variable_name = "voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent voted for in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent voted for in the { salim::rank_nr(i) } cantonal majoritarian election"
-response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% c(q_response_option_codes(types = 'abstain'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_option_codes(types = 'other'))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., q_response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ election_candidate_string(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 
 [03_2_election_specific.005_decision_moment]
@@ -1355,9 +1355,9 @@ question_common = "Wie haben Sie bei der eidgenössischen Vorlage {i} abgestimmt
 variable_name = "voting_decision_federal_proposal_{i}"
 variable_label = "respondent's voting decision on the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's voting decision on the { salim::rank_nr(i) } federal proposal"
-response_options = "{ c(q_response_options(type = 'yes', lang = 'de', subtypes = 'main'), q_response_options(type = 'no', lang = 'de', subtypes = 'main'), q_response_options(type = 'abstain', lang = 'de', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ c(response_options(type = 'yes', lang = 'de', subtypes = 'main'), response_options(type = 'no', lang = 'de', subtypes = 'main'), response_options(type = 'abstain', lang = 'de', subtypes = 'main'), response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ c(q_response_option_codes(types = c('yes', 'no')), 3L, q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ c(q_response_options(type = 'yes', lang = 'en', subtypes = 'main'), q_response_options(type = 'no', lang = 'en', subtypes = 'main'), q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ c(response_options(type = 'yes', lang = 'en', subtypes = 'main'), response_options(type = 'no', lang = 'en', subtypes = 'main'), response_options(type = 'abstain', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 [[03_proposal_specific.001_decision.item]]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 topic = "Stimmentscheid kantonale Vorlage {i}"
@@ -1600,9 +1600,9 @@ question_common = "Wie haben Sie sich bei der kantonalen Vorlage {i} entschieden
 variable_name = "voting_decision_cantonal_proposal_{i}"
 variable_label = "respondent's voting decision on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's voting decision on the { salim::rank_nr(i) } cantonal proposal"
-response_options = "{ c(q_response_options(type = 'yes', lang = 'de', subtypes = 'main'), q_response_options(type = 'no', lang = 'de', subtypes = 'main'), q_response_options(type = 'abstain', lang = 'de', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ c(response_options(type = 'yes', lang = 'de', subtypes = 'main'), response_options(type = 'no', lang = 'de', subtypes = 'main'), response_options(type = 'abstain', lang = 'de', subtypes = 'main'), response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ c(q_response_option_codes(types = c('yes', 'no')), 3L, q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ c(q_response_options(type = 'yes', lang = 'en', subtypes = 'main'), q_response_options(type = 'no', lang = 'en', subtypes = 'main'), q_response_options(type = 'abstain', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ c(response_options(type = 'yes', lang = 'en', subtypes = 'main'), response_options(type = 'no', lang = 'en', subtypes = 'main'), response_options(type = 'abstain', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 
 [03_proposal_specific.002_all]
 who = "alle"
@@ -1958,9 +1958,9 @@ question_common = "Was war Ihre Hauptmotivation, der eidgenössischen Vorlage {i
 variable_name = "main_motive_federal_proposal_{i}_yes"
 variable_label = "respondent's main motivation to vote in favor of the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's main motivation to vote in favor of the { salim::rank_nr(i) } federal proposal"
-response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(q_response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), q_response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
+response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% code %>% c(q_response_option_codes(types = c('unspecific', 'custom'))) }"
-value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(q_response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), q_response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
 include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') > 0L }"
 [[03_proposal_specific.003_main_motive.001_federal.item]]
 topic = "Nein-Hauptmotiv eidgenössische Vorlage {i}"
@@ -1970,9 +1970,9 @@ question_common = "Was war Ihre Hauptmotivation, die eidgenössische Vorlage {i}
 variable_name = "main_motive_federal_proposal_{i}_no"
 variable_label = "respondent's main motivation to vote against the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's main motivation to vote against the { salim::rank_nr(i) } federal proposal"
-response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(q_response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), q_response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
+response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% code %>% c(q_response_option_codes(types = c('unspecific', 'custom'))) }"
-value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(q_response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), q_response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
 include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') > 0L }"
 
 [03_proposal_specific.003_main_motive.002_cantonal]
@@ -1989,9 +1989,9 @@ question_common = "Was war Ihre Hauptmotivation, der kantonalen Vorlage {i} zuzu
 variable_name = "main_motive_cantonal_proposal_{i}_yes"
 variable_label = "respondent's main motivation to vote in favor of the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's main motivation to vote in favor of the { salim::rank_nr(i) } cantonal proposal"
-response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(q_response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), q_response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
+response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% code %>% c(q_response_option_codes(types = c('unspecific', 'custom'))) }"
-value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(q_response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), q_response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
 include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') > 0L }"
 [[03_proposal_specific.003_main_motive.002_cantonal.item]]
 topic.default = "Nein-Hauptmotiv kantonale Vorlage {i}"
@@ -2003,9 +2003,9 @@ question_common = "Was war Ihre Hauptmotivation, die kantonale Vorlage {i} abzul
 variable_name = "main_motive_cantonal_proposal_{i}_no"
 variable_label = "respondent's main motivation to vote against the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's main motivation to vote against the { salim::rank_nr(i) } cantonal proposal"
-response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(q_response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), q_response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
+response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% code %>% c(q_response_option_codes(types = c('unspecific', 'custom'))) }"
-value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(q_response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), q_response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
 include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') > 0L }"
 
 [03_proposal_specific.004_participants]
@@ -2384,9 +2384,9 @@ question_common = "Wissensfrage {j} zur eidgenössischen Vorlage {i}"
 variable_name = "skill_question_{j}_federal_proposal_{i}"
 variable_label = "respondent's answer to the skill question \"{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'en') }\" about the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'federal', proposal_nr = i, skill_question_nr = j) %>% salim::rank_nr() } answer is correct)"
 variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill question about the { salim::rank_nr(i) } federal proposal"
-response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[03_proposal_specific.004_participants.z01_iterated.z02_skill_questions.item]]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 j = "{ seq_len(n_skill_questions(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', proposal_nr = i)) }"
@@ -2434,9 +2434,9 @@ question_common = "Wissensfrage {j} zur kantonalen Vorlage {i}"
 variable_name = "skill_question_{j}_cantonal_proposal_{i}"
 variable_label = "respondent's answer to the skill question \"{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'en') }\" about the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', proposal_nr = i, skill_question_nr = j) %>% salim::rank_nr() } answer is correct)"
 variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill question about the { salim::rank_nr(i) } cantonal proposal"
-response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j))) %>% c(q_response_option_codes(types = 'dunno')) }"
-value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [03_proposal_specific.004_participants.z02_information_source]
 # NOTE: non-proposal-specific information source items are defined under `03_1_election_general.z02_information_source`, information is just sourced from there
 lvl = "{ if (has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) 'cantonal' else 'federal' }"
@@ -2785,9 +2785,9 @@ topic.20180923 = "Parteisympathie[^no-party]"
 question = "Welche Partei steht Ihnen am nächsten?"
 variable_name = "favored_party"
 variable_label = "the political party the respondent feels closest to his/her own political stance"
-response_options = "{ c(q_parties(ballot_date = ballot_date) %$% de.short, q_response_options(type = 'custom', lang = 'de', subtypes = 'party'), q_response_options(type = 'none', lang = 'de', subtypes = 'plural'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ c(q_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ c(q_parties(ballot_date = ballot_date) %$% code, q_response_option_codes(types = c('custom', 'none', 'dunno'))) }"
-value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, q_response_options(type = 'custom', lang = 'en', subtypes = 'main'), q_response_options(type = 'none', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, response_options(type = 'custom', lang = 'en', subtypes = 'main'), response_options(type = 'none', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options.default = true
 randomize_response_options.20180923_20181125 = false
 [[04_political_general.item]]
@@ -4086,16 +4086,16 @@ topic = "Parteisympathie (erweitert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'favored_party', key = 'question') }"
 variable_name = "favored_party_extended"
 variable_label = "the political party (recoded extended set) the respondent feels closest to his/her own political stance"
-response_options = "{ c(q_parties(ballot_date = ballot_date) %$% de.short, 'andere', 'mehrere (links)', 'mehrere (mitte-rechts)', 'mehrere (beliebig)', q_response_options(type = 'none', lang = 'de', subtypes = 'plural'), q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
-value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, 'other', 'multiple (left)', 'multiple (center-right)', 'multiple (arbitrary)',  q_response_options(type = 'none', lang = 'en', subtypes = 'main'), q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+response_options = "{ c(q_parties(ballot_date = ballot_date) %$% de.short, 'andere', 'mehrere (links)', 'mehrere (mitte-rechts)', 'mehrere (beliebig)', response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+value_labels = "{ c(q_parties(ballot_date = ballot_date) %$% en.short, 'other', 'multiple (left)', 'multiple (center-right)', 'multiple (arbitrary)',  response_options(type = 'none', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', v_name = 'favored_party', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
 topic = "Wichtigstes politisches Problem (erweitert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '03_1_election_general', v_name = 'main_political_issue', key = 'question') }"
 variable_name = "main_political_issue_extended"
 variable_label = "issue in Swiss politics the respondent considers the most important one (choice of response options is based on the most recent [\"Credit Suisse Sorgenbarometer\"](https://de.wikipedia.org/wiki/Sorgenbarometer); recoded extended set)"
-response_options = "{ political_issues(ballot_date = ballot_date, lang = 'de') %>% c('COVID-19-Pandemie', 'sonstiges', q_response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
-value_labels = "{ political_issues(ballot_date = ballot_date, lang = 'en') %>% c('COVID-19 pandemic', 'other', q_response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+response_options = "{ political_issues(ballot_date = ballot_date, lang = 'de') %>% c('COVID-19-Pandemie', 'sonstiges', response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+value_labels = "{ political_issues(ballot_date = ballot_date, lang = 'en') %>% c('COVID-19 pandemic', 'other', response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options = true
 # NOTE: excluded by default since it is based on hand-curated recodings (result is hardly comparable across ballots)
 #include.default = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '03_1_election_general', v_name = 'main_political_issue', key = 'include') }"
@@ -4650,17 +4650,17 @@ description.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), we
 [who.filter.positive]
 de = """
 dplyr::filter(dplyr::if_all(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
-                            ~ .x %in% q_response_options(type = 'abstain', lang = 'de')))"""
+                            ~ .x %in% fokus::response_options(type = 'abstain', lang = 'de')))"""
 en = """
 dplyr::filter(dplyr::if_all(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
-                            ~ .x %in% q_response_options(type = 'abstain', lang = 'en')))"""
+                            ~ .x %in% fokus::response_options(type = 'abstain', lang = 'en')))"""
 [who.filter.negative]
 de = """
 dplyr::filter(dplyr::if_any(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
-                            ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de'))))"""
+                            ~ is.na(.x) | !(.x %in% fokus::response_options(type = 'abstain', lang = 'de'))))"""
 en = """
 dplyr::filter(dplyr::if_any(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
-                            ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en'))))"""
+                            ~ is.na(.x) | !(.x %in% fokus::response_options(type = 'abstain', lang = 'en'))))"""
 
 [[who]]
 value.de = "eidgenössisch und kantonal Teilnehmende"
@@ -4670,28 +4670,28 @@ description.de = "All jene Respondenten, welche sich sowohl an den _eidgenössis
 de = """
 dplyr::filter(participation == 'teilgenommen'
               & dplyr::if_any(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de')))
+                              ~ is.na(.x) | !(.x %in% fokus::response_options(type = 'abstain', lang = 'de')))
               & dplyr::if_any(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de'))))"""
+                              ~ is.na(.x) | !(.x %in% fokus::response_options(type = 'abstain', lang = 'de'))))"""
 en = """
 dplyr::filter(participation == 'participated'
               & dplyr::if_any(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en')))
+                              ~ is.na(.x) | !(.x %in% fokus::response_options(type = 'abstain', lang = 'en')))
               & dplyr::if_any(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en'))))"""
+                              ~ is.na(.x) | !(.x %in% fokus::response_options(type = 'abstain', lang = 'en'))))"""
 [who.filter.negative]
 de = """
 dplyr::filter(participation == 'nicht teilgenommen'
               | dplyr::if_all(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ .x %in% q_response_options(type = 'abstain', lang = 'de'))
+                              ~ .x %in% fokus::response_options(type = 'abstain', lang = 'de'))
               | dplyr::if_all(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ .x %in% q_response_options(type = 'abstain', lang = 'de')))"""
+                              ~ .x %in% fokus::response_options(type = 'abstain', lang = 'de')))"""
 en = """
 dplyr::filter(participation == 'nicht teilgenommen'
               | dplyr::if_all(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ .x %in% q_response_options(type = 'abstain', lang = 'en'))
+                              ~ .x %in% fokus::response_options(type = 'abstain', lang = 'en'))
               | dplyr::if_all(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
-                              ~ .x %in% q_response_options(type = 'abstain', lang = 'en')))"""
+                              ~ .x %in% fokus::response_options(type = 'abstain', lang = 'en')))"""
 
 [[who]]
 ballot_types = [ "election" ]

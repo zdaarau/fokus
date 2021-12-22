@@ -15,8 +15,7 @@ A tibble of ballot-date-specific political party metadata defined in the \link[=
 \seealso{
 Other questionnaire-internal functions:
 \code{\link{q_item_val}()},
-\code{\link{q_response_option_codes}()},
-\code{\link{q_response_options}()}
+\code{\link{q_response_option_codes}()}
 }
 \concept{q_internal}
 \keyword{internal}

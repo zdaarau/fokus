@@ -193,9 +193,6 @@
     <loc>https://rpkg.dev/fokus/reference/q_response_option_codes.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/q_response_options.html</loc>
-  </url>
-  <url>
     <loc>https://rpkg.dev/fokus/reference/qx.html</loc>
   </url>
   <url>
@@ -257,6 +254,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/requires_candidate_registration.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/response_options.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/restore_colnames.html</loc>

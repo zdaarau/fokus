@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{cantons}
 \alias{cantons}
-\title{Cantons covered by FOKUS survey}
+\title{Get cantons covered by FOKUS survey}
 \usage{
 cantons(ballot_date = all_ballot_dates)
 }

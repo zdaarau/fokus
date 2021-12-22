@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{q_response_option_codes}
 \alias{q_response_option_codes}
-\title{Extract response option codes}
+\title{Get response option codes}
 \usage{
 q_response_option_codes(types = all_response_option_types)
 }
@@ -40,8 +40,7 @@ fokus:::q_response_option_codes(types = c("dunno",
 \seealso{
 Other questionnaire-internal functions:
 \code{\link{q_item_val}()},
-\code{\link{q_parties}()},
-\code{\link{q_response_options}()}
+\code{\link{q_parties}()}
 }
 \concept{q_internal}
 \keyword{internal}

@@ -27,7 +27,6 @@ reference:
   - all_prcds
   - all_proposal_types
   - all_response_option_types
-  - q_item_keys
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata).
 - subtitle: Fundamental predicates
@@ -77,6 +76,7 @@ reference:
 - contents:
   - ballot_title
   - political_issues
+  - response_options
 - title: Questionnaire and survey
   desc: Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-data\]
     and other functions to conduct a survey.

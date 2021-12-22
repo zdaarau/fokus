@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract response options — q_response_options • fokus</title>
+<title>Get response options — response_options • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Extract response options — q_response_options" />
-<meta name="description" content="Extracts response options of the specified type and optionally subtype(s) from the raw FOKUS questionnaire data.">
-<meta property="og:description" content="Extracts response options of the specified type and optionally subtype(s) from the raw FOKUS questionnaire data." />
+<meta property="og:title" content="Get response options — response_options" />
+<meta name="description" content="Returns response options of the specified type and optionally subtype(s) from the raw FOKUS questionnaire data.">
+<meta property="og:description" content="Returns response options of the specified type and optionally subtype(s) from the raw FOKUS questionnaire data." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,16 +125,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract response options</h1>
+    <h1>Get response options</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>q_response_options.Rd</code></div>
+    <div class="hidden name"><code>response_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extracts response options of the specified type and optionally subtype(s) from the <a href='raw_q.html'>raw FOKUS questionnaire data</a>.</p>
+    <p>Returns response options of the specified type and optionally subtype(s) from the <a href='raw_q.html'>raw FOKUS questionnaire data</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>q_response_options</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>response_options</span><span class='op'>(</span>
   type <span class='op'>=</span> <span class='va'>all_response_option_types</span>,
   lang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"de"</span>, <span class='st'>"en"</span><span class='op'>)</span>,
   subtypes <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -179,28 +179,27 @@
 <code>data-raw/questionnaire/questionnaire.toml</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other questionnaire-internal functions:
-<code><a href='q_item_val.html'>q_item_val</a>()</code>,
-<code><a href='q_parties.html'>q_parties</a>()</code>,
-<code><a href='q_response_option_codes.html'>q_response_option_codes</a>()</code></p></div>
+    <div class='dont-index'><p>Other predicate functions:
+<code><a href='ballot_title.html'>ballot_title</a>()</code>,
+<code><a href='political_issues.html'>political_issues</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_response_options</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"abstain"</span>,</span>
-<span class='r-in'>                           lang <span class='op'>=</span> <span class='st'>"de"</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>response_options</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"abstain"</span>,</span>
+<span class='r-in'>                         lang <span class='op'>=</span> <span class='st'>"de"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "niemanden (leer eingelegt oder nicht teilgenommen)"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "keine (leer eingelegt oder nicht teilgenommen)"    </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "leer eingelegt/nicht abgestimmt"                   </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [4] "nicht teilgenommen oder leer eingelegt"            </span>
 <span class='r-in'></span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_response_options</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"abstain"</span>,</span>
-<span class='r-in'>                           lang <span class='op'>=</span> <span class='st'>"de"</span>,</span>
-<span class='r-in'>                           subtypes <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>response_options</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"abstain"</span>,</span>
+<span class='r-in'>                         lang <span class='op'>=</span> <span class='st'>"de"</span>,</span>
+<span class='r-in'>                         subtypes <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "niemanden (leer eingelegt oder nicht teilgenommen)"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "keine (leer eingelegt oder nicht teilgenommen)"    </span>
 <span class='r-in'></span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>q_response_options</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"abstain"</span>,</span>
-<span class='r-in'>                           lang <span class='op'>=</span> <span class='st'>"de"</span>,</span>
-<span class='r-in'>                           subtypes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"election"</span>, <span class='st'>"proportional"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>response_options</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"abstain"</span>,</span>
+<span class='r-in'>                         lang <span class='op'>=</span> <span class='st'>"de"</span>,</span>
+<span class='r-in'>                         subtypes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"election"</span>, <span class='st'>"proportional"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "keine (leer eingelegt oder nicht teilgenommen)"</span>
 </pre>
   </div>
