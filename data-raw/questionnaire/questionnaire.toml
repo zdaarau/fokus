@@ -4612,11 +4612,25 @@ value.de = "qualifizierte Nicht-Teilnehmende"
 value.en = "qualified non-voters"
 description.de = "All jene Nicht-Teilnehmende (`participation = 2`), welche sich aufgrund der Antworten zu den Fragen bezüglich der Gründe der Nicht-Teilnahme für eine hypothetische Teilnahme nicht völlig disqualifizieren (`any(reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance) = 1`)."
 [who.filter.positive]
-de = "dplyr::filter(participation == 'nicht teilgenommen') %>% dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$')), .vars_predicate = dplyr::any_vars(. == 'trifft zu'))"
-en = "dplyr::filter(participation == 'not participated') %>% dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$')), .vars_predicate = dplyr::any_vars(. == 'is true'))"
+de = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              & dplyr::if_any(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
+                              .x == 'trifft zu'))"""
+en = """
+dplyr::filter(participation == 'not participated'
+              & dplyr::if_any(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
+                              .x == 'is true'))"""
 [who.filter.negative]
-de = "dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$')), .vars_predicate = dplyr::all_vars(. %in% c('trifft nicht zu', NA))) %>% dplyr::full_join(y = data_fa %>% dplyr::filter(participation == 'teilgenommen'), by = colnames(.))"
-en = "dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$')), .vars_predicate = dplyr::all_vars(. %in% c('is not true', NA))) %>% dplyr::full_join(y = data_fa %>% dplyr::filter(participation == 'participated'), by = colnames(.))"
+de = """
+dplyr::filter(dplyr::if_all(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
+                            ~ .x %in% c('trifft nicht zu', NA))) %>%
+  dplyr::full_join(y = data_fa %>% dplyr::filter(participation == 'teilgenommen'),
+                   by = colnames(.))"""
+en = """
+dplyr::filter(dplyr::if_all(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
+                            ~ .x %in% c('is not true', NA))) %>%
+  dplyr::full_join(y = data_fa %>% dplyr::filter(participation == 'participated'),
+                   by = colnames(.))"""
 
 [[who]]
 value.de = "teilnehmende Online-Respondenten"
@@ -4634,22 +4648,50 @@ value.de = "kantonal nicht-teilnehmende Online-Respondenten"
 value.en = "cantonal non-participating online respondents"
 description.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche die Frage zur Teilnahme (`participation`) mit _teilgenommen_ (`1`) beantwortet haben, sich jedoch an keiner _kantonalen_ Abstimmung/Wahl beteiligten (`all(voting_decision_cantonal_proposal/*_election_# = 3/88)`)."
 [who.filter.positive]
-de = "dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$')), .vars_predicate = dplyr::all_vars(. %in% q_response_options(type = 'abstain', lang = 'de')))"
-en = "dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$')), .vars_predicate = dplyr::all_vars(. %in% q_response_options(type = 'abstain', lang = 'en')))"
+de = """
+dplyr::filter(dplyr::if_all(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
+                            ~ .x %in% q_response_options(type = 'abstain', lang = 'de')))"""
+en = """
+dplyr::filter(dplyr::if_all(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
+                            ~ .x %in% q_response_options(type = 'abstain', lang = 'en')))"""
 [who.filter.negative]
-de = "dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$')), .vars_predicate = dplyr::any_vars(is.na(.) | !(. %in% q_response_options(type = 'abstain', lang = 'de'))))"
-en = "dplyr::filter_at(.vars = dplyr::vars(tidyselect::matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$')), .vars_predicate = dplyr::any_vars(is.na(.) | !(. %in% q_response_options(type = 'abstain', lang = 'en'))))"
+de = """
+dplyr::filter(dplyr::if_any(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
+                            ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de'))))"""
+en = """
+dplyr::filter(dplyr::if_any(matches('^voting_decision_cantonal_((proposal|proportional_election)|majoritarian_election_\\\\d+_seat)_\\\\d+$'),
+                            ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en'))))"""
 
 [[who]]
 value.de = "eidgenössisch und kantonal Teilnehmende"
 value.en = "federal and cantonal participants"
 description.de = "All jene Respondenten, welche sich sowohl an den _eidgenössischen_ wie auch den _kantonalen_ Abstimmungen/Wahlen beteiligten (`participation = 1 & any(voting_decision_federal_proposal/*_election_# != 3/88) & any(voting_decision_cantonal_proposal/*_election_# != 3/88)`)."
 [who.filter.positive]
-de = "dplyr::filter(participation == 'teilgenommen' & dplyr::if_any(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de')))) & dplyr::if_any(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de')))))"
-en = "dplyr::filter(participation == 'participated' & dplyr::if_any(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en')))) & dplyr::if_any(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en')))))"
+de = """
+dplyr::filter(participation == 'teilgenommen'
+              & dplyr::if_any(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de')))
+              & dplyr::if_any(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'de'))))"""
+en = """
+dplyr::filter(participation == 'participated'
+              & dplyr::if_any(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en')))
+              & dplyr::if_any(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ is.na(.x) | !(.x %in% q_response_options(type = 'abstain', lang = 'en'))))"""
 [who.filter.negative]
-de = "dplyr::filter(participation == 'nicht teilgenommen' | dplyr::if_all(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ .x %in% q_response_options(type = 'abstain', lang = 'de'))) | dplyr::if_all(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ .x %in% q_response_options(type = 'abstain', lang = 'de'))))"
-en = "dplyr::filter(participation == 'nicht teilgenommen' | dplyr::if_all(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ .x %in% q_response_options(type = 'abstain', lang = 'en'))) | dplyr::if_all(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'), ~ .x %in% q_response_options(type = 'abstain', lang = 'en'))))"
+de = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              | dplyr::if_all(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ .x %in% q_response_options(type = 'abstain', lang = 'de'))
+              | dplyr::if_all(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ .x %in% q_response_options(type = 'abstain', lang = 'de')))"""
+en = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              | dplyr::if_all(matches('^voting_decision_federal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ .x %in% q_response_options(type = 'abstain', lang = 'en'))
+              | dplyr::if_all(matches('^voting_decision_cantonal_(proposal_\\\\d+|(proportional|majoritarian)_election_\\\\d+_(party|ticket|seat_\\\\d+))$'),
+                              ~ .x %in% q_response_options(type = 'abstain', lang = 'en')))"""
 
 [[who]]
 ballot_types = [ "election" ]
@@ -4797,11 +4839,21 @@ value.de = "Listenabändernde eidgenössische Verhältniswahl {i}"
 value.en = "ticket modifiers in federal proportional election {i}"
 description.de = "All jene Teilnehmende (`participation = 1`), welche die Frage zur Listenabänderung bei der eidgenössischen Verhältniswahl {i} (`ticket_modification_federal_proportional_election_{i}`) mit _bestehende Liste verändert oder eigene Liste zusammengestellt_ (`2`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(participation == 'teilgenommen' & ticket_modification_federal_proportional_election_{i} == 'bestehende Liste verändert oder eigene Liste zusammengestellt')"
-en = "dplyr::filter(participation == 'participated' & ticket_modification_federal_proportional_election_{i} == 'modified existing or compiled custom ticket')"
+de = """
+dplyr::filter(participation == 'teilgenommen'
+              & ticket_modification_federal_proportional_election_{i} == 'bestehende Liste verändert oder eigene Liste zusammengestellt')"""
+en = """
+dplyr::filter(participation == 'participated'
+              & ticket_modification_federal_proportional_election_{i} == 'modified existing or compiled custom ticket')"""
 [who.filter.negative]
-de = "dplyr::filter(participation == 'nicht teilgenommen' | (participation == 'teilgenommen' & ticket_modification_federal_proportional_election_{i} %in% c('unveränderte Liste', NA)))"
-en = "dplyr::filter(participation == 'not participated' | (participation == 'participated' & ticket_modification_federal_proportional_election_{i} %in% c('unmodified ticket', NA)))"
+de = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              | (participation == 'teilgenommen'
+                 & ticket_modification_federal_proportional_election_{i} %in% c('unveränderte Liste', NA)))"""
+en = """
+dplyr::filter(participation == 'not participated'
+              | (participation == 'participated'
+                 & ticket_modification_federal_proportional_election_{i} %in% c('unmodified ticket', NA)))"""
 
 [[who]]
 ballot_types = [ "election" ]
@@ -4810,11 +4862,21 @@ value.de = "Listenabändernde kantonale Verhältniswahl {i}"
 value.en = "ticket modifiers in cantonal proportional election {i}"
 description.de = "All jene Teilnehmende (`participation = 1`), welche die Frage zur Listenabänderung bei der kantonalen Verhältniswahl {i} (`ticket_modification_cantonal_proportional_election_{i}`) mit _bestehende Liste verändert oder eigene Liste zusammengestellt_ (`2`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(participation == 'teilgenommen' & ticket_modification_cantonal_proportional_election_{i} == 'bestehende Liste verändert oder eigene Liste zusammengestellt')"
-en = "dplyr::filter(participation == 'participated' & ticket_modification_cantonal_proportional_election_{i} == 'modified existing or compiled custom ticket')"
+de = """
+dplyr::filter(participation == 'teilgenommen'
+              & ticket_modification_cantonal_proportional_election_{i} == 'bestehende Liste verändert oder eigene Liste zusammengestellt')"""
+en = """
+dplyr::filter(participation == 'participated'
+              & ticket_modification_cantonal_proportional_election_{i} == 'modified existing or compiled custom ticket')"""
 [who.filter.negative]
-de = "dplyr::filter(participation == 'nicht teilgenommen' | (participation == 'teilgenommen' & ticket_modification_cantonal_proportional_election_{i} %in% c('unveränderte Liste', NA)))"
-en = "dplyr::filter(participation == 'not participated' | (participation == 'participated' & ticket_modification_cantonal_proportional_election_{i} %in% c('unmodified ticket', NA)))"
+de = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              | (participation == 'teilgenommen'
+                 & ticket_modification_cantonal_proportional_election_{i} %in% c('unveränderte Liste', NA)))"""
+en = """
+dplyr::filter(participation == 'not participated'
+              | (participation == 'participated'
+                 & ticket_modification_cantonal_proportional_election_{i} %in% c('unmodified ticket', NA)))"""
 
 [[who]]
 ballot_types = [ "election" ]
@@ -4823,11 +4885,29 @@ value.de = "Panaschierende eidgenössische Verhältniswahl {i}"
 value.en = "panachers in federal proportional election {i}"
 description.de = "All jene Listenabändernde bei der eidgenössischen Verhältniswahl {i} (`participation = 1 & ticket_modification_federal_proportional_election_{i} = 2`), welche die Frage zum Panaschieren (`ticket_modification_federal_proportional_election_{i}_panached`) mit _trifft zu_ (`1`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(participation == 'teilgenommen' & ticket_modification_federal_proportional_election_{i} == 'Liste verändert' & ticket_modification_federal_proportional_election_{i}_panached == 'trifft zu')"
-en = "dplyr::filter(participation == 'participated' & ticket_modification_federal_proportional_election_{i} == 'modified ticket' & ticket_modification_federal_proportional_election_{i}_panached == 'is true')"
+de = """
+dplyr::filter(participation == 'teilgenommen'
+              & ticket_modification_federal_proportional_election_{i} == 'Liste verändert'
+              & ticket_modification_federal_proportional_election_{i}_panached == 'trifft zu')"""
+en = """
+dplyr::filter(participation == 'participated'
+              & ticket_modification_federal_proportional_election_{i} == 'modified ticket'
+              & ticket_modification_federal_proportional_election_{i}_panached == 'is true')"""
 [who.filter.negative]
-de = "dplyr::filter(participation == 'nicht teilgenommen' | (participation == 'teilgenommen' & ticket_modification_federal_proportional_election_{i} %in% c('unveränderte Liste', NA)) | (participation == 'teilgenommen' & ticket_modification_federal_proportional_election_{i} == 'Liste verändert' & ticket_modification_federal_proportional_election_{i}_panached %in% c('trifft nicht zu', NA)))"
-en = "dplyr::filter(participation == 'not participated' | (participation == 'participated' & ticket_modification_federal_proportional_election_{i} %in% c('unveränderte Liste', NA)) | (participation == 'participated' & ticket_modification_federal_proportional_election_{i} == 'modified ticket' & ticket_modification_federal_proportional_election_{i}_panached %in% c('is not true', NA)))"
+de = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              | (participation == 'teilgenommen'
+                 & ticket_modification_federal_proportional_election_{i} %in% c('unveränderte Liste', NA))
+              | (participation == 'teilgenommen'
+                 & ticket_modification_federal_proportional_election_{i} == 'Liste verändert'
+                 & ticket_modification_federal_proportional_election_{i}_panached %in% c('trifft nicht zu', NA)))"""
+en = """
+dplyr::filter(participation == 'not participated'
+              | (participation == 'participated'
+                 & ticket_modification_federal_proportional_election_{i} %in% c('unmodified ticket', NA))
+              | (participation == 'participated'
+                 & ticket_modification_federal_proportional_election_{i} == 'modified ticket'
+                 & ticket_modification_federal_proportional_election_{i}_panached %in% c('is not true', NA)))"""
 
 [[who]]
 ballot_types = [ "election" ]
@@ -4836,11 +4916,29 @@ value.de = "Panaschierende kantonale Verhältniswahl {i}"
 value.en = "panachers in cantonal proportional election {i}"
 description.de = "All jene Listenabändernde bei der kantonalen Verhältniswahl {i} (`participation = 1 & ticket_modification_cantonal_proportional_election_{i} = 2`), welche die Frage zum Panaschieren (`ticket_modification_cantonal_proportional_election_{i}_panached`) mit _trifft zu_ (`1`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(participation == 'teilgenommen' & ticket_modification_cantonal_proportional_election_{i} == 'Liste verändert' & ticket_modification_cantonal_proportional_election_{i}_panached == 'trifft zu')"
-en = "dplyr::filter(participation == 'participated' & ticket_modification_cantonal_proportional_election_{i} == 'modified ticket' & ticket_modification_cantonal_proportional_election_{i}_panached == 'is true')"
+de = """
+dplyr::filter(participation == 'teilgenommen'
+              & ticket_modification_cantonal_proportional_election_{i} == 'Liste verändert'
+              & ticket_modification_cantonal_proportional_election_{i}_panached == 'trifft zu')"""
+en = """
+dplyr::filter(participation == 'participated'
+              & ticket_modification_cantonal_proportional_election_{i} == 'modified ticket'
+              & ticket_modification_cantonal_proportional_election_{i}_panached == 'is true')"""
 [who.filter.negative]
-de = "dplyr::filter(participation == 'nicht teilgenommen' | (participation == 'teilgenommen' & ticket_modification_cantonal_proportional_election_{i} %in% c('unveränderte Liste', NA)) | (participation == 'teilgenommen' & ticket_modification_cantonal_proportional_election_{i} == 'Liste verändert' & ticket_modification_cantonal_proportional_election_{i}_panached %in% c('trifft nicht zu', NA)))"
-en = "dplyr::filter(participation == 'not participated' | (participation == 'participated' & ticket_modification_cantonal_proportional_election_{i} %in% c('unveränderte Liste', NA)) | (participation == 'participated' & ticket_modification_cantonal_proportional_election_{i} == 'modified ticket' & ticket_modification_cantonal_proportional_election_{i}_panached %in% c('is not true', NA)))"
+de = """
+dplyr::filter(participation == 'nicht teilgenommen'
+              | (participation == 'teilgenommen'
+                 & ticket_modification_cantonal_proportional_election_{i} %in% c('unveränderte Liste', NA))
+              | (participation == 'teilgenommen'
+                 & ticket_modification_cantonal_proportional_election_{i} == 'Liste verändert'
+                 & ticket_modification_cantonal_proportional_election_{i}_panached %in% c('trifft nicht zu', NA)))"""
+en = """
+dplyr::filter(participation == 'not participated'
+              | (participation == 'participated'
+                 & ticket_modification_cantonal_proportional_election_{i} %in% c('unmodified ticket', NA))
+              | (participation == 'participated'
+                 & ticket_modification_cantonal_proportional_election_{i} == 'modified ticket'
+                 & ticket_modification_cantonal_proportional_election_{i}_panached %in% c('is not true', NA)))"""
 
 [[who]]
 value.de = "Klimaneutrale"
