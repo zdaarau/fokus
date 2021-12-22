@@ -31,6 +31,9 @@ reference:
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata).
 - subtitle: Fundamental predicates
+  desc: |-
+    Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](https://rpkg.dev/fokus/reference/raw_q.html) (they do still fail in
+    case of completely missing questionnaire data for the specified canton and ballot date).
 - contents:
   - cantons
   - ballot_types
@@ -50,16 +53,16 @@ reference:
   - proposal_name
   - proposal_name_gender
   - proposal_arguments
+  - n_proposal_arguments
   - proposal_main_motives
   - n_proposal_main_motives
-  - n_proposal_arguments
 - subtitle: Election predicates
 - contents:
-  - n_election_candidates
-  - n_election_seats
   - election_name
   - election_names_combined
+  - n_election_seats
   - election_candidates
+  - n_election_candidates
   - election_candidate_string
   - election_parties
   - election_tickets

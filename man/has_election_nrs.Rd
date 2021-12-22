@@ -44,7 +44,7 @@ has_election_nrs(
 specified parameters.}
 }
 \value{
-A logical vector of the length of the number of elections present matchingfor the specified parameters (\code{lvls} × \code{prcds} × \code{election_nrs}).
+A logical vector of the same length as the number of elections present matching the specified parameters (\code{lvls} × \code{prcds} × \code{election_nrs}).
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified

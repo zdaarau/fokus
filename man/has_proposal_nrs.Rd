@@ -37,7 +37,7 @@ has_proposal_nrs(
 specified parameters.}
 }
 \value{
-A logical vector of the length of the number of proposals present matching the specified parameters (\code{lvls} × \code{proposal_nrs}).
+A logical vector of the same length as the number of proposals present matching the specified parameters (\code{lvls} × \code{proposal_nrs}).
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified

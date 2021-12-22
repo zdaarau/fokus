@@ -2812,7 +2812,7 @@ has_lvl <- function(ballot_date = all_ballot_dates,
 #' @param proposal_nrs Proposals number(s) to check. An integerish vector. If `NULL`, falls back to the [number of proposals][n_proposals] present matching the
 #'   specified parameters.
 #'
-#' @return A logical vector of the length of the number of proposals present matching the specified parameters (`lvls` × `proposal_nrs`).
+#' @return A logical vector of the same length as the number of proposals present matching the specified parameters (`lvls` × `proposal_nrs`).
 #' @family predicate_fundamental
 #' @export
 #'
@@ -2864,7 +2864,7 @@ has_proposal_nrs <- function(ballot_date = all_ballot_dates,
 #' @param election_nrs Election number(s) to check. An integerish vector. If `NULL`, falls back to the [number of elections][n_elections] present matching the
 #'   specified parameters.
 #'
-#' @return A logical vector of the length of the number of elections present matchingfor the specified parameters (`lvls` × `prcds` × `election_nrs`).
+#' @return A logical vector of the same length as the number of elections present matching the specified parameters (`lvls` × `prcds` × `election_nrs`).
 #' @family predicate_fundamental
 #' @export
 #'
@@ -3112,6 +3112,34 @@ proposal_arguments <- function(ballot_date = all_ballot_dates,
     purrr::map_dfr(tibble::as_tibble)
 }
 
+#' Get proposal's number of arguments
+#'
+#' Determines the number of arguments on the specified proposal.
+#'
+#' @inheritParams proposal_main_motives
+#'
+#' @return An integer scalar.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::n_proposal_arguments(ballot_date = "2018-09-23",
+#'                             lvl = "cantonal",
+#'                             canton = "aargau",
+#'                             proposal_nr = 1)
+n_proposal_arguments <- function(ballot_date = all_ballot_dates,
+                                 lvl = all_lvls,
+                                 canton = cantons(ballot_date),
+                                 proposal_nr = 1L) {
+
+  raw_q_suppl_proposal(ballot_date = ballot_date,
+                       lvl = lvl,
+                       canton = canton,
+                       proposal_nr = proposal_nr) %>%
+    purrr::pluck("argument") %>%
+    length()
+}
+
 #' Get proposal's main motives
 #'
 #' Returns text and code number of all main motives on the specified proposal.
@@ -3178,96 +3206,6 @@ n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
     purrr::pluck("main_motive") %>%
     purrr::pluck(type) %>%
     length()
-}
-
-#' Get proposal's number of arguments
-#'
-#' Determines the number of arguments on the specified proposal.
-#'
-#' @inheritParams proposal_main_motives
-#'
-#' @return An integer scalar.
-#' @family predicate_proposal
-#' @export
-#'
-#' @examples
-#' fokus::n_proposal_arguments(ballot_date = "2018-09-23",
-#'                             lvl = "cantonal",
-#'                             canton = "aargau",
-#'                             proposal_nr = 1)
-n_proposal_arguments <- function(ballot_date = all_ballot_dates,
-                                 lvl = all_lvls,
-                                 canton = cantons(ballot_date),
-                                 proposal_nr = 1L) {
-
-  raw_q_suppl_proposal(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       proposal_nr = proposal_nr) %>%
-    purrr::pluck("argument") %>%
-    length()
-}
-
-#' Get number of (officially registered) majoritarian election candidates
-#'
-#' Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
-#'
-#' @inheritParams election_name
-#'
-#' @return An integer scalar.
-#' @family predicate_election
-#' @export
-#'
-#' @examples
-#' fokus::n_election_candidates(ballot_date = "2019-10-20",
-#'                              lvl = "cantonal",
-#'                              canton = "aargau")
-n_election_candidates <- function(ballot_date = all_ballot_dates,
-                                  lvl = all_lvls,
-                                  canton = cantons(ballot_date),
-                                  election_nr = 1L) {
-
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "majoritarian",
-                       election_nr = election_nr) %>%
-    purrr::chuck("candidate") %>%
-    length()
-}
-
-#' Get number of majoritarian election seats
-#'
-#' Determines the number of election seats of the specified type for the specified majoritarian election.
-#'
-#' @inheritParams election_name
-#' @param type Seat type. One of
-#'  - `"vacant"`
-#'  - `"total"`
-#'
-#' @return An integer scalar.
-#' @family predicate_election
-#' @export
-#'
-#' @examples
-#' fokus::n_election_seats(ballot_date = "2019-10-20",
-#'                         lvl = "cantonal",
-#'                         canton = "aargau",
-#'                         type = "total")
-n_election_seats <- function(ballot_date = all_ballot_dates,
-                             lvl = all_lvls,
-                             canton = cantons(ballot_date),
-                             election_nr = 1L,
-                             type = c("vacant", "total")) {
-
-  type <- rlang::arg_match(type)
-
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "majoritarian",
-                       election_nr = election_nr) %>%
-    purrr::chuck("n_seats", type)
 }
 
 #' Get election name
@@ -3366,6 +3304,40 @@ election_names_combined <- function(ballot_date = all_ballot_dates,
                                     "en" = " as well as "))
 }
 
+#' Get number of majoritarian election seats
+#'
+#' Determines the number of election seats of the specified type for the specified majoritarian election.
+#'
+#' @inheritParams election_name
+#' @param type Seat type. One of
+#'  - `"vacant"`
+#'  - `"total"`
+#'
+#' @return An integer scalar.
+#' @family predicate_election
+#' @export
+#'
+#' @examples
+#' fokus::n_election_seats(ballot_date = "2019-10-20",
+#'                         lvl = "cantonal",
+#'                         canton = "aargau",
+#'                         type = "total")
+n_election_seats <- function(ballot_date = all_ballot_dates,
+                             lvl = all_lvls,
+                             canton = cantons(ballot_date),
+                             election_nr = 1L,
+                             type = c("vacant", "total")) {
+
+  type <- rlang::arg_match(type)
+
+  raw_q_suppl_election(ballot_date = ballot_date,
+                       lvl = lvl,
+                       canton = canton,
+                       prcd = "majoritarian",
+                       election_nr = election_nr) %>%
+    purrr::chuck("n_seats", type)
+}
+
 #' Get majoritarian election's candidates
 #'
 #' Returns the name and party of all candidates running for the specified majoritarian election.
@@ -3392,6 +3364,34 @@ election_candidates <- function(ballot_date = all_ballot_dates,
                        election_nr = election_nr) %>%
     purrr::chuck("candidate") %>%
     purrr::map_dfr(tibble::as_tibble)
+}
+
+#' Get number of (officially registered) majoritarian election candidates
+#'
+#' Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
+#'
+#' @inheritParams election_name
+#'
+#' @return An integer scalar.
+#' @family predicate_election
+#' @export
+#'
+#' @examples
+#' fokus::n_election_candidates(ballot_date = "2019-10-20",
+#'                              lvl = "cantonal",
+#'                              canton = "aargau")
+n_election_candidates <- function(ballot_date = all_ballot_dates,
+                                  lvl = all_lvls,
+                                  canton = cantons(ballot_date),
+                                  election_nr = 1L) {
+
+  raw_q_suppl_election(ballot_date = ballot_date,
+                       lvl = lvl,
+                       canton = canton,
+                       prcd = "majoritarian",
+                       election_nr = election_nr) %>%
+    purrr::chuck("candidate") %>%
+    length()
 }
 
 #' Assemble majoritarian election's candidate string(s)

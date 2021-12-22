@@ -209,7 +209,7 @@
       <tr>
         <th colspan="2">
           <h3 id="section-fundamental-predicates" class="hasAnchor"><a href="#section-fundamental-predicates" class="anchor"></a>Fundamental predicates</h3>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>Fundamental predicate functions never fail in case of incomplete <a href="https://rpkg.dev/fokus/reference/raw_q.html">raw questionnaire data</a> (they do still fail in case of completely missing questionnaire data for the specified canton and ballot date).</p></p>
         </th>
       </tr>
       
@@ -328,6 +328,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="n_proposal_arguments.html">n_proposal_arguments()</a></code> </p>
+        </td>
+        <td><p>Get proposal's number of arguments</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="proposal_main_motives.html">proposal_main_motives()</a></code> </p>
         </td>
         <td><p>Get proposal's main motives</p></td>
@@ -337,12 +343,6 @@
           <p><code><a href="n_proposal_main_motives.html">n_proposal_main_motives()</a></code> </p>
         </td>
         <td><p>Get proposal's number of main motives</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="n_proposal_arguments.html">n_proposal_arguments()</a></code> </p>
-        </td>
-        <td><p>Get proposal's number of arguments</p></td>
       </tr>
     </tbody><tbody>
       
@@ -359,18 +359,6 @@
       <tr>
         
         <td>
-          <p><code><a href="n_election_candidates.html">n_election_candidates()</a></code> </p>
-        </td>
-        <td><p>Get number of (officially registered) majoritarian election candidates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="n_election_seats.html">n_election_seats()</a></code> </p>
-        </td>
-        <td><p>Get number of majoritarian election seats</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="election_name.html">election_name()</a></code> </p>
         </td>
         <td><p>Get election name</p></td>
@@ -383,9 +371,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="n_election_seats.html">n_election_seats()</a></code> </p>
+        </td>
+        <td><p>Get number of majoritarian election seats</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="election_candidates.html">election_candidates()</a></code> </p>
         </td>
         <td><p>Get majoritarian election's candidates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="n_election_candidates.html">n_election_candidates()</a></code> </p>
+        </td>
+        <td><p>Get number of (officially registered) majoritarian election candidates</p></td>
       </tr><tr>
         
         <td>
