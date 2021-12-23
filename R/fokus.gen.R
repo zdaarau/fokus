@@ -27,7 +27,7 @@ utils::globalVariables(names = c(".",
                                  "where",
                                  # other
                                  "alignment",
-                                 "allowed",
+                                 "allowed_at",
                                  "block",
                                  "date_begin",
                                  "date_end",
@@ -4406,7 +4406,7 @@ shorten_v_names <- function(v_names,
 
   rules %<>% dplyr::mutate(pattern = purrr::map2_chr(
     .x = string,
-    .y = allowed,
+    .y = allowed_at,
     .f = ~ .y %>% purrr::when(. == "begin" ~
                                 paste0("^", .x, "(?=_)"),
                               . == "middle" ~
@@ -4421,7 +4421,7 @@ shorten_v_names <- function(v_names,
                                 paste0("(?<=_)", .x, "(?=(_|$))"),
                               . == "begin-middle-end" ~
                                 paste0("(?<=(^|_))", .x, "(?=(_|$))"),
-                              ~ cli::cli_abort("Unknown {.var allowed} type: {.val {.}}."))
+                              ~ cli::cli_abort("Unknown {.var allowed_at} type: {.val {.}}."))
   ))
 
   pattern_replacement <- rules$replacement

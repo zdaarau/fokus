@@ -10,7 +10,7 @@ test_that("`shortening_rules` are non-overlapping", {
                         dplyr::filter(dplyr::row_number() > ..1
                                       & stringr::str_detect(string = string,
                                                             pattern = glue::glue("(^|_)\\Q{..2}\\E(_|$)"))
-                                      & stringr::str_detect(string = allowed,
+                                      & stringr::str_detect(string = allowed_at,
                                                             pattern = ..4)) %>%
                         nrow() %>%
                         magrittr::equals(0L)) %>%
@@ -25,7 +25,7 @@ test_that("`shortening_rules` are non-overlapping", {
                         dplyr::filter(dplyr::row_number() > ..1
                                       & stringr::str_detect(string = replacement,
                                                             pattern = glue::glue("(^|_)\\Q{..3}\\E(_|$)"))
-                                      & stringr::str_detect(string = allowed,
+                                      & stringr::str_detect(string = allowed_at,
                                                             pattern = ..4)) %>%
                         nrow() %>%
                         magrittr::equals(0L)) %>%
