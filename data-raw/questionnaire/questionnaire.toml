@@ -251,13 +251,12 @@ variable_name = "political_interest_cantonal"
 variable_label = "respondent's interest in politics in the canton of { stringr::str_to_sentence(canton) }"
 variable_label_common = "respondent's interest in cantonal politics"
 include.default = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
-include.false = [ 2019-10-20 ]
+include.false = [ 2019-10-20, 2020-10-18 ]
 [[02_political_start.001_general.001_political_interest.item]]
 topic = "Politisches Interesse Schweiz"
 question = "Wie interessiert sind Sie im Allgemeinen an der Schweizer Politik? Ich bin …"
 variable_name = "political_interest"
 variable_label = "respondent's interest in Swiss politics"
-include.default = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[02_political_start.001_general.002_other.item]]
 topic = "Teilnahme"
@@ -2953,14 +2952,20 @@ question = "Wie lange sollte die Amtsperiode der Mitglieder des Bundesgerichts d
 variable_name = "attitude_term_of_office_federal_judges"
 variable_label = "respondent's preferred term of office for federal judges"
 response_options = [
-  "Sechsjährige Amtsperiode, unbeschränkte Wiederwahl",
-  "Sechsjährige Amtsperiode, Wiederwahl bis max. 70. Altersjahr",
-  "Bis zum 70. Altersjahr beschränkte einmalige Amtsdauer",
-  "Unbeschränkte Amtsdauer",
+  "sechsjährige Amtsperiode, unbeschränkte Wiederwahl",
+  "sechsjährige Amtsperiode, Wiederwahl bis max. 70. Altersjahr",
+  "bis zum 70. Altersjahr beschränkte einmalige Amtsdauer",
+  "unbeschränkte Amtsdauer",
   "weiss nicht"
 ]
 variable_values = [ 1, 2, 3, 4, 99 ]
-value_labels = [ "TODO", "TODO", "TODO", "TODO", "don't know" ]
+value_labels = [
+  "six-year term of office, unlimited re-election",
+  "six-year term of office, re-election up to a maximum of 70 years of age",
+  "one-time term of office limited to 70 years of age",
+  "unlimited term of office",
+  "don't know"
+]
 include.default = false
 include.true = [ 2021-11-28 ]
 [[05_political_attitudes.item]]
@@ -4285,7 +4290,7 @@ variable_label = "respondent's latent expertise on the cantonal and federal poli
 variable_label_common = "respondent's latent expertise on the cantonal and federal political system together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal` and `passed_skill_question_*_cantonal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
-include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L && n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L || n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise eidgenössische und kantonale Politik (5 Kategorien)"
 variable_name = "latent_expertise_5cat"
@@ -4293,7 +4298,7 @@ variable_label = "respondent's latent expertise on the cantonal and federal poli
 response_options = [ "sehr gering", "eher gering", "mittel", "eher hoch", "sehr hoch" ]
 value_labels = [ "very low", "rather low", "medium", "rather high", "very high" ]
 value_scale = "ordinal_ascending"
-include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L && n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
+include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canton = canton) > 0L || n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) > 0L }"
 
 [y_generated.002_participants]
 who = "Teilnehmende"

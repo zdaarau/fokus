@@ -318,8 +318,6 @@ shortening_rules <- tibble::tribble(
 
 Expected structure for the `fokus_private` directory/repository
 
-TODO: convert to pretty textual dir structure
-
 ```{r}
 fokus_private_structure <-
   list("fokus_private/" =

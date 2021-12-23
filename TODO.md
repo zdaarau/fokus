@@ -37,7 +37,7 @@
         As one can see from the output above, the error occurred when processing key `variable_label`, and from further above we can see that the key belongs to
         the item `first_name` which in turn is defined under branch path `00_cantonal_statistical_office.002_to_polling_agency`.
 
-## Other
+## Misc
 
 -   supplemental date-specific TOML questionnaire files:
 
@@ -51,3 +51,7 @@
     etc.)
 
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
+
+## Extensions
+
+-   add v `latent_expertise_proposals` that combines expertise on cantonal *and* federal proposals
