@@ -102,7 +102,9 @@ reference:
   - shorten_colnames
   - restore_colnames
 - title: Google Apps
-- contents: upload_to_g_drive
+- contents:
+  - auth_g_drive_gcp
+  - upload_to_g_drive
 - title: Miscellaneous
 - contents:
   - md_emphasize

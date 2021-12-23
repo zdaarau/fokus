@@ -2191,43 +2191,6 @@ read_voting_register_ids <- function(ballot_date,
     dplyr::first()
 }
 
-#' Authorize googledrive using GCP Service Account Key
-#'
-#' Authorizes the googledrive package to access and manage files on your Google Drive via a [Google Cloud Platform (GCP) Service
-#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file in JSON format. See the [relevant googledrive
-#' documentation](https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly) for details.
-#'
-#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file.
-#'
-#' @return `path_gcp_service_account_key`, invisibly.
-#' @family g_apps
-#' @keywords internal
-auth_g_drive_gcp <- function(path_gcp_service_account_key = path_private("config/gcp_service_account_key.json")) {
-
-  pal::assert_pkg("googledrive")
-  is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
-                                         access = "r")
-
-  if (is_file) {
-
-    status_msg <- "Authenticating Google account..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
-
-    googledrive::drive_auth(path = path_gcp_service_account_key,
-                            email = TRUE)
-
-  } else {
-    cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
-                          "Instructions to store such a key can be found here: ",
-                          # TODO: the `#` char in the URL somehow breaks cli's class formatting (`{.url ...}`) -> report bug!
-                          "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"))
-  }
-
-  invisible(path_gcp_service_account_key)
-}
-
 assert_countish <- function(x,
                             positive = TRUE,
                             null_ok = FALSE) {
@@ -4496,12 +4459,54 @@ restore_colnames <- function(x) {
                                                        reverse = TRUE))
 }
 
+#' Authorize googledrive using GCP Service Account Key
+#'
+#' Authorizes the googledrive package to access and manage files on your Google Drive via a [Google Cloud Platform (GCP) Service
+#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file (in JSON format). See the [relevant googledrive
+#' documentation](https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly) for details.
+#'
+#' The recommended way to provide the filesystem path to the GCP Service Account Key file is to set the [environment
+#' variable](https://en.wikipedia.org/wiki/Environment_variable) `PATH_GCP_KEY_ZDA` to that path, e.g. via the [`.Renviron`
+#' file](https://rstats.wtf/r-startup.html#renviron).
+#'
+#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file.
+#'
+#' @return `path_gcp_service_account_key`, invisibly.
+#' @family g_apps
+#' @export
+auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
+
+  pal::assert_pkg("googledrive")
+  is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
+                                         access = "r")
+
+  if (is_file) {
+
+    status_msg <- "Authenticating Google account..."
+    cli::cli_progress_step(msg = status_msg,
+                           msg_done = paste(status_msg, "done"),
+                           msg_failed = paste(status_msg, "failed"))
+
+    googledrive::drive_auth(path = path_gcp_service_account_key,
+                            email = TRUE)
+
+  } else {
+    cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
+                          "Instructions to store such a key can be found here: ",
+                          # TODO: the `#` char in the URL somehow breaks cli's class formatting (`{.url ...}`) -> report bug!
+                          "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"))
+  }
+
+  invisible(path_gcp_service_account_key)
+}
+
 #' Upload files to Google Drive
 #'
-#' Uploads one or more files to your Google Drive.
+#' Uploads one or more files to Google Drive.
 #'
 #' @param filepaths Local path(s) to the file(s) to be uploaded.
 #' @param g_drive_folder Destination path on Google Drive where the files are to be uploaded to.
+#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file. See [auth_g_drive_gcp()] for details.
 #' @param quiet Whether or not to [suppress printing status output from googledrive operations][googledrive::local_drive_quiet].
 #'
 #' @return `filepaths`, invisibly.
@@ -4509,6 +4514,7 @@ restore_colnames <- function(x) {
 #' @export
 upload_to_g_drive <- function(filepaths,
                               g_drive_folder = "fokus/aargau/",
+                              path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"),
                               quiet = FALSE) {
 
   checkmate::assert_character(filepaths,
@@ -4523,7 +4529,7 @@ upload_to_g_drive <- function(filepaths,
   filenames <- fs::path_file(filepaths)
 
   # authenticate Google account
-  auth_g_drive_gcp()
+  auth_g_drive_gcp(path_gcp_service_account_key = path_gcp_service_account_key)
 
   # upload files
   status_msg <- "Uploading {length(filepaths)} file{?s} to Google Drive folder {.path {g_drive_folder}}..."

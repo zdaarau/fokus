@@ -4,12 +4,19 @@
 \alias{upload_to_g_drive}
 \title{Upload files to Google Drive}
 \usage{
-upload_to_g_drive(filepaths, g_drive_folder = "fokus/aargau/", quiet = FALSE)
+upload_to_g_drive(
+  filepaths,
+  g_drive_folder = "fokus/aargau/",
+  path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"),
+  quiet = FALSE
+)
 }
 \arguments{
 \item{filepaths}{Local path(s) to the file(s) to be uploaded.}
 
 \item{g_drive_folder}{Destination path on Google Drive where the files are to be uploaded to.}
+
+\item{path_gcp_service_account_key}{Path to the GCP Service Account Key JSON file. See \code{\link[=auth_g_drive_gcp]{auth_g_drive_gcp()}} for details.}
 
 \item{quiet}{Whether or not to \link[googledrive:googledrive-configuration]{suppress printing status output from googledrive operations}.}
 }
@@ -17,7 +24,7 @@ upload_to_g_drive(filepaths, g_drive_folder = "fokus/aargau/", quiet = FALSE)
 \code{filepaths}, invisibly.
 }
 \description{
-Uploads one or more files to your Google Drive.
+Uploads one or more files to Google Drive.
 }
 \seealso{
 Other Google Apps functions:
