@@ -5105,6 +5105,17 @@ TODO: Move these fns to a separate pkg!
 
 ### `auth_g_drive_gcp`
 
+NOTES:
+
+-   The GCP Service Account specified in the `path_gcp_service_account_key` file must have read access to private files accessed by or write access to files
+    modified by any googledrive fn relying on `auth_g_drive_gcp()`. Simply use the share functionality on Google Drive to grant such access. Note that e-mails
+    can't be delivered to the service account's address (e.g. `c2d-zda@r-tidyverse.iam.gserviceaccount.com`), so make sure to unset the "notify" checkmark when
+    sharing.
+
+    We've given our Service Account `c2d-zda@r-tidyverse.iam.gserviceaccount.com` write access to the whole [`fokus_aargau` folder on Google
+    Drive](https://drive.google.com/drive/folders/1qDRXkioj5JmI9jPOchzjh8ovITg6LOCH), so we shouldn't have to bother with access rights in the scope of this
+    project.
+
 ```{r}
 #' Authorize googledrive using GCP Service Account Key
 #'
