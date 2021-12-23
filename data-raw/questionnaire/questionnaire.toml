@@ -4615,11 +4615,11 @@ description.de = "All jene Nicht-Teilnehmende (`participation = 2`), welche sich
 de = """
 dplyr::filter(participation == 'nicht teilgenommen'
               & dplyr::if_any(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
-                              .x == 'trifft zu'))"""
+                              ~ .x == 'trifft zu'))"""
 en = """
 dplyr::filter(participation == 'not participated'
               & dplyr::if_any(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
-                              .x == 'is true'))"""
+                              ~ .x == 'is true'))"""
 [who.filter.negative]
 de = """
 dplyr::filter(dplyr::if_all(matches('^reason_non_participation_(hindrance|ineffectiveness|insignificance|forgetfulness|no_chance)$'),
