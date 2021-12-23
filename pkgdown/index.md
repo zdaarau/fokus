@@ -22,7 +22,7 @@ For part of this package's functionality, a separate private directory (defined 
 <strong>Directory structure schema</strong>
 </summary>
 
-``` fs
+``` default
 fokus_private
 ├── bibliography
 │   ├── zotero_c2d.bib

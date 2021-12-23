@@ -176,7 +176,7 @@ path_private <- function(...) {
 #' @keywords internal
 print_fokus_private_structure <- function() {
 
-  pal::cat_lines("``` fs")
+  pal::cat_lines("``` default")
   fokus_private_structure %>% pal::flatten_path_tree() %>% pal::draw_path_tree()
   pal::cat_lines("```",
                  "",
