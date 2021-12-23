@@ -30,7 +30,8 @@ export_q(
 
 \item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
-\item{verbose}{Whether or not to print progress information during questionnaire generation.}
+\item{verbose}{Whether or not to print detailed progress information during questionnaire generation and Google Drive file upload. Note that questionnaire
+generation takes considerably more time when this is set to \code{TRUE}.}
 
 \item{incl_csv}{Whether or not to also generate and export a CSV version of the questionnaire.}
 

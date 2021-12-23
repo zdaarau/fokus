@@ -8,7 +8,8 @@ export_qr_codes(
   ballot_date = all_ballot_dates,
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/"
+  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/",
+  quiet = TRUE
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ export_qr_codes(
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
 \item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
+
+\item{quiet}{Whether or not to \link[googledrive:googledrive-configuration]{suppress printing status output from googledrive operations}.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble} containing metadata about the contents of the created ZIP archive, invisibly.

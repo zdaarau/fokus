@@ -1321,7 +1321,8 @@ expand_q_tibble <- function(q_tibble) {
 #' Generate questionnaire tibble
 #'
 #' @inheritParams ballot_title
-#' @param verbose Whether or not to print progress information during questionnaire generation.
+#' @param verbose Whether or not to print detailed progress information during questionnaire generation. Note that it will take considerably more time when this
+#'   is set to `TRUE`.
 #'
 #' @return `r pkgsnip::return_label("data")`
 #' @family q_gen
@@ -3827,6 +3828,8 @@ response_options <- function(type = all_response_option_types,
 #' uploads them to a Google Drive folder (`g_drive_folder`).
 #'
 #' @inheritParams gen_q_tibble
+#' @param verbose Whether or not to print detailed progress information during questionnaire generation and Google Drive file upload. Note that questionnaire
+#'   generation takes considerably more time when this is set to `TRUE`.
 #' @param incl_csv Whether or not to also generate and export a CSV version of the questionnaire.
 #' @param incl_html Whether or not to also generate and export an HTML version of the questionnaire.
 #' @param incl_xlsx Whether or not to also generate and export an XLSX version of the questionnaire.
@@ -3981,7 +3984,8 @@ export_q <- function(ballot_date = all_ballot_dates,
                                     fs::path(path_dir, "github-pandoc.css")[incl_html],
                                     fs::path_ext_set(path = html_path,
                                                      ext = "xlsx")[incl_xlsx]),
-                      g_drive_folder = g_drive_folder)
+                      g_drive_folder = g_drive_folder,
+                      quiet = !verbose)
   }
 }
 
@@ -4011,6 +4015,7 @@ export_q_all <- function(verbose = FALSE,
       cantons %>%
         purrr::walk(~ export_q(ballot_date = ballot_date,
                                canton = .x,
+                               verbose = verbose,
                                incl_csv = incl_csv,
                                incl_html = incl_html,
                                incl_xlsx = incl_xlsx,
@@ -4027,6 +4032,7 @@ export_q_all <- function(verbose = FALSE,
 #' personalized survey URL to the [private FOKUS directory][print_fokus_private_structure].
 #'
 #' @inheritParams export_q
+#' @inheritParams upload_to_g_drive
 #'
 #' @return A [tibble][tibble::tbl_df] containing metadata about the contents of the created ZIP archive, invisibly.
 #' @family q_survey
@@ -4034,7 +4040,8 @@ export_q_all <- function(verbose = FALSE,
 export_qr_codes <- function(ballot_date = all_ballot_dates,
                             canton = cantons(ballot_date),
                             upload_to_g_drive = TRUE,
-                            g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/") {
+                            g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/",
+                            quiet = TRUE) {
 
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
@@ -4113,7 +4120,8 @@ export_qr_codes <- function(ballot_date = all_ballot_dates,
   if (upload_to_g_drive) {
 
     upload_to_g_drive(filepaths = path_zip,
-                      g_drive_folder = g_drive_folder)
+                      g_drive_folder = g_drive_folder,
+                      quiet = quiet)
   }
 
   invisible(result)
@@ -4187,6 +4195,7 @@ export_print_recipients <- function(ballot_date = all_ballot_dates,
 #' | `max_age` | `r v_lbl("easyvote_municipality_max_age")` |
 #'
 #' @inheritParams export_q
+#' @inheritParams upload_to_g_drive
 #'
 #' @return A [tibble][tibble::tbl_df] of the exported data, invisibly.
 #' @family q_survey
@@ -4195,7 +4204,8 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
                                            canton = cantons(ballot_date),
                                            upload_to_g_drive = TRUE,
                                            g_drive_folder = paste0("fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/",
-                                                                   "easyvote-Gemeinden/")) {
+                                                                   "easyvote-Gemeinden/"),
+                                           quiet = TRUE) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -4222,7 +4232,8 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
   if (upload_to_g_drive) {
 
     upload_to_g_drive(filepaths = path_csv,
-                      g_drive_folder = g_drive_folder)
+                      g_drive_folder = g_drive_folder,
+                      quiet = quiet)
   }
 
   invisible(result)
@@ -4491,17 +4502,23 @@ restore_colnames <- function(x) {
 #'
 #' @param filepaths Local path(s) to the file(s) to be uploaded.
 #' @param g_drive_folder Destination path on Google Drive where the files are to be uploaded to.
+#' @param quiet Whether or not to [suppress printing status output from googledrive operations][googledrive::local_drive_quiet].
 #'
 #' @return `filepaths`, invisibly.
 #' @family g_apps
 #' @export
 upload_to_g_drive <- function(filepaths,
-                              g_drive_folder = "fokus/aargau/") {
+                              g_drive_folder = "fokus/aargau/",
+                              quiet = FALSE) {
 
   checkmate::assert_character(filepaths,
                               any.missing = FALSE)
   checkmate::assert_string(g_drive_folder)
+  checkmate::assert_flag(quiet)
 
+  # mute googledrive msgs if requested
+  if (quiet) googledrive::local_drive_quiet()
+  
   # extract filenames
   filenames <- fs::path_file(filepaths)
 

@@ -4,12 +4,14 @@
 \alias{upload_to_g_drive}
 \title{Upload files to Google Drive}
 \usage{
-upload_to_g_drive(filepaths, g_drive_folder = "fokus/aargau/")
+upload_to_g_drive(filepaths, g_drive_folder = "fokus/aargau/", quiet = FALSE)
 }
 \arguments{
 \item{filepaths}{Local path(s) to the file(s) to be uploaded.}
 
 \item{g_drive_folder}{Destination path on Google Drive where the files are to be uploaded to.}
+
+\item{quiet}{Whether or not to \link[googledrive:googledrive-configuration]{suppress printing status output from googledrive operations}.}
 }
 \value{
 \code{filepaths}, invisibly.

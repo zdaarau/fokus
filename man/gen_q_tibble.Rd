@@ -23,7 +23,8 @@ gen_q_tibble(
 
 \item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
-\item{verbose}{Whether or not to print progress information during questionnaire generation.}
+\item{verbose}{Whether or not to print detailed progress information during questionnaire generation. Note that it will take considerably more time when this
+is set to \code{TRUE}.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
