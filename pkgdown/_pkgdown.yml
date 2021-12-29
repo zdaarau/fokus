@@ -103,8 +103,10 @@ reference:
   - restore_colnames
 - title: Google Apps
 - contents:
-  - auth_g_drive_gcp
+  - backup_g_file
+  - backup_g_sheet
   - upload_to_g_drive
+  - g_file_mod_time
 - title: Miscellaneous
 - contents:
   - md_emphasize

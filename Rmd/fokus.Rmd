@@ -33,6 +33,7 @@ utils::globalVariables(names = c(".",
                                  "block",
                                  "date_begin",
                                  "date_end",
+                                 "drive_resource",
                                  "enumerator",
                                  "enumerator_base",
                                  "Geschlecht",
@@ -54,7 +55,9 @@ utils::globalVariables(names = c(".",
                                  "marital_status_official",
                                  "matches_length",
                                  "max_age",
+                                 "mimeType",
                                  "min_age",
+                                 "modifiedTime",
                                  "n_adults_in_household_official",
                                  "n_cantonal_majoritarian_elections",
                                  "n_cantonal_proportional_elections",
@@ -5103,7 +5106,7 @@ restore_colnames <- function(x) {
 
 TODO: Move these fns to a separate pkg!
 
-### `auth_g_drive_gcp`
+### `auth_g_drive_gcp` INTERNAL
 
 NOTES:
 
@@ -5131,7 +5134,7 @@ NOTES:
 #'
 #' @return `path_gcp_service_account_key`, invisibly.
 #' @family g_apps
-#' @export
+#' @keywords internal
 auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
 
   pal::assert_pkg("googledrive")
@@ -5139,23 +5142,225 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP
                                          access = "r")
 
   if (is_file) {
-
-    status_msg <- "Authenticating Google account..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
-
     googledrive::drive_auth(path = path_gcp_service_account_key,
-                            email = TRUE)
+                            use_oob = TRUE)
 
   } else {
+    # TODO: Remove the intermittent `url` assignment as soon as [issue #370](https://github.com/r-lib/cli/issues/370) is resolved.
+    url <- "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"
+    
     cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
                           "Instructions to store such a key can be found here: ",
-                          # TODO: the `#` char in the URL somehow breaks cli's class formatting (`{.url ...}`) -> report bug!
-                          "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"))
+                          "{.url {url}}"))
   }
 
   invisible(path_gcp_service_account_key)
+}
+```
+
+### `auth_g_sheets_gcp` INTERNAL
+
+```{r}
+#' Authorize googlesheets4 using GCP Service Account Key
+#'
+#' Authorizes the googlesheets4 package to access and manage Google Sheets via a [Google Cloud Platform (GCP) Service
+#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file (in JSON format). See the [relevant googledrive
+#' documentation](https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly) for details.
+#'
+#' The recommended way to provide the filesystem path to the GCP Service Account Key file is to set the [environment
+#' variable](https://en.wikipedia.org/wiki/Environment_variable) `PATH_GCP_KEY_ZDA` to that path, e.g. via the [`.Renviron`
+#' file](https://rstats.wtf/r-startup.html#renviron).
+#'
+#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file.
+#'
+#' @return `path_gcp_service_account_key`, invisibly.
+#' @family g_apps
+#' @keywords internal
+auth_g_sheets_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
+  
+  pal::assert_pkg("googledrive")
+  is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
+                                         access = "r")
+
+  if (is_file) {
+    googledrive::drive_auth(path = path_gcp_service_account_key,
+                            use_oob = TRUE)
+
+  } else {
+    # TODO: Remove the intermittent `url` assignment as soon as [issue #370](https://github.com/r-lib/cli/issues/370) is resolved.
+    url <- "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"
+    
+    cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
+                          "Instructions to store such a key can be found here: ",
+                          "{.url {url}}"))
+  }
+
+  invisible(path_gcp_service_account_key)
+}
+```
+
+### `backup_g_file`
+
+```{r}
+#' Backup Google Drive file locally
+#'
+#' Creates a local backup of a [Google Drive](https://en.wikipedia.org/wiki/Google_Drive) file.
+#' 
+#' Essentially a convenience wrapper around [googledrive::drive_download()].
+#'
+#' If a [Google Sheet](https://en.wikipedia.org/wiki/Google_Sheets) that includes multiple worksheets is backed up to a file `type` that doesn't support
+#' worksheets like `csv`, only the default (first) worksheet is written. In contrast, [backup_g_sheet()] allows to specify any worksheet to be backed up (but
+#' always writes a single worksheet only regardless of the filetype).
+#'
+#' @inheritParams g_file_mod_time 
+#' @inheritParams upload_to_g_drive
+#' @inheritParams googledrive::drive_download
+#' @param path Path to the local file backup destination. A character scalar.
+#' @param overwrite Whether or not to overwrite an already existing file under `path`.
+#' @param force Whether or not to force overwriting the file regardless whether it has changed since the last backup or not.
+#'
+#' @return An object of class [dribble][googledrive::dribble], a tibble with one row per file if local backup was (over)written, otherwise `NULL`, meaning
+#'   remote file hasn't deviated from local backup since last run, invisibly.
+#' @export
+backup_g_file <- function(g_id,
+                          path,
+                          type = NULL,
+                          path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"),
+                          overwrite = TRUE,
+                          force = FALSE,
+                          quiet = TRUE) {
+  
+  checkmate::assert_string(g_id)
+  checkmate::assert_path_for_output(path,
+                                    overwrite = TRUE)
+  checkmate::assert_flag(overwrite)
+  checkmate::assert_flag(force)
+  checkmate::assert_flag(quiet)
+  pal::assert_pkg("googledrive")
+  
+  if (quiet) {
+    googledrive::local_drive_quiet()
+  }
+  
+  result <- NULL
+  remote_mod <- g_file_mod_time(g_id)
+  local_mod <- dplyr::if_else(fs::file_exists(path),
+                              pal::path_mod_time(path),
+                              lubridate::as_datetime(0L))
+  
+  if (local_mod < remote_mod || force) {
+    
+    # authenticate Google account
+    auth_g_drive_gcp(path_gcp_service_account_key)
+    
+    result <- googledrive::drive_download(file = googledrive::as_id(g_id),
+                                          path = path,
+                                          type = type,
+                                          overwrite = overwrite)
+  }
+  
+  invisible(result)
+}
+```
+
+### `backup_g_sheet`
+
+```{r}
+#' Backup Google Sheet locally
+#'
+#' Creates a local backup of a [Google Sheet](https://en.wikipedia.org/wiki/Google_Sheets). It is accessed via [googlesheets4::read_sheet()] and written via
+#' [readr::write_csv()] or [writexl::write_xlsx()], depending on the file extension of `path`.
+#'
+#' `backup_g_sheet()` only backs up a single worksheet at once (specified by the optional `sheet` argument). If you intend to backup multiple worksheets of the
+#' same Google Sheet, consider using [backup_g_file()] in combination with a file `type` that supports multiple worksheets like `ods` or `xlsx`.
+#'
+#' @inheritParams backup_g_file
+#' @inheritParams googlesheets4::read_sheet
+#' @param ... Further arguments passed on to [googlesheets4::read_sheet()].
+#' @param quiet Whether or not to [suppress printing status output from googledrive][googledrive::local_drive_quiet] and [googlesheets4
+#'   operations][googlesheets4::local_gs4_quiet].
+#'
+#' @return A [tibble][tibble::tbl_df] if local backup was (over)written, otherwise `NULL`, meaning remote file hasn't deviated from local backup since
+#'   last run, invisibly.
+#' @export
+backup_g_sheet <- function(g_id,
+                           path,
+                           ...,
+                           path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"),
+                           overwrite = TRUE,
+                           force = FALSE,
+                           quiet = TRUE) {
+  
+  checkmate::assert_string(g_id)
+  checkmate::assert_path_for_output(path,
+                                    overwrite = TRUE)
+  checkmate::assert_flag(overwrite)
+  checkmate::assert_flag(force)
+  checkmate::assert_flag(quiet)
+  pal::assert_pkg("googledrive")
+  pal::assert_pkg("googlesheets4")
+  
+  pal::check_dots_named(...,
+                        .fn = googlesheets4::read_sheet,
+                        .forbidden = "ss")
+  if (quiet) {
+    googledrive::local_drive_quiet()
+    googlesheets4::local_gs4_quiet()
+  }
+  
+  # ensure `g_id` refers to a spreadsheet
+  mime_type <-
+    googledrive::drive_get(id = g_id) %$%
+    drive_resource %>%
+    dplyr::first() %$%
+    mimeType
+  
+  if (mime_type != "application/vnd.google-apps.spreadsheet") {
+    
+    cli::cli_abort("The supplied {.arg g_id} {.val {g_id}} doesn't seem to refer to a Google Sheet. Its Google Drive MIME type is {.val {mime_type}}.")
+  }
+  
+  data <- NULL
+  remote_mod <- g_file_mod_time(g_id)
+  local_mod <- dplyr::if_else(fs::file_exists(path),
+                              pal::path_mod_time(path),
+                              lubridate::as_datetime(0L))
+  
+  if (local_mod < remote_mod || force) {
+    
+    # authenticate Google account
+    auth_g_drive_gcp(path_gcp_service_account_key)
+    auth_g_sheets_gcp(path_gcp_service_account_key)
+    
+    filetype <- fs::path_ext(path)
+    data <- googlesheets4::read_sheet(ss = g_id,
+                                      ...)
+    
+    if (overwrite || !fs::file_exists(path)) {
+      
+      filetype %>%
+        purrr::when(. == "csv" ~
+                      readr::write_csv(x = data,
+                                       file = path,
+                                       na = ""),
+                    
+                    . == "xlsx" ~ {
+                      pal::assert_pkg("writexl")
+                      writexl::write_xlsx(x = data,
+                                          path = path)
+                    },
+                    
+                    . == "" ~
+                      cli::cli_abort("{.arg path} must have a file extension ({.file .csv} or {.file .xlsx})."),
+                    
+                    ~ cli::cli_abort("Exporting filetype {.file {.}} not yet implemented."))
+      
+    } else {
+      cli::cli_abort("A file already exists under {.arg path} {.file {path}} but {.arg overwrite} was set to {.val FALSE}. Aborting.")
+    }
+  }
+  
+  invisible(data)
 }
 ```
 
@@ -5165,6 +5370,8 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP
 #' Upload files to Google Drive
 #'
 #' Uploads one or more files to Google Drive.
+#' 
+#' Essentially a convenience wrapper around [googledrive::drive_put()].
 #'
 #' @param filepaths Local path(s) to the file(s) to be uploaded.
 #' @param g_drive_folder Destination path on Google Drive where the files are to be uploaded to.
@@ -5191,7 +5398,7 @@ upload_to_g_drive <- function(filepaths,
   filenames <- fs::path_file(filepaths)
 
   # authenticate Google account
-  auth_g_drive_gcp(path_gcp_service_account_key = path_gcp_service_account_key)
+  auth_g_drive_gcp(path_gcp_service_account_key)
 
   # upload files
   status_msg <- "Uploading {length(filepaths)} file{?s} to Google Drive folder {.path {g_drive_folder}}..."
@@ -5209,6 +5416,27 @@ upload_to_g_drive <- function(filepaths,
                })
 
   invisible(filepaths)
+}
+```
+
+### `g_file_mod_time`
+
+```{r}
+#' Get Google Drive file modification timestamp
+#'
+#' @param g_id Google Drive file ID. A character scalar.
+#'
+#' @return `r pkgsnip::return_label("datetime")`
+#' @export
+g_file_mod_time <- function(g_id) {
+  
+  auth_g_drive_gcp()
+  
+  googledrive::drive_get(id = g_id) %$%
+      drive_resource %>%
+      dplyr::first() %$%
+      modifiedTime %>%
+      lubridate::as_datetime()
 }
 ```
 

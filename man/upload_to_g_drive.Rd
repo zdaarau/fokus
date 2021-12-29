@@ -26,8 +26,12 @@ upload_to_g_drive(
 \description{
 Uploads one or more files to Google Drive.
 }
+\details{
+Essentially a convenience wrapper around \code{\link[googledrive:drive_put]{googledrive::drive_put()}}.
+}
 \seealso{
 Other Google Apps functions:
-\code{\link{auth_g_drive_gcp}()}
+\code{\link{auth_g_drive_gcp}()},
+\code{\link{auth_g_sheets_gcp}()}
 }
 \concept{g_apps}

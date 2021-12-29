@@ -31,6 +31,15 @@
     <loc>https://rpkg.dev/fokus/reference/auth_g_drive_gcp.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/auth_g_sheets_gcp.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/backup_g_file.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/backup_g_sheet.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/ballot_title.html</loc>
   </url>
   <url>
@@ -80,6 +89,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/fokus-package.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/g_file_mod_time.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/gen_pkg_data.html</loc>

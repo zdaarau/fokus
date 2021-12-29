@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Upload files to Google Drive — upload_to_g_drive • fokus</title>
+<title>Backup Google Sheet locally — backup_g_sheet • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Upload files to Google Drive — upload_to_g_drive" />
-<meta name="description" content="Uploads one or more files to Google Drive.">
-<meta property="og:description" content="Uploads one or more files to Google Drive." />
+<meta property="og:title" content="Backup Google Sheet locally — backup_g_sheet" />
+<meta name="description" content="Creates a local backup of a Google Sheet. It is accessed via googlesheets4::read_sheet() and written via readr::write_csv() or writexl::write_xlsx(), depending on the file extension of path.">
+<meta property="og:description" content="Creates a local backup of a Google Sheet. It is accessed via googlesheets4::read_sheet() and written via readr::write_csv() or writexl::write_xlsx(), depending on the file extension of path." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,54 +125,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Upload files to Google Drive</h1>
+    <h1>Backup Google Sheet locally</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>upload_to_g_drive.Rd</code></div>
+    <div class="hidden name"><code>backup_g_sheet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Uploads one or more files to Google Drive.</p>
+    <p>Creates a local backup of a <a href='https://en.wikipedia.org/wiki/Google_Sheets'>Google Sheet</a>. It is accessed via <code><a href='https://googlesheets4.tidyverse.org/reference/range_read.html'>googlesheets4::read_sheet()</a></code> and written via
+<code><a href='https://readr.tidyverse.org/reference/write_delim.html'>readr::write_csv()</a></code> or <code><a href='https://docs.ropensci.org/writexl/reference/write_xlsx.html'>writexl::write_xlsx()</a></code>, depending on the file extension of <code>path</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>upload_to_g_drive</span><span class='op'>(</span>
-  <span class='va'>filepaths</span>,
-  g_drive_folder <span class='op'>=</span> <span class='st'>"fokus/aargau/"</span>,
+    <pre class="usage"><span class='fu'>backup_g_sheet</span><span class='op'>(</span>
+  <span class='va'>g_id</span>,
+  <span class='va'>path</span>,
+  <span class='va'>...</span>,
   path_gcp_service_account_key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"PATH_GCP_KEY_ZDA"</span><span class='op'>)</span>,
-  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>
+  overwrite <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  force <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>filepaths</th>
-      <td><p>Local path(s) to the file(s) to be uploaded.</p></td>
+      <th>g_id</th>
+      <td><p>Google Drive file ID. A character scalar.</p></td>
     </tr>
     <tr>
-      <th>g_drive_folder</th>
-      <td><p>Destination path on Google Drive where the files are to be uploaded to.</p></td>
+      <th>path</th>
+      <td><p>Path to the local file backup destination. A character scalar.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further arguments passed on to <code><a href='https://googlesheets4.tidyverse.org/reference/range_read.html'>googlesheets4::read_sheet()</a></code>.</p></td>
     </tr>
     <tr>
       <th>path_gcp_service_account_key</th>
       <td><p>Path to the GCP Service Account Key JSON file. See <code><a href='auth_g_drive_gcp.html'>auth_g_drive_gcp()</a></code> for details.</p></td>
     </tr>
     <tr>
+      <th>overwrite</th>
+      <td><p>Whether or not to overwrite an already existing file under <code>path</code>.</p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p>Whether or not to force overwriting the file regardless whether it has changed since the last backup or not.</p></td>
+    </tr>
+    <tr>
       <th>quiet</th>
-      <td><p>Whether or not to <a href='https://googledrive.tidyverse.org/reference/googledrive-configuration.html'>suppress printing status output from googledrive operations</a>.</p></td>
+      <td><p>Whether or not to <a href='https://googledrive.tidyverse.org/reference/googledrive-configuration.html'>suppress printing status output from googledrive</a> and <a href='https://googlesheets4.tidyverse.org/reference/googlesheets4-configuration.html'>googlesheets4 operations</a>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>filepaths</code>, invisibly.</p>
+    <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a> if local backup was (over)written, otherwise <code>NULL</code>, meaning remote file hasn't deviated from local backup since
+last run, invisibly.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Essentially a convenience wrapper around <code><a href='https://googledrive.tidyverse.org/reference/drive_put.html'>googledrive::drive_put()</a></code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other Google Apps functions:
-<code><a href='auth_g_drive_gcp.html'>auth_g_drive_gcp</a>()</code>,
-<code><a href='auth_g_sheets_gcp.html'>auth_g_sheets_gcp</a>()</code></p></div>
+    <p><code>backup_g_sheet()</code> only backs up a single worksheet at once (specified by the optional <code>sheet</code> argument). If you intend to backup multiple worksheets of the
+same Google Sheet, consider using <code><a href='backup_g_file.html'>backup_g_file()</a></code> in combination with a file <code>type</code> that supports multiple worksheets like <code>ods</code> or <code>xlsx</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
