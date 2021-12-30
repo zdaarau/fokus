@@ -31,8 +31,8 @@ reference:
   desc: Predicate functions based on the [metadata](#section-fokus-metadata).
 - subtitle: Fundamental predicates
   desc: |-
-    Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](https://rpkg.dev/fokus/reference/raw_q.html) (they do still fail in
-    case of completely missing questionnaire data for the specified canton and ballot date).
+    Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](raw_q.html) (they do still fail in case of completely missing
+    questionnaire data for the specified canton and ballot date).
 - contents:
   - cantons
   - ballot_types
@@ -78,8 +78,8 @@ reference:
   - political_issues
   - response_options
 - title: Questionnaire and survey
-  desc: Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-data\]
-    and other functions to conduct a survey.
+  desc: Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other
+    functions to conduct a survey.
 - contents:
   - qx
   - proposals

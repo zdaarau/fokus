@@ -2825,8 +2825,8 @@ Predicate functions based on the [metadata](#section-fokus-metadata).
 
 #### DESCRIPTION
 
-Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](https://rpkg.dev/fokus/reference/raw_q.html) (they do still fail in
-case of completely missing questionnaire data for the specified canton and ballot date).
+Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](raw_q.html) (they do still fail in case of completely missing
+questionnaire data for the specified canton and ballot date).
 
 #### `cantons`
 
@@ -4291,7 +4291,7 @@ response_options <- function(type = all_response_option_types,
 
 ### DESCRIPTION
 
-Functions to process the \[raw FOKUS questionnaire data\]\[#raw-questionnaire-data\] and other functions to conduct a survey.
+Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other functions to conduct a survey.
 
 ### `qx`
 
