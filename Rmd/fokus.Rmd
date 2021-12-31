@@ -272,16 +272,25 @@ gen_pkg_data <- function(data_files = c("internal", "exported", "asciicasts")) {
   checkmate::assert_subset(data_files,
                            choices = eval(formals()$data_files),
                            empty.ok = FALSE)
-
+  all_data_files <- eval(formals()$data_files)
+  data_files %<>% pal::order_by(by = all_data_files)
   input_paths <- fs::path(glue::glue("Rmd/data_{data_files}.nopurl.Rmd"))
-
-  input_paths %>%
-    purrr::walk(~ source(file = knitr::purl(input = .x,
-                                            output = fs::file_temp(pattern = fs::path_ext_remove(fs::path_file(.x)),
-                                                                   ext = "R"),
-                                            quiet = TRUE),
-                         encoding = "UTF-8",
-                         echo = FALSE))
+  tmp_purled_paths <-
+    input_paths %>%
+    purrr::map_chr(~ knitr::purl(input = .x,
+                                 output = fs::file_temp(pattern = fs::path_ext_remove(fs::path_file(.x)),
+                                                        ext = "R"),
+                                 quiet = TRUE))
+  combined_purled_path <- fs::file_temp(pattern = "data_combined.nopurl",
+                                        ext = "R")
+  tmp_purled_paths %>%
+    purrr::map_chr(readr::read_file) %>%
+    paste0(collapse = "\npkgload::unload()\ndevtools::install(quick = TRUE, quiet = TRUE, upgrade = 'never')\n\n") %>%
+    readr::write_lines(file = combined_purled_path)
+  
+  source(file = combined_purled_path,
+         encoding = "UTF-8",
+         echo = FALSE)
 
   invisible(input_paths)
 }
