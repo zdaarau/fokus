@@ -4333,6 +4333,9 @@ Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other fu
 #'
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
+#'
+#' @examples
+#' fokus::qx
 "qx"
 ```
 
@@ -4345,6 +4348,9 @@ Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other fu
 #'
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
+#'
+#' @examples
+#' fokus::proposals
 "proposals"
 ```
 
@@ -4357,6 +4363,9 @@ Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other fu
 #'
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
+#'
+#' @examples
+#' fokus::elections
 "elections"
 ```
 

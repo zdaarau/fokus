@@ -28,6 +28,9 @@ and \code{variable_label} respectively if \code{NA}.
 \item Markdown formatting was \link[pal:strip_md]{stripped} from all character columns.
 }
 }
+\examples{
+fokus::qx
+}
 \seealso{
 Other questionnaire and survey functions and datasets:
 \code{\link{elections}},

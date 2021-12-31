@@ -13,6 +13,9 @@ elections
 \description{
 A tibble containing basic election data of all FOKUS questionnaires.
 }
+\examples{
+fokus::elections
+}
 \seealso{
 Other questionnaire and survey functions and datasets:
 \code{\link{export_easyvote_municipalities}()},

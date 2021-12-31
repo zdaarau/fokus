@@ -3783,6 +3783,9 @@ response_options <- function(type = all_response_option_types,
 #'
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
+#'
+#' @examples
+#' fokus::qx
 "qx"
 
 #' Proposal data
@@ -3791,6 +3794,9 @@ response_options <- function(type = all_response_option_types,
 #'
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
+#'
+#' @examples
+#' fokus::proposals
 "proposals"
 
 #' Election data
@@ -3799,6 +3805,9 @@ response_options <- function(type = all_response_option_types,
 #'
 #' @family q_survey
 #' @format `r pkgsnip::return_label("data")`
+#'
+#' @examples
+#' fokus::elections
 "elections"
 
 #' Export questionnaire data

@@ -13,6 +13,9 @@ proposals
 \description{
 A tibble containing basic referendum proposal data of all FOKUS questionnaires.
 }
+\examples{
+fokus::proposals
+}
 \seealso{
 Other questionnaire and survey functions and datasets:
 \code{\link{elections}},
