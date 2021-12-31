@@ -4072,6 +4072,14 @@ include = """
                         key = "lvl")
 }"""
 [[y_generated.001_all.001_both.item]]
+topic = "COVID-19-Impfung selbst (Dummy)"
+variable_name = "is_vaccinated_covid"
+variable_label = "whether or not the respondent received at least one COVID-19 vaccination"
+response_options = [ "ja", "nein" ]
+value_labels = [ "yes", "no" ]
+value_scale = "binary"
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_2_covid_related', v_name = 'vaccination_status_covid', key = 'include') }"
+[[y_generated.001_all.001_both.item]]
 topic = "Monatliches Bruttoäquivalenzeinkommen ([OECD-Quadratwurzel-Skala](https://de.wikipedia.org/wiki/OECD-Skala))"
 variable_name = "monthly_gross_equivalised_income"
 variable_label = "respondent's monthly gross equivalised income (OECD square root scale) based on average monthly gross household income"
