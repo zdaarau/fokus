@@ -1005,21 +1005,149 @@ pick_right_helper <- function(x,
   x
 }
 
-add_who_constraint <- function(x,
-                               who) {
-  if (who != "all") {
+init_heritable_map <- function(block) {
 
-    result <- who %>% purrr::when(stringr::str_detect(string = x, pattern = "\\)$") ~
-                                    stringr::str_replace(string = x,
-                                                         pattern = "\\)$",
-                                                         replacement = paste0("; only *", ., "*)")),
-                                  ~ paste0(x, " (only *", ., "*)"))
+  xfun::strict_list(lvl = "?",
+                    i = NA_integer_,
+                    j = NA_integer_,
+                    block = block,
+                    variable_name = "???",
+                    topic = NULL,
+                    who = "alle",
+                    question_intro_i = NULL,
+                    question_intro_j = NULL,
+                    question = NULL,
+                    question_full = NULL,
+                    question_common = NULL,
+                    allow_multiple_answers = FALSE,
+                    variable_label = "???",
+                    variable_label_common = NULL,
+                    response_options = NULL,
+                    variable_values = NULL,
+                    value_labels = NULL,
+                    value_scale = "nominal",
+                    randomize_response_options = FALSE,
+                    is_mandatory = FALSE,
+                    ballot_types = all_ballot_types,
+                    include = TRUE)
+}
+
+resolve_q_val <- function(x,
+                          ballot_date,
+                          canton,
+                          key,
+                          lvl,
+                          i,
+                          j,
+                          ...) {
+
+  checkmate::assert_scalar(lvl, null.ok = TRUE)
+  checkmate::assert_scalar(i, na.ok = TRUE, null.ok = TRUE)
+  checkmate::assert_scalar(j, na.ok = TRUE, null.ok = TRUE)
+
+  x %>%
+    raw_pick_right(key = key,
+                   ballot_date = ballot_date,
+                   canton = canton) %>%
+    purrr::when(is.character(.) ~ interpolate_q_val(.,
+                                                    ballot_date = ballot_date,
+                                                    canton = canton,
+                                                    key = key,
+                                                    lvl = lvl,
+                                                    i = i,
+                                                    j = j,
+                                                    ... = ...),
+                ~ .) %>%
+    # convert to proper type
+    purrr::when(
+      key %in% q_item_keys$key[q_item_keys$type == "character"] ~
+        as.character(.),
+      key %in% q_item_keys$key[q_item_keys$type == "logical"] ~
+        as.logical(.),
+      key %in% q_item_keys$key[q_item_keys$type == "integer"] ~
+        as.integer(.),
+      key %in% q_item_keys$key[q_item_keys$type == "double"] ~
+        as.double(.),
+      # undefined behaviour
+      ~ cli::cli_abort("Undefined behaviour in {.fun resolve_q_val}. Please debug.")
+    )
+}
+
+interpolate_q_val <- function(x,
+                              ballot_date,
+                              canton,
+                              key,
+                              lvl,
+                              i,
+                              j,
+                              ...) {
+
+  # assign objects in dots to current env ensuring glue/cli fns respect them
+  rlang::env_bind(.env = rlang::current_env(),
+                  ...)
+
+  if (key %in% q_item_keys$key[q_item_keys$is_scalar]) {
+
+    result <- cli::pluralize(x,
+                             .null = NA_character_,
+                             .trim = FALSE)
   } else {
 
-    result <- x
+    result <-
+      x %>%
+      purrr::map(.f = glue::glue,
+                 .envir = rlang::current_env(),
+                 .null = NA_character_,
+                 .trim = FALSE) %>%
+      unlist()
   }
 
   result
+}
+
+#' Generate questionnaire tibble
+#'
+#' @inheritParams ballot_title
+#' @param verbose Whether or not to print detailed progress information during questionnaire generation. Note that it will take considerably more time when this
+#'   is set to `TRUE`.
+#'
+#' @return `r pkgsnip::return_label("data")`
+#' @family q_gen
+#' @keywords internal
+gen_q_tibble <- function(ballot_date = all_ballot_dates,
+                         canton = cantons(ballot_date),
+                         verbose = FALSE) {
+
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = cantons(ballot_date))
+  checkmate::assert_flag(verbose)
+
+  cli::start_app(theme = cli_theme)
+  status_msg <- "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}..."
+  cli::cli_progress_step(msg = status_msg,
+                         msg_done = paste(status_msg, "done"),
+                         msg_failed = paste(status_msg, "failed"))
+
+  purrr::map2_dfr(.x = raw_q,
+                  .y = names(raw_q),
+                  .f = ~ {
+
+                    if (verbose && !(.y %in% q_non_item_lvls)) cli::cli_h1("BLOCK: {.val {.y}}")
+
+                    assemble_q_tibble(ballot_date = ballot_date,
+                                      canton = canton,
+                                      raw_q_branch = .x,
+                                      q_lvl = .y,
+                                      heritable_map = init_heritable_map(block = .y),
+                                      verbose = verbose)
+                  }) %>%
+    # add ballot date and canton
+    dplyr::mutate(ballot_date = !!ballot_date,
+                  canton = !!canton,
+                  .before = 1L)
 }
 
 assemble_q_tibble <- function(ballot_date,
@@ -1291,19 +1419,6 @@ assemble_q_item_tibble <- function(ballot_date,
       })
 }
 
-complement_heritable_map <- function(x,
-                                     from) {
-  names <- names(x)
-
-  x %>%
-    purrr::map2(.x = names,
-                .y = .,
-                .f = function(k, v) purrr::pluck(.x = from,
-                                                 k,
-                                                 .default = v)) %>%
-    magrittr::set_names(names)
-}
-
 #' Expand questionnaire tibble to long format
 #'
 #' Expands a [questionnaire tibble][gen_q_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
@@ -1319,157 +1434,6 @@ expand_q_tibble <- function(q_tibble) {
   validate_q_tibble(q_tibble) %>%
     # ...expand questionnaire data to long format...
     tidyr::unnest(cols = any_of(q_item_keys_multival))
-}
-
-#' Generate questionnaire tibble
-#'
-#' @inheritParams ballot_title
-#' @param verbose Whether or not to print detailed progress information during questionnaire generation. Note that it will take considerably more time when this
-#'   is set to `TRUE`.
-#'
-#' @return `r pkgsnip::return_label("data")`
-#' @family q_gen
-#' @keywords internal
-gen_q_tibble <- function(ballot_date = all_ballot_dates,
-                         canton = cantons(ballot_date),
-                         verbose = FALSE) {
-
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(ballot_date,
-                                  values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
-                             values = cantons(ballot_date))
-  checkmate::assert_flag(verbose)
-
-  cli::start_app(theme = cli_theme)
-  status_msg <- "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}..."
-  cli::cli_progress_step(msg = status_msg,
-                         msg_done = paste(status_msg, "done"),
-                         msg_failed = paste(status_msg, "failed"))
-
-  purrr::map2_dfr(.x = raw_q,
-                  .y = names(raw_q),
-                  .f = ~ {
-
-                    if (verbose && !(.y %in% q_non_item_lvls)) cli::cli_h1("BLOCK: {.val {.y}}")
-
-                    assemble_q_tibble(ballot_date = ballot_date,
-                                      canton = canton,
-                                      raw_q_branch = .x,
-                                      q_lvl = .y,
-                                      heritable_map = init_heritable_map(block = .y),
-                                      verbose = verbose)
-                  }) %>%
-    # add ballot date and canton
-    dplyr::mutate(ballot_date = !!ballot_date,
-                  canton = !!canton,
-                  .before = 1L)
-}
-
-has_who_constraint <- function(x) {
-
-  isTRUE(stringr::str_detect(string = x,
-                             pattern = "(\\(|; )(\\d{4}-\\d{2}-\\d{2} )?only [^\\)]+\\)$"))
-}
-
-init_heritable_map <- function(block) {
-
-  xfun::strict_list(lvl = "?",
-                    i = NA_integer_,
-                    j = NA_integer_,
-                    block = block,
-                    variable_name = "???",
-                    topic = NULL,
-                    who = "alle",
-                    question_intro_i = NULL,
-                    question_intro_j = NULL,
-                    question = NULL,
-                    question_full = NULL,
-                    question_common = NULL,
-                    allow_multiple_answers = FALSE,
-                    variable_label = "???",
-                    variable_label_common = NULL,
-                    response_options = NULL,
-                    variable_values = NULL,
-                    value_labels = NULL,
-                    value_scale = "nominal",
-                    randomize_response_options = FALSE,
-                    is_mandatory = FALSE,
-                    ballot_types = all_ballot_types,
-                    include = TRUE)
-}
-
-interpolate_q_val <- function(x,
-                              ballot_date,
-                              canton,
-                              key,
-                              lvl,
-                              i,
-                              j,
-                              ...) {
-
-  # assign objects in dots to current env ensuring glue/cli fns respect them
-  rlang::env_bind(.env = rlang::current_env(),
-                  ...)
-
-  if (key %in% q_item_keys$key[q_item_keys$is_scalar]) {
-
-    result <- cli::pluralize(x,
-                             .null = NA_character_,
-                             .trim = FALSE)
-  } else {
-
-    result <-
-      x %>%
-      purrr::map(.f = glue::glue,
-                 .envir = rlang::current_env(),
-                 .null = NA_character_,
-                 .trim = FALSE) %>%
-      unlist()
-  }
-
-  result
-}
-
-resolve_q_val <- function(x,
-                          ballot_date,
-                          canton,
-                          key,
-                          lvl,
-                          i,
-                          j,
-                          ...) {
-
-  checkmate::assert_scalar(lvl, null.ok = TRUE)
-  checkmate::assert_scalar(i, na.ok = TRUE, null.ok = TRUE)
-  checkmate::assert_scalar(j, na.ok = TRUE, null.ok = TRUE)
-
-  x %>%
-    raw_pick_right(key = key,
-                   ballot_date = ballot_date,
-                   canton = canton) %>%
-    purrr::when(is.character(.) ~ interpolate_q_val(.,
-                                                    ballot_date = ballot_date,
-                                                    canton = canton,
-                                                    key = key,
-                                                    lvl = lvl,
-                                                    i = i,
-                                                    j = j,
-                                                    ... = ...),
-                ~ .) %>%
-    # convert to proper type
-    purrr::when(
-      key %in% q_item_keys$key[q_item_keys$type == "character"] ~
-        as.character(.),
-      key %in% q_item_keys$key[q_item_keys$type == "logical"] ~
-        as.logical(.),
-      key %in% q_item_keys$key[q_item_keys$type == "integer"] ~
-        as.integer(.),
-      key %in% q_item_keys$key[q_item_keys$type == "double"] ~
-        as.double(.),
-      # undefined behaviour
-      ~ cli::cli_abort("Undefined behaviour in {.fun resolve_q_val}. Please debug.")
-    )
 }
 
 clean_q_tibble <- function(q_tibble) {
@@ -1540,6 +1504,29 @@ validate_q_tibble <- function(q_tibble) {
   }
 
   invisible(q_tibble)
+}
+
+has_who_constraint <- function(x) {
+
+  isTRUE(stringr::str_detect(string = x,
+                             pattern = "(\\(|; )(\\d{4}-\\d{2}-\\d{2} )?only [^\\)]+\\)$"))
+}
+
+add_who_constraint <- function(x,
+                               who) {
+  if (who != "all") {
+
+    result <- who %>% purrr::when(stringr::str_detect(string = x, pattern = "\\)$") ~
+                                    stringr::str_replace(string = x,
+                                                         pattern = "\\)$",
+                                                         replacement = paste0("; only *", ., "*)")),
+                                  ~ paste0(x, " (only *", ., "*)"))
+  } else {
+
+    result <- x
+  }
+
+  result
 }
 
 #' Generate Markdown questionnaire
@@ -1956,9 +1943,9 @@ q_item_val <- function(ballot_date = all_ballot_dates,
     unlist()
 }
 
-#' Political parties
+#' Get political parties
 #'
-#' A tibble of ballot-date-specific political party metadata defined in the [raw FOKUS questionnaire data][raw_q].
+#' Returns a tibble of ballot-date-specific political party metadata defined in the [raw FOKUS questionnaire data][raw_q].
 #'
 #' @return `r pkgsnip::return_label("data")`
 #' @family q_internal
@@ -2010,6 +1997,33 @@ q_response_option_codes <- function(types = all_response_option_types) {
                                            empty.ok = FALSE))
 
   types %>% purrr::map_int(~ raw_q %>% purrr::chuck("response_options", .x, "code"))
+}
+
+#' Determine questionnaire data's value label column
+#'
+#' Determines the [questionnaire data][qx] column that holds variable value labels, returned as a [symbol][as.symbol].
+#'
+#' The questionnaire data column that holds variable value labels is language-dependent. While the column
+#' `r q_lbl_col_sym("de") %>% as.character() %>% pal::wrap_chr("\x60")` holds the German value labels, their English counterpars are found in the column
+#' `r q_lbl_col_sym("en") %>% as.character() %>% pal::wrap_chr("\x60")`. `q_lbl_col_sym()` is intended to ease language-agnostic questionnaire data programming.
+#'
+#' @inheritParams proposal_name
+#'
+#' @return `r pkgsnip::return_label("symbol")`
+#' @family q_predicate
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::q_lbl_col_sym(lang = "de")
+#' 
+#' fokus:::q_lbl_col_sym(lang = "en")
+q_lbl_col_sym <- function(lang = c("de", "en")) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  as.symbol(dplyr::if_else(lang == "de",
+                           "response_options",
+                           "value_labels"))
 }
 
 #' Read in easyvote municipality data

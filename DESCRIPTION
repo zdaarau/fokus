@@ -48,7 +48,7 @@ Suggests:
     htmlwidgets (>= 1.5.4),
     pkgload (>= 1.2.4),
     pkgpurl (>= 0.0.9011),
-    pkgsnip (>= 0.0.9026),
+    pkgsnip (>= 0.0.9027),
     qrencoder (>= 0.2.1),
     RcppTOML (>= 0.1.6),
     readxl (>= 1.3.1),

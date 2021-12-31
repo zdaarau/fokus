@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{q_parties}
 \alias{q_parties}
-\title{Political parties}
+\title{Get political parties}
 \usage{
 q_parties(ballot_date = all_ballot_dates)
 }
@@ -10,7 +10,7 @@ q_parties(ballot_date = all_ballot_dates)
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-A tibble of ballot-date-specific political party metadata defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
+Returns a tibble of ballot-date-specific political party metadata defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
 }
 \seealso{
 Other questionnaire-internal functions:

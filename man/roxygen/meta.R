@@ -9,6 +9,7 @@ list(
                          private                  = "Other private FOKUS directory functions:",
                          q_gen                    = "Other questionnaire generation functions:",
                          q_internal               = "Other questionnaire-internal functions:",
+                         q_predicate              = "Other questionnaire predicate functions:",
                          q_raw                    = "Other raw questionnaire data functions:",
                          q_survey                 = "Other questionnaire and survey functions and datasets:",
                          variable                 = "Other variable-related functions:")
