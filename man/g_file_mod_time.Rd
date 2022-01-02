@@ -4,7 +4,10 @@
 \alias{g_file_mod_time}
 \title{Get Google Drive file modification timestamp}
 \usage{
-g_file_mod_time(g_id)
+g_file_mod_time(
+  g_id,
+  path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")
+)
 }
 \arguments{
 \item{g_id}{Google Drive file ID. A character scalar.}

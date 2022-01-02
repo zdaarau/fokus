@@ -2,7 +2,7 @@
 # See `README.md#r-markdown-format` for more information on the literate programming approach used applying the R Markdown format.
 
 # fokus: Provides an API around the FOKUS Post-voting Surveys
-# Copyright (C) 2021 Centre for Democracy Studies Aarau (ZDA)
+# Copyright (C) 2022 Centre for Democracy Studies Aarau (ZDA)
 # 
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, either version 3 of the License, or any later version.
@@ -4609,15 +4609,13 @@ backup_g_file <- function(g_id,
   }
   
   result <- NULL
-  remote_mod <- g_file_mod_time(g_id)
+  remote_mod <- g_file_mod_time(g_id,
+                                path_gcp_service_account_key = path_gcp_service_account_key)
   local_mod <- dplyr::if_else(fs::file_exists(path),
                               pal::path_mod_time(path),
                               lubridate::as_datetime(0L))
   
   if (local_mod < remote_mod || force) {
-    
-    # authenticate Google account
-    auth_g_drive_gcp(path_gcp_service_account_key)
     
     result <- googledrive::drive_download(file = googledrive::as_id(g_id),
                                           path = path,
@@ -4670,6 +4668,9 @@ backup_g_sheet <- function(g_id,
     googlesheets4::local_gs4_quiet()
   }
   
+  # authenticate Google account
+  auth_g_drive_gcp(path_gcp_service_account_key)
+  
   # ensure `g_id` refers to a spreadsheet
   mime_type <-
     googledrive::drive_get(id = g_id) %$%
@@ -4683,7 +4684,8 @@ backup_g_sheet <- function(g_id,
   }
   
   data <- NULL
-  remote_mod <- g_file_mod_time(g_id)
+  remote_mod <- g_file_mod_time(g_id,
+                                path_gcp_service_account_key = path_gcp_service_account_key)
   local_mod <- dplyr::if_else(fs::file_exists(path),
                               pal::path_mod_time(path),
                               lubridate::as_datetime(0L))
@@ -4691,7 +4693,6 @@ backup_g_sheet <- function(g_id,
   if (local_mod < remote_mod || force) {
     
     # authenticate Google account
-    auth_g_drive_gcp(path_gcp_service_account_key)
     auth_g_sheets_gcp(path_gcp_service_account_key)
     
     filetype <- fs::path_ext(path)
@@ -4782,9 +4783,10 @@ upload_to_g_drive <- function(filepaths,
 #'
 #' @return `r pkgsnip::return_label("datetime")`
 #' @export
-g_file_mod_time <- function(g_id) {
+g_file_mod_time <- function(g_id,
+                            path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
   
-  auth_g_drive_gcp()
+  auth_g_drive_gcp(path_gcp_service_account_key = path_gcp_service_account_key)
   
   googledrive::drive_get(id = g_id) %$%
       drive_resource %>%
