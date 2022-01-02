@@ -45,3 +45,12 @@ fokus::v_lbl(v_name = "participation_federal",
              ballot_date = "2019-10-20",
              canton = "aargau")
 }
+\seealso{
+Other variable-related functions:
+\code{\link{is_skill_question_v}()},
+\code{\link{shorten_v_names}()},
+\code{\link{v_lvls}()},
+\code{\link{v_proposal_nr}()},
+\code{\link{v_skill_question_nr}()}
+}
+\concept{variable}

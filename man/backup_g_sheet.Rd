@@ -41,3 +41,12 @@ Creates a local backup of a \href{https://en.wikipedia.org/wiki/Google_Sheets}{G
 \code{backup_g_sheet()} only backs up a single worksheet at once (specified by the optional \code{sheet} argument). If you intend to backup multiple worksheets of the
 same Google Sheet, consider using \code{\link[=backup_g_file]{backup_g_file()}} in combination with a file \code{type} that supports multiple worksheets like \code{ods} or \code{xlsx}.
 }
+\seealso{
+Other Google Apps functions:
+\code{\link{auth_g_drive_gcp}()},
+\code{\link{auth_g_sheets_gcp}()},
+\code{\link{backup_g_file}()},
+\code{\link{g_file_mod_time}()},
+\code{\link{upload_to_g_drive}()}
+}
+\concept{g_apps}

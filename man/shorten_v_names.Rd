@@ -25,6 +25,7 @@ Shorten variable names to a maximum length of 32 characters
 
 Other variable-related functions:
 \code{\link{is_skill_question_v}()},
+\code{\link{v_lbl}()},
 \code{\link{v_lvls}()},
 \code{\link{v_proposal_nr}()},
 \code{\link{v_skill_question_nr}()}

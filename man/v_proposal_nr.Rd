@@ -22,6 +22,7 @@ Note that the determination is performed by simply parsing \code{v_names}.
 Other variable-related functions:
 \code{\link{is_skill_question_v}()},
 \code{\link{shorten_v_names}()},
+\code{\link{v_lbl}()},
 \code{\link{v_lvls}()},
 \code{\link{v_skill_question_nr}()}
 }

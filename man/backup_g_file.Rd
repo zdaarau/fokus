@@ -46,3 +46,12 @@ If a \href{https://en.wikipedia.org/wiki/Google_Sheets}{Google Sheet} that inclu
 worksheets like \code{csv}, only the default (first) worksheet is written. In contrast, \code{\link[=backup_g_sheet]{backup_g_sheet()}} allows to specify any worksheet to be backed up (but
 always writes a single worksheet only regardless of the filetype).
 }
+\seealso{
+Other Google Apps functions:
+\code{\link{auth_g_drive_gcp}()},
+\code{\link{auth_g_sheets_gcp}()},
+\code{\link{backup_g_sheet}()},
+\code{\link{g_file_mod_time}()},
+\code{\link{upload_to_g_drive}()}
+}
+\concept{g_apps}

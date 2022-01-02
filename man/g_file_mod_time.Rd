@@ -18,3 +18,12 @@ A \link[base:DateTimeClasses]{datetime}.
 \description{
 Get Google Drive file modification timestamp
 }
+\seealso{
+Other Google Apps functions:
+\code{\link{auth_g_drive_gcp}()},
+\code{\link{auth_g_sheets_gcp}()},
+\code{\link{backup_g_file}()},
+\code{\link{backup_g_sheet}()},
+\code{\link{upload_to_g_drive}()}
+}
+\concept{g_apps}

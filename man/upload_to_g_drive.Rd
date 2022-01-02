@@ -32,6 +32,9 @@ Essentially a convenience wrapper around \code{\link[googledrive:drive_put]{goog
 \seealso{
 Other Google Apps functions:
 \code{\link{auth_g_drive_gcp}()},
-\code{\link{auth_g_sheets_gcp}()}
+\code{\link{auth_g_sheets_gcp}()},
+\code{\link{backup_g_file}()},
+\code{\link{backup_g_sheet}()},
+\code{\link{g_file_mod_time}()}
 }
 \concept{g_apps}

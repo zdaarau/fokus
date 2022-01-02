@@ -23,6 +23,9 @@ The recommended way to provide the filesystem path to the GCP Service Account Ke
 \seealso{
 Other Google Apps functions:
 \code{\link{auth_g_drive_gcp}()},
+\code{\link{backup_g_file}()},
+\code{\link{backup_g_sheet}()},
+\code{\link{g_file_mod_time}()},
 \code{\link{upload_to_g_drive}()}
 }
 \concept{g_apps}

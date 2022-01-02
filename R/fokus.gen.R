@@ -112,7 +112,7 @@ abbreviations <- function(expand = FALSE) {
     c("supplemental", "supplementary"), "suppl"
   ) %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
-    dplyr::arrange(dplyr::across()) %>%
+    dplyr::arrange(full_expressions %>% purrr::map_chr(dplyr::first)) %>%
     purrr::when(expand ~ tidyr::unnest_longer(data = .,
                                               col = full_expressions,
                                               values_to = "full_expression"),
@@ -4269,6 +4269,7 @@ is_skill_question_v <- function(v_names) {
 #' @param canton `NULL` or a valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' @return A character scalar.
+#' @family variable
 #' @export
 #'
 #' @examples
@@ -4587,6 +4588,7 @@ auth_g_sheets_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GC
 #'
 #' @return An object of class [dribble][googledrive::dribble], a tibble with one row per file if local backup was (over)written, otherwise `NULL`, meaning
 #'   remote file hasn't deviated from local backup since last run, invisibly.
+#' @family g_apps
 #' @export
 backup_g_file <- function(g_id,
                           path,
@@ -4642,6 +4644,7 @@ backup_g_file <- function(g_id,
 #'
 #' @return A [tibble][tibble::tbl_df] if local backup was (over)written, otherwise `NULL`, meaning remote file hasn't deviated from local backup since
 #'   last run, invisibly.
+#' @family g_apps
 #' @export
 backup_g_sheet <- function(g_id,
                            path,
@@ -4782,6 +4785,7 @@ upload_to_g_drive <- function(filepaths,
 #' @param g_id Google Drive file ID. A character scalar.
 #'
 #' @return `r pkgsnip::return_label("datetime")`
+#' @family g_apps
 #' @export
 g_file_mod_time <- function(g_id,
                             path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
