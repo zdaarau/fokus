@@ -4,7 +4,11 @@
 \alias{prcds}
 \title{Get ballot's election procedures}
 \usage{
-prcds(ballot_date = all_ballot_dates, lvls = all_lvls, canton = all_cantons)
+prcds(
+  ballot_date = all_ballot_dates,
+  lvls = all_lvls,
+  canton = cantons(ballot_date)
+)
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered ballot date. One of
@@ -23,10 +27,7 @@ prcds(ballot_date = all_ballot_dates, lvls = all_lvls, canton = all_cantons)
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A character vector of \link[=all_prcds]{election procedures}.

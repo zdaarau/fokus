@@ -11,6 +11,8 @@ g_file_mod_time(
 }
 \arguments{
 \item{g_id}{Google Drive file ID. A character scalar.}
+
+\item{path_gcp_service_account_key}{Path to the GCP Service Account Key JSON file. See \code{\link[=auth_g_drive_gcp]{auth_g_drive_gcp()}} for details.}
 }
 \value{
 A \link[base:DateTimeClasses]{datetime}.

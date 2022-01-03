@@ -29,7 +29,7 @@ election_names_combined(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Only relevant if \code{lvl = "cantonal"}.}
 
 \item{lang}{Language. One of
 \itemize{

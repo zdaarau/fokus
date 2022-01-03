@@ -7,7 +7,7 @@
 n_elections(
   ballot_date = all_ballot_dates,
   lvls = all_lvls,
-  canton = all_cantons,
+  canton = cantons(ballot_date),
   prcds = all_prcds
 )
 }
@@ -28,10 +28,7 @@ n_elections(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{prcds}{Election procedure(s). One or more of
 \itemize{

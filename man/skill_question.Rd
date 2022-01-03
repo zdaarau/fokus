@@ -6,7 +6,7 @@
 \usage{
 skill_question(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
+  lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL,
   skill_question_nr,
@@ -47,7 +47,8 @@ skill_question(
 A character scalar.
 }
 \description{
-Returns the skill question text in the specified language.
+Returns the skill question text in the specified language. Note that by default (\code{proposal_nr = NULL}), only non-proposal-specific skill questions are
+returned.
 }
 \examples{
 fokus::skill_question(ballot_date = "2018-09-23",

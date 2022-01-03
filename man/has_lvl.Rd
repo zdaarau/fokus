@@ -6,8 +6,8 @@
 \usage{
 has_lvl(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
-  canton = all_cantons,
+  lvl = lvls(ballot_date, canton),
+  canton = cantons(ballot_date),
   ballot_types = all_ballot_types
 )
 }
@@ -28,10 +28,7 @@ has_lvl(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{ballot_types}{Ballot type(s). One or more of
 \itemize{

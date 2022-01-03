@@ -7,7 +7,7 @@
 has_proposal_nrs(
   ballot_date = all_ballot_dates,
   lvls = all_lvls,
-  canton = all_cantons,
+  canton = cantons(ballot_date),
   proposal_nrs = NULL
 )
 }
@@ -28,10 +28,7 @@ has_proposal_nrs(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{proposal_nrs}{Proposals number(s) to check. An integerish vector. If \code{NULL}, falls back to the \link[=n_proposals]{number of proposals} present matching the
 specified parameters.}

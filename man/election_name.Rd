@@ -6,9 +6,9 @@
 \usage{
 election_name(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
+  lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
-  prcd = all_prcds,
+  prcd = prcds(ballot_date, lvl, canton),
   election_nr = 1L,
   lang = c("de", "en"),
   type = c("short", "long", "body", "body_alt")
@@ -31,7 +31,7 @@ election_name(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Only relevant if \code{lvl = "cantonal"}.}
 
 \item{prcd}{Election procedure. One of
 \itemize{

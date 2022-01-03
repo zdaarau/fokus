@@ -34,6 +34,7 @@ utils::globalVariables(names = c(".",
                                  "drive_resource",
                                  "enumerator",
                                  "enumerator_base",
+                                 "full_expressions",
                                  "Geschlecht",
                                  "has_fallback",
                                  "has_same_length",
@@ -288,7 +289,7 @@ gen_pkg_data <- function(data_files = c("internal", "exported", "asciicasts")) {
 #'
 #' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_qx_suppl] for the specified ballot date.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams cantons
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -345,8 +346,11 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level][raw_q_suppl_lvl]
 #' that applies for the specified canton only.
 #'
-#' @inheritParams ballot_types
-#' @inheritParams proposal_name
+#' @inheritParams cantons
+#' @param lvl Political level. One of
+#' `r pal::as_md_val_list(all_lvls)`
+#' @param canton A valid FOKUS canton name. One of
+#' `r pal::as_md_val_list(all_cantons)`
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -652,7 +656,8 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
                                  prcd = all_prcds,
                                  election_nr = 1L) {
 
-  prcd <- rlang::arg_match(prcd)
+  prcd <- rlang::arg_match(prcd,
+                           values = all_prcds)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
 
@@ -668,7 +673,8 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match(lvl)
+    lvl <- rlang::arg_match(lvl,
+                            values = all_lvls)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS ",
@@ -715,8 +721,11 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
                                       canton = all_cantons,
                                       prcd = all_prcds,
                                       election_nr = 1L) {
-  lvl <- rlang::arg_match(lvl)
-  prcd <- rlang::arg_match(prcd)
+  lvl <- rlang::arg_match(lvl,
+                          values = all_lvls)
+  
+  prcd <- rlang::arg_match(prcd,
+                           values = all_prcds)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
 
@@ -758,7 +767,7 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns a structured list of survey mode data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
 #'
-#' @inheritParams ballot_types
+#' @inheritParams raw_q_suppl_lvl_canton
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -914,7 +923,7 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
 #' @param x Questionnaire key. A list object.
 #' @param key Questionnaire key name, used to determine the correct default value fallback. A character scalar or `NULL`. If `NULL`, no fallback is used (and an
 #'   error is thrown in case none of the subkeys matches).
-#' @inheritParams ballot_types
+#' @inheritParams raw_q_suppl_lvl_canton
 #'
 #' @return Value of `x` that corresponds to `canton` and `ballot_date`.
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -1540,7 +1549,7 @@ add_who_constraint <- function(x,
 
 #' Generate Markdown questionnaire
 #'
-#' @inheritParams ballot_types
+#' @inheritParams raw_q_suppl_lvl_canton
 #' @param incl_title Whether or not to generate an `<h1>` questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
 #'   it's recommended to set this to `FALSE` and provide the title via [Pandoc's `--metadata` option](https://pandoc.org/MANUAL.html#option--metadata) instead.
 #'
@@ -2045,7 +2054,7 @@ q_lbl_col_sym <- function(lang = c("de", "en")) {
 #' -   the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
 #'     adults between 18--25 years.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams raw_q_suppl_lvl_canton
 #'
 #' @return `r pkgsnip::param_label("data")`
 #' @keywords internal
@@ -2493,8 +2502,7 @@ cantons <- function(ballot_date = all_ballot_dates) {
 #' Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
 #'
 #' @inheritParams cantons
-#' @param canton A valid FOKUS canton name. One of
-#' `r pal::as_md_val_list(all_cantons)`
+#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' @return A character vector of ballot types. One or more of
 #' `r pal::as_md_val_list(all_ballot_types)`
@@ -2505,12 +2513,13 @@ cantons <- function(ballot_date = all_ballot_dates) {
 #' fokus::ballot_types(ballot_date = "2018-09-23",
 #'                     canton = "aargau")
 ballot_types <- function(ballot_date = all_ballot_dates,
-                         canton = all_cantons) {
+                         canton = cantons(ballot_date)) {
 
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(canton)
+  canton <- rlang::arg_match(canton,
+                             values = all_cantons)
 
   c("referendum"[has_referendum(ballot_date = ballot_date,
                                 canton = canton)],
@@ -2537,7 +2546,7 @@ ballot_types <- function(ballot_date = all_ballot_dates,
 #'                    canton = "aargau")
 n_proposals <- function(ballot_date = all_ballot_dates,
                         lvls = all_lvls,
-                        canton = all_cantons) {
+                        canton = cantons(ballot_date)) {
 
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
@@ -2545,7 +2554,8 @@ n_proposals <- function(ballot_date = all_ballot_dates,
   lvls <- unique(checkmate::assert_subset(lvls,
                                           choices = all_lvls,
                                           empty.ok = FALSE))
-  canton <- rlang::arg_match(canton)
+  canton <- rlang::arg_match(canton,
+                             values = all_cantons)
 
   raw <- raw_q_suppl(ballot_date = ballot_date)
   result <- 0L
@@ -2581,7 +2591,7 @@ n_proposals <- function(ballot_date = all_ballot_dates,
 #'                    canton = "aargau")
 n_elections <- function(ballot_date = all_ballot_dates,
                         lvls = all_lvls,
-                        canton = all_cantons,
+                        canton = cantons(ballot_date),
                         prcds = all_prcds) {
 
   ballot_date %<>% as.character()
@@ -2590,7 +2600,8 @@ n_elections <- function(ballot_date = all_ballot_dates,
   lvls <- unique(checkmate::assert_subset(lvls,
                                           choices = all_lvls,
                                           empty.ok = FALSE))
-  canton <- rlang::arg_match(canton)
+  canton <- rlang::arg_match(canton,
+                             values = all_cantons)
   prcds <- unique(checkmate::assert_subset(prcds,
                                            choices = all_prcds,
                                            empty.ok = FALSE))
@@ -2644,7 +2655,7 @@ n_elections <- function(ballot_date = all_ballot_dates,
 #'                         ballot_types = "election")
 has_ballot_types <- function(ballot_date = all_ballot_dates,
                              lvls = all_lvls,
-                             canton = all_cantons,
+                             canton = cantons(ballot_date),
                              ballot_types = all_ballot_types) {
 
   ballot_types <- unique(checkmate::assert_subset(ballot_types,
@@ -2675,7 +2686,7 @@ has_ballot_types <- function(ballot_date = all_ballot_dates,
 #'                       canton = "aargau")
 has_referendum <- function(ballot_date = all_ballot_dates,
                            lvls = all_lvls,
-                           canton = all_cantons) {
+                           canton = cantons(ballot_date)) {
   
   n_proposals(ballot_date = ballot_date,
               lvls = lvls,
@@ -2703,7 +2714,7 @@ has_referendum <- function(ballot_date = all_ballot_dates,
 #'                     canton = "aargau")
 has_election <- function(ballot_date = all_ballot_dates,
                          lvls = all_lvls,
-                         canton = all_cantons,
+                         canton = cantons(ballot_date),
                          prcds = all_prcds) {
   
   n_elections(ballot_date = ballot_date,
@@ -2734,14 +2745,16 @@ has_election <- function(ballot_date = all_ballot_dates,
 #'                canton = "aargau",
 #'                ballot_types = "election")
 has_lvl <- function(ballot_date = all_ballot_dates,
-                    lvl = all_lvls,
-                    canton = all_cantons,
+                    lvl = lvls(ballot_date,
+                                     canton),
+                    canton = cantons(ballot_date),
                     ballot_types = all_ballot_types) {
 
   ballot_types <- unique(checkmate::assert_subset(ballot_types,
                                                   choices = all_ballot_types,
                                                   empty.ok = FALSE))
-  lvl <- rlang::arg_match(lvl)
+  lvl <- rlang::arg_match(lvl,
+                          values = all_lvls)
 
   ("election" %in% ballot_types && has_election(ballot_date = ballot_date,
                                                 lvls = lvl,
@@ -2773,7 +2786,7 @@ has_lvl <- function(ballot_date = all_ballot_dates,
 #'                         proposal_nrs = 1:5)
 has_proposal_nrs <- function(ballot_date = all_ballot_dates,
                              lvls = all_lvls,
-                             canton = all_cantons,
+                             canton = cantons(ballot_date),
                              proposal_nrs = NULL) {
   
   checkmate::assert_integerish(proposal_nrs,
@@ -2825,7 +2838,7 @@ has_proposal_nrs <- function(ballot_date = all_ballot_dates,
 #'                         election_nrs = 1:2)
 has_election_nrs <- function(ballot_date = all_ballot_dates,
                              lvls = all_lvls,
-                             canton = all_cantons,
+                             canton = cantons(ballot_date),
                              prcds = all_prcds,
                              election_nrs = NULL) {
   
@@ -2882,7 +2895,7 @@ has_election_nrs <- function(ballot_date = all_ballot_dates,
 #'             canton = "aargau",
 #'             ballot_types = "election")
 lvls <- function(ballot_date = all_ballot_dates,
-                 canton = all_cantons,
+                 canton = cantons(ballot_date),
                  ballot_types = all_ballot_types) {
 
   c("cantonal"[has_lvl(ballot_date = ballot_date,
@@ -2914,8 +2927,8 @@ lvls <- function(ballot_date = all_ballot_dates,
 #'              canton = "aargau")
 prcds <- function(ballot_date = all_ballot_dates,
                   lvls = all_lvls,
-                  canton = all_cantons) {
-
+                  canton = cantons(ballot_date)) {
+  
   lvls <- unique(checkmate::assert_subset(lvls,
                                           choices = all_lvls,
                                           empty.ok = FALSE))
@@ -2946,7 +2959,8 @@ prcds <- function(ballot_date = all_ballot_dates,
 #'                      canton = "aargau",
 #'                      proposal_nr = 1)
 proposal_type <- function(ballot_date = all_ballot_dates,
-                          lvl = all_lvls,
+                          lvl = lvls(ballot_date,
+                                     canton),
                           canton = cantons(ballot_date),
                           proposal_nr = 1L) {
 
@@ -2985,7 +2999,8 @@ proposal_type <- function(ballot_date = all_ballot_dates,
 #'                      proposal_nr = 1,
 #'                      type = "long")
 proposal_name <- function(ballot_date = all_ballot_dates,
-                          lvl = all_lvls,
+                          lvl = lvls(ballot_date,
+                                     canton),
                           canton = cantons(ballot_date),
                           proposal_nr = 1L,
                           lang = c("de", "en"),
@@ -3018,7 +3033,8 @@ proposal_name <- function(ballot_date = all_ballot_dates,
 #'                             proposal_nr = 1,
 #'                             type = "short")
 proposal_name_gender <- function(ballot_date = all_ballot_dates,
-                                 lvl = all_lvls,
+                                 lvl = lvls(ballot_date,
+                                            canton),
                                  canton = cantons(ballot_date),
                                  proposal_nr = 1L,
                                  type = c("short", "long")) {
@@ -3048,7 +3064,8 @@ proposal_name_gender <- function(ballot_date = all_ballot_dates,
 #'                           canton = "aargau",
 #'                           proposal_nr = 1)
 proposal_arguments <- function(ballot_date = all_ballot_dates,
-                               lvl = all_lvls,
+                               lvl = lvls(ballot_date,
+                                          canton),
                                canton = cantons(ballot_date),
                                proposal_nr = 1L) {
 
@@ -3076,7 +3093,8 @@ proposal_arguments <- function(ballot_date = all_ballot_dates,
 #'                             canton = "aargau",
 #'                             proposal_nr = 1)
 n_proposal_arguments <- function(ballot_date = all_ballot_dates,
-                                 lvl = all_lvls,
+                                 lvl = lvls(ballot_date,
+                                            canton),
                                  canton = cantons(ballot_date),
                                  proposal_nr = 1L) {
 
@@ -3108,7 +3126,8 @@ n_proposal_arguments <- function(ballot_date = all_ballot_dates,
 #'                              proposal_nr = 1,
 #'                              type = "no")
 proposal_main_motives <- function(ballot_date = all_ballot_dates,
-                                  lvl = all_lvls,
+                                  lvl = lvls(ballot_date,
+                                             canton),
                                   canton = cantons(ballot_date),
                                   proposal_nr = 1L,
                                   type = c("yes",
@@ -3140,7 +3159,8 @@ proposal_main_motives <- function(ballot_date = all_ballot_dates,
 #'                                proposal_nr = 1,
 #'                                type = "no")
 n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
-                                    lvl = all_lvls,
+                                    lvl = lvls(ballot_date,
+                                               canton),
                                     canton = cantons(ballot_date),
                                     proposal_nr = 1L,
                                     type = c("yes",
@@ -3160,7 +3180,6 @@ n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the name of the specified election in the specified language.
 #'
-#' @inheritParams ballot_title
 #' @inheritParams proposal_name
 #' @param prcd Election procedure. One of
 #' `r pal::as_md_val_list(all_prcds)`
@@ -3183,15 +3202,22 @@ n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
 #'                      election_nr = 1,
 #'                      type = "body")
 election_name <- function(ballot_date = all_ballot_dates,
-                          lvl = all_lvls,
+                          lvl = lvls(ballot_date,
+                                     canton),
                           canton = cantons(ballot_date),
-                          prcd = all_prcds,
+                          prcd = prcds(ballot_date,
+                                       lvl,
+                                       canton),
                           election_nr = 1L,
                           lang = c("de", "en"),
                           type = c("short", "long", "body", "body_alt")) {
 
   lang <- rlang::arg_match(lang)
   type <- rlang::arg_match(type)
+  # this is required to trigger a proper error message in case `prcds` is not explicitly set and there are no elections (`prcd = character()`)
+  if (!length(prcd)) {
+    cli::cli_abort(paste0("{.arg prcd} must be one of ", pal::prose_ls(paste0("{.val ", all_prcds, "}"), last_sep = " or "), "."))
+  }
 
   raw_q_suppl_election_name(ballot_date = ballot_date,
                             lvl = lvl,
@@ -3256,6 +3282,7 @@ election_names_combined <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines the number of election seats of the specified type for the specified majoritarian election.
 #'
+#' @inheritParams ballot_types
 #' @inheritParams election_name
 #' @param type Seat type. One of
 #'  - `"vacant"`
@@ -3271,7 +3298,8 @@ election_names_combined <- function(ballot_date = all_ballot_dates,
 #'                         canton = "aargau",
 #'                         type = "total")
 n_election_seats <- function(ballot_date = all_ballot_dates,
-                             lvl = all_lvls,
+                             lvl = lvls(ballot_date,
+                                        canton),
                              canton = cantons(ballot_date),
                              election_nr = 1L,
                              type = c("vacant", "total")) {
@@ -3290,7 +3318,7 @@ n_election_seats <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the name and party of all candidates running for the specified majoritarian election.
 #'
-#' @inheritParams election_name
+#' @inheritParams n_election_seats
 #'
 #' @return `r pkgsnip::return_label("data")`
 #' @family predicate_election
@@ -3301,7 +3329,8 @@ n_election_seats <- function(ballot_date = all_ballot_dates,
 #'                            lvl = "cantonal",
 #'                            canton = "aargau")
 election_candidates <- function(ballot_date = all_ballot_dates,
-                                lvl = all_lvls,
+                                lvl = lvls(ballot_date,
+                                           canton),
                                 canton = cantons(ballot_date),
                                 election_nr = 1L) {
 
@@ -3318,7 +3347,7 @@ election_candidates <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
 #'
-#' @inheritParams election_name
+#' @inheritParams n_election_seats
 #'
 #' @return An integer scalar.
 #' @family predicate_election
@@ -3329,7 +3358,8 @@ election_candidates <- function(ballot_date = all_ballot_dates,
 #'                              lvl = "cantonal",
 #'                              canton = "aargau")
 n_election_candidates <- function(ballot_date = all_ballot_dates,
-                                  lvl = all_lvls,
+                                  lvl = lvls(ballot_date,
+                                             canton),
                                   canton = cantons(ballot_date),
                                   election_nr = 1L) {
 
@@ -3347,7 +3377,7 @@ n_election_candidates <- function(ballot_date = all_ballot_dates,
 #' Assembles one or more majoritarian election candidate string(s) consisting of the candidate's first name, last name and optionally political party (in
 #' parentheses).
 #'
-#' @inheritParams election_name
+#' @inheritParams n_election_seats
 #' @param candidate_nrs Election candidate numbers to include. A vector of positive integers or `NULL`. If `NULL`, all candidates will be included.
 #' @param incl_party Whether or not to include the candidate's political party in the resulting string (in parentheses).
 #'
@@ -3361,7 +3391,8 @@ n_election_candidates <- function(ballot_date = all_ballot_dates,
 #'                                  canton = "aargau",
 #'                                  candidate_nrs = 1:3)
 election_candidate_string <- function(ballot_date = all_ballot_dates,
-                                      lvl = all_lvls,
+                                      lvl = lvls(ballot_date,
+                                                 canton),
                                       canton = cantons(ballot_date),
                                       election_nr = 1L,
                                       candidate_nrs = NULL,
@@ -3393,7 +3424,7 @@ election_candidate_string <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the questionnaire code as well as different versions of the name of all parties for the specified proportional election.
 #'
-#' @inheritParams election_name
+#' @inheritParams n_election_seats
 #' @param past Whether to extract the current or the predecessor election's parties.
 #'
 #' @return `r pkgsnip::return_label("data")`
@@ -3410,7 +3441,8 @@ election_candidate_string <- function(ballot_date = all_ballot_dates,
 #'                         canton = "aargau",
 #'                         past = TRUE)
 election_parties <- function(ballot_date = all_ballot_dates,
-                             lvl = all_lvls,
+                             lvl = lvls(ballot_date,
+                                        canton),
                              canton = cantons(ballot_date),
                              election_nr = 1L,
                              past = FALSE) {
@@ -3433,7 +3465,7 @@ election_parties <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the name, number and party of all tickets for the specified proportional election.
 #'
-#' @inheritParams election_name
+#' @inheritParams n_election_seats
 #'
 #' @return `r pkgsnip::return_label("data")`
 #' @family predicate_election
@@ -3444,7 +3476,8 @@ election_parties <- function(ballot_date = all_ballot_dates,
 #'                         lvl = "federal",
 #'                         canton = "aargau")
 election_tickets <- function(ballot_date = all_ballot_dates,
-                             lvl = all_lvls,
+                             lvl = lvls(ballot_date,
+                                        canton),
                              canton = cantons(ballot_date),
                              election_nr = 1L) {
 
@@ -3463,7 +3496,7 @@ election_tickets <- function(ballot_date = all_ballot_dates,
 #'
 #' The absence of a candidate registration requirement usually means that every eligible citizen can be elected, i.e. receive valid votes.
 #'
-#' @inheritParams election_name
+#' @inheritParams n_election_seats
 #'
 #' @return A logical scalar.
 #' @family predicate_election
@@ -3474,7 +3507,8 @@ election_tickets <- function(ballot_date = all_ballot_dates,
 #'                                        lvl = "federal",
 #'                                        canton = "aargau")
 requires_candidate_registration <- function(ballot_date = all_ballot_dates,
-                                            lvl = all_lvls,
+                                            lvl = lvls(ballot_date,
+                                                       canton),
                                             canton = cantons(ballot_date),
                                             election_nr = 1L) {
 
@@ -3488,12 +3522,11 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
 
 #' Get number of skill questions
 #'
-#' Determines the number of skill questions at the specified ballot date on the specified political level.
+#' Determines the number of skill questions at the specified ballot date on the specified political level. Note that by default (`proposal_nr = NULL`), the
+#' number of non-proposal-specific skill questions is returned
 #'
+#' @inheritParams ballot_types
 #' @inheritParams proposal_name
-#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
-#'
-#' Only relevant if `lvl = "cantonal"`.
 #' @param proposal_nr Proposal number. A positive integer scalar or `NULL`. If `NULL`, the number of non-proposal-specific skill questions is returned.
 #'
 #' @return An integer scalar.
@@ -3506,11 +3539,13 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
 #'                          canton = "aargau",
 #'                          proposal_nr = 1)
 n_skill_questions <- function(ballot_date = all_ballot_dates,
-                              lvl = all_lvls,
+                              lvl = lvls(ballot_date,
+                                         canton),
                               canton = cantons(ballot_date),
                               proposal_nr = NULL) {
 
-  lvl <- rlang::arg_match(lvl)
+  lvl <- rlang::arg_match(lvl,
+                          values = all_lvls)
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_count(proposal_nr,
@@ -3542,7 +3577,8 @@ n_skill_questions <- function(ballot_date = all_ballot_dates,
 
 #' Get skill question
 #'
-#' Returns the skill question text in the specified language.
+#' Returns the skill question text in the specified language. Note that by default (`proposal_nr = NULL`), only non-proposal-specific skill questions are
+#' returned.
 #'
 #' @inheritParams proposal_name
 #' @param proposal_nr Proposal number. A positive integer scalar or `NULL`. If `NULL`, it is considered to be a non-proposal-specific skill question
@@ -3561,7 +3597,8 @@ n_skill_questions <- function(ballot_date = all_ballot_dates,
 #'                       skill_question_nr = 2,
 #'                       lang = "en")
 skill_question <- function(ballot_date = all_ballot_dates,
-                           lvl = all_lvls,
+                           lvl = lvls(ballot_date,
+                                      canton),
                            canton = cantons(ballot_date),
                            proposal_nr = NULL,
                            skill_question_nr,
@@ -3594,7 +3631,8 @@ skill_question <- function(ballot_date = all_ballot_dates,
 #'                                        proposal_nr = 1,
 #'                                        skill_question_nr = 2)
 skill_question_response_options <- function(ballot_date = all_ballot_dates,
-                                            lvl = all_lvls,
+                                            lvl = lvls(ballot_date,
+                                                       canton),
                                             canton = cantons(ballot_date),
                                             proposal_nr = NULL,
                                             skill_question_nr) {
@@ -3625,7 +3663,8 @@ skill_question_response_options <- function(ballot_date = all_ballot_dates,
 #'                                 proposal_nr = 1,
 #'                                 skill_question_nr = 2)
 skill_question_answer_nr <- function(ballot_date = all_ballot_dates,
-                                     lvl = all_lvls,
+                                     lvl = lvls(ballot_date,
+                                                canton),
                                      canton = cantons(ballot_date),
                                      proposal_nr = NULL,
                                      skill_question_nr) {
@@ -3646,8 +3685,8 @@ skill_question_answer_nr <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date in German prose.
 #'
+#' @inheritParams ballot_types
 #' @inheritParams proposal_name
-#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' @return A character scalar.
 #' @family predicate_other
@@ -4735,9 +4774,9 @@ backup_g_sheet <- function(g_id,
 #' 
 #' Essentially a convenience wrapper around [googledrive::drive_put()].
 #'
+#' @inheritParams g_file_mod_time
 #' @param filepaths Local path(s) to the file(s) to be uploaded.
 #' @param g_drive_folder Destination path on Google Drive where the files are to be uploaded to.
-#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file. See [auth_g_drive_gcp()] for details.
 #' @param quiet Whether or not to [suppress printing status output from googledrive operations][googledrive::local_drive_quiet].
 #'
 #' @return `filepaths`, invisibly.
@@ -4783,6 +4822,7 @@ upload_to_g_drive <- function(filepaths,
 #' Get Google Drive file modification timestamp
 #'
 #' @param g_id Google Drive file ID. A character scalar.
+#' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file. See [auth_g_drive_gcp()] for details.
 #'
 #' @return `r pkgsnip::return_label("datetime")`
 #' @family g_apps

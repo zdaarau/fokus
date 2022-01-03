@@ -6,7 +6,7 @@
 \usage{
 proposal_name_gender(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
+  lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
   type = c("short", "long")

@@ -4,7 +4,7 @@
 \alias{ballot_types}
 \title{Get ballot types}
 \usage{
-ballot_types(ballot_date = all_ballot_dates, canton = all_cantons)
+ballot_types(ballot_date = all_ballot_dates, canton = cantons(ballot_date))
 }
 \arguments{
 \item{ballot_date}{A valid FOKUS-covered ballot date. One of
@@ -17,10 +17,7 @@ ballot_types(ballot_date = all_ballot_dates, canton = all_cantons)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A character vector of ballot types. One or more of

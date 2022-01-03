@@ -6,7 +6,7 @@
 \usage{
 n_skill_questions(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
+  lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL
 )
@@ -28,9 +28,7 @@ n_skill_questions(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.
-
-Only relevant if \code{lvl = "cantonal"}.}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, the number of non-proposal-specific skill questions is returned.}
 }
@@ -38,7 +36,8 @@ Only relevant if \code{lvl = "cantonal"}.}
 An integer scalar.
 }
 \description{
-Determines the number of skill questions at the specified ballot date on the specified political level.
+Determines the number of skill questions at the specified ballot date on the specified political level. Note that by default (\code{proposal_nr = NULL}), the
+number of non-proposal-specific skill questions is returned
 }
 \examples{
 fokus::n_skill_questions(ballot_date = "2018-09-23",

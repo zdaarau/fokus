@@ -6,7 +6,7 @@
 \usage{
 n_election_seats(
   ballot_date = all_ballot_dates,
-  lvl = all_lvls,
+  lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   election_nr = 1L,
   type = c("vacant", "total")

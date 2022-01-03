@@ -1,5 +1,9 @@
 # TODOs
 
+-   Change `@param lvl` doc where default is `lvls(...)`
+
+-   Change `@param prcd` doc where default is `prcds(...)`
+
 -   Ask Uwe whether easyvote booklet actually covers *cantonal* proposals. If not, the distinction between
     `cantonal_proposals_information_source_easyvote_booklet` and `federal_proposals_information_source_easyvote_booklet` doesn't make sense and we could merge
     the variable with `information_source_easyvote_booklet` (which currently refers to the election booklet only).
@@ -55,3 +59,4 @@
 ## Extensions
 
 -   add v `latent_expertise_proposals` that combines expertise on cantonal *and* federal proposals
+

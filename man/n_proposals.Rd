@@ -7,7 +7,7 @@
 n_proposals(
   ballot_date = all_ballot_dates,
   lvls = all_lvls,
-  canton = all_cantons
+  canton = cantons(ballot_date)
 )
 }
 \arguments{
@@ -27,10 +27,7 @@ n_proposals(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 An integer.

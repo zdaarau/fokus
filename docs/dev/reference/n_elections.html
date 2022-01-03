@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9018</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9019</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@ of the specified election procedure(s).</p>
     <pre class="usage"><span class='fu'>n_elections</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
   lvls <span class='op'>=</span> <span class='va'>all_lvls</span>,
-  canton <span class='op'>=</span> <span class='va'>all_cantons</span>,
+  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
   prcds <span class='op'>=</span> <span class='va'>all_prcds</span>
 <span class='op'>)</span></pre>
 
@@ -165,9 +165,7 @@ of the specified election procedure(s).</p>
     </tr>
     <tr>
       <th>canton</th>
-      <td><p>A valid FOKUS canton name. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
+      <td><p>A valid FOKUS canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>.</p></td>
     </tr>
     <tr>
       <th>prcds</th>
