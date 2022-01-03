@@ -12,7 +12,7 @@ requires_candidate_registration(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -22,13 +22,9 @@ requires_candidate_registration(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level \link[=lvls]{covered at} \code{ballot_date} and \code{canton}.}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
 }

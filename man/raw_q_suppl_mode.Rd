@@ -7,7 +7,7 @@
 raw_q_suppl_mode(ballot_date = all_ballot_dates, canton = all_cantons)
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -17,7 +17,7 @@ raw_q_suppl_mode(ballot_date = all_ballot_dates, canton = all_cantons)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
+\item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

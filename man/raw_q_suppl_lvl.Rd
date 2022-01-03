@@ -7,7 +7,7 @@
 raw_q_suppl_lvl(ballot_date = all_ballot_dates, lvl = all_lvls)
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}

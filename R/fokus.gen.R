@@ -171,7 +171,7 @@ print_fokus_private_structure <- function() {
                  "-   `...` for further files and/or folders",
                  "-   `*` for a variable character sequence",
                  "-   `#` for a count starting with `1`",
-                 "-   `{canton}` for the name of the FOKUS canton (in lower case), e.g. `aargau`",
+                 "-   `{canton}` for the name of the FOKUS-covered canton (in lower case), e.g. `aargau`",
                  "-   `{ballot_date}` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`",
                  paste0("-   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical ",
                         "office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`"))
@@ -310,7 +310,9 @@ raw_q_suppl <- function(ballot_date = all_ballot_dates) {
 #'
 #' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl] for the specified ballot date and political level.
 #'
-#' @inheritParams election_name
+#' @inheritParams cantons
+#' @param lvl Political level. One of
+#' `r pal::as_md_val_list(all_lvls)`
 #'
 #' @inherit raw_q_suppl return seealso
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -346,10 +348,8 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
 #' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level][raw_q_suppl_lvl]
 #' that applies for the specified canton only.
 #'
-#' @inheritParams cantons
-#' @param lvl Political level. One of
-#' `r pal::as_md_val_list(all_lvls)`
-#' @param canton A valid FOKUS canton name. One of
+#' @inheritParams raw_q_suppl_lvl
+#' @param canton Canton name. One of
 #' `r pal::as_md_val_list(all_cantons)`
 #'
 #' @inherit raw_q_suppl return
@@ -638,6 +638,8 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams raw_q_suppl_lvl_canton
 #' @inheritParams election_name
+#' @param prcd Election procedure. One of
+#' `r pal::as_md_val_list(all_prcds)`
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -920,10 +922,10 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
 #'
 #' Picks the right value of a certain raw questionnaire key based on ballot date and canton (recursively).
 #'
+#' @inheritParams raw_q_suppl_lvl_canton
 #' @param x Questionnaire key. A list object.
 #' @param key Questionnaire key name, used to determine the correct default value fallback. A character scalar or `NULL`. If `NULL`, no fallback is used (and an
 #'   error is thrown in case none of the subkeys matches).
-#' @inheritParams raw_q_suppl_lvl_canton
 #'
 #' @return Value of `x` that corresponds to `canton` and `ballot_date`.
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -2475,7 +2477,7 @@ cli_theme <-
 #'
 #' Determines the cantons covered by the FOKUS survey at the specified ballot date.
 #'
-#' @param ballot_date A valid FOKUS-covered ballot date. One of
+#' @param ballot_date FOKUS-covered ballot date. One of
 #' `r pal::as_md_val_list(as.character(all_ballot_dates))`
 #'
 #' @return A character vector.
@@ -2502,7 +2504,7 @@ cantons <- function(ballot_date = all_ballot_dates) {
 #' Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
 #'
 #' @inheritParams cantons
-#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
+#' @param canton Canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' @return A character vector of ballot types. One or more of
 #' `r pal::as_md_val_list(all_ballot_types)`
@@ -2532,8 +2534,8 @@ ballot_types <- function(ballot_date = all_ballot_dates,
 #' Determines the number of referendum proposals covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
 #' level(s).
 #'
-#' Technically, the number of *federal* proposals is independent from the canton, but this function still expects a valid `canton`. Nonetheless, the returned
-#' number of *federal* proposals at a specific ballot date is always the same regardless of `canton`.
+#' The number of *federal* proposals is independent from the canton, i.e. the returned number of *federal* proposals at a specific ballot date is always the
+#' same, thus `canton` is ignored if `!("cantonal" %in% lvls)`.
 #'
 #' @inheritParams n_elections
 #'
@@ -2554,8 +2556,6 @@ n_proposals <- function(ballot_date = all_ballot_dates,
   lvls <- unique(checkmate::assert_subset(lvls,
                                           choices = all_lvls,
                                           empty.ok = FALSE))
-  canton <- rlang::arg_match(canton,
-                             values = all_cantons)
 
   raw <- raw_q_suppl(ballot_date = ballot_date)
   result <- 0L
@@ -2565,6 +2565,8 @@ n_proposals <- function(ballot_date = all_ballot_dates,
   }
 
   if ("cantonal" %in% lvls) {
+    canton <- rlang::arg_match(canton,
+                               values = all_cantons)
     result %<>% magrittr::add(length(raw$cantonal[[canton]]$proposal))
   }
 
@@ -2728,8 +2730,7 @@ has_election <- function(ballot_date = all_ballot_dates,
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
 #'
 #' @inheritParams has_ballot_types
-#' @param lvl Political level to test for. One of
-#' `r pal::as_md_val_list(all_lvls)`
+#' @param lvl Political level to test for [covered at][lvls] `ballot_date` and `canton`.
 #'
 #' @inherit has_election return
 #' @family predicate_fundamental
@@ -2746,7 +2747,7 @@ has_election <- function(ballot_date = all_ballot_dates,
 #'                ballot_types = "election")
 has_lvl <- function(ballot_date = all_ballot_dates,
                     lvl = lvls(ballot_date,
-                                     canton),
+                               canton),
                     canton = cantons(ballot_date),
                     ballot_types = all_ballot_types) {
 
@@ -2977,9 +2978,8 @@ proposal_type <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams cantons
 #' 
-#' @param lvl Political level. One of
-#' `r pal::as_md_val_list(all_lvls)`
-#' @param canton A valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`. Only relevant if `lvl = "cantonal"`.
+#' @param lvl Political level [covered at][lvls] `ballot_date` and `canton`.
+#' @param canton Canton name (lowercase) [covered at][cantons] `ballot_date`. Only relevant if `lvl = "cantonal"`.
 #' @param proposal_nr Proposal number. A positive integer scalar.
 #' @param lang Language. One of
 #'   - `"de"`
@@ -3081,7 +3081,7 @@ proposal_arguments <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines the number of arguments on the specified proposal.
 #'
-#' @inheritParams proposal_main_motives
+#' @inheritParams proposal_name
 #'
 #' @return An integer scalar.
 #' @family predicate_proposal
@@ -3181,8 +3181,8 @@ n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
 #' Returns the name of the specified election in the specified language.
 #'
 #' @inheritParams proposal_name
-#' @param prcd Election procedure. One of
-#' `r pal::as_md_val_list(all_prcds)`
+#' @param canton Canton name (lowercase) [covered at][cantons] `ballot_date`. Irrelevant if `lvl = "federal"` and `prcd = "proportional"`.
+#' @param prcd Election procedure [covered at][prcds] `ballot_date`, `lvl` and `canton`.
 #' @param election_nr Election number. A positive integer scalar (in almost all cases `1L`).
 #' @param type Name type. One of
 #'   - `"short"`
@@ -3231,9 +3231,9 @@ election_name <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the combined name of all elections at the specified date on the specified level for the specified canton.
 #'
-#' @inheritParams election_name
 #' @inheritParams n_elections
-#' @param federal_first Whether or not to list federal elections before cantonal ones. Only relevant if `"federal" %in% lvls`.
+#' @inheritParams proposal_name
+#' @param federal_first Whether or not to list federal elections before cantonal ones. Only has an effect if `"federal" %in% lvls`.
 #'
 #' @return A character scalar.
 #' @family predicate_election
@@ -3525,7 +3525,6 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
 #' Determines the number of skill questions at the specified ballot date on the specified political level. Note that by default (`proposal_nr = NULL`), the
 #' number of non-proposal-specific skill questions is returned
 #'
-#' @inheritParams ballot_types
 #' @inheritParams proposal_name
 #' @param proposal_nr Proposal number. A positive integer scalar or `NULL`. If `NULL`, the number of non-proposal-specific skill questions is returned.
 #'
@@ -3546,8 +3545,10 @@ n_skill_questions <- function(ballot_date = all_ballot_dates,
 
   lvl <- rlang::arg_match(lvl,
                           values = all_lvls)
-  canton <- rlang::arg_match(arg = canton,
-                             values = cantons(ballot_date))
+  if (lvl == "cantonal") {
+    canton <- rlang::arg_match(arg = canton,
+                               values = cantons(ballot_date))
+  }
   checkmate::assert_count(proposal_nr,
                           positive = TRUE,
                           null.ok = TRUE)
@@ -4303,9 +4304,9 @@ is_skill_question_v <- function(v_names) {
 #' `NULL` or set to a valid canton name and ballot date respectively.
 #'
 #' @param v_name Variable name. A character scalar.
-#' @param ballot_date `NULL` or a valid FOKUS-covered ballot date, i.e. one of
+#' @param ballot_date `NULL` or a FOKUS-covered ballot date, i.e. one of
 #' `r pal::as_md_val_list(as.character(all_ballot_dates))`
-#' @param canton `NULL` or a valid FOKUS canton name (lowercase) [covered at][cantons] `ballot_date`.
+#' @param canton `NULL` or a canton name (lowercase) [covered at][cantons] `ballot_date`.
 #'
 #' @return A character scalar.
 #' @family variable

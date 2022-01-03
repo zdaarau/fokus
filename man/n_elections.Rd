@@ -12,7 +12,7 @@ n_elections(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -28,7 +28,7 @@ n_elections(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{prcds}{Election procedure(s). One or more of
 \itemize{

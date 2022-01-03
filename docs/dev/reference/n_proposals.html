@@ -146,7 +146,7 @@ level(s).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ballot_date</th>
-      <td><p>A valid FOKUS-covered ballot date. One of</p><ul>
+      <td><p>FOKUS-covered ballot date. One of</p><ul>
 <li><p><code>"2018-09-23"</code></p></li>
 <li><p><code>"2018-11-25"</code></p></li>
 <li><p><code>"2019-10-20"</code></p></li>
@@ -164,7 +164,7 @@ level(s).</p>
     </tr>
     <tr>
       <th>canton</th>
-      <td><p>A valid FOKUS canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>.</p></td>
+      <td><p>Canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>.</p></td>
     </tr>
     </table>
 
@@ -173,8 +173,8 @@ level(s).</p>
     <p>An integer.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Technically, the number of <em>federal</em> proposals is independent from the canton, but this function still expects a valid <code>canton</code>. Nonetheless, the returned
-number of <em>federal</em> proposals at a specific ballot date is always the same regardless of <code>canton</code>.</p>
+    <p>The number of <em>federal</em> proposals is independent from the canton, i.e. the returned number of <em>federal</em> proposals at a specific ballot date is always the
+same, thus <code>canton</code> is ignored if <code>!("cantonal" %in% lvls)</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other fundamental predicate functions:

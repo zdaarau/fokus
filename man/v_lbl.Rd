@@ -9,7 +9,7 @@ v_lbl(v_name, ballot_date = NULL, canton = NULL)
 \arguments{
 \item{v_name}{Variable name. A character scalar.}
 
-\item{ballot_date}{\code{NULL} or a valid FOKUS-covered ballot date, i.e. one of
+\item{ballot_date}{\code{NULL} or a FOKUS-covered ballot date, i.e. one of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -19,7 +19,7 @@ v_lbl(v_name, ballot_date = NULL, canton = NULL)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{\code{NULL} or a valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{\code{NULL} or a canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 A character scalar.

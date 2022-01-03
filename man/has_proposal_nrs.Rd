@@ -12,7 +12,7 @@ has_proposal_nrs(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -28,7 +28,7 @@ has_proposal_nrs(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{proposal_nrs}{Proposals number(s) to check. An integerish vector. If \code{NULL}, falls back to the \link[=n_proposals]{number of proposals} present matching the
 specified parameters.}

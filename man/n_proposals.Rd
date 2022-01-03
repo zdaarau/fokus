@@ -11,7 +11,7 @@ n_proposals(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -27,7 +27,7 @@ n_proposals(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 An integer.
@@ -37,8 +37,8 @@ Determines the number of referendum proposals covered by the FOKUS survey for th
 level(s).
 }
 \details{
-Technically, the number of \emph{federal} proposals is independent from the canton, but this function still expects a valid \code{canton}. Nonetheless, the returned
-number of \emph{federal} proposals at a specific ballot date is always the same regardless of \code{canton}.
+The number of \emph{federal} proposals is independent from the canton, i.e. the returned number of \emph{federal} proposals at a specific ballot date is always the
+same, thus \code{canton} is ignored if \code{!("cantonal" \%in\% lvls)}.
 }
 \examples{
 fokus::n_proposals(ballot_date = "2018-09-23",

@@ -13,7 +13,7 @@ election_names_combined(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -29,7 +29,7 @@ election_names_combined(
 \item \code{"federal"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Only relevant if \code{lvl = "cantonal"}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{lang}{Language. One of
 \itemize{
@@ -37,7 +37,7 @@ election_names_combined(
 \item \code{"en"}
 }}
 
-\item{federal_first}{Whether or not to list federal elections before cantonal ones. Only relevant if \code{"federal" \%in\% lvls}.}
+\item{federal_first}{Whether or not to list federal elections before cantonal ones. Only has an effect if \code{"federal" \%in\% lvls}.}
 }
 \value{
 A character scalar.

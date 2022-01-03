@@ -14,7 +14,7 @@ export_easyvote_municipalities(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -24,7 +24,7 @@ export_easyvote_municipalities(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 

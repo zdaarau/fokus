@@ -10,7 +10,7 @@ export_print_recipients(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -20,7 +20,7 @@ export_print_recipients(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
 }
 \value{
 \code{NULL} if no export for the specified ballot date is possible, otherwise a \link[tibble:tbl_df-class]{tibble} of the exported data, invisibly.

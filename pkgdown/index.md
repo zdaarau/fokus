@@ -123,7 +123,7 @@ The following placeholders are used in the schema above:
 -   `...` for further files and/or folders
 -   `*` for a variable character sequence
 -   `#` for a count starting with `1`
--   `{canton}` for the name of the FOKUS canton (in lower case), e.g. `aargau`
+-   `{canton}` for the name of the FOKUS-covered canton (in lower case), e.g. `aargau`
 -   `{ballot_date}` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`
 -   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`
 

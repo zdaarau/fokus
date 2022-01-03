@@ -13,7 +13,7 @@ skill_question_answer_nr(
 )
 }
 \arguments{
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -23,13 +23,9 @@ skill_question_answer_nr(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level \link[=lvls]{covered at} \code{ballot_date} and \code{canton}.}
 
-\item{canton}{A valid FOKUS canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Only relevant if \code{lvl = "cantonal"}.}
+\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}

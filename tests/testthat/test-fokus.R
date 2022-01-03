@@ -1,4 +1,5 @@
 # DEFAULT VALUES ----
+## proper implicit args / fall-backs ----
 test_that("Exported functions return correct default values", {
 
   expect_identical(ballot_types(),
@@ -50,6 +51,52 @@ test_that("Exported functions return correct default values", {
                    "Abstimmungstermin vom 23. September 2018")
   expect_snapshot_error(political_issues())
   expect_snapshot(response_options())
+})
+
+## irrelevant `canton` if `lvl = "federal"` ----
+test_that("`canton` is really irrelevant if `lvl = \"federal\"` for certain fns", {
+
+  invalid_canton <- "kantonien"
+
+  expect_snapshot(proposal_type(lvl = "federal",
+                                canton = invalid_canton))
+  expect_snapshot(proposal_name(lvl = "federal",
+                                canton = invalid_canton))
+  expect_snapshot(proposal_name_gender(lvl = "federal",
+                                       canton = invalid_canton))
+  expect_snapshot(proposal_arguments(ballot_date = "2021-11-28",
+                                     lvl = "federal",
+                                     canton = invalid_canton,
+                                     proposal_nr = 2L))
+  expect_snapshot(n_proposal_arguments(lvl = "federal",
+                                       canton = invalid_canton))
+  expect_snapshot(proposal_main_motives(ballot_date = "2021-11-28",
+                                        lvl = "federal",
+                                        canton = invalid_canton,
+                                        proposal_nr = 2L))
+  expect_snapshot(n_proposal_main_motives(lvl = "federal",
+                                          canton = invalid_canton))
+  expect_snapshot(election_name(ballot_date = "2019-10-20",
+                                lvl = "federal",
+                                canton = invalid_canton,
+                                prcd = "proportional"))
+  expect_snapshot(n_skill_questions(lvl = "federal",
+                                    canton = invalid_canton))
+  expect_snapshot(skill_question(ballot_date = "2021-11-28",
+                                 lvl = "federal",
+                                 canton = invalid_canton,
+                                 proposal_nr = 2L,
+                                 skill_question_nr = 1L))
+  expect_snapshot(skill_question_response_options(ballot_date = "2021-11-28",
+                                                  lvl = "federal",
+                                                  canton = invalid_canton,
+                                                  proposal_nr = 2L,
+                                                  skill_question_nr = 1L))
+  expect_snapshot(skill_question_answer_nr(ballot_date = "2021-11-28",
+                                           lvl = "federal",
+                                           canton = invalid_canton,
+                                           proposal_nr = 2L,
+                                           skill_question_nr = 1L))
 })
 
 # VARIABLE-RELATED ----

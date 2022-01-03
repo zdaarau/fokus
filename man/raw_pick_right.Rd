@@ -12,7 +12,7 @@ raw_pick_right(x, key = NULL, ballot_date, canton)
 \item{key}{Questionnaire key name, used to determine the correct default value fallback. A character scalar or \code{NULL}. If \code{NULL}, no fallback is used (and an
 error is thrown in case none of the subkeys matches).}
 
-\item{ballot_date}{A valid FOKUS-covered ballot date. One of
+\item{ballot_date}{FOKUS-covered ballot date. One of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -22,7 +22,7 @@ error is thrown in case none of the subkeys matches).}
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{A valid FOKUS canton name. One of
+\item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}
