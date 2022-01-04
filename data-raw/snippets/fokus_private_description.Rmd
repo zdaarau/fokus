@@ -1,3 +1,3 @@
 For part of this package's functionality, a separate private directory (defined by the R option `fokus.path_private`) is required which is expected to be
-organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the `data/`
+organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the `input/`
 subdirectory and certain files are written to its `output/` subdirectory.

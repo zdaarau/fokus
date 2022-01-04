@@ -15,7 +15,7 @@ The following package-specific R options are used to control the package’s fun
 
 ### Private FOKUS directory structure
 
-For part of this package’s functionality, a separate private directory (defined by the R option `fokus.path_private`) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the `data/` subdirectory and certain files are written to its `output/` subdirectory.
+For part of this package’s functionality, a separate private directory (defined by the R option `fokus.path_private`) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the `input/` subdirectory and certain files are written to its `output/` subdirectory.
 
 <details>
 <summary>
@@ -45,47 +45,23 @@ fokus_private
 │   ├── pandoc_template.tex
 │   ├── shared_header-includes.tex
 │   └── ...
-├── data
-│   └── {canton}
-│       ├── easyvote_municipalities_{ballot_date}.csv
-│       ├── online_participation_codes_{ballot_date}.txt
-│       ├── survey_data_{ballot_date}.xlsx
-│       ├── survey_data_{ballot_date}_*.xlsx
-│       ├── survey_data_preliminary_{ballot_date}.xlsx
-│       ├── voting_register_data_extra_{date_delivery_statistical_office}.xlsx
-│       ├── voting_register_ids_{ballot_date}.csv
-│       └── ...
+├── input
+│   └── data
+│       └── {canton}
+│           ├── easyvote_municipalities_{ballot_date}.csv
+│           ├── online_participation_codes_{ballot_date}.txt
+│           ├── survey_data_{ballot_date}.xlsx
+│           ├── survey_data_{ballot_date}_*.xlsx
+│           ├── survey_data_preliminary_{ballot_date}.xlsx
+│           ├── voting_register_data_extra_{date_delivery_statistical_office}.xlsx
+│           ├── voting_register_ids_{ballot_date}.csv
+│           └── ...
 ├── fonts
 │   └── ...
 ├── images
 │   ├── {canton}
 │   │   └── {ballot_date}
 │   └── ...
-├── print_docs
-│   └── {canton}
-│       ├── invitation_{ballot_date}.pdf
-│       ├── questionnaire_print_{ballot_date}.pdf
-│       └── reminder_{ballot_date}.pdf
-├── rmd
-│   ├── snippets
-│   │   ├── {canton}
-│   │   │   ├── {ballot_date}_cantonal_proposal_#.Rmd
-│   │   │   ├── {ballot_date}_opinion_formation_and_participation.Rmd
-│   │   │   ├── {ballot_date}_special_*.Rmd
-│   │   │   ├── {ballot_date}_special_*_summary.Rmd
-│   │   │   └── {ballot_date}_summary.Rmd
-│   │   ├── imprint_de.Rmd
-│   │   ├── imprint_en.Rmd
-│   │   └── methodological_description.Rmd
-│   ├── data_overview.Rmd
-│   ├── questionnaire.Rmd
-│   ├── paper_{ballot_date}_{canton}.Rmd
-│   ├── report_{ballot_date}_{canton}.Rmd
-│   ├── report_cantonal_majoritarian_{ballot_date}_{canton}.Rmd
-│   ├── report_cantonal_proportional_{ballot_date}_{canton}.Rmd
-│   ├── report_federal_majoritarian_{ballot_date}_{canton}.Rmd
-│   ├── report_federal_proportional_{ballot_date}_{canton}.Rmd
-│   └── special_*_{ballot_date}_{canton}.Rmd
 ├── output
 │   ├── data
 │   │   ├── internal
@@ -114,6 +90,31 @@ fokus_private
 │       └── {ballot_date}
 │           └── {canton}
 │               └── plots
+├── print_docs
+│   └── {canton}
+│       ├── invitation_{ballot_date}.pdf
+│       ├── questionnaire_print_{ballot_date}.pdf
+│       └── reminder_{ballot_date}.pdf
+├── rmd
+│   ├── snippets
+│   │   ├── {canton}
+│   │   │   ├── {ballot_date}_cantonal_proposal_#.Rmd
+│   │   │   ├── {ballot_date}_opinion_formation_and_participation.Rmd
+│   │   │   ├── {ballot_date}_special_*.Rmd
+│   │   │   ├── {ballot_date}_special_*_summary.Rmd
+│   │   │   └── {ballot_date}_summary.Rmd
+│   │   ├── imprint_de.Rmd
+│   │   ├── imprint_en.Rmd
+│   │   └── methodological_description.Rmd
+│   ├── data_overview.Rmd
+│   ├── questionnaire.Rmd
+│   ├── paper_{ballot_date}_{canton}.Rmd
+│   ├── report_{ballot_date}_{canton}.Rmd
+│   ├── report_cantonal_majoritarian_{ballot_date}_{canton}.Rmd
+│   ├── report_cantonal_proportional_{ballot_date}_{canton}.Rmd
+│   ├── report_federal_majoritarian_{ballot_date}_{canton}.Rmd
+│   ├── report_federal_proportional_{ballot_date}_{canton}.Rmd
+│   └── special_*_{ballot_date}_{canton}.Rmd
 ├── README.Rmd
 └── ...
 ```

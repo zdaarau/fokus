@@ -149,10 +149,10 @@ path_private <- function(...) {
   dir_private <- getOption("fokus.path_private",
                            default = getwd())
 
-  # ensure `fokus.path_private` is valid (read access plus file `data/aargau/survey_data_2018-09-23.xlsx` exists)
+  # ensure `fokus.path_private` is valid (read access plus file `input/data/aargau/survey_data_2018-09-23.xlsx` exists)
   is_dir_private_valid <-
     checkmate::test_directory(dir_private, access = "r") &&
-    fs::file_exists(path = fs::path(dir_private, "data/aargau/survey_data_2018-09-23.xlsx"))
+    fs::file_exists(path = fs::path(dir_private, "input/data/aargau/survey_data_2018-09-23.xlsx"))
 
   if (!is_dir_private_valid) {
 
@@ -2312,7 +2312,7 @@ read_easyvote_municipalities <- function(ballot_date,
   date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
 
   date_data <-
-    path_private("data", canton) %>%
+    path_private("input/data", canton) %>%
     fs::dir_ls(type = "file",
                regexp = "easyvote_municipalities_\\d{4}-\\d{2}-\\d{2}\\.csv$") %>%
     stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.csv$)") %>%
@@ -2326,7 +2326,7 @@ read_easyvote_municipalities <- function(ballot_date,
                           "days after the ballot date {.val {ballot_date}}."))
   }
 
-  path_private("data", canton, glue::glue("easyvote_municipalities_{date_data}.csv")) %>%
+  path_private("input/data", canton, glue::glue("easyvote_municipalities_{date_data}.csv")) %>%
     readr::read_csv(col_types = "ciii")
 }
 ```
@@ -2337,7 +2337,7 @@ read_easyvote_municipalities <- function(ballot_date,
 read_online_participation_codes <- function(ballot_date,
                                             canton) {
 
-  path_input <- path_private(glue::glue("data/{canton}/online_participation_codes_{ballot_date}.txt"))
+  path_input <- path_private(glue::glue("input/data/{canton}/online_participation_codes_{ballot_date}.txt"))
 
   if (!fs::file_exists(path_input)) {
     cli::cli_abort("No online participation codes present for canton {.val {canton}} @ {.val {ballot_date}}.")
@@ -2357,7 +2357,7 @@ read_voting_register_data_extra <- function(ballot_date,
 
   # get date of latest dataset delivered *before* ballot date
   date_data <-
-    path_private("data", canton) %>%
+    path_private("input/data", canton) %>%
     fs::dir_ls(type = "file",
                regexp = "voting_register_data_extra_\\d{4}-\\d{2}-\\d{2}\\.xlsx$") %>%
     stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.xlsx$)") %>%
@@ -2371,7 +2371,7 @@ read_voting_register_data_extra <- function(ballot_date,
   }
 
   data <-
-    path_private(glue::glue("data/{canton}/voting_register_data_extra_{date_data}.xlsx")) %>%
+    path_private(glue::glue("input/data/{canton}/voting_register_data_extra_{date_data}.xlsx")) %>%
     readxl::read_xlsx(col_types = "text") %>%
     # rename variables to our scheme
     dplyr::rename(id = `ID-Nummer`,
@@ -2409,7 +2409,7 @@ read_voting_register_data_extra <- function(ballot_date,
                 n_adults_in_household_official,
                 n_kids_in_household_official))
 
-    cli::cli_abort("Unexpected column(s) detected in {.file data/{canton}/voting_register_data_extra_{date_data}.xlsx}: {.val unknown_colnames}")
+    cli::cli_abort("Unexpected column(s) detected in {.file input/data/{canton}/voting_register_data_extra_{date_data}.xlsx}: {.val unknown_colnames}")
   }
 
   # TODO!
@@ -2463,7 +2463,7 @@ read_voting_register_data_extra <- function(ballot_date,
 read_voting_register_ids <- function(ballot_date,
                                      canton) {
 
-  path_input <- path_private(glue::glue("data/{canton}/voting_register_ids_{ballot_date}.csv"))
+  path_input <- path_private(glue::glue("input/data/{canton}/voting_register_ids_{ballot_date}.csv"))
 
   if (!fs::file_exists(path_input)) {
     cli::cli_abort("No voting register ID data present for canton {.val {canton}} @ {.val {ballot_date}}.")
@@ -2472,7 +2472,8 @@ read_voting_register_ids <- function(ballot_date,
   path_input %>%
     readr::read_csv(col_types = "i") %>%
     # integrity check
-    purrr::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug."),
+    purrr::when(ncol(.) > 1L ~
+                  cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug."),
                 ~ .) %>%
     dplyr::first()
 }
