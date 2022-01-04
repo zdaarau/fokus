@@ -7,5 +7,6 @@
 --ignore-dir=R
 
 ## File types to ignore
+--ignore-file=ext:Rd
 --ignore-file=ext:RData
 --ignore-file=ext:Rhistory
