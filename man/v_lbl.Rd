@@ -19,7 +19,10 @@ v_lbl(v_name, ballot_date = NULL, canton = NULL)
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{\code{NULL} or a canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{\code{NULL} or a canton name, i.e. one of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A character scalar.

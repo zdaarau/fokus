@@ -349,8 +349,7 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
 #' that applies for the specified canton only.
 #'
 #' @inheritParams raw_q_suppl_lvl
-#' @param canton Canton name. One of
-#' `r pal::as_md_val_list(all_cantons)`
+#' @inheritParams ballot_types
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -638,8 +637,6 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams raw_q_suppl_lvl_canton
 #' @inheritParams election_name
-#' @param prcd Election procedure. One of
-#' `r pal::as_md_val_list(all_prcds)`
 #'
 #' @inherit raw_q_suppl return
 #' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
@@ -658,8 +655,7 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
                                  prcd = all_prcds,
                                  election_nr = 1L) {
 
-  prcd <- rlang::arg_match(prcd,
-                           values = all_prcds)
+  prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
 
@@ -675,8 +671,7 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match(lvl,
-                            values = all_lvls)
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS ",
@@ -723,11 +718,8 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
                                       canton = all_cantons,
                                       prcd = all_prcds,
                                       election_nr = 1L) {
-  lvl <- rlang::arg_match(lvl,
-                          values = all_lvls)
-  
-  prcd <- rlang::arg_match(prcd,
-                           values = all_prcds)
+  lvl <- rlang::arg_match(lvl)
+  prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
 
@@ -2504,7 +2496,8 @@ cantons <- function(ballot_date = all_ballot_dates) {
 #' Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
 #'
 #' @inheritParams cantons
-#' @param canton Canton name (lowercase) [covered at][cantons] `ballot_date`.
+#' @param canton Canton name. One of
+#' `r pal::as_md_val_list(all_cantons)`
 #'
 #' @return A character vector of ballot types. One or more of
 #' `r pal::as_md_val_list(all_ballot_types)`
@@ -2602,8 +2595,6 @@ n_elections <- function(ballot_date = all_ballot_dates,
   lvls <- unique(checkmate::assert_subset(lvls,
                                           choices = all_lvls,
                                           empty.ok = FALSE))
-  canton <- rlang::arg_match(canton,
-                             values = all_cantons)
   prcds <- unique(checkmate::assert_subset(prcds,
                                            choices = all_prcds,
                                            empty.ok = FALSE))
@@ -2620,9 +2611,11 @@ n_elections <- function(ballot_date = all_ballot_dates,
                   ~ .) %>%
       magrittr::add(result)
   }
-
+  
   if ("cantonal" %in% lvls) {
-
+    
+    canton <- rlang::arg_match(canton,
+                               values = all_cantons)
     result <-
       prcds %>%
       purrr::map_int(~ length(raw$cantonal[[canton]]$election[[.x]])) %>%
@@ -2730,7 +2723,8 @@ has_election <- function(ballot_date = all_ballot_dates,
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
 #'
 #' @inheritParams has_ballot_types
-#' @param lvl Political level to test for [covered at][lvls] `ballot_date` and `canton`.
+#' @param lvl Political level to test for. One of
+#' `r pal::as_md_val_list(all_lvls)`
 #'
 #' @inherit has_election return
 #' @family predicate_fundamental
@@ -2976,10 +2970,14 @@ proposal_type <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns the name of the specified proposal in the specified language.
 #'
-#' @inheritParams cantons
+#' @inheritParams ballot_types
 #' 
-#' @param lvl Political level [covered at][lvls] `ballot_date` and `canton`.
-#' @param canton Canton name (lowercase) [covered at][cantons] `ballot_date`. Only relevant if `lvl = "cantonal"`.
+#' @param lvl Political level. One of
+#' `r pal::as_md_val_list(all_lvls)`
+#' @param canton Canton name. One of
+#' `r pal::as_md_val_list(all_cantons)`.
+#' 
+#' Only relevant if `lvl = "cantonal"`.
 #' @param proposal_nr Proposal number. A positive integer scalar.
 #' @param lang Language. One of
 #'   - `"de"`
@@ -3181,8 +3179,12 @@ n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
 #' Returns the name of the specified election in the specified language.
 #'
 #' @inheritParams proposal_name
-#' @param canton Canton name (lowercase) [covered at][cantons] `ballot_date`. Irrelevant if `lvl = "federal"` and `prcd = "proportional"`.
-#' @param prcd Election procedure [covered at][prcds] `ballot_date`, `lvl` and `canton`.
+#' @param canton Canton name. One of
+#' `r pal::as_md_val_list(all_cantons)`
+#' 
+#' Irrelevant if `lvl = "federal"` and `prcd = "proportional"`.
+#' @param prcd Election procedure. One of
+#' `r pal::as_md_val_list(all_prcds)`
 #' @param election_nr Election number. A positive integer scalar (in almost all cases `1L`).
 #' @param type Name type. One of
 #'   - `"short"`
@@ -4306,7 +4308,8 @@ is_skill_question_v <- function(v_names) {
 #' @param v_name Variable name. A character scalar.
 #' @param ballot_date `NULL` or a FOKUS-covered ballot date, i.e. one of
 #' `r pal::as_md_val_list(as.character(all_ballot_dates))`
-#' @param canton `NULL` or a canton name (lowercase) [covered at][cantons] `ballot_date`.
+#' @param canton `NULL` or a canton name, i.e. one of
+#' `r pal::as_md_val_list(all_cantons)`
 #'
 #' @return A character scalar.
 #' @family variable

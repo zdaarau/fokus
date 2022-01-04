@@ -99,6 +99,66 @@ test_that("`canton` is really irrelevant if `lvl = \"federal\"` for certain fns"
                                            skill_question_nr = 1L))
 })
 
+# FAILSAFE FUNCTIONS ----
+## not FOKUS-covered ----
+test_that("relevant fns don't fail when non-FOKUS-covered", {
+
+  expect_identical(n_proposals(ballot_date = "2021-11-28",
+                               lvls = "cantonal"),
+                   0L)
+  expect_identical(n_elections(ballot_date = "2018-09-23"),
+                   0L)
+  expect_identical(n_elections(ballot_date = "2020-10-18",
+                               lvls = "federal"),
+                   0L)
+  expect_identical(has_ballot_types(ballot_date = "2019-10-20",
+                                    lvls = "federal",
+                                    ballot_types = "referendum"),
+                   FALSE)
+  expect_identical(has_referendum(ballot_date = "2019-10-20",
+                                  lvls = "federal"),
+                   FALSE)
+  expect_identical(has_election(ballot_date = "2018-09-23"),
+                   FALSE)
+  expect_identical(has_election(ballot_date = "2020-10-18",
+                                lvls = "federal"),
+                   FALSE)
+  expect_identical(has_lvl(ballot_date = "2021-11-28",
+                           lvl = "cantonal"),
+                   FALSE)
+  expect_identical(has_proposal_nrs(ballot_date = "2019-10-20"),
+                   FALSE)
+  expect_identical(has_proposal_nrs(ballot_date = "2021-11-28",
+                                    lvls = "cantonal"),
+                   FALSE)
+  expect_identical(has_proposal_nrs(ballot_date = "2021-11-28",
+                                    lvls = "federal",
+                                    proposal_nrs = 4L),
+                   c(federal.4 = FALSE))
+  expect_identical(has_election_nrs(ballot_date = "2018-09-23"),
+                   FALSE)
+  expect_identical(has_election_nrs(ballot_date = "2020-10-18",
+                                    lvls = "federal"),
+                   FALSE)
+  expect_identical(has_election_nrs(ballot_date = "2019-10-20",
+                                    lvls = "cantonal",
+                                    prcds = "proportional"),
+                   FALSE)
+  expect_identical(has_election_nrs(ballot_date = "2019-10-20",
+                                    lvls = "federal",
+                                    prcds = "proportional",
+                                    election_nrs = 2L),
+                   c(federal.proportional.2 = FALSE))
+  expect_identical(lvls(ballot_date = "2019-10-20",
+                        ballot_types = "referendum"),
+                   character())
+  expect_identical(prcds(ballot_date = "2018-09-23"),
+                   character())
+  expect_identical(prcds(ballot_date = "2020-10-18",
+                         lvls = "federal"),
+                   character())
+})
+
 # VARIABLE-RELATED ----
 ## shortening_rules ----
 test_that("`shortening_rules` are non-overlapping", {

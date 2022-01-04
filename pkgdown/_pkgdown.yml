@@ -33,7 +33,7 @@ reference:
 - subtitle: Fundamental predicates
   desc: |-
     Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](raw_q.html) (they do still fail in case of completely missing
-    questionnaire data for the specified canton and ballot date).
+    questionnaire data for the specified ballot date and possibly canton).
 - contents:
   - cantons
   - ballot_types

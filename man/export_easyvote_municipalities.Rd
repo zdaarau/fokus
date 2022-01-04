@@ -24,7 +24,10 @@ export_easyvote_municipalities(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 

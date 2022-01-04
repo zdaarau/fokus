@@ -20,7 +20,10 @@ export_print_recipients(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 \code{NULL} if no export for the specified ballot date is possible, otherwise a \link[tibble:tbl_df-class]{tibble} of the exported data, invisibly.

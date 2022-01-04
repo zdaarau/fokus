@@ -158,11 +158,18 @@ number of non-proposal-specific skill questions is returned</p>
     </tr>
     <tr>
       <th>lvl</th>
-      <td><p>Political level <a href='lvls.html'>covered at</a> <code>ballot_date</code> and <code>canton</code>.</p></td>
+      <td><p>Political level. One of</p><ul>
+<li><p><code>"cantonal"</code></p></li>
+<li><p><code>"federal"</code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>canton</th>
-      <td><p>Canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>. Only relevant if <code>lvl = "cantonal"</code>.</p></td>
+      <td><p>Canton name. One of</p><ul>
+<li><p><code>"aargau"</code> .</p></li>
+</ul>
+
+<p>Only relevant if <code>lvl = "cantonal"</code>.</p></td>
     </tr>
     <tr>
       <th>proposal_nr</th>

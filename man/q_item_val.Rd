@@ -26,7 +26,10 @@ q_item_val(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 
 \item{branch_path}{Sequence of questionnaire table levels that lead to the \code{item} leaf node where \code{v_name} is defined. A character vector.}
 

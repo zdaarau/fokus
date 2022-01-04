@@ -28,7 +28,10 @@ export_q(
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 
 \item{verbose}{Whether or not to print detailed progress information during questionnaire generation and Google Drive file upload. Note that questionnaire
 generation takes considerably more time when this is set to \code{TRUE}.}

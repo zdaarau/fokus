@@ -25,11 +25,24 @@ election_name(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvl}{Political level \link[=lvls]{covered at} \code{ballot_date} and \code{canton}.}
+\item{lvl}{Political level. One of
+\itemize{
+\item \code{"cantonal"}
+\item \code{"federal"}
+}}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Irrelevant if \code{lvl = "federal"} and \code{prcd = "proportional"}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}
 
-\item{prcd}{Election procedure \link[=prcds]{covered at} \code{ballot_date}, \code{lvl} and \code{canton}.}
+Irrelevant if \code{lvl = "federal"} and \code{prcd = "proportional"}.}
+
+\item{prcd}{Election procedure. One of
+\itemize{
+\item \code{"proportional"}
+\item \code{"majoritarian"}
+}}
 
 \item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
 

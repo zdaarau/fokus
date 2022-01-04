@@ -24,9 +24,18 @@ skill_question(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvl}{Political level \link[=lvls]{covered at} \code{ballot_date} and \code{canton}.}
+\item{lvl}{Political level. One of
+\itemize{
+\item \code{"cantonal"}
+\item \code{"federal"}
+}}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}. Only relevant if \code{lvl = "cantonal"}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"} .
+}
+
+Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}

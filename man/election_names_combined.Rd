@@ -29,7 +29,10 @@ election_names_combined(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 
 \item{lang}{Language. One of
 \itemize{

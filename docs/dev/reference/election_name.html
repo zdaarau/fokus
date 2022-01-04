@@ -160,15 +160,25 @@
     </tr>
     <tr>
       <th>lvl</th>
-      <td><p>Political level <a href='lvls.html'>covered at</a> <code>ballot_date</code> and <code>canton</code>.</p></td>
+      <td><p>Political level. One of</p><ul>
+<li><p><code>"cantonal"</code></p></li>
+<li><p><code>"federal"</code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>canton</th>
-      <td><p>Canton name (lowercase) <a href='cantons.html'>covered at</a> <code>ballot_date</code>. Irrelevant if <code>lvl = "federal"</code> and <code>prcd = "proportional"</code>.</p></td>
+      <td><p>Canton name. One of</p><ul>
+<li><p><code>"aargau"</code></p></li>
+</ul>
+
+<p>Irrelevant if <code>lvl = "federal"</code> and <code>prcd = "proportional"</code>.</p></td>
     </tr>
     <tr>
       <th>prcd</th>
-      <td><p>Election procedure <a href='prcds.html'>covered at</a> <code>ballot_date</code>, <code>lvl</code> and <code>canton</code>.</p></td>
+      <td><p>Election procedure. One of</p><ul>
+<li><p><code>"proportional"</code></p></li>
+<li><p><code>"majoritarian"</code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>election_nr</th>

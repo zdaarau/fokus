@@ -28,7 +28,10 @@ has_proposal_nrs(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 
 \item{proposal_nrs}{Proposals number(s) to check. An integerish vector. If \code{NULL}, falls back to the \link[=n_proposals]{number of proposals} present matching the
 specified parameters.}

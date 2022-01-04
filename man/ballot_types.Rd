@@ -17,7 +17,10 @@ ballot_types(ballot_date = all_ballot_dates, canton = cantons(ballot_date))
 \item \code{"2021-11-28"}
 }}
 
-\item{canton}{Canton name (lowercase) \link[=cantons]{covered at} \code{ballot_date}.}
+\item{canton}{Canton name. One of
+\itemize{
+\item \code{"aargau"}
+}}
 }
 \value{
 A character vector of ballot types. One or more of
