@@ -43,8 +43,8 @@
 
 
 <meta property="og:title" content="Get proposal's number of arguments — n_proposal_arguments" />
-<meta name="description" content="Determines the number of arguments on the specified proposal.">
-<meta property="og:description" content="Determines the number of arguments on the specified proposal." />
+<meta name="description" content="Determines the number of arguments on the specified proposal of the specified sides.">
+<meta property="og:description" content="Determines the number of arguments on the specified proposal of the specified sides." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -131,14 +131,15 @@
     </div>
 
     <div class="ref-description">
-    <p>Determines the number of arguments on the specified proposal.</p>
+    <p>Determines the number of arguments on the specified proposal of the specified sides.</p>
     </div>
 
     <pre class="usage"><span class='fu'>n_proposal_arguments</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
   lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span>,
   canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
-  proposal_nr <span class='op'>=</span> <span class='fl'>1L</span>
+  proposal_nr <span class='op'>=</span> <span class='fl'>1L</span>,
+  sides <span class='op'>=</span> <span class='va'>all_argument_sides</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -174,6 +175,13 @@
       <th>proposal_nr</th>
       <td><p>Proposal number. A positive integer scalar.</p></td>
     </tr>
+    <tr>
+      <th>sides</th>
+      <td><p>Proposal argument side(s). One or more of</p><ul>
+<li><p><code>"pro"</code></p></li>
+<li><p><code>"contra"</code></p></li>
+</ul></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -184,6 +192,7 @@
     <div class='dont-index'><p>Other proposal predicate functions:
 <code><a href='n_proposal_main_motives.html'>n_proposal_main_motives</a>()</code>,
 <code><a href='proposal_arguments.html'>proposal_arguments</a>()</code>,
+<code><a href='proposal_argument.html'>proposal_argument</a>()</code>,
 <code><a href='proposal_main_motives.html'>proposal_main_motives</a>()</code>,
 <code><a href='proposal_name_gender.html'>proposal_name_gender</a>()</code>,
 <code><a href='proposal_name.html'>proposal_name</a>()</code>,
@@ -195,6 +204,13 @@
 <span class='r-in'>                            canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
 <span class='r-in'>                            proposal_nr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>n_proposal_arguments</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                            lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                            canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                            proposal_nr <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>                            sides <span class='op'>=</span> <span class='st'>"pro"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

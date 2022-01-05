@@ -114,6 +114,15 @@ all_proposal_types <- c("citizens' initiative",
                         "optional referendum")
 ```
 
+## `all_argument_sides`
+
+Possible proposal argument sides
+
+```{r}
+all_argument_sides <- c("pro",
+                        "contra")
+```
+
 ## `all_response_option_types`
 
 Response option types defined in the raw FOKUS questionnaire data
@@ -227,14 +236,6 @@ q_non_item_lvls <- c("title",
                      "response_options",
                      "footnote",
                      "link")
-```
-
-## `q_ballot_types`
-
-```{r}
-q_ballot_types <- c("referendum",
-                    "election",
-                    "both_referendum_and_election")
 ```
 
 ## `shortening_rules`
@@ -413,11 +414,11 @@ usethis::use_data(all_ballot_dates,
                   all_lvls,
                   all_prcds,
                   all_proposal_types,
+                  all_argument_sides,
                   all_response_option_types,
                   q_item_keys,
                   q_item_keys_multival,
                   q_non_item_lvls,
-                  q_ballot_types,
                   shortening_rules,
                   fokus_private_structure,
                   md_snippets,

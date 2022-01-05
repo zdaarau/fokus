@@ -182,6 +182,7 @@
     <div class='dont-index'><p>Raw questionnaire data <code><a href='raw_q.html'>raw_q</a></code> <code><a href='raw_qx_suppl.html'>raw_qx_suppl</a></code></p>
 <p>Other raw questionnaire data functions:
 <code><a href='raw_pick_right.html'>raw_pick_right</a>()</code>,
+<code><a href='raw_q_suppl_argument.html'>raw_q_suppl_argument</a>()</code>,
 <code><a href='raw_q_suppl_election_name.html'>raw_q_suppl_election_name</a>()</code>,
 <code><a href='raw_q_suppl_elections.html'>raw_q_suppl_elections</a>()</code>,
 <code><a href='raw_q_suppl_election.html'>raw_q_suppl_election</a>()</code>,
@@ -196,17 +197,94 @@
 <code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'><a href='proposal_main_motives.html'>proposal_main_motives</a></span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-11-25"</span>,</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_arguments</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-11-25"</span>,</span>
 <span class='r-in'>                              lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
 <span class='r-in'>                              canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
 <span class='r-in'>                              proposal_nr <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4 × 3</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    code de                                   en                                 </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                              </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1 wollte in erster Linie einer bestim… to follow a specific voting recomm…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     2 wollte sicherstellen, dass Auslands… to ensure that Swiss abroad have t…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     3 bin der Meinung, dass wer bei Natio… to be of the opinion that anyone w…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     4 finde, das ist eine Selbstverständl… to think that's a matter of course </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$de</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$de$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Es macht keinen Sinn, dass Auslandschweizer/innen an Nationalratswahlen teilnehmen dürfen, aber nicht an den gleichzeitig stattfindenden Ständeratswahlen."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$de$short</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Unsinnig, dass Auslandschweizer/innen an Nationalrats-, nicht aber Ständeratswahlen teilnehmen dürfen"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$en</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$en$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "It makes no sense for Swiss citizens living abroad to be allowed to take part in the National Council elections, but not in the Council of States elections that take place at the same time."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$nr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]$side</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "pro"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$de</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$de$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Wer in den Ständerat gewählt werden kann, soll auch mit den Gegebenheiten des Kantons vertraut sein. Das ist bei jemandem, der im Ausland wohnhaft ist, nicht der Fall."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$de$short</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Im Ausland wohnhafte sind nicht mit den Gegebenheiten des Kantons vertraut"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$en</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$en$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Anyone who can be elected to the Council of States should also be familiar with the circumstances of the canton. This is not the case for someone who lives abroad."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$nr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]$side</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "contra"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$de</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$de$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Die Einführung des Ständeratswahlrechts für Auslandschweizer/innen ist gerechtfertigt, weil nur sehr geringe Mehrkosten entstehen."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$de$short</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Mehrkosten sind sehr gering"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$en</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$en$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "The introduction of the right to elect members of the Council of States for Swiss citizens living abroad is justified because the additional costs are very low."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$nr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]$side</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "pro"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$de</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$de$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Über kantonale Angelegenheiten sollen nur jene entscheiden dürfen, die auch von kantonalen Entscheiden betroffen sind. Das ist bei Schweizern und Schweizerinnen, die im Ausland wohnen, nicht der Fall."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$de$short</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Nur direkt Betroffene sollen über kantonale Angelegenheiten entscheiden"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$en</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$en$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Only those who are also affected by cantonal decisions should be allowed to decide on cantonal matters. This is not the case for Swiss nationals living abroad."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$nr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]$side</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "contra"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

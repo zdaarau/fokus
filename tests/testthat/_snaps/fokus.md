@@ -16,6 +16,13 @@
 ---
 
     Code
+      proposal_argument()
+    Output
+      [1] "Vermögenssteuer bringt Kantonshaushalt wieder ins Lot"
+
+---
+
+    Code
       proposal_main_motives()
     Output
       # A tibble: 6 x 3
@@ -108,6 +115,14 @@
       2 Bei der Wahl für ein d~ Zufallsbasierte Wa~ Leaving anything to c~     1 cont~
       3 Dass Bundesrichter-Kan~ Parteimitgliedscha~ The fact that, under ~     2 pro  
       4 Die heute gängige Part~ Parteizugehörigkei~ The common party affi~     2 cont~
+
+---
+
+    Code
+      proposal_argument(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
+        proposal_nr = 2L, argument_nr = 1L, side = "pro")
+    Output
+      [1] "Verletzung Gewaltenteilung"
 
 ---
 

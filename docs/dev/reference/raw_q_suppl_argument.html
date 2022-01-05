@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data — raw_q_suppl_lvl_canton • fokus</title>
+<title>Get a proposal argument's raw supplemental questionnaire data — raw_q_suppl_argument • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data — raw_q_suppl_lvl_canton" />
-<meta name="description" content="Returns a structured list of the raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level that applies for the specified canton only.">
-<meta property="og:description" content="Returns a structured list of the raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level that applies for the specified canton only." />
+<meta property="og:title" content="Get a proposal argument's raw supplemental questionnaire data — raw_q_suppl_argument" />
+<meta name="description" content="Returns a structured list of a proposal argument's data from the proposal-specific raw supplemental date-specific FOKUS questionnaire data.">
+<meta property="og:description" content="Returns a structured list of a proposal argument's data from the proposal-specific raw supplemental date-specific FOKUS questionnaire data." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,20 +125,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data</h1>
+    <h1>Get a proposal argument's raw supplemental questionnaire data</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>raw_q_suppl_lvl_canton.Rd</code></div>
+    <div class="hidden name"><code>raw_q_suppl_argument.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns a structured list of the <a href='raw_q_suppl_lvl.html'>raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level</a>
-that applies for the specified canton only.</p>
+    <p>Returns a structured list of a proposal argument's data from the <a href='raw_q_suppl_proposal.html'>proposal-specific raw supplemental date-specific FOKUS questionnaire data</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_q_suppl_lvl_canton</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>raw_q_suppl_argument</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
   lvl <span class='op'>=</span> <span class='va'>all_lvls</span>,
-  canton <span class='op'>=</span> <span class='va'>all_cantons</span>
+  canton <span class='op'>=</span> <span class='va'>all_cantons</span>,
+  proposal_nr <span class='op'>=</span> <span class='fl'>1L</span>,
+  argument_nr <span class='op'>=</span> <span class='fl'>1L</span>,
+  side <span class='op'>=</span> <span class='va'>all_argument_sides</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -168,6 +170,21 @@ that applies for the specified canton only.</p>
 <li><p><code>"aargau"</code></p></li>
 </ul></td>
     </tr>
+    <tr>
+      <th>proposal_nr</th>
+      <td><p>Proposal number. A positive integer scalar.</p></td>
+    </tr>
+    <tr>
+      <th>argument_nr</th>
+      <td><p>Proposal argument number. A positive integer scalar.</p></td>
+    </tr>
+    <tr>
+      <th>side</th>
+      <td><p>Proposal argument side. One of</p><ul>
+<li><p><code>"pro"</code></p></li>
+<li><p><code>"contra"</code></p></li>
+</ul></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -179,10 +196,10 @@ that applies for the specified canton only.</p>
 <p>Other raw questionnaire data functions:
 <code><a href='raw_pick_right.html'>raw_pick_right</a>()</code>,
 <code><a href='raw_q_suppl_arguments.html'>raw_q_suppl_arguments</a>()</code>,
-<code><a href='raw_q_suppl_argument.html'>raw_q_suppl_argument</a>()</code>,
 <code><a href='raw_q_suppl_election_name.html'>raw_q_suppl_election_name</a>()</code>,
 <code><a href='raw_q_suppl_elections.html'>raw_q_suppl_elections</a>()</code>,
 <code><a href='raw_q_suppl_election.html'>raw_q_suppl_election</a>()</code>,
+<code><a href='raw_q_suppl_lvl_canton.html'>raw_q_suppl_lvl_canton</a>()</code>,
 <code><a href='raw_q_suppl_lvl.html'>raw_q_suppl_lvl</a>()</code>,
 <code><a href='raw_q_suppl_main_motives.html'>raw_q_suppl_main_motives</a>()</code>,
 <code><a href='raw_q_suppl_mode.html'>raw_q_suppl_mode</a>()</code>,
@@ -193,11 +210,31 @@ that applies for the specified canton only.</p>
 <code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_lvl_canton</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                               lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
-<span class='r-in'>                               canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span> |&gt;</span>
-<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "proposal"</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_argument</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-11-25"</span>,</span>
+<span class='r-in'>                             lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                             canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                             proposal_nr <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>                             argument_nr <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>                             side <span class='op'>=</span> <span class='st'>"pro"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $de</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Die Einführung des Ständeratswahlrechts für Auslandschweizer/innen ist gerechtfertigt, weil nur sehr geringe Mehrkosten entstehen."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $de$short</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Mehrkosten sind sehr gering"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $en</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $en$long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "The introduction of the right to elect members of the Council of States for Swiss citizens living abroad is justified because the additional costs are very low."</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $side</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "pro"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

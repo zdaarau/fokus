@@ -42,7 +42,7 @@ A \link[xfun:strict_list]{strict list}.
 Returns a structured list of argument data from the \link[=raw_q_suppl_proposal]{proposal-specific raw supplemental date-specific FOKUS questionnaire data}.
 }
 \examples{
-fokus:::proposal_main_motives(ballot_date = "2018-11-25",
+fokus:::raw_q_suppl_arguments(ballot_date = "2018-11-25",
                               lvl = "cantonal",
                               canton = "aargau",
                               proposal_nr = 2)
@@ -52,6 +52,7 @@ Raw questionnaire data \code{\link{raw_q}} \code{\link{raw_qx_suppl}}
 
 Other raw questionnaire data functions:
 \code{\link{raw_pick_right}()},
+\code{\link{raw_q_suppl_argument}()},
 \code{\link{raw_q_suppl_election_name}()},
 \code{\link{raw_q_suppl_elections}()},
 \code{\link{raw_q_suppl_election}()},

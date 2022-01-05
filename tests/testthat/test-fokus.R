@@ -30,6 +30,7 @@ test_that("Exported functions return correct default values", {
   expect_identical(proposal_name_gender(),
                    "feminine")
   expect_snapshot(proposal_arguments())
+  expect_snapshot(proposal_argument())
   expect_identical(n_proposal_arguments(),
                    6L)
   expect_snapshot(proposal_main_motives())
@@ -68,6 +69,12 @@ test_that("`canton` is really irrelevant if `lvl = \"federal\"` for certain fns"
                                      lvl = "federal",
                                      canton = invalid_canton,
                                      proposal_nr = 2L))
+  expect_snapshot(proposal_argument(ballot_date = "2021-11-28",
+                                    lvl = "federal",
+                                    canton = invalid_canton,
+                                    proposal_nr = 2L,
+                                    argument_nr = 1L,
+                                    side = "pro"))
   expect_snapshot(n_proposal_arguments(lvl = "federal",
                                        canton = invalid_canton))
   expect_snapshot(proposal_main_motives(ballot_date = "2021-11-28",

@@ -8,7 +8,8 @@ n_proposal_arguments(
   ballot_date = all_ballot_dates,
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
-  proposal_nr = 1L
+  proposal_nr = 1L,
+  sides = all_argument_sides
 )
 }
 \arguments{
@@ -36,23 +37,36 @@ n_proposal_arguments(
 Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integer scalar.}
+
+\item{sides}{Proposal argument side(s). One or more of
+\itemize{
+\item \code{"pro"}
+\item \code{"contra"}
+}}
 }
 \value{
 An integer scalar.
 }
 \description{
-Determines the number of arguments on the specified proposal.
+Determines the number of arguments on the specified proposal of the specified sides.
 }
 \examples{
 fokus::n_proposal_arguments(ballot_date = "2018-09-23",
                             lvl = "cantonal",
                             canton = "aargau",
                             proposal_nr = 1)
+
+fokus::n_proposal_arguments(ballot_date = "2018-09-23",
+                            lvl = "cantonal",
+                            canton = "aargau",
+                            proposal_nr = 1,
+                            sides = "pro")
 }
 \seealso{
 Other proposal predicate functions:
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},
+\code{\link{proposal_argument}()},
 \code{\link{proposal_main_motives}()},
 \code{\link{proposal_name_gender}()},
 \code{\link{proposal_name}()},

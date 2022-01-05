@@ -55,6 +55,7 @@ Raw questionnaire data \code{\link{raw_q}} \code{\link{raw_qx_suppl}}
 Other raw questionnaire data functions:
 \code{\link{raw_pick_right}()},
 \code{\link{raw_q_suppl_arguments}()},
+\code{\link{raw_q_suppl_argument}()},
 \code{\link{raw_q_suppl_election_name}()},
 \code{\link{raw_q_suppl_elections}()},
 \code{\link{raw_q_suppl_election}()},

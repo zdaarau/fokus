@@ -474,7 +474,7 @@ raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
 raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
                                  lvl = all_lvls,
                                  canton = all_cantons,
-                                 proposal_nr) {
+                                 proposal_nr = 1L) {
 
   lvl <- rlang::arg_match(lvl)
   checkmate::assert_count(proposal_nr,
@@ -587,7 +587,7 @@ raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::proposal_main_motives(ballot_date = "2018-11-25",
+#' fokus:::raw_q_suppl_arguments(ballot_date = "2018-11-25",
 #'                               lvl = "cantonal",
 #'                               canton = "aargau",
 #'                               proposal_nr = 2)
@@ -620,6 +620,66 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
 }
 ```
 
+#### `raw_q_suppl_argument`
+
+```{r}
+#' Get a proposal argument's raw supplemental questionnaire data
+#'
+#' Returns a structured list of a proposal argument's data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
+#' data][raw_q_suppl_proposal].
+#'
+#' @inheritParams raw_q_suppl_arguments
+#' @inheritParams proposal_argument
+#'
+#' @inherit raw_q_suppl return
+#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
+#' @family q_raw
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::raw_q_suppl_argument(ballot_date = "2018-11-25",
+#'                              lvl = "cantonal",
+#'                              canton = "aargau",
+#'                              proposal_nr = 2,
+#'                              argument_nr = 2,
+#'                              side = "pro")
+raw_q_suppl_argument <- function(ballot_date = all_ballot_dates,
+                                 lvl = all_lvls,
+                                 canton = all_cantons,
+                                 proposal_nr = 1L,
+                                 argument_nr = 1L,
+                                 side = all_argument_sides) {
+  
+  checkmate::assert_count(argument_nr,
+                          positive = TRUE)
+  side <- rlang::arg_match(side)
+  
+  result <-
+    raw_q_suppl_arguments(ballot_date = ballot_date,
+                          lvl = lvl,
+                          canton = canton,
+                          proposal_nr = proposal_nr) %>%
+    purrr::keep(~ .x$side %in% side && .x$nr %in% argument_nr) %>%
+    dplyr::first()
+
+  if (is.null(result)) {
+
+    # reduce to proper arg values for error msg
+    ballot_date %<>% as.character()
+    ballot_date <- rlang::arg_match(ballot_date,
+                                    values = as.character(all_ballot_dates))
+    lvl <- rlang::arg_match(lvl)
+    canton <- rlang::arg_match(canton)
+
+    cli::cli_abort(paste0("No {.val {side}} argument {.val {argument_nr}} present for {.val {lvl}} proposal {.val {proposal_nr}} ",
+                          "in {.val {canton}} "[lvl == "cantonal"],
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+  }
+
+  result
+}
+```
+
 #### `raw_q_suppl_main_motives`
 
 ```{r}
@@ -636,10 +696,10 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::proposal_main_motives(ballot_date = "2018-11-25",
-#'                               lvl = "cantonal",
-#'                               canton = "aargau",
-#'                               proposal_nr = 2)
+#' fokus:::raw_q_suppl_main_motives(ballot_date = "2018-11-25",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  proposal_nr = 2)
 raw_q_suppl_main_motives <- function(ballot_date = all_ballot_dates,
                                      lvl = all_lvls,
                                      canton = all_cantons,
@@ -2737,6 +2797,7 @@ TODO:
 #' @format `r pkgsnip::return_label("dates")`
 #' @seealso [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#'   [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
@@ -2753,7 +2814,7 @@ TODO:
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
@@ -2770,7 +2831,7 @@ TODO:
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
@@ -2787,7 +2848,7 @@ TODO:
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
@@ -2804,7 +2865,7 @@ TODO:
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
@@ -2821,12 +2882,29 @@ TODO:
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types]
+#'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
 #' fokus::all_proposal_types
 "all_proposal_types"
+```
+
+### `all_argument_sides`
+
+```{r}
+#' Referendum proposal argument sides
+#'
+#' A vector of all possible referendum proposal argument sides.
+#'
+#' @format A character vector.
+#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
+#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#' @export
+#'
+#' @examples
+#' fokus::all_argument_sides
+"all_argument_sides"
 ```
 
 ### `all_response_option_types`
@@ -2838,7 +2916,7 @@ TODO:
 #'
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types]
+#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
 #' @export
 #'
 #' @examples
@@ -3535,14 +3613,64 @@ proposal_arguments <- function(ballot_date = all_ballot_dates,
 }
 ```
 
+#### `proposal_argument`
+
+```{r}
+#' Get proposal argument
+#'
+#' Returns the specified proposal argument's text of the specified type in the specified language.
+#'
+#' @inheritParams proposal_arguments
+#' @inheritParams proposal_name
+#' @param argument_nr Proposal argument number. A positive integer scalar.
+#' @param side Proposal argument side. One of
+#' `r pal::as_md_val_list(all_argument_sides)`
+#'
+#' @return A character scalar.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::proposal_argument(ballot_date = "2018-09-23",
+#'                          lvl = "cantonal",
+#'                          canton = "aargau",
+#'                          proposal_nr = 1,
+#'                          argument_nr = 3,
+#'                          side = "contra",
+#'                          type = "long")
+proposal_argument <- function(ballot_date = all_ballot_dates,
+                              lvl = lvls(ballot_date,
+                                         canton),
+                              canton = cantons(ballot_date),
+                              proposal_nr = 1L,
+                              argument_nr = 1L,
+                              side = all_argument_sides,
+                              lang = c("de", "en"),
+                              type = c("short", "long")) {
+  
+  lang <- rlang::arg_match(lang)
+  type <- rlang::arg_match(type)
+  
+  raw_q_suppl_argument(ballot_date = ballot_date,
+                       lvl = lvl,
+                       canton = canton,
+                       proposal_nr = proposal_nr,
+                       argument_nr = argument_nr,
+                       side = side) %>%
+    purrr::chuck(lang, type)
+}
+```
+
 #### `n_proposal_arguments`
 
 ```{r}
 #' Get proposal's number of arguments
 #'
-#' Determines the number of arguments on the specified proposal.
+#' Determines the number of arguments on the specified proposal of the specified sides.
 #'
 #' @inheritParams proposal_name
+#' @param sides Proposal argument side(s). One or more of
+#' `r pal::as_md_val_list(all_argument_sides)`
 #'
 #' @return An integer scalar.
 #' @family predicate_proposal
@@ -3553,17 +3681,29 @@ proposal_arguments <- function(ballot_date = all_ballot_dates,
 #'                             lvl = "cantonal",
 #'                             canton = "aargau",
 #'                             proposal_nr = 1)
+#'
+#' fokus::n_proposal_arguments(ballot_date = "2018-09-23",
+#'                             lvl = "cantonal",
+#'                             canton = "aargau",
+#'                             proposal_nr = 1,
+#'                             sides = "pro")
 n_proposal_arguments <- function(ballot_date = all_ballot_dates,
                                  lvl = lvls(ballot_date,
                                             canton),
                                  canton = cantons(ballot_date),
-                                 proposal_nr = 1L) {
+                                 proposal_nr = 1L,
+                                 sides = all_argument_sides) {
 
+  checkmate::assert_subset(sides,
+                           choices = eval(formals()$sides),
+                           empty.ok = FALSE)
+  
   raw_q_suppl_proposal(ballot_date = ballot_date,
                        lvl = lvl,
                        canton = canton,
                        proposal_nr = proposal_nr) %>%
     purrr::pluck("argument") %>%
+    purrr::keep(~ .x$side %in% sides) %>%
     length()
 }
 ```

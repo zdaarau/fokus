@@ -8,7 +8,7 @@ raw_q_suppl_proposal(
   ballot_date = all_ballot_dates,
   lvl = all_lvls,
   canton = all_cantons,
-  proposal_nr
+  proposal_nr = 1L
 )
 }
 \arguments{
@@ -54,6 +54,7 @@ Raw questionnaire data \code{\link{raw_q}} \code{\link{raw_qx_suppl}}
 Other raw questionnaire data functions:
 \code{\link{raw_pick_right}()},
 \code{\link{raw_q_suppl_arguments}()},
+\code{\link{raw_q_suppl_argument}()},
 \code{\link{raw_q_suppl_election_name}()},
 \code{\link{raw_q_suppl_elections}()},
 \code{\link{raw_q_suppl_election}()},

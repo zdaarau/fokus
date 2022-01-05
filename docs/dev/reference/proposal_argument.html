@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data — raw_q_suppl_lvl_canton • fokus</title>
+<title>Get proposal argument — proposal_argument • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data — raw_q_suppl_lvl_canton" />
-<meta name="description" content="Returns a structured list of the raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level that applies for the specified canton only.">
-<meta property="og:description" content="Returns a structured list of the raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level that applies for the specified canton only." />
+<meta property="og:title" content="Get proposal argument — proposal_argument" />
+<meta name="description" content="Returns the specified proposal argument's text of the specified type in the specified language.">
+<meta property="og:description" content="Returns the specified proposal argument's text of the specified type in the specified language." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,20 +125,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data</h1>
+    <h1>Get proposal argument</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>raw_q_suppl_lvl_canton.Rd</code></div>
+    <div class="hidden name"><code>proposal_argument.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns a structured list of the <a href='raw_q_suppl_lvl.html'>raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level</a>
-that applies for the specified canton only.</p>
+    <p>Returns the specified proposal argument's text of the specified type in the specified language.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_q_suppl_lvl_canton</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>proposal_argument</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='va'>all_lvls</span>,
-  canton <span class='op'>=</span> <span class='va'>all_cantons</span>
+  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span>,
+  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
+  proposal_nr <span class='op'>=</span> <span class='fl'>1L</span>,
+  argument_nr <span class='op'>=</span> <span class='fl'>1L</span>,
+  side <span class='op'>=</span> <span class='va'>all_argument_sides</span>,
+  lang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"de"</span>, <span class='st'>"en"</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"short"</span>, <span class='st'>"long"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -165,39 +169,65 @@ that applies for the specified canton only.</p>
     <tr>
       <th>canton</th>
       <td><p>Canton name. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
+<li><p><code>"aargau"</code> .</p></li>
+</ul>
+
+<p>Only relevant if <code>lvl = "cantonal"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>proposal_nr</th>
+      <td><p>Proposal number. A positive integer scalar.</p></td>
+    </tr>
+    <tr>
+      <th>argument_nr</th>
+      <td><p>Proposal argument number. A positive integer scalar.</p></td>
+    </tr>
+    <tr>
+      <th>side</th>
+      <td><p>Proposal argument side. One of</p><ul>
+<li><p><code>"pro"</code></p></li>
+<li><p><code>"contra"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>lang</th>
+      <td><p>Language. One of</p><ul>
+<li><p><code>"de"</code></p></li>
+<li><p><code>"en"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>Name type. One of</p><ul>
+<li><p><code>"short"</code></p></li>
+<li><p><code>"long"</code></p></li>
 </ul></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://rdrr.io/pkg/xfun/man/strict_list.html'>strict list</a>.</p>
+    <p>A character scalar.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Raw questionnaire data <code><a href='raw_q.html'>raw_q</a></code> <code><a href='raw_qx_suppl.html'>raw_qx_suppl</a></code></p>
-<p>Other raw questionnaire data functions:
-<code><a href='raw_pick_right.html'>raw_pick_right</a>()</code>,
-<code><a href='raw_q_suppl_arguments.html'>raw_q_suppl_arguments</a>()</code>,
-<code><a href='raw_q_suppl_argument.html'>raw_q_suppl_argument</a>()</code>,
-<code><a href='raw_q_suppl_election_name.html'>raw_q_suppl_election_name</a>()</code>,
-<code><a href='raw_q_suppl_elections.html'>raw_q_suppl_elections</a>()</code>,
-<code><a href='raw_q_suppl_election.html'>raw_q_suppl_election</a>()</code>,
-<code><a href='raw_q_suppl_lvl.html'>raw_q_suppl_lvl</a>()</code>,
-<code><a href='raw_q_suppl_main_motives.html'>raw_q_suppl_main_motives</a>()</code>,
-<code><a href='raw_q_suppl_mode.html'>raw_q_suppl_mode</a>()</code>,
-<code><a href='raw_q_suppl_proposal_name.html'>raw_q_suppl_proposal_name</a>()</code>,
-<code><a href='raw_q_suppl_proposal.html'>raw_q_suppl_proposal</a>()</code>,
-<code><a href='raw_q_suppl_skill_questions.html'>raw_q_suppl_skill_questions</a>()</code>,
-<code><a href='raw_q_suppl_skill_question.html'>raw_q_suppl_skill_question</a>()</code>,
-<code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code></p></div>
+    <div class='dont-index'><p>Other proposal predicate functions:
+<code><a href='n_proposal_arguments.html'>n_proposal_arguments</a>()</code>,
+<code><a href='n_proposal_main_motives.html'>n_proposal_main_motives</a>()</code>,
+<code><a href='proposal_arguments.html'>proposal_arguments</a>()</code>,
+<code><a href='proposal_main_motives.html'>proposal_main_motives</a>()</code>,
+<code><a href='proposal_name_gender.html'>proposal_name_gender</a>()</code>,
+<code><a href='proposal_name.html'>proposal_name</a>()</code>,
+<code><a href='proposal_type.html'>proposal_type</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_lvl_canton</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                               lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
-<span class='r-in'>                               canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span> |&gt;</span>
-<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "proposal"</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>proposal_argument</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                         lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                         canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                         proposal_nr <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>                         argument_nr <span class='op'>=</span> <span class='fl'>3</span>,</span>
+<span class='r-in'>                         side <span class='op'>=</span> <span class='st'>"contra"</span>,</span>
+<span class='r-in'>                         type <span class='op'>=</span> <span class='st'>"long"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

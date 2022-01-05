@@ -48,6 +48,7 @@ fokus:::raw_q_suppl_elections(ballot_date = "2019-10-20",
 Other raw questionnaire data functions:
 \code{\link{raw_pick_right}()},
 \code{\link{raw_q_suppl_arguments}()},
+\code{\link{raw_q_suppl_argument}()},
 \code{\link{raw_q_suppl_election_name}()},
 \code{\link{raw_q_suppl_election}()},
 \code{\link{raw_q_suppl_lvl_canton}()},
