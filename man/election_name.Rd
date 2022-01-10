@@ -6,7 +6,7 @@
 \usage{
 election_name(
   ballot_date = all_ballot_dates,
-  lvl = lvls(ballot_date, canton),
+  lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   prcd = prcds(ballot_date, lvl, canton),
   election_nr = 1L,
@@ -34,9 +34,7 @@ election_name(
 \item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
-}
-
-Irrelevant if \code{lvl = "federal"} and \code{prcd = "proportional"}.}
+}}
 
 \item{prcd}{Election procedure. One of
 \itemize{
@@ -44,7 +42,7 @@ Irrelevant if \code{lvl = "federal"} and \code{prcd = "proportional"}.}
 \item \code{"majoritarian"}
 }}
 
-\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integerish scalar.}
 
 \item{lang}{Language. One of
 \itemize{

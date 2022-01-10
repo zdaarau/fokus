@@ -137,7 +137,7 @@ parentheses).</p>
 
     <pre class="usage"><span class='fu'>election_candidate_string</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span>,
+  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span>, ballot_type <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span>,
   canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
   election_nr <span class='op'>=</span> <span class='fl'>1L</span>,
   candidate_nrs <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -173,7 +173,7 @@ parentheses).</p>
     </tr>
     <tr>
       <th>election_nr</th>
-      <td><p>Election number. A positive integer scalar (in almost all cases <code>1L</code>).</p></td>
+      <td><p>Election number. A positive integerish scalar.</p></td>
     </tr>
     <tr>
       <th>candidate_nrs</th>

@@ -8,7 +8,8 @@ has_lvl(
   ballot_date = all_ballot_dates,
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
-  ballot_types = all_ballot_types
+  ballot_types = all_ballot_types,
+  prcds = all_prcds
 )
 }
 \arguments{
@@ -31,16 +32,26 @@ has_lvl(
 \item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
-}}
+}
+
+Only relevant if \code{lvl = "cantonal"} or \code{ballot_types} includes \code{"election"}.}
 
 \item{ballot_types}{Ballot type(s). One or more of
 \itemize{
 \item \code{"referendum"}
 \item \code{"election"}
 }}
+
+\item{prcds}{Election procedure(s). One or more of
+\itemize{
+\item \code{"proportional"}
+\item \code{"majoritarian"}
+}
+
+Only relevant if \code{ballot_types} includes \code{"election"}.}
 }
 \value{
-A logical scalar.
+A logical vector of the same length as (\code{prcds} ×) \code{ballot_types}, named after \verb{lvl(.prcds).ballot_types}.
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
@@ -54,12 +65,18 @@ fokus::has_lvl(ballot_date = "2018-09-23",
                lvl = "federal",
                canton = "aargau",
                ballot_types = "election")
+
+fokus::has_lvl(ballot_date = "2019-10-20",
+               lvl = "federal",
+               canton = "aargau",
+               ballot_types = "election")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_proposal_nrs}()},
@@ -67,6 +84,7 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

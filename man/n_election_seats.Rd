@@ -6,7 +6,7 @@
 \usage{
 n_election_seats(
   ballot_date = all_ballot_dates,
-  lvl = lvls(ballot_date, canton),
+  lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L,
   type = c("vacant", "total")
@@ -34,7 +34,7 @@ n_election_seats(
 \item \code{"aargau"}
 }}
 
-\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integerish scalar.}
 
 \item{type}{Seat type. One of
 \itemize{

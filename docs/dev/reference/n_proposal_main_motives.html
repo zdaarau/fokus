@@ -136,7 +136,7 @@
 
     <pre class="usage"><span class='fu'>n_proposal_main_motives</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span>,
+  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span>, ballot_type <span class='op'>=</span> <span class='st'>"referendum"</span><span class='op'>)</span>,
   canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
   proposal_nr <span class='op'>=</span> <span class='fl'>1L</span>,
   type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yes"</span>, <span class='st'>"no"</span><span class='op'>)</span>
@@ -166,14 +166,14 @@
     <tr>
       <th>canton</th>
       <td><p>Canton name. One of</p><ul>
-<li><p><code>"aargau"</code> .</p></li>
+<li><p><code>"aargau"</code></p></li>
 </ul>
 
 <p>Only relevant if <code>lvl = "cantonal"</code>.</p></td>
     </tr>
     <tr>
       <th>proposal_nr</th>
-      <td><p>Proposal number. A positive integer scalar.</p></td>
+      <td><p>Proposal number. A positive integerish scalar.</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -186,7 +186,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An integer scalar.</p>
+    <p>An integerish scalar.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other proposal predicate functions:

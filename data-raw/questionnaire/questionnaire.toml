@@ -250,7 +250,7 @@ question = "Wie interessiert sind Sie im Allgemeinen an der Politik im Kanton { 
 variable_name = "political_interest_cantonal"
 variable_label = "respondent's interest in politics in the canton of { stringr::str_to_sentence(canton) }"
 variable_label_common = "respondent's interest in cantonal politics"
-include.default = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+include.default = "{ any(has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton)) }"
 include.false = [ 2019-10-20, 2020-10-18 ]
 [[02_political_start.001_general.001_political_interest.item]]
 topic = "Politisches Interesse Schweiz"
@@ -274,7 +274,7 @@ value_scale = "binary"
 is_mandatory = true
 
 [02_political_start.002_non_participation]
-lvl.default = "{ if (has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) && has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton)) c('', 'cantonal') else '' }"
+lvl.default = "{ c('', 'cantonal'[any(has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton)) && any(has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton))]) }"
 lvl.20180923_20181125 = ""
 who = "{ dplyr::if_else(lvl == 'cantonal', 'kantonal nicht-teilnehmende Online-Respondenten', 'Nicht-Teilnehmende') }"
 response_options = [ "trifft nicht zu", "trifft zu", "weiss nicht" ]
@@ -549,7 +549,7 @@ response_options = "{ c(response_options(type = 'abstain', lang = 'de', subtypes
 variable_values = [ 0, 1, 99 ]
 value_labels = "{ c(response_options(type = 'abstain', lang = 'en', subtypes = 'past'), 'participated', response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 value_scale = "binary"
-include = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+include = "{ any(has_election(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 [[03_1_election_general.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'proportional')) }"
 topic = "Stimmentscheid Partei vergangene eidgenössische Verhältniswahl {i}"
@@ -573,7 +573,7 @@ response_options = "{ c(response_options(type = 'abstain', lang = 'de', subtypes
 variable_values = [ 0, 1, 99 ]
 value_labels = "{ c(response_options(type = 'abstain', lang = 'en', subtypes = 'past'), 'participated', response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 value_scale = "binary"
-include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ any(has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'cantonal', canton = canton, prcds = 'proportional')) }"
@@ -674,14 +674,15 @@ question = "_Wahlanleitung des Bundes (Broschüre oder online)_"
 variable_name = "federal_information_source_official_booklet"
 variable_label.election = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the parties and candidates"
 variable_label.referendum = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the cantonal proposals"
-include = "{ has_election(ballot_date = ballot_date, lvls = 'federal', canton = canton) }"
+include = "{ any(has_election(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Kantonale Wahlbroschüre"
 question = "_Wahlanleitung des Kantons (Broschüre oder online)_"
 variable_name = "cantonal_information_source_official_booklet"
 variable_label = "whether or not the respondent used the official cantonal election manual (booklet or online) to learn about the cantonal proposals"
 # NOTE: A cantonal election manual doesn't actually exist in the canton of Aargau. Only a booklet explaining the *election procedure* is available (see `cantonal_information_source_election_booklet`)
-include.default = "{ FALSE && has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ any(has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
+include.aargau = false
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Leserbriefe/-kommentare"
 question = "_Leserbriefe oder Online-Kommentare_"
@@ -718,7 +719,7 @@ topic = "Informationsquelle: Kantonale Wahlanleitung"
 question = "_Wahlanleitung, welche den kantonalen Wahlunterlagen beilag_"
 variable_name = "cantonal_information_source_election_booklet"
 variable_label = "whether or not the respondent used the cantonal election booklet to learn about the election procedure"
-include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ any(has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z02_information_source.z01_help.item]]
 topic = "Informationsquelle: Kantonale Online-Wahlanleitung in leicht verständlicher Sprache"
@@ -726,7 +727,7 @@ question.default = "_Erklärvideo und/oder Wahlanleitung in leicht verständlich
 question.20201018 = "_Erklärvideo und/oder Wahlanleitung in leichter Sprache, welche auf der Kantonswebseite zur Verfügung stehen_"
 variable_name = "cantonal_information_source_online_tutorial"
 variable_label = "whether or not the respondent used the video tutorial and/or voting guide in simple language available on the cantonal website to learn about the election procedure"
-include.default = "{ has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ any(has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z02_information_source.z01_help.item]]
 topic = "Informationsquelle: [easyvote-Wahlbroschüre](https://www.easyvote.ch/de/f/angebote/broschuere)"
@@ -811,15 +812,15 @@ question = """
                          prettify_date(ballot_date,
                                        locale = 'de'),
                         ' fand',
-                        dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                   lvls = 'federal',
-                                                   canton = canton) > 1L,
+                        dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                       lvls = 'federal',
+                                                       canton = canton)) > 1L,
                                        'en',
                                        ''),
                         ' die eidgenössische',
-                        dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                   lvls = 'federal',
-                                                   canton = canton) > 1L,
+                        dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                       lvls = 'federal',
+                                                       canton = canton)) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
                                                                       lvls = 'federal',
@@ -832,9 +833,9 @@ question = """
                                               '** statt. '))),
                  '')
 }Welche Partei haben Sie {
-  dplyr::if_else(n_elections(ballot_date = ballot_date,
-                             lvls = 'federal',
-                             canton = canton) > 1L,
+  dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                 lvls = 'federal',
+                                 canton = canton)) > 1L,
                  paste0('in den **',
                         election_name(ballot_date = ballot_date,
                                       lvl = 'federal',
@@ -933,15 +934,15 @@ question = """
                         prettify_date(ballot_date,
                                       locale = 'de'),
                         ' fand',
-                        dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                   lvls = 'federal',
-                                                   canton = canton) > 1L,
+                        dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                       lvls = 'federal',
+                                                       canton = canton)) > 1L,
                                        'en',
                                        ''),
                         ' die eidgenössische',
-                        dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                   lvls = 'federal',
-                                                   canton = canton) > 1L,
+                        dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                       lvls = 'federal',
+                                                       canton = canton)) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
                                                                       lvls = 'federal',
@@ -1003,13 +1004,16 @@ topic = "Stimmentscheid Partei kantonale Verhältniswahl {i}"
 question = """
 {
   dplyr::if_else(i == 1L,
-                 paste0(dplyr::if_else(has_lvl(ballot_date = ballot_date,
-                                               lvl = 'federal',
-                                               canton = canton),
+                 paste0(dplyr::if_else(any(has_lvl(ballot_date = ballot_date,
+                                                   lvl = 'federal',
+                                                   canton = canton))
+                                       || has_referendum(ballot_date = ballot_date,
+                                                         lvls = 'cantonal',
+                                                         canton = canton),
                                        paste0('Weiter fand',
-                                              dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                                         lvls = 'cantonal',
-                                                                         canton = canton) > 1L,
+                                              dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                                             lvls = 'cantonal',
+                                                                             canton = canton)) > 1L,
                                                              'en',
                                                              ''),
                                               ' am ',
@@ -1019,15 +1023,15 @@ question = """
                                               prettify_date(ballot_date,
                                                             locale = 'de'),
                                               ' fand',
-                                              dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                                         lvls = 'cantonal',
-                                                                         canton = canton) > 1L,
+                                              dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                                             lvls = 'cantonal',
+                                                                             canton = canton)) > 1L,
                                                              'en',
                                                              ''))),
                         ' die kantonale',
-                        dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                   lvls = 'cantonal',
-                                                   canton = canton) > 1L,
+                        dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                       lvls = 'cantonal',
+                                                       canton = canton)) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
                                                                       lvls = 'cantonal',
@@ -1039,9 +1043,9 @@ question = """
                                                                       canton = canton),
                                               ' statt. '))), '')
 }Welche Partei haben Sie {
-  dplyr::if_else(n_elections(ballot_date = ballot_date,
-                             lvls = 'cantonal',
-                             canton = canton) > 1L,
+  dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                 lvls = 'cantonal',
+                                 canton = canton)) > 1L,
                  paste0('in den **',
                         election_name(ballot_date = ballot_date,
                                       lvl = 'cantonal',
@@ -1137,13 +1141,16 @@ question = """
                                   lvls = 'cantonal',
                                   canton = canton,
                                   prcds = 'proportional'),
-                 paste0(dplyr::if_else(has_lvl(ballot_date = ballot_date,
-                                               lvl = 'federal',
-                                               canton = canton),
+                 paste0(dplyr::if_else(any(has_lvl(ballot_date = ballot_date,
+                                                   lvl = 'federal',
+                                                   canton = canton))
+                                       || has_referendum(ballot_date = ballot_date,
+                                                         lvls = 'cantonal',
+                                                         canton = canton),
                                        paste0('Weiter fand',
-                                              dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                                         lvls = 'cantonal',
-                                                                         canton = canton) > 1L,
+                                              dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                                             lvls = 'cantonal',
+                                                                             canton = canton)) > 1L,
                                                              'en',
                                                              ''),
                                               ' am ',
@@ -1153,15 +1160,15 @@ question = """
                                                      prettify_date(ballot_date,
                                                                    locale = 'de'),
                                                      ' fand',
-                                                     dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                                                lvls = 'cantonal',
-                                                                                canton = canton) > 1L,
+                                                     dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                                                    lvls = 'cantonal',
+                                                                                    canton = canton)) > 1L,
                                                                     'en',
                                                                     ''))),
                         ' die kantonale',
-                        dplyr::if_else(n_elections(ballot_date = ballot_date,
-                                                   lvls = 'cantonal',
-                                                   canton = canton) > 1L,
+                        dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
+                                                       lvls = 'cantonal',
+                                                       canton = canton)) > 1L,
                                        paste0('n ',
                                               election_names_combined(ballot_date = ballot_date,
                                                                       lvls = 'cantonal',
@@ -2096,7 +2103,7 @@ response_options = [ "bestimmt", "vermutlich", "vermutlich eher nicht", "bestimm
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "certainly", "probably", "probably not", "certainly not", "don't know" ]
 value_scale = "ordinal_descending"
-include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) && has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ all(has_referendum(ballot_date = ballot_date, lvls = c('cantonal', 'federal'), canton = canton)) }"
 include.false = [ 2018-11-25 ]
 [[03_proposal_specific.004_participants.item]]
 who = "eidgenössisch und kantonal Teilnehmende"
@@ -2220,7 +2227,7 @@ response_options = [ "bestimmt", "vermutlich", "vermutlich eher nicht", "bestimm
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "certainly", "probably", "probably not", "certainly not", "don't know" ]
 value_scale = "ordinal_descending"
-include = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) && has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include = "{ all(has_referendum(ballot_date = ballot_date, lvls = c('cantonal', 'federal'), canton = canton)) }"
 [[03_proposal_specific.004_participants.z01_iterated.item]]
 i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 topic = "Verständnisschwierigkeit eidgenössische Vorlage {i}"
@@ -2697,7 +2704,7 @@ value_labels = [
   "No, I have not seen any political advertising",
   "don't know"
 ]
-include = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+include = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
 [[03_proposal_specific.005_all.item]]
 topic = "Primäre Informationsquelle (on- vs. offline)"
 question = "Ganz generell: Wo informieren Sie sich am häufigsten über Politik: Ist das …?"
@@ -4161,7 +4168,7 @@ variable_label_common = "respondent's participation status regarding the federal
 response_options = [ "nicht teilgenommen", "teilgenommen" ]
 value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
-include = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+include = "{ any(has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton)) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Teilnahme kantonal"
 variable_name = "participation_cantonal"
@@ -4171,7 +4178,7 @@ variable_label_common = "respondent's participation status regarding the cantona
 response_options = [ "nicht teilgenommen", "teilgenommen" ]
 value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
-include = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+include = "{ any(has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton)) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Materielle Teilnahme"
 variable_name = "participation_substantive"
@@ -4188,7 +4195,7 @@ variable_label_common = "respondent's _substantive_ participation status regardi
 response_options = [ "nicht teilgenommen", "teilgenommen" ]
 value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
-include = "{ has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+include = "{ any(has_lvl(ballot_date = ballot_date, lvl = 'federal', canton = canton)) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Materielle Teilnahme kantonal"
 variable_name = "participation_substantive_cantonal"
@@ -4198,7 +4205,7 @@ variable_label_common = "respondent's _substantive_ participation status regardi
 response_options = [ "nicht teilgenommen", "teilgenommen" ]
 value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
-include = "{ has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+include = "{ any(has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton)) }"
 [[y_generated.001_all.001_both.item]]
 topic = "Empfang der [«easyvote»-Broschüre](https://www.easyvote.ch/de/f/angebote/broschuere) (Dummy)"
 variable_name = "receives_easyvote_booklet"
@@ -4608,7 +4615,7 @@ the weight assigned to the respondent as a result of the weighting by {
     pal::prose_ls()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions including those in past elections (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
-include = "{ has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional') }"
+include = "{ any(has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional')) }"
 [[y_generated.100_weighting.002_participants.002_election.item]]
 topic = "Gewichtung nach vergangenen Wahlentscheiden"
 variable_name = "weight_decision_past"
@@ -4629,7 +4636,7 @@ the weight assigned to the respondent as a result of the weighting by {
     pal::prose_ls()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by voting decisions in all past elections (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
-include = "{ has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional') }"
+include = "{ any(has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional')) }"
 [[y_generated.100_weighting.002_participants.002_election.item]]
 topic = "Gewichtung nach Teilnahme sowie gegenwärtigen und vergangenen Wahlentscheiden"
 variable_name = "weight_participation_decision"
@@ -4637,12 +4644,14 @@ variable_label = """
 the weight assigned to the respondent as a result of the weighting by `participation` as well as {
   n_elections(ballot_date = ballot_date,
               lvls = 'federal',
+              canton = canton,
               prcds = 'proportional') %>%
     seq_len() %>%
     purrr::map(~ paste0('`voting_decision_', c('', 'past_'), 'federal_proportional_election_', .x, '_party`')) %>%
     purrr::flatten_chr() %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'federal',
+                  canton = canton,
                   prcds = 'majoritarian') %>%
         seq_len() %>%
         purrr::map(function(i) n_election_seats(ballot_date = ballot_date,
@@ -4677,7 +4686,7 @@ the weight assigned to the respondent as a result of the weighting by `participa
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by `participation` as well as all voting decisions including those in past ones (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 # not yet implemented...
-include = "{ FALSE && has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional') }"
+include = "{ FALSE && any(has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional')) }"
 [[y_generated.100_weighting.002_participants.002_election.item]]
 i = "{ seq_len(n_elections(ballot_date = ballot_date, lvls = 'federal', canton = canton, prcds = 'proportional')) }"
 topic = "Gewichtung nach gegenwärtigem und vergangenem Wahlentscheid eidgenössische Verhältniswahl {i}"

@@ -6,7 +6,7 @@
 \usage{
 proposal_argument(
   ballot_date = all_ballot_dates,
-  lvl = lvls(ballot_date, canton),
+  lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
   argument_nr = 1L,
@@ -34,14 +34,14 @@ proposal_argument(
 
 \item{canton}{Canton name. One of
 \itemize{
-\item \code{"aargau"} .
+\item \code{"aargau"}
 }
 
 Only relevant if \code{lvl = "cantonal"}.}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar.}
+\item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{argument_nr}{Proposal argument number. A positive integer scalar.}
+\item{argument_nr}{Proposal argument number. A positive integerish scalar.}
 
 \item{side}{Proposal argument side. One of
 \itemize{

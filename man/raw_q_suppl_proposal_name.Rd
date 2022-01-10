@@ -33,7 +33,7 @@ raw_q_suppl_proposal_name(
 \item \code{"aargau"}
 }}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar.}
+\item{proposal_nr}{Proposal number. A positive integerish scalar.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

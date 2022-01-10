@@ -37,17 +37,19 @@ reference:
     questionnaire data for the specified ballot date and possibly canton).
 - contents:
   - cantons
+  - lvls
   - ballot_types
+  - prcds
+  - proposal_nrs
+  - election_nrs
   - n_proposals
   - n_elections
-  - has_ballot_types
   - has_referendum
   - has_election
+  - has_ballot_type
   - has_lvl
   - has_proposal_nrs
   - has_election_nrs
-  - lvls
-  - prcds
 - subtitle: Proposal predicates
 - contents:
   - proposal_type

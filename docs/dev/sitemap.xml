@@ -64,6 +64,9 @@
     <loc>https://rpkg.dev/fokus/reference/election_names_combined.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/election_nrs.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/election_parties.html</loc>
   </url>
   <url>
@@ -106,7 +109,7 @@
     <loc>https://rpkg.dev/fokus/reference/gen_q_tibble.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/has_ballot_types.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/has_ballot_type.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/has_election.html</loc>
@@ -191,6 +194,9 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/proposal_name_gender.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/proposal_nrs.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/proposal_type.html</loc>

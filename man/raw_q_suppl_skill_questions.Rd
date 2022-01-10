@@ -33,7 +33,7 @@ raw_q_suppl_skill_questions(
 \item \code{"aargau"}
 }}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, non-proposal-specific skill question data is returned.}
+\item{proposal_nr}{Proposal number. A positive integerish scalar or \code{NULL}. If \code{NULL}, non-proposal-specific skill question data is returned.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

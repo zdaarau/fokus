@@ -179,20 +179,25 @@ election numbers of the specified procedures.</p>
     </tr>
     <tr>
       <th>election_nrs</th>
-      <td><p>Election number(s) to check. An integerish vector. If <code>NULL</code>, falls back to the <a href='n_elections.html'>number of elections</a> present matching the
-specified parameters.</p></td>
+      <td><p>Election number(s) to test for. An integerish vector or <code>NULL</code>. If <code>NULL</code>, falls back to <code><a href='n_elections.html'>1:n_elections()</a></code> present
+matching the specified parameters.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical vector of the same length as the number of elections present matching the specified parameters (<code>lvls</code> × <code>prcds</code> × <code>election_nrs</code>).</p>
+    <p>Either</p><ul>
+<li><p><strong>an unnamed logical scalar</strong> if <code>election_nrs</code> is <code>NULL</code> and there was no FOKUS-covered election of any <code>prcds</code> at <code>ballot_date</code> on any <code>lvls</code>, or</p></li>
+<li><p><strong>a logical vector</strong> of the same length as <code>lvls</code> × <code>prcds</code> × <code>election_nrs</code>, <strong>named</strong> after <code>lvls.prcds.election_nrs</code>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other fundamental predicate functions:
 <code><a href='ballot_types.html'>ballot_types</a>()</code>,
 <code><a href='cantons.html'>cantons</a>()</code>,
-<code><a href='has_ballot_types.html'>has_ballot_types</a>()</code>,
+<code><a href='election_nrs.html'>election_nrs</a>()</code>,
+<code><a href='has_ballot_type.html'>has_ballot_type</a>()</code>,
 <code><a href='has_election.html'>has_election</a>()</code>,
 <code><a href='has_lvl.html'>has_lvl</a>()</code>,
 <code><a href='has_proposal_nrs.html'>has_proposal_nrs</a>()</code>,
@@ -200,13 +205,21 @@ specified parameters.</p></td>
 <code><a href='lvls.html'>lvls</a>()</code>,
 <code><a href='n_elections.html'>n_elections</a>()</code>,
 <code><a href='n_proposals.html'>n_proposals</a>()</code>,
-<code><a href='prcds.html'>prcds</a>()</code></p></div>
+<code><a href='prcds.html'>prcds</a>()</code>,
+<code><a href='proposal_nrs.html'>proposal_nrs</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
 <span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.majoritarian.1  federal.proportional.1  federal.majoritarian.1 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                    TRUE                    TRUE                    TRUE </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
+<span class='r-in'>                        lvls <span class='op'>=</span> <span class='st'>"federal"</span>,</span>
+<span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                        prcds <span class='op'>=</span> <span class='st'>"proportional"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> federal.proportional.1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   TRUE </span>
 <span class='r-in'>                        </span>
 <span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
 <span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
@@ -217,6 +230,15 @@ specified parameters.</p></td>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                   FALSE                    TRUE                   FALSE </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>  federal.majoritarian.1  federal.majoritarian.2 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                    TRUE                   FALSE </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2020-10-18"</span>,</span>
+<span class='r-in'>                        lvls <span class='op'>=</span> <span class='st'>"federal"</span>,</span>
+<span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

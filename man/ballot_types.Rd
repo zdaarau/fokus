@@ -4,7 +4,11 @@
 \alias{ballot_types}
 \title{Get ballot types}
 \usage{
-ballot_types(ballot_date = all_ballot_dates, canton = cantons(ballot_date))
+ballot_types(
+  ballot_date = all_ballot_dates,
+  lvls = all_lvls,
+  canton = cantons(ballot_date)
+)
 }
 \arguments{
 \item{ballot_date}{FOKUS-covered ballot date. One of
@@ -17,29 +21,38 @@ ballot_types(ballot_date = all_ballot_dates, canton = cantons(ballot_date))
 \item \code{"2021-11-28"}
 }}
 
+\item{lvls}{Political level(s). One or more of
+\itemize{
+\item \code{"cantonal"}
+\item \code{"federal"}
+}}
+
 \item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}
 }
 \value{
-A character vector of ballot types. One or more of
-\itemize{
-\item \code{"referendum"}
-\item \code{"election"}
-}
+A character vector.
 }
 \description{
-Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.
+Determines the \link[=all_ballot_types]{types of the ballot} covered by the FOKUS survey for the specified canton on the specified political level(s) at the
+specified ballot date.
 }
 \examples{
 fokus::ballot_types(ballot_date = "2018-09-23",
+                    canton = "aargau")
+
+# in case of no ballot types at lvl, an empty character vector is returned
+fokus::ballot_types(ballot_date = "2020-10-18",
+                    lvls = "federal",
                     canton = "aargau")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
@@ -48,6 +61,7 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

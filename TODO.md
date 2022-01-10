@@ -1,5 +1,16 @@
 # TODOs
 
+-   Bug report about feeding `rlang::arg_match` a zero-length `arg` (subscript out of bounds):
+
+    ``` r
+    bla <- function(x = c("ho", "ha")) {
+        x <- rlang::arg_match0(arg = x, arg_nm = "x", values = c("ho", "ha"))
+        paste(x, "blup")
+    }
+
+    bla(character())
+    ```
+
 -   Ask Uwe whether easyvote booklet actually covers *cantonal* proposals. If not, the distinction between
     `cantonal_proposals_information_source_easyvote_booklet` and `federal_proposals_information_source_easyvote_booklet` doesn't make sense and we could merge
     the variable with `information_source_easyvote_booklet` (which currently refers to the election booklet only).

@@ -6,7 +6,7 @@
 \usage{
 requires_candidate_registration(
   ballot_date = all_ballot_dates,
-  lvl = lvls(ballot_date, canton),
+  lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L
 )
@@ -33,7 +33,7 @@ requires_candidate_registration(
 \item \code{"aargau"}
 }}
 
-\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integerish scalar.}
 }
 \value{
 A logical scalar.

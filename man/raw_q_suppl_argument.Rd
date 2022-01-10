@@ -35,9 +35,9 @@ raw_q_suppl_argument(
 \item \code{"aargau"}
 }}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar.}
+\item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{argument_nr}{Proposal argument number. A positive integer scalar.}
+\item{argument_nr}{Proposal argument number. A positive integerish scalar.}
 
 \item{side}{Proposal argument side. One of
 \itemize{

@@ -7,7 +7,7 @@
 lvls(
   ballot_date = all_ballot_dates,
   canton = cantons(ballot_date),
-  ballot_types = all_ballot_types
+  ballot_type = ballot_types(ballot_date = ballot_date, canton = canton)
 )
 }
 \arguments{
@@ -26,17 +26,17 @@ lvls(
 \item \code{"aargau"}
 }}
 
-\item{ballot_types}{Ballot type(s). One or more of
+\item{ballot_type}{Ballot type. One of
 \itemize{
 \item \code{"referendum"}
 \item \code{"election"}
 }}
 }
 \value{
-A character vector of \link[=all_lvls]{political levels}.
+A character vector.
 }
 \description{
-Determines the political levels covered by the FOKUS survey for the specified canton at the specified ballot date.
+Determines the \link[=all_lvls]{political levels} covered by the FOKUS survey for the specified canton of the specified ballot type at the specified ballot date.
 }
 \examples{
 fokus::lvls(ballot_date = "2018-09-23",
@@ -44,13 +44,14 @@ fokus::lvls(ballot_date = "2018-09-23",
 
 fokus::lvls(ballot_date = "2018-09-23",
             canton = "aargau",
-            ballot_types = "election")
+            ballot_type = "election")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
@@ -58,6 +59,7 @@ Other fundamental predicate functions:
 \code{\link{has_referendum}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

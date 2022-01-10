@@ -30,12 +30,12 @@ n_skill_questions(
 
 \item{canton}{Canton name. One of
 \itemize{
-\item \code{"aargau"} .
+\item \code{"aargau"}
 }
 
 Only relevant if \code{lvl = "cantonal"}.}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, the number of non-proposal-specific skill questions is returned.}
+\item{proposal_nr}{Proposal number. A positive integerish scalar or \code{NULL}. If \code{NULL}, the number of non-proposal-specific skill questions is returned.}
 }
 \value{
 An integer scalar.

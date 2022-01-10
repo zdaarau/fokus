@@ -34,10 +34,10 @@ raw_q_suppl_skill_question(
 \item \code{"aargau"}
 }}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
+\item{proposal_nr}{Proposal number. A positive integerish scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}
 
-\item{skill_question_nr}{Skill question number. A positive integer scalar.}
+\item{skill_question_nr}{Skill question number. A positive integerish scalar.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

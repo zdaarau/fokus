@@ -6,7 +6,7 @@
 \usage{
 election_candidate_string(
   ballot_date = all_ballot_dates,
-  lvl = lvls(ballot_date, canton),
+  lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L,
   candidate_nrs = NULL,
@@ -35,7 +35,7 @@ election_candidate_string(
 \item \code{"aargau"}
 }}
 
-\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integerish scalar.}
 
 \item{candidate_nrs}{Election candidate numbers to include. A vector of positive integers or \code{NULL}. If \code{NULL}, all candidates will be included.}
 

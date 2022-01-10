@@ -6,7 +6,7 @@
 \usage{
 prcds(
   ballot_date = all_ballot_dates,
-  lvls = all_lvls,
+  lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date)
 )
 }
@@ -21,7 +21,7 @@ prcds(
 \item \code{"2021-11-28"}
 }}
 
-\item{lvls}{Political level(s). One or more of
+\item{lvl}{Political level. One of
 \itemize{
 \item \code{"cantonal"}
 \item \code{"federal"}
@@ -33,24 +33,32 @@ prcds(
 }}
 }
 \value{
-A character vector of \link[=all_prcds]{election procedures}.
+A character vector.
 }
 \description{
-Determines the election procedures covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s).
+Determines the \link[=all_prcds]{election procedures} covered by the FOKUS survey for the specified canton on the specified political level at the specified ballot
+date.
 }
 \examples{
 fokus::prcds(ballot_date = "2019-10-20",
+             lvl = "cantonal",
+             canton = "aargau")
+             
+fokus::prcds(ballot_date = "2019-10-20",
+             lvl = "federal",
              canton = "aargau")
 
-fokus::prcds(ballot_date = "2019-10-20",
-             lvls = "cantonal",
+# in case of no elections, an empty character vector is returned
+fokus::prcds(ballot_date = "2020-10-18",
+             lvl = "federal",
              canton = "aargau")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
@@ -58,6 +66,7 @@ Other fundamental predicate functions:
 \code{\link{has_referendum}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
-\code{\link{n_proposals}()}
+\code{\link{n_proposals}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

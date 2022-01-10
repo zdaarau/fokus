@@ -40,11 +40,15 @@ has_election_nrs(
 \item \code{"majoritarian"}
 }}
 
-\item{election_nrs}{Election number(s) to check. An integerish vector. If \code{NULL}, falls back to the \link[=n_elections]{number of elections} present matching the
-specified parameters.}
+\item{election_nrs}{Election number(s) to test for. An integerish vector or \code{NULL}. If \code{NULL}, falls back to \code{\link[=n_elections]{1:n_elections()}} present
+matching the specified parameters.}
 }
 \value{
-A logical vector of the same length as the number of elections present matching the specified parameters (\code{lvls} × \code{prcds} × \code{election_nrs}).
+Either
+\itemize{
+\item \strong{an unnamed logical scalar} if \code{election_nrs} is \code{NULL} and there was no FOKUS-covered election of any \code{prcds} at \code{ballot_date} on any \code{lvls}, or
+\item \strong{a logical vector} of the same length as \code{lvls} × \code{prcds} × \code{election_nrs}, \strong{named} after \code{lvls.prcds.election_nrs}.
+}
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified
@@ -53,16 +57,29 @@ election numbers of the specified procedures.
 \examples{
 fokus::has_election_nrs(ballot_date = "2019-10-20",
                         canton = "aargau")
+
+fokus::has_election_nrs(ballot_date = "2019-10-20",
+                        lvls = "federal",
+                        canton = "aargau",
+                        prcds = "proportional")
                         
 fokus::has_election_nrs(ballot_date = "2019-10-20",
                         canton = "aargau",
                         election_nrs = 1:2)
+
+fokus::has_election_nrs(ballot_date = "2018-09-23",
+                        canton = "aargau")
+
+fokus::has_election_nrs(ballot_date = "2020-10-18",
+                        lvls = "federal",
+                        canton = "aargau")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
 \code{\link{has_proposal_nrs}()},
@@ -70,6 +87,7 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

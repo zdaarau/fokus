@@ -41,31 +41,31 @@
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
-    No "cantonal" elections for canton "aargau" present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    `lvl` must be a string or have the same length as `values`.
 
 ---
 
@@ -81,28 +81,7 @@
       [3] "leer eingelegt/nicht abgestimmt"                   
       [4] "nicht teilgenommen oder leer eingelegt"            
 
-# `canton` is really irrelevant if `lvl = "federal"` for certain fns
-
-    Code
-      proposal_type(lvl = "federal", canton = invalid_canton)
-    Output
-      [1] "citizens' initiative"
-
----
-
-    Code
-      proposal_name(lvl = "federal", canton = invalid_canton)
-    Output
-      [1] "Velo-Initiative"
-
----
-
-    Code
-      proposal_name_gender(lvl = "federal", canton = invalid_canton)
-    Output
-      [1] "feminine"
-
----
+# for certain fns, `canton` is really ignored (i.e. not evaluated) if `lvl = "federal"`
 
     Code
       proposal_arguments(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
@@ -115,21 +94,6 @@
       2 Bei der Wahl für ein d~ Zufallsbasierte Wa~ Leaving anything to c~     1 cont~
       3 Dass Bundesrichter-Kan~ Parteimitgliedscha~ The fact that, under ~     2 pro  
       4 Die heute gängige Part~ Parteizugehörigkei~ The common party affi~     2 cont~
-
----
-
-    Code
-      proposal_argument(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
-        proposal_nr = 2L, argument_nr = 1L, side = "pro")
-    Output
-      [1] "Verletzung Gewaltenteilung"
-
----
-
-    Code
-      n_proposal_arguments(lvl = "federal", canton = invalid_canton)
-    Output
-      [1] 0
 
 ---
 
@@ -150,36 +114,6 @@
 ---
 
     Code
-      n_proposal_main_motives(lvl = "federal", canton = invalid_canton)
-    Output
-      [1] 0
-
----
-
-    Code
-      election_name(ballot_date = "2019-10-20", lvl = "federal", canton = invalid_canton,
-        prcd = "proportional")
-    Output
-      [1] "Nationalratswahl"
-
----
-
-    Code
-      n_skill_questions(lvl = "federal", canton = invalid_canton)
-    Output
-      [1] 0
-
----
-
-    Code
-      skill_question(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
-        proposal_nr = 2L, skill_question_nr = 1L)
-    Output
-      [1] "Wer hat bisher die Mitglieder des Bundesgerichts gewählt?"
-
----
-
-    Code
       skill_question_response_options(ballot_date = "2021-11-28", lvl = "federal",
         canton = invalid_canton, proposal_nr = 2L, skill_question_nr = 1L)
     Output
@@ -190,12 +124,4 @@
       2 Die Bundesversammlung    The Federal Assembly             TRUE      
       3 Das Bundesgericht selbst The Federal Supreme Court itself FALSE     
       4 Das Volk                 The people                       FALSE     
-
----
-
-    Code
-      skill_question_answer_nr(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
-        proposal_nr = 2L, skill_question_nr = 1L)
-    Output
-      [1] 2
 

@@ -64,9 +64,9 @@ q_item_val(
 
 \item{lvl}{Political-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. A character vector.}
 
-\item{i}{Second-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
+\item{i}{Second-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integerish vector.}
 
-\item{j}{Third-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integer vector.}
+\item{j}{Third-level loop iterator that can be referred to in field value via \link[glue:glue]{string interpolation}. An integerish vector.}
 }
 \value{
 A vector of the resolved item field values. Type and length of resolved values depend on \code{key}.

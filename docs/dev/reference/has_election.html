@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine whether ballot type includes an election — has_election • fokus</title>
+<title>Determine whether ballot includes an election — has_election • fokus</title>
 
 
 
@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Determine whether ballot type includes an election — has_election" />
+<meta property="og:title" content="Determine whether ballot includes an election — has_election" />
 <meta name="description" content="Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered an election of the specified election procedure(s).">
 <meta property="og:description" content="Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered an election of the specified election procedure(s)." />
 <meta name="twitter:card" content="summary" />
@@ -125,7 +125,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine whether ballot type includes an election</h1>
+    <h1>Determine whether ballot includes an election</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
     <div class="hidden name"><code>has_election.Rd</code></div>
     </div>
@@ -180,17 +180,14 @@ the specified election procedure(s).</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical scalar.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If more than one <code>lvls</code>/<code>prcds</code> are provided (the default), they are interpreted according to the rules of <a href='https://en.wikipedia.org/wiki/Logical_disjunction'>logical disjunction</a>, i.e. <code>TRUE</code> is returned if <em>any</em> <code>lvls</code>/<code>prcds</code> are included in the specified ballot.</p>
-<p>For <a href='https://en.wikipedia.org/wiki/Logical_conjunction'>logical conjunction</a>, use e.g. <code>has_election(lvls = "cantonal") &amp;&amp; has_election(lvls = "federal")</code>.</p>
+    <p>A logical vector of length <code>lvls</code> × <code>prcds</code>, named after <code>lvls.prcds</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other fundamental predicate functions:
 <code><a href='ballot_types.html'>ballot_types</a>()</code>,
 <code><a href='cantons.html'>cantons</a>()</code>,
-<code><a href='has_ballot_types.html'>has_ballot_types</a>()</code>,
+<code><a href='election_nrs.html'>election_nrs</a>()</code>,
+<code><a href='has_ballot_type.html'>has_ballot_type</a>()</code>,
 <code><a href='has_election_nrs.html'>has_election_nrs</a>()</code>,
 <code><a href='has_lvl.html'>has_lvl</a>()</code>,
 <code><a href='has_proposal_nrs.html'>has_proposal_nrs</a>()</code>,
@@ -198,12 +195,29 @@ the specified election procedure(s).</p>
 <code><a href='lvls.html'>lvls</a>()</code>,
 <code><a href='n_elections.html'>n_elections</a>()</code>,
 <code><a href='n_proposals.html'>n_proposals</a>()</code>,
-<code><a href='prcds.html'>prcds</a>()</code></p></div>
+<code><a href='prcds.html'>prcds</a>()</code>,
+<code><a href='proposal_nrs.html'>proposal_nrs</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
 <span class='r-in'>                    canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.proportional cantonal.majoritarian  federal.proportional </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 FALSE                  TRUE                  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  federal.majoritarian </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  TRUE </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
+<span class='r-in'>                    lvls <span class='op'>=</span> <span class='st'>"federal"</span>,</span>
+<span class='r-in'>                    canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> federal.proportional federal.majoritarian </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 TRUE                 TRUE </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_election</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                    lvls <span class='op'>=</span> <span class='st'>"federal"</span>,</span>
+<span class='r-in'>                    canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                    prcds <span class='op'>=</span> <span class='st'>"proportional"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> federal.proportional </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                FALSE </span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

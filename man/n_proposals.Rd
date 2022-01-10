@@ -30,10 +30,12 @@ n_proposals(
 \item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
-}}
+}
+
+Only relevant if \code{lvls} includes \code{"cantonal"}.}
 }
 \value{
-An integer.
+An integer vector of the same length as and named after \code{lvls}.
 }
 \description{
 Determines the number of referendum proposals covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
@@ -46,12 +48,19 @@ same, thus \code{canton} is ignored if \code{!("cantonal" \%in\% lvls)}.
 \examples{
 fokus::n_proposals(ballot_date = "2018-09-23",
                    canton = "aargau")
+                   
+fokus::n_proposals(ballot_date = "2018-09-23",
+                   lvls = "cantonal",
+                   canton = "aargau")
+
+fokus::n_proposals(ballot_date = "2019-10-20")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
@@ -59,6 +68,7 @@ Other fundamental predicate functions:
 \code{\link{has_referendum}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

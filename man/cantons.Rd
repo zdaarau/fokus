@@ -26,15 +26,18 @@ Determines the cantons covered by the FOKUS survey at the specified ballot date.
 \examples{
 fokus::cantons(ballot_date = "2018-09-23")
 
-# determine the cantons covered in *any* FOKUS survey
-fokus::all_ballot_dates |>
-  purrr::map_chr(fokus::cantons) |>
-  unique()
+# determine all cantons covered per ballot date
+library(magrittr)
+
+fokus::all_ballot_dates \%>\%
+  magrittr::set_names(., .) \%>\%
+  purrr::map_chr(fokus::cantons)
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
@@ -43,6 +46,7 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

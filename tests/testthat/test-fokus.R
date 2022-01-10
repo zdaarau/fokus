@@ -5,14 +5,28 @@ test_that("Exported functions return correct default values", {
   expect_identical(ballot_types(),
                    "referendum")
   expect_identical(n_proposals(),
-                   4L)
+                   c(cantonal = 1L,
+                     federal = 3L))
   expect_identical(n_elections(),
-                   0L)
-  expect_identical(has_ballot_types(),
-                   c(TRUE, FALSE))
-  expect_true(has_referendum())
-  expect_false(has_election())
-  expect_true(has_lvl())
+                   c(cantonal.proportional = 0L,
+                     cantonal.majoritarian = 0L,
+                     federal.proportional = 0L,
+                     federal.majoritarian = 0L))
+  expect_identical(has_ballot_type(),
+                   c(cantonal.referendum = TRUE,
+                     federal.referendum = TRUE))
+  expect_identical(has_referendum(),
+                   c(cantonal = TRUE,
+                     federal = TRUE))
+  expect_identical(has_election(),
+                   c(cantonal.proportional = FALSE,
+                     cantonal.majoritarian = FALSE,
+                     federal.proportional = FALSE,
+                     federal.majoritarian = FALSE))
+  expect_identical(has_lvl(),
+                   c(cantonal.referendum = TRUE,
+                     cantonal.proportional.election = FALSE,
+                     cantonal.majoritarian.election = FALSE))
   expect_identical(has_proposal_nrs(),
                    c(cantonal.1 = TRUE,
                      federal.1 = TRUE,
@@ -23,6 +37,10 @@ test_that("Exported functions return correct default values", {
                    c("cantonal", "federal"))
   expect_identical(prcds(),
                    character())
+  expect_identical(proposal_nrs(),
+                   1L)
+  expect_identical(election_nrs(),
+                   integer())
   expect_identical(proposal_type(),
                    "citizens' initiative")
   expect_identical(proposal_name(),
@@ -55,84 +73,113 @@ test_that("Exported functions return correct default values", {
 })
 
 ## irrelevant `canton` if `lvl = "federal"` ----
-test_that("`canton` is really irrelevant if `lvl = \"federal\"` for certain fns", {
+test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `lvl = \"federal\"`", {
 
   invalid_canton <- "kantonien"
 
-  expect_snapshot(proposal_type(lvl = "federal",
-                                canton = invalid_canton))
-  expect_snapshot(proposal_name(lvl = "federal",
-                                canton = invalid_canton))
-  expect_snapshot(proposal_name_gender(lvl = "federal",
-                                       canton = invalid_canton))
+  expect_identical(has_referendum(lvls = "federal",
+                                  canton = invalid_canton),
+                   c(federal = TRUE))
+  expect_identical(has_proposal_nrs(lvls = "federal",
+                                    canton = invalid_canton),
+                   c(federal.1 = TRUE,
+                     federal.2 = TRUE,
+                     federal.3 = TRUE))
+  expect_identical(proposal_nrs(lvl = "federal",
+                                canton = invalid_canton),
+                   1:3)
+  expect_identical(proposal_type(lvl = "federal",
+                                 canton = invalid_canton),
+                   "citizens' initiative")
+  expect_identical(proposal_name(lvl = "federal",
+                                 canton = invalid_canton),
+                   "Velo-Initiative")
+  expect_identical(proposal_name_gender(lvl = "federal",
+                                        canton = invalid_canton),
+                   "feminine")
   expect_snapshot(proposal_arguments(ballot_date = "2021-11-28",
                                      lvl = "federal",
                                      canton = invalid_canton,
                                      proposal_nr = 2L))
-  expect_snapshot(proposal_argument(ballot_date = "2021-11-28",
-                                    lvl = "federal",
-                                    canton = invalid_canton,
-                                    proposal_nr = 2L,
-                                    argument_nr = 1L,
-                                    side = "pro"))
-  expect_snapshot(n_proposal_arguments(lvl = "federal",
-                                       canton = invalid_canton))
+  expect_identical(proposal_argument(ballot_date = "2021-11-28",
+                                     lvl = "federal",
+                                     canton = invalid_canton,
+                                     proposal_nr = 2L,
+                                     argument_nr = 1L,
+                                     side = "pro"),
+                   "Verletzung Gewaltenteilung")
+  expect_identical(n_proposal_arguments(lvl = "federal",
+                                        canton = invalid_canton),
+                   0L)
   expect_snapshot(proposal_main_motives(ballot_date = "2021-11-28",
                                         lvl = "federal",
                                         canton = invalid_canton,
                                         proposal_nr = 2L))
-  expect_snapshot(n_proposal_main_motives(lvl = "federal",
-                                          canton = invalid_canton))
-  expect_snapshot(election_name(ballot_date = "2019-10-20",
-                                lvl = "federal",
-                                canton = invalid_canton,
-                                prcd = "proportional"))
-  expect_snapshot(n_skill_questions(lvl = "federal",
-                                    canton = invalid_canton))
-  expect_snapshot(skill_question(ballot_date = "2021-11-28",
-                                 lvl = "federal",
-                                 canton = invalid_canton,
-                                 proposal_nr = 2L,
-                                 skill_question_nr = 1L))
+  expect_identical(n_proposal_main_motives(lvl = "federal",
+                                           canton = invalid_canton),
+                   0L)
+  expect_identical(n_skill_questions(lvl = "federal",
+                                     canton = invalid_canton),
+                   0L)
+  expect_identical(skill_question(ballot_date = "2021-11-28",
+                                  lvl = "federal",
+                                  canton = invalid_canton,
+                                  proposal_nr = 2L,
+                                  skill_question_nr = 1L),
+                   "Wer hat bisher die Mitglieder des Bundesgerichts gewählt?")
   expect_snapshot(skill_question_response_options(ballot_date = "2021-11-28",
                                                   lvl = "federal",
                                                   canton = invalid_canton,
                                                   proposal_nr = 2L,
                                                   skill_question_nr = 1L))
-  expect_snapshot(skill_question_answer_nr(ballot_date = "2021-11-28",
-                                           lvl = "federal",
-                                           canton = invalid_canton,
-                                           proposal_nr = 2L,
-                                           skill_question_nr = 1L))
+  expect_identical(skill_question_answer_nr(ballot_date = "2021-11-28",
+                                            lvl = "federal",
+                                            canton = invalid_canton,
+                                            proposal_nr = 2L,
+                                            skill_question_nr = 1L),
+                   2L)
 })
 
 # FAILSAFE FUNCTIONS ----
 ## not FOKUS-covered ----
 test_that("relevant fns don't fail when non-FOKUS-covered", {
 
+  expect_identical(n_proposals(ballot_date = "2019-10-20"),
+                   c(cantonal = 0L,
+                     federal = 0L))
   expect_identical(n_proposals(ballot_date = "2021-11-28",
                                lvls = "cantonal"),
-                   0L)
+                   c(cantonal = 0L))
   expect_identical(n_elections(ballot_date = "2018-09-23"),
-                   0L)
+                   c(cantonal.proportional = 0L,
+                     cantonal.majoritarian = 0L,
+                     federal.proportional = 0L,
+                     federal.majoritarian = 0L))
   expect_identical(n_elections(ballot_date = "2020-10-18",
                                lvls = "federal"),
-                   0L)
-  expect_identical(has_ballot_types(ballot_date = "2019-10-20",
-                                    lvls = "federal",
-                                    ballot_types = "referendum"),
-                   FALSE)
+                   c(federal.proportional = 0L,
+                     federal.majoritarian = 0L))
+  expect_identical(has_ballot_type(ballot_date = "2019-10-20",
+                                   lvls = "federal",
+                                   ballot_type = "referendum"),
+                   c(federal.referendum = FALSE))
   expect_identical(has_referendum(ballot_date = "2019-10-20",
                                   lvls = "federal"),
-                   FALSE)
+                   c(federal = FALSE))
   expect_identical(has_election(ballot_date = "2018-09-23"),
-                   FALSE)
+                   c(cantonal.proportional = FALSE,
+                     cantonal.majoritarian = FALSE,
+                     federal.proportional = FALSE,
+                     federal.majoritarian = FALSE))
   expect_identical(has_election(ballot_date = "2020-10-18",
                                 lvls = "federal"),
-                   FALSE)
+                   c(federal.proportional = FALSE,
+                     federal.majoritarian = FALSE))
   expect_identical(has_lvl(ballot_date = "2021-11-28",
                            lvl = "cantonal"),
-                   FALSE)
+                   c(cantonal.referendum = FALSE,
+                     cantonal.proportional.election = FALSE,
+                     cantonal.majoritarian.election = FALSE))
   expect_identical(has_proposal_nrs(ballot_date = "2019-10-20"),
                    FALSE)
   expect_identical(has_proposal_nrs(ballot_date = "2021-11-28",
@@ -157,12 +204,12 @@ test_that("relevant fns don't fail when non-FOKUS-covered", {
                                     election_nrs = 2L),
                    c(federal.proportional.2 = FALSE))
   expect_identical(lvls(ballot_date = "2019-10-20",
-                        ballot_types = "referendum"),
+                        ballot_type = "referendum"),
                    character())
   expect_identical(prcds(ballot_date = "2018-09-23"),
                    character())
   expect_identical(prcds(ballot_date = "2020-10-18",
-                         lvls = "federal"),
+                         lvl = "federal"),
                    character())
 })
 

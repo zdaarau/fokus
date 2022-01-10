@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{has_proposal_nrs}
 \alias{has_proposal_nrs}
-\title{Determine whether ballot includes proposals}
+\title{Determine whether ballot includes referendum proposals}
 \usage{
 has_proposal_nrs(
   ballot_date = all_ballot_dates,
@@ -31,31 +31,49 @@ has_proposal_nrs(
 \item{canton}{Canton name. One of
 \itemize{
 \item \code{"aargau"}
-}}
+}
 
-\item{proposal_nrs}{Proposals number(s) to check. An integerish vector. If \code{NULL}, falls back to the \link[=n_proposals]{number of proposals} present matching the
-specified parameters.}
+Only relevant if \code{lvls} includes \code{"cantonal"}.}
+
+\item{proposal_nrs}{Proposals number(s) to test for. An integerish vector or \code{NULL}. If \code{NULL}, falls back to \code{\link[=n_proposals]{1:n_proposals()}} present
+matching the specified parameters.}
 }
 \value{
-A logical vector of the same length as the number of proposals present matching the specified parameters (\code{lvls} × \code{proposal_nrs}).
+Either
+\itemize{
+\item \strong{an unnamed logical scalar} if \code{proposal_nrs} is \code{NULL} and there was no FOKUS-covered referendum at \code{ballot_date} on any \code{lvls}, or
+\item \strong{a logical vector} of the same length as \code{lvls} × \code{proposal_nrs}, \strong{named} after \code{lvls.proposal_nrs}.
+}
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political levels covered the specified
-proposal numbers.
+referendum proposal numbers.
 }
 \examples{
 fokus::has_proposal_nrs(ballot_date = "2018-09-23",
+                        canton = "aargau")
+
+fokus::has_proposal_nrs(ballot_date = "2018-09-23",
+                        lvls = "federal",
                         canton = "aargau")
                         
 fokus::has_proposal_nrs(ballot_date = "2018-09-23",
                         canton = "aargau",
                         proposal_nrs = 1:5)
+
+fokus::has_proposal_nrs(ballot_date = "2019-10-20",
+                        canton = "aargau")
+
+fokus::has_proposal_nrs(ballot_date = "2021-11-28",
+                        lvls = "cantonal",
+                        canton = "aargau")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},
@@ -63,6 +81,7 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}

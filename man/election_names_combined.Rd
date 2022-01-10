@@ -46,7 +46,7 @@ election_names_combined(
 A character scalar.
 }
 \description{
-Returns the combined name of all elections at the specified date on the specified level for the specified canton.
+Returns the combined name of all elections at the specified date on the specified level(s) for the specified canton in the specified language.
 }
 \examples{
 fokus::election_names_combined(ballot_date = "2019-10-20",

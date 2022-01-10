@@ -6,7 +6,7 @@
 \usage{
 election_parties(
   ballot_date = all_ballot_dates,
-  lvl = lvls(ballot_date, canton),
+  lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L,
   past = FALSE
@@ -34,7 +34,7 @@ election_parties(
 \item \code{"aargau"}
 }}
 
-\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integerish scalar.}
 
 \item{past}{Whether to extract the current or the predecessor election's parties.}
 }

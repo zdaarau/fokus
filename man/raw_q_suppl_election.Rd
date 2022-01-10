@@ -40,7 +40,7 @@ raw_q_suppl_election(
 \item \code{"majoritarian"}
 }}
 
-\item{election_nr}{Election number. A positive integer scalar (in almost all cases \code{1L}).}
+\item{election_nr}{Election number. A positive integerish scalar.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

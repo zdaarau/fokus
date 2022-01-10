@@ -7,7 +7,7 @@
 read_toml(path)
 }
 \arguments{
-\item{path}{Path to the TOML file. A character scalar.}
+\item{path}{Path to a TOML file. A character scalar.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.

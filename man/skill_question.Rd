@@ -32,15 +32,15 @@ skill_question(
 
 \item{canton}{Canton name. One of
 \itemize{
-\item \code{"aargau"} .
+\item \code{"aargau"}
 }
 
 Only relevant if \code{lvl = "cantonal"}.}
 
-\item{proposal_nr}{Proposal number. A positive integer scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
+\item{proposal_nr}{Proposal number. A positive integerish scalar or \code{NULL}. If \code{NULL}, it is considered to be a non-proposal-specific skill question
 (the case at elections).}
 
-\item{skill_question_nr}{Skill question number. A positive integer scalar.}
+\item{skill_question_nr}{Skill question number. A positive integerish scalar.}
 
 \item{lang}{Language. One of
 \itemize{

@@ -43,8 +43,8 @@
 
 
 <meta property="og:title" content="Get ballot types — ballot_types" />
-<meta name="description" content="Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.">
-<meta property="og:description" content="Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date." />
+<meta name="description" content="Determines the types of the ballot covered by the FOKUS survey for the specified canton on the specified political level(s) at the specified ballot date.">
+<meta property="og:description" content="Determines the types of the ballot covered by the FOKUS survey for the specified canton on the specified political level(s) at the specified ballot date." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -131,10 +131,15 @@
     </div>
 
     <div class="ref-description">
-    <p>Determines the types of the ballot covered by the FOKUS survey for the specified canton at the specified ballot date.</p>
+    <p>Determines the <a href='all_ballot_types.html'>types of the ballot</a> covered by the FOKUS survey for the specified canton on the specified political level(s) at the
+specified ballot date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>, canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ballot_types</span><span class='op'>(</span>
+  ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
+  lvls <span class='op'>=</span> <span class='va'>all_lvls</span>,
+  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,6 +156,13 @@
 </ul></td>
     </tr>
     <tr>
+      <th>lvls</th>
+      <td><p>Political level(s). One or more of</p><ul>
+<li><p><code>"cantonal"</code></p></li>
+<li><p><code>"federal"</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
       <th>canton</th>
       <td><p>Canton name. One of</p><ul>
 <li><p><code>"aargau"</code></p></li>
@@ -160,16 +172,13 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector of ballot types. One or more of</p><ul>
-<li><p><code>"referendum"</code></p></li>
-<li><p><code>"election"</code></p></li>
-</ul>
-
+    <p>A character vector.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other fundamental predicate functions:
 <code><a href='cantons.html'>cantons</a>()</code>,
-<code><a href='has_ballot_types.html'>has_ballot_types</a>()</code>,
+<code><a href='election_nrs.html'>election_nrs</a>()</code>,
+<code><a href='has_ballot_type.html'>has_ballot_type</a>()</code>,
 <code><a href='has_election_nrs.html'>has_election_nrs</a>()</code>,
 <code><a href='has_election.html'>has_election</a>()</code>,
 <code><a href='has_lvl.html'>has_lvl</a>()</code>,
@@ -178,12 +187,19 @@
 <code><a href='lvls.html'>lvls</a>()</code>,
 <code><a href='n_elections.html'>n_elections</a>()</code>,
 <code><a href='n_proposals.html'>n_proposals</a>()</code>,
-<code><a href='prcds.html'>prcds</a>()</code></p></div>
+<code><a href='prcds.html'>prcds</a>()</code>,
+<code><a href='proposal_nrs.html'>proposal_nrs</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
 <span class='r-in'>                    canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "referendum"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># in case of no ballot types at lvl, an empty character vector is returned</span></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>ballot_types</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2020-10-18"</span>,</span>
+<span class='r-in'>                    lvls <span class='op'>=</span> <span class='st'>"federal"</span>,</span>
+<span class='r-in'>                    canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> character(0)</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

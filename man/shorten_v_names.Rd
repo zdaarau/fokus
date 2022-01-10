@@ -11,8 +11,8 @@ shorten_v_names(v_names, reverse = FALSE, max_n_char = 32L)
 
 \item{reverse}{Whether to apply the inversion of the shortening logic, i.e. to restore original/unshortened variable names.}
 
-\item{max_n_char}{Maximum allowed number of characters. Either \code{NULL} to skip the check or otherwise an integer scalar in which case it is ensured that the
-maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.}
+\item{max_n_char}{Maximum allowed number of characters. Either \code{NULL} to skip the check or otherwise an integerish scalar in which case it is ensured that
+the maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.}
 }
 \value{
 A character vector of the same length as \code{v_names}.

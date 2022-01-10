@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{has_election}
 \alias{has_election}
-\title{Determine whether ballot type includes an election}
+\title{Determine whether ballot includes an election}
 \usage{
 has_election(
   ballot_date = all_ballot_dates,
@@ -40,26 +40,31 @@ has_election(
 }}
 }
 \value{
-A logical scalar.
+A logical vector of length \code{lvls} × \code{prcds}, named after \code{lvls.prcds}.
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered an election of
 the specified election procedure(s).
 }
-\details{
-If more than one \code{lvls}/\code{prcds} are provided (the default), they are interpreted according to the rules of \href{https://en.wikipedia.org/wiki/Logical_disjunction}{logical disjunction}, i.e. \code{TRUE} is returned if \emph{any} \code{lvls}/\code{prcds} are included in the specified ballot.
-
-For \href{https://en.wikipedia.org/wiki/Logical_conjunction}{logical conjunction}, use e.g. \code{has_election(lvls = "cantonal") && has_election(lvls = "federal")}.
-}
 \examples{
-fokus::has_election(ballot_date = "2018-09-23",
+fokus::has_election(ballot_date = "2019-10-20",
                     canton = "aargau")
+
+fokus::has_election(ballot_date = "2019-10-20",
+                    lvls = "federal",
+                    canton = "aargau")
+
+fokus::has_election(ballot_date = "2018-09-23",
+                    lvls = "federal",
+                    canton = "aargau",
+                    prcds = "proportional")
 }
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
-\code{\link{has_ballot_types}()},
+\code{\link{election_nrs}()},
+\code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_lvl}()},
 \code{\link{has_proposal_nrs}()},
@@ -67,6 +72,7 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{prcds}()}
+\code{\link{prcds}()},
+\code{\link{proposal_nrs}()}
 }
 \concept{predicate_fundamental}
