@@ -4047,7 +4047,7 @@ n_proposal_arguments <- function(ballot_date = all_ballot_dates,
                                  sides = all_argument_sides) {
 
   sides <- unique(checkmate::assert_subset(sides,
-                                           choices = eval(formals()$sides),
+                                           choices = all_argument_sides,
                                            empty.ok = FALSE))
   
   raw_q_suppl_proposal(ballot_date = ballot_date,

@@ -4233,13 +4233,26 @@ include = "{ all(q_item_val(ballot_date = ballot_date, canton = canton, branch_p
 [y_generated.001_all.002_referendum]
 ballot_types = [ "referendum" ]
 [[y_generated.001_all.002_referendum.item]]
-i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
-topic = "Wichtigkeit kantonale Vorlage {i} (reduziert)"
-question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), v_name = 'importance_cantonal_proposal_{i}', key = 'question', i = i) }"
-question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), v_name = 'importance_cantonal_proposal_{i}', key = 'question_common', i = i) }"
-variable_name = "importance_cantonal_proposal_{i}_reduced"
-variable_label = "importance (reduced) the respondent attaches to the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "importance (reduced) the respondent attaches to the { salim::rank_nr(i) } cantonal proposal"
+lvl = """
+{
+  all_lvls %>%
+    magrittr::set_names(., .) %>%
+    purrr::map_lgl(~ q_item_val(ballot_date = ballot_date,
+                                canton = canton,
+                                branch_path = c('03_proposal_specific', '002_all', '001_importance'),
+                                v_name = glue::glue('importance_{.x}_proposal_{{i}}'),
+                                key = 'include',
+                                i = i)) %>%
+    which() %>%
+    names()
+}"""
+i = "{ seq_len(n_proposals(ballot_date = ballot_date, lvls = lvl, canton = canton)) }"
+topic = "Wichtigkeit {switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische')} Vorlage {i} (reduziert)"
+question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), v_name = glue::glue('importance_{lvl}_proposal_{{i}}'), key = 'question', i = i) }"
+question_common = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), v_name = glue::glue('importance_{lvl}_proposal_{{i}}'), key = 'question_common', i = i) }"
+variable_name = "importance_{lvl}_proposal_{i}_reduced"
+variable_label = "importance (reduced) the respondent attaches to the {lvl} proposal \"{ proposal_name(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
+variable_label_common = "importance (reduced) the respondent attaches to the { salim::rank_nr(i) } {lvl} proposal"
 response_options = [ "sehr gering (0–2)", "eher gering (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
 value_scale = "ordinal_ascending"
