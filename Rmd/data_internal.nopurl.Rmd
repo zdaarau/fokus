@@ -131,6 +131,37 @@ Response option types defined in the raw FOKUS questionnaire data
 all_response_option_types <- names(raw_q$response_options)
 ```
 
+## `all_postal_dispatch_types`
+
+Postal dispatch types used in the raw supplemental date-specific questionnaire data.
+
+```{r}
+all_postal_dispatch_types <-
+  cantons_at %>%
+  purrr::imap(function(cantons, ballot_date) {
+    
+    cantons %>% purrr::map(~ names(raw_qx_suppl[[ballot_date]]$mode[[.x]]$postal_dispatch$type))
+  }) %>%
+  unlist(use.names = FALSE) %>%
+  unique()
+```
+
+## `all_postal_dispatch_ways`
+
+Postal dispatch ways used in the raw supplemental date-specific questionnaire data.
+
+```{r}
+all_postal_dispatch_ways <-
+  cantons_at %>%
+  purrr::imap(function(cantons, ballot_date) {
+    
+    cantons %>% purrr::map(~ raw_qx_suppl[[ballot_date]]$mode[[.x]]$postal_dispatch$type)
+  }) %>%
+  unlist(use.names = FALSE) %>%
+  unique() %>%
+  sort()
+```
+
 ## `q_item_keys`
 
 Questionnaire item keys supported in the raw FOKUS questionnaire data
@@ -416,6 +447,8 @@ usethis::use_data(all_ballot_dates,
                   all_proposal_types,
                   all_argument_sides,
                   all_response_option_types,
+                  all_postal_dispatch_types,
+                  all_postal_dispatch_ways,
                   q_item_keys,
                   q_item_keys_multival,
                   q_non_item_lvls,

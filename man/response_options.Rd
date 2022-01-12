@@ -57,6 +57,7 @@ fokus:::response_options(type = "abstain",
 \seealso{
 Other predicate functions:
 \code{\link{ballot_title}()},
-\code{\link{political_issues}()}
+\code{\link{political_issues}()},
+\code{\link{postal_dispatch_way}()}
 }
 \concept{predicate_other}

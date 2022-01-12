@@ -57,6 +57,7 @@ Other questionnaire and survey functions and datasets:
 \code{\link{export_q_all}()},
 \code{\link{export_qr_codes}()},
 \code{\link{export_q}()},
+\code{\link{postal_dispatch_string}()},
 \code{\link{proposals}},
 \code{\link{qx}}
 }

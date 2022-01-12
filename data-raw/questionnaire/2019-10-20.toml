@@ -9,7 +9,7 @@ invitation = [ "online", "print" ]
 reminder = [ "online", "print" ]
 [mode.aargau.postal_dispatch.type]
 invitation = "B bulk mailing"
-reminder = "?"
+reminder = "A"
 prepaid_reply_envelope = "B"
 [mode.aargau.postal_dispatch.date]
 invitation = 2019-10-14

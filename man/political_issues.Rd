@@ -27,7 +27,7 @@ political_issues(ballot_date = all_ballot_dates, lang = c("de", "en"))
 A character vector.
 }
 \description{
-Returns the political issues in the specified language.
+Returns the political issues in the specified language at the specified ballot date.
 }
 \examples{
 fokus::political_issues(ballot_date = "2019-10-20",
@@ -36,6 +36,7 @@ fokus::political_issues(ballot_date = "2019-10-20",
 \seealso{
 Other predicate functions:
 \code{\link{ballot_title}()},
+\code{\link{postal_dispatch_way}()},
 \code{\link{response_options}()}
 }
 \concept{predicate_other}

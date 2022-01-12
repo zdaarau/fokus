@@ -1,6 +1,6 @@
 # DEFAULT VALUES ----
 ## proper implicit args / fall-backs ----
-test_that("Exported functions return correct default values", {
+test_that("Predicate functions return correct default values", {
 
   expect_identical(ballot_types(),
                    "referendum")
@@ -48,7 +48,8 @@ test_that("Exported functions return correct default values", {
   expect_identical(proposal_name_gender(),
                    "feminine")
   expect_snapshot(proposal_arguments())
-  expect_snapshot(proposal_argument())
+  expect_identical(proposal_argument(),
+                   "Vermögenssteuer bringt Kantonshaushalt wieder ins Lot")
   expect_identical(n_proposal_arguments(),
                    6L)
   expect_snapshot(proposal_main_motives())
@@ -69,6 +70,8 @@ test_that("Exported functions return correct default values", {
   expect_identical(ballot_title(),
                    "Abstimmungstermin vom 23. September 2018")
   expect_snapshot_error(political_issues())
+  expect_identical(postal_dispatch_way(),
+                   "B")
   expect_snapshot(response_options())
 })
 

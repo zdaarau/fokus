@@ -1,4 +1,4 @@
-# Exported functions return correct default values
+# Predicate functions return correct default values
 
     Code
       proposal_arguments()
@@ -12,13 +12,6 @@
       4 Der Kanton Aargau bra~ Höhere Steuereinnahm~ The canton of Aargau~     3 pro  
       5 Wird der Vermögensste~ Reiche ziehen weg, w~ If the millionaire t~     2 cont~
       6 Die Steuern im Kanton~ Steuern im Aargau so~ Taxes in the canton ~     3 cont~
-
----
-
-    Code
-      proposal_argument()
-    Output
-      [1] "Vermögenssteuer bringt Kantonshaushalt wieder ins Lot"
 
 ---
 

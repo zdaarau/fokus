@@ -2478,8 +2478,8 @@ cli_theme <-
 #'
 #' @format `r pkgsnip::return_label("dates")`
 #' @seealso [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
-#'   [`all_argument_sides`][all_argument_sides]
+#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2493,6 +2493,7 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2506,6 +2507,7 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2519,6 +2521,7 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_prcds`][all_prcds]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2532,6 +2535,7 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2545,6 +2549,7 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2558,6 +2563,7 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
@@ -2571,11 +2577,40 @@ cli_theme <-
 #' @format A character vector.
 #' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
 #'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
 #' @export
 #'
 #' @examples
 #' fokus::all_response_option_types
 "all_response_option_types"
+
+#' Postal dispatch types
+#'
+#' A vector of all possible postal dispatch types.
+#'
+#' @format A character vector.
+#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
+#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_response_option_types`][all_response_option_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @export
+#'
+#' @examples
+#' fokus::all_postal_dispatch_types
+"all_postal_dispatch_types"
+
+#' Postal dispatch ways
+#'
+#' A vector of all possible [postal dispatch ways][postal_dispatch_way].
+#'
+#' @format A character vector.
+#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
+#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
+#'   [`all_response_option_types`][all_response_option_types] [`all_postal_dispatch_types`][all_postal_dispatch_types]
+#' @export
+#'
+#' @examples
+#' fokus::all_postal_dispatch_ways
+"all_postal_dispatch_ways"
 
 #' Get cantons covered by FOKUS survey
 #'
@@ -3561,7 +3596,7 @@ n_proposal_arguments <- function(ballot_date = all_ballot_dates,
                                  sides = all_argument_sides) {
 
   sides <- unique(checkmate::assert_subset(sides,
-                                           choices = eval(formals()$sides),
+                                           choices = all_argument_sides,
                                            empty.ok = FALSE))
   
   raw_q_suppl_proposal(ballot_date = ballot_date,
@@ -4211,7 +4246,7 @@ ballot_title <- function(ballot_date = all_ballot_dates,
 
 #' Get political issues
 #'
-#' Returns the political issues in the specified language.
+#' Returns the political issues in the specified language at the specified ballot date.
 #'
 #' @inheritParams proposal_name
 #'
@@ -4245,6 +4280,34 @@ political_issues <- function(ballot_date = all_ballot_dates,
     purrr::chuck("issue") %>%
     purrr::map_depth(1L, purrr::chuck, lang) %>%
     purrr::flatten_chr()
+}
+
+#' Get postal dispatch way
+#'
+#' Returns the FOKUS survey's postal dispatch way of the specified type in the specified language for the specified canton at the specified ballot date.
+#'
+#' @inheritParams lvls
+#' @param dispatch_type Postal dispatch type. One of
+#' `r pal::as_md_val_list(all_postal_dispatch_types)`
+#'
+#' @return A character scalar.
+#' @family predicate_other
+#' @seealso [postal_dispatch_string()]
+#' @export
+#'
+#' @examples
+#' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
+#'                            canton = "aargau",
+#'                            dispatch_type = "invitation")
+postal_dispatch_way <- function(ballot_date = all_ballot_dates,
+                                canton = cantons(ballot_date),
+                                dispatch_type = all_postal_dispatch_types) {
+  
+  dispatch_type <- rlang::arg_match(dispatch_type)
+  
+  raw_q_suppl_mode(ballot_date = ballot_date,
+                   canton = canton) %>%
+    purrr::chuck("postal_dispatch", "type", dispatch_type)
 }
 
 #' Get response options
@@ -4751,6 +4814,40 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
   }
 
   invisible(result)
+}
+
+#' Transform postal dispatch way into prose string
+#'
+#' Transforms a [postal dispatch way][postal_dispatch_way] into a full prose string representation.
+#'
+#' @inheritParams proposal_name
+#' @param dispatch_way Postal dispatch way One of
+#' `r pal::as_md_val_list(all_postal_dispatch_ways)`
+#'
+#' @return A character scalar.
+#' @family q_survey
+#' @export
+#'
+#' @examples
+#' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
+#'                            canton = "aargau",
+#'                            dispatch_type = "invitation") |>
+#'   fokus::postal_dispatch_string()
+postal_dispatch_string <- function(dispatch_way = all_postal_dispatch_ways,
+                                   lang = c("de", "en")) {
+  
+  dispatch_way <- rlang::arg_match(dispatch_way)
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = dispatch_way,
+                     "A" = "A-Post",
+                     "B" = "B-Post",
+                     "B bulk mailing" = "B-Post-Massensendung"),
+         en = switch(EXPR = dispatch_way,
+                     "A" = "A priority mail",
+                     "B" = "B mail",
+                     "B bulk mailing" = "B bulk mailing"))
 }
 
 #' Determine whether variable is skill question

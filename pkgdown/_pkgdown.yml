@@ -28,6 +28,8 @@ reference:
   - all_proposal_types
   - all_argument_sides
   - all_response_option_types
+  - all_postal_dispatch_types
+  - all_postal_dispatch_ways
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata) and the
     [raw questionnaire data](raw_q.html).
@@ -81,6 +83,7 @@ reference:
 - contents:
   - ballot_title
   - political_issues
+  - postal_dispatch_way
   - response_options
 - title: Questionnaire and survey
   desc: Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other
@@ -94,6 +97,7 @@ reference:
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities
+  - postal_dispatch_string
 - title: Variable-related
 - contents:
   - is_skill_question_v

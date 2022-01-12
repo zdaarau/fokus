@@ -45,6 +45,7 @@ fokus::ballot_title(ballot_date = "2019-10-20",
 \seealso{
 Other predicate functions:
 \code{\link{political_issues}()},
+\code{\link{postal_dispatch_way}()},
 \code{\link{response_options}()}
 }
 \concept{predicate_other}

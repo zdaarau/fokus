@@ -11,8 +11,5 @@ Thumbs.db
 .Rproj.user
 .Ruserdata
 
-# API keys
+# API credentials/tokens
 .httr-oauth
-
-# ad-hoc TODO dir
-/TODO

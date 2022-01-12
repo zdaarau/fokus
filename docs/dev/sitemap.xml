@@ -22,6 +22,12 @@
     <loc>https://rpkg.dev/fokus/reference/all_lvls.html</loc>
   </url>
   <url>
+    <loc>https://rpkg.dev/fokus/reference/all_postal_dispatch_types.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/all_postal_dispatch_ways.html</loc>
+  </url>
+  <url>
     <loc>https://rpkg.dev/fokus/reference/all_prcds.html</loc>
   </url>
   <url>
@@ -167,6 +173,12 @@
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/political_issues.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/postal_dispatch_string.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/postal_dispatch_way.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/prcds.html</loc>
