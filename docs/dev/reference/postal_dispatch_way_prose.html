@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get number of majoritarian election seats — n_election_seats • fokus</title>
+<title>Transform postal dispatch way into prose string — postal_dispatch_way_prose • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Get number of majoritarian election seats — n_election_seats" />
-<meta name="description" content="Determines the number of election seats of the specified type for the specified majoritarian election.">
-<meta property="og:description" content="Determines the number of election seats of the specified type for the specified majoritarian election." />
+<meta property="og:title" content="Transform postal dispatch way into prose string — postal_dispatch_way_prose" />
+<meta name="description" content="Transforms a postal dispatch way into a full prose string representation.">
+<meta property="og:description" content="Transforms a postal dispatch way into a full prose string representation." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,84 +125,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get number of majoritarian election seats</h1>
+    <h1>Transform postal dispatch way into prose string</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>n_election_seats.Rd</code></div>
+    <div class="hidden name"><code>postal_dispatch_way_prose.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determines the number of election seats of the specified type for the specified majoritarian election.</p>
+    <p>Transforms a <a href='postal_dispatch_way.html'>postal dispatch way</a> into a full prose string representation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>n_election_seats</span><span class='op'>(</span>
-  ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
-  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span>, ballot_type <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span>,
-  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
-  election_nr <span class='op'>=</span> <span class='fl'>1L</span>,
-  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vacant"</span>, <span class='st'>"total"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>postal_dispatch_way_prose</span><span class='op'>(</span>
+  dispatch_way <span class='op'>=</span> <span class='va'>all_postal_dispatch_ways</span>,
+  lang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"de"</span>, <span class='st'>"en"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ballot_date</th>
-      <td><p>FOKUS-covered ballot date. One of</p><ul>
-<li><p><code>"2018-09-23"</code></p></li>
-<li><p><code>"2018-11-25"</code></p></li>
-<li><p><code>"2019-10-20"</code></p></li>
-<li><p><code>"2020-09-27"</code></p></li>
-<li><p><code>"2020-10-18"</code></p></li>
-<li><p><code>"2021-11-28"</code></p></li>
+      <th>dispatch_way</th>
+      <td><p>Postal dispatch way One of</p><ul>
+<li><p><code>"A"</code></p></li>
+<li><p><code>"B"</code></p></li>
+<li><p><code>"B bulk mailing"</code></p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>lvl</th>
-      <td><p>Political level. One of</p><ul>
-<li><p><code>"cantonal"</code></p></li>
-<li><p><code>"federal"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>canton</th>
-      <td><p>Canton name. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>election_nr</th>
-      <td><p>Election number. A positive integerish scalar.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>Seat type. One of</p><ul>
-<li><p><code>"vacant"</code></p></li>
-<li><p><code>"total"</code></p></li>
+      <th>lang</th>
+      <td><p>Language. One of</p><ul>
+<li><p><code>"de"</code></p></li>
+<li><p><code>"en"</code></p></li>
 </ul></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An integer scalar.</p>
+    <p>A character scalar.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other election predicate functions:
-<code><a href='election_candidate_prose.html'>election_candidate_prose</a>()</code>,
-<code><a href='election_candidates.html'>election_candidates</a>()</code>,
-<code><a href='election_names_combined.html'>election_names_combined</a>()</code>,
-<code><a href='election_name.html'>election_name</a>()</code>,
-<code><a href='election_parties.html'>election_parties</a>()</code>,
-<code><a href='election_tickets.html'>election_tickets</a>()</code>,
-<code><a href='n_election_candidates.html'>n_election_candidates</a>()</code>,
-<code><a href='requires_candidate_registration.html'>requires_candidate_registration</a>()</code></p></div>
+    <div class='dont-index'><p>Other questionnaire and survey functions and datasets:
+<code><a href='elections.html'>elections</a></code>,
+<code><a href='export_easyvote_municipalities.html'>export_easyvote_municipalities</a>()</code>,
+<code><a href='export_print_recipients.html'>export_print_recipients</a>()</code>,
+<code><a href='export_q_all.html'>export_q_all</a>()</code>,
+<code><a href='export_qr_codes.html'>export_qr_codes</a>()</code>,
+<code><a href='export_q.html'>export_q</a>()</code>,
+<code><a href='postal_dispatch_type_prose.html'>postal_dispatch_type_prose</a>()</code>,
+<code><a href='proposals.html'>proposals</a></code>,
+<code><a href='qx.html'>qx</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>n_election_seats</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
-<span class='r-in'>                        lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
-<span class='r-in'>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
-<span class='r-in'>                        type <span class='op'>=</span> <span class='st'>"total"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5</span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'><a href='postal_dispatch_way.html'>postal_dispatch_way</a></span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                           canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                           dispatch_type <span class='op'>=</span> <span class='st'>"invitation"</span><span class='op'>)</span> |&gt;</span>
+<span class='r-in'>  <span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>postal_dispatch_way_prose</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "B-Post"</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assemble majoritarian election's candidate string(s) — election_candidate_string • fokus</title>
+<title>Assemble majoritarian election's candidate string(s) — election_candidate_prose • fokus</title>
 
 
 
@@ -42,7 +42,7 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Assemble majoritarian election's candidate string(s) — election_candidate_string" />
+<meta property="og:title" content="Assemble majoritarian election's candidate string(s) — election_candidate_prose" />
 <meta name="description" content="Assembles one or more majoritarian election candidate string(s) consisting of the candidate's first name, last name and optionally political party (in parentheses).">
 <meta property="og:description" content="Assembles one or more majoritarian election candidate string(s) consisting of the candidate's first name, last name and optionally political party (in parentheses)." />
 <meta name="twitter:card" content="summary" />
@@ -127,7 +127,7 @@
     <div class="page-header">
     <h1>Assemble majoritarian election's candidate string(s)</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>election_candidate_string.Rd</code></div>
+    <div class="hidden name"><code>election_candidate_prose.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -135,7 +135,7 @@
 parentheses).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>election_candidate_string</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>election_candidate_prose</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
   lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span>, ballot_type <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span>,
   canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
@@ -201,10 +201,10 @@ parentheses).</p>
 <code><a href='requires_candidate_registration.html'>requires_candidate_registration</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>election_candidate_string</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
-<span class='r-in'>                                 lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
-<span class='r-in'>                                 canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
-<span class='r-in'>                                 candidate_nrs <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>election_candidate_prose</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
+<span class='r-in'>                                lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                                canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                                candidate_nrs <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Jean-Pierre Gallati (SVP)" "Yvonne Feri (SP)"         </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "Jeanine Glarner (FDP)"    </span>
 </pre>

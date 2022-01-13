@@ -58,7 +58,7 @@
     <loc>https://rpkg.dev/fokus/reference/cantons.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/election_candidate_string.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/election_candidate_prose.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/election_candidates.html</loc>
@@ -175,10 +175,13 @@
     <loc>https://rpkg.dev/fokus/reference/political_issues.html</loc>
   </url>
   <url>
-    <loc>https://rpkg.dev/fokus/reference/postal_dispatch_string.html</loc>
+    <loc>https://rpkg.dev/fokus/reference/postal_dispatch_type_prose.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/postal_dispatch_way.html</loc>
+  </url>
+  <url>
+    <loc>https://rpkg.dev/fokus/reference/postal_dispatch_way_prose.html</loc>
   </url>
   <url>
     <loc>https://rpkg.dev/fokus/reference/prcds.html</loc>

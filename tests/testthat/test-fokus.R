@@ -61,7 +61,7 @@ test_that("Predicate functions return correct default values", {
   expect_snapshot_error(n_election_seats())
   expect_snapshot_error(election_candidates())
   expect_snapshot_error(n_election_candidates())
-  expect_snapshot_error(election_candidate_string())
+  expect_snapshot_error(election_candidate_prose())
   expect_snapshot_error(election_parties())
   expect_snapshot_error(election_tickets())
   expect_snapshot_error(requires_candidate_registration())

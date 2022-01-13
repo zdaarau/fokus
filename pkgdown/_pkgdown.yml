@@ -69,7 +69,7 @@ reference:
   - n_election_seats
   - election_candidates
   - n_election_candidates
-  - election_candidate_string
+  - election_candidate_prose
   - election_parties
   - election_tickets
   - requires_candidate_registration
@@ -97,7 +97,8 @@ reference:
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities
-  - postal_dispatch_string
+  - postal_dispatch_type_prose
+  - postal_dispatch_way_prose
 - title: Variable-related
 - contents:
   - is_skill_question_v

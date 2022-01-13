@@ -3893,18 +3893,18 @@ n_election_candidates <- function(ballot_date = all_ballot_dates,
 #' @export
 #'
 #' @examples
-#' fokus::election_candidate_string(ballot_date = "2019-10-20",
-#'                                  lvl = "cantonal",
-#'                                  canton = "aargau",
-#'                                  candidate_nrs = 1:3)
-election_candidate_string <- function(ballot_date = all_ballot_dates,
-                                      lvl = lvls(ballot_date,
-                                                 canton,
-                                                 ballot_type = "election"),
-                                      canton = cantons(ballot_date),
-                                      election_nr = 1L,
-                                      candidate_nrs = NULL,
-                                      incl_party = TRUE) {
+#' fokus::election_candidate_prose(ballot_date = "2019-10-20",
+#'                                 lvl = "cantonal",
+#'                                 canton = "aargau",
+#'                                 candidate_nrs = 1:3)
+election_candidate_prose <- function(ballot_date = all_ballot_dates,
+                                     lvl = lvls(ballot_date,
+                                                canton,
+                                                ballot_type = "election"),
+                                     canton = cantons(ballot_date),
+                                     election_nr = 1L,
+                                     candidate_nrs = NULL,
+                                     incl_party = TRUE) {
 
   data_candidates <- election_candidates(ballot_date = ballot_date,
                                          lvl = lvl,
@@ -4818,6 +4818,41 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
 
 #' Transform postal dispatch way into prose string
 #'
+#' Transforms a [postal dispatch type][all_postal_dispatch_types] into a full prose string representation.
+#'
+#' @inheritParams postal_dispatch_way
+#' @inheritParams proposal_name
+#'
+#' @return A character scalar.
+#' @family q_survey
+#' @export
+#'
+#' @examples
+#' fokus::all_postal_dispatch_types |>
+#'   purrr::map_dfr(~ tibble::tibble(type = .x,
+#'                                   de = fokus::postal_dispatch_type_prose(dispatch_type = .x,
+#'                                                                          lang = "de"),
+#'                                   en = fokus::postal_dispatch_type_prose(dispatch_type = .x,
+#'                                                                          lang = "en")))
+postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types,
+                                       lang = c("de", "en")) {
+  
+  dispatch_type <- rlang::arg_match(dispatch_type)
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = dispatch_type,
+                     invitation = "Einladungsschreiben",
+                     reminder = "Erinnerungsschreiben",
+                     prepaid_reply_envelope = "vorfrankiertes Rückantwortcouvert"),
+         en = switch(EXPR = dispatch_type,
+                     invitation = "invitation letter",
+                     reminder = "reminder letter",
+                     prepaid_reply_envelope = "prepaid reply envelope"))
+}
+
+#' Transform postal dispatch way into prose string
+#'
 #' Transforms a [postal dispatch way][postal_dispatch_way] into a full prose string representation.
 #'
 #' @inheritParams proposal_name
@@ -4832,9 +4867,9 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
 #' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
 #'                            canton = "aargau",
 #'                            dispatch_type = "invitation") |>
-#'   fokus::postal_dispatch_string()
-postal_dispatch_string <- function(dispatch_way = all_postal_dispatch_ways,
-                                   lang = c("de", "en")) {
+#'   fokus::postal_dispatch_way_prose()
+postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
+                                      lang = c("de", "en")) {
   
   dispatch_way <- rlang::arg_match(dispatch_way)
   lang <- rlang::arg_match(lang)
