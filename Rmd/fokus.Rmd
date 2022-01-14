@@ -90,7 +90,7 @@ utils::globalVariables(names = c(".",
                                  "year_of_birth_official",
                                  "Zivilstand"))
 
-# avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://github.com/kevinushey/rex#using-rex-in-other-packages
+# avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://rex.r-lib.org/#using-rex-in-other-packages
 rex::register_shortcuts(pkg_name = utils::packageName())
 ```
 
