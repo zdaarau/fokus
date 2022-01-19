@@ -9,7 +9,7 @@ skill_question_answer_nr(
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL,
-  skill_question_nr
+  skill_question_nr = 1L
 )
 }
 \arguments{
@@ -57,6 +57,8 @@ fokus::skill_question_answer_nr(ballot_date = "2018-09-23",
 \seealso{
 Other skill question predicate functions:
 \code{\link{n_skill_questions}()},
+\code{\link{skill_question_nrs}()},
+\code{\link{skill_question_proposal_nrs}()},
 \code{\link{skill_question_response_options}()},
 \code{\link{skill_question}()}
 }

@@ -9,7 +9,7 @@ raw_q_suppl_skill_question(
   lvl = all_lvls,
   canton = all_cantons,
   proposal_nr = NULL,
-  skill_question_nr
+  skill_question_nr = 1L
 )
 }
 \arguments{

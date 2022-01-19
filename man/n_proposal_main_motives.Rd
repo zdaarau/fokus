@@ -45,7 +45,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 }}
 }
 \value{
-An integerish scalar.
+An integer scalar.
 }
 \description{
 Determines the number of main motives on the specified proposal.

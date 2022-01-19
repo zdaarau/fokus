@@ -42,17 +42,28 @@ An integer scalar.
 }
 \description{
 Determines the number of skill questions at the specified ballot date on the specified political level. Note that by default (\code{proposal_nr = NULL}), the
-number of non-proposal-specific skill questions is returned
+number of non-proposal-specific skill questions is returned.
 }
 \examples{
 fokus::n_skill_questions(ballot_date = "2018-09-23",
                          lvl = "cantonal",
                          canton = "aargau",
                          proposal_nr = 1)
+
+# note that by default, the number of non-proposal-specific skill questions is returned
+fokus::n_skill_questions(ballot_date = "2018-09-23",
+                         lvl = "cantonal",
+                         canton = "aargau")
+
+fokus::n_skill_questions(ballot_date = "2019-10-20",
+                         lvl = "cantonal",
+                         canton = "aargau")
 }
 \seealso{
 Other skill question predicate functions:
 \code{\link{skill_question_answer_nr}()},
+\code{\link{skill_question_nrs}()},
+\code{\link{skill_question_proposal_nrs}()},
 \code{\link{skill_question_response_options}()},
 \code{\link{skill_question}()}
 }

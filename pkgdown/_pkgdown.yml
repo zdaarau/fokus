@@ -75,10 +75,12 @@ reference:
   - requires_candidate_registration
 - subtitle: Skill question predicates
 - contents:
+  - skill_question_nrs
   - n_skill_questions
   - skill_question
   - skill_question_response_options
   - skill_question_answer_nr
+  - skill_question_proposal_nrs
 - subtitle: Other predicates
 - contents:
   - ballot_title

@@ -1,32 +1,92 @@
 # Predicate functions return correct default values
 
-    Code
-      proposal_arguments()
-    Output
-      # A tibble: 6 x 5
-        de.long                de.short              en.long                  nr side 
-        <chr>                  <chr>                 <chr>                 <int> <chr>
-      1 Eine Erhöhung der Ver~ Vermögenssteuer brin~ An increase in wealt~     1 pro  
-      2 Eine Erhöhung der Ver~ Wohlhabende finden i~ An increase in wealt~     1 cont~
-      3 Die Reichen wurden in~ Reiche sollten sich ~ In the past, the ric~     2 pro  
-      4 Der Kanton Aargau bra~ Höhere Steuereinnahm~ The canton of Aargau~     3 pro  
-      5 Wird der Vermögensste~ Reiche ziehen weg, w~ If the millionaire t~     2 cont~
-      6 Die Steuern im Kanton~ Steuern im Aargau so~ Taxes in the canton ~     3 cont~
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["de.long", "de.short", "en.long", "nr", "side"]
+        }
+      },
+      "value": [
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Eine Erhöhung der Vermögenssteuer für Reiche ist ein geeignetes Mittel, um den Kantonshaushalt wieder ins Lot zu bringen.", "Eine Erhöhung der Vermögenssteuer für Reiche bringt nichts, denn Wohlhabende finden immer ein Schlupfloch, um sich ihrer Steuerpflicht zu entziehen.", "Die Reichen wurden in der Vergangenheit nicht ausreichend in die finanzielle Verantwortung genommen. Sie sollten sich stärker als heute an der Finanzierung des Staates beteiligen.", "Der Kanton Aargau braucht höhere Steuereinnahmen, um all seine öffentlichen Aufgaben ohne Leistungsabbau erfüllen zu können.", "Wird der Vermögenssteuersatz für Reiche erhöht, ziehen diese aus dem Kanton weg. Dies führt zu Steuerausfällen statt höheren Einnahmen.", "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Vermögenssteuer bringt Kantonshaushalt wieder ins Lot", "Wohlhabende finden immer ein Schlupfloch", "Reiche sollten sich stärker an Finanzierung des Staates beteiligen", "Höhere Steuereinnahmen gegen Leistungsabbau", "Reiche ziehen weg, was zu Steuerausfällen führt", "Steuern im Aargau sollten generell tief sein"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["An increase in wealth tax for the rich is a suitable means to bring the cantonal budget back into balance.", "An increase in wealth tax for the rich is useless because they always find a loophole to avoid their tax liability.", "In the past, the rich were not sufficiently held financially responsible. They should contribute more to the financing of the state than they do today.", "The canton of Aargau needs higher tax revenues in order to be able to fulfill all its public tasks without reducing services.", "If the millionaire tax initiative is accepted, the wealthy simply move away from the canton. This leads to tax losses instead of higher revenues.", "Taxes in the canton of Aargau should generally be as low as possible."]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 1, 2, 3, 2, 3]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["pro", "contra", "pro", "pro", "contra", "contra"]
+        }
+      ]
+    }
 
 ---
 
-    Code
-      proposal_main_motives()
-    Output
-      # A tibble: 6 x 3
-         code de                                                         en           
-        <int> <chr>                                                      <chr>        
-      1     1 einer bestimmten Abstimmungsempfehlung folgen              to follow a ~
-      2     2 den Kantonshaushalt sanieren                               to restructu~
-      3     3 (Steuer-)Gerechtigkeit herstellen                          to establish~
-      4     4 finanzschwache Personen und/oder den Mittelstand entlasten to relieve f~
-      5     5 einen Ausgleich zwischen Arm und Reich schaffen            to create a ~
-      6     6 die Reichen stärker zur Kasse bitten                       to charge th~
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["code", "de", "en"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["einer bestimmten Abstimmungsempfehlung folgen", "den Kantonshaushalt sanieren", "(Steuer-)Gerechtigkeit herstellen", "finanzschwache Personen und/oder den Mittelstand entlasten", "einen Ausgleich zwischen Arm und Reich schaffen", "die Reichen stärker zur Kasse bitten"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["to follow a specific voting recommendation", "to restructure the cantonal budget", "to establish (tax) justice", "to relieve financially weak persons and/or the middle class", "to create a balance between rich and poor", "to charge the rich more"]
+        }
+      ]
+    }
 
 ---
 
@@ -62,59 +122,155 @@
 
 ---
 
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
+
+---
+
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
+
+---
+
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
+
+---
+
     No political issues present in the supplemental "2018-09-23" FOKUS questionnaire data.
 
 ---
 
-    Code
-      response_options()
-    Output
-      [1] "niemanden (leer eingelegt oder nicht teilgenommen)"
-      [2] "keine (leer eingelegt oder nicht teilgenommen)"    
-      [3] "leer eingelegt/nicht abgestimmt"                   
-      [4] "nicht teilgenommen oder leer eingelegt"            
+    {
+      "type": "character",
+      "attributes": {},
+      "value": ["niemanden (leer eingelegt oder nicht teilgenommen)", "keine (leer eingelegt oder nicht teilgenommen)", "leer eingelegt/nicht abgestimmt", "nicht teilgenommen oder leer eingelegt"]
+    }
 
 # for certain fns, `canton` is really ignored (i.e. not evaluated) if `lvl = "federal"`
 
-    Code
-      proposal_arguments(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
-        proposal_nr = 2L)
-    Output
-      # A tibble: 4 x 5
-        de.long                 de.short            en.long                   nr side 
-        <chr>                   <chr>               <chr>                  <int> <chr>
-      1 Indem das Parlament al~ Verletzung Gewalte~ By having the parliam~     1 pro  
-      2 Bei der Wahl für ein d~ Zufallsbasierte Wa~ Leaving anything to c~     1 cont~
-      3 Dass Bundesrichter-Kan~ Parteimitgliedscha~ The fact that, under ~     2 pro  
-      4 Die heute gängige Part~ Parteizugehörigkei~ The common party affi~     2 cont~
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["de.long", "de.short", "en.long", "nr", "side"]
+        }
+      },
+      "value": [
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der BundesrichterInnen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt.", "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig.", "Dass Bundesrichter-KandidatInnen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit.", "Die heute gängige Parteizugehörigkeit der BundesrichterInnen schafft Transparenz über deren politische Gesinnung."]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Verletzung Gewaltenteilung", "Zufallsbasierte Wahl unvernünftig", "Parteimitgliedschaft und Mandatsabgabe gefährden Unabhängigkeit", "Parteizugehörigkeit schafft Transparenz"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["By having the parliament decide on the (re)election of federal judges every six years, the separation of powers between the legislative and judicial branches is violated.", "Leaving anything to chance (drawing lots) in the election for such an important office as that of federal judges is unreasonable.", "The fact that, under the current system, federal judge candidates de facto have to be party members and commit to paying a mandate tax to their party jeopardizes their independence.", "The common party affiliation of federal judges today creates transparency about their political views."]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 1, 2, 2]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["pro", "contra", "pro", "contra"]
+        }
+      ]
+    }
 
 ---
 
-    Code
-      proposal_main_motives(ballot_date = "2021-11-28", lvl = "federal", canton = invalid_canton,
-        proposal_nr = 2L)
-    Output
-      # A tibble: 6 x 3
-         code de                                   en                                 
-        <int> <chr>                                <chr>                              
-      1     1 wollte in erster Linie einer bestim~ to follow a specific voting recomm~
-      2     2 wollte ermöglichen, dass parteilose~ wanted to allow non-party candidat~
-      3     3 glaube, das bisherige Wahlsystem ka~ believe the current electoral syst~
-      4     4 bin der Überzeugung, die Verwendung~ believe the use of the lottery tic~
-      5     5 wollte dafür sorgen, dass Bundesric~ wanted to ensure that federal judg~
-      6     6 habe kein Vertrauen ins Parlament, ~ have no confidence in the Parliame~
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["code", "de", "en"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen", "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden.", "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten.", "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl.", "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden.", "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["to follow a specific voting recommendation", "wanted to allow non-party candidates to have the same chances as party members to be elected to the Federal Supreme Court.", "believe the current electoral system cannot guarantee the independence of federal judges.", "believe the use of the lottery ticket prevents bribery or otherwise influencing the election.", "wanted to ensure that federal judges need not fear being voted out of office for politically inconvenient rulings.", "have no confidence in the Parliament to elect the best and most capable candidates to the Federal Supreme Court."]
+        }
+      ]
+    }
 
 ---
 
-    Code
-      skill_question_response_options(ballot_date = "2021-11-28", lvl = "federal",
-        canton = invalid_canton, proposal_nr = 2L, skill_question_nr = 1L)
-    Output
-      # A tibble: 4 x 3
-        de                       en                               is_correct
-        <chr>                    <chr>                            <lgl>     
-      1 Der Bundesrat            The Federal Council              FALSE     
-      2 Die Bundesversammlung    The Federal Assembly             TRUE      
-      3 Das Bundesgericht selbst The Federal Supreme Court itself FALSE     
-      4 Das Volk                 The people                       FALSE     
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["de", "en", "is_correct"]
+        }
+      },
+      "value": [
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Der Bundesrat", "Die Bundesversammlung", "Das Bundesgericht selbst", "Das Volk"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["The Federal Council", "The Federal Assembly", "The Federal Supreme Court itself", "The people"]
+        },
+        {
+          "type": "logical",
+          "attributes": {},
+          "value": [false, true, false, false]
+        }
+      ]
+    }
 

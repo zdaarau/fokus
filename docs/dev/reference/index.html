@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9020</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9021</span>
       </span>
     </div>
 
@@ -138,7 +138,9 @@
       <tr>
         <th colspan="2">
           <h2 id="section-fokus-metadata" class="hasAnchor"><a href="#section-fokus-metadata" class="anchor"></a>FOKUS metadata</h2>
-          <p class="section-desc"><p>Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a> that serve as a “source of truth” for the <a href="#section-predicates">predicate functions</a>.</p></p>
+          <p class="section-desc"><p>Metadata about the FOKUS surveys, generated from the raw supplemental
+date-specific questionnaire data files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a>
+that serve as a “source of truth” for the <a href="#section-predicates">predicate functions</a>.</p></p>
         </th>
       </tr>
       
@@ -221,7 +223,9 @@
       <tr>
         <th colspan="2">
           <h3 id="section-fundamental-predicates" class="hasAnchor"><a href="#section-fundamental-predicates" class="anchor"></a>Fundamental predicates</h3>
-          <p class="section-desc"><p>Fundamental predicate functions never fail in case of incomplete <a href="raw_q.html">raw questionnaire data</a> (they do still fail in case of completely missing questionnaire data for the specified ballot date and possibly canton).</p></p>
+          <p class="section-desc"><p>Fundamental predicate functions never fail in case of incomplete <a href="raw_q.html">raw questionnaire data</a> (they do still fail in case
+of completely missing questionnaire data for the specified ballot date
+and possibly canton).</p></p>
         </th>
       </tr>
       
@@ -456,6 +460,12 @@
       <tr>
         
         <td>
+          <p><code><a href="skill_question_nrs.html">skill_question_nrs()</a></code> </p>
+        </td>
+        <td><p>Get skill question numbers</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="n_skill_questions.html">n_skill_questions()</a></code> </p>
         </td>
         <td><p>Get number of skill questions</p></td>
@@ -477,6 +487,12 @@
           <p><code><a href="skill_question_answer_nr.html">skill_question_answer_nr()</a></code> </p>
         </td>
         <td><p>Get correct skill question answer number</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="skill_question_proposal_nrs.html">skill_question_proposal_nrs()</a></code> </p>
+        </td>
+        <td><p>Get referendum proposal numbers with skill questions</p></td>
       </tr>
     </tbody><tbody>
       
@@ -519,7 +535,8 @@
       <tr>
         <th colspan="2">
           <h2 id="section-questionnaire-and-survey" class="hasAnchor"><a href="#section-questionnaire-and-survey" class="anchor"></a>Questionnaire and survey</h2>
-          <p class="section-desc"><p>Functions to process the <a href="raw_q.html">raw FOKUS questionnaire data</a> and other functions to conduct a survey.</p></p>
+          <p class="section-desc"><p>Functions to process the <a href="raw_q.html">raw FOKUS questionnaire
+data</a> and other functions to conduct a survey.</p></p>
         </th>
       </tr>
       
@@ -754,7 +771,7 @@
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>1.6.1.9000.</p></p>
 </div>
 
       </footer>

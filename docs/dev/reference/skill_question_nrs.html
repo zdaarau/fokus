@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Export easyvote municipality details — export_easyvote_municipalities • fokus</title>
+<title>Get skill question numbers — skill_question_nrs • fokus</title>
 
 
 
@@ -42,9 +42,9 @@
 <script src="../pkgdown.js"></script>
 
 
-<meta property="og:title" content="Export easyvote municipality details — export_easyvote_municipalities" />
-<meta name="description" content="Exports a CSV dataset containing the columns municipality, municipality_id, min_age and max_age to the private FOKUS directory.">
-<meta property="og:description" content="Exports a CSV dataset containing the columns municipality, municipality_id, min_age and max_age to the private FOKUS directory." />
+<meta property="og:title" content="Get skill question numbers — skill_question_nrs" />
+<meta name="description" content="Determines the skill questions numbers at the specified ballot date on the specified political level. Note that by default (proposal_nr = NULL), non-proposal-specific skill question numbers are returned.">
+<meta property="og:description" content="Determines the skill questions numbers at the specified ballot date on the specified political level. Note that by default (proposal_nr = NULL), non-proposal-specific skill question numbers are returned." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@2BSalim" />
 <meta name="twitter:site" content="@2BSalim" />
@@ -125,22 +125,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Export easyvote municipality details</h1>
+    <h1>Get skill question numbers</h1>
     <small class="dont-index">Source: <a href='https://gitlab.com/zdaarau/rpkgs/fokus/blob/master/R/fokus.gen.R'><code>R/fokus.gen.R</code></a></small>
-    <div class="hidden name"><code>export_easyvote_municipalities.Rd</code></div>
+    <div class="hidden name"><code>skill_question_nrs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Exports a CSV dataset containing the columns <code>municipality</code>, <code>municipality_id</code>, <code>min_age</code> and <code>max_age</code> to the <a href='print_fokus_private_structure.html'>private FOKUS directory</a>.</p>
+    <p>Determines the skill questions numbers at the specified ballot date on the specified political level. Note that by default (<code>proposal_nr = NULL</code>),
+non-proposal-specific skill question numbers are returned.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>export_easyvote_municipalities</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>skill_question_nrs</span><span class='op'>(</span>
   ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
+  lvl <span class='op'>=</span> <span class='fu'><a href='lvls.html'>lvls</a></span><span class='op'>(</span><span class='va'>ballot_date</span>, <span class='va'>canton</span><span class='op'>)</span>,
   canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
-  upload_to_g_drive <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  g_drive_folder <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"fokus/aargau/Umfragen/Dateien für Umfrageinstitut/"</span>,
-    <span class='st'>"easyvote-Gemeinden/"</span><span class='op'>)</span>,
-  quiet <span class='op'>=</span> <span class='cn'>TRUE</span>
+  proposal_nr <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -158,52 +157,56 @@
 </ul></td>
     </tr>
     <tr>
-      <th>canton</th>
-      <td><p>Canton name. One of</p><ul>
-<li><p><code>"aargau"</code></p></li>
+      <th>lvl</th>
+      <td><p>Political level. One of</p><ul>
+<li><p><code>"cantonal"</code></p></li>
+<li><p><code>"federal"</code></p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>upload_to_g_drive</th>
-      <td><p>Whether or not to upload the generated files to the Google Drive folder <code>g_drive_folder</code>.</p></td>
+      <th>canton</th>
+      <td><p>Canton name. One of</p><ul>
+<li><p><code>"aargau"</code></p></li>
+</ul>
+
+<p>Only relevant if <code>lvl = "cantonal"</code>.</p></td>
     </tr>
     <tr>
-      <th>g_drive_folder</th>
-      <td><p>Google Drive folder to deploy the generated files to. Ignored if <code>upload_to_g_drive = FALSE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>Whether or not to <a href='https://googledrive.tidyverse.org/reference/googledrive-configuration.html'>suppress printing status output from googledrive operations</a>.</p></td>
+      <th>proposal_nr</th>
+      <td><p>Proposal number. A positive integerish scalar or <code>NULL</code>. If <code>NULL</code>, the numbers of non-proposal-specific skill questions are returned.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a> of the exported data, invisibly.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The meaning of the individual columns is as follows:</p><table class='table'>
-<tr><td><strong>column name</strong></td><td><strong>description</strong></td></tr>
-<tr><td><code>municipality</code></td><td>official name of the municipality</td></tr>
-<tr><td><code>municipality_id</code></td><td><a href='https://en.wikipedia.org/wiki/Community_Identification_Number#Switzerland'>official Swiss community identification number</a> (also called "GEOSTAT"/"BFS" number, see the <a href='https://de.wikipedia.org/wiki/Gemeindenummer'>corresponding German Wikipedia article</a>)</td></tr>
-<tr><td><code>min_age</code></td><td>lower age limit of the municipal subscription of the "easyvote" booklet</td></tr>
-<tr><td><code>max_age</code></td><td>upper age limit of the municipal subscription of the "easyvote" booklet</td></tr>
-</table>
-
-
+    <p>An integer vector.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other questionnaire and survey functions and datasets:
-<code><a href='elections.html'>elections</a></code>,
-<code><a href='export_print_recipients.html'>export_print_recipients</a>()</code>,
-<code><a href='export_q_all.html'>export_q_all</a>()</code>,
-<code><a href='export_qr_codes.html'>export_qr_codes</a>()</code>,
-<code><a href='export_q.html'>export_q</a>()</code>,
-<code><a href='postal_dispatch_type_prose.html'>postal_dispatch_type_prose</a>()</code>,
-<code><a href='postal_dispatch_way_prose.html'>postal_dispatch_way_prose</a>()</code>,
-<code><a href='proposals.html'>proposals</a></code>,
-<code><a href='qx.html'>qx</a></code></p></div>
+    <div class='dont-index'><p>Other skill question predicate functions:
+<code><a href='n_skill_questions.html'>n_skill_questions</a>()</code>,
+<code><a href='skill_question_answer_nr.html'>skill_question_answer_nr</a>()</code>,
+<code><a href='skill_question_proposal_nrs.html'>skill_question_proposal_nrs</a>()</code>,
+<code><a href='skill_question_response_options.html'>skill_question_response_options</a>()</code>,
+<code><a href='skill_question.html'>skill_question</a>()</code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>skill_question_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                          lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                          canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
+<span class='r-in'>                          proposal_nr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1 2 3 4 5</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># note that by default, non-proposal-specific skill question numbers are returned</span></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>skill_question_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
+<span class='r-in'>                          lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                          canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> integer(0)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>skill_question_nrs</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
+<span class='r-in'>                          lvl <span class='op'>=</span> <span class='st'>"cantonal"</span>,</span>
+<span class='r-in'>                          canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1 2 3</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

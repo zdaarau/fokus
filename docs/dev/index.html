@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9020</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9021</span>
       </span>
     </div>
 
@@ -83,14 +83,19 @@
 <div id="fokus-provides-an-api-around-the-fokus-post-voting-surveys" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#fokus-provides-an-api-around-the-fokus-post-voting-surveys" class="anchor"></a>fokus: Provides an API around the FOKUS Post-voting Surveys</h1></div>
-<p>fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.</p>
+<p>fokus allows to (pre-)process and clean the raw data, analyze and
+visualize the cleaned data, create the questionnaires and provides other
+utility functions around the FOKUS post-voting surveys by the Centre for
+Democracy Studies Aarau (ZDA) at the University of Zurich,
+Switzerland.</p>
 <div id="details" class="section level2">
 <h2 class="hasAnchor">
 <a href="#details" class="anchor"></a>Details</h2>
 <div id="r-options" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-options" class="anchor"></a>R options</h3>
-<p>The following package-specific R options are used to control the package’s functionality:</p>
+<p>The following package-specific R options are used to control the
+package’s functionality:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left"><strong>name</strong></th>
@@ -100,12 +105,15 @@
 <tbody>
 <tr class="odd">
 <td align="left"><code>fokus.path_private</code></td>
-<td align="left">path to the working directory (the local instance of the <a href="https://gitlab.com/zdaarau/private/fokus_private" class="external-link"><code>fokus_private</code> repository</a>); defaults to the current working directory</td>
+<td align="left">path to the working directory (the local instance of
+the <a href="https://gitlab.com/zdaarau/private/fokus_private" class="external-link"><code>fokus_private</code>
+repository</a>); defaults to the current working directory</td>
 <td align="left">✅</td>
 </tr>
 <tr class="even">
 <td align="left"><code>fokus.global_cache_lifespan</code></td>
-<td align="left">default cache lifespan for all functions taking a <code>cache_lifespan</code> argument; defaults to 30 days</td>
+<td align="left">default cache lifespan for all functions taking a
+<code>cache_lifespan</code> argument; defaults to 30 days</td>
 <td align="left">✅</td>
 </tr>
 </tbody>
@@ -114,7 +122,13 @@
 <div id="private-fokus-directory-structure" class="section level3">
 <h3 class="hasAnchor">
 <a href="#private-fokus-directory-structure" class="anchor"></a>Private FOKUS directory structure</h3>
-<p>For part of this package’s functionality, a separate private directory (defined by the R option <code>fokus.path_private</code>) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the <code>input/</code> subdirectory and certain files are written to its <code>output/</code> subdirectory.</p>
+<p>For part of this package’s functionality, a separate private
+directory (defined by the R option <code>fokus.path_private</code>) is
+required which is expected to be organized according to a very specific
+structure. This private directory i.a. must contain additional
+sensitive, non-public (survey) data under the <code>input/</code>
+subdirectory and certain files are written to its <code>output/</code>
+subdirectory.</p>
 <details><summary><strong>Directory structure schema</strong>
 </summary><div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fokus_private</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── bibliography</span>
@@ -220,20 +234,26 @@
 <code>#</code> for a count starting with <code>1</code>
 </li>
 <li>
-<code>{canton}</code> for the name of the FOKUS-covered canton (in lower case), e.g. <code>aargau</code>
+<code>{canton}</code> for the name of the FOKUS-covered canton (in
+lower case), e.g. <code>aargau</code>
 </li>
 <li>
-<code>{ballot_date}</code> for the FOKUS-covered ballot date (in the format <code>YYYY-MM-DD</code>), e.g. <code>2018-09-23</code>
+<code>{ballot_date}</code> for the FOKUS-covered ballot date (in the
+format <code>YYYY-MM-DD</code>), e.g. <code>2018-09-23</code>
 </li>
 <li>
-<code>{date_delivery_statistical_office}</code> for the delivery date of the voting register data provided by the cantonal statistical office (in the format <code>YYYY-MM-DD</code>), e.g. <code>2019-09-11</code>
+<code>{date_delivery_statistical_office}</code> for the delivery
+date of the voting register data provided by the cantonal statistical
+office (in the format <code>YYYY-MM-DD</code>),
+e.g. <code>2019-09-11</code>
 </li>
 </ul></details>
 </div>
 <div id="abbreviations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#abbreviations" class="anchor"></a>Abbreviations</h3>
-<p>The abbreviations used to name things (function and parameter names etc.) in this package.</p>
+<p>The abbreviations used to name things (function and parameter names
+etc.) in this package.</p>
 <details><summary><strong>Table of abbreviations</strong>
 </summary><table class="table">
 <thead><tr class="header">
@@ -760,7 +780,8 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>To install the latest development version of fokus, run the following in R:</p>
+<p>To install the latest development version of fokus, run the following
+in R:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"remotes"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html" class="external-link">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span>pkgs <span class="op">=</span> <span class="st">"remotes"</span>,
@@ -775,20 +796,45 @@
 <div id="r-markdown-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-markdown-format" class="anchor"></a>R Markdown format</h3>
-<p>This package’s source code is written in the <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> file format to facilitate practices commonly referred to as <a href="https://en.wikipedia.org/wiki/Literate_programming" class="external-link"><em>literate programming</em></a>. It allows the actual code to be freely mixed with explanatory and supplementary information in expressive Markdown format instead of having to rely on <a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Comments" class="external-link"><code>#</code> comments</a> only.</p>
-<p>All the <code>.gen.R</code> suffixed R source code found under <a href="R/"><code>R/</code></a> is generated from the respective R Markdown counterparts under <a href="Rmd/"><code>Rmd/</code></a> using <a href="https://rpkg.dev/pkgpurl/reference/purl_rmd.html" class="external-link"><code>pkgpurl::purl_rmd()</code></a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Always make changes only to the <code>.Rmd</code> files – never the <code>.R</code> files – and then run <code><a href="https://rdrr.io/pkg/pkgpurl/man/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> to regenerate the R source files.</p>
+<p>This package’s source code is written in the <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> file format to
+facilitate practices commonly referred to as <a href="https://en.wikipedia.org/wiki/Literate_programming" class="external-link"><em>literate
+programming</em></a>. It allows the actual code to be freely mixed with
+explanatory and supplementary information in expressive Markdown format
+instead of having to rely on <a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Comments" class="external-link"><code>#</code>
+comments</a> only.</p>
+<p>All the <code>.gen.R</code> suffixed R source code found under <a href="R/"><code>R/</code></a> is generated from the respective R
+Markdown counterparts under <a href="Rmd/"><code>Rmd/</code></a> using
+<a href="https://rpkg.dev/pkgpurl/reference/purl_rmd.html" class="external-link"><code>pkgpurl::purl_rmd()</code></a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Always
+make changes only to the <code>.Rmd</code> files – never the
+<code>.R</code> files – and then run <code><a href="https://rdrr.io/pkg/pkgpurl/man/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> to
+regenerate the R source files.</p>
 </div>
 <div id="coding-style" class="section level3">
 <h3 class="hasAnchor">
 <a href="#coding-style" class="anchor"></a>Coding style</h3>
-<p>This package borrows a lot of the <a href="https://www.tidyverse.org/" class="external-link">Tidyverse</a> design philosophies. The R code adheres to the principles specified in the <a href="https://principles.tidyverse.org/" class="external-link">Tidyverse Design Guide</a> wherever possible and is formatted according to the <a href="https://style.tidyverse.org/" class="external-link">Tidyverse Style Guide</a> (TSG) with the following exceptions:</p>
+<p>This package borrows a lot of the <a href="https://www.tidyverse.org/" class="external-link">Tidyverse</a> design philosophies. The
+R code adheres to the principles specified in the <a href="https://principles.tidyverse.org/" class="external-link">Tidyverse Design Guide</a>
+wherever possible and is formatted according to the <a href="https://style.tidyverse.org/" class="external-link">Tidyverse Style Guide</a> (TSG) with
+the following exceptions:</p>
 <ul>
-<li><p>Line width is limited to <strong>160 characters</strong>, double the <a href="https://style.tidyverse.org/syntax.html#long-lines" class="external-link">limit proposed by the TSG</a> (80 characters is ridiculously little given today’s high-resolution wide screen monitors).</p></li>
-<li><p>Usage of <a href="https://magrittr.tidyverse.org/reference/compound.html" class="external-link">magrittr’s compound assignment pipe-operator <code>%&lt;&gt;%</code></a> is desirable<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p></li>
-<li><p>Usage of <a href="https://rdrr.io/r/base/assignOps.html" class="external-link">R’s right-hand assignment operator <code>-&gt;</code></a> is not allowed<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p></li>
-<li><p>R source code is <em>not</em> split over several files as <a href="https://style.tidyverse.org/package-files.html" class="external-link">suggested by the TSG</a> but instead is (as far as possible) kept in the single file <a href="Rmd/fokus.Rmd"><code>Rmd/fokus.Rmd</code></a> which is well-structured thanks to its <a href="#r-markdown-format">Markdown support</a>.</p></li>
+<li><p>Line width is limited to <strong>160 characters</strong>, double
+the <a href="https://style.tidyverse.org/syntax.html#long-lines" class="external-link">limit
+proposed by the TSG</a> (80 characters is ridiculously little given
+today’s high-resolution wide screen monitors).</p></li>
+<li><p>Usage of <a href="https://magrittr.tidyverse.org/reference/compound.html" class="external-link">magrittr’s
+compound assignment pipe-operator <code>%&lt;&gt;%</code></a> is
+desirable<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p></li>
+<li><p>Usage of <a href="https://rdrr.io/r/base/assignOps.html" class="external-link">R’s
+right-hand assignment operator <code>-&gt;</code></a> is not allowed<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p></li>
+<li><p>R source code is <em>not</em> split over several files as <a href="https://style.tidyverse.org/package-files.html" class="external-link">suggested by the
+TSG</a> but instead is (as far as possible) kept in the single file <a href="Rmd/fokus.Rmd"><code>Rmd/fokus.Rmd</code></a> which is
+well-structured thanks to its <a href="#r-markdown-format">Markdown
+support</a>.</p></li>
 </ul>
-<p>As far as possible, these deviations from the TSG plus some additional restrictions are formally specified in the <a href="https://github.com/jimhester/lintr#project-configuration" class="external-link">lintr configuration file</a> <a href=".lintr"><code>.lintr</code></a>, so lintr can be used right away to check for formatting issues:</p>
+<p>As far as possible, these deviations from the TSG plus some
+additional restrictions are formally specified in the <a href="https://github.com/jimhester/lintr#project-configuration" class="external-link">lintr
+configuration file</a> <a href=".lintr"><code>.lintr</code></a>, so
+lintr can be used right away to check for formatting issues:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pkgpurl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgpurl/man/lint_rmd.html" class="external-link">lint_rmd</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
@@ -797,9 +843,29 @@
 <div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
-<li id="fn1"><p>This naming convention as well as the very idea to leverage the R Markdown format to author R packages was originally proposed by Yihui Xie. See his excellent <a href="https://yihui.name/rlp/" class="external-link">blog post</a> for more detailed information about the benefits of literate programming techniques and some practical examples. Note that using <code><a href="https://rdrr.io/pkg/pkgpurl/man/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> is a less cumbersome alternative to the Makefile approach outlined by him.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>The TSG <a href="https://style.tidyverse.org/pipes.html#assignment-2" class="external-link">explicitly instructs to avoid this operator</a> – presumably because it’s relatively unknown and therefore might be confused with the forward pipe operator <code>%&gt;%</code> when skimming code only briefly. I don’t consider this to be an actual issue since there aren’t many sensible usage patterns of <code>%&gt;%</code> at the beginning of a pipe sequence inside a function – I can only think of creating side effects and relying on <a href="https://rdrr.io/r/base/function.html" class="external-link">R’s implicit return of the last evaluated expression</a>. Therefore – and because I really like the <code>%&lt;&gt;%</code> operator – it’s usage is welcome.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>The TSG <a href="https://style.tidyverse.org/pipes.html#assignment-2" class="external-link">explicitly accepts <code>-&gt;</code> for assignments at the end of a pipe sequence</a> while Google’s R Style Guide <a href="https://google.github.io/styleguide/Rguide.html#right-hand-assignment" class="external-link">considers this bad practice</a> because it “makes it harder to see in code where an object is defined”. I second the latter.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>This naming convention as well as the very idea to
+leverage the R Markdown format to author R packages was originally
+proposed by Yihui Xie. See his excellent <a href="https://yihui.name/rlp/" class="external-link">blog post</a> for more detailed
+information about the benefits of literate programming techniques and
+some practical examples. Note that using
+<code><a href="https://rdrr.io/pkg/pkgpurl/man/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> is a less cumbersome alternative to the
+Makefile approach outlined by him.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>The TSG <a href="https://style.tidyverse.org/pipes.html#assignment-2" class="external-link">explicitly
+instructs to avoid this operator</a> – presumably because it’s
+relatively unknown and therefore might be confused with the forward pipe
+operator <code>%&gt;%</code> when skimming code only briefly. I don’t
+consider this to be an actual issue since there aren’t many sensible
+usage patterns of <code>%&gt;%</code> at the beginning of a pipe
+sequence inside a function – I can only think of creating side effects
+and relying on <a href="https://rdrr.io/r/base/function.html" class="external-link">R’s
+implicit return of the last evaluated expression</a>. Therefore – and
+because I really like the <code>%&lt;&gt;%</code> operator – it’s usage
+is welcome.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>The TSG <a href="https://style.tidyverse.org/pipes.html#assignment-2" class="external-link">explicitly
+accepts <code>-&gt;</code> for assignments at the end of a pipe
+sequence</a> while Google’s R Style Guide <a href="https://google.github.io/styleguide/Rguide.html#right-hand-assignment" class="external-link">considers
+this bad practice</a> because it “makes it harder to see in code where
+an object is defined”. I second the latter.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
@@ -846,7 +912,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>1.6.1.9000.</p>
 </div>
 
       </footer>

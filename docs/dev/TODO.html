@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fokus</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9020</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.9021</span>
       </span>
     </div>
 
@@ -130,7 +130,8 @@
 
 <ul>
 <li>
-<p>Bug report about feeding <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match</a></code> a zero-length <code>arg</code> (subscript out of bounds):</p>
+<p>Bug report about feeding <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match</a></code> a
+zero-length <code>arg</code> (subscript out of bounds):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bla</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ho"</span>, <span class="st">"ha"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">arg_match0</a></span><span class="op">(</span>arg <span class="op">=</span> <span class="va">x</span>, arg_nm <span class="op">=</span> <span class="st">"x"</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ho"</span>, <span class="st">"ha"</span><span class="op">)</span><span class="op">)</span>
@@ -139,19 +140,35 @@
 
 <span class="fu">bla</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </li>
-<li><p>Ask Uwe whether easyvote booklet actually covers <em>cantonal</em> proposals. If not, the distinction between <code>cantonal_proposals_information_source_easyvote_booklet</code> and <code>federal_proposals_information_source_easyvote_booklet</code> doesn’t make sense and we could merge the variable with <code>information_source_easyvote_booklet</code> (which currently refers to the election booklet only).</p></li>
+<li><p>Ask Uwe whether easyvote booklet actually covers
+<em>cantonal</em> proposals. If not, the distinction between
+<code>cantonal_proposals_information_source_easyvote_booklet</code> and
+<code>federal_proposals_information_source_easyvote_booklet</code>
+doesn’t make sense and we could merge the variable with
+<code>information_source_easyvote_booklet</code> (which currently refers
+to the election booklet only).</p></li>
 <li>
 <p>q clean-ups:</p>
 <ul>
 <li>Use EN instead of DE values in <code>who</code> key</li>
 </ul>
 </li>
-<li><p>Remove <code>github::jeroen/rsvg</code> remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing <a href="https://github.com/jeroen/rsvg/pull/27" class="external-link">PR #27</a>).</p></li>
-<li><p>Remove <code>github::r-lib/asciicast</code> remote from DESCRIPTION as soon as asciicast v1.0.1+ is released (containing <a href="https://github.com/r-lib/asciicast/pull/28" class="external-link">PR #28</a>)</p></li>
-<li><p>q: Consider introducing a mechanism to define truly hierarchical first-item question intros on table lvl above <code>item</code> lvl. But maybe not worth the effort? Wait until we conduct an online survey by ourselves to get better understanding of actual requirements!</p></li>
+<li><p>Remove <code>github::jeroen/rsvg</code> remote from DESCRIPTION
+as soon as rsvg v2.1.3+ is released (containing <a href="https://github.com/jeroen/rsvg/pull/27" class="external-link">PR #27</a>).</p></li>
+<li><p>Remove <code>github::r-lib/asciicast</code> remote from
+DESCRIPTION as soon as asciicast v1.0.1+ is released (containing <a href="https://github.com/r-lib/asciicast/pull/28" class="external-link">PR #28</a>)</p></li>
+<li><p>q: Consider introducing a mechanism to define truly hierarchical
+first-item question intros on table lvl above <code>item</code> lvl. But
+maybe not worth the effort? Wait until we conduct an online survey by
+ourselves to get better understanding of actual requirements!</p></li>
 <li>
-<p>Somehow, including multiple asciicasts in the same Rmd fails (both via asciicast’s knitr engine as well as embedding the generated asciicast htmlwidget via <code><a href="https://rdrr.io/pkg/asciicast/man/asciinema_player.html" class="external-link">asciicast::asciinema_player()</a></code>), thus the second asciicast containing an intentionally triggered error in the raw q had to be removed.</p>
-<p>-&gt; Investigate the actual cause of the inclusion failure (and report/fix upstream)!</p>
+<p>Somehow, including multiple asciicasts in the same Rmd fails
+(both via asciicast’s knitr engine as well as embedding the generated
+asciicast htmlwidget via <code><a href="https://rdrr.io/pkg/asciicast/man/asciinema_player.html" class="external-link">asciicast::asciinema_player()</a></code>),
+thus the second asciicast containing an intentionally triggered error in
+the raw q had to be removed.</p>
+<p>-&gt; Investigate the actual cause of the inclusion failure (and
+report/fix upstream)!</p>
 <p>The removed vignette part is:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>If some mistake that breaks questionnaire generation is present <span class="cf">in</span> the raw questionnaire, like a syntax error <span class="cf">in</span> embedded R code <span class="cf">for</span> example, an error</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>is thrown and the progress output stops, allowing to easily locate the source position of the mistake<span class="sc">:</span></span>
@@ -175,15 +192,23 @@
 <li>
 <p>supplemental date-specific TOML questionnaire files:</p>
 <ul>
-<li>figure out why there’s <code>mode = "majority"</code> defined under table <code>cantonal.aargau.election.majoritarian.1</code> (seems bollocks)</li>
+<li>figure out why there’s <code>mode = "majority"</code> defined under
+table <code>cantonal.aargau.election.majoritarian.1</code> (seems
+bollocks)</li>
 </ul>
 </li>
 <li><p><input type="checkbox" disabled>
-Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found <a href="https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/" class="external-link">here</a></p></li>
+Consider relying on external package for frequency tables and other
+summary statistics. A good (but a bit aged) overview of available
+packages is found <a href="https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/" class="external-link">here</a></p></li>
 <li>
 <p><input type="checkbox" disabled>
-Create an R package to facilitate creating <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table-Schema</a>-compatible questionnaires in TOML format. Note there’s an R package <a href="https://libraries.frictionlessdata.io/docs/table-schema/rlang" class="external-link">tableschema.r</a> to work with the Table Schema format (validate etc.)</p>
-<p>Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.</p>
+Create an R package to facilitate creating <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table-Schema</a>-compatible
+questionnaires in TOML format. Note there’s an R package <a href="https://libraries.frictionlessdata.io/docs/table-schema/rlang" class="external-link">tableschema.r</a>
+to work with the Table Schema format (validate etc.)</p>
+<p>Then, adapt
+the FOKUS questionnaire generation to rely on this package as far as
+possible.</p>
 </li>
 </ul>
 </div>
@@ -191,7 +216,8 @@ Create an R package to facilitate creating <a href="https://specs.frictionlessda
 <h2 class="hasAnchor">
 <a href="#extensions" class="anchor"></a>Extensions</h2>
 <ul>
-<li>add v <code>latent_expertise_proposals</code> that combines expertise on cantonal <em>and</em> federal proposals</li>
+<li>add v <code>latent_expertise_proposals</code> that combines
+expertise on cantonal <em>and</em> federal proposals</li>
 </ul>
 </div>
 </div>
@@ -214,7 +240,7 @@ Create an R package to facilitate creating <a href="https://specs.frictionlessda
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>1.6.1.9000.</p></p>
 </div>
 
       </footer>

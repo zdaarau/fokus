@@ -47,12 +47,14 @@ test_that("Predicate functions return correct default values", {
                    "Millionärssteuerinitiative")
   expect_identical(proposal_name_gender(),
                    "feminine")
-  expect_snapshot(proposal_arguments())
+  expect_snapshot_value(proposal_arguments(),
+                        style = "json2")
   expect_identical(proposal_argument(),
                    "Vermögenssteuer bringt Kantonshaushalt wieder ins Lot")
   expect_identical(n_proposal_arguments(),
                    6L)
-  expect_snapshot(proposal_main_motives())
+  expect_snapshot_value(proposal_main_motives(),
+                        style = "json2")
   expect_identical(n_proposal_main_motives(),
                    6L)
   expect_snapshot_error(election_name())
@@ -65,14 +67,22 @@ test_that("Predicate functions return correct default values", {
   expect_snapshot_error(election_parties())
   expect_snapshot_error(election_tickets())
   expect_snapshot_error(requires_candidate_registration())
+  expect_identical(skill_question_nrs(),
+                   integer())
   expect_identical(n_skill_questions(),
                    0L)
+  expect_snapshot_error(skill_question())
+  expect_snapshot_error(skill_question_response_options())
+  expect_snapshot_error(skill_question_answer_nr())
+  expect_identical(skill_question_proposal_nrs(),
+                   1L)
   expect_identical(ballot_title(),
                    "Abstimmungstermin vom 23. September 2018")
   expect_snapshot_error(political_issues())
   expect_identical(postal_dispatch_way(),
                    "B")
-  expect_snapshot(response_options())
+  expect_snapshot_value(response_options(),
+                        style = "json2")
 })
 
 ## irrelevant `canton` if `lvl = "federal"` ----
@@ -100,10 +110,11 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
   expect_identical(proposal_name_gender(lvl = "federal",
                                         canton = invalid_canton),
                    "feminine")
-  expect_snapshot(proposal_arguments(ballot_date = "2021-11-28",
-                                     lvl = "federal",
-                                     canton = invalid_canton,
-                                     proposal_nr = 2L))
+  expect_snapshot_value(proposal_arguments(ballot_date = "2021-11-28",
+                                           lvl = "federal",
+                                           canton = invalid_canton,
+                                           proposal_nr = 2L),
+                        style = "json2")
   expect_identical(proposal_argument(ballot_date = "2021-11-28",
                                      lvl = "federal",
                                      canton = invalid_canton,
@@ -114,10 +125,11 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
   expect_identical(n_proposal_arguments(lvl = "federal",
                                         canton = invalid_canton),
                    0L)
-  expect_snapshot(proposal_main_motives(ballot_date = "2021-11-28",
-                                        lvl = "federal",
-                                        canton = invalid_canton,
-                                        proposal_nr = 2L))
+  expect_snapshot_value(proposal_main_motives(ballot_date = "2021-11-28",
+                                              lvl = "federal",
+                                              canton = invalid_canton,
+                                              proposal_nr = 2L),
+                        style = "json2")
   expect_identical(n_proposal_main_motives(lvl = "federal",
                                            canton = invalid_canton),
                    0L)
@@ -130,17 +142,22 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
                                   proposal_nr = 2L,
                                   skill_question_nr = 1L),
                    "Wer hat bisher die Mitglieder des Bundesgerichts gewählt?")
-  expect_snapshot(skill_question_response_options(ballot_date = "2021-11-28",
-                                                  lvl = "federal",
-                                                  canton = invalid_canton,
-                                                  proposal_nr = 2L,
-                                                  skill_question_nr = 1L))
+  expect_snapshot_value(skill_question_response_options(ballot_date = "2021-11-28",
+                                                        lvl = "federal",
+                                                        canton = invalid_canton,
+                                                        proposal_nr = 2L,
+                                                        skill_question_nr = 1L),
+                        style = "json2")
   expect_identical(skill_question_answer_nr(ballot_date = "2021-11-28",
                                             lvl = "federal",
                                             canton = invalid_canton,
                                             proposal_nr = 2L,
                                             skill_question_nr = 1L),
                    2L)
+  expect_identical(skill_question_proposal_nrs(ballot_date = "2021-11-28",
+                                               lvl = "federal",
+                                               canton = invalid_canton),
+                   2:3)
 })
 
 # FAILSAFE FUNCTIONS ----
@@ -214,6 +231,28 @@ test_that("relevant fns don't fail when non-FOKUS-covered", {
   expect_identical(prcds(ballot_date = "2020-10-18",
                          lvl = "federal"),
                    character())
+  expect_identical(skill_question_nrs(ballot_date = "2018-09-23",
+                                      lvl = "cantonal",
+                                      proposal_nr = NULL),
+                   integer())
+  expect_identical(skill_question_nrs(ballot_date = "2021-11-28",
+                                      lvl = "cantonal",
+                                      proposal_nr = 1L),
+                   integer())
+  expect_identical(skill_question_nrs(ballot_date = "2019-10-20",
+                                      proposal_nr = 1L),
+                   integer())
+  expect_identical(n_skill_questions(ballot_date = "2018-09-23",
+                                     lvl = "cantonal",
+                                     proposal_nr = NULL),
+                   0L)
+  expect_identical(n_skill_questions(ballot_date = "2021-11-28",
+                                     lvl = "cantonal",
+                                     proposal_nr = 1L),
+                   0L)
+  expect_identical(n_skill_questions(ballot_date = "2019-10-20",
+                                     proposal_nr = 1L),
+                   0L)
 })
 
 # VARIABLE-RELATED ----

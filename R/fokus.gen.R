@@ -88,7 +88,7 @@ utils::globalVariables(names = c(".",
                                  "year_of_birth_official",
                                  "Zivilstand"))
 
-# avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://github.com/kevinushey/rex#using-rex-in-other-packages
+# avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://rex.r-lib.org/#using-rex-in-other-packages
 rex::register_shortcuts(pkg_name = utils::packageName())
 
 #' Abbreviations used in the **fokus** package
@@ -965,7 +965,7 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
                                        lvl = all_lvls,
                                        canton = all_cantons,
                                        proposal_nr = NULL,
-                                       skill_question_nr) {
+                                       skill_question_nr = 1L) {
 
   checkmate::assert_count(skill_question_nr,
                           positive = TRUE)
@@ -1225,7 +1225,7 @@ gen_q_tibble <- function(ballot_date = all_ballot_dates,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
+  canton <- rlang::arg_match(canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(verbose)
 
@@ -3572,7 +3572,7 @@ proposal_argument <- function(ballot_date = all_ballot_dates,
 #' @param sides Proposal argument side(s). One or more of
 #' `r pal::as_md_val_list(all_argument_sides)`
 #'
-#' @return An integerish scalar.
+#' @return An integer scalar.
 #' @family predicate_proposal
 #' @export
 #'
@@ -3651,7 +3651,7 @@ proposal_main_motives <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams proposal_main_motives
 #'
-#' @return An integerish scalar.
+#' @return An integer scalar.
 #' @family predicate_proposal
 #' @export
 #'
@@ -4031,12 +4031,50 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
     purrr::chuck("requires_candidate_registration")
 }
 
+#' Get skill question numbers
+#'
+#' Determines the skill questions numbers at the specified ballot date on the specified political level. Note that by default (`proposal_nr = NULL`),
+#' non-proposal-specific skill question numbers are returned.
+#'
+#' @inheritParams proposal_nrs
+#' @param proposal_nr Proposal number. A positive integerish scalar or `NULL`. If `NULL`, the numbers of non-proposal-specific skill questions are returned.
+#'
+#' @return An integer vector.
+#' @family predicate_skill_question
+#' @export
+#'
+#' @examples
+#' fokus::skill_question_nrs(ballot_date = "2018-09-23",
+#'                           lvl = "cantonal",
+#'                           canton = "aargau",
+#'                           proposal_nr = 1)
+#'
+#' # note that by default, non-proposal-specific skill question numbers are returned
+#' fokus::skill_question_nrs(ballot_date = "2018-09-23",
+#'                           lvl = "cantonal",
+#'                           canton = "aargau")
+#'
+#' fokus::skill_question_nrs(ballot_date = "2019-10-20",
+#'                           lvl = "cantonal",
+#'                           canton = "aargau")
+skill_question_nrs <- function(ballot_date = all_ballot_dates,
+                               lvl = lvls(ballot_date,
+                                          canton),
+                               canton = cantons(ballot_date),
+                               proposal_nr = NULL) {
+  
+  pal::safe_seq_len(n_skill_questions(ballot_date = ballot_date,
+                                      lvl = lvl,
+                                      canton = canton,
+                                      proposal_nr = proposal_nr))
+}
+
 #' Get number of skill questions
 #'
 #' Determines the number of skill questions at the specified ballot date on the specified political level. Note that by default (`proposal_nr = NULL`), the
-#' number of non-proposal-specific skill questions is returned
+#' number of non-proposal-specific skill questions is returned.
 #'
-#' @inheritParams proposal_name
+#' @inheritParams proposal_nrs
 #' @param proposal_nr Proposal number. A positive integerish scalar or `NULL`. If `NULL`, the number of non-proposal-specific skill questions is returned.
 #'
 #' @return An integer scalar.
@@ -4048,6 +4086,15 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
 #'                          lvl = "cantonal",
 #'                          canton = "aargau",
 #'                          proposal_nr = 1)
+#'
+#' # note that by default, the number of non-proposal-specific skill questions is returned
+#' fokus::n_skill_questions(ballot_date = "2018-09-23",
+#'                          lvl = "cantonal",
+#'                          canton = "aargau")
+#'
+#' fokus::n_skill_questions(ballot_date = "2019-10-20",
+#'                          lvl = "cantonal",
+#'                          canton = "aargau")
 n_skill_questions <- function(ballot_date = all_ballot_dates,
                               lvl = lvls(ballot_date,
                                          canton),
@@ -4057,32 +4104,20 @@ n_skill_questions <- function(ballot_date = all_ballot_dates,
   lvl <- rlang::arg_match(lvl,
                           values = all_lvls)
   if (lvl == "cantonal") {
-    canton <- rlang::arg_match(arg = canton,
+    canton <- rlang::arg_match(canton,
                                values = cantons(ballot_date))
   }
   checkmate::assert_count(proposal_nr,
                           positive = TRUE,
                           null.ok = TRUE)
-  lvl %>%
-    purrr::when(
-
-      # federal non-proposal-specific skill questions (e.g. at federal elections)
-      length(proposal_nr) == 0L && . == "federal" ~
-        raw_q_suppl(ballot_date = ballot_date) %>%
-        purrr::pluck(lvl),
-      # cantonal non-proposal-specific skill questions (e.g. at cantonal elections)
-      length(proposal_nr) == 0L && . == "cantonal" ~
-        raw_q_suppl(ballot_date = ballot_date) %>%
-        purrr::pluck(lvl) %>%
-        purrr::pluck(canton),
-      # federal or cantonal proposal-specific skill questions
-      ~ raw_q_suppl(ballot_date = ballot_date) %>%
-        purrr::pluck(lvl) %>%
-        purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
-                    ~ .) %>%
-        purrr::pluck("proposal") %>%
-        purrr::pluck(proposal_nr)
-    ) %>%
+  
+  raw_q_suppl(ballot_date = ballot_date) %>%
+    purrr::pluck(lvl) %>%
+    purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
+                ~ .) %>%
+    # get non-proposal-specific skill questions if `proposal_nr = NULL`
+    purrr::when(length(proposal_nr) > 0L ~ purrr::pluck(., "proposal", proposal_nr),
+                ~ .) %>%
     purrr::pluck("skill_question") %>%
     length()
 }
@@ -4113,7 +4148,7 @@ skill_question <- function(ballot_date = all_ballot_dates,
                                       canton),
                            canton = cantons(ballot_date),
                            proposal_nr = NULL,
-                           skill_question_nr,
+                           skill_question_nr = 1L,
                            lang = c("de", "en")) {
 
   lang <- rlang::arg_match(lang)
@@ -4147,7 +4182,7 @@ skill_question_response_options <- function(ballot_date = all_ballot_dates,
                                                        canton),
                                             canton = cantons(ballot_date),
                                             proposal_nr = NULL,
-                                            skill_question_nr) {
+                                            skill_question_nr = 1L) {
 
   raw_q_suppl_skill_question(ballot_date = ballot_date,
                              lvl = lvl,
@@ -4179,7 +4214,7 @@ skill_question_answer_nr <- function(ballot_date = all_ballot_dates,
                                                 canton),
                                      canton = cantons(ballot_date),
                                      proposal_nr = NULL,
-                                     skill_question_nr) {
+                                     skill_question_nr = 1L) {
 
   raw_q_suppl_skill_question(ballot_date = ballot_date,
                              lvl = lvl,
@@ -4191,6 +4226,43 @@ skill_question_answer_nr <- function(ballot_date = all_ballot_dates,
                      .f = ~ .x$is_correct) %>%
     purrr::flatten_lgl() %>%
     which()
+}
+
+#' Get referendum proposal numbers with skill questions
+#'
+#' Determines the referendum proposal numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
+#' level that have at least one skill question.
+#'
+#' @inheritParams proposal_nrs
+#'
+#' @return An integer vector.
+#' @family predicate_skill_question
+#' @export
+#'
+#' @examples
+#' fokus::skill_question_proposal_nrs(ballot_date = "2018-09-23",
+#'                                    lvl = "cantonal",
+#'                                    canton = "aargau")
+skill_question_proposal_nrs <- function(ballot_date = all_ballot_dates,
+                                        lvl = lvls(ballot_date,
+                                                   canton,
+                                                   ballot_type = "referendum"),
+                                        canton = cantons(ballot_date)) {
+  lvl <- rlang::arg_match(lvl,
+                          values = all_lvls)
+  if (lvl == "cantonal") {
+    canton <- rlang::arg_match(canton,
+                               values = cantons(ballot_date))
+  }
+  
+  raw_q_suppl(ballot_date = ballot_date) %>%
+    purrr::pluck(lvl) %>%
+    purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
+                ~ .) %>%
+    purrr::pluck("proposal") %>%
+    purrr::keep(~ .x %>% rlang::has_name("skill_question")) %>%
+    names() %>%
+    as.integer()
 }
 
 #' Get ballot title
@@ -4292,7 +4364,7 @@ political_issues <- function(ballot_date = all_ballot_dates,
 #'
 #' @return A character scalar.
 #' @family predicate_other
-#' @seealso [postal_dispatch_string()]
+#' @seealso [postal_dispatch_way_prose()]
 #' @export
 #'
 #' @examples
@@ -4431,7 +4503,7 @@ export_q <- function(ballot_date = all_ballot_dates,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
+  canton <- rlang::arg_match(canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(incl_csv)
   checkmate::assert_flag(incl_html)
@@ -4623,7 +4695,7 @@ export_qr_codes <- function(ballot_date = all_ballot_dates,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
+  canton <- rlang::arg_match(canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
   pal::assert_pkg("archive")
@@ -4718,7 +4790,7 @@ export_print_recipients <- function(ballot_date = all_ballot_dates,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
+  canton <- rlang::arg_match(canton,
                              values = cantons(ballot_date))
 
   # only export if `reminder_print_*` constraint present
@@ -4786,7 +4858,7 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
+  canton <- rlang::arg_match(canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
 
@@ -4844,7 +4916,7 @@ postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types
          de = switch(EXPR = dispatch_type,
                      invitation = "Einladungsschreiben",
                      reminder = "Erinnerungsschreiben",
-                     prepaid_reply_envelope = "vorfrankiertes Rückantwortcouvert"),
+                     prepaid_reply_envelope = "vorfrankiertes R\u00fcckantwortcouvert"),
          en = switch(EXPR = dispatch_type,
                      invitation = "invitation letter",
                      reminder = "reminder letter",
