@@ -19,10 +19,10 @@ backup_g_file(
 
 \item{path}{Path to the local file backup destination. A character scalar.}
 
-\item{type}{Character. Only consulted if \code{file} is a native Google file.
-Specifies the desired type of the exported file. Will be processed via
-\code{\link[googledrive:drive_mime_type]{drive_mime_type()}}, so either a file extension like \code{"pdf"} or a full MIME
-type like \code{"application/pdf"} is acceptable.}
+\item{type}{Desired type of the Google Drive file to be backed up. Only consulted if \code{g_id} identifies a native Google Apps file. Will be processed via
+\code{\link[googledrive:drive_mime_type]{googledrive::drive_mime_type()}}, so it can either be a file extension like \code{"pdf"}, a full MIME type like \code{"application/pdf"}, or \code{NULL} to determine the
+type based on the file extension of \code{path} (if none is specified, falls back on the default type determined by the \href{https://developers.google.com/drive/api/v3/}{Google Drive API}). Note that \code{type} takes precedence over a possible file extension of \code{path}, but specifying only the
+latter should normally suffice.}
 
 \item{path_gcp_service_account_key}{Path to the GCP Service Account Key JSON file. See \code{\link[=auth_g_drive_gcp]{auth_g_drive_gcp()}} for details.}
 
@@ -34,7 +34,7 @@ type like \code{"application/pdf"} is acceptable.}
 }
 \value{
 An object of class \link[googledrive:dribble]{dribble}, a tibble with one row per file if local backup was (over)written, otherwise \code{NULL}, meaning
-remote file hasn't deviated from local backup since last run, invisibly.
+the remote file hasn't deviated from the local backup since the last run, invisibly.
 }
 \description{
 Creates a local backup of a \href{https://en.wikipedia.org/wiki/Google_Drive}{Google Drive} file.
@@ -43,7 +43,7 @@ Creates a local backup of a \href{https://en.wikipedia.org/wiki/Google_Drive}{Go
 Essentially a convenience wrapper around \code{\link[googledrive:drive_download]{googledrive::drive_download()}}.
 
 If a \href{https://en.wikipedia.org/wiki/Google_Sheets}{Google Sheet} that includes multiple worksheets is backed up to a file \code{type} that doesn't support
-worksheets like \code{csv}, only the default (first) worksheet is written. In contrast, \code{\link[=backup_g_sheet]{backup_g_sheet()}} allows to specify any worksheet to be backed up (but
+worksheets like \code{"csv"}, only the default (first) worksheet is written. In contrast, \code{\link[=backup_g_sheet]{backup_g_sheet()}} allows to specify any worksheet to be backed up (but
 always writes a single worksheet only regardless of the filetype).
 }
 \seealso{

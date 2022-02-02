@@ -157,10 +157,10 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Character. Only consulted if <code>file</code> is a native Google file.
-Specifies the desired type of the exported file. Will be processed via
-<code><a href='https://googledrive.tidyverse.org/reference/drive_mime_type.html'>drive_mime_type()</a></code>, so either a file extension like <code>"pdf"</code> or a full MIME
-type like <code>"application/pdf"</code> is acceptable.</p></td>
+      <td><p>Desired type of the Google Drive file to be backed up. Only consulted if <code>g_id</code> identifies a native Google Apps file. Will be processed via
+<code><a href='https://googledrive.tidyverse.org/reference/drive_mime_type.html'>googledrive::drive_mime_type()</a></code>, so it can either be a file extension like <code>"pdf"</code>, a full MIME type like <code>"application/pdf"</code>, or <code>NULL</code> to determine the
+type based on the file extension of <code>path</code> (if none is specified, falls back on the default type determined by the <a href='https://developers.google.com/drive/api/v3/'>Google Drive API</a>). Note that <code>type</code> takes precedence over a possible file extension of <code>path</code>, but specifying only the
+latter should normally suffice.</p></td>
     </tr>
     <tr>
       <th>path_gcp_service_account_key</th>
@@ -183,12 +183,12 @@ type like <code>"application/pdf"</code> is acceptable.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <a href='https://googledrive.tidyverse.org/reference/dribble.html'>dribble</a>, a tibble with one row per file if local backup was (over)written, otherwise <code>NULL</code>, meaning
-remote file hasn't deviated from local backup since last run, invisibly.</p>
+the remote file hasn't deviated from the local backup since the last run, invisibly.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Essentially a convenience wrapper around <code><a href='https://googledrive.tidyverse.org/reference/drive_download.html'>googledrive::drive_download()</a></code>.</p>
 <p>If a <a href='https://en.wikipedia.org/wiki/Google_Sheets'>Google Sheet</a> that includes multiple worksheets is backed up to a file <code>type</code> that doesn't support
-worksheets like <code>csv</code>, only the default (first) worksheet is written. In contrast, <code><a href='backup_g_sheet.html'>backup_g_sheet()</a></code> allows to specify any worksheet to be backed up (but
+worksheets like <code>"csv"</code>, only the default (first) worksheet is written. In contrast, <code><a href='backup_g_sheet.html'>backup_g_sheet()</a></code> allows to specify any worksheet to be backed up (but
 always writes a single worksheet only regardless of the filetype).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

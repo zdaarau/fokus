@@ -180,12 +180,12 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a> if local backup was (over)written, otherwise <code>NULL</code>, meaning remote file hasn't deviated from local backup since
-last run, invisibly.</p>
+    <p>A <a href='https://tibble.tidyverse.org/reference/tbl_df-class.html'>tibble</a> if the local backup was (over)written, otherwise <code>NULL</code>, meaning the remote file hasn't deviated from the local backup
+since the last run, invisibly.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>backup_g_sheet()</code> only backs up a single worksheet at once (specified by the optional <code>sheet</code> argument). If you intend to backup multiple worksheets of the
-same Google Sheet, consider using <code><a href='backup_g_file.html'>backup_g_file()</a></code> in combination with a file <code>type</code> that supports multiple worksheets like <code>ods</code> or <code>xlsx</code>.</p>
+same Google Sheet, consider using <code><a href='backup_g_file.html'>backup_g_file()</a></code> in combination with a file <code>type</code> that supports multiple worksheets like <code>"ods"</code> or <code>"xlsx"</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Google Apps functions:

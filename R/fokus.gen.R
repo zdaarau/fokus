@@ -5297,18 +5297,22 @@ auth_g_sheets_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GC
 #' Essentially a convenience wrapper around [googledrive::drive_download()].
 #'
 #' If a [Google Sheet](https://en.wikipedia.org/wiki/Google_Sheets) that includes multiple worksheets is backed up to a file `type` that doesn't support
-#' worksheets like `csv`, only the default (first) worksheet is written. In contrast, [backup_g_sheet()] allows to specify any worksheet to be backed up (but
+#' worksheets like `"csv"`, only the default (first) worksheet is written. In contrast, [backup_g_sheet()] allows to specify any worksheet to be backed up (but
 #' always writes a single worksheet only regardless of the filetype).
 #'
 #' @inheritParams g_file_mod_time 
 #' @inheritParams upload_to_g_drive
-#' @inheritParams googledrive::drive_download
 #' @param path Path to the local file backup destination. A character scalar.
+#' @param type Desired type of the Google Drive file to be backed up. Only consulted if `g_id` identifies a native Google Apps file. Will be processed via
+#'   [googledrive::drive_mime_type()], so it can either be a file extension like `"pdf"`, a full MIME type like `"application/pdf"`, or `NULL` to determine the
+#'   type based on the file extension of `path` (if none is specified, falls back on the default type determined by the [Google Drive
+#'   API](https://developers.google.com/drive/api/v3/)). Note that `type` takes precedence over a possible file extension of `path`, but specifying only the
+#'   latter should normally suffice.
 #' @param overwrite Whether or not to overwrite an already existing file under `path`.
 #' @param force Whether or not to force overwriting the file regardless whether it has changed since the last backup or not.
 #'
 #' @return An object of class [dribble][googledrive::dribble], a tibble with one row per file if local backup was (over)written, otherwise `NULL`, meaning
-#'   remote file hasn't deviated from local backup since last run, invisibly.
+#'   the remote file hasn't deviated from the local backup since the last run, invisibly.
 #' @family g_apps
 #' @export
 backup_g_file <- function(g_id,
@@ -5355,7 +5359,7 @@ backup_g_file <- function(g_id,
 #' [readr::write_csv()] or [writexl::write_xlsx()], depending on the file extension of `path`.
 #'
 #' `backup_g_sheet()` only backs up a single worksheet at once (specified by the optional `sheet` argument). If you intend to backup multiple worksheets of the
-#' same Google Sheet, consider using [backup_g_file()] in combination with a file `type` that supports multiple worksheets like `ods` or `xlsx`.
+#' same Google Sheet, consider using [backup_g_file()] in combination with a file `type` that supports multiple worksheets like `"ods"` or `"xlsx"`.
 #'
 #' @inheritParams backup_g_file
 #' @inheritParams googlesheets4::read_sheet
@@ -5363,8 +5367,8 @@ backup_g_file <- function(g_id,
 #' @param quiet Whether or not to [suppress printing status output from googledrive][googledrive::local_drive_quiet] and [googlesheets4
 #'   operations][googlesheets4::local_gs4_quiet].
 #'
-#' @return A [tibble][tibble::tbl_df] if local backup was (over)written, otherwise `NULL`, meaning remote file hasn't deviated from local backup since
-#'   last run, invisibly.
+#' @return A [tibble][tibble::tbl_df] if the local backup was (over)written, otherwise `NULL`, meaning the remote file hasn't deviated from the local backup
+#'   since the last run, invisibly.
 #' @family g_apps
 #' @export
 backup_g_sheet <- function(g_id,

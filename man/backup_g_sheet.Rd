@@ -30,8 +30,8 @@ backup_g_sheet(
 \item{quiet}{Whether or not to \link[googledrive:googledrive-configuration]{suppress printing status output from googledrive} and \link[googlesheets4:googlesheets4-configuration]{googlesheets4 operations}.}
 }
 \value{
-A \link[tibble:tbl_df-class]{tibble} if local backup was (over)written, otherwise \code{NULL}, meaning remote file hasn't deviated from local backup since
-last run, invisibly.
+A \link[tibble:tbl_df-class]{tibble} if the local backup was (over)written, otherwise \code{NULL}, meaning the remote file hasn't deviated from the local backup
+since the last run, invisibly.
 }
 \description{
 Creates a local backup of a \href{https://en.wikipedia.org/wiki/Google_Sheets}{Google Sheet}. It is accessed via \code{\link[googlesheets4:range_read]{googlesheets4::read_sheet()}} and written via
@@ -39,7 +39,7 @@ Creates a local backup of a \href{https://en.wikipedia.org/wiki/Google_Sheets}{G
 }
 \details{
 \code{backup_g_sheet()} only backs up a single worksheet at once (specified by the optional \code{sheet} argument). If you intend to backup multiple worksheets of the
-same Google Sheet, consider using \code{\link[=backup_g_file]{backup_g_file()}} in combination with a file \code{type} that supports multiple worksheets like \code{ods} or \code{xlsx}.
+same Google Sheet, consider using \code{\link[=backup_g_file]{backup_g_file()}} in combination with a file \code{type} that supports multiple worksheets like \code{"ods"} or \code{"xlsx"}.
 }
 \seealso{
 Other Google Apps functions:
