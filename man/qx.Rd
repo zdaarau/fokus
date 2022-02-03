@@ -39,8 +39,6 @@ Other questionnaire and survey functions and datasets:
 \code{\link{export_q_all}()},
 \code{\link{export_qr_codes}()},
 \code{\link{export_q}()},
-\code{\link{postal_dispatch_type_prose}()},
-\code{\link{postal_dispatch_way_prose}()},
 \code{\link{proposals}}
 }
 \concept{q_survey}

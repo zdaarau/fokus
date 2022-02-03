@@ -99,8 +99,6 @@ reference:
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities
-  - postal_dispatch_type_prose
-  - postal_dispatch_way_prose
 - title: Variable-related
 - contents:
   - is_skill_question_v
@@ -113,6 +111,11 @@ reference:
   - shorten_v_names
   - shorten_colnames
   - restore_colnames
+- title: Prose text
+- contents:
+  - ballot_type_prose
+  - postal_dispatch_type_prose
+  - postal_dispatch_way_prose
 - title: Google Apps
 - contents:
   - backup_g_file

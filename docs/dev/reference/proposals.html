@@ -149,34 +149,32 @@
 <code><a href='export_q_all.html'>export_q_all</a>()</code>,
 <code><a href='export_qr_codes.html'>export_qr_codes</a>()</code>,
 <code><a href='export_q.html'>export_q</a>()</code>,
-<code><a href='postal_dispatch_type_prose.html'>postal_dispatch_type_prose</a>()</code>,
-<code><a href='postal_dispatch_way_prose.html'>postal_dispatch_way_prose</a>()</code>,
 <code><a href='qx.html'>qx</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>proposals</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 19 × 7</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    ballot_date lvl      canton    nr type    name.de.short    name.de.long      </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> 2018-09-23  cantonal aargau     1 citize… Millionärssteue… Millionärssteuer …</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> 2018-09-23  federal  aargau     1 citize… Velo-Initiative  Bundesbeschluss ü…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> 2018-09-23  federal  aargau     2 citize… Fair-Food-Initi… Für gesunde sowie…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> 2018-09-23  federal  aargau     3 citize… Initiative für … Für Ernährungssou…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> 2018-11-25  cantonal aargau     1 citize… Waldinitiative   JA! für euse Wald </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> 2018-11-25  cantonal aargau     2 mandat… Auslandschweize… Ständeratswahlrec…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> 2018-11-25  federal  aargau     1 citize… Hornkuh-Initiat… Für die Würde der…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> 2018-11-25  federal  aargau     2 citize… Selbstbestimmun… Schweizer Recht s…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> 2018-11-25  federal  aargau     3 option… Überwachung von… Änderung des Bund…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> 2020-09-27  cantonal aargau     1 citize… Abschaffung der… Neuorganisation d…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> 2020-09-27  cantonal aargau     2 option… Energiegesetz    Energiegesetz des…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> 2020-09-27  federal  aargau     1 citize… Begrenzungsinit… Volksinitiative «…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span> 2020-09-27  federal  aargau     2 option… Jagdgesetz       Änderung des Jagd…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span> 2020-09-27  federal  aargau     3 option… Höheren Kinder-… Änderung des Bund…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span> 2020-09-27  federal  aargau     4 indire… Vaterschaftsurl… Änderung des Erwe…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span> 2020-09-27  federal  aargau     5 option… Beschaffung neu… Bundesbeschluss ü…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span> 2021-11-28  federal  aargau     1 citize… Pflegeinitiative Für eine starke P…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>18</span> 2021-11-28  federal  aargau     2 citize… Justiz-Initiati… Bestimmung der Bu…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>19</span> 2021-11-28  federal  aargau     3 option… Covid-Gesetz     Änderung vom 19. …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ballot_date lvl      canton    nr type             name.de.short name.de.long</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> 2018-09-23  cantonal aargau     1 citizens' initi… Millionärsst… Millionärss…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> 2018-09-23  federal  aargau     1 citizens' initi… Velo-Initiat… Bundesbesch…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> 2018-09-23  federal  aargau     2 citizens' initi… Fair-Food-In… Für gesunde…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> 2018-09-23  federal  aargau     3 citizens' initi… Initiative f… Für Ernähru…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> 2018-11-25  cantonal aargau     1 citizens' initi… Waldinitiati… JA! für eus…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> 2018-11-25  cantonal aargau     2 mandatory refer… Auslandschwe… Ständeratsw…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> 2018-11-25  federal  aargau     1 citizens' initi… Hornkuh-Init… Für die Wür…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> 2018-11-25  federal  aargau     2 citizens' initi… Selbstbestim… Schweizer R…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> 2018-11-25  federal  aargau     3 optional refere… Überwachung … Änderung de…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> 2020-09-27  cantonal aargau     1 citizens' initi… Abschaffung … Neuorganisa…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> 2020-09-27  cantonal aargau     2 optional refere… Energiegesetz Energiegese…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> 2020-09-27  federal  aargau     1 citizens' initi… Begrenzungsi… Volksinitia…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span> 2020-09-27  federal  aargau     2 optional refere… Jagdgesetz    Änderung de…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span> 2020-09-27  federal  aargau     3 optional refere… Höheren Kind… Änderung de…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span> 2020-09-27  federal  aargau     4 indirect counte… Vaterschafts… Änderung de…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span> 2020-09-27  federal  aargau     5 optional refere… Beschaffung … Bundesbesch…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span> 2021-11-28  federal  aargau     1 citizens' initi… Pflegeinitia… Für eine st…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>18</span> 2021-11-28  federal  aargau     2 citizens' initi… Justiz-Initi… Bestimmung …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>19</span> 2021-11-28  federal  aargau     3 optional refere… Covid-Gesetz  Änderung vo…</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

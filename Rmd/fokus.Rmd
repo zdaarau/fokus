@@ -5533,83 +5533,6 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
 }
 ```
 
-### `postal_dispatch_type_prose`
-
-```{r}
-#' Transform postal dispatch way into prose string
-#'
-#' Transforms a [postal dispatch type][all_postal_dispatch_types] into a full prose string representation.
-#'
-#' @inheritParams postal_dispatch_way
-#' @inheritParams proposal_name
-#'
-#' @return A character scalar.
-#' @family q_survey
-#' @export
-#'
-#' @examples
-#' fokus::all_postal_dispatch_types |>
-#'   purrr::map_dfr(~ tibble::tibble(type = .x,
-#'                                   de = fokus::postal_dispatch_type_prose(dispatch_type = .x,
-#'                                                                          lang = "de"),
-#'                                   en = fokus::postal_dispatch_type_prose(dispatch_type = .x,
-#'                                                                          lang = "en")))
-postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types,
-                                       lang = c("de", "en")) {
-  
-  dispatch_type <- rlang::arg_match(dispatch_type)
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = dispatch_type,
-                     invitation = "Einladungsschreiben",
-                     reminder = "Erinnerungsschreiben",
-                     prepaid_reply_envelope = "vorfrankiertes R\u00fcckantwortcouvert"),
-         en = switch(EXPR = dispatch_type,
-                     invitation = "invitation letter",
-                     reminder = "reminder letter",
-                     prepaid_reply_envelope = "prepaid reply envelope"))
-}
-```
-
-### `postal_dispatch_way_prose`
-
-```{r}
-#' Transform postal dispatch way into prose string
-#'
-#' Transforms a [postal dispatch way][postal_dispatch_way] into a full prose string representation.
-#'
-#' @inheritParams proposal_name
-#' @param dispatch_way Postal dispatch way One of
-#' `r pal::as_md_val_list(all_postal_dispatch_ways)`
-#'
-#' @return A character scalar.
-#' @family q_survey
-#' @export
-#'
-#' @examples
-#' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
-#'                            canton = "aargau",
-#'                            dispatch_type = "invitation") |>
-#'   fokus::postal_dispatch_way_prose()
-postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
-                                      lang = c("de", "en")) {
-  
-  dispatch_way <- rlang::arg_match(dispatch_way)
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = dispatch_way,
-                     "A" = "A-Post",
-                     "B" = "B-Post",
-                     "B bulk mailing" = "B-Post-Massensendung"),
-         en = switch(EXPR = dispatch_way,
-                     "A" = "A priority mail",
-                     "B" = "B mail",
-                     "B bulk mailing" = "B bulk mailing"))
-}
-```
-
 ## Variable-related
 
 ### `is_skill_question_v`
@@ -5918,6 +5841,122 @@ restore_colnames <- function(x) {
 
   x %>% magrittr::set_colnames(value = shorten_v_names(v_names = colnames(x),
                                                        reverse = TRUE))
+}
+```
+
+## Prose text
+
+### `ballot_type_prose`
+
+```{r}
+#' Transform ballot type into prose string
+#'
+#' Transforms a [ballot type][all_ballot_types] into a full prose string representation.
+#'
+#' @inheritParams lvls
+#' @inheritParams proposal_name
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::all_ballot_types |>
+#'   purrr::map_dfr(~ tibble::tibble(type = .x,
+#'                                   de = fokus::ballot_type_prose(ballot_type = .x,
+#'                                                                 lang = "de"),
+#'                                   en = fokus::ballot_type_prose(ballot_type = .x,
+#'                                                                 lang = "en")))
+ballot_type_prose <- function(ballot_type = all_ballot_types,
+                              lang = c("de", "en")) {
+  
+  ballot_type <- rlang::arg_match(ballot_type)
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = ballot_type,
+                     referendum = "Abstimmungen",
+                     election = "Wahlen"),
+         en = switch(EXPR = ballot_type,
+                     referendum = "referendums",
+                     election = "elections"))
+}
+```
+
+### `postal_dispatch_type_prose`
+
+```{r}
+#' Transform postal dispatch type into prose string
+#'
+#' Transforms a [postal dispatch type][all_postal_dispatch_types] into a full prose string representation.
+#'
+#' @inheritParams postal_dispatch_way
+#' @inheritParams proposal_name
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::all_postal_dispatch_types |>
+#'   purrr::map_dfr(~ tibble::tibble(type = .x,
+#'                                   de = fokus::postal_dispatch_type_prose(dispatch_type = .x,
+#'                                                                          lang = "de"),
+#'                                   en = fokus::postal_dispatch_type_prose(dispatch_type = .x,
+#'                                                                          lang = "en")))
+postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types,
+                                       lang = c("de", "en")) {
+  
+  dispatch_type <- rlang::arg_match(dispatch_type)
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = dispatch_type,
+                     invitation = "Einladungsschreiben",
+                     reminder = "Erinnerungsschreiben",
+                     prepaid_reply_envelope = "vorfrankiertes R\u00fcckantwortcouvert"),
+         en = switch(EXPR = dispatch_type,
+                     invitation = "invitation letter",
+                     reminder = "reminder letter",
+                     prepaid_reply_envelope = "prepaid reply envelope"))
+}
+```
+
+### `postal_dispatch_way_prose`
+
+```{r}
+#' Transform postal dispatch way into prose string
+#'
+#' Transforms a [postal dispatch way][postal_dispatch_way] into a full prose string representation.
+#'
+#' @inheritParams proposal_name
+#' @param dispatch_way Postal dispatch way One of
+#' `r pal::as_md_val_list(all_postal_dispatch_ways)`
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
+#'                            canton = "aargau",
+#'                            dispatch_type = "invitation") |>
+#'   fokus::postal_dispatch_way_prose()
+postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
+                                      lang = c("de", "en")) {
+  
+  dispatch_way <- rlang::arg_match(dispatch_way)
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = dispatch_way,
+                     "A" = "A-Post",
+                     "B" = "B-Post",
+                     "B bulk mailing" = "B-Post-Massensendung"),
+         en = switch(EXPR = dispatch_way,
+                     "A" = "A priority mail",
+                     "B" = "B mail",
+                     "B bulk mailing" = "B bulk mailing"))
 }
 ```
 

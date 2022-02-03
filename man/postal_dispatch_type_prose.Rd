@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{postal_dispatch_type_prose}
 \alias{postal_dispatch_type_prose}
-\title{Transform postal dispatch way into prose string}
+\title{Transform postal dispatch type into prose string}
 \usage{
 postal_dispatch_type_prose(
   dispatch_type = all_postal_dispatch_types,
@@ -38,15 +38,8 @@ fokus::all_postal_dispatch_types |>
                                                                          lang = "en")))
 }
 \seealso{
-Other questionnaire and survey functions and datasets:
-\code{\link{elections}},
-\code{\link{export_easyvote_municipalities}()},
-\code{\link{export_print_recipients}()},
-\code{\link{export_q_all}()},
-\code{\link{export_qr_codes}()},
-\code{\link{export_q}()},
-\code{\link{postal_dispatch_way_prose}()},
-\code{\link{proposals}},
-\code{\link{qx}}
+Other prose text functions:
+\code{\link{ballot_type_prose}()},
+\code{\link{postal_dispatch_way_prose}()}
 }
-\concept{q_survey}
+\concept{prose}

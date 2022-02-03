@@ -48,8 +48,6 @@ Other questionnaire and survey functions and datasets:
 \code{\link{export_print_recipients}()},
 \code{\link{export_q_all}()},
 \code{\link{export_q}()},
-\code{\link{postal_dispatch_type_prose}()},
-\code{\link{postal_dispatch_way_prose}()},
 \code{\link{proposals}},
 \code{\link{qx}}
 }

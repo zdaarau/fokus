@@ -7,6 +7,7 @@ list(
                          predicate_skill_question = "Other skill question predicate functions:",
                          predicate_other          = "Other predicate functions:",
                          private                  = "Other private FOKUS directory functions:",
+                         prose                    = "Other prose text functions:",
                          q_gen                    = "Other questionnaire generation functions:",
                          q_internal               = "Other questionnaire-internal functions:",
                          q_predicate              = "Other questionnaire predicate functions:",
