@@ -54,7 +54,7 @@ Suggests:
     readxl (>= 1.3.1),
     rmarkdown (>= 2.11),
     RSelenium (>= 1.7.7.9002),
-    rsvg (>= 2.1.2.9000),
+    rsvg (>= 2.2.0),
     testthat (>= 3.1.1),
     writexl (>= 1.4.0),
     yay (>= 0.0.9007)
@@ -62,7 +62,6 @@ VignetteBuilder:
     knitr
 Remotes:
     github::hrbrmstr/qrencoder,
-    github::jeroen/rsvg,
     github::r-lib/asciicast,
     github::ropensci/RSelenium#237,
     gitlab::salim_b/r/pkgs/pal,

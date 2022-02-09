@@ -19,8 +19,6 @@
 
     -   Use EN instead of DE values in `who` key
 
--   Remove `github::jeroen/rsvg` remote from DESCRIPTION as soon as rsvg v2.1.3+ is released (containing [PR #27](https://github.com/jeroen/rsvg/pull/27)).
-
 -   Remove `github::r-lib/asciicast` remote from DESCRIPTION as soon as asciicast v1.0.1+ is released (containing [PR
     #28](https://github.com/r-lib/asciicast/pull/28))
 
