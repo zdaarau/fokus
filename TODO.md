@@ -2,17 +2,6 @@
 
 ## General
 
--   Bug report about feeding `rlang::arg_match` a zero-length `arg` (subscript out of bounds):
-
-    ``` r
-    bla <- function(x = c("ho", "ha")) {
-        x <- rlang::arg_match0(arg = x, arg_nm = "x", values = c("ho", "ha"))
-        paste(x, "blup")
-    }
-
-    bla(character())
-    ```
-
 -   Remove `github::r-lib/asciicast` remote from DESCRIPTION as soon as asciicast v1.0.1+ is released (containing [PR
     #28](https://github.com/r-lib/asciicast/pull/28))
 

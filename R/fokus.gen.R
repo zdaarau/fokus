@@ -339,7 +339,8 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
 
-    cli::cli_abort("No {.val {lvl}} level present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
+    cli::cli_abort("No {.val {lvl}} level present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
+                   .internal = TRUE)
   }
 
   result
@@ -384,7 +385,8 @@ raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
                              values = all_lvls,
                              arg_nm = "lvl")
 
-    cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.")
+    cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.",
+                   .internal = TRUE)
   }
 
   result
@@ -439,7 +441,8 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
 
     cli::cli_abort(paste0("No {.val {lvl}} proposals present",
                           " for {.val {canton}}"[lvl == "cantonal"],
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   proposal <- proposals %>% purrr::pluck(as.character(proposal_nr))
@@ -454,7 +457,8 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
 
     cli::cli_abort(paste0("No {.val {lvl}} proposal {.val {proposal_nr}} present",
                           " for {.val {canton}}"[lvl == "cantonal"],
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   proposal
@@ -501,7 +505,8 @@ raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
 
     cli::cli_abort(paste0("No names present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -545,10 +550,11 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
                              values = all_lvls,
                              arg_nm = "lvl")
     canton <- rlang::arg_match(canton)
-
+    
     cli::cli_abort(paste0("No arguments present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -606,7 +612,8 @@ raw_q_suppl_argument <- function(ballot_date = all_ballot_dates,
 
     cli::cli_abort(paste0("No {.val {side}} argument {.val {argument_nr}} present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -654,7 +661,8 @@ raw_q_suppl_main_motives <- function(ballot_date = all_ballot_dates,
 
     cli::cli_abort(paste0("No main motives present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -696,7 +704,8 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
                              arg_nm = "lvl")
     canton <- rlang::arg_match(canton)
 
-    cli::cli_abort(paste0("No {.val {lvl}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+    cli::cli_abort("No {.val {lvl}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
+                   .internal = TRUE)
   }
 
   result
@@ -751,7 +760,8 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS ",
-                          "questionnaire data."))
+                          "questionnaire data."),
+                   .internal = TRUE)
   }
 
   result %<>% purrr::pluck(as.character(election_nr))
@@ -768,7 +778,8 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} election {.val {election_nr}} for canton {.val {canton}} present in the supplemental ",
-                          "{.val {ballot_date}} FOKUS questionnaire data."))
+                          "{.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -833,7 +844,8 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No names present for {.val {lvl}} {.val {prcd}} election {.val {election_nr}} in canton {.val {canton}} in the supplemental ",
-                          "{.val {ballot_date}} FOKUS questionnaire data."))
+                          "{.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -869,7 +881,8 @@ raw_q_suppl_mode <- function(ballot_date = all_ballot_dates,
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
 
-    cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.")
+    cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.",
+                   .internal = TRUE)
   }
 
   result
@@ -937,7 +950,8 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
                                          paste0(" on the {.val {lvl}} level",
                                                 " for {.val {canton}}"[lvl == "cantonal"]),
                                          " for {.val {lvl}} proposal {.val {proposal_nr}}"),
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
+                   .internal = TRUE)
   }
 
   result
@@ -991,7 +1005,8 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
                           dplyr::if_else(length(proposal_nr) == 0L,
                                          paste0(" on the {.val {lvl}} level", " for {.val {canton}}"[lvl == "cantonal"]),
                                          " for {.val {lvl}} proposal {.val {proposal_nr}}"),
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data. Only {length(skill_questions)} skill questions included."))
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data. Only {length(skill_questions)} skill questions included."),
+                   .internal = TRUE)
   }
 
   result
@@ -1066,7 +1081,9 @@ pick_right_helper <- function(x,
     # integrity check: ensure there aren't any overlapping intervals
     if (length(which(matches_begin_end_subkeys)) > 1L) {
 
-      cli::cli_abort("Illegal overlapping interval subkeys found: {.var {begin_end_subkeys[matches_begin_end_subkeys]}}\n\nPlease fix this and run again.")
+      cli::cli_abort(c("Illegal overlapping interval subkeys found: {.var {begin_end_subkeys[matches_begin_end_subkeys]}}",
+                       ">" = "Please fix this and run again."),
+                     .internal = TRUE)
     }
 
     ballot_types <- ballot_types(ballot_date = ballot_date,
@@ -1097,7 +1114,8 @@ pick_right_helper <- function(x,
       key %in% q_item_keys$key ~ unlist(q_item_keys$default_val[q_item_keys$key == key]),
 
       # abort in any remaining case
-      ~ cli::cli_abort("Undefined behavior, please debug. {.arg {key}} is {.val {key}}, {.arg {x}} is {.field {x}}.")
+      ~ cli::cli_abort("Undefined behavior, please debug. {.arg {key}} is {.val {key}}, {.arg {x}} is {.field {x}}.",
+                       .internal = TRUE)
     )
   }
 
@@ -1173,7 +1191,8 @@ resolve_q_val <- function(x,
       key %in% q_item_keys$key[q_item_keys$type == "double"] ~
         as.double(.),
       # undefined behaviour
-      ~ cli::cli_abort("Undefined behaviour in {.fun resolve_q_val}. Please debug.")
+      ~ cli::cli_abort("Undefined behaviour in {.fun resolve_q_val}. Please debug.",
+                       .internal = TRUE)
     )
 }
 
@@ -1509,7 +1528,8 @@ assemble_q_item_tibble <- function(ballot_date,
                         if (length(item_map$who) > 1L) {
                           cli::cli_abort(paste0("{.field who} of variable {.var {result$variable_name}} has changed over time. Thus an explicit {.field who}-",
                                                 "constraint has to be specified at the end of {.field variable_label_common} in the raw ",
-                                                "{.file questionnaire.toml}."))
+                                                "{.file questionnaire.toml}."),
+                                         .internal = TRUE)
                         }
                         result$variable_label_common %<>% add_who_constraint(who = who_en)
                       }
@@ -1604,7 +1624,8 @@ validate_q_tibble <- function(q_tibble) {
       cli::cli_ul(items = q_tibble$variable_name[i_violated])
     })
 
-    cli::cli_abort(paste0("The number of {.var {multi_val_v_names}} differs for the variable names listed above."))
+    cli::cli_abort("The number of {.var {multi_val_v_names}} differs for the variable names listed above.",
+                   .internal = TRUE)
   }
 
   invisible(q_tibble)
@@ -2253,7 +2274,8 @@ read_voting_register_data_extra <- function(ballot_date,
                 n_adults_in_household_official,
                 n_kids_in_household_official))
 
-    cli::cli_abort("Unexpected column(s) detected in {.file input/data/{canton}/voting_register_data_extra_{date_data}.xlsx}: {.val unknown_colnames}")
+    cli::cli_abort("Unexpected column(s) detected in {.file input/data/{canton}/voting_register_data_extra_{date_data}.xlsx}: {.val unknown_colnames}",
+                   .internal = TRUE)
   }
 
   # TODO!
@@ -2313,7 +2335,8 @@ read_voting_register_ids <- function(ballot_date,
     readr::read_csv(col_types = "i") %>%
     # integrity check
     purrr::when(ncol(.) > 1L ~
-                  cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug."),
+                  cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug.",
+                                 .internal = TRUE),
                 ~ .) %>%
     dplyr::first()
 }
@@ -4292,7 +4315,8 @@ ballot_title <- function(ballot_date = all_ballot_dates,
                                canton = canton)
 
   if (!length(ballot_types)) {
-    cli::cli_abort("No ballot type could be determined. Please debug.")
+    cli::cli_abort("No ballot type could be determined. Please debug.",
+                   .internal = TRUE)
   }
 
   if (lang == "de") {
@@ -4345,7 +4369,8 @@ political_issues <- function(ballot_date = all_ballot_dates,
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
 
-    cli::cli_abort("No political issues present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
+    cli::cli_abort("No political issues present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
+                   .internal = TRUE)
   }
 
   result %>%
@@ -5083,7 +5108,8 @@ shorten_v_names <- function(v_names,
                                 paste0("(?<=_)", .x, "(?=(_|$))"),
                               . == "begin-middle-end" ~
                                 paste0("(?<=(^|_))", .x, "(?=(_|$))"),
-                              ~ cli::cli_abort("Unknown {.var allowed_at} type: {.val {.}}."))
+                              ~ cli::cli_abort("Unknown {.var allowed_at} type: {.val {.}}.",
+                                               .internal = TRUE))
   ))
 
   pattern_replacement <- rules$replacement
@@ -5480,7 +5506,7 @@ backup_g_sheet <- function(g_id,
                     ~ cli::cli_abort("Exporting filetype {.file {.}} not yet implemented."))
       
     } else {
-      cli::cli_abort("A file already exists under {.arg path} {.file {path}} but {.arg overwrite} was set to {.val FALSE}. Aborting.")
+      cli::cli_alert_warning("A file already exists under {.arg path} {.file {path}} but {.arg overwrite} was set to {.val FALSE}. Nothing done.")
     }
   }
   

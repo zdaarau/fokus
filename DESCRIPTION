@@ -18,7 +18,7 @@ Depends:
     R (>= 4.1)
 Imports: 
     checkmate (>= 2.0.0),
-    cli (>= 3.0.0),
+    cli (>= 3.1.1),
     dplyr (>= 1.0.4),
     forcats (>= 0.5.0),
     fs (>= 1.5.2),
@@ -26,12 +26,12 @@ Imports:
     knitr (>= 1.30),
     lubridate (>= 1.7.9),
     magrittr (>= 2.0.0),
-    pal (>= 0.0.9078),
-    pkgpins (>= 0.7.0),
+    pal (>= 0.0.9079),
+    pkgpins (>= 0.7.0.9003),
     purrr (>= 0.3.4),
     readr (>= 1.4.0),
     rex (>= 1.2.0),
-    rlang (>= 0.4.7),
+    rlang (>= 1.0.1),
     salim (>= 0.0.9011),
     stringr (>= 1.4.0),
     tibble (>= 3.0.3),
@@ -57,7 +57,7 @@ Suggests:
     rsvg (>= 2.2.0),
     testthat (>= 3.1.1),
     writexl (>= 1.4.0),
-    yay (>= 0.0.9007)
+    yay (>= 0.0.9008)
 VignetteBuilder: 
     knitr
 Remotes:
