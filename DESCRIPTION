@@ -12,7 +12,7 @@ Description: fokus allows to (pre-)process and clean the raw data, analyze
     Centre for Democracy Studies Aarau (ZDA) at the University of Zurich,
     Switzerland.
 License: AGPL (>= 3)
-URL: https://gitlab.com/zdaarau/rpkgs/fokus
+URL: https://rpkg.dev/fokus, https://gitlab.com/zdaarau/rpkgs/fokus
 BugReports: https://gitlab.com/zdaarau/rpkgs/fokus/issues
 Depends: 
     R (>= 4.1)
