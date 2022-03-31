@@ -1624,7 +1624,13 @@ validate_q_tibble <- function(q_tibble) {
       cli::cli_ul(items = q_tibble$variable_name[i_violated])
     })
 
-    cli::cli_abort("The number of {.var {multi_val_v_names}} differs for the variable names listed above.",
+    bullets <-
+      q_tibble$variable_name[i_violated] %>%
+      purrr::map_chr(~ glue::glue("{{.var {.x}}}")) %>%
+      rlang::set_names("*")
+    
+    cli::cli_abort(c("The number of {.var {multi_val_v_names}} differs for the following variable names:",
+                     bullets),
                    .internal = TRUE)
   }
 
@@ -4631,7 +4637,8 @@ export_q <- function(ballot_date = all_ballot_dates,
                               "--convert-to xlsx",
                               "--outdir \"{path_dir}\"",
                               "\"{html_path}\"",
-                              .sep = " "))
+                              .sep = " "),
+            stdout = ifelse(verbose, "", FALSE))
     cli::cli_progress_done()
   }
 
@@ -4645,7 +4652,8 @@ export_q <- function(ballot_date = all_ballot_dates,
 
     yay::deploy_static_site(from_path = path_dir,
                             to_path = "~/Arbeit/ZDA/Git/c2d-zda/c2d-zda.gitlab.io/public/",
-                            clean_to_path = FALSE)
+                            clean_to_path = FALSE,
+                            quiet = !verbose)
     cli::cli_progress_done()
   }
 

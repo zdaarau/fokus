@@ -156,6 +156,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | authentications                 | auths            |
 | bibliographies                  | bibs             |
 | bibliography                    | bib              |
+| chapter                         | chpt             |
+| chapters                        | chpts            |
 | character                       | chr              |
 | characters                      | chrs             |
 | column                          | col              |
@@ -177,6 +179,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | dependencies                    | deps             |
 | develop, development, developer | dev              |
 | developments, developers        | devs             |
+| dict                            | dictionary       |
+| dicts                           | dictionaries     |
 | differences                     | diffs            |
 | differentiate, difference       | diff             |
 | directories                     | dirs             |
@@ -250,6 +254,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | R Markdown                      | rmd              |
 | refer, reference                | ref              |
 | references                      | refs             |
+| referendum                      | rfrnd            |
+| referendums, referenda          | rfrnds           |
 | regular expression(s)           | regex            |
 | relative                        | rel              |
 | remove                          | rm               |
@@ -272,6 +278,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | variables                       | vx               |
 | vectorize, vector               | vctr             |
 | vectors                         | vctrs            |
+| version                         | vrsn             |
+| versions                        | vrsns            |
 | working directory               | wd               |
 
 </details>

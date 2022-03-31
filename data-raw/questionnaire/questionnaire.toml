@@ -4013,6 +4013,13 @@ response_options = [ "ledig", "verheiratet/in eingetragener Partnerschaft", "ver
 value_labels = [ "single", "married/in civil union", "widowed", "divorced/dissolved civil union" ]
 include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'marital_status', key = 'include') }"
 [[y_generated.001_all.001_both.item]]
+topic = "Zivilstand (amtliche Information, reduziert)[^pseudon]"
+variable_name = "marital_status_official_reduced"
+variable_label = "respondent's marital status (official cantonal register information; reduced)"
+response_options = [ "ledig", "verheiratet/in eingetragener Partnerschaft", "verwitwet", "geschieden/aufgelöste Partnerschaft" ]
+value_labels = [ "single", "married/in civil union", "widowed", "divorced/dissolved civil union" ]
+include = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('00_cantonal_statistical_office', '003_to_zda'), v_name = 'marital_status_official', key = 'include') }"
+[[y_generated.001_all.001_both.item]]
 topic = "Konfession (reduziert)"
 question = "{ q_item_val(ballot_date = ballot_date, canton = canton, branch_path = '07_personal_more', v_name = 'denomination', key = 'question') }"
 variable_name = "denomination_reduced"
