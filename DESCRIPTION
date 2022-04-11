@@ -32,12 +32,11 @@ Imports:
     readr (>= 1.4.0),
     rex (>= 1.2.0),
     rlang (>= 1.0.1),
-    salim (>= 0.0.9011),
+    salim (>= 0.0.9014),
     stringr (>= 1.4.0),
     tibble (>= 3.0.3),
     tidyr (>= 1.1.2),
     utils,
-    withr (>= 2.3.0),
     xfun (>= 0.18)
 Suggests:
     archive (>= 1.1.3),

@@ -126,5 +126,4 @@ reference:
 - contents:
   - md_emphasize
   - lgl_to_unicode
-  - prettify_date
   - read_toml

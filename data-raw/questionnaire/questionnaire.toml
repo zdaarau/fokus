@@ -260,10 +260,10 @@ variable_label = "respondent's interest in Swiss politics"
 include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[02_political_start.001_general.002_other.item]]
 topic = "Teilnahme"
-question.default.referendum = "Gerade erst fanden Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an der Abstimmung vom { prettify_date(ballot_date, locale = 'de') } teilgenommen oder nicht? (leer einlegen zählt als Teilnahme)"
+question.default.referendum = "Gerade erst fanden Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an der Abstimmung vom { salim::prettify_date(ballot_date, locale = 'de') } teilgenommen oder nicht? (leer einlegen zählt als Teilnahme)"
 question.20180923_20181125.referendum = "Gerade erst fanden Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an der Abstimmung teilgenommen oder nicht? (leer einlegen zählt als Teilnahme)"
-question.default.election = "Gerade erst fanden Wahlen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Wahlberechtigten teil. Haben Sie an den Wahlen vom { prettify_date(ballot_date, locale = 'de') } teilgenommen (leer einlegen zählt als Teilnahme)?"
-question.20191020.election = "Gerade erst fanden Wahlen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an den Wahlen vom { prettify_date(ballot_date, locale = 'de') } teilgenommen (leer einlegen zählt als Teilnahme)?"
+question.default.election = "Gerade erst fanden Wahlen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Wahlberechtigten teil. Haben Sie an den Wahlen vom { salim::prettify_date(ballot_date, locale = 'de') } teilgenommen (leer einlegen zählt als Teilnahme)?"
+question.20191020.election = "Gerade erst fanden Wahlen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an den Wahlen vom { salim::prettify_date(ballot_date, locale = 'de') } teilgenommen (leer einlegen zählt als Teilnahme)?"
 question_common = "Gerade erst fanden Wahlen oder Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an diesem Urnengang teilgenommen (leer einlegen zählt als Teilnahme)?"
 variable_name = "participation"
 variable_label = "respondent's participation status at the current ballot (blank votes count as 'participated')"
@@ -809,8 +809,8 @@ question = """
 {
   dplyr::if_else(i == 1L,
                  paste0('Am ',
-                         prettify_date(ballot_date,
-                                       locale = 'de'),
+                         salim::prettify_date(ballot_date,
+                                              locale = 'de'),
                         ' fand',
                         dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
                                                        lvls = 'federal',
@@ -931,8 +931,8 @@ question = """
                                 canton = canton,
                                 prcds = 'proportional') == 0,
                  paste0('Am ',
-                        prettify_date(ballot_date,
-                                      locale = 'de'),
+                        salim::prettify_date(ballot_date,
+                                             locale = 'de'),
                         ' fand',
                         dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
                                                        lvls = 'federal',
@@ -1017,11 +1017,11 @@ question = """
                                                              'en',
                                                              ''),
                                               ' am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de')),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de')),
                                        paste0('Am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de'),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de'),
                                               ' fand',
                                               dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
                                                                              lvls = 'cantonal',
@@ -1154,11 +1154,11 @@ question = """
                                                              'en',
                                                              ''),
                                               ' am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de')),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de')),
                                               paste0('Am ',
-                                                     prettify_date(ballot_date,
-                                                                   locale = 'de'),
+                                                     salim::prettify_date(ballot_date,
+                                                                          locale = 'de'),
                                                      ' fand',
                                                      dplyr::if_else(sum(n_elections(ballot_date = ballot_date,
                                                                                     lvls = 'cantonal',
@@ -1277,8 +1277,8 @@ question.default = """
 {
   dplyr::if_else(i == 1L,
                  paste0('Am ',
-                        prettify_date(ballot_date,
-                                      locale = 'de'),
+                        salim::prettify_date(ballot_date,
+                                             locale = 'de'),
                         ' wurde über ',
                         salim::write_out_n(n_proposals(ballot_date = ballot_date,
                                                        lvls = 'federal',
@@ -1317,8 +1317,8 @@ question.20181125 = """
 {
   dplyr::if_else(i == 1L,
                  paste0('Am ',
-                        prettify_date(ballot_date,
-                                      locale = 'de'),
+                        salim::prettify_date(ballot_date,
+                                             locale = 'de'),
                         ' wurde über ',
                         salim::write_out_n(n_proposals(ballot_date = ballot_date,
                                                        lvls = 'federal',
@@ -1374,11 +1374,11 @@ question.default = """
                                                    lvls = 'federal',
                                                    canton = canton) > 0L,
                                        paste0('Weiter wurde am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de')),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de')),
                                        paste0('Am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de'),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de'),
                                               ' wurde')),
                                        ' über ',
                                        salim::write_out_n(n_proposals(ballot_date = ballot_date,
@@ -1435,11 +1435,11 @@ question.20180923 = """
                                                    lvls = 'federal',
                                                    canton = canton) > 0L,
                                        paste0('Weiter wurde am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de')),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de')),
                                        paste0('Am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de'),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de'),
                                               ' wurde')),
                         ' über ',
                         salim::write_out_n(n_proposals(ballot_date = ballot_date,
@@ -1496,11 +1496,11 @@ question.20181125 = """
                                                    lvls = 'federal',
                                                    canton = canton) > 0L,
                                        paste0('Weiter wurde am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de')),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de')),
                                        paste0('Am ',
-                                              prettify_date(ballot_date,
-                                                            locale = 'de'),
+                                              salim::prettify_date(ballot_date,
+                                                                   locale = 'de'),
                                               ' wurde')),
                         ' über ',
                         salim::write_out_n(n_proposals(ballot_date = ballot_date,
@@ -1562,8 +1562,8 @@ question.20200927 = """
 {
   dplyr::if_else(i == 1L,
                  paste0('Weiter wurde am ',
-                        prettify_date(ballot_date,
-                                      locale = 'de'),
+                        salim::prettify_date(ballot_date,
+                                             locale = 'de'),
                         ' über drei kantonale Vorlagen befunden. Der Einfachheit halber beziehen wir uns in dieser Umfrage bei der _',
                         proposal_name(ballot_date = ballot_date,
                                       lvl = 'cantonal',
@@ -5349,7 +5349,7 @@ id = "anon"
 text = "Diese Variable wird nur ans Umfrageinstitut geliefert und zwecks Anonymisierung der TeilnehmerInnen nach Befragungsende gelöscht, d. h. das ZDA hat zu keinem Zeitpunkt Zugriff auf sie."
 [[footnote]]
 id = "no-data"
-text = "Leider erhalten wir für den Abstimmungstermin vom { prettify_date(ballot_date, locale = 'de') } die für diese Variable notwendigen Registerdaten vom kantonalen Statistikamt (noch) nicht."
+text = "Leider erhalten wir für den Abstimmungstermin vom { salim::prettify_date(ballot_date, locale = 'de') } die für diese Variable notwendigen Registerdaten vom kantonalen Statistikamt (noch) nicht."
 [[footnote]]
 id = "dup"
 text = "In darauffolgenden Abstimmungsterminen wurden bei dieser Variable Mehrfachnennungen zugelassen (`Mehrfachnennungen = 'ja'`)."

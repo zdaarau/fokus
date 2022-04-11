@@ -4332,7 +4332,7 @@ ballot_title <- function(ballot_date = all_ballot_dates,
       purrr::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
                   . == "referendum" ~ "Abstimmungs",
                   . == "election" ~ "Wahl") %>%
-      glue::glue("termin vom {prettify_date(ballot_date, locale = lang)}")
+      paste0("termin vom ", salim::prettify_date(ballot_date, locale = lang))
 
   } else if (lang == "en") {
 
@@ -4340,7 +4340,7 @@ ballot_title <- function(ballot_date = all_ballot_dates,
       ballot_types %>%
       purrr::when(length(.) > 1L ~ "Referendum and election",
                   ~ stringr::str_to_sentence(.)) %>%
-      glue::glue(" date of {prettify_date(ballot_date, locale = lang)}")
+      paste0(" date of ", salim::prettify_date(ballot_date, locale = lang))
   }
 
   result
@@ -5622,36 +5622,6 @@ lgl_to_unicode <- function(x) {
   dplyr::if_else(checkmate::assert_logical(x),
                  unicode_checkmark,
                  unicode_crossmark)
-}
-
-#' Prettify date
-#'
-#' Note that this might only work on (Ubuntu) Linux in the current form since locales are one bitchy hell of a PITA...
-#'
-#' @param date Date to be prettified. A [date][base::Date] or something coercible to.
-#' @param locale Locale the date should be prettified for. Currently only `"en"`/`"en-US"` and `"de"`/`"de-CH"` are implemented.
-#'
-#' @return A character scalar.
-#' @export
-#'
-#' @examples
-#' fokus::prettify_date("2021-12-21")
-prettify_date <- function(date,
-                          locale = c("en", "de", "en-US", "de-CH")) {
-
-  locale <- rlang::arg_match(locale)
-
-  withr::with_locale(new = c("LC_TIME" = purrr::when(. = locale,
-                                                     . %in% c("en", "en-US") ~ "C",
-                                                     . %in% c("de", "de-CH") ~ "de_CH.utf8")),
-                     code =
-                       locale %>%
-                       purrr::when(. %in% c("en", "en-US") ~
-                                     "%B %d, %Y",
-                                   . %in% c("de", "de-CH") ~
-                                     "%d. %B %Y",
-                                   ~ cli::cli_abort("Specified {.arg locale} not implemented yet.")) %>%
-                       format(x = lubridate::as_date(date)))
 }
 
 #' Read in and parse a TOML file as a strict list
