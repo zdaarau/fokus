@@ -22,6 +22,7 @@
 utils::globalVariables(names = c(".",
                                  # tidyselect fns
                                  "all_of",
+                                 "any_of",
                                  "ends_with",
                                  "everything",
                                  "where",
@@ -88,9 +89,6 @@ utils::globalVariables(names = c(".",
                                  "year_of_birth_official",
                                  "Zivilstand"))
 
-# avoid notes about "possible error"s when using non-exported rex shortcuts, cf. https://rex.r-lib.org/#using-rex-in-other-packages
-rex::register_shortcuts(pkg_name = utils::packageName())
-
 #' Abbreviations used in the **fokus** package
 #'
 #' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
@@ -142,9 +140,9 @@ path_private <- function(...) {
 
   if (!is_dir_private_valid) {
 
-    cli::cli_abort(paste0(dplyr::if_else(!is.null(getOption("fokus.path_private")),
-                                         "The option {.field fokus.path_private} is set to {.path {dir_private}}.",
-                                         "The option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}."),
+    cli::cli_abort(paste0(ifelse(!is.null(getOption("fokus.path_private")),
+                                 "The option {.field fokus.path_private} is set to {.path {dir_private}}.",
+                                 "The option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}."),
                           " This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
   }
 
@@ -946,10 +944,10 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No skill questions present",
-                          dplyr::if_else(length(proposal_nr) == 0L,
-                                         paste0(" on the {.val {lvl}} level",
-                                                " for {.val {canton}}"[lvl == "cantonal"]),
-                                         " for {.val {lvl}} proposal {.val {proposal_nr}}"),
+                          ifelse(length(proposal_nr) == 0L,
+                                 paste0(" on the {.val {lvl}} level",
+                                        " for {.val {canton}}"[lvl == "cantonal"]),
+                                 " for {.val {lvl}} proposal {.val {proposal_nr}}"),
                           " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
                    .internal = TRUE)
   }
@@ -1002,9 +1000,9 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No skill question {.val {skill_question_nr}} present",
-                          dplyr::if_else(length(proposal_nr) == 0L,
-                                         paste0(" on the {.val {lvl}} level", " for {.val {canton}}"[lvl == "cantonal"]),
-                                         " for {.val {lvl}} proposal {.val {proposal_nr}}"),
+                          ifelse(length(proposal_nr) == 0L,
+                                 paste0(" on the {.val {lvl}} level", " for {.val {canton}}"[lvl == "cantonal"]),
+                                 " for {.val {lvl}} proposal {.val {proposal_nr}}"),
                           " in the supplemental {.val {ballot_date}} FOKUS questionnaire data. Only {length(skill_questions)} skill questions included."),
                    .internal = TRUE)
   }
@@ -1894,14 +1892,14 @@ q_md_table_body <- function(q_tibble_block,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
             shorten_v_names(v_names = variable_name,
-                            max_n_char = dplyr::if_else(block %in% c("x_polling_agency", "y_generated", "z_generated")
-                                                        || stringr::str_detect(string = variable_name,
-                                                                               pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
-                                                                                                                       "information_source_",
-                                                                                                                       "reason_non_participation_",
-                                                                                                                       "political_occasions_")))),
-                                                        32L,
-                                                        30L)) %>%
+                            max_n_char = ifelse(block %in% c("x_polling_agency", "y_generated", "z_generated")
+                                                || stringr::str_detect(string = variable_name,
+                                                                       pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
+                                                                                                               "information_source_",
+                                                                                                               "reason_non_participation_",
+                                                                                                               "political_occasions_")))),
+                                                32L,
+                                                30L)) %>%
               pal::wrap_chr("`"),
             variable_label,
             response_options %>%
@@ -2157,9 +2155,9 @@ q_lbl_col_sym <- function(lang = c("de", "en")) {
   
   lang <- rlang::arg_match(lang)
   
-  as.symbol(dplyr::if_else(lang == "de",
-                           "response_options",
-                           "value_labels"))
+  as.symbol(ifelse(lang == "de",
+                   "response_options",
+                   "value_labels"))
 }
 
 #' Read in easyvote municipality data
@@ -2425,13 +2423,12 @@ collapse_break <- function(s) {
   paste0(s, collapse = "<br>")
 }
 
-wrap_backtick <- function(s) {
+wrap_backtick <- function(x) {
 
-  purrr::map_chr(.x = s,
-                 .f = ~ dplyr::if_else(.x == "-" | stringr::str_detect(string = .x,
-                                                                       pattern = "^(_.*_|\\*.*\\*)$"),
-                                       as.character(.x),
-                                       paste0("`", .x, "`")))
+  dplyr::if_else(x == "-" | stringr::str_detect(string = x,
+                                                pattern = "^(_.*_|\\*.*\\*)$"),
+                 as.character(x),
+                 paste0("`", x, "`"))
 }
 
 this_pkg <- utils::packageName()
@@ -3992,9 +3989,9 @@ election_parties <- function(ballot_date = all_ballot_dates,
                        canton = canton,
                        prcd = "proportional",
                        election_nr = election_nr) %>%
-    purrr::chuck(dplyr::if_else(past,
-                                "past_party",
-                                "party")) %>%
+    purrr::chuck(ifelse(past,
+                        "past_party",
+                        "party")) %>%
     purrr::map(as_flat_list) %>%
     purrr::map_dfr(tibble::as_tibble)
 }
@@ -5007,9 +5004,9 @@ v_lbl <- function(v_name,
 
   (checkmate::assert_string(unique(result),
                             na.ok = TRUE,
-                            .var.name = dplyr::if_else(is_common,
-                                                       "variable_label_common",
-                                                       "variable_label")))
+                            .var.name = ifelse(is_common,
+                                               "variable_label_common",
+                                               "variable_label")))
 }
 
 #' Determine variable's political level(s)
@@ -5405,9 +5402,9 @@ backup_g_file <- function(g_id,
   result <- NULL
   remote_mod <- g_file_mod_time(g_id,
                                 path_gcp_service_account_key = path_gcp_service_account_key)
-  local_mod <- dplyr::if_else(fs::file_exists(path),
-                              pal::path_mod_time(path),
-                              lubridate::as_datetime(0L))
+  local_mod <- ifelse(fs::file_exists(path),
+                      pal::path_mod_time(path),
+                      lubridate::as_datetime(0L))
   
   if (local_mod < remote_mod || force) {
     
@@ -5481,9 +5478,9 @@ backup_g_sheet <- function(g_id,
   data <- NULL
   remote_mod <- g_file_mod_time(g_id,
                                 path_gcp_service_account_key = path_gcp_service_account_key)
-  local_mod <- dplyr::if_else(fs::file_exists(path),
-                              pal::path_mod_time(path),
-                              lubridate::as_datetime(0L))
+  local_mod <- ifelse(fs::file_exists(path),
+                      pal::path_mod_time(path),
+                      lubridate::as_datetime(0L))
   
   if (local_mod < remote_mod || force) {
     
@@ -5619,7 +5616,9 @@ md_emphasize <- function(x,
 #' fokus::lgl_to_unicode(c(TRUE, TRUE, FALSE, NA))
 lgl_to_unicode <- function(x) {
 
-  dplyr::if_else(checkmate::assert_logical(x),
+  checkmate::assert_logical(x)
+  
+  dplyr::if_else(x,
                  unicode_checkmark,
                  unicode_crossmark)
 }

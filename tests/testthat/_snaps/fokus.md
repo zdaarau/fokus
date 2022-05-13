@@ -123,22 +123,22 @@
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error, please report it to the package authors.
+    i This is an internal error in the cli package, please report it to the package authors.
 
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error, please report it to the package authors.
+    i This is an internal error in the cli package, please report it to the package authors.
 
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error, please report it to the package authors.
+    i This is an internal error in the cli package, please report it to the package authors.
 
 ---
 
     No political issues present in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error, please report it to the package authors.
+    i This is an internal error in the cli package, please report it to the package authors.
 
 ---
 
