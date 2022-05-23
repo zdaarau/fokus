@@ -118,6 +118,29 @@ abbreviations <- function(expand = FALSE) {
                 ~.)
 }
 
+#' Convert language code to country-specific locale ID
+#'
+#' Converts a language code as used in many of this package's functions to a country-specific locale identifier.
+#'
+#' @param lang Language. One of
+#'   - `"de"`
+#'   - `"en"`
+#'
+#' @return A character scalar.
+#' @keywords internal
+#'
+#' @examples
+#' fokus::lang_to_locale("de")
+#' fokus::lang_to_locale("en")
+lang_to_locale <- function(lang = c("de", "en")) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  switch(lang,
+         de = "de-CH",
+         en = "en-US")
+}
+
 #' Assemble a private FOKUS directory path
 #'
 #' Assembles a path from the private FOKUS directory root plus any additional path elements supplied.
@@ -3444,11 +3467,9 @@ proposal_type <- function(ballot_date = all_ballot_dates,
 #' Returns the name of the specified proposal in the specified language.
 #'
 #' @inheritParams proposal_nrs
+#' @inheritParams lang_to_locale
 #' 
 #' @param proposal_nr Proposal number. A positive integerish scalar.
-#' @param lang Language. One of
-#'   - `"de"`
-#'   - `"en"`
 #' @param type Name type. One of
 #'   - `"short"`
 #'   - `"long"`
@@ -4329,7 +4350,9 @@ ballot_title <- function(ballot_date = all_ballot_dates,
       purrr::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
                   . == "referendum" ~ "Abstimmungs",
                   . == "election" ~ "Wahl") %>%
-      paste0("termin vom ", salim::prettify_date(ballot_date, locale = lang))
+      paste0("termin vom ", stringi::stri_datetime_format(time = ballot_date,
+                                                          format = "date_long",
+                                                          locale = lang_to_locale(lang)))
 
   } else if (lang == "en") {
 
@@ -4337,7 +4360,9 @@ ballot_title <- function(ballot_date = all_ballot_dates,
       ballot_types %>%
       purrr::when(length(.) > 1L ~ "Referendum and election",
                   ~ stringr::str_to_sentence(.)) %>%
-      paste0(" date of ", salim::prettify_date(ballot_date, locale = lang))
+      paste0(" date of ", stringi::stri_datetime_format(time = ballot_date,
+                                                        format = "date_long",
+                                                        locale = lang_to_locale(lang)))
   }
 
   result
