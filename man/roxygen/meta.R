@@ -1,6 +1,7 @@
 list(
   rd_family_title = list(fct                      = "Other factor-variable-specific functions:",
                          g_apps                   = "Other Google Apps functions:",
+                         metadata                 = "Other FOKUS metadata functions:",
                          predicate_fundamental    = "Other fundamental predicate functions:",
                          predicate_proposal       = "Other proposal predicate functions:",
                          predicate_election       = "Other election predicate functions:",

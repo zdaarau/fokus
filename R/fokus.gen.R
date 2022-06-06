@@ -130,8 +130,8 @@ abbreviations <- function(expand = FALSE) {
 #' @keywords internal
 #'
 #' @examples
-#' fokus::lang_to_locale("de")
-#' fokus::lang_to_locale("en")
+#' fokus:::lang_to_locale("de")
+#' fokus:::lang_to_locale("en")
 lang_to_locale <- function(lang = c("de", "en")) {
   
   lang <- rlang::arg_match(lang)
@@ -2526,9 +2526,7 @@ cli_theme <-
 #' A vector of ballot dates covered by FOKUS surveys up until `r max(all_ballot_dates)`.
 #'
 #' @format `r pkgsnip::return_label("dates")`
-#' @seealso [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2540,9 +2538,7 @@ cli_theme <-
 #' A vector of all [cantons][cantons] covered by FOKUS surveys.
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2554,9 +2550,7 @@ cli_theme <-
 #' A vector of all possible [ballot types][ballot_types].
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_lvls`][all_lvls] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2568,9 +2562,7 @@ cli_theme <-
 #' A vector of all possible [political levels][lvls].
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_prcds`][all_prcds]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2582,9 +2574,7 @@ cli_theme <-
 #' A vector of all possible [election procedures][prcds].
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2596,9 +2586,7 @@ cli_theme <-
 #' A vector of all possible [referendum proposal types][proposal_type].
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_response_option_types`][all_response_option_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2610,9 +2598,7 @@ cli_theme <-
 #' A vector of all possible referendum proposal argument sides.
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2624,9 +2610,7 @@ cli_theme <-
 #' A vector of all possible response option types defined in the [raw FOKUS questionnaire data][raw_q].
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_postal_dispatch_types`][all_postal_dispatch_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2638,9 +2622,7 @@ cli_theme <-
 #' A vector of all possible postal dispatch types.
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_response_option_types`][all_response_option_types] [`all_postal_dispatch_ways`][all_postal_dispatch_ways]
+#' @family metadata
 #' @export
 #'
 #' @examples
@@ -2652,9 +2634,7 @@ cli_theme <-
 #' A vector of all possible [postal dispatch ways][postal_dispatch_way].
 #'
 #' @format A character vector.
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_argument_sides`][all_argument_sides]
-#'   [`all_response_option_types`][all_response_option_types] [`all_postal_dispatch_types`][all_postal_dispatch_types]
+#' @family metadata
 #' @export
 #'
 #' @examples

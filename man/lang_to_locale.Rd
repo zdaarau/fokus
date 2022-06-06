@@ -20,7 +20,7 @@ A character scalar.
 Converts a language code as used in many of this package's functions to a country-specific locale identifier.
 }
 \examples{
-fokus::lang_to_locale("de")
-fokus::lang_to_locale("en")
+fokus:::lang_to_locale("de")
+fokus:::lang_to_locale("en")
 }
 \keyword{internal}

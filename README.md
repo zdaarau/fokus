@@ -154,6 +154,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | attributes                      | attrs            |
 | authenticate, authentication    | auth             |
 | authentications                 | auths            |
+| background                      | bg               |
 | bibliographies                  | bibs             |
 | bibliography                    | bib              |
 | chapter                         | chpt             |
@@ -200,6 +201,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | expressions                     | exprs            |
 | factor                          | fct              |
 | factors                         | fcts             |
+| figure                          | fig              |
+| figures                         | figs             |
 | filesystem                      | fs               |
 | formula                         | fm               |
 | formulas, formulae              | fms              |
@@ -249,6 +252,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | proceed, procedure              | prcd             |
 | prototype                       | ptype            |
 | prototypes                      | ptypes           |
+| Quarto Markdown                 | qmd              |
 | questionnaire                   | q                |
 | questionnaires                  | qx               |
 | R Markdown                      | rmd              |
@@ -271,6 +275,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | supplemental, supplementary     | suppl            |
 | symbolize, symbol               | sym              |
 | symbols                         | syms             |
+| table                           | tbl              |
+| tables                          | tbls             |
 | temporary                       | tmp              |
 | value                           | val              |
 | values                          | vals             |

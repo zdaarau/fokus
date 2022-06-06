@@ -17,8 +17,16 @@ A vector of all possible \link[=lvls]{political levels}.
 fokus::all_lvls
 }
 \seealso{
-\code{\link{all_ballot_dates}} \code{\link{all_cantons}} \code{\link{all_ballot_types}} \code{\link{all_prcds}}
-\code{\link{all_proposal_types}} \code{\link{all_response_option_types}} \code{\link{all_argument_sides}}
-\code{\link{all_postal_dispatch_types}} \code{\link{all_postal_dispatch_ways}}
+Other FOKUS metadata functions:
+\code{\link{all_argument_sides}},
+\code{\link{all_ballot_dates}},
+\code{\link{all_ballot_types}},
+\code{\link{all_cantons}},
+\code{\link{all_postal_dispatch_types}},
+\code{\link{all_postal_dispatch_ways}},
+\code{\link{all_prcds}},
+\code{\link{all_proposal_types}},
+\code{\link{all_response_option_types}}
 }
+\concept{metadata}
 \keyword{datasets}

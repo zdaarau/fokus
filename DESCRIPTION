@@ -30,7 +30,7 @@ Imports:
     purrr (>= 0.3.4),
     readr (>= 1.4.0),
     rlang (>= 1.0.1),
-    salim (>= 0.0.9014),
+    salim (>= 0.0.9015),
     stringi (>= 1.7.6),
     stringr (>= 1.4.0),
     tibble (>= 3.0.3),
