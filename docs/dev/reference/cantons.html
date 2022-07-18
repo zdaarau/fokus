@@ -134,7 +134,7 @@
     <p>Determines the cantons covered by the FOKUS survey at the specified ballot date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span><span class='op'>)</span></pre>
+    <pre class="usage"><span><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,15 +173,15 @@
 <code><a href='proposal_nrs.html'>proposal_nrs</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>cantons</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "aargau"</span>
-<span class='r-in'></span>
-<span class='r-in'><span class='co'># determine all cantons covered per ballot date</span></span>
-<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'><a href='all_ballot_dates.html'>all_ballot_dates</a></span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span class='r-in'>  <span class='fu'>magrittr</span><span class='fu'>::</span><span class='fu'><a href='https://magrittr.tidyverse.org/reference/aliases.html'>set_names</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>.</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span class='r-in'>  <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_chr</a></span><span class='op'>(</span><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>cantons</span><span class='op'>)</span></span>
+<span class='r-in'><span></span></span>
+<span class='r-in'><span><span class='co'># determine all cantons covered per ballot date</span></span></span>
+<span class='r-in'><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span></span></span>
+<span class='r-in'><span></span></span>
+<span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'><a href='all_ballot_dates.html'>all_ballot_dates</a></span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span></span>
+<span class='r-in'><span>  <span class='fu'>magrittr</span><span class='fu'>::</span><span class='fu'><a href='https://magrittr.tidyverse.org/reference/aliases.html'>set_names</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>.</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span></span>
+<span class='r-in'><span>  <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_chr</a></span><span class='op'>(</span><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>cantons</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 2018-09-23 2018-11-25 2019-10-20 2020-09-27 2020-10-18 2021-11-28 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   "aargau"   "aargau"   "aargau"   "aargau"   "aargau"   "aargau" </span>
 </pre>

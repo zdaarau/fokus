@@ -134,7 +134,7 @@
     <p>Returns a structured list of the <a href='raw_q_suppl.html'>raw supplemental date-specific FOKUS questionnaire data</a> for the specified ballot date and political level.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raw_q_suppl_lvl</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>, lvl <span class='op'>=</span> <span class='va'>all_lvls</span><span class='op'>)</span></pre>
+    <pre class="usage"><span><span class='fu'>raw_q_suppl_lvl</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>, lvl <span class='op'>=</span> <span class='va'>all_lvls</span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,8 +164,7 @@
     <p>A <a href='https://rdrr.io/pkg/xfun/man/strict_list.html'>strict list</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Raw questionnaire data <code><a href='raw_q.html'>raw_q</a></code> <code><a href='raw_qx_suppl.html'>raw_qx_suppl</a></code></p>
-<p>Other raw questionnaire data functions:
+    <div class='dont-index'><p>Other raw questionnaire data functions:
 <code><a href='raw_pick_right.html'>raw_pick_right</a>()</code>,
 <code><a href='raw_q_suppl_arguments.html'>raw_q_suppl_arguments</a>()</code>,
 <code><a href='raw_q_suppl_argument.html'>raw_q_suppl_argument</a>()</code>,
@@ -179,12 +178,14 @@
 <code><a href='raw_q_suppl_proposal.html'>raw_q_suppl_proposal</a>()</code>,
 <code><a href='raw_q_suppl_skill_questions.html'>raw_q_suppl_skill_questions</a>()</code>,
 <code><a href='raw_q_suppl_skill_question.html'>raw_q_suppl_skill_question</a>()</code>,
-<code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code></p></div>
+<code><a href='raw_q_suppl.html'>raw_q_suppl</a>()</code>,
+<code><a href='raw_qx_suppl.html'>raw_qx_suppl</a></code>,
+<code><a href='raw_q.html'>raw_q</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_lvl</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                        lvl <span class='op'>=</span> <span class='st'>"cantonal"</span><span class='op'>)</span> |&gt;</span>
-<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>:::</span><span class='fu'>raw_q_suppl_lvl</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span></span>
+<span class='r-in'><span>                        lvl <span class='op'>=</span> <span class='st'>"cantonal"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span></span>
+<span class='r-in'><span>  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "aargau"</span>
 </pre>
   </div>

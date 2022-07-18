@@ -20,5 +20,8 @@ This is useful for DTA export since Stata has a built-in variable name length li
 \href{https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names}{here}).
 }
 \seealso{
-\code{\link[=shorten_v_names]{shorten_v_names()}}, \code{\link[=restore_colnames]{restore_colnames()}}
+Other variable name shortening functions:
+\code{\link{restore_colnames}()},
+\code{\link{shorten_v_names}()}
 }
+\concept{v_name_shortening}

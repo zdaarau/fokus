@@ -14,5 +14,6 @@ list(
                          q_predicate              = "Other questionnaire predicate functions:",
                          q_raw                    = "Other raw questionnaire data functions:",
                          q_survey                 = "Other questionnaire and survey functions and datasets:",
-                         variable                 = "Other variable-related functions:")
+                         variable                 = "Other variable-related functions:",
+                         v_name_shortening        = "Other variable name shortening functions:")
 )

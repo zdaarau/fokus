@@ -134,7 +134,7 @@
     <p>Extracts a variable's (common) label from the <a href='qx.html'>questionnaire data</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>v_lbl</span><span class='op'>(</span><span class='va'>v_name</span>, ballot_date <span class='op'>=</span> <span class='cn'>NULL</span>, canton <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span><span class='fu'>v_lbl</span><span class='op'>(</span><span class='va'>v_name</span>, ballot_date <span class='op'>=</span> <span class='cn'>NULL</span>, canton <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,25 +174,24 @@ otherwise <a href='https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-k
 
     <div class='dont-index'><p>Other variable-related functions:
 <code><a href='is_skill_question_v.html'>is_skill_question_v</a>()</code>,
-<code><a href='shorten_v_names.html'>shorten_v_names</a>()</code>,
 <code><a href='v_lvls.html'>v_lvls</a>()</code>,
 <code><a href='v_proposal_nr.html'>v_proposal_nr</a>()</code>,
 <code><a href='v_skill_question_nr.html'>v_skill_question_nr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='co'># if `ballot_date` and `canton` are not supplied, `variable_label_common` is returned:</span></span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>v_lbl</span><span class='op'>(</span><span class='st'>"participation_federal"</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span><span class='co'># if `ballot_date` and `canton` are not supplied, `variable_label_common` is returned:</span></span></span>
+<span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>v_lbl</span><span class='op'>(</span><span class='st'>"participation_federal"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "respondent's participation status regarding the federal proposals/elections of the current ballot (blank votes count as 'participated')"</span>
-<span class='r-in'></span>
-<span class='r-in'><span class='co'># otherwise `variable_label`:</span></span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>v_lbl</span><span class='op'>(</span>v_name <span class='op'>=</span> <span class='st'>"participation_federal"</span>,</span>
-<span class='r-in'>             ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>             canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-in'><span></span></span>
+<span class='r-in'><span><span class='co'># otherwise `variable_label`:</span></span></span>
+<span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>v_lbl</span><span class='op'>(</span>v_name <span class='op'>=</span> <span class='st'>"participation_federal"</span>,</span></span>
+<span class='r-in'><span>             ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span></span>
+<span class='r-in'><span>             canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "respondent's participation status regarding the federal proposals of the current ballot (blank votes count as 'participated')"</span>
-<span class='r-in'>            </span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>v_lbl</span><span class='op'>(</span>v_name <span class='op'>=</span> <span class='st'>"participation_federal"</span>,</span>
-<span class='r-in'>             ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
-<span class='r-in'>             canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+<span class='r-in'><span>            </span></span>
+<span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>v_lbl</span><span class='op'>(</span>v_name <span class='op'>=</span> <span class='st'>"participation_federal"</span>,</span></span>
+<span class='r-in'><span>             ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span></span>
+<span class='r-in'><span>             canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "respondent's participation status regarding the federal elections of the current ballot (blank votes count as 'participated')"</span>
 </pre>
   </div>

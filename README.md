@@ -206,6 +206,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | filesystem                      | fs               |
 | formula                         | fm               |
 | formulas, formulae              | fms              |
+| frequencies                     | freqs            |
+| frequent, frequency             | freq             |
 | function                        | fn               |
 | functions                       | fns              |
 | generate, generation            | gen              |
@@ -262,12 +264,12 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | referendums, referenda          | rfrnds           |
 | regular expression(s)           | regex            |
 | relative                        | rel              |
-| remove                          | rm               |
+| remove, removal                 | rm               |
 | roxygen2                        | roxy             |
 | separate, separator             | sep              |
 | separators                      | seps             |
+| sequence                        | seq              |
 | sequences                       | seqs             |
-| sequential, sequence            | seq              |
 | specifications                  | specs            |
 | specify, specification          | spec             |
 | string                          | str              |
@@ -275,8 +277,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | supplemental, supplementary     | suppl            |
 | symbolize, symbol               | sym              |
 | symbols                         | syms             |
-| table                           | tbl              |
 | tables                          | tbls             |
+| tabulate, table                 | tbl              |
 | temporary                       | tmp              |
 | value                           | val              |
 | values                          | vals             |

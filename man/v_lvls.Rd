@@ -24,7 +24,6 @@ fokus::v_lvls("skill_question_1_cantonal_proposal_1")
 \seealso{
 Other variable-related functions:
 \code{\link{is_skill_question_v}()},
-\code{\link{shorten_v_names}()},
 \code{\link{v_lbl}()},
 \code{\link{v_proposal_nr}()},
 \code{\link{v_skill_question_nr}()}

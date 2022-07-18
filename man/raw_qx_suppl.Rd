@@ -7,9 +7,6 @@
 \format{
 A \link[xfun:strict_list]{strict list}.
 }
-\usage{
-raw_qx_suppl
-}
 \description{
 A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.
 }
@@ -17,8 +14,23 @@ A structured list of raw supplemental date-specific questionnaire data of the FO
 fokus:::raw_qx_suppl[["2018-09-23"]]$mode
 }
 \seealso{
-\code{\link{raw_q}} \code{\link{raw_q_suppl}} \code{\link{raw_q_suppl_lvl}} \code{\link{raw_q_suppl_lvl_canton}}
-\code{\link{raw_q_suppl_proposal}} \code{\link{raw_q_suppl_election}} \code{\link{raw_q_suppl_skill_questions}}
-\code{\link{raw_q_suppl_skill_question}}
+Other raw questionnaire data functions:
+\code{\link{raw_pick_right}()},
+\code{\link{raw_q_suppl_arguments}()},
+\code{\link{raw_q_suppl_argument}()},
+\code{\link{raw_q_suppl_election_name}()},
+\code{\link{raw_q_suppl_elections}()},
+\code{\link{raw_q_suppl_election}()},
+\code{\link{raw_q_suppl_lvl_canton}()},
+\code{\link{raw_q_suppl_lvl}()},
+\code{\link{raw_q_suppl_main_motives}()},
+\code{\link{raw_q_suppl_mode}()},
+\code{\link{raw_q_suppl_proposal_name}()},
+\code{\link{raw_q_suppl_proposal}()},
+\code{\link{raw_q_suppl_skill_questions}()},
+\code{\link{raw_q_suppl_skill_question}()},
+\code{\link{raw_q_suppl}()},
+\code{\link{raw_q}}
 }
+\concept{q_raw}
 \keyword{internal}

@@ -134,10 +134,10 @@
     <p>Transforms a <a href='postal_dispatch_way.html'>postal dispatch way</a> into a full prose string representation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>postal_dispatch_way_prose</span><span class='op'>(</span>
-  dispatch_way <span class='op'>=</span> <span class='va'>all_postal_dispatch_ways</span>,
-  lang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"de"</span>, <span class='st'>"en"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span><span class='fu'>postal_dispatch_way_prose</span><span class='op'>(</span></span>
+<span>  dispatch_way <span class='op'>=</span> <span class='va'>all_postal_dispatch_ways</span>,</span>
+<span>  lang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"de"</span>, <span class='st'>"en"</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,10 +169,10 @@
 <code><a href='postal_dispatch_type_prose.html'>postal_dispatch_type_prose</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'><a href='postal_dispatch_way.html'>postal_dispatch_way</a></span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                           canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
-<span class='r-in'>                           dispatch_type <span class='op'>=</span> <span class='st'>"invitation"</span><span class='op'>)</span> |&gt;</span>
-<span class='r-in'>  <span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>postal_dispatch_way_prose</span><span class='op'>(</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'><a href='postal_dispatch_way.html'>postal_dispatch_way</a></span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span></span>
+<span class='r-in'><span>                           canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span></span>
+<span class='r-in'><span>                           dispatch_type <span class='op'>=</span> <span class='st'>"invitation"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span></span>
+<span class='r-in'><span>  <span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>postal_dispatch_way_prose</span><span class='op'>(</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "B-Post"</span>
 </pre>
   </div>

@@ -135,13 +135,13 @@
 <a href='ballot_types.html'>ballot types</a> (of the specified election procedure(s)).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_ballot_type</span><span class='op'>(</span>
-  ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,
-  lvls <span class='op'>=</span> <span class='va'>all_lvls</span>,
-  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,
-  ballot_type <span class='op'>=</span> <span class='fu'><a href='ballot_types.html'>ballot_types</a></span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_date</span>, lvls <span class='op'>=</span> <span class='va'>lvls</span>, canton <span class='op'>=</span> <span class='va'>canton</span><span class='op'>)</span>,
-  prcds <span class='op'>=</span> <span class='va'>all_prcds</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span><span class='fu'>has_ballot_type</span><span class='op'>(</span></span>
+<span>  ballot_date <span class='op'>=</span> <span class='va'>all_ballot_dates</span>,</span>
+<span>  lvls <span class='op'>=</span> <span class='va'>all_lvls</span>,</span>
+<span>  canton <span class='op'>=</span> <span class='fu'><a href='cantons.html'>cantons</a></span><span class='op'>(</span><span class='va'>ballot_date</span><span class='op'>)</span>,</span>
+<span>  ballot_type <span class='op'>=</span> <span class='fu'><a href='ballot_types.html'>ballot_types</a></span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='va'>ballot_date</span>, lvls <span class='op'>=</span> <span class='va'>lvls</span>, canton <span class='op'>=</span> <span class='va'>canton</span><span class='op'>)</span>,</span>
+<span>  prcds <span class='op'>=</span> <span class='va'>all_prcds</span></span>
+<span><span class='op'>)</span></span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,23 +211,23 @@
 <code><a href='proposal_nrs.html'>proposal_nrs</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                       canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span></span>
+<span class='r-in'><span>                       canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.referendum  federal.referendum </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                TRUE                TRUE </span>
-<span class='r-in'>                        </span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span>
-<span class='r-in'>                       canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
-<span class='r-in'>                       ballot_type <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span></span>
+<span class='r-in'><span>                        </span></span>
+<span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2018-09-23"</span>,</span></span>
+<span class='r-in'><span>                       canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span></span>
+<span class='r-in'><span>                       ballot_type <span class='op'>=</span> <span class='st'>"election"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.proportional.election cantonal.majoritarian.election </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                          FALSE                          FALSE </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>  federal.proportional.election  federal.majoritarian.election </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                          FALSE                          FALSE </span>
-<span class='r-in'>                        </span>
-<span class='r-in'><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span>
-<span class='r-in'>                       canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span>
-<span class='r-in'>                       ballot_type <span class='op'>=</span> <span class='st'>"election"</span>,</span>
-<span class='r-in'>                       prcds <span class='op'>=</span> <span class='st'>"proportional"</span><span class='op'>)</span></span>
+<span class='r-in'><span>                        </span></span>
+<span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>has_ballot_type</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span></span>
+<span class='r-in'><span>                       canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span></span>
+<span class='r-in'><span>                       ballot_type <span class='op'>=</span> <span class='st'>"election"</span>,</span></span>
+<span class='r-in'><span>                       prcds <span class='op'>=</span> <span class='st'>"proportional"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cantonal.proportional.election  federal.proportional.election </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>                          FALSE                           TRUE </span>
 </pre>

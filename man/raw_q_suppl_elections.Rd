@@ -59,7 +59,9 @@ Other raw questionnaire data functions:
 \code{\link{raw_q_suppl_proposal}()},
 \code{\link{raw_q_suppl_skill_questions}()},
 \code{\link{raw_q_suppl_skill_question}()},
-\code{\link{raw_q_suppl}()}
+\code{\link{raw_q_suppl}()},
+\code{\link{raw_qx_suppl}},
+\code{\link{raw_q}}
 }
 \concept{q_raw}
 \keyword{internal}

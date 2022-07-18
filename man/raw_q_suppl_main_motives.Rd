@@ -48,8 +48,6 @@ fokus:::raw_q_suppl_main_motives(ballot_date = "2018-11-25",
                                  proposal_nr = 2)
 }
 \seealso{
-Raw questionnaire data \code{\link{raw_q}} \code{\link{raw_qx_suppl}}
-
 Other raw questionnaire data functions:
 \code{\link{raw_pick_right}()},
 \code{\link{raw_q_suppl_arguments}()},
@@ -64,7 +62,9 @@ Other raw questionnaire data functions:
 \code{\link{raw_q_suppl_proposal}()},
 \code{\link{raw_q_suppl_skill_questions}()},
 \code{\link{raw_q_suppl_skill_question}()},
-\code{\link{raw_q_suppl}()}
+\code{\link{raw_q_suppl}()},
+\code{\link{raw_qx_suppl}},
+\code{\link{raw_q}}
 }
 \concept{q_raw}
 \keyword{internal}

@@ -286,25 +286,27 @@ gen_pkg_data <- function(data_files = c("internal", "exported", "asciicasts")) {
 #' A structured list of the raw questionnaire data of the FOKUS surveys.
 #'
 #' @format `r pkgsnip::return_label("strict_list")`
-#' @seealso [`raw_qx_suppl`][raw_qx_suppl] [`raw_q_suppl`][raw_q_suppl] [`raw_q_suppl_lvl`][raw_q_suppl_lvl] [`raw_q_suppl_lvl_canton`][raw_q_suppl_lvl_canton]
-#'   [`raw_q_suppl_proposal`][raw_q_suppl_proposal] [`raw_q_suppl_election`][raw_q_suppl_election] [`raw_q_suppl_skill_questions`][raw_q_suppl_skill_questions]
-#'   [`raw_q_suppl_skill_question`][raw_q_suppl_skill_question]
+#' @docType data
+#' @family q_raw
 #' @keywords internal
-"raw_q"
+#' 
+#' @name raw_q
+NULL
 
 #' Raw supplemental date-specific FOKUS questionnaire data
 #'
 #' A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.
 #'
 #' @format `r pkgsnip::return_label("strict_list")`
-#' @seealso [`raw_q`][raw_q] [`raw_q_suppl`][raw_q_suppl] [`raw_q_suppl_lvl`][raw_q_suppl_lvl] [`raw_q_suppl_lvl_canton`][raw_q_suppl_lvl_canton]
-#'   [`raw_q_suppl_proposal`][raw_q_suppl_proposal] [`raw_q_suppl_election`][raw_q_suppl_election] [`raw_q_suppl_skill_questions`][raw_q_suppl_skill_questions]
-#'   [`raw_q_suppl_skill_question`][raw_q_suppl_skill_question]
+#' @docType data
+#' @family q_raw
 #' @keywords internal
+#' 
+#' @name raw_qx_suppl
 #'
 #' @examples
 #' fokus:::raw_qx_suppl[["2018-09-23"]]$mode
-"raw_qx_suppl"
+NULL
 
 #' Get raw supplemental date-specific FOKUS questionnaire data
 #'
@@ -313,7 +315,6 @@ gen_pkg_data <- function(data_files = c("internal", "exported", "asciicasts")) {
 #' @inheritParams cantons
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -336,7 +337,6 @@ raw_q_suppl <- function(ballot_date = all_ballot_dates) {
 #' `r pal::as_md_val_list(all_lvls)`
 #'
 #' @inherit raw_q_suppl return seealso
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -376,7 +376,6 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
 #' @inheritParams lvls
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -421,7 +420,6 @@ raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
 #' @param proposal_nr Proposal number. A positive integerish scalar.
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -493,7 +491,6 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
 #' @inheritParams raw_q_suppl_proposal
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -541,7 +538,6 @@ raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
 #' @inheritParams raw_q_suppl_proposal
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -590,7 +586,6 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
 #' @inheritParams proposal_argument
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -648,7 +643,6 @@ raw_q_suppl_argument <- function(ballot_date = all_ballot_dates,
 #' @inheritParams raw_q_suppl_proposal
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -741,7 +735,6 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
 #' @inheritParams election_name
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -814,7 +807,6 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
 #' @inheritParams raw_q_suppl_election
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -879,7 +871,6 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
 #' @inheritParams raw_q_suppl_lvl_canton
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -917,7 +908,6 @@ raw_q_suppl_mode <- function(ballot_date = all_ballot_dates,
 #' @param proposal_nr Proposal number. A positive integerish scalar or `NULL`. If `NULL`, non-proposal-specific skill question data is returned.
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -986,7 +976,6 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
 #' @inheritParams skill_question
 #'
 #' @inherit raw_q_suppl return
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 #'
@@ -1043,7 +1032,6 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
 #'   error is thrown in case none of the subkeys matches).
 #'
 #' @return Value of `x` that corresponds to `canton` and `ballot_date`.
-#' @seealso Raw questionnaire data [`raw_q`][raw_q] [`raw_qx_suppl`][raw_qx_suppl]
 #' @family q_raw
 #' @keywords internal
 raw_pick_right <- function(x,
@@ -2465,13 +2453,15 @@ url_parameter_survey <- list(aargau = "pw")
 #' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_q].
 #'
 #' @format `r pkgsnip::return_label("data")`
-#' @seealso [`all_ballot_dates`][all_ballot_dates] [`all_cantons`][all_cantons] [`all_ballot_types`][all_ballot_types] [`all_lvls`][all_lvls]
-#'   [`all_prcds`][all_prcds] [`all_proposal_types`][all_proposal_types] [`all_response_option_types`][all_response_option_types]
+#' @docType data
+#' @family metadata
 #' @keywords internal
-#'
+#' 
+#' @name q_item_keys
+#' 
 #' @examples
 #' fokus:::q_item_keys
-"q_item_keys"
+NULL
 
 q_md_table_header <-
   tibble::tribble(
@@ -5085,8 +5075,7 @@ v_skill_question_nr <- function(v_names) {
 #'   the maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.
 #'
 #' @return A character vector of the same length as `v_names`.
-#' @family variable
-#' @seealso [shorten_colnames()], [restore_colnames()]
+#' @family v_name_shortening
 #' @export
 shorten_v_names <- function(v_names,
                             reverse = FALSE,
@@ -5158,7 +5147,7 @@ shorten_v_names <- function(v_names,
 #' @param x `r pkgsnip::param_label("tabular_data")`
 #'
 #' @return `x` with column names shortened to a maximum length of 32 characters.
-#' @seealso [shorten_v_names()], [restore_colnames()]
+#' @family v_name_shortening
 #' @export
 shorten_colnames <- function(x,
                              max_n_char = 32L) {
@@ -5175,7 +5164,7 @@ shorten_colnames <- function(x,
 #' @inheritParams shorten_v_names
 #'
 #' @return `x` with original/unshortened column names restored.
-#' @seealso [shorten_v_names()], [shorten_colnames()]
+#' @family v_name_shortening
 #' @export
 restore_colnames <- function(x) {
 

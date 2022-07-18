@@ -16,5 +16,8 @@ restore_colnames(x)
 Applies the inversion of \code{\link[=shorten_colnames]{shorten_colnames()}}.
 }
 \seealso{
-\code{\link[=shorten_v_names]{shorten_v_names()}}, \code{\link[=shorten_colnames]{shorten_colnames()}}
+Other variable name shortening functions:
+\code{\link{shorten_colnames}()},
+\code{\link{shorten_v_names}()}
 }
+\concept{v_name_shortening}
