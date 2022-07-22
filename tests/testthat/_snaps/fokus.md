@@ -94,31 +94,31 @@
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 
-    `lvl` must be a string or have the same length as `values`.
+    subscript out of bounds
 
 ---
 

@@ -2,6 +2,9 @@
 
 ## General
 
+-   Report `rlang::arg_match()` issue with zero-length chr input -\> no useful error msg (in contrast to `base::match.arg()`). Triggered e.g. by
+    `fokus::n_election_seats()`.
+
 -   Somehow, including multiple asciicasts in the same Rmd doesn't work properly (the second asciicast's `<asciinema-player>` custom HTML tag is missing in the
     resulting HTML; both via asciicast's knitr engine as well as embedding the generated asciicast htmlwidget via `asciicast::asciinema_player()`), thus the
     second asciicast containing an intentionally triggered error in the raw q had to be removed.
@@ -62,3 +65,4 @@
     Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
 
 -   Export CSV data in *CSV on the Web (CSVW)* format using package [csvw](https://robsteranium.github.io/csvwr/) once it supports writing CSVW.
+

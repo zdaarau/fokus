@@ -309,9 +309,7 @@ raw_q_suppl <- function(ballot_date = all_ballot_dates) {
 raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
                             lvl = all_lvls) {
 
-  lvl <- rlang::arg_match0(arg = lvl,
-                           values = all_lvls,
-                           arg_nm = "lvl")
+  lvl <- rlang::arg_match(lvl)
 
   result <- raw_q_suppl(ballot_date = ballot_date) %>% purrr::pluck(lvl)
 
@@ -363,9 +361,7 @@ raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
 
     cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.",
                    .internal = TRUE)
@@ -396,9 +392,7 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
                                  canton = all_cantons,
                                  proposal_nr = 1L) {
 
-  lvl <- rlang::arg_match0(arg = lvl,
-                           values = all_lvls,
-                           arg_nm = "lvl")
+  lvl <- rlang::arg_match(lvl)
   checkmate::assert_count(proposal_nr,
                           positive = TRUE)
 
@@ -478,9 +472,7 @@ raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No names present for {.val {lvl}} proposal {.val {proposal_nr}} ",
@@ -525,9 +517,7 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
     
     cli::cli_abort(paste0("No arguments present for {.val {lvl}} proposal {.val {proposal_nr}} ",
@@ -583,9 +573,7 @@ raw_q_suppl_argument <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {side}} argument {.val {argument_nr}} present for {.val {lvl}} proposal {.val {proposal_nr}} ",
@@ -631,9 +619,7 @@ raw_q_suppl_main_motives <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No main motives present for {.val {lvl}} proposal {.val {proposal_nr}} ",
@@ -676,9 +662,7 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort("No {.val {lvl}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
@@ -712,9 +696,7 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
                                  prcd = all_prcds,
                                  election_nr = 1L) {
 
-  prcd <- rlang::arg_match0(arg = prcd,
-                            values = all_prcds,
-                            arg_nm = "prcd")
+  prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
 
@@ -730,9 +712,7 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS ",
@@ -748,9 +728,7 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} election {.val {election_nr}} for canton {.val {canton}} present in the supplemental ",
@@ -782,12 +760,8 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
                                       canton = all_cantons,
                                       prcd = all_prcds,
                                       election_nr = 1L) {
-  lvl <- rlang::arg_match0(arg = lvl,
-                           values = all_lvls,
-                           arg_nm = "lvl")
-  prcd <- rlang::arg_match0(arg = prcd,
-                            values = all_prcds,
-                            arg_nm = "prcd")
+  lvl <- rlang::arg_match(lvl)
+  prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
 
@@ -884,9 +858,7 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
                                         lvl = all_lvls,
                                         canton = all_cantons,
                                         proposal_nr = NULL) {
-  lvl <- rlang::arg_match0(arg = lvl,
-                           values = all_lvls,
-                           arg_nm = "lvl")
+  lvl <- rlang::arg_match(lvl)
   result <-
     lvl %>%
     purrr::when(
@@ -913,9 +885,7 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No skill questions present",
@@ -968,9 +938,7 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-    lvl <- rlang::arg_match0(arg = lvl,
-                             values = all_lvls,
-                             arg_nm = "lvl")
+    lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
 
     cli::cli_abort(paste0("No skill question {.val {skill_question_nr}} present",
