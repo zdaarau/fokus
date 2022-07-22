@@ -10,6 +10,15 @@ NOTES:
 
 -   The chunks below have to be manually executed in order to regenerate the package data.
 
+# Setup
+
+```{r}
+library(rlang,
+        include.only = c("%|%", "%||%"))
+library(magrittr,
+        include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
+```
+
 # Exported data
 
 NOTES:

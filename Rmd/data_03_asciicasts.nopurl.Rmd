@@ -10,6 +10,15 @@ NOTES:
 
 -   The chunks below have to be manually executed in order to regenerate the package data.
 
+# Setup
+
+```{r}
+library(rlang,
+        include.only = c("%|%", "%||%"))
+library(magrittr,
+        include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
+```
+
 # asciicasts
 
 NOTES:
@@ -53,7 +62,7 @@ NOTES:
 -   This code chunk generates a **failing** example. To trigger the error, an artificial mistake is temporarily added to the raw q
     (`the invalid inline code { 'intentional illustrative' 'error' }` at the beginning of item `first_name`'s `variable_label`).
 
-```{r}
+```{r, eval = FALSE}
 # temporarily add artificial mistake in raw q
 yay::str_replace_file(path = "data-raw/questionnaire/questionnaire.toml",
                       pattern = c("(variable_label = \")(respondent's first name \\(official cantonal register information\\)\")" =

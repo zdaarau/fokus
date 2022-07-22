@@ -1,6 +1,6 @@
 Package: fokus
 Title: Provides an API around the FOKUS Post-voting Surveys
-Version: 0.0.9023
+Version: 0.0.9024
 Authors@R: c(
     person("Salim", "Brüggemann", , "salim-b@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5329-5987")),
@@ -39,12 +39,12 @@ Imports:
 Suggests:
     archive (>= 1.1.3),
     asciicast (>= 2.0.0),
-    devtools (>= 2.4.3),
+    devtools (>= 2.4.4),
     googledrive (>= 2.0.0),
     googlesheets4 (>= 1.0.0),
     htmlwidgets (>= 1.5.4),
-    pkgload (>= 1.2.4),
-    pkgpurl (>= 0.0.9012),
+    pkgload (>= 1.3.0),
+    pkgpurl (>= 0.0.9014),
     pkgsnip (>= 0.0.9031),
     qrencoder (>= 0.2.1),
     RcppTOML (>= 0.1.6),
@@ -69,4 +69,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1

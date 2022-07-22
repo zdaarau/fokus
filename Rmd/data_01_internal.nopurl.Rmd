@@ -10,6 +10,15 @@ NOTES:
 
 -   The chunks below have to be manually executed in order to regenerate the package data.
 
+# Setup
+
+```{r}
+library(rlang,
+        include.only = c("%|%", "%||%"))
+library(magrittr,
+        include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
+```
+
 # Internal data
 
 NOTES:
@@ -250,7 +259,7 @@ Not yet used anywhere, thus disabled.
 ```{r, eval = FALSE}
 q_item_subkeys <- c("true",
                     "false",
-                    cantons_at,
+                    unique(cantons_at),
                     stringr::str_remove_all(all_ballot_dates, "-"),
                     # TODO: add valid date ranges
                     "referendum",
