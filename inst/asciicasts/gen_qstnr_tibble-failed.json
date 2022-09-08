@@ -1,9 +1,9 @@
 {"version":2,"command":"R -q","title":"Failed verbose FOKUS questionnaire generation (Aargau @ 2018-09-23)","timestamp":1658160728,"env":{"TERM":"xterm-256color","SHELL":"/bin/zsh"},"height":50,"rows":50,"width":116,"cols":116}
 [0, "rlib", "type: prompt"]
 [0, "o", "> "]
-[0, "i", "fokus:::gen_q_tibble(ballot_date = \"2018-09-23\",\r\n"]
+[0, "i", "fokus:::gen_qstnr_tibble(ballot_date = \"2018-09-23\",\r\n"]
 [0, "rlib", "type: input"]
-[0, "o", "fokus:::gen_q_tibble(ballot_date = \"2018-09-23\",\r\n"]
+[0, "o", "fokus:::gen_qstnr_tibble(ballot_date = \"2018-09-23\",\r\n"]
 [5.7333333340163e-05, "rlib", "busy: 0"]
 [6.13333346943061e-05, "rlib", "type: read"]
 [0.00205200000103408, "rlib", "type: prompt"]
