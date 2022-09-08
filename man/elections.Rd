@@ -20,11 +20,11 @@ fokus::elections
 Other questionnaire and survey functions and datasets:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
-\code{\link{export_q_all}()},
 \code{\link{export_qr_codes}()},
-\code{\link{export_q}()},
+\code{\link{export_qstnr_all}()},
+\code{\link{export_qstnr}()},
 \code{\link{proposals}},
-\code{\link{qx}}
+\code{\link{qstnrs}}
 }
-\concept{q_survey}
+\concept{qstnr_survey}
 \keyword{datasets}

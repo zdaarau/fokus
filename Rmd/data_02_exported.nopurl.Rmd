@@ -23,27 +23,27 @@ library(magrittr,
 
 NOTES:
 
--   When used internally, other than internal data, exported data must always be referred to by its explicit namespace, i.e. e.g. `fokus::qx`.
+-   When used internally, other than internal data, exported data must always be referred to by its explicit namespace, i.e. e.g. `fokus::qstnrs`.
 
-## `qx`
+## `qstnrs`
 
 Questionnaire data as one single long-format tibble.
 
 ```{r}
-qx <-
+qstnrs <-
   fokus::all_ballot_dates %>%
   magrittr::set_names(., .) %>%
   purrr::map(fokus::cantons) %>%
   purrr::imap_dfr(function(cantons, ballot_date) {
     
     cantons %>%
-      purrr::map_dfr(~ fokus:::gen_q_tibble(ballot_date = ballot_date,
-                                            canton = .x) %>%
-                       fokus:::validate_q_tibble())
+      purrr::map_dfr(~ fokus:::gen_qstnr_tibble(ballot_date = ballot_date,
+                                                canton = .x) %>%
+                       fokus:::validate_qstnr_tibble())
   }) %>%
   # expand list cols
-  tidyr::unnest(cols = any_of(fokus:::q_item_keys_multival)) %>%
-  # modify some vx
+  tidyr::unnest(cols = any_of(fokus:::qstnr_item_keys_multival)) %>%
+  # modify some vars
   dplyr::mutate(
     ## complete `question_full`
     question_full = question_full %|% question,
@@ -198,7 +198,7 @@ Save all the bigger data objects to separate files under `data/*.rda`. Note that
 already automatically exported and thus available to package users.
 
 ```{r}
-usethis::use_data(qx,
+usethis::use_data(qstnrs,
                   proposals,
                   elections,
                   internal = FALSE,

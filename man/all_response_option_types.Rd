@@ -11,7 +11,7 @@ A character vector.
 all_response_option_types
 }
 \description{
-A vector of all possible response option types defined in the \link[=raw_q]{raw FOKUS questionnaire data}.
+A vector of all possible response option types defined in the \link[=raw_qstnr]{raw FOKUS questionnaire data}.
 }
 \examples{
 fokus::all_response_option_types
@@ -27,7 +27,7 @@ Other FOKUS metadata functions:
 \code{\link{all_postal_dispatch_ways}},
 \code{\link{all_prcds}},
 \code{\link{all_proposal_types}},
-\code{\link{q_item_keys}}
+\code{\link{qstnr_item_keys}}
 }
 \concept{metadata}
 \keyword{datasets}

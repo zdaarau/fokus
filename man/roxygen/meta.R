@@ -9,11 +9,11 @@ list(
                          predicate_other          = "Other predicate functions:",
                          private                  = "Other private FOKUS directory functions:",
                          prose                    = "Other prose text functions:",
-                         q_gen                    = "Other questionnaire generation functions:",
-                         q_internal               = "Other questionnaire-internal functions:",
-                         q_predicate              = "Other questionnaire predicate functions:",
-                         q_raw                    = "Other raw questionnaire data functions:",
-                         q_survey                 = "Other questionnaire and survey functions and datasets:",
-                         variable                 = "Other variable-related functions:",
-                         v_name_shortening        = "Other variable name shortening functions:")
+                         qstnr_gen                = "Other questionnaire generation functions:",
+                         qstnr_internal           = "Other questionnaire-internal functions:",
+                         qstnr_predicate          = "Other questionnaire predicate functions:",
+                         qstnr_raw                = "Other raw questionnaire data functions:",
+                         qstnr_survey             = "Other questionnaire and survey functions and datasets:",
+                         vars                     = "Other variable-related functions:",
+                         var_name_shortening      = "Other variable name shortening functions:")
 )

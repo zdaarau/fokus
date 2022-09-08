@@ -37,9 +37,9 @@ NOTES:
 fs::dir_create("inst/asciicasts")
 tmp_file <- fs::file_temp(ext = "R")
 
-c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
-  '                     canton = "aargau",',
-  '                     verbose = TRUE)') %>%
+c('fokus:::gen_qstnr_tibble(ballot_date = "2018-09-23",',
+  '                         canton = "aargau",',
+  '                         verbose = TRUE)') %>%
   readr::write_lines(file = tmp_file)
 
 asciicast::record(script = tmp_file,
@@ -50,7 +50,7 @@ asciicast::record(script = tmp_file,
                   rows = 50L,
                   cols = 116L,
                   speed = 0.75) %>%
-  asciicast::write_json(path = "inst/asciicasts/gen_q_tibble-success.json")
+  asciicast::write_json(path = "inst/asciicasts/gen_qstnr_tibble-success.json")
 
 fs::file_delete(tmp_file)
 ```
@@ -59,11 +59,11 @@ fs::file_delete(tmp_file)
 
 NOTES:
 
--   This code chunk generates a **failing** example. To trigger the error, an artificial mistake is temporarily added to the raw q
+-   This code chunk generates a **failing** example. To trigger the error, an artificial mistake is temporarily added to the raw qstnr
     (`the invalid inline code { 'intentional illustrative' 'error' }` at the beginning of item `first_name`'s `variable_label`).
 
 ```{r, eval = FALSE}
-# temporarily add artificial mistake in raw q
+# temporarily add artificial mistake in raw qstnr
 yay::str_replace_file(path = "data-raw/questionnaire/questionnaire.toml",
                       pattern = c("(variable_label = \")(respondent's first name \\(official cantonal register information\\)\")" =
                                     "\\1{ 'intentional illustrative' 'error' }\\2"),
@@ -78,9 +78,9 @@ devtools::install(quick = TRUE,
 # generate asciicast
 tmp_file <- fs::file_temp(ext = "R")
 
-c('fokus:::gen_q_tibble(ballot_date = "2018-09-23",',
-  '                     canton = "aargau",',
-  '                     verbose = TRUE)') %>%
+c('fokus:::gen_qstnr_tibble(ballot_date = "2018-09-23",',
+  '                         canton = "aargau",',
+  '                         verbose = TRUE)') %>%
   readr::write_lines(file = tmp_file)
 
 asciicast::record(script = tmp_file,
@@ -91,11 +91,11 @@ asciicast::record(script = tmp_file,
                   rows = 50L,
                   cols = 116L,
                   speed = 0.75) %>%
-  asciicast::write_json(path = "inst/asciicasts/gen_q_tibble-failed.json")
+  asciicast::write_json(path = "inst/asciicasts/gen_qstnr_tibble-failed.json")
 
 fs::file_delete(tmp_file)
 
-# restore raw q
+# restore raw qstnr
 yay::str_replace_file(path = "data-raw/questionnaire/questionnaire.toml",
                       pattern = c("(variable_label = \")\\{ 'intentional illustrative' 'error' \\}" =
                                     "\\1"),

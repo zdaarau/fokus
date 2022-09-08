@@ -27,7 +27,7 @@ Other FOKUS metadata functions:
 \code{\link{all_postal_dispatch_ways}},
 \code{\link{all_proposal_types}},
 \code{\link{all_response_option_types}},
-\code{\link{q_item_keys}}
+\code{\link{qstnr_item_keys}}
 }
 \concept{metadata}
 \keyword{datasets}

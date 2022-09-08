@@ -36,57 +36,57 @@ vacant = 140
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "SVP"
 name.de.run = "Schweizerische Volkspartei"
-name.de.q = "SVP"
+name.de.qstnr = "SVP"
 code = 1
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "SP"
 name.de.run = "Sozialdemokratische Partei, JUSO und Gewerkschaften"
-name.de.q = "SP / JUSO"
+name.de.qstnr = "SP / JUSO"
 code = 2
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "FDP"
 name.de.run = "FDP.Die Liberalen und Jungfreisinnige"
-name.de.q = "FDP / Jungfreisinnige"
+name.de.qstnr = "FDP / Jungfreisinnige"
 code = 3
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "CVP"
 name.de.run = "CVP Die Mitte"
-name.de.q = "CVP"
+name.de.qstnr = "CVP"
 code = 4
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "Grüne"
 name.de.run = "Grüne und Junge Grüne"
-name.de.q = "Grüne / Junge Grüne"
+name.de.qstnr = "Grüne / Junge Grüne"
 code = 5
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "glp"
 name.de.run = "Grünliberale Partei"
-name.de.q = "glp"
+name.de.qstnr = "glp"
 code = 6
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "EVP"
 name.de.run = "Evangelische Volkspartei"
-name.de.q = "EVP"
+name.de.qstnr = "EVP"
 code = 7
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "EDU"
 name.de.run = "Eidgenössisch-Demokratische Union"
-name.de.q = "EDU"
+name.de.qstnr = "EDU"
 code = 8
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "LOVB"
 name.de.run = "Lösungs-Orientierte Volks-Bewegung"
-name.de.q = "LOVB (Lösungs-Orientierte Volks-Bewegung)"
+name.de.qstnr = "LOVB (Lösungs-Orientierte Volks-Bewegung)"
 code = 9
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "FFF"
 name.de.run = "Frecher Frischer Fischer"
-name.de.q = "FFF (Frecher Frischer Fischer)"
+name.de.qstnr = "FFF (Frecher Frischer Fischer)"
 code = 10
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "PPS"
 name.de.run = "Piratenpartei Aargau"
-name.de.q = "PPAG (Piratenpartei)"
+name.de.qstnr = "PPAG (Piratenpartei)"
 code = 11
 # past election URLs:
 # - overview: https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_48432.jsp
@@ -94,57 +94,57 @@ code = 11
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "SVP"
 name.de.run = "Schweizerische Volkspartei"
-name.de.q = "SVP"
+name.de.qstnr = "SVP"
 code = 1
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "FDP"
 name.de.run = "FDP.Die Liberalen und Jungfreisinnige"
-name.de.q = "FDP / Jungfreisinnige"
+name.de.qstnr = "FDP / Jungfreisinnige"
 code = 2
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "SP"
 name.de.run = "Sozialdemokratische Partei, JUSO und Gewerkschaften"
-name.de.q = "SP / JUSO"
+name.de.qstnr = "SP / JUSO"
 code = 3
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "CVP"
 name.de.run = "Christlichdemokratische Volkspartei"
-name.de.q = "CVP"
+name.de.qstnr = "CVP"
 code = 4
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "Grüne"
 name.de.run = "Grüne"
-name.de.q = "Grüne"
+name.de.qstnr = "Grüne"
 code = 5
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "glp"
 name.de.run = "Grünliberale Partei"
-name.de.q = "glp"
+name.de.qstnr = "glp"
 code = 6
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "BDP"
 name.de.run = "Bürgerlich-Demokratische Partei"
-name.de.q = "BDP"
+name.de.qstnr = "BDP"
 code = 7
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "EVP"
 name.de.run = "Evangelische Volkspartei"
-name.de.q = "EVP"
+name.de.qstnr = "EVP"
 code = 8
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "EDU"
 name.de.run = "Eidgenössisch-Demokratische Union"
-name.de.q = "EDU"
+name.de.qstnr = "EDU"
 code = 9
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "SLB"
 name.de.run = "Sozial-Liberale-Bewegung"
-name.de.q = "SLB (Sozial-Liberale-Bewegung)"
+name.de.qstnr = "SLB (Sozial-Liberale-Bewegung)"
 code = 10
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "LOVB"
 name.de.run = "Lösungs-Orientierte Volks-Bewegung"
-name.de.q = "LOVB (Lösungs-Orientierte Volks-Bewegung)"
+name.de.qstnr = "LOVB (Lösungs-Orientierte Volks-Bewegung)"
 code = 11
 
 

@@ -101,15 +101,8 @@ abbreviations <- function(expand = FALSE) {
 
   pal::assert_pkg("pkgsnip")
 
-  tibble::tribble(
-    ~full_expressions, ~abbreviation,
-    "google", "g",
-    c("proceed","procedure"), "prcd",
-    "procedures", "prcds",
-    "questionnaire", "q",
-    "questionnaires", "qx",
-    c("supplemental", "supplementary"), "suppl"
-  ) %>%
+  tibble::tibble(full_expressions = list("google"),
+                 abbreviation = "g") %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
     dplyr::arrange(full_expressions %>% purrr::map_chr(dplyr::first)) %>%
     purrr::when(expand ~ tidyr::unnest_longer(data = .,
@@ -249,10 +242,10 @@ print_opts <- function() {
 #'
 #' @format `r pkgsnip::return_label("strict_list")`
 #' @docType data
-#' @family q_raw
+#' @family qstnr_raw
 #' @keywords internal
 #' 
-#' @name raw_q
+#' @name raw_qstnr
 NULL
 
 #' Raw supplemental date-specific FOKUS questionnaire data
@@ -261,57 +254,58 @@ NULL
 #'
 #' @format `r pkgsnip::return_label("strict_list")`
 #' @docType data
-#' @family q_raw
+#' @family qstnr_raw
 #' @keywords internal
 #' 
-#' @name raw_qx_suppl
+#' @name raw_qstnrs_suppl
 #'
 #' @examples
-#' fokus:::raw_qx_suppl[["2018-09-23"]]$mode
+#' fokus:::raw_qstnrs_suppl[["2018-09-23"]]$mode
 NULL
 
 #' Get raw supplemental date-specific FOKUS questionnaire data
 #'
-#' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_qx_suppl] for the specified ballot date.
+#' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_qstnrs_suppl] for the specified ballot date.
 #'
 #' @inheritParams cantons
 #'
 #' @return `r pkgsnip::return_label("strict_list")`
-#' @family q_raw
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl(ballot_date = "2018-09-23") %$% mode
-raw_q_suppl <- function(ballot_date = all_ballot_dates) {
+#' fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") %$% mode
+raw_qstnr_suppl <- function(ballot_date = all_ballot_dates) {
 
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
-  raw_qx_suppl[[ballot_date]]
+  raw_qstnrs_suppl[[ballot_date]]
 }
 
 #' Get a political level's raw supplemental date-specific FOKUS questionnaire data
 #'
-#' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl] for the specified ballot date and political level.
+#' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data][raw_qstnr_suppl] for the specified ballot date and political
+#' level.
 #'
 #' @inheritParams cantons
 #' @param lvl Political level. One of
 #' `r pal::as_md_val_list(all_lvls)`
 #'
-#' @inherit raw_q_suppl return seealso
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return seealso
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_lvl(ballot_date = "2018-09-23",
-#'                         lvl = "cantonal") |>
+#' fokus:::raw_qstnr_suppl_lvl(ballot_date = "2018-09-23",
+#'                             lvl = "cantonal") |>
 #'   names()
-raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
-                            lvl = all_lvls) {
-
+raw_qstnr_suppl_lvl <- function(ballot_date = all_ballot_dates,
+                                lvl = all_lvls) {
+  
   lvl <- rlang::arg_match(lvl)
 
-  result <- raw_q_suppl(ballot_date = ballot_date) %>% purrr::pluck(lvl)
+  result <- raw_qstnr_suppl(ballot_date = ballot_date) %>% purrr::pluck(lvl)
 
   if (is.null(result)) {
 
@@ -329,30 +323,30 @@ raw_q_suppl_lvl <- function(ballot_date = all_ballot_dates,
 
 #' Get a canton's political-level-specific raw supplemental date-specific FOKUS questionnaire data
 #'
-#' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political level][raw_q_suppl_lvl]
-#' that applies for the specified canton only.
+#' Returns a structured list of the [raw supplemental date-specific FOKUS questionnaire data for the specified ballot date and political
+#' level][raw_qstnr_suppl_lvl] that applies for the specified canton only.
 #'
-#' @inheritParams raw_q_suppl_lvl
+#' @inheritParams raw_qstnr_suppl_lvl
 #' @inheritParams lvls
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_lvl_canton(ballot_date = "2018-09-23",
-#'                                lvl = "cantonal",
-#'                                canton = "aargau") |>
+#' fokus:::raw_qstnr_suppl_lvl_canton(ballot_date = "2018-09-23",
+#'                                    lvl = "cantonal",
+#'                                    canton = "aargau") |>
 #'   names()
-raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
-                                   lvl = all_lvls,
-                                   canton = all_cantons) {
-
+raw_qstnr_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
+                                       lvl = all_lvls,
+                                       canton = all_cantons) {
+  
   canton <- rlang::arg_match(canton)
 
   result <-
-    raw_q_suppl_lvl(ballot_date = ballot_date,
-                    lvl = lvl) %>%
+    raw_qstnr_suppl_lvl(ballot_date = ballot_date,
+                        lvl = lvl) %>%
     purrr::pluck(canton)
 
   if (is.null(result)) {
@@ -372,26 +366,26 @@ raw_q_suppl_lvl_canton <- function(ballot_date = all_ballot_dates,
 
 #' Get raw proposal supplemental questionnaire data
 #'
-#' Returns a structured list of a proposal's data from the [supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
+#' Returns a structured list of a proposal's data from the [supplemental date-specific FOKUS questionnaire data][raw_qstnr_suppl].
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #' @param proposal_nr Proposal number. A positive integerish scalar.
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_proposal(ballot_date = "2018-09-23",
-#'                              lvl = "cantonal",
-#'                              canton = "aargau",
-#'                              proposal_nr = 1) %$%
+#' fokus:::raw_qstnr_suppl_proposal(ballot_date = "2018-09-23",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  proposal_nr = 1) %$%
 #'   name
-raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
-                                 lvl = all_lvls,
-                                 canton = all_cantons,
-                                 proposal_nr = 1L) {
-
+raw_qstnr_suppl_proposal <- function(ballot_date = all_ballot_dates,
+                                     lvl = all_lvls,
+                                     canton = all_cantons,
+                                     proposal_nr = 1L) {
+  
   lvl <- rlang::arg_match(lvl)
   checkmate::assert_count(proposal_nr,
                           positive = TRUE)
@@ -399,13 +393,13 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
   proposals <-
     lvl %>%
     purrr::when(. == "federal" ~
-                  raw_q_suppl_lvl(ballot_date = ballot_date,
-                                  lvl = .),
-                ~ raw_q_suppl_lvl_canton(ballot_date = ballot_date,
-                                         lvl = .,
-                                         canton = canton)) %>%
+                  raw_qstnr_suppl_lvl(ballot_date = ballot_date,
+                                      lvl = .),
+                ~ raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
+                                             lvl = .,
+                                             canton = canton)) %>%
     purrr::pluck("proposal")
-
+  
   if (is.null(proposals)) {
 
     # reduce to proper arg values for error msg
@@ -442,28 +436,28 @@ raw_q_suppl_proposal <- function(ballot_date = all_ballot_dates,
 #' Get a proposal's raw name supplemental questionnaire data
 #'
 #' Returns a structured list of proposal name data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_proposal].
+#' data][raw_qstnr_suppl_proposal].
 #'
-#' @inheritParams raw_q_suppl_proposal
+#' @inheritParams raw_qstnr_suppl_proposal
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_proposal_name(ballot_date = "2018-11-25",
-#'                                   lvl = "cantonal",
-#'                                   canton = "aargau",
-#'                                   proposal_nr = 2)
-raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
-                                      lvl = all_lvls,
-                                      canton = all_cantons,
-                                      proposal_nr = 1L) {
+#' fokus:::raw_qstnr_suppl_proposal_name(ballot_date = "2018-11-25",
+#'                                       lvl = "cantonal",
+#'                                       canton = "aargau",
+#'                                       proposal_nr = 2)
+raw_qstnr_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
+                                          lvl = all_lvls,
+                                          canton = all_cantons,
+                                          proposal_nr = 1L) {
   result <-
-    raw_q_suppl_proposal(ballot_date = ballot_date,
-                         lvl = lvl,
-                         canton = canton,
-                         proposal_nr = proposal_nr) %>%
+    raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                             lvl = lvl,
+                             canton = canton,
+                             proposal_nr = proposal_nr) %>%
     purrr::pluck("name")
 
   if (is.null(result)) {
@@ -487,28 +481,28 @@ raw_q_suppl_proposal_name <- function(ballot_date = all_ballot_dates,
 #' Get a proposal's raw argument supplemental questionnaire data
 #'
 #' Returns a structured list of argument data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_proposal].
+#' data][raw_qstnr_suppl_proposal].
 #'
-#' @inheritParams raw_q_suppl_proposal
+#' @inheritParams raw_qstnr_suppl_proposal
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_arguments(ballot_date = "2018-11-25",
-#'                               lvl = "cantonal",
-#'                               canton = "aargau",
-#'                               proposal_nr = 2)
-raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
-                                  lvl = all_lvls,
-                                  canton = all_cantons,
-                                  proposal_nr = 1L) {
+#' fokus:::raw_qstnr_suppl_arguments(ballot_date = "2018-11-25",
+#'                                   lvl = "cantonal",
+#'                                   canton = "aargau",
+#'                                   proposal_nr = 2)
+raw_qstnr_suppl_arguments <- function(ballot_date = all_ballot_dates,
+                                      lvl = all_lvls,
+                                      canton = all_cantons,
+                                      proposal_nr = 1L) {
   result <-
-    raw_q_suppl_proposal(ballot_date = ballot_date,
-                         lvl = lvl,
-                         canton = canton,
-                         proposal_nr = proposal_nr) %>%
+    raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                             lvl = lvl,
+                             canton = canton,
+                             proposal_nr = proposal_nr) %>%
     purrr::pluck("argument")
 
   if (is.null(result)) {
@@ -532,38 +526,38 @@ raw_q_suppl_arguments <- function(ballot_date = all_ballot_dates,
 #' Get a proposal argument's raw supplemental questionnaire data
 #'
 #' Returns a structured list of a proposal argument's data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_proposal].
+#' data][raw_qstnr_suppl_proposal].
 #'
-#' @inheritParams raw_q_suppl_arguments
+#' @inheritParams raw_qstnr_suppl_arguments
 #' @inheritParams proposal_argument
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_argument(ballot_date = "2018-11-25",
-#'                              lvl = "cantonal",
-#'                              canton = "aargau",
-#'                              proposal_nr = 2,
-#'                              argument_nr = 2,
-#'                              side = "pro")
-raw_q_suppl_argument <- function(ballot_date = all_ballot_dates,
-                                 lvl = all_lvls,
-                                 canton = all_cantons,
-                                 proposal_nr = 1L,
-                                 argument_nr = 1L,
-                                 side = all_argument_sides) {
+#' fokus:::raw_qstnr_suppl_argument(ballot_date = "2018-11-25",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  proposal_nr = 2,
+#'                                  argument_nr = 2,
+#'                                  side = "pro")
+raw_qstnr_suppl_argument <- function(ballot_date = all_ballot_dates,
+                                     lvl = all_lvls,
+                                     canton = all_cantons,
+                                     proposal_nr = 1L,
+                                     argument_nr = 1L,
+                                     side = all_argument_sides) {
   
   checkmate::assert_count(argument_nr,
                           positive = TRUE)
   side <- rlang::arg_match(side)
   
   result <-
-    raw_q_suppl_arguments(ballot_date = ballot_date,
-                          lvl = lvl,
-                          canton = canton,
-                          proposal_nr = proposal_nr) %>%
+    raw_qstnr_suppl_arguments(ballot_date = ballot_date,
+                              lvl = lvl,
+                              canton = canton,
+                              proposal_nr = proposal_nr) %>%
     purrr::keep(~ .x$side %in% side && .x$nr %in% argument_nr) %>%
     dplyr::first()
 
@@ -588,30 +582,30 @@ raw_q_suppl_argument <- function(ballot_date = all_ballot_dates,
 #' Get a proposal's raw main motive supplemental questionnaire data
 #'
 #' Returns a structured list of main motive data from the [proposal-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_proposal].
+#' data][raw_qstnr_suppl_proposal].
 #'
-#' @inheritParams raw_q_suppl_proposal
+#' @inheritParams raw_qstnr_suppl_proposal
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_main_motives(ballot_date = "2018-11-25",
-#'                                  lvl = "cantonal",
-#'                                  canton = "aargau",
-#'                                  proposal_nr = 2)
-raw_q_suppl_main_motives <- function(ballot_date = all_ballot_dates,
-                                     lvl = all_lvls,
-                                     canton = all_cantons,
-                                     proposal_nr = 1L) {
+#' fokus:::raw_qstnr_suppl_main_motives(ballot_date = "2018-11-25",
+#'                                      lvl = "cantonal",
+#'                                      canton = "aargau",
+#'                                      proposal_nr = 2)
+raw_qstnr_suppl_main_motives <- function(ballot_date = all_ballot_dates,
+                                         lvl = all_lvls,
+                                         canton = all_cantons,
+                                         proposal_nr = 1L) {
   result <-
-    raw_q_suppl_proposal(ballot_date = ballot_date,
-                         lvl = lvl,
-                         canton = canton,
-                         proposal_nr = proposal_nr) %>%
+    raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                             lvl = lvl,
+                             canton = canton,
+                             proposal_nr = proposal_nr) %>%
     purrr::pluck("main_motive")
-
+  
 
   if (is.null(result)) {
 
@@ -634,28 +628,28 @@ raw_q_suppl_main_motives <- function(ballot_date = all_ballot_dates,
 #' Get raw supplemental election questionnaire data
 #'
 #' Returns a structured list of election data from the [canton's political-level-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_lvl_canton].
+#' data][raw_qstnr_suppl_lvl_canton].
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_elections(ballot_date = "2019-10-20",
-#'                               lvl = "cantonal",
-#'                               canton = "aargau") %$%
+#' fokus:::raw_qstnr_suppl_elections(ballot_date = "2019-10-20",
+#'                                   lvl = "cantonal",
+#'                                   canton = "aargau") %$%
 #'   skill_questions_source
-raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
-                                  lvl = all_lvls,
-                                  canton = all_cantons) {
+raw_qstnr_suppl_elections <- function(ballot_date = all_ballot_dates,
+                                      lvl = all_lvls,
+                                      canton = all_cantons) {
   result <-
-    raw_q_suppl_lvl_canton(ballot_date = ballot_date,
-                           lvl = lvl,
-                           canton = canton) %>%
+    raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton) %>%
     purrr::pluck("election")
-
+  
   if (is.null(result)) {
 
     # reduce to proper arg values for error msg
@@ -675,37 +669,37 @@ raw_q_suppl_elections <- function(ballot_date = all_ballot_dates,
 #' Get an election's raw supplemental questionnaire data
 #'
 #' Returns a structured list of an election's data from the [canton's political-level-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_lvl_canton].
+#' data][raw_qstnr_suppl_lvl_canton].
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #' @inheritParams election_name
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_election(ballot_date = "2019-10-20",
-#'                              lvl = "cantonal",
-#'                              canton = "aargau",
-#'                              prcd = "majoritarian") %$%
+#' fokus:::raw_qstnr_suppl_election(ballot_date = "2019-10-20",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  prcd = "majoritarian") %$%
 #'   n_seats
-raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
-                                 lvl = all_lvls,
-                                 canton = all_cantons,
-                                 prcd = all_prcds,
-                                 election_nr = 1L) {
-
+raw_qstnr_suppl_election <- function(ballot_date = all_ballot_dates,
+                                     lvl = all_lvls,
+                                     canton = all_cantons,
+                                     prcd = all_prcds,
+                                     election_nr = 1L) {
+  
   prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
-
+  
   result <-
-    raw_q_suppl_elections(ballot_date = ballot_date,
-                          lvl = lvl,
-                          canton = canton) %>%
+    raw_qstnr_suppl_elections(ballot_date = ballot_date,
+                              lvl = lvl,
+                              canton = canton) %>%
     purrr::pluck(prcd)
-
+  
   if (is.null(result)) {
 
     # reduce to proper arg values for error msg
@@ -742,24 +736,24 @@ raw_q_suppl_election <- function(ballot_date = all_ballot_dates,
 #' Get raw supplemental election name questionnaire data
 #'
 #' Returns a structured list of an election's name data from the [political-level-specific raw supplemental date-specific FOKUS questionnaire
-#' data][raw_q_suppl_lvl].
+#' data][raw_qstnr_suppl_lvl].
 #'
-#' @inheritParams raw_q_suppl_election
+#' @inheritParams raw_qstnr_suppl_election
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_election_name(ballot_date = "2019-10-20",
-#'                                   lvl = "cantonal",
-#'                                   canton = "aargau",
-#'                                   prcd = "majoritarian")
-raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
-                                      lvl = all_lvls,
-                                      canton = all_cantons,
-                                      prcd = all_prcds,
-                                      election_nr = 1L) {
+#' fokus:::raw_qstnr_suppl_election_name(ballot_date = "2019-10-20",
+#'                                       lvl = "cantonal",
+#'                                       canton = "aargau",
+#'                                       prcd = "majoritarian")
+raw_qstnr_suppl_election_name <- function(ballot_date = all_ballot_dates,
+                                          lvl = all_lvls,
+                                          canton = all_cantons,
+                                          prcd = all_prcds,
+                                          election_nr = 1L) {
   lvl <- rlang::arg_match(lvl)
   prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
@@ -769,23 +763,23 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
   if (lvl == "federal" && prcd == "proportional") {
 
     result <-
-      raw_q_suppl_lvl(ballot_date = ballot_date,
-                      lvl = lvl) %>%
+      raw_qstnr_suppl_lvl(ballot_date = ballot_date,
+                          lvl = lvl) %>%
       purrr::chuck("election", prcd, as.character(election_nr))
-
+    
   } else {
-
-    result <- raw_q_suppl_election(ballot_date = ballot_date,
-                                   lvl = lvl,
-                                   canton = canton,
-                                   prcd = prcd,
-                                   election_nr = election_nr)
+    
+    result <- raw_qstnr_suppl_election(ballot_date = ballot_date,
+                                       lvl = lvl,
+                                       canton = canton,
+                                       prcd = prcd,
+                                       election_nr = election_nr)
   }
-
+  
   result %<>% purrr::pluck("name")
-
+  
   if (is.null(result)) {
-
+    
     # reduce to proper arg values for error msg
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
@@ -802,92 +796,92 @@ raw_q_suppl_election_name <- function(ballot_date = all_ballot_dates,
 
 #' Get raw supplemental survey mode questionnaire data
 #'
-#' Returns a structured list of survey mode data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
+#' Returns a structured list of survey mode data from the [raw supplemental date-specific FOKUS questionnaire data][raw_qstnr_suppl].
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_mode(ballot_date = "2018-09-23",
-#'                          canton = "aargau")
-raw_q_suppl_mode <- function(ballot_date = all_ballot_dates,
-                             canton = all_cantons) {
-
+#' fokus:::raw_qstnr_suppl_mode(ballot_date = "2018-09-23",
+#'                              canton = "aargau")
+raw_qstnr_suppl_mode <- function(ballot_date = all_ballot_dates,
+                                 canton = all_cantons) {
+  
   canton <- rlang::arg_match(canton)
-
+  
   result <-
-    raw_q_suppl(ballot_date = ballot_date) %>%
+    raw_qstnr_suppl(ballot_date = ballot_date) %>%
     purrr::pluck("mode", canton)
-
+  
   if (is.null(result)) {
-
+    
     # reduce to proper arg values for error msg
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
-
+    
     cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.",
                    .internal = TRUE)
   }
-
+  
   result
 }
 
 #' Get raw supplemental skill question questionnaire data
 #'
-#' Returns a structured list of skill question data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
+#' Returns a structured list of skill question data from the [raw supplemental date-specific FOKUS questionnaire data][raw_qstnr_suppl].
 #'
-#' @inheritParams raw_q_suppl_proposal
+#' @inheritParams raw_qstnr_suppl_proposal
 #' @param proposal_nr Proposal number. A positive integerish scalar or `NULL`. If `NULL`, non-proposal-specific skill question data is returned.
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_skill_questions(ballot_date = "2018-09-23",
-#'                                     lvl = "cantonal",
-#'                                     canton = "aargau",
-#'                                     proposal_nr = 1) |>
+#' fokus:::raw_qstnr_suppl_skill_questions(ballot_date = "2018-09-23",
+#'                                         lvl = "cantonal",
+#'                                         canton = "aargau",
+#'                                         proposal_nr = 1) |>
 #'   purrr::map_depth(1L, "de") |>
 #'   purrr::flatten_chr()
-raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
-                                        lvl = all_lvls,
-                                        canton = all_cantons,
-                                        proposal_nr = NULL) {
+raw_qstnr_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
+                                            lvl = all_lvls,
+                                            canton = all_cantons,
+                                            proposal_nr = NULL) {
   lvl <- rlang::arg_match(lvl)
   result <-
     lvl %>%
     purrr::when(
-
+      
       # federal non-proposal-specific skill questions (e.g. at federal elections)
       length(proposal_nr) == 0L && . == "federal" ~
-        raw_q_suppl_lvl(ballot_date = ballot_date,
-                        lvl = .),
+        raw_qstnr_suppl_lvl(ballot_date = ballot_date,
+                            lvl = .),
       # cantonal non-proposal-specific skill questions (e.g. at cantonal elections)
       length(proposal_nr) == 0L && . == "cantonal" ~
-        raw_q_suppl_lvl_canton(ballot_date = ballot_date,
-                               lvl = .,
-                               canton = canton),
+        raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
+                                   lvl = .,
+                                   canton = canton),
       # federal or cantonal proposal-specific skill questions
-      ~ raw_q_suppl_proposal(ballot_date = ballot_date,
-                             lvl = .,
-                             canton = canton,
-                             proposal_nr = proposal_nr)) %>%
+      ~ raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                                 lvl = .,
+                                 canton = canton,
+                                 proposal_nr = proposal_nr)) %>%
     purrr::pluck("skill_question")
-
+  
   if (is.null(result)) {
-
+    
     # reduce to proper arg values for error msg
     ballot_date %<>% as.character()
     ballot_date <- rlang::arg_match(ballot_date,
                                     values = as.character(all_ballot_dates))
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(canton)
-
+    
     cli::cli_abort(paste0("No skill questions present",
                           ifelse(length(proposal_nr) == 0L,
                                  paste0(" on the {.val {lvl}} level",
@@ -902,34 +896,34 @@ raw_q_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
 
 #' Get a single skill question's raw supplemental questionnaire data
 #'
-#' Returns a structured list of a single skill question's data from the [raw supplemental date-specific FOKUS questionnaire data][raw_q_suppl].
+#' Returns a structured list of a single skill question's data from the [raw supplemental date-specific FOKUS questionnaire data][raw_qstnr_suppl].
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #' @inheritParams skill_question
 #'
-#' @inherit raw_q_suppl return
-#' @family q_raw
+#' @inherit raw_qstnr_suppl return
+#' @family qstnr_raw
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_q_suppl_skill_question(ballot_date = "2018-09-23",
-#'                                    lvl = "cantonal",
-#'                                    canton = "aargau",
-#'                                    proposal_nr = 1,
-#'                                    skill_question_nr = 1)
-raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
-                                       lvl = all_lvls,
-                                       canton = all_cantons,
-                                       proposal_nr = NULL,
-                                       skill_question_nr = 1L) {
-
+#' fokus:::raw_qstnr_suppl_skill_question(ballot_date = "2018-09-23",
+#'                                        lvl = "cantonal",
+#'                                        canton = "aargau",
+#'                                        proposal_nr = 1,
+#'                                        skill_question_nr = 1)
+raw_qstnr_suppl_skill_question <- function(ballot_date = all_ballot_dates,
+                                           lvl = all_lvls,
+                                           canton = all_cantons,
+                                           proposal_nr = NULL,
+                                           skill_question_nr = 1L) {
+  
   checkmate::assert_count(skill_question_nr,
                           positive = TRUE)
   result <-
-    raw_q_suppl_skill_questions(ballot_date = ballot_date,
-                                lvl = lvl,
-                                canton = canton,
-                                proposal_nr = proposal_nr) %>%
+    raw_qstnr_suppl_skill_questions(ballot_date = ballot_date,
+                                    lvl = lvl,
+                                    canton = canton,
+                                    proposal_nr = proposal_nr) %>%
     purrr::pluck(skill_question_nr)
 
   if (is.null(result)) {
@@ -956,13 +950,13 @@ raw_q_suppl_skill_question <- function(ballot_date = all_ballot_dates,
 #'
 #' Picks the right value of a certain raw questionnaire key based on ballot date and canton (recursively).
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #' @param x Questionnaire key. A list object.
 #' @param key Questionnaire key name, used to determine the correct default value fallback. A character scalar or `NULL`. If `NULL`, no fallback is used (and an
 #'   error is thrown in case none of the subkeys matches).
 #'
 #' @return Value of `x` that corresponds to `canton` and `ballot_date`.
-#' @family q_raw
+#' @family qstnr_raw
 #' @keywords internal
 raw_pick_right <- function(x,
                            key = NULL,
@@ -1050,7 +1044,7 @@ pick_right_helper <- function(x,
       "default" %in% . ~ x[["default"]],
 
       # fall back on key's default value if no subkey matches canton and ballot date
-      key %in% q_item_keys$key ~ unlist(q_item_keys$default_val[q_item_keys$key == key]),
+      key %in% qstnr_item_keys$key ~ unlist(qstnr_item_keys$default_val[qstnr_item_keys$key == key]),
 
       # abort in any remaining case
       ~ cli::cli_abort("Undefined behavior, please debug. {.arg {key}} is {.val {key}}, {.arg {x}} is {.field {x}}.",
@@ -1088,15 +1082,15 @@ init_heritable_map <- function(block) {
                     include = TRUE)
 }
 
-resolve_q_val <- function(x,
-                          ballot_date,
-                          canton,
-                          key,
-                          lvl,
-                          i,
-                          j,
-                          ...) {
-
+resolve_qstnr_val <- function(x,
+                              ballot_date,
+                              canton,
+                              key,
+                              lvl,
+                              i,
+                              j,
+                              ...) {
+  
   checkmate::assert_string(lvl,
                            null.ok = TRUE)
   checkmate::assert_count(i,
@@ -1105,50 +1099,50 @@ resolve_q_val <- function(x,
   checkmate::assert_count(j,
                           na.ok = TRUE,
                           null.ok = TRUE)
-
+  
   x %>%
     raw_pick_right(key = key,
                    ballot_date = ballot_date,
                    canton = canton) %>%
-    purrr::when(is.character(.) ~ interpolate_q_val(.,
-                                                    ballot_date = ballot_date,
-                                                    canton = canton,
-                                                    key = key,
-                                                    lvl = lvl,
-                                                    i = i,
-                                                    j = j,
-                                                    ... = ...),
+    purrr::when(is.character(.) ~ interpolate_qstnr_val(.,
+                                                        ballot_date = ballot_date,
+                                                        canton = canton,
+                                                        key = key,
+                                                        lvl = lvl,
+                                                        i = i,
+                                                        j = j,
+                                                        ... = ...),
                 ~ .) %>%
     # convert to proper type
     purrr::when(
-      key %in% q_item_keys$key[q_item_keys$type == "character"] ~
+      key %in% qstnr_item_keys$key[qstnr_item_keys$type == "character"] ~
         as.character(.),
-      key %in% q_item_keys$key[q_item_keys$type == "logical"] ~
+      key %in% qstnr_item_keys$key[qstnr_item_keys$type == "logical"] ~
         as.logical(.),
-      key %in% q_item_keys$key[q_item_keys$type == "integer"] ~
+      key %in% qstnr_item_keys$key[qstnr_item_keys$type == "integer"] ~
         as.integer(.),
-      key %in% q_item_keys$key[q_item_keys$type == "double"] ~
+      key %in% qstnr_item_keys$key[qstnr_item_keys$type == "double"] ~
         as.double(.),
       # undefined behaviour
-      ~ cli::cli_abort("Undefined behaviour in {.fun resolve_q_val}. Please debug.",
+      ~ cli::cli_abort("Undefined behaviour in {.fun resolve_qstnr_val}. Please debug.",
                        .internal = TRUE)
     )
 }
 
-interpolate_q_val <- function(x,
-                              ballot_date,
-                              canton,
-                              key,
-                              lvl,
-                              i,
-                              j,
-                              ...) {
-
+interpolate_qstnr_val <- function(x,
+                                  ballot_date,
+                                  canton,
+                                  key,
+                                  lvl,
+                                  i,
+                                  j,
+                                  ...) {
+  
   # assign objects in dots to current env ensuring glue/cli fns respect them
   rlang::env_bind(.env = rlang::current_env(),
                   ...)
 
-  if (key %in% q_item_keys$key[q_item_keys$is_scalar]) {
+  if (key %in% qstnr_item_keys$key[qstnr_item_keys$is_scalar]) {
 
     result <- cli::pluralize(x,
                              .null = NA_character_,
@@ -1174,12 +1168,12 @@ interpolate_q_val <- function(x,
 #'   is set to `TRUE`.
 #'
 #' @return `r pkgsnip::return_label("data")`
-#' @family q_gen
+#' @family qstnr_gen
 #' @keywords internal
-gen_q_tibble <- function(ballot_date = all_ballot_dates,
-                         canton = cantons(ballot_date),
-                         verbose = FALSE) {
-
+gen_qstnr_tibble <- function(ballot_date = all_ballot_dates,
+                             canton = cantons(ballot_date),
+                             verbose = FALSE) {
+  
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -1193,18 +1187,18 @@ gen_q_tibble <- function(ballot_date = all_ballot_dates,
                          msg_done = paste(status_msg, "done"),
                          msg_failed = paste(status_msg, "failed"))
 
-  purrr::map2_dfr(.x = raw_q,
-                  .y = names(raw_q),
+  purrr::map2_dfr(.x = raw_qstnr,
+                  .y = names(raw_qstnr),
                   .f = ~ {
 
-                    if (verbose && !(.y %in% q_non_item_lvls)) cli::cli_h1("BLOCK: {.val {.y}}")
+                    if (verbose && !(.y %in% qstnr_non_item_lvls)) cli::cli_h1("BLOCK: {.val {.y}}")
 
-                    assemble_q_tibble(ballot_date = ballot_date,
-                                      canton = canton,
-                                      raw_q_branch = .x,
-                                      q_lvl = .y,
-                                      heritable_map = init_heritable_map(block = .y),
-                                      verbose = verbose)
+                    assemble_qstnr_tibble(ballot_date = ballot_date,
+                                          canton = canton,
+                                          raw_qstnr_branch = .x,
+                                          qstnr_lvl = .y,
+                                          heritable_map = init_heritable_map(block = .y),
+                                          verbose = verbose)
                   }) %>%
     # add ballot date and canton
     dplyr::mutate(ballot_date = !!ballot_date,
@@ -1212,120 +1206,120 @@ gen_q_tibble <- function(ballot_date = all_ballot_dates,
                   .before = 1L)
 }
 
-assemble_q_tibble <- function(ballot_date,
-                              canton,
-                              raw_q_branch,
-                              q_lvl,
-                              heritable_map,
-                              verbose) {
-
-  if (verbose && stringr::str_detect(q_lvl, "\\..+\\.item$")) {
-    cli::cli_h2("BRANCH PATH: {.val {stringr::str_remove(q_lvl, '\\\\.item$')}}")
+assemble_qstnr_tibble <- function(ballot_date,
+                                  canton,
+                                  raw_qstnr_branch,
+                                  qstnr_lvl,
+                                  heritable_map,
+                                  verbose) {
+  
+  if (verbose && stringr::str_detect(qstnr_lvl, "\\..+\\.item$")) {
+    cli::cli_h2("BRANCH PATH: {.val {stringr::str_remove(qstnr_lvl, '\\\\.item$')}}")
   }
-
+  
   map <- heritable_map
-
-  # only complement with non-table-array q lvls (would be completely wrong to complement with the `item` table arrays, which are also *unnamed* lists)
-  if (rlang::is_named(raw_q_branch)) {
-
+  
+  # only complement with non-table-array qstnr lvls (would be completely wrong to complement with the `item` table arrays, which are also *unnamed* lists)
+  if (rlang::is_named(raw_qstnr_branch)) {
+    
     map %<>%
-      purrr::list_modify(!!!raw_q_branch) %>%
-      pal::list_keep(keep = q_item_keys$key)
+      purrr::list_modify(!!!raw_qstnr_branch) %>%
+      pal::list_keep(keep = qstnr_item_keys$key)
   }
-
+  
   result <- NULL
-
-  if ("variable_name" %in% names(raw_q_branch)) {
-
-    result <- assemble_q_item_tibble(ballot_date = ballot_date,
-                                     canton = canton,
-                                     item_map = map,
-                                     verbose = verbose)
-
-  } else if (purrr::vec_depth(raw_q_branch) > 2L) {
-
-    result <- purrr::map2_dfr(.x = raw_q_branch,
-                              .y = names(raw_q_branch) %||% seq_along(raw_q_branch),
-                              .f = ~ assemble_q_tibble(ballot_date = ballot_date,
-                                                       canton = canton,
-                                                       raw_q_branch = .x,
-                                                       q_lvl = paste(q_lvl, .y,
-                                                                     sep = "."),
-                                                       heritable_map = map,
-                                                       verbose = verbose))
+  
+  if ("variable_name" %in% names(raw_qstnr_branch)) {
+    
+    result <- assemble_qstnr_item_tibble(ballot_date = ballot_date,
+                                         canton = canton,
+                                         item_map = map,
+                                         verbose = verbose)
+    
+  } else if (purrr::vec_depth(raw_qstnr_branch) > 2L) {
+    
+    result <- purrr::map2_dfr(.x = raw_qstnr_branch,
+                              .y = names(raw_qstnr_branch) %||% seq_along(raw_qstnr_branch),
+                              .f = ~ assemble_qstnr_tibble(ballot_date = ballot_date,
+                                                           canton = canton,
+                                                           raw_qstnr_branch = .x,
+                                                           qstnr_lvl = paste(qstnr_lvl, .y,
+                                                                             sep = "."),
+                                                           heritable_map = map,
+                                                           verbose = verbose))
   }
-
+  
   result
 }
 
-assemble_q_item_tibble <- function(ballot_date,
-                                   canton,
-                                   item_map,
-                                   verbose) {
+assemble_qstnr_item_tibble <- function(ballot_date,
+                                       canton,
+                                       item_map,
+                                       verbose) {
   # iterate over `lvl`...
-  resolve_q_val(x = item_map$lvl,
-                ballot_date = ballot_date,
-                canton = canton,
-                key = "lvl",
-                lvl = "",
-                i = NA_integer_,
-                j = NA_integer_) %>%
+  resolve_qstnr_val(x = item_map$lvl,
+                    ballot_date = ballot_date,
+                    canton = canton,
+                    key = "lvl",
+                    lvl = "",
+                    i = NA_integer_,
+                    j = NA_integer_) %>%
     purrr::map_dfr(
       .f = function(lvl) {
         # ...`i`...
-        resolve_q_val(x = item_map$i,
-                      ballot_date = ballot_date,
-                      canton = canton,
-                      key = "i",
-                      lvl = lvl,
-                      i = NA_integer_,
-                      j = NA_integer_) %>%
+        resolve_qstnr_val(x = item_map$i,
+                          ballot_date = ballot_date,
+                          canton = canton,
+                          key = "i",
+                          lvl = lvl,
+                          i = NA_integer_,
+                          j = NA_integer_) %>%
           purrr::map_dfr(
             lvl = lvl,
             .f = function(i,
                           lvl) {
               # ...and `j`
-              resolve_q_val(x = item_map$j,
-                            ballot_date = ballot_date,
-                            canton = canton,
-                            key = "j",
-                            lvl = lvl,
-                            i = i,
-                            j = NA_integer_) %>%
+              resolve_qstnr_val(x = item_map$j,
+                                ballot_date = ballot_date,
+                                canton = canton,
+                                key = "j",
+                                lvl = lvl,
+                                i = i,
+                                j = NA_integer_) %>%
                 purrr::map_dfr(
                   i = i,
                   lvl = lvl,
                   .f = function(j,
                                 i,
                                 lvl) {
-
+                    
                     # respect keys `include` and `ballot_types`
-                    is_incl <- resolve_q_val(x = item_map$include,
-                                             ballot_date = ballot_date,
-                                             canton = canton,
-                                             key = "include",
-                                             lvl = lvl,
-                                             i = i,
-                                             j = j)
+                    is_incl <- resolve_qstnr_val(x = item_map$include,
+                                                 ballot_date = ballot_date,
+                                                 canton = canton,
+                                                 key = "include",
+                                                 lvl = lvl,
+                                                 i = i,
+                                                 j = j)
                     has_ballot_type <-
-                      resolve_q_val(x = item_map$ballot_types,
-                                    ballot_date = ballot_date,
-                                    canton = canton,
-                                    key = "ballot_types",
-                                    lvl = lvl,
-                                    i = i,
-                                    j = j) %>%
+                      resolve_qstnr_val(x = item_map$ballot_types,
+                                        ballot_date = ballot_date,
+                                        canton = canton,
+                                        key = "ballot_types",
+                                        lvl = lvl,
+                                        i = i,
+                                        j = j) %>%
                       intersect(ballot_types(ballot_date = ballot_date,
                                              canton = canton)) %>%
                       rlang::is_empty() %>%
                       magrittr::not()
-
+                    
                     result <- NULL
-
+                    
                     if (is_incl && has_ballot_type) {
-
+                      
                       if (verbose) cli::cli_h3("ITEM: {.var {item_map$variable_name}}")
-
+                      
                       # resolve all keys in item map
                       result <-
                         names(item_map) %>%
@@ -1337,36 +1331,36 @@ assemble_q_item_tibble <- function(ballot_date,
                         magrittr::set_names(x = .,
                                             value = .) %>%
                         purrr::map(~ {
-
+                          
                           if (verbose) cli::cli_progress_step("KEY: {.field {.x}}")
-
+                          
                           # pre-resolve `question` for dependent `question_full` resolution
                           if (.x == "question_full") {
-                            question <- resolve_q_val(x = item_map[["question"]],
-                                                      ballot_date = ballot_date,
-                                                      canton = canton,
-                                                      key = "question",
-                                                      lvl = lvl,
-                                                      i = i,
-                                                      j = j)
+                            question <- resolve_qstnr_val(x = item_map[["question"]],
+                                                          ballot_date = ballot_date,
+                                                          canton = canton,
+                                                          key = "question",
+                                                          lvl = lvl,
+                                                          i = i,
+                                                          j = j)
                           } else {
                             question <- NA_character_
                           }
-
-                          resolve_q_val(x = item_map[[.x]],
-                                        ballot_date = ballot_date,
-                                        canton = canton,
-                                        key = .x,
-                                        lvl = lvl,
-                                        i = i,
-                                        j = j,
-                                        question = question) %>%
+                          
+                          resolve_qstnr_val(x = item_map[[.x]],
+                                            ballot_date = ballot_date,
+                                            canton = canton,
+                                            key = .x,
+                                            lvl = lvl,
+                                            i = i,
+                                            j = j,
+                                            question = question) %>%
                             purrr::when(
                               # replace empty scalars with NA
-                              length(.) == 0L && .x %in% q_item_keys$key[q_item_keys$is_scalar] ~
+                              length(.) == 0L && .x %in% qstnr_item_keys$key[qstnr_item_keys$is_scalar] ~
                                 .[NA],
                               # wrap vectors in list
-                              .x %in% q_item_keys$key[!q_item_keys$is_scalar] ~
+                              .x %in% qstnr_item_keys$key[!qstnr_item_keys$is_scalar] ~
                                 list(.),
                               ~ .
                             )
@@ -1375,94 +1369,94 @@ assemble_q_item_tibble <- function(ballot_date,
                         c(lvl = lvl,
                           i = i,
                           j = j)
-
+                      
                       # handle special cases
                       ## 1: fill empty non-iterator multi-value keys with NA(s) if all other non-empty multi-value keys have the same length
                       lengths_multi_val_keys <-
-                        q_item_keys_multival %>%
+                        qstnr_item_keys_multival %>%
                         magrittr::set_names(., .) %>%
                         purrr::map_int(~ length(result[[.x]][[1L]]))
-
+                      
                       positive_lengths_multi_val_keys <-
                         lengths_multi_val_keys %>%
                         magrittr::extract(. > 0L)
-
+                      
                       if (any(lengths_multi_val_keys == 0L) && length(unique(positive_lengths_multi_val_keys)) == 1L) {
-
+                        
                         for (k in (lengths_multi_val_keys %>%
                                    magrittr::extract(. == 0L) %>%
                                    names())) {
-
+                          
                           result[[k]] <- list(rep(result[[k]][[1L]][NA],
                                                   times = length(result[[names(positive_lengths_multi_val_keys)[1L]]][[1L]])))
                         }
                       }
-
+                      
                       ## 2: if no `question_common` is defined, fall back on
                       ##    a) `question_full.default`
                       ##    b) `question.default`
                       ##    c) `question_full`
                       ##    if either exists and actually differs from `question`
                       if (is.null(result$question_common)) {
-
+                        
                         question_common_fallback <-
                           item_map %>%
                           purrr::when("default" %in% names(.$question_full) ~
-                                        resolve_q_val(x = item_map$question_full$default,
-                                                      ballot_date = ballot_date,
-                                                      canton = canton,
-                                                      key = "question_full",
-                                                      lvl = lvl,
-                                                      i = i,
-                                                      j = j),
+                                        resolve_qstnr_val(x = item_map$question_full$default,
+                                                          ballot_date = ballot_date,
+                                                          canton = canton,
+                                                          key = "question_full",
+                                                          lvl = lvl,
+                                                          i = i,
+                                                          j = j),
                                       "default" %in% names(.$question) ~
-                                        resolve_q_val(x = item_map$question$default,
-                                                      ballot_date = ballot_date,
-                                                      canton = canton,
-                                                      key = "question",
-                                                      lvl = lvl,
-                                                      i = i,
-                                                      j = j),
+                                        resolve_qstnr_val(x = item_map$question$default,
+                                                          ballot_date = ballot_date,
+                                                          canton = canton,
+                                                          key = "question",
+                                                          lvl = lvl,
+                                                          i = i,
+                                                          j = j),
                                       ~ result$question_full)
-
+                        
                         if (isTRUE(question_common_fallback != result$question)) {
                           result$question_common <- question_common_fallback
                         }
                       }
-
+                      
                       ## 3: if no `variable_label_common` is defined, fall back on `variable_label.default` if it exists and actually differs from
                       ##    variable_label`
                       if (is.null(result$variable_label_common) && "default" %in% names(item_map$variable_label)) {
-
-                        default_variable_label <- resolve_q_val(x = item_map$variable_label$default,
-                                                                ballot_date = ballot_date,
-                                                                canton = canton,
-                                                                key = "variable_label",
-                                                                lvl = lvl,
-                                                                i = i,
-                                                                j = j)
-
+                        
+                        default_variable_label <- resolve_qstnr_val(x = item_map$variable_label$default,
+                                                                    ballot_date = ballot_date,
+                                                                    canton = canton,
+                                                                    key = "variable_label",
+                                                                    lvl = lvl,
+                                                                    i = i,
+                                                                    j = j)
+                        
                         if (isTRUE(default_variable_label != result$variable_label)) {
                           result$variable_label_common <- default_variable_label
                         }
                       }
-
+                      
                       ## 4: add `who`-constraint to `variable_label` and `variable_label_common`
                       ### get English `who` value
                       who_en <-
-                        raw_q$who %>%
+                        raw_qstnr$who %>%
                         purrr::detect(~ .x$value$de == stringr::str_replace(string = result$who,
                                                                             pattern = "\\d+",
                                                                             replacement = "{i}")) %>%
                         purrr::chuck("value", "en") %>%
                         cli::pluralize(.null = NA_character_,
                                        .trim = FALSE)
-
+                      
                       ### add who-constraints
                       if (!is.null(result$variable_label_common)
                           && !is.na(result$variable_label_common)
                           && !has_who_constraint(result$variable_label_common)) {
-
+                        
                         # ensure `who` doesn't vary over time
                         if (length(item_map$who) > 1L) {
                           cli::cli_abort(paste0("{.field who} of variable {.var {result$variable_name}} has changed over time. Thus an explicit {.field who}-",
@@ -1474,7 +1468,7 @@ assemble_q_item_tibble <- function(ballot_date,
                       }
                       result$variable_label %<>% add_who_constraint(who = who_en)
                     }
-
+                    
                     # convert result to tibble
                     tibble::as_tibble(result)
                   })
@@ -1484,26 +1478,26 @@ assemble_q_item_tibble <- function(ballot_date,
 
 #' Expand questionnaire tibble to long format
 #'
-#' Expands a [questionnaire tibble][gen_q_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
+#' Expands a [questionnaire tibble][gen_qstnr_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
 #'
-#' @param q_tibble Questionnaire tibble as returned by [gen_q_tibble()].
+#' @param qstnr_tibble Questionnaire tibble as returned by [gen_qstnr_tibble()].
 #'
 #' @return `r pkgsnip::return_label("data")`
-#' @family q_gen
+#' @family qstnr_gen
 #' @keywords internal
-expand_q_tibble <- function(q_tibble) {
+expand_qstnr_tibble <- function(qstnr_tibble) {
 
   # run integrity checks...
-  validate_q_tibble(q_tibble) %>%
+  validate_qstnr_tibble(qstnr_tibble) %>%
     # ...expand questionnaire data to long format...
-    tidyr::unnest(cols = any_of(q_item_keys_multival))
+    tidyr::unnest(cols = any_of(qstnr_item_keys_multival))
 }
 
-clean_q_tibble <- function(q_tibble) {
+clean_qstnr_tibble <- function(qstnr_tibble) {
 
-  q_tibble %>%
+  qstnr_tibble %>%
     # remove (single) placeholders
-    dplyr::mutate(dplyr::across(any_of(q_item_keys_multival) & where(~ is.character(.x[[1L]])),
+    dplyr::mutate(dplyr::across(any_of(qstnr_item_keys_multival) & where(~ is.character(.x[[1L]])),
                                 ~ .x %>% purrr::map(~ { if (length(.x) == 1L && isTRUE(stringr::str_detect(.x, "^_.+_$"))) character() else .x }))) %>%
     # strip MD
     dplyr::mutate(dplyr::across(where(is.character),
@@ -1512,15 +1506,15 @@ clean_q_tibble <- function(q_tibble) {
                                 ~ .x %>% purrr::map(pal::strip_md)))
 }
 
-validate_q_tibble <- function(q_tibble) {
+validate_qstnr_tibble <- function(qstnr_tibble) {
 
   # integrity check 1: ensure there are no duplicated topics, variable names and variable labels
   c("topic",
     "variable_name",
     "variable_label") %>%
-    purrr::walk(.f = function(v) {
+    purrr::walk(.f = function(var) {
 
-      is_dup <- duplicated(q_tibble[[v]])
+      is_dup <- duplicated(qstnr_tibble[[var]])
 
       if (any(is_dup)) {
 
@@ -1528,16 +1522,16 @@ validate_q_tibble <- function(q_tibble) {
 
         for (i in dup_indices) {
 
-          dup_v <- q_tibble[[v]][i]
+          dup_var <- qstnr_tibble[[var]][i]
 
-          cli::cli_alert_warning(paste0("{.var {v}} {.val {dup_v}} is included more than once in the questionnaire."))
+          cli::cli_alert_warning(paste0("{.var {var}} {.val {dup_var}} is included more than once in the questionnaire."))
         }
       }
     })
 
   # integrity check 2: ensure all multi-value columns have the same length or alternatively are empty, and if not, tell which ones don't
-  multi_val_v_lengths <-
-    q_tibble %>%
+  multi_val_var_lengths <-
+    qstnr_tibble %>%
     dplyr::transmute(dplyr::across(where(is.list),
                                    purrr::map_int,
                                    length)) %>%
@@ -1548,32 +1542,32 @@ validate_q_tibble <- function(q_tibble) {
                   matches_length =
                     matches_length & (length_response_options == 0L | length_variable_values == 0L | length_response_options == length_variable_values))
 
-  i_violated <- which(!multi_val_v_lengths$matches_length)
+  i_violated <- which(!multi_val_var_lengths$matches_length)
 
   if (length(i_violated)) {
 
-    multi_val_v_names <-
-      q_tibble %>%
+    multi_val_var_names <-
+      qstnr_tibble %>%
       dplyr::select(where(is.list)) %>%
       colnames()
 
     # print affected variable names first since long error msg gets truncated
     cli::cli({
       cli::cli_alert_danger("Affected variable names:")
-      cli::cli_ul(items = q_tibble$variable_name[i_violated])
+      cli::cli_ul(items = qstnr_tibble$variable_name[i_violated])
     })
 
     bullets <-
-      q_tibble$variable_name[i_violated] %>%
+      qstnr_tibble$variable_name[i_violated] %>%
       purrr::map_chr(~ glue::glue("{{.var {.x}}}")) %>%
       rlang::set_names("*")
     
-    cli::cli_abort(c("The number of {.var {multi_val_v_names}} differs for the following variable names:",
+    cli::cli_abort(c("The number of {.var {multi_val_var_names}} differs for the following variable names:",
                      bullets),
                    .internal = TRUE)
   }
 
-  invisible(q_tibble)
+  invisible(qstnr_tibble)
 }
 
 has_who_constraint <- function(x) {
@@ -1601,40 +1595,40 @@ add_who_constraint <- function(x,
 
 #' Generate Markdown questionnaire
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #' @param incl_title Whether or not to generate an `<h1>` questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
 #'   it's recommended to set this to `FALSE` and provide the title via [Pandoc's `--metadata` option](https://pandoc.org/MANUAL.html#option--metadata) instead.
 #'
 #' @return A character vector.
-#' @family q_gen
+#' @family qstnr_gen
 #' @keywords internal
-gen_q_md <- function(q_tibble,
-                     incl_title = FALSE) {
-
+gen_qstnr_md <- function(qstnr_tibble,
+                         incl_title = FALSE) {
+  
   # ensure we have a single ballot date and canton
   ballot_date <-
-    q_tibble %$%
+    qstnr_tibble %$%
     ballot_date %>%
     unique() %>%
     checkmate::assert_string(.var.name = "ballot_date")
   canton <-
-    q_tibble %$%
+    qstnr_tibble %$%
     canton %>%
     unique() %>%
     checkmate::assert_string(.var.name = "canton")
-
+  
   status_msg <- "Generating Markdown questionnaire for canton {.val {canton}} @ {.val {ballot_date}}..."
   cli::cli_progress_step(msg = status_msg,
                          msg_done = paste(status_msg, "done"),
                          msg_failed = paste(status_msg, "failed"))
-
+  
   block_lines <-
-    q_tibble %>%
+    qstnr_tibble %>%
     # add block title and across-block item enumerator base/group
     dplyr::mutate(enumerator_base =
                     block %>%
-                    purrr::map_int(~ raw_q %>% purrr::pluck(.x, "prefix",
-                                                            .default = 0L))) %>%
+                    purrr::map_int(~ raw_qstnr %>% purrr::pluck(.x, "prefix",
+                                                                .default = 0L))) %>%
     # add across-block item enumerator
     dplyr::group_by(enumerator_base) %>%
     dplyr::group_modify(~ tibble::rowid_to_column(.x,
@@ -1645,40 +1639,40 @@ gen_q_md <- function(q_tibble,
     # iterate over every block and generate block header plus table
     dplyr::group_by(block) %>%
     dplyr::group_map(~ {
-
+      
       block <- .y$block
       block_nr <- block_name_to_nr(block)
-      block_title <- raw_q %>% purrr::chuck(block, "title")
+      block_title <- raw_qstnr %>% purrr::chuck(block, "title")
       block_intro <-
-        raw_q %>%
+        raw_qstnr %>%
         purrr::pluck(block, "intro") %>%
         raw_pick_right(key = "intro",
                        ballot_date = ballot_date,
                        canton = canton) %>%
         cli::pluralize(.trim = FALSE)
-
+      
       c(glue::glue("## Block {block_nr}: {block_title}",
                    .null = NA_character_),
         "",
         block_intro,
         ""[length(block_intro)],
-        q_md_table_header,
-        q_md_table_body(q_tibble_block = .x,
-                        block = block),
+        qstnr_md_table_header,
+        qstnr_md_table_body(qstnr_tibble_block = .x,
+                            block = block),
         "",
         "")
     }) %>%
     purrr::flatten_chr()
-
+  
   # add title, technical notes, introduction, footnotes and link references
   title <- glue::glue("# FOKUS-{ stringr::str_to_sentence(canton) }-Fragebogen f\u00fcr den ",
                       ballot_title(ballot_date = ballot_date,
                                    canton = canton),
                       "\n",
                       .trim = FALSE)
-
+  
   technical_notes <-
-    raw_q %$%
+    raw_qstnr %$%
     who %>%
     # reduce to who's that actually occur in data
     purrr::keep(~ .x %>%
@@ -1693,35 +1687,35 @@ gen_q_md <- function(q_tibble,
                                       length() %>%
                                       magrittr::is_greater_than(0L)) %>%
                   purrr::when(length(.) == 0L ~ FALSE,
-                              ~ stringr::str_detect(string = q_tibble$who,
+                              ~ stringr::str_detect(string = qstnr_tibble$who,
                                                     pattern = pal::fuse_regex(paste0("\\Q", ., "\\E")))) %>%
                   any()) %>%
     # assemble who lines
     purrr::map_depth(.depth = 1L,
                      .f = function(who_map) {
-
-                       i <- resolve_q_val(x = who_map$i %||% 1L,
-                                          ballot_date = ballot_date,
-                                          canton = canton,
-                                          key = "i",
-                                          lvl = "",
-                                          i = NA_integer_,
-                                          j = NA_integer_)
-
-                       j <- resolve_q_val(x = who_map$j %||% 1L,
-                                          ballot_date = ballot_date,
-                                          canton = canton,
-                                          key = "j",
-                                          lvl = "",
-                                          i = NA_integer_,
-                                          j = NA_integer_)
+                       
+                       i <- resolve_qstnr_val(x = who_map$i %||% 1L,
+                                              ballot_date = ballot_date,
+                                              canton = canton,
+                                              key = "i",
+                                              lvl = "",
+                                              i = NA_integer_,
+                                              j = NA_integer_)
+                       
+                       j <- resolve_qstnr_val(x = who_map$j %||% 1L,
+                                              ballot_date = ballot_date,
+                                              canton = canton,
+                                              key = "j",
+                                              lvl = "",
+                                              i = NA_integer_,
+                                              j = NA_integer_)
                        value <-
                          i %>%
                          purrr::map(function(i) {
                            j %>%
                              purrr::map_chr(i = i,
                                             .f = function(i, j) {
-
+                                              
                                               who_map$value$de %>%
                                                 glue::glue(.null = NA_character_,
                                                            .trim = FALSE) %>%
@@ -1729,21 +1723,21 @@ gen_q_md <- function(q_tibble,
                                             })
                          }) %>%
                          purrr::flatten_chr()
-
+                       
                        description <-
                          i %>%
                          purrr::map(function(i) {
                            j %>%
                              purrr::map_chr(i = i,
                                             .f = function(i, j) {
-
+                                              
                                               who_map$description$de %>%
                                                 glue::glue(.null = NA_character_,
                                                            .trim = FALSE)
                                             })
                          }) %>%
                          purrr::flatten_chr()
-
+                       
                        glue::glue("- {value}: {description}")
                      }) %>%
     purrr::flatten_chr() %>%
@@ -1755,11 +1749,11 @@ gen_q_md <- function(q_tibble,
       "",
       .,
       "",
-      md_snippets$q_technical_notes_multiple_responses,
-      md_snippets$q_technical_notes_free_text_fields)
-
+      md_snippets$qstnr_technical_notes_multiple_responses,
+      md_snippets$qstnr_technical_notes_free_text_fields)
+  
   footnotes <-
-    raw_q$footnote %>%
+    raw_qstnr$footnote %>%
     # reduce to footnotes that actually occur in table body
     purrr::keep(~ any(stringr::str_detect(block_lines, glue::glue("\\[\\^{.x$id}\\]",
                                                                   .null = NA_character_)))) %>%
@@ -1770,9 +1764,9 @@ gen_q_md <- function(q_tibble,
                               .trim = FALSE),
                    "")) %>%
     purrr::flatten_chr()
-
+  
   link_refs <-
-    raw_q$link %>%
+    raw_qstnr$link %>%
     # reduce to link references that actually occur in table body
     purrr::keep(~ any(stringr::str_detect(block_lines, glue::glue("\\[[^]]+\\]\\[{.x$id}\\]",
                                                                   .null = NA_character_)))) %>%
@@ -1780,19 +1774,19 @@ gen_q_md <- function(q_tibble,
                               .null = NA_character_),
                    "")) %>%
     purrr::flatten_chr()
-
+  
   c(title[incl_title],
     technical_notes,
-    md_snippets$q_introduction,
+    md_snippets$qstnr_introduction,
     block_lines,
     footnotes,
     link_refs)
 }
 
-q_md_table_body <- function(q_tibble_block,
-                            block) {
-
-  q_tibble_block %>%
+qstnr_md_table_body <- function(qstnr_tibble_block,
+                                block) {
+  
+  qstnr_tibble_block %>%
     # replace logicals by German ja/nein
     dplyr::mutate(dplyr::across(where(is.logical),
                                 ifelse,
@@ -1832,29 +1826,29 @@ q_md_table_body <- function(q_tibble_block,
             allow_multiple_answers,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
-            shorten_v_names(v_names = variable_name,
-                            max_n_char = ifelse(block %in% c("x_polling_agency", "y_generated", "z_generated")
-                                                || stringr::str_detect(string = variable_name,
-                                                                       pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
-                                                                                                               "information_source_",
-                                                                                                               "reason_non_participation_",
-                                                                                                               "political_occasions_")))),
-                                                32L,
-                                                30L)) %>%
+            shorten_var_names(var_names = variable_name,
+                              max_n_char = ifelse(block %in% c("x_polling_agency", "y_generated", "z_generated")
+                                                  || stringr::str_detect(string = variable_name,
+                                                                         pattern = paste0("^", pal::fuse_regex(c("agreement_contra_argument_",
+                                                                                                                 "information_source_",
+                                                                                                                 "reason_non_participation_",
+                                                                                                                 "political_occasions_")))),
+                                                  32L,
+                                                  30L)) %>%
               pal::wrap_chr("`"),
             variable_label,
             response_options %>%
-              purrr::when(is_skill_question_v(variable_name) ~
+              purrr::when(is_skill_question_var(variable_name) ~
                             format_md_multival_col(x = .,
                                                    collapse_break = FALSE) %>%
                             md_emphasize(which = skill_question_answer_nr(ballot_date = ballot_date,
-                                                                          lvl = v_lvls(v_name = variable_name),
+                                                                          lvl = var_lvls(var_name = variable_name),
                                                                           canton = canton,
                                                                           proposal_nr =
-                                                                            v_proposal_nr(variable_name) %>%
+                                                                            var_proposal_nr(variable_name) %>%
                                                                             purrr::when(is.na(.) ~ NULL,
                                                                                         ~ .),
-                                                                          skill_question_nr = v_skill_question_nr(variable_name))) %>%
+                                                                          skill_question_nr = var_skill_question_nr(variable_name))) %>%
                             collapse_break(),
                           ~ format_md_multival_col(.)),
             format_md_multival_col(variable_values),
@@ -1901,49 +1895,49 @@ block_name_to_nr <- function(x) {
 
 #' Extract questionnaire item field value
 #'
-#' Extracts a single questionnaire item field value for every first- for every second-level iterator from the [raw FOKUS questionnaire data][raw_q] based on the
-#' specified variable name and branch path.
+#' Extracts a single questionnaire item field value for every first- for every second-level iterator from the [raw FOKUS questionnaire data][raw_qstnr] based on
+#' the specified variable name and branch path.
 #'
 #' When used in questionnaire item field values via [string interpolation][glue::glue], be careful to not create infinite loops via circular references.
 #'
 #' @inheritParams ballot_title
-#' @param v_name Variable name, without resolved string interpolation, i.e. 1:1 as stated in the raw FOKUS questionnaire data. A character scalar.
-#' @param branch_path Sequence of questionnaire table levels that lead to the `item` leaf node where `v_name` is defined. A character vector.
+#' @param var_name Variable name, without resolved string interpolation, i.e. 1:1 as stated in the raw FOKUS questionnaire data. A character scalar.
+#' @param branch_path Sequence of questionnaire table levels that lead to the `item` leaf node where `var_name` is defined. A character vector.
 #' @param key Questionnaire item key. One of
-#' `r pal::as_md_val_list(q_item_keys$key)`
+#' `r pal::as_md_val_list(qstnr_item_keys$key)`
 #' @param lvl Political-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. A character vector.
 #' @param i Second-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integerish vector.
 #' @param j Third-level loop iterator that can be referred to in field value via [string interpolation][glue::glue]. An integerish vector.
 #'
 #' @return A vector of the resolved item field values. Type and length of resolved values depend on `key`.
-#' @family q_internal
+#' @family qstnr_internal
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::q_item_val(ballot_date = "2018-09-23",
-#'                    canton = "aargau",
-#'                    branch_path = c("03_proposal_specific", "004_participants"),
-#'                    v_name = "appeal_federal_proposals",
-#'                    key = "include")
+#' fokus:::qstnr_item_val(ballot_date = "2018-09-23",
+#'                        canton = "aargau",
+#'                        branch_path = c("03_proposal_specific", "004_participants"),
+#'                        var_name = "appeal_federal_proposals",
+#'                        key = "include")
 #'
-#' fokus:::q_item_val(
+#' fokus:::qstnr_item_val(
 #'   ballot_date = "2019-10-20",
 #'   canton = "aargau",
 #'   branch_path = c("02_political_start", "002_non_participation",
 #'                   "003_election", "z01_hypothetical"),
-#'   v_name = "hypothetical_voting_decision_federal_majoritarian_election_{i}_seat_{j}",
+#'   var_name = "hypothetical_voting_decision_federal_majoritarian_election_{i}_seat_{j}",
 #'   key = "topic",
 #'   i = 1:2,
 #'   j = 1:3
 #' )
-q_item_val <- function(ballot_date = all_ballot_dates,
-                       canton = cantons(ballot_date),
-                       branch_path,
-                       v_name,
-                       key = q_item_keys$key,
-                       lvl = "?",
-                       i = NA_integer_,
-                       j = NA_integer_) {
+qstnr_item_val <- function(ballot_date = all_ballot_dates,
+                           canton = cantons(ballot_date),
+                           branch_path,
+                           var_name,
+                           key = qstnr_item_keys$key,
+                           lvl = "?",
+                           i = NA_integer_,
+                           j = NA_integer_) {
 
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
@@ -1956,17 +1950,17 @@ q_item_val <- function(ballot_date = all_ballot_dates,
   if ("item" %in% branch_path) {
     cli::cli_abort("{.arg branch_path} must be specified {.emph without} the {.val item} leaf node.")
   }
-  checkmate::assert_string(v_name)
+  checkmate::assert_string(var_name)
   key <- rlang::arg_match(key)
 
   item_map <-
-    raw_q %>%
+    raw_qstnr %>%
     purrr::chuck(!!!branch_path, "item") %>%
-    purrr::keep(.p = ~ isTRUE(.x$variable_name == v_name)) %>%
+    purrr::keep(.p = ~ isTRUE(.x$variable_name == var_name)) %>%
     purrr::flatten()
 
   if (!rlang::has_name(x = item_map, name = "variable_name")) {
-    cli::cli_abort(paste0("There is no item with {.arg variable_name} {.val {v_name}} defined under the questionnaire branch path {.field ",
+    cli::cli_abort(paste0("There is no item with {.arg variable_name} {.val {var_name}} defined under the questionnaire branch path {.field ",
                           pal::prose_ls(x = branch_path,
                                         sep = " -> ",
                                         last_sep = " -> "),
@@ -1979,11 +1973,11 @@ q_item_val <- function(ballot_date = all_ballot_dates,
   for (branch_depth in purrr::accumulate(branch_path, c)) {
 
     parent_map <-
-      raw_q %>%
+      raw_qstnr %>%
       purrr::chuck(!!!branch_depth) %>%
       purrr::list_modify(.x = parent_map,
                          !!!.) %>%
-      pal::list_keep(keep = q_item_keys$key)
+      pal::list_keep(keep = qstnr_item_keys$key)
   }
 
   # evaluate requested item value
@@ -2005,13 +1999,13 @@ q_item_val <- function(ballot_date = all_ballot_dates,
                                                 i,
                                                 lvl) {
 
-                                    resolve_q_val(x = raw_val,
-                                                  ballot_date = ballot_date,
-                                                  canton = canton,
-                                                  key = key,
-                                                  lvl = lvl,
-                                                  i = i,
-                                                  j = j)
+                                    resolve_qstnr_val(x = raw_val,
+                                                      ballot_date = ballot_date,
+                                                      canton = canton,
+                                                      key = key,
+                                                      lvl = lvl,
+                                                      i = i,
+                                                      j = j)
                                   })
                    })
     }) %>%
@@ -2020,19 +2014,19 @@ q_item_val <- function(ballot_date = all_ballot_dates,
 
 #' Get political parties
 #'
-#' Returns a tibble of ballot-date-specific political party metadata defined in the [raw FOKUS questionnaire data][raw_q].
+#' Returns a tibble of ballot-date-specific political party metadata defined in the [raw FOKUS questionnaire data][raw_qstnr].
 #'
 #' @return `r pkgsnip::return_label("data")`
-#' @family q_internal
+#' @family qstnr_internal
 #' @keywords internal
-q_parties <- function(ballot_date = all_ballot_dates) {
+qstnr_parties <- function(ballot_date = all_ballot_dates) {
 
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
   ballot_date %<>% lubridate::as_date()
 
-  raw_q %>%
+  raw_qstnr %>%
     purrr::chuck("party") %>%
     purrr::map_dfr(~ {
       tibble::tibble_row(code = .x$code,
@@ -2047,7 +2041,7 @@ q_parties <- function(ballot_date = all_ballot_dates) {
 
 #' Get response option codes
 #'
-#' Extracts response option codes of the specified type(s) from the [raw FOKUS questionnaire data][raw_q].
+#' Extracts response option codes of the specified type(s) from the [raw FOKUS questionnaire data][raw_qstnr].
 #'
 #' Note that only codes of recurring response options are returned which are defined under the `response_options` top-level key in the file
 #' `data-raw/questionnaire/questionnaire.toml`.
@@ -2056,43 +2050,44 @@ q_parties <- function(ballot_date = all_ballot_dates) {
 #' `r pal::as_md_val_list(all_response_option_types)`
 #'
 #' @return An integer vector.
-#' @family q_internal
+#' @family qstnr_internal
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::q_response_option_codes(types = "abstain")
+#' fokus:::qstnr_response_option_codes(types = "abstain")
 #'
-#' fokus:::q_response_option_codes(types = c("dunno",
-#'                                           "custom",
-#'                                           "abstain"))
-q_response_option_codes <- function(types = all_response_option_types) {
+#' fokus:::qstnr_response_option_codes(types = c("dunno",
+#'                                               "custom",
+#'                                               "abstain"))
+qstnr_response_option_codes <- function(types = all_response_option_types) {
 
   types <- unique(checkmate::assert_subset(types,
                                            choices = all_response_option_types,
                                            empty.ok = FALSE))
 
-  types %>% purrr::map_int(~ raw_q %>% purrr::chuck("response_options", .x, "code"))
+  types %>% purrr::map_int(~ raw_qstnr %>% purrr::chuck("response_options", .x, "code"))
 }
 
 #' Determine questionnaire data's value label column
 #'
-#' Determines the [questionnaire data][qx] column that holds variable value labels, returned as a [symbol][as.symbol].
+#' Determines the [questionnaire data][qstnrs] column that holds variable value labels, returned as a [symbol][as.symbol].
 #'
 #' The questionnaire data column that holds variable value labels is language-dependent. While the column
-#' `r q_lbl_col_sym("de") %>% as.character() %>% pal::wrap_chr("\x60")` holds the German value labels, their English counterpars are found in the column
-#' `r q_lbl_col_sym("en") %>% as.character() %>% pal::wrap_chr("\x60")`. `q_lbl_col_sym()` is intended to ease language-agnostic questionnaire data programming.
+#' `r qstnr_lbl_col_sym("de") %>% as.character() %>% pal::wrap_chr("\x60")` holds the German value labels, their English counterpars are found in the column
+#' `r qstnr_lbl_col_sym("en") %>% as.character() %>% pal::wrap_chr("\x60")`. `qstnr_lbl_col_sym()` is intended to ease language-agnostic questionnaire data
+#' programming.
 #'
 #' @inheritParams proposal_name
 #'
 #' @return `r pkgsnip::return_label("symbol")`
-#' @family q_predicate
+#' @family qstnr_predicate
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::q_lbl_col_sym(lang = "de")
+#' fokus:::qstnr_lbl_col_sym(lang = "de")
 #' 
-#' fokus:::q_lbl_col_sym(lang = "en")
-q_lbl_col_sym <- function(lang = c("de", "en")) {
+#' fokus:::qstnr_lbl_col_sym(lang = "en")
+qstnr_lbl_col_sym <- function(lang = c("de", "en")) {
   
   lang <- rlang::arg_match(lang)
   
@@ -2111,7 +2106,7 @@ q_lbl_col_sym <- function(lang = c("de", "en")) {
 #' -   the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
 #'     adults between 18--25 years.
 #'
-#' @inheritParams raw_q_suppl_lvl_canton
+#' @inheritParams raw_qstnr_suppl_lvl_canton
 #'
 #' @return `r pkgsnip::param_label("data")`
 #' @keywords internal
@@ -2228,8 +2223,8 @@ read_voting_register_data_extra <- function(ballot_date,
   # ## in `sex_official`
   # unknown_sex_official_i <-
   #   data$sex_official %>%
-  #   magrittr::is_in(fa_fct_labels(v_name = "sex_official",
-  #                                 check_v_presence = FALSE,
+  #   magrittr::is_in(fa_fct_labels(var_name = "sex_official",
+  #                                 check_var_presence = FALSE,
   #                                 lang = "de")) %>%
   #   magrittr::not() %>%
   #   which()
@@ -2237,7 +2232,7 @@ read_voting_register_data_extra <- function(ballot_date,
   # if (length(unknown_sex_official_i)) {
   #   
   #   rlang::abort(message = style_error(paste0(
-  #     style_v_name("sex_official"), " in raw extra voting register data has unknown values: ",
+  #     style_var_name("sex_official"), " in raw extra voting register data has unknown values: ",
   #     data$sex_official[unknown_sex_official_i] %>%
   #       unique() %>%
   #       style_arg_invalid() %>%
@@ -2247,8 +2242,8 @@ read_voting_register_data_extra <- function(ballot_date,
   # ## in `marital_status_official`
   # unknown_marital_status_official_i <-
   #   data$marital_status_official %>%
-  #   magrittr::is_in(fa_fct_labels(v_name = "marital_status_official",
-  #                                 check_v_presence = FALSE,
+  #   magrittr::is_in(fa_fct_labels(var_name = "marital_status_official",
+  #                                 check_var_presence = FALSE,
   #                                 lang = "de")) %>%
   #   magrittr::not() %>%
   #   which()
@@ -2256,7 +2251,7 @@ read_voting_register_data_extra <- function(ballot_date,
   # if (length(unknown_marital_status_official_i)) {
   #   
   #   rlang::abort(message = style_error(paste0(
-  #     style_v_name("marital_status_official"), " in raw extra voting register data has unknown values: ",
+  #     style_var_name("marital_status_official"), " in raw extra voting register data has unknown values: ",
   #     data$sex_official[unknown_marital_status_official_i] %>%
   #       unique() %>%
   #       style_arg_invalid() %>%
@@ -2319,21 +2314,21 @@ assert_integerish <- function(x,
   }
 }
 
-assert_v_names <- function(v_names,
-                           as_scalar = FALSE,
-                           null_ok = FALSE) {
+assert_var_names <- function(var_names,
+                             as_scalar = FALSE,
+                             null_ok = FALSE) {
 
   if (checkmate::assert_flag(as_scalar)) {
 
-    checkmate::assert_choice(v_names,
-                             choices = unique(fokus::qx$variable_name),
+    checkmate::assert_choice(var_names,
+                             choices = unique(fokus::qstnrs$variable_name),
                              null.ok = null_ok)
 
   } else {
 
-    purrr::map_chr(v_names,
+    purrr::map_chr(var_names,
                    checkmate::assert_choice,
-                   choices = unique(fokus::qx$variable_name),
+                   choices = unique(fokus::qstnrs$variable_name),
                    null.ok = null_ok)
   }
 }
@@ -2380,20 +2375,20 @@ url_parameter_survey <- list(aargau = "pw")
 
 #' Questionnaire item keys
 #'
-#' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_q].
+#' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_qstnr].
 #'
 #' @format `r pkgsnip::return_label("data")`
 #' @docType data
 #' @family metadata
 #' @keywords internal
 #' 
-#' @name q_item_keys
+#' @name qstnr_item_keys
 #' 
 #' @examples
-#' fokus:::q_item_keys
+#' fokus:::qstnr_item_keys
 NULL
 
-q_md_table_header <-
+qstnr_md_table_header <-
   tibble::tribble(
     ~name,                                         ~width, ~alignment,
     "\\#",                                         2L,     "left",
@@ -2527,7 +2522,7 @@ cli_theme <-
 
 #' Response option types
 #'
-#' A vector of all possible response option types defined in the [raw FOKUS questionnaire data][raw_q].
+#' A vector of all possible response option types defined in the [raw FOKUS questionnaire data][raw_qstnr].
 #'
 #' @format A character vector.
 #' @family metadata
@@ -2621,7 +2616,7 @@ lvls <- function(ballot_date = all_ballot_dates,
                              values = all_cantons)
   ballot_type <- rlang::arg_match(ballot_type,
                                   values = all_ballot_types)
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
   
   if (ballot_type == "referendum") {
     
@@ -2672,7 +2667,7 @@ ballot_types <- function(ballot_date = all_ballot_dates,
   canton <- rlang::arg_match(canton,
                              values = all_cantons)
   result <- NULL
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
 
   if ("federal" %in% lvls) {
     
@@ -2730,7 +2725,7 @@ prcds <- function(ballot_date = all_ballot_dates,
   canton <- rlang::arg_match(canton,
                              values = all_cantons)
   result <- character()
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
   
   if (isTRUE(lvl == "federal")) {
     
@@ -2789,7 +2784,7 @@ proposal_nrs <- function(ballot_date = all_ballot_dates,
   }
   
   result <- integer()
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
 
   if (isTRUE(lvl == "federal")) {
     
@@ -2855,7 +2850,7 @@ election_nrs <- function(ballot_date = all_ballot_dates,
   }
   
   result <- integer()
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
 
   if (isTRUE(lvl == "federal")) {
     
@@ -2905,7 +2900,7 @@ n_proposals <- function(ballot_date = all_ballot_dates,
                                           choices = all_lvls,
                                           empty.ok = TRUE))
   result <- integer()
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
 
   if ("cantonal" %in% lvls) {
     
@@ -2962,7 +2957,7 @@ n_elections <- function(ballot_date = all_ballot_dates,
                                            choices = all_prcds,
                                            empty.ok = TRUE))
   result <- integer()
-  raw <- raw_q_suppl(ballot_date = ballot_date)
+  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
 
   if ("federal" %in% lvls) {
 
@@ -3355,10 +3350,10 @@ proposal_type <- function(ballot_date = all_ballot_dates,
                           canton = cantons(ballot_date),
                           proposal_nr = 1L) {
 
-  raw_q_suppl_proposal(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       proposal_nr = proposal_nr) %>%
+  raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           proposal_nr = proposal_nr) %>%
     purrr::chuck("type")
 }
 
@@ -3396,10 +3391,10 @@ proposal_name <- function(ballot_date = all_ballot_dates,
   lang <- rlang::arg_match(lang)
   type <- rlang::arg_match(type)
 
-  raw_q_suppl_proposal_name(ballot_date = ballot_date,
-                            lvl = lvl,
-                            canton = canton,
-                            proposal_nr = proposal_nr) %>%
+  raw_qstnr_suppl_proposal_name(ballot_date = ballot_date,
+                                lvl = lvl,
+                                canton = canton,
+                                proposal_nr = proposal_nr) %>%
     purrr::chuck(lang, type, "text")
 }
 
@@ -3429,10 +3424,10 @@ proposal_name_gender <- function(ballot_date = all_ballot_dates,
 
   type <- rlang::arg_match(type)
 
-  raw_q_suppl_proposal_name(ballot_date = ballot_date,
-                            lvl = lvl,
-                            canton = canton,
-                            proposal_nr = proposal_nr) %>%
+  raw_qstnr_suppl_proposal_name(ballot_date = ballot_date,
+                                lvl = lvl,
+                                canton = canton,
+                                proposal_nr = proposal_nr) %>%
     purrr::chuck("de", type, "gender")
 }
 
@@ -3458,10 +3453,10 @@ proposal_arguments <- function(ballot_date = all_ballot_dates,
                                canton = cantons(ballot_date),
                                proposal_nr = 1L) {
 
-  raw_q_suppl_arguments(ballot_date = ballot_date,
-                        lvl = lvl,
-                        canton = canton,
-                        proposal_nr = proposal_nr) %>%
+  raw_qstnr_suppl_arguments(ballot_date = ballot_date,
+                            lvl = lvl,
+                            canton = canton,
+                            proposal_nr = proposal_nr) %>%
     purrr::map(as_flat_list) %>%
     purrr::map_dfr(tibble::as_tibble)
 }
@@ -3502,12 +3497,12 @@ proposal_argument <- function(ballot_date = all_ballot_dates,
   lang <- rlang::arg_match(lang)
   type <- rlang::arg_match(type)
   
-  raw_q_suppl_argument(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       proposal_nr = proposal_nr,
-                       argument_nr = argument_nr,
-                       side = side) %>%
+  raw_qstnr_suppl_argument(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           proposal_nr = proposal_nr,
+                           argument_nr = argument_nr,
+                           side = side) %>%
     purrr::chuck(lang, type)
 }
 
@@ -3546,10 +3541,10 @@ n_proposal_arguments <- function(ballot_date = all_ballot_dates,
                                            choices = all_argument_sides,
                                            empty.ok = FALSE))
   
-  raw_q_suppl_proposal(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       proposal_nr = proposal_nr) %>%
+  raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           proposal_nr = proposal_nr) %>%
     purrr::pluck("argument") %>%
     purrr::keep(~ .x$side %in% sides) %>%
     length()
@@ -3583,11 +3578,11 @@ proposal_main_motives <- function(ballot_date = all_ballot_dates,
                                   type = c("yes",
                                            "no")) {
   type <- rlang::arg_match(type)
-
-  raw_q_suppl_main_motives(ballot_date = ballot_date,
-                           lvl = lvl,
-                           canton = canton,
-                           proposal_nr = proposal_nr) %>%
+  
+  raw_qstnr_suppl_main_motives(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton,
+                               proposal_nr = proposal_nr) %>%
     purrr::chuck(type) %>%
     purrr::map_dfr(tibble::as_tibble)
 }
@@ -3618,10 +3613,10 @@ n_proposal_main_motives <- function(ballot_date = all_ballot_dates,
                                              "no")) {
   type <- rlang::arg_match(type)
 
-  raw_q_suppl_proposal(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       proposal_nr = proposal_nr) %>%
+  raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           proposal_nr = proposal_nr) %>%
     purrr::pluck("main_motive") %>%
     purrr::pluck(type) %>%
     length()
@@ -3669,12 +3664,12 @@ election_name <- function(ballot_date = all_ballot_dates,
   if (!length(prcd)) {
     cli::cli_abort(paste0("{.arg prcd} must be one of ", pal::prose_ls(paste0("{.val ", all_prcds, "}"), last_sep = " or "), "."))
   }
-
-  raw_q_suppl_election_name(ballot_date = ballot_date,
-                            lvl = lvl,
-                            canton = canton,
-                            prcd = prcd,
-                            election_nr = election_nr) %>%
+  
+  raw_qstnr_suppl_election_name(ballot_date = ballot_date,
+                                lvl = lvl,
+                                canton = canton,
+                                prcd = prcd,
+                                election_nr = election_nr) %>%
     purrr::chuck(lang, type, "text")
 }
 
@@ -3717,9 +3712,9 @@ election_names_combined <- function(ballot_date = all_ballot_dates,
     intersect(lvls(ballot_date = ballot_date,
                    canton = canton,
                    ballot_type = "election")) %>%
-    purrr::map_chr(~ raw_q_suppl_elections(ballot_date = ballot_date,
-                                           lvl = .x,
-                                           canton = canton) %>%
+    purrr::map_chr(~ raw_qstnr_suppl_elections(ballot_date = ballot_date,
+                                               lvl = .x,
+                                               canton = canton) %>%
                      purrr::chuck("names_combined", lang, "short")) %>%
     purrr::when(federal_first ~ .[sort(x = seq_along(.),
                                        decreasing = TRUE)],
@@ -3758,11 +3753,11 @@ n_election_seats <- function(ballot_date = all_ballot_dates,
 
   type <- rlang::arg_match(type)
 
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "majoritarian",
-                       election_nr = election_nr) %>%
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "majoritarian",
+                           election_nr = election_nr) %>%
     purrr::chuck("n_seats", type)
 }
 
@@ -3786,12 +3781,12 @@ election_candidates <- function(ballot_date = all_ballot_dates,
                                            ballot_type = "election"),
                                 canton = cantons(ballot_date),
                                 election_nr = 1L) {
-
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "majoritarian",
-                       election_nr = election_nr) %>%
+  
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "majoritarian",
+                           election_nr = election_nr) %>%
     purrr::chuck("candidate") %>%
     purrr::map_dfr(tibble::as_tibble)
 }
@@ -3817,11 +3812,11 @@ n_election_candidates <- function(ballot_date = all_ballot_dates,
                                   canton = cantons(ballot_date),
                                   election_nr = 1L) {
 
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "majoritarian",
-                       election_nr = election_nr) %>%
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "majoritarian",
+                           election_nr = election_nr) %>%
     purrr::chuck("candidate") %>%
     length()
 }
@@ -3905,11 +3900,11 @@ election_parties <- function(ballot_date = all_ballot_dates,
 
   checkmate::assert_flag(past)
 
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "proportional",
-                       election_nr = election_nr) %>%
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "proportional",
+                           election_nr = election_nr) %>%
     purrr::chuck(ifelse(past,
                         "past_party",
                         "party")) %>%
@@ -3937,12 +3932,12 @@ election_tickets <- function(ballot_date = all_ballot_dates,
                                         ballot_type = "election"),
                              canton = cantons(ballot_date),
                              election_nr = 1L) {
-
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "proportional",
-                       election_nr = election_nr) %>%
+  
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "proportional",
+                           election_nr = election_nr) %>%
     purrr::chuck("ticket") %>%
     purrr::map_dfr(tibble::as_tibble)
 }
@@ -3970,11 +3965,11 @@ requires_candidate_registration <- function(ballot_date = all_ballot_dates,
                                             canton = cantons(ballot_date),
                                             election_nr = 1L) {
 
-  raw_q_suppl_election(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton,
-                       prcd = "majoritarian",
-                       election_nr = election_nr) %>%
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "majoritarian",
+                           election_nr = election_nr) %>%
     purrr::chuck("requires_candidate_registration")
 }
 
@@ -4058,7 +4053,7 @@ n_skill_questions <- function(ballot_date = all_ballot_dates,
                           positive = TRUE,
                           null.ok = TRUE)
   
-  raw_q_suppl(ballot_date = ballot_date) %>%
+  raw_qstnr_suppl(ballot_date = ballot_date) %>%
     purrr::pluck(lvl) %>%
     purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
                 ~ .) %>%
@@ -4100,11 +4095,11 @@ skill_question <- function(ballot_date = all_ballot_dates,
 
   lang <- rlang::arg_match(lang)
 
-  raw_q_suppl_skill_question(ballot_date = ballot_date,
-                             lvl = lvl,
-                             canton = canton,
-                             proposal_nr = proposal_nr,
-                             skill_question_nr = skill_question_nr) %>%
+  raw_qstnr_suppl_skill_question(ballot_date = ballot_date,
+                                 lvl = lvl,
+                                 canton = canton,
+                                 proposal_nr = proposal_nr,
+                                 skill_question_nr = skill_question_nr) %>%
     purrr::chuck(lang)
 }
 
@@ -4130,12 +4125,12 @@ skill_question_response_options <- function(ballot_date = all_ballot_dates,
                                             canton = cantons(ballot_date),
                                             proposal_nr = NULL,
                                             skill_question_nr = 1L) {
-
-  raw_q_suppl_skill_question(ballot_date = ballot_date,
-                             lvl = lvl,
-                             canton = canton,
-                             proposal_nr = proposal_nr,
-                             skill_question_nr = skill_question_nr) %>%
+  
+  raw_qstnr_suppl_skill_question(ballot_date = ballot_date,
+                                 lvl = lvl,
+                                 canton = canton,
+                                 proposal_nr = proposal_nr,
+                                 skill_question_nr = skill_question_nr) %>%
     purrr::chuck("response_option") %>%
     purrr::map_dfr(tibble::as_tibble)
 }
@@ -4163,11 +4158,11 @@ skill_question_answer_nr <- function(ballot_date = all_ballot_dates,
                                      proposal_nr = NULL,
                                      skill_question_nr = 1L) {
 
-  raw_q_suppl_skill_question(ballot_date = ballot_date,
-                             lvl = lvl,
-                             canton = canton,
-                             proposal_nr = proposal_nr,
-                             skill_question_nr = skill_question_nr) %>%
+  raw_qstnr_suppl_skill_question(ballot_date = ballot_date,
+                                 lvl = lvl,
+                                 canton = canton,
+                                 proposal_nr = proposal_nr,
+                                 skill_question_nr = skill_question_nr) %>%
     purrr::chuck("response_option") %>%
     purrr::map_depth(.depth = 1L,
                      .f = ~ .x$is_correct) %>%
@@ -4202,7 +4197,7 @@ skill_question_proposal_nrs <- function(ballot_date = all_ballot_dates,
                                values = cantons(ballot_date))
   }
   
-  raw_q_suppl(ballot_date = ballot_date) %>%
+  raw_qstnr_suppl(ballot_date = ballot_date) %>%
     purrr::pluck(lvl) %>%
     purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
                 ~ .) %>%
@@ -4287,7 +4282,7 @@ political_issues <- function(ballot_date = all_ballot_dates,
   lang <- rlang::arg_match(lang)
 
   result <-
-    raw_q_suppl(ballot_date = ballot_date) %>%
+    raw_qstnr_suppl(ballot_date = ballot_date) %>%
     purrr::pluck("political_issues")
 
   if (is.null(result)) {
@@ -4330,14 +4325,14 @@ postal_dispatch_way <- function(ballot_date = all_ballot_dates,
   
   dispatch_type <- rlang::arg_match(dispatch_type)
   
-  raw_q_suppl_mode(ballot_date = ballot_date,
-                   canton = canton) %>%
+  raw_qstnr_suppl_mode(ballot_date = ballot_date,
+                       canton = canton) %>%
     purrr::chuck("postal_dispatch", "type", dispatch_type)
 }
 
 #' Get response options
 #'
-#' Returns response options of the specified type and optionally subtype(s) from the [raw FOKUS questionnaire data][raw_q].
+#' Returns response options of the specified type and optionally subtype(s) from the [raw FOKUS questionnaire data][raw_qstnr].
 #'
 #' Note that only recurring response options are returned which are defined under the `response_options` top-level key in the file
 #' `data-raw/questionnaire/questionnaire.toml`.
@@ -4372,7 +4367,7 @@ response_options <- function(type = all_response_option_types,
                               any.missing = FALSE,
                               min.len = 1L,
                               null.ok = TRUE)
-  raw_q %>%
+  raw_qstnr %>%
     purrr::chuck("response_options", type, lang, !!!subtypes) %>%
     pal::as_chr()
 }
@@ -4381,31 +4376,32 @@ response_options <- function(type = all_response_option_types,
 #'
 #' A tibble containing the data of all FOKUS questionnaires.
 #'
-#' `qx` was generated based on the following steps:
+#' `qstnrs` was generated based on the following steps:
 #'
-#' 1. [gen_q_tibble()] was run for all valid combinations of `canton` and `ballot_date`, some validation checks were performed, and the results were merged into
-#'    a single tibble.
-#' 2. List columns were [expanded][expand_q_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
-#' 3. Columns [`question_intro_i` and `question_intro_j`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) were merged into the single column
-#'    `question_intro`.
-#' 4. Column [`question_full`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) was complemented, i.e. made to fall back on `question` if `NA`.
-#' 5. Columns [`question_common`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) and
-#'    [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) were complemented, i.e. made to fall back on `question_full`
-#'    and `variable_label` respectively if `NA`.
+#' 1. [gen_qstnr_tibble()] was run for all valid combinations of `canton` and `ballot_date`, some validation checks were performed, and the results were merged
+#'    into a single tibble.
+#' 2. List columns were [expanded][expand_qstnr_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
+#' 3. Columns [`question_intro_i` and `question_intro_j`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) were merged into the single
+#'    column `question_intro`.
+#' 4. Column [`question_full`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) was complemented, i.e. made to fall back on `question` if
+#'    `NA`.
+#' 5. Columns [`question_common`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) and
+#'    [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) were complemented, i.e. made to fall back on
+#'    `question_full` and `variable_label` respectively if `NA`.
 #' 6. Markdown formatting was [stripped][pal::strip_md] from all character columns.
 #'
-#' @family q_survey
+#' @family qstnr_survey
 #' @format `r pkgsnip::return_label("data")`
 #'
 #' @examples
-#' fokus::qx
-"qx"
+#' fokus::qstnrs
+"qstnrs"
 
 #' Proposal data
 #'
 #' A tibble containing basic referendum proposal data of all FOKUS questionnaires.
 #'
-#' @family q_survey
+#' @family qstnr_survey
 #' @format `r pkgsnip::return_label("data")`
 #'
 #' @examples
@@ -4416,7 +4412,7 @@ response_options <- function(type = all_response_option_types,
 #'
 #' A tibble containing basic election data of all FOKUS questionnaires.
 #'
-#' @family q_survey
+#' @family qstnr_survey
 #' @format `r pkgsnip::return_label("data")`
 #'
 #' @examples
@@ -4425,11 +4421,11 @@ response_options <- function(type = all_response_option_types,
 
 #' Export questionnaire data
 #'
-#' Generates the [questionnaire tibble][gen_q_tibble], the [Markdown questionnaire][gen_q_md] and optionally a CSV, an HTML and an XLSX version of it, and
-#' writes all of them to the [private FOKUS directory][print_fokus_private_structure] and optionally deploys them as a static site (`local_deploy_path`) and
+#' Generates the [questionnaire tibble][gen_qstnr_tibble], the [Markdown questionnaire][gen_qstnr_md] and optionally a CSV, an HTML and an XLSX version of it,
+#' and writes all of them to the [private FOKUS directory][print_fokus_private_structure] and optionally deploys them as a static site (`local_deploy_path`) and
 #' uploads them to a Google Drive folder (`g_drive_folder`).
 #'
-#' @inheritParams gen_q_tibble
+#' @inheritParams gen_qstnr_tibble
 #' @param verbose Whether or not to print detailed progress information during questionnaire generation and Google Drive file upload. Note that questionnaire
 #'   generation takes considerably more time when this is set to `TRUE`.
 #' @param incl_csv Whether or not to also generate and export a CSV version of the questionnaire.
@@ -4440,19 +4436,19 @@ response_options <- function(type = all_response_option_types,
 #' @param upload_to_g_drive Whether or not to upload the generated files to the Google Drive folder `g_drive_folder`.
 #' @param g_drive_folder Google Drive folder to deploy the generated files to. Ignored if `upload_to_g_drive = FALSE`.
 #'
-#' @family q_survey
+#' @family qstnr_survey
 #' @export
-export_q <- function(ballot_date = all_ballot_dates,
-                     canton = cantons(ballot_date),
-                     verbose = FALSE,
-                     incl_csv = TRUE,
-                     incl_html = TRUE,
-                     incl_xlsx = incl_html,
-                     deploy = TRUE,
-                     local_deploy_path = getOption("fokus.q.local_deploy_path"),
-                     upload_to_g_drive = TRUE,
-                     g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
-
+export_qstnr <- function(ballot_date = all_ballot_dates,
+                         canton = cantons(ballot_date),
+                         verbose = FALSE,
+                         incl_csv = TRUE,
+                         incl_html = TRUE,
+                         incl_xlsx = incl_html,
+                         deploy = TRUE,
+                         local_deploy_path = getOption("fokus.qstnr.local_deploy_path"),
+                         upload_to_g_drive = TRUE,
+                         g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
+  
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -4470,29 +4466,29 @@ export_q <- function(ballot_date = all_ballot_dates,
   checkmate::assert_flag(upload_to_g_drive)
   pal::assert_pkg("rmarkdown")
   pal::assert_pkg("yay")
-
+  
   md_path <- path_private(glue::glue("output/questionnaires/questionnaire_{ballot_date}_{canton}.md"))
-
+  
   # Generate questionnaire tibble and Markdown version
-  q_tibble <- gen_q_tibble(ballot_date = ballot_date,
-                           verbose = verbose)
-
-  q_tibble %>%
-    gen_q_md() %>%
+  qstnr_tibble <- gen_qstnr_tibble(ballot_date = ballot_date,
+                                   verbose = verbose)
+  
+  qstnr_tibble %>%
+    gen_qstnr_md() %>%
     readr::write_lines(file = md_path)
-
+  
   # create CSV version from tibble if requested
   if (incl_csv) {
-
+    
     status_msg <- "Converting questionnaire tibble to CSV..."
     cli::cli_progress_step(msg = status_msg,
                            msg_done = paste(status_msg, "done"),
                            msg_failed = paste(status_msg, "failed"))
-
+    
     csv_path <- md_path %>% fs::path_ext_set(ext = "csv")
-
-    q_tibble %>%
-      clean_q_tibble() %>%
+    
+    qstnr_tibble %>%
+      clean_qstnr_tibble() %>%
       dplyr::mutate(variable_name_32 =
                       purrr::map2_chr(.x = variable_name,
                                       .y = dplyr::if_else(block %in% c("x_polling_agency", "y_generated", "z_generated")
@@ -4503,8 +4499,8 @@ export_q <- function(ballot_date = all_ballot_dates,
                                                                                                                         "political_occasions_")))),
                                                           32L,
                                                           30L),
-                                      .f = ~ shorten_v_names(v_names = .x,
-                                                             max_n_char = .y)),
+                                      .f = ~ shorten_var_names(var_names = .x,
+                                                               max_n_char = .y)),
                     .after = variable_name) %>%
       dplyr::select(-ends_with("_common"),
                     -c(lvl,
@@ -4513,23 +4509,23 @@ export_q <- function(ballot_date = all_ballot_dates,
                        question_intro_i,
                        question_intro_j,
                        question_full)) %>%
-      expand_q_tibble() %>%
+      expand_qstnr_tibble() %>%
       readr::write_csv(file = csv_path,
                        na = "")
   }
-
+  
   # create HTML version from Markdown questionnaire if requested
   if (incl_html) {
-
+    
     html_path <- fs::path_ext_set(path = md_path,
                                   ext = "html")
     path_dir <- fs::path_dir(html_path)
-
+    
     status_msg <- "Converting Markdown questionnaire to HTML using Pandoc..."
     cli::cli_progress_step(msg = status_msg,
                            msg_done = paste(status_msg, "done"),
                            msg_failed = paste(status_msg, "failed"))
-
+    
     rmarkdown::pandoc_convert(input = md_path,
                               to = "html5",
                               from = "markdown",
@@ -4542,15 +4538,15 @@ export_q <- function(ballot_date = all_ballot_dates,
                               verbose = FALSE)
     cli::cli_progress_done()
   }
-
+  
   # create XLSX version from HTML questionnaire if requested
   if (incl_xlsx) {
-
+    
     status_msg <- "Converting HTML questionnaire to XLSX using LibreOffice..."
     cli::cli_progress_step(msg = status_msg,
                            msg_done = paste(status_msg, "done"),
                            msg_failed = paste(status_msg, "failed"))
-
+    
     system2(command = "flatpak",
             args = glue::glue("run --command=libreoffice",
                               "org.libreoffice.LibreOffice",
@@ -4563,25 +4559,25 @@ export_q <- function(ballot_date = all_ballot_dates,
             stdout = ifelse(verbose, "", FALSE))
     cli::cli_progress_done()
   }
-
+  
   # deploy HTML to GitLab Pages if requested
   if (deploy) {
-
+    
     status_msg <- "Deploying questionnaire to GitLab Pages..."
     cli::cli_progress_step(msg = status_msg,
                            msg_done = paste(status_msg, "done"),
                            msg_failed = paste(status_msg, "failed"))
-
+    
     yay::deploy_static_site(from_path = path_dir,
                             to_path = "~/Arbeit/ZDA/Git/c2d-zda/c2d-zda.gitlab.io/public/",
                             clean_to_path = FALSE,
                             quiet = !verbose)
     cli::cli_progress_done()
   }
-
+  
   # upload files to Google Drive for polling agency if requested
   if (upload_to_g_drive) {
-
+    
     upload_to_g_drive(filepaths = c(md_path,
                                     csv_path[incl_csv],
                                     html_path[incl_html],
@@ -4599,34 +4595,34 @@ export_q <- function(ballot_date = all_ballot_dates,
 #'
 #' Useful to efficiently test and inspect latest changes in generated questionnaire files.
 #'
-#' @inheritParams export_q
+#' @inheritParams export_qstnr
 #'
-#' @family q_survey
+#' @family qstnr_survey
 #' @export
-export_q_all <- function(verbose = FALSE,
-                         incl_csv = TRUE,
-                         incl_html = TRUE,
-                         incl_xlsx = FALSE,
-                         deploy = FALSE,
-                         local_deploy_path = getOption("fokus.q.local_deploy_path"),
-                         upload_to_g_drive = FALSE,
-                         g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
+export_qstnr_all <- function(verbose = FALSE,
+                             incl_csv = TRUE,
+                             incl_html = TRUE,
+                             incl_xlsx = FALSE,
+                             deploy = FALSE,
+                             local_deploy_path = getOption("fokus.qstnr.local_deploy_path"),
+                             upload_to_g_drive = FALSE,
+                             g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
   all_ballot_dates %>%
     magrittr::set_names(., .) %>%
     purrr::map(cantons) %>%
     purrr::iwalk(function(cantons, ballot_date) {
-
+      
       cantons %>%
-        purrr::walk(~ export_q(ballot_date = ballot_date,
-                               canton = .x,
-                               verbose = verbose,
-                               incl_csv = incl_csv,
-                               incl_html = incl_html,
-                               incl_xlsx = incl_xlsx,
-                               deploy = deploy,
-                               local_deploy_path = local_deploy_path,
-                               upload_to_g_drive = upload_to_g_drive,
-                               g_drive_folder = g_drive_folder))
+        purrr::walk(~ export_qstnr(ballot_date = ballot_date,
+                                   canton = .x,
+                                   verbose = verbose,
+                                   incl_csv = incl_csv,
+                                   incl_html = incl_html,
+                                   incl_xlsx = incl_xlsx,
+                                   deploy = deploy,
+                                   local_deploy_path = local_deploy_path,
+                                   upload_to_g_drive = upload_to_g_drive,
+                                   g_drive_folder = g_drive_folder))
     })
 }
 
@@ -4635,11 +4631,11 @@ export_q_all <- function(verbose = FALSE,
 #' Exports a ZIP file that contains a [QR code](https://en.wikipedia.org/wiki/QR_code) in SVG and in EPS format for each survey participant storing the
 #' personalized survey URL to the [private FOKUS directory][print_fokus_private_structure].
 #'
-#' @inheritParams export_q
+#' @inheritParams export_qstnr
 #' @inheritParams upload_to_g_drive
 #'
 #' @return A [tibble][tibble::tbl_df] containing metadata about the contents of the created ZIP archive, invisibly.
-#' @family q_survey
+#' @family qstnr_survey
 #' @export
 export_qr_codes <- function(ballot_date = all_ballot_dates,
                             canton = cantons(ballot_date),
@@ -4738,7 +4734,7 @@ export_qr_codes <- function(ballot_date = all_ballot_dates,
 #' @inheritParams ballot_title
 #'
 #' @return `NULL` if no export for the specified ballot date is possible, otherwise a [tibble][tibble::tbl_df] of the exported data, invisibly.
-#' @family q_survey
+#' @family qstnr_survey
 #' @export
 export_print_recipients <- function(ballot_date = all_ballot_dates,
                                     canton = cantons(ballot_date)) {
@@ -4749,8 +4745,8 @@ export_print_recipients <- function(ballot_date = all_ballot_dates,
                              values = cantons(ballot_date))
 
   # only export if `reminder_print_*` constraint present
-  if (raw_q_suppl_mode(ballot_date = ballot_date,
-                       canton = canton) %>%
+  if (raw_qstnr_suppl_mode(ballot_date = ballot_date,
+                           canton = canton) %>%
       purrr::pluck("constraints") %>%
       stringr::str_detect("^reminder_print_.+") %>%
       any()) {
@@ -4795,14 +4791,14 @@ export_print_recipients <- function(ballot_date = all_ballot_dates,
 #' | --------------- | --------------- |
 #' | `municipality` | official name of the municipality |
 #' | `municipality_id` | [official Swiss community identification number](https://en.wikipedia.org/wiki/Community_Identification_Number#Switzerland) (also called "GEOSTAT"/"BFS" number, see the [corresponding German Wikipedia article](https://de.wikipedia.org/wiki/Gemeindenummer)) |
-#' | `min_age` | `r v_lbl("easyvote_municipality_min_age")` |
-#' | `max_age` | `r v_lbl("easyvote_municipality_max_age")` |
+#' | `min_age` | `r var_lbl("easyvote_municipality_min_age")` |
+#' | `max_age` | `r var_lbl("easyvote_municipality_max_age")` |
 #'
-#' @inheritParams export_q
+#' @inheritParams export_qstnr
 #' @inheritParams upload_to_g_drive
 #'
 #' @return A [tibble][tibble::tbl_df] of the exported data, invisibly.
-#' @family q_survey
+#' @family qstnr_survey
 #' @export
 export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
                                            canton = cantons(ballot_date),
@@ -4847,64 +4843,64 @@ export_easyvote_municipalities <- function(ballot_date = all_ballot_dates,
 #'
 #' Determines for each variable whether or not it is a skill question.
 #'
-#' Note that the determination is performed by simply parsing `v_names`.
+#' Note that the determination is performed by simply parsing `var_names`.
 #'
-#' @param v_names A character vector of FOKUS variable names.
+#' @param var_names A character vector of FOKUS variable names.
 #'
-#' @return A logical vector of the same length as `v_names`.
-#' @family variable
+#' @return A logical vector of the same length as `var_names`.
+#' @family vars
 #' @export
-is_skill_question_v <- function(v_names) {
+is_skill_question_var <- function(var_names) {
 
-  v_names %>%
+  var_names %>%
     checkmate::assert_character() %>%
     stringr::str_detect(pattern = "^skill_question_\\d+_(cantonal|federal)(_proposal_\\d+)?$")
 }
 
 #' Get variable label
 #'
-#' Extracts a variable's (common) label from the [questionnaire data][qx].
+#' Extracts a variable's (common) label from the [questionnaire data][qstnrs].
 #'
-#' If no `ballot_date` and `canton` are specified, [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys) is returned,
-#' otherwise [`variable_label`](https://rpkg.dev/fokus/articles/raw_q_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be
+#' If no `ballot_date` and `canton` are specified, [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) is returned,
+#' otherwise [`variable_label`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be
 #' `NULL` or set to a valid canton name and ballot date respectively.
 #'
-#' @param v_name Variable name. A character scalar.
+#' @param var_name Variable name. A character scalar.
 #' @param ballot_date `NULL` or a FOKUS-covered ballot date, i.e. one of
 #' `r pal::as_md_val_list(as.character(all_ballot_dates))`
 #' @param canton `NULL` or a canton name, i.e. one of
 #' `r pal::as_md_val_list(all_cantons)`
 #'
 #' @return A character scalar.
-#' @family variable
+#' @family vars
 #' @export
 #'
 #' @examples
 #' # if `ballot_date` and `canton` are not supplied, `variable_label_common` is returned:
-#' fokus::v_lbl("participation_federal")
+#' fokus::var_lbl("participation_federal")
 #'
 #' # otherwise `variable_label`:
-#' fokus::v_lbl(v_name = "participation_federal",
-#'              ballot_date = "2018-09-23",
-#'              canton = "aargau")
+#' fokus::var_lbl(var_name = "participation_federal",
+#'                ballot_date = "2018-09-23",
+#'                canton = "aargau")
 #'             
-#' fokus::v_lbl(v_name = "participation_federal",
-#'              ballot_date = "2019-10-20",
-#'              canton = "aargau")
-v_lbl <- function(v_name,
-                  ballot_date = NULL,
-                  canton = NULL) {
+#' fokus::var_lbl(var_name = "participation_federal",
+#'                ballot_date = "2019-10-20",
+#'                canton = "aargau")
+var_lbl <- function(var_name,
+                    ballot_date = NULL,
+                    canton = NULL) {
 
-  assert_v_names(v_names = v_name,
-                 as_scalar = TRUE)
+  assert_var_names(var_names = var_name,
+                   as_scalar = TRUE)
 
   is_common <- is.null(ballot_date) && is.null(canton)
 
   if (is_common) {
 
     result <-
-      fokus::qx %>%
-      dplyr::filter(variable_name == !!v_name) %$%
+      fokus::qstnrs %>%
+      dplyr::filter(variable_name == !!var_name) %$%
       variable_label_common
 
   } else {
@@ -4920,10 +4916,10 @@ v_lbl <- function(v_name,
     }
 
     result <-
-      fokus::qx %>%
+      fokus::qstnrs %>%
       dplyr::filter(canton == !!canton
                     & ballot_date == !!ballot_date
-                    & variable_name == !!v_name) %$%
+                    & variable_name == !!var_name) %$%
       variable_label
   }
 
@@ -4938,23 +4934,23 @@ v_lbl <- function(v_name,
 #'
 #' Determines a variable's political level(s).
 #'
-#' Note that the political levels are determined by simply parsing `v_name`.
+#' Note that the political levels are determined by simply parsing `var_name`.
 #'
-#' @inheritParams v_lbl
+#' @inheritParams var_lbl
 #'
 #' @return A character vector of political levels, of length 0 if no specific levels could be determined.
-#' @family variable
+#' @family vars
 #' @export
 #'
 #' @examples
-#' fokus::v_lvls("skill_question_1_cantonal_proposal_1")
-v_lvls <- function(v_name) {
+#' fokus::var_lvls("skill_question_1_cantonal_proposal_1")
+var_lvls <- function(var_name) {
 
-  checkmate::assert_string(v_name,
+  checkmate::assert_string(var_name,
                            na.ok = TRUE)
 
-  is_cantonal <- v_name %>% stringr::str_detect(pattern = "cantonal")
-  is_federal <- v_name %>% stringr::str_detect(pattern = "federal")
+  is_cantonal <- var_name %>% stringr::str_detect(pattern = "cantonal")
+  is_federal <- var_name %>% stringr::str_detect(pattern = "federal")
 
   c("cantonal"[is_cantonal], "federal"[is_federal])
 }
@@ -4963,16 +4959,16 @@ v_lvls <- function(v_name) {
 #'
 #' Determines the proposal number each variable corresponds to. In case no proposal number could be determined for a variable, `NA_character` is returned.
 #'
-#' @inherit is_skill_question_v details
+#' @inherit is_skill_question_var details
 #'
-#' @inheritParams is_skill_question_v
+#' @inheritParams is_skill_question_var
 #'
-#' @return An integer vector of the same length as `v_names`.
-#' @family variable
+#' @return An integer vector of the same length as `var_names`.
+#' @family vars
 #' @export
-v_proposal_nr <- function(v_names) {
+var_proposal_nr <- function(var_names) {
 
-  v_names %>%
+  var_names %>%
     checkmate::assert_character() %>%
     stringr::str_extract("(?<=_proposal_)\\d+") %>%
     as.integer()
@@ -4983,15 +4979,15 @@ v_proposal_nr <- function(v_names) {
 #' Determines the skill question number each variable corresponds to. In case no skill question number could be determined for a variable, `NA_character` is
 #' returned.
 #'
-#' @inherit v_proposal_nr details return
+#' @inherit var_proposal_nr details return
 #'
-#' @inheritParams is_skill_question_v
+#' @inheritParams is_skill_question_var
 #'
-#' @family variable
+#' @family vars
 #' @export
-v_skill_question_nr <- function(v_names) {
+var_skill_question_nr <- function(var_names) {
 
-  v_names %>%
+  var_names %>%
     checkmate::assert_character() %>%
     stringr::str_extract("(?<=skill_question_)\\d+") %>%
     as.integer()
@@ -4999,19 +4995,19 @@ v_skill_question_nr <- function(v_names) {
 
 #' Shorten variable names to a maximum length of 32 characters
 #'
-#' @param v_names A character vector of variable names.
+#' @param var_names A character vector of variable names.
 #' @param reverse Whether to apply the inversion of the shortening logic, i.e. to restore original/unshortened variable names.
 #' @param max_n_char Maximum allowed number of characters. Either `NULL` to skip the check or otherwise an integerish scalar in which case it is ensured that 
 #'   the maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.
 #'
-#' @return A character vector of the same length as `v_names`.
-#' @family v_name_shortening
+#' @return A character vector of the same length as `var_names`.
+#' @family var_name_shortening
 #' @export
-shorten_v_names <- function(v_names,
-                            reverse = FALSE,
-                            max_n_char = 32L) {
+shorten_var_names <- function(var_names,
+                              reverse = FALSE,
+                              max_n_char = 32L) {
 
-  checkmate::assert_character(v_names,
+  checkmate::assert_character(var_names,
                               any.missing = FALSE)
   checkmate::assert_flag(reverse)
   checkmate::assert_count(max_n_char,
@@ -5044,27 +5040,27 @@ shorten_v_names <- function(v_names,
   pattern_replacement <- rules$replacement
   names(pattern_replacement) <- rules$pattern
 
-  v_names_new <- v_names %>% stringr::str_replace_all(pattern = pattern_replacement)
+  var_names_new <- var_names %>% stringr::str_replace_all(pattern = pattern_replacement)
 
   # ensure we did our job
-  if (!is.null(max_n_char) && !reverse && any(nchar(v_names_new) > max_n_char)) {
+  if (!is.null(max_n_char) && !reverse && any(nchar(var_names_new) > max_n_char)) {
 
     # NOTE: `cli::cli_abort()` doesn't properly print the output of `pal::capture_print()` because:
     #        - it just seems to ignore the output if it includes ANSI escape sequences (this can be worked around by an additional `cli::ansi_strip()`)
     #        - it normalizes whitespace chars **incl. tabs** to a single regular whitespace, thus breaking the formatting
-    rlang::abort(glue::glue("There are still variable names left of a length greater than {max_n_char} characters after applying `shorten_v_names()`. ",
+    rlang::abort(glue::glue("There are still variable names left of a length greater than {max_n_char} characters after applying `shorten_var_names()`. ",
                             "Affected are the following (shortened) variable names:\n\n",
-                            tibble::tibble(v_name = v_names,
-                                           v_name_short = v_names_new,
-                                           n_char = nchar(v_names),
-                                           n_char_short = nchar(v_names_new)) %>%
+                            tibble::tibble(var_name = var_names,
+                                           var_name_short = var_names_new,
+                                           n_char = nchar(var_names),
+                                           n_char_short = nchar(var_names_new)) %>%
                               dplyr::filter(n_char_short > max_n_char) %>%
                               pal::capture_print(collapse = "\n"),
                             .null = NA_character_,
                             .trim = FALSE))
   }
 
-  v_names_new
+  var_names_new
 }
 
 #' Shorten column names to a maximum length of 32 characters
@@ -5073,17 +5069,17 @@ shorten_v_names <- function(v_names,
 #' characters](https://www.stata.com/manuals/r.pdf#rLimits) (see also
 #' [here](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names)).
 #'
-#' @inheritParams shorten_v_names
+#' @inheritParams shorten_var_names
 #' @param x `r pkgsnip::param_label("tabular_data")`
 #'
 #' @return `x` with column names shortened to a maximum length of 32 characters.
-#' @family v_name_shortening
+#' @family var_name_shortening
 #' @export
 shorten_colnames <- function(x,
                              max_n_char = 32L) {
 
-  x %>% magrittr::set_colnames(value = shorten_v_names(v_names = colnames(x),
-                                                       max_n_char = max_n_char))
+  x %>% magrittr::set_colnames(value = shorten_var_names(var_names = colnames(x),
+                                                         max_n_char = max_n_char))
 }
 
 #' Restore original/unshortened column names
@@ -5091,15 +5087,15 @@ shorten_colnames <- function(x,
 #' Applies the inversion of [shorten_colnames()].
 #'
 #' @inheritParams shorten_colnames
-#' @inheritParams shorten_v_names
+#' @inheritParams shorten_var_names
 #'
 #' @return `x` with original/unshortened column names restored.
-#' @family v_name_shortening
+#' @family var_name_shortening
 #' @export
 restore_colnames <- function(x) {
 
-  x %>% magrittr::set_colnames(value = shorten_v_names(v_names = colnames(x),
-                                                       reverse = TRUE))
+  x %>% magrittr::set_colnames(value = shorten_var_names(var_names = colnames(x),
+                                                         reverse = TRUE))
 }
 
 #' Transform ballot type into prose string
@@ -5230,12 +5226,9 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP
                             use_oob = TRUE)
 
   } else {
-    # TODO: Remove the intermittent `url` assignment as soon as [issue #370](https://github.com/r-lib/cli/issues/370) is resolved.
-    url <- "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"
-    
-    cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
+    cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}}. ",
                           "Instructions to store such a key can be found here: ",
-                          "{.url {url}}"))
+                          "{.url https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly}"))
   }
 
   invisible(path_gcp_service_account_key)

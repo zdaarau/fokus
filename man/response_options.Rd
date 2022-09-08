@@ -36,7 +36,7 @@ response_options(
 A character vector.
 }
 \description{
-Returns response options of the specified type and optionally subtype(s) from the \link[=raw_q]{raw FOKUS questionnaire data}.
+Returns response options of the specified type and optionally subtype(s) from the \link[=raw_qstnr]{raw FOKUS questionnaire data}.
 }
 \details{
 Note that only recurring response options are returned which are defined under the \code{response_options} top-level key in the file

@@ -32,10 +32,10 @@ reference:
   - all_postal_dispatch_ways
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata) and the
-    [raw questionnaire data](raw_q.html).
+    [raw questionnaire data](raw_qstnr.html).
 - subtitle: Fundamental predicates
   desc: |-
-    Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](raw_q.html) (they do still fail in case of completely missing
+    Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](raw_qstnr.html) (they do still fail in case of completely missing
     questionnaire data for the specified ballot date and possibly canton).
 - contents:
   - cantons
@@ -88,27 +88,27 @@ reference:
   - postal_dispatch_way
   - response_options
 - title: Questionnaire and survey
-  desc: Functions to process the [raw FOKUS questionnaire data](raw_q.html) and other
-    functions to conduct a survey.
+  desc: Functions to process the [raw FOKUS questionnaire data](raw_qstnr.html) and
+    other functions to conduct a survey.
 - contents:
-  - qx
+  - qstnrs
   - proposals
   - elections
-  - export_q
-  - export_q_all
+  - export_qstnr
+  - export_qstnr_all
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities
 - title: Variable-related
 - contents:
-  - is_skill_question_v
-  - v_lbl
-  - v_lvls
-  - v_proposal_nr
-  - v_skill_question_nr
+  - is_skill_question_var
+  - var_lbl
+  - var_lvls
+  - var_proposal_nr
+  - var_skill_question_nr
 - subtitle: Variable name shortening
 - contents:
-  - shorten_v_names
+  - shorten_var_names
   - shorten_colnames
   - restore_colnames
 - title: Prose text

@@ -1,0 +1,210 @@
+---
+title: "FOKUS questionnaire schema"
+subtitle: "Structure and semantic rules of the raw TOML questionnaire"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 6
+editor_options:
+  chunk_output_type: console
+vignette: >
+  %\VignetteIndexEntry{FOKUS questionnaire schema}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+# Main semantic rules
+
+The [raw questionnaire](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/questionnaire.toml) is written in the [TOML file
+format](https://toml.io/en/latest). Basically, all questionnaire items are defined in an [ordered tree
+structure](https://en.wikipedia.org/wiki/Tree_(graph_theory)#Ordered_tree) where child nodes inherit the attributes of their parent (and transitively
+grandparent etc.) nodes.
+
+The following main semantic rules apply:
+
+1.  Top table level (`blockname`) defines a questionnaire block[^1], whereby the (alphabetical) order of the table levels conforms to the order of the blocks in
+    the questionnaire:
+
+        [blockname]
+
+2.  Lower table level names ideally start with a 3-digit number (`###`) since table levels (and hence questionnare items below them) are always ordered
+    according to the (alphabetical) order of their names:
+
+        [blockname.00X_2nd_lvl.00X_3rd_lvl]
+
+3.  Deepest[^2] table level named `item` defines an "atomic" questionnaire item (= single row in Markdown questionnaires) or a template for multiple similar
+    "atomic" questionnaire items. It can be defined multiple times (once for each item) and must be wrapped in double brackets:
+
+        [[blockname.00X_2nd_lvl.00X_3rd_lvl.item]]
+
+    Items appear in the final questionnaire in the same order they are defined here. Technically, the level `item` is an [array of
+    tables](https://toml.io/en/latest#array-of-tables) which is represented as a list of unnamed lists in R.
+
+4.  Table levels in between top and deepest level `item` can be named anything except `variable_name` and are intended to arrange and/or group items and set
+    keys that hold for multiple questionnaire items hierarchically in order to avoid redundancies.
+
+    **NOTE:** It is still strongly discouraged to name table levels the same as any of the keys listed below.
+
+[^1]: Exceptions: The following tables/table arrays are not questionnaire blocks by themselves, but also don't contain "atomic" questionnaire items.
+
+    -   `title`
+    -   `who`
+    -   `party`
+    -   `response_options`
+    -   `footnote`
+    -   `link`
+
+[^2]: The term "deepest" is kind of misleading here since there can actually be TOML table levels below the level of an "atomic" questionnaire item, namely to
+    define `include` rules (e.g. `include.false = [ YYYY-MM-DD ]`) or to account for varying `topic`, `question` etc. wordings at different ballot dates (e.g.
+    `topic.default = "bla"` and `topic.YYYYMMDD = "blup"`) or for different ballot types (e.g. `topic.default.election = "bla"` and
+    `topic.default.referendum = "blup"`).
+
+# Supported keys
+
+Depending on the table level, the set of possible keys includes:
+
+-   Only regarded on top level ("block"):
+
+    | Key      | Type             | Optional | Remarks                                                                                                                                          |
+    |----------|------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `title`  | character scalar | ❌       | block title                                                                                                                                      |
+    | `intro`  | character scalar | ✅       | text paragraph introducing the questionnaire items of the block                                                                                  |
+    | `prefix` | integer scalar   | ✅       | block numbering prefix for the first questionnaire column `#`; if not provided, items will be auto-numbered across all blocks without a `prefix` |
+
+-   Regarded on all levels incl. individual `item`-level nodes:
+
+```{r, echo = FALSE, results = "asis"}
+library(magrittr)
+options(knitr.kable.NA = '')
+
+fokus:::qstnr_item_keys %>%
+  dplyr::select(key, type, default, is_optional, everything()) %>%
+  dplyr::mutate(key = pal::wrap_chr(key,
+                                    wrap = "`"),
+                type = paste(type, dplyr::if_else(is_scalar,
+                                                  "scalar",
+                                                  "vector")),
+                default = pal::wrap_chr(default,
+                                        wrap = "`"),
+                dplyr::across(where(is.logical),
+                              fokus:::lgl_to_unicode)) %>%
+  dplyr::select(-c(is_scalar,
+                   default_val)) %>%
+  dplyr::rename("Default value" = default) %>%
+  dplyr::rename_with(.cols = starts_with("is_"),
+                     .fn = stringr::str_remove,
+                     pattern = "^is_") %>%
+  dplyr::rename_with(stringr::str_to_title) %>%
+  pal::pipe_table() %>%
+  paste0("    ", .) %>%
+  pal::cat_lines()
+```
+
+The keys regarded on `item`-level nodes are resolved in the following order
+
+1.  `lvl`
+2.  `i`
+3.  `j`
+4.  All the other item-level keys[^3].
+
+[^3]: Except for `question` which can be referenced by `question_full` via string interpolation and hence is resolved before the latter.
+
+# Further notes
+
+-   All keys support [glue's string interpolation](https://glue.tidyverse.org/), meaning that non-character-type keys like `include` or `variable_values` can
+    also be specified as string (arrays) which will automatically be converted to their proper type during questionnaire generation.
+
+    More specifically, keys that hold *arrays* like `response_options` are fed to [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) allowing to
+    use its powerful [string interpolation syntax](https://glue.tidyverse.org/), while the other keys holding *scalars* like `include` are fed to
+    [`cli::pluralize()`](https://cli.r-lib.org/reference/pluralize.html) which additionally supports a [handy pluralization
+    syntax](https://cli.r-lib.org/articles/pluralization.html). The default behavior of trimming all surrounding whitespaces is disabled in both cases.
+
+-   To vary *non-binary keys* like `topic`, `question` etc. wordings for different cantons and/or ballot dates directly without relying on embedded R code, you
+    can define
+
+    -   single-canton subkeys named by the lowercase English canton name (e.g. `aargau`) applying to a specific canton,
+    -   single-date subkeys named `YYYYMMDD` (the respective ballot date without any `-`) applying to a specific ballot date,
+    -   begin-end interval subkeys named `YYYYMMDD_YYYYMMDD` applying to all ballot dates that fall into the specified interval, or
+    -   `default` applying to any canton or ballot date for which no more specific subkey exists.
+
+    Interval subkeys mustn't overlap. Single-date subkeys have precedence over interval subkeys and canton subkeys have precedence over any date subkeys.
+
+    To vary *binary keys* like `allow_multiple_answers` or `include` directly, you can define
+
+    -   begin-end interval subkeys as described above, or alternatively
+    -   subkeys named `true` (meaning inclusion) or `false` (meaning exclusion; has priority over `true` in case of ambiguity) containing an array of cantons or
+        dates (`YYYY-MM-DD`), as well as
+    -   `default` (applying to any cantons or ballot dates not included in the `true` or `false` subkeys).
+
+    The `true`/`false` subkeys have precedence over begin-end interval subkeys. Subkey can be combined by nesting them.
+
+    To vary keys for different ballot types, just define subkeys named `referendum` or `election`.
+
+    Examples:
+
+        topic.default = "bla"
+        topic.aargau = "oops"
+        topic.zurich = "upsala"
+        who.20180923 = "alle"
+        who.20181125_20201018 = "Online-Respondenten"
+        who.20181125_20201018.zurich = "Print-Respondenten"
+        include.default = true
+        include.false = [ 2018-09-23 ]
+        question.default.election = "lalala"
+        question.default.referendum = "nenene"
+
+    **NOTES:**
+
+    -   `variable_name` is the only key that mustn't have any subkeys.
+    -   If `variable_label_common` is not explicitly defined, it falls back to `variable_label.default`.
+    -   If `question_common` is not explicitly defined, it falls back to a) the `question_full.default`, b) `question.default`, or c) `question_full`.
+
+-   The keys `lvl`, `i` and `j` are interpreted as iterators which you can refer to via string interpolation (e.g. `voting_decision_{lvl}`), so you have to
+    define similar questionnaire items only once. If any of them evaluate to `NULL` or an empty vector, the respective item is automatically excluded, i.e. it's
+    not necessary to explicitly set `include` (sub)keys in such case.
+
+-   You can even cross-reference keys from non-parent nodes using [`qstnr_item_val()`](https://rpkg.dev/fokus/reference/qstnr_item_val.html). But be careful to
+    not create infinite loops via circular references.
+
+-   To explicitly unset a key, just assign a string containing `NA` of the correct type wrapped in curly braces (`"{NA_character_}"` for values of type string,
+    `"{NA_integer_}"` for values of type integer etc.).
+
+-   A `who` constraint notice is automatically added to the end of `variable_label` and `variable_label_common` if possible (e.g. `"blabla (only non-voters)"`).
+    Because `variable_label_common` by definition mustn't vary over time, it **must** be explicitly specified *including such a `who` constraint notice* **if**
+    `who` varies over time.
+
+-   This questionnaire is [complemented by a **supplemental TOML file `YYYY-MM-DD.toml`** for each ballot
+    date](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that holds additional date-specific metadata.
+
+# Supplemental assumptions to resolve glue/cli string interpolation
+
+-   The following R packages are loaded and [attached](https://rdrr.io/r/base/library.html).
+
+    -   [fokus](https://rpkg.dev/fokus/)
+    -   [magrittr](https://magrittr.tidyverse.org/)
+
+-   The following R objects are present in the evaluation environment:
+
+    -   `ballot_date` (character scalar): The ballot date the questionnaire is to be generated for (in the format `YYYY-MM-DD`).
+
+    -   `canton` (character scalar): The canton the questionnaire is to be generated for (all lowercase).
+
+# Debugging
+
+The R function [`fokus:::gen_qstnr_tibble()`](https://rpkg.dev/fokus/reference/gen_qstnr_tibble.html), which is designed to turn the raw questionnaire into a
+[tibble](https://tibble.tidyverse.org/reference/tbl_df-class.html) containing the questionnaire data for a specific ballot date and canton, prints helpful
+progress information when its `verbose` argument is set to `TRUE` (default is `FALSE`).
+
+For the questionnaire \@ 2018-09-23 in Aargau, this looks as follows:
+
+```{r, echo = FALSE}
+fs::path_package("asciicasts/gen_qstnr_tibble-success.json",
+                 package = "fokus") %>%
+  asciicast::read_cast() %>%
+  # playback speed is not stored in the asciicast itself, so has to be set here
+  asciicast::asciinema_player(speed = 1)
+```
+
+If some mistake that breaks questionnaire generation is present in the raw questionnaire, like a syntax error in embedded R code for example, the progress
+output stops immediately, allowing to easily locate the exact source position of the mistake.

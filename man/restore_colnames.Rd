@@ -18,6 +18,6 @@ Applies the inversion of \code{\link[=shorten_colnames]{shorten_colnames()}}.
 \seealso{
 Other variable name shortening functions:
 \code{\link{shorten_colnames}()},
-\code{\link{shorten_v_names}()}
+\code{\link{shorten_var_names}()}
 }
-\concept{v_name_shortening}
+\concept{var_name_shortening}

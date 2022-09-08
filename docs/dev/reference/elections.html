@@ -100,7 +100,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/raw_q_schema.html">FOKUS questionnaire schema</a>
+      <a href="../articles/raw_qstnr_schema.html">FOKUS questionnaire schema</a>
     </li>
   </ul>
 </li>
@@ -145,22 +145,23 @@
     <div class='dont-index'><p>Other questionnaire and survey functions and datasets:
 <code><a href='export_easyvote_municipalities.html'>export_easyvote_municipalities</a>()</code>,
 <code><a href='export_print_recipients.html'>export_print_recipients</a>()</code>,
-<code><a href='export_q_all.html'>export_q_all</a>()</code>,
 <code><a href='export_qr_codes.html'>export_qr_codes</a>()</code>,
-<code><a href='export_q.html'>export_q</a>()</code>,
+<code><a href='export_qstnr_all.html'>export_qstnr_all</a>()</code>,
+<code><a href='export_qstnr.html'>export_qstnr</a>()</code>,
 <code><a href='proposals.html'>proposals</a></code>,
-<code><a href='qx.html'>qx</a></code></p></div>
+<code><a href='qstnrs.html'>qstnrs</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='va'>elections</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 8</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   ballot_date lvl     canton prcd     nr name.de.short name.de.long name.de.body</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> 2019-10-20  canton… aargau majo…     1 Regierungsra… Ersatzwahl … Regierungsr…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> 2019-10-20  federal aargau prop…     1 Nationalrats… Gesamterneu… Nationalrat </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> 2019-10-20  federal aargau majo…     1 Ständeratswa… Gesamterneu… Ständerat   </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> 2020-10-18  canton… aargau prop…     1 Grossratswahl Gesamterneu… Grossrat    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> 2020-10-18  canton… aargau majo…     1 Regierungsra… Gesamterneu… Regierungsr…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ballot_date lvl      canton prcd            nr name.de.short   name.…¹ name.…²</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> 2019-10-20  cantonal aargau majoritarian     1 Regierungsrats… Ersatz… Regier…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> 2019-10-20  federal  aargau proportional     1 Nationalratswa… Gesamt… Nation…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> 2019-10-20  federal  aargau majoritarian     1 Ständeratswahl  Gesamt… Stände…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> 2020-10-18  cantonal aargau proportional     1 Grossratswahl   Gesamt… Grossr…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> 2020-10-18  cantonal aargau majoritarian     1 Regierungsrats… Gesamt… Regier…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with abbreviated variable names ¹​name.de.long, ²​name.de.body</span></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

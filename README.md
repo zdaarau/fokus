@@ -180,8 +180,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | dependencies                    | deps             |
 | develop, development, developer | dev              |
 | developments, developers        | devs             |
-| dict                            | dictionary       |
-| dicts                           | dictionaries     |
+| dictionaries                    | dicts            |
+| dictionary                      | dict             |
 | differences                     | diffs            |
 | differentiate, difference       | diff             |
 | directories                     | dirs             |
@@ -255,8 +255,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | prototype                       | ptype            |
 | prototypes                      | ptypes           |
 | Quarto Markdown                 | qmd              |
-| questionnaire                   | q                |
-| questionnaires                  | qx               |
+| questionnaire                   | qstnr            |
+| questionnaires                  | qstnrs           |
 | R Markdown                      | rmd              |
 | refer, reference                | ref              |
 | references                      | refs             |
@@ -279,11 +279,13 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | symbols                         | syms             |
 | tables                          | tbls             |
 | tabulate, table                 | tbl              |
+| template                        | tpl              |
+| templates                       | tpls             |
 | temporary                       | tmp              |
 | value                           | val              |
 | values                          | vals             |
-| variable                        | v                |
-| variables                       | vx               |
+| variable                        | var              |
+| variables                       | vars             |
 | vectorize, vector               | vctr             |
 | vectors                         | vctrs            |
 | version                         | vrsn             |

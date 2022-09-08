@@ -98,7 +98,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/raw_q_schema.html">FOKUS questionnaire schema</a>
+      <a href="../articles/raw_qstnr_schema.html">FOKUS questionnaire schema</a>
     </li>
   </ul>
 </li>
@@ -213,7 +213,7 @@ that serve as a “source of truth” for the <a href="#section-predicates">pred
       <tr>
         <th colspan="2">
           <h2 id="section-predicates" class="hasAnchor"><a href="#section-predicates" class="anchor"></a>Predicates</h2>
-          <p class="section-desc"><p>Predicate functions based on the <a href="#section-fokus-metadata">metadata</a> and the <a href="raw_q.html">raw questionnaire data</a>.</p></p>
+          <p class="section-desc"><p>Predicate functions based on the <a href="#section-fokus-metadata">metadata</a> and the <a href="raw_qstnr.html">raw questionnaire data</a>.</p></p>
         </th>
       </tr>
       
@@ -223,9 +223,9 @@ that serve as a “source of truth” for the <a href="#section-predicates">pred
       <tr>
         <th colspan="2">
           <h3 id="section-fundamental-predicates" class="hasAnchor"><a href="#section-fundamental-predicates" class="anchor"></a>Fundamental predicates</h3>
-          <p class="section-desc"><p>Fundamental predicate functions never fail in case of incomplete <a href="raw_q.html">raw questionnaire data</a> (they do still fail in case
-of completely missing questionnaire data for the specified ballot date
-and possibly canton).</p></p>
+          <p class="section-desc"><p>Fundamental predicate functions never fail in case of incomplete <a href="raw_qstnr.html">raw questionnaire data</a> (they do still fail in
+case of completely missing questionnaire data for the specified ballot
+date and possibly canton).</p></p>
         </th>
       </tr>
       
@@ -535,8 +535,8 @@ and possibly canton).</p></p>
       <tr>
         <th colspan="2">
           <h2 id="section-questionnaire-and-survey" class="hasAnchor"><a href="#section-questionnaire-and-survey" class="anchor"></a>Questionnaire and survey</h2>
-          <p class="section-desc"><p>Functions to process the <a href="raw_q.html">raw FOKUS questionnaire
-data</a> and other functions to conduct a survey.</p></p>
+          <p class="section-desc"><p>Functions to process the <a href="raw_qstnr.html">raw FOKUS
+questionnaire data</a> and other functions to conduct a survey.</p></p>
         </th>
       </tr>
       
@@ -547,7 +547,7 @@ data</a> and other functions to conduct a survey.</p></p>
       <tr>
         
         <td>
-          <p><code><a href="qx.html">qx</a></code> </p>
+          <p><code><a href="qstnrs.html">qstnrs</a></code> </p>
         </td>
         <td><p>Questionnaire data</p></td>
       </tr><tr>
@@ -565,13 +565,13 @@ data</a> and other functions to conduct a survey.</p></p>
       </tr><tr>
         
         <td>
-          <p><code><a href="export_q.html">export_q()</a></code> </p>
+          <p><code><a href="export_qstnr.html">export_qstnr()</a></code> </p>
         </td>
         <td><p>Export questionnaire data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="export_q_all.html">export_q_all()</a></code> </p>
+          <p><code><a href="export_qstnr_all.html">export_qstnr_all()</a></code> </p>
         </td>
         <td><p>Export all questionnaires</p></td>
       </tr><tr>
@@ -608,31 +608,31 @@ data</a> and other functions to conduct a survey.</p></p>
       <tr>
         
         <td>
-          <p><code><a href="is_skill_question_v.html">is_skill_question_v()</a></code> </p>
+          <p><code><a href="is_skill_question_var.html">is_skill_question_var()</a></code> </p>
         </td>
         <td><p>Determine whether variable is skill question</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="v_lbl.html">v_lbl()</a></code> </p>
+          <p><code><a href="var_lbl.html">var_lbl()</a></code> </p>
         </td>
         <td><p>Get variable label</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="v_lvls.html">v_lvls()</a></code> </p>
+          <p><code><a href="var_lvls.html">var_lvls()</a></code> </p>
         </td>
         <td><p>Determine variable's political level(s)</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="v_proposal_nr.html">v_proposal_nr()</a></code> </p>
+          <p><code><a href="var_proposal_nr.html">var_proposal_nr()</a></code> </p>
         </td>
         <td><p>Determine variable's proposal number</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="v_skill_question_nr.html">v_skill_question_nr()</a></code> </p>
+          <p><code><a href="var_skill_question_nr.html">var_skill_question_nr()</a></code> </p>
         </td>
         <td><p>Determine variable's skill question number</p></td>
       </tr>
@@ -651,7 +651,7 @@ data</a> and other functions to conduct a survey.</p></p>
       <tr>
         
         <td>
-          <p><code><a href="shorten_v_names.html">shorten_v_names()</a></code> </p>
+          <p><code><a href="shorten_var_names.html">shorten_var_names()</a></code> </p>
         </td>
         <td><p>Shorten variable names to a maximum length of 32 characters</p></td>
       </tr><tr>

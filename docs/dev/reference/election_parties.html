@@ -100,7 +100,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/raw_q_schema.html">FOKUS questionnaire schema</a>
+      <a href="../articles/raw_qstnr_schema.html">FOKUS questionnaire schema</a>
     </li>
   </ul>
 </li>
@@ -199,46 +199,48 @@
 <span class='r-in'><span>                        lvl <span class='op'>=</span> <span class='st'>"federal"</span>,</span></span>
 <span class='r-in'><span>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 15 × 4</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     code name.de.q                                 name.de.run     name.de.short</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>     1 SVP oder Junge SVP                        Schweizerische… SVP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>     2 SP oder JUSO                              SP und Gewerks… SP           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>     3 FDP oder Jungfreisinnige                  FDP.Die Libera… FDP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>     4 CVP                                       CVP             CVP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>     5 Grüne oder Junge Grüne                    Grüne Partei    Grüne        </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>     6 glp oder Junge glp                        Grünliberale P… glp          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>     7 BDP oder Junge BDP                        Bürgerlich-Dem… BDP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>     8 EVP oder Junge EVP                        Evangelische V… EVP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>     9 EDU                                       Eidgenössisch-… EDU          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>    10 PPAG (Piratenpartei)                      Piratenpartei   PPS          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>    11 LOVB (Lösungs-Orientierte Volks-Bewegung) Lösungs-Orient… LOVB         </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>    12 FW AG (Freie Wähler)                      Freie Wähler A… FW AG        </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span>    13 LS (Luzi Stamm)                           Luzi Stamm      LS           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span>    14 TEAM65+                                   Die Aargauer S… TEAM65+      </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span>    15 DU (Die Unabhängigen)                     Die Unabhängig… DU           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     code name.de.qstnr                             name.de.run           name.…¹</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>     1 SVP oder Junge SVP                        Schweizerische Volks… SVP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>     2 SP oder JUSO                              SP und Gewerkschaften SP     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>     3 FDP oder Jungfreisinnige                  FDP.Die Liberalen     FDP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>     4 CVP                                       CVP                   CVP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>     5 Grüne oder Junge Grüne                    Grüne Partei          Grüne  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>     6 glp oder Junge glp                        Grünliberale Partei   glp    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>     7 BDP oder Junge BDP                        Bürgerlich-Demokrati… BDP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>     8 EVP oder Junge EVP                        Evangelische Volkspa… EVP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>     9 EDU                                       Eidgenössisch-Demokr… EDU    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>    10 PPAG (Piratenpartei)                      Piratenpartei         PPS    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>    11 LOVB (Lösungs-Orientierte Volks-Bewegung) Lösungs-Orientierte … LOVB   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>    12 FW AG (Freie Wähler)                      Freie Wähler Aargau   FW AG  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span>    13 LS (Luzi Stamm)                           Luzi Stamm            LS     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span>    14 TEAM65+                                   Die Aargauer Seniore… TEAM65+</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span>    15 DU (Die Unabhängigen)                     Die Unabhängigen      DU     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with abbreviated variable name ¹​name.de.short</span></span>
 <span class='r-in'><span></span></span>
 <span class='r-in'><span><span class='fu'>fokus</span><span class='fu'>::</span><span class='fu'>election_parties</span><span class='op'>(</span>ballot_date <span class='op'>=</span> <span class='st'>"2019-10-20"</span>,</span></span>
 <span class='r-in'><span>                        lvl <span class='op'>=</span> <span class='st'>"federal"</span>,</span></span>
 <span class='r-in'><span>                        canton <span class='op'>=</span> <span class='st'>"aargau"</span>,</span></span>
 <span class='r-in'><span>                        past <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 15 × 4</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     code name.de.q                                 name.de.run     name.de.short</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>     1 SVP oder Junge SVP                        Schweizerische… SVP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>     2 SP oder JUSO                              SP und Gewerks… SP           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>     3 FDP oder Jungfreisinnige                  FDP.Die Libera… FDP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>     4 CVP oder Junge CVP                        CVP             CVP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>     5 Grüne oder Junge Grüne                    Grüne Partei    Grüne        </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>     7 BDP oder Junge BDP                        Bürgerlich-Dem… BDP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>     6 glp oder Junge glp                        Grünliberale P… glp          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>     8 EVP oder Junge EVP                        Evangelische V… EVP          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>     9 EDU                                       Eidgenössisch-… EDU          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>    10 PPAG (Piratenpartei)                      Piratenpartei   PPS          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>    12 SLB (Sozial-Liberale-Bewegung)            Sozial-Liberal… SLB          </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>    13 www.Nichtwähler.ch                        www.Nichtwähle… NW           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span>    11 LOVB (Lösungs-Orientierte Volks-Bewegung) Lösungs-Orient… LOVB         </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span>    14 IP (Integrale Politik)                    Integrale Poli… IP           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span>    15 Ecopop                                    Ecopop          EP           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     code name.de.qstnr                             name.de.run           name.…¹</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>     1 SVP oder Junge SVP                        Schweizerische Volks… SVP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>     2 SP oder JUSO                              SP und Gewerkschaften SP     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>     3 FDP oder Jungfreisinnige                  FDP.Die Liberalen     FDP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>     4 CVP oder Junge CVP                        CVP                   CVP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>     5 Grüne oder Junge Grüne                    Grüne Partei          Grüne  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>     7 BDP oder Junge BDP                        Bürgerlich-Demokrati… BDP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>     6 glp oder Junge glp                        Grünliberale Partei   glp    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>     8 EVP oder Junge EVP                        Evangelische Volkspa… EVP    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>     9 EDU                                       Eidgenössisch-Demokr… EDU    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>    10 PPAG (Piratenpartei)                      Piratenpartei         PPS    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>    12 SLB (Sozial-Liberale-Bewegung)            Sozial-Liberale-Bewe… SLB    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>    13 www.Nichtwähler.ch                        www.Nichtwähler.ch    NW     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span>    11 LOVB (Lösungs-Orientierte Volks-Bewegung) Lösungs-Orientierte … LOVB   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span>    14 IP (Integrale Politik)                    Integrale Politik Aa… IP     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span>    15 Ecopop                                    Ecopop                EP     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with abbreviated variable name ¹​name.de.short</span></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

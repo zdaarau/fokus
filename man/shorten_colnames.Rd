@@ -22,6 +22,6 @@ This is useful for DTA export since Stata has a built-in variable name length li
 \seealso{
 Other variable name shortening functions:
 \code{\link{restore_colnames}()},
-\code{\link{shorten_v_names}()}
+\code{\link{shorten_var_names}()}
 }
-\concept{v_name_shortening}
+\concept{var_name_shortening}
