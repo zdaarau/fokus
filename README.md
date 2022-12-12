@@ -1,5 +1,7 @@
 # fokus: Provides an API around the FOKUS Post-voting Surveys
 
+<a href="https://cran.r-project.org/package=fokus" class="pkgdown-release"><img src="https://r-pkg.org/badges/version/fokus" alt="CRAN Status" /></a>
+
 fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.
 
 ## Details
@@ -132,7 +134,9 @@ The following placeholders are used in the schema above:
 
 ## Documentation
 
-The documentation of this package is found [here](https://rpkg.dev/fokus).
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)](https://app.netlify.com/sites/fokus-rpkg-dev/deploys)
+
+The documentation of this package is found [here](https://fokus.rpkg.dev).
 
 ### Abbreviations
 
@@ -143,154 +147,156 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 <strong>Table of abbreviations</strong>
 </summary>
 
-| **Full expression(s)**          | **Abbreviation** |
-|:--------------------------------|:-----------------|
-| abbreviate, abbreviation        | abbr             |
-| abbreviations                   | abbrs            |
-| absolute                        | abs              |
-| argument                        | arg              |
-| arguments                       | args             |
-| attribute                       | attr             |
-| attributes                      | attrs            |
-| authenticate, authentication    | auth             |
-| authentications                 | auths            |
-| background                      | bg               |
-| bibliographies                  | bibs             |
-| bibliography                    | bib              |
-| chapter                         | chpt             |
-| chapters                        | chpts            |
-| character                       | chr              |
-| characters                      | chrs             |
-| column                          | col              |
-| columns                         | cols             |
-| combination                     | combo            |
-| combinations                    | combos           |
-| command                         | cmd              |
-| commands                        | cmds             |
-| condition                       | cnd              |
-| conditions                      | cnds             |
-| configurations                  | configs          |
-| configure, configuration        | config           |
-| database                        | db               |
-| dataframe                       | df               |
-| dataframe column                | dfc              |
-| dataframe row                   | dfr              |
-| dataframes                      | dfs              |
-| depend, dependency              | dep              |
-| dependencies                    | deps             |
-| develop, development, developer | dev              |
-| developments, developers        | devs             |
-| dictionaries                    | dicts            |
-| dictionary                      | dict             |
-| differences                     | diffs            |
-| differentiate, difference       | diff             |
-| directories                     | dirs             |
-| directory                       | dir              |
-| distribution                    | distro           |
-| distributions                   | distros          |
-| document                        | doc              |
-| documents                       | docs             |
-| double                          | dbl              |
-| doubles                         | dbls             |
-| element                         | el               |
-| elements                        | els              |
-| environment                     | env              |
-| environments                    | envs             |
-| exclude, exclusion              | excl             |
-| expression                      | expr             |
-| expressions                     | exprs            |
-| factor                          | fct              |
-| factors                         | fcts             |
-| figure                          | fig              |
-| figures                         | figs             |
-| filesystem                      | fs               |
-| formula                         | fm               |
-| formulas, formulae              | fms              |
-| frequencies                     | freqs            |
-| frequent, frequency             | freq             |
-| function                        | fn               |
-| functions                       | fns              |
-| generate, generation            | gen              |
-| generations                     | gens             |
-| google                          | g                |
-| identifiers                     | ids              |
-| identify, identifier            | id               |
-| include, inclusion              | incl             |
-| index                           | i                |
-| indices/indexes                 | ix               |
-| information                     | info             |
-| initialize, initialization      | init             |
-| integer                         | int              |
-| integers                        | ints             |
-| label                           | lbl              |
-| labels                          | lbls             |
-| language                        | lang             |
-| languages                       | langs            |
-| level                           | lvl              |
-| levels                          | lvls             |
-| list                            | ls               |
-| logical                         | lgl              |
-| logicals                        | lgls             |
-| management                      | mgmt             |
-| Markdown                        | md               |
-| message                         | msg              |
-| messages                        | msgs             |
-| modifications                   | mods             |
-| modify, modification            | mod              |
-| number                          | nr               |
-| number of                       | n                |
-| numbers                         | nrs              |
-| numeric                         | num              |
-| numerics                        | nums             |
-| object                          | obj              |
-| objects                         | objs             |
-| option                          | opt              |
-| options                         | opts             |
-| package                         | pkg              |
-| packages                        | pkgs             |
-| parameterize, parameter         | param            |
-| parameters                      | params           |
-| procedures                      | prcds            |
-| proceed, procedure              | prcd             |
-| prototype                       | ptype            |
-| prototypes                      | ptypes           |
-| Quarto Markdown                 | qmd              |
-| questionnaire                   | qstnr            |
-| questionnaires                  | qstnrs           |
-| R Markdown                      | rmd              |
-| refer, reference                | ref              |
-| references                      | refs             |
-| referendum                      | rfrnd            |
-| referendums, referenda          | rfrnds           |
-| regular expression(s)           | regex            |
-| relative                        | rel              |
-| remove, removal                 | rm               |
-| roxygen2                        | roxy             |
-| separate, separator             | sep              |
-| separators                      | seps             |
-| sequence                        | seq              |
-| sequences                       | seqs             |
-| specifications                  | specs            |
-| specify, specification          | spec             |
-| string                          | str              |
-| strings                         | strs             |
-| supplemental, supplementary     | suppl            |
-| symbolize, symbol               | sym              |
-| symbols                         | syms             |
-| tables                          | tbls             |
-| tabulate, table                 | tbl              |
-| template                        | tpl              |
-| templates                       | tpls             |
-| temporary                       | tmp              |
-| value                           | val              |
-| values                          | vals             |
-| variable                        | var              |
-| variables                       | vars             |
-| vectorize, vector               | vctr             |
-| vectors                         | vctrs            |
-| version                         | vrsn             |
-| versions                        | vrsns            |
-| working directory               | wd               |
+| **Full expression(s)**                  | **Abbreviation** |
+|:----------------------------------------|:-----------------|
+| abbreviate, abbreviation                | abbr             |
+| abbreviations                           | abbrs            |
+| absolute                                | abs              |
+| argument                                | arg              |
+| arguments                               | args             |
+| attribute                               | attr             |
+| attributes                              | attrs            |
+| authenticate, authentication            | auth             |
+| authentications                         | auths            |
+| background                              | bg               |
+| bibliographies                          | bibs             |
+| bibliography                            | bib              |
+| chapter                                 | chpt             |
+| chapters                                | chpts            |
+| character                               | chr              |
+| characters                              | chrs             |
+| column                                  | col              |
+| columns                                 | cols             |
+| combination                             | combo            |
+| combinations                            | combos           |
+| command                                 | cmd              |
+| commands                                | cmds             |
+| condition                               | cnd              |
+| conditions                              | cnds             |
+| configurations                          | configs          |
+| configure, configuration                | config           |
+| database                                | db               |
+| dataframe                               | df               |
+| dataframe column                        | dfc              |
+| dataframe row                           | dfr              |
+| dataframes                              | dfs              |
+| define, definition                      | def              |
+| definitions                             | defs             |
+| depend, dependency                      | dep              |
+| dependencies                            | deps             |
+| develop, development, developer         | dev              |
+| developments, developers                | devs             |
+| dictionaries                            | dicts            |
+| dictionary                              | dict             |
+| differences                             | diffs            |
+| differentiate, difference               | diff             |
+| directories                             | dirs             |
+| directory                               | dir              |
+| distribution                            | distro           |
+| distributions                           | distros          |
+| document                                | doc              |
+| documents                               | docs             |
+| double                                  | dbl              |
+| doubles                                 | dbls             |
+| element                                 | el               |
+| elements                                | els              |
+| environment                             | env              |
+| environments                            | envs             |
+| exclude, exclusion                      | excl             |
+| expression                              | expr             |
+| expressions                             | exprs            |
+| factor                                  | fct              |
+| factors                                 | fcts             |
+| figure                                  | fig              |
+| figures                                 | figs             |
+| filesystem                              | fs               |
+| formula                                 | fm               |
+| formulas, formulae                      | fms              |
+| frequencies                             | freqs            |
+| frequent, frequency                     | freq             |
+| function                                | fn               |
+| functions                               | fns              |
+| generate, generation                    | gen              |
+| generations                             | gens             |
+| google                                  | g                |
+| identifiers                             | ids              |
+| identify, identifier                    | id               |
+| include, inclusion                      | incl             |
+| index                                   | i                |
+| indexes, indices                        | ix               |
+| information                             | info             |
+| initialize, initialization              | init             |
+| integer                                 | int              |
+| integers                                | ints             |
+| label                                   | lbl              |
+| labels                                  | lbls             |
+| language                                | lang             |
+| languages                               | langs            |
+| level                                   | lvl              |
+| levels                                  | lvls             |
+| list                                    | ls               |
+| logical                                 | lgl              |
+| logicals                                | lgls             |
+| management                              | mgmt             |
+| Markdown                                | md               |
+| message                                 | msg              |
+| messages                                | msgs             |
+| modifications                           | mods             |
+| modify, modification                    | mod              |
+| number                                  | nr               |
+| number of                               | n                |
+| numbers                                 | nrs              |
+| numeric                                 | num              |
+| numerics                                | nums             |
+| object                                  | obj              |
+| objects                                 | objs             |
+| option                                  | opt              |
+| options                                 | opts             |
+| package                                 | pkg              |
+| packages                                | pkgs             |
+| parameterize, parameter                 | param            |
+| parameters                              | params           |
+| procedures                              | prcds            |
+| proceed, procedure                      | prcd             |
+| prototype                               | ptype            |
+| prototypes                              | ptypes           |
+| Quarto Markdown                         | qmd              |
+| questionnaire                           | qstnr            |
+| questionnaires                          | qstnrs           |
+| R Markdown                              | rmd              |
+| refer, reference                        | ref              |
+| references                              | refs             |
+| referendum                              | rfrnd            |
+| referendums, referenda                  | rfrnds           |
+| regular expression, regular expressions | regex            |
+| relative                                | rel              |
+| remove, removal                         | rm               |
+| roxygen2                                | roxy             |
+| separate, separator                     | sep              |
+| separators                              | seps             |
+| sequence                                | seq              |
+| sequences                               | seqs             |
+| specifications                          | specs            |
+| specify, specification                  | spec             |
+| string                                  | str              |
+| strings                                 | strs             |
+| supplemental, supplementary             | suppl            |
+| symbolize, symbol                       | sym              |
+| symbols                                 | syms             |
+| tables                                  | tbls             |
+| tabulate, table                         | tbl              |
+| template                                | tpl              |
+| templates                               | tpls             |
+| temporary                               | tmp              |
+| value                                   | val              |
+| values                                  | vals             |
+| variable                                | var              |
+| variables                               | vars             |
+| vectorize, vector                       | vctr             |
+| vectors                                 | vctrs            |
+| version                                 | vrsn             |
+| versions                                | vrsns            |
+| working directory                       | wd               |
 
 </details>
 

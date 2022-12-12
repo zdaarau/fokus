@@ -12,7 +12,7 @@ Description: fokus allows to (pre-)process and clean the raw data, analyze
     Centre for Democracy Studies Aarau (ZDA) at the University of Zurich,
     Switzerland.
 License: AGPL (>= 3)
-URL: https://rpkg.dev/fokus, https://gitlab.com/zdaarau/rpkgs/fokus
+URL: https://fokus.rpkg.dev, https://gitlab.com/zdaarau/rpkgs/fokus
 BugReports: https://gitlab.com/zdaarau/rpkgs/fokus/issues
 Depends: 
     R (>= 4.1)
@@ -24,13 +24,13 @@ Imports:
     glue (>= 1.5.0),
     lubridate (>= 1.7.9),
     magrittr (>= 2.0.0),
-    pal (>= 0.0.9083),
-    pkgpins (>= 0.7.0.9003),
+    pal (>= 0.0.9090),
+    pkgpins (>= 0.7.0.9004),
     purrr (>= 0.3.4),
     readr (>= 1.4.0),
     rlang (>= 1.0.1),
     stringi (>= 1.7.6),
-    stringr (>= 1.4.0),
+    stringr (>= 1.5.0),
     tibble (>= 3.0.3),
     tidyr (>= 1.1.2),
     xfun (>= 0.18)
@@ -43,8 +43,8 @@ Suggests:
     htmlwidgets (>= 1.5.4),
     knitr (>= 1.30),
     pkgload (>= 1.3.0),
-    pkgpurl (>= 0.0.9014),
-    pkgsnip (>= 0.0.9031),
+    pkgpurl (>= 0.0.9015),
+    pkgsnip (>= 0.0.9032),
     qrencoder (>= 0.2.1),
     RcppTOML (>= 0.1.6),
     readxl (>= 1.3.1),
@@ -54,7 +54,7 @@ Suggests:
     testthat (>= 3.1.1),
     utils,
     writexl (>= 1.4.0),
-    yay (>= 0.0.9010)
+    yay (>= 0.0.9011)
 VignetteBuilder: 
     knitr
 Remotes:
@@ -69,4 +69,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
