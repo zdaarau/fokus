@@ -129,4 +129,3 @@ reference:
 - contents:
   - md_emphasize
   - lgl_to_unicode
-  - read_toml

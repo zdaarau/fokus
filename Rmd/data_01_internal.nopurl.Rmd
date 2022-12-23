@@ -46,7 +46,7 @@ all_ballot_dates <-
 Raw questionnaire data as a structured list
 
 ```{r}
-raw_qstnr <- fokus::read_toml("data-raw/questionnaire/questionnaire.toml")
+raw_qstnr <- pal::toml_read("data-raw/questionnaire/questionnaire.toml")
 ```
 
 ## `raw_qstnrs_suppl`
@@ -57,7 +57,7 @@ Raw supplemental date-specific questionnaire data as a structured list
 raw_qstnrs_suppl <-
   all_ballot_dates %>%
   magrittr::set_names(., .) %>%
-  purrr::map(~ fokus::read_toml(glue::glue("data-raw/questionnaire/{.x}.toml")))
+  purrr::map(~ pal::toml_read(glue::glue("data-raw/questionnaire/{.x}.toml")))
 ```
 
 ## `cantons_at`

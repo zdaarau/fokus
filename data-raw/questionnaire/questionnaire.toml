@@ -434,19 +434,19 @@ response_options = """
                            lvl = 'federal',
                            canton = canton,
                            election_nr = i) %>%
-    purrr::when(requires_candidate_registration(ballot_date = ballot_date,
-                                                lvl = 'federal',
-                                                canton = canton,
-                                                election_nr = i) ~ .,
-                ~ c(., response_options(type = 'other',
-                                        lang = 'de',
-                                        subtypes = 'candidate'))) %>%
+    pal::when(requires_candidate_registration(ballot_date = ballot_date,
+                                              lvl = 'federal',
+                                              canton = canton,
+                                              election_nr = i) ~ .,
+              ~ c(., response_options(type = 'other',
+                                      lang = 'de',
+                                      subtypes = 'candidate'))) %>%
     c(response_options(type = 'dunno',
                        lang = 'de',
                        subtypes = 'main'))
 }"""
-variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
+value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional') }"
 topic = "Hypothetischer Stimmentscheid Partei kantonale Verhältniswahl {i}"
@@ -511,9 +511,9 @@ question_common = "Wen hätten Sie bei der kantonalen Mehrheitswahl {i} gewählt
 variable_name = "hypothetical_voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the { salim::rank_nr(i) } cantonal majoritarian election if the respondent would have participated"
-response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
-variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
+value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 
 
 [03_1_election_general]
@@ -995,9 +995,9 @@ question_common = "Wen haben Sie bei der eidgenössischen Mehrheitswahl {i} gew�
 variable_name = "voting_decision_federal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent voted for in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent voted for in the { salim::rank_nr(i) } federal majoritarian election"
-response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
-variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% c(qstnr_response_option_codes(types = 'abstain'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% c(qstnr_response_option_codes(types = 'abstain'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
+value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 
 [03_2_election_specific.003_cantonal_proportional]
@@ -1226,9 +1226,9 @@ question_common = "Wen haben Sie bei der kantonalen Mehrheitswahl {i} gewählt? 
 variable_name = "voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent voted for in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent voted for in the { salim::rank_nr(i) } cantonal majoritarian election"
-response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
-variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% c(qstnr_response_option_codes(types = 'abstain'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% purrr::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% c(qstnr_response_option_codes(types = 'abstain'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
+value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 
 [03_2_election_specific.005_decision_moment]

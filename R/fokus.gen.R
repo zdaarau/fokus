@@ -105,10 +105,10 @@ abbreviations <- function(expand = FALSE) {
                  abbreviation = "g") %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
     dplyr::arrange(full_expressions %>% purrr::map_chr(dplyr::first)) %>%
-    purrr::when(expand ~ tidyr::unnest_longer(data = .,
-                                              col = full_expressions,
-                                              values_to = "full_expression"),
-                ~.)
+    pal::when(expand ~ tidyr::unnest_longer(data = .,
+                                            col = full_expressions,
+                                            values_to = "full_expression"),
+              ~ .)
 }
 
 #' Convert language code to country-specific locale ID
@@ -213,9 +213,9 @@ opts <- function(pretty_colnames = FALSE) {
                     description = glue::glue("default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
                                              global_cache_lifespan),
                     has_fallback = TRUE) |>
-    purrr::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
-                                                                        "has fallback if unset" = has_fallback),
-                ~ .)
+    pal::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
+                                                                      "has fallback if unset" = has_fallback),
+              ~ .)
 }
 
 #' Pretty-print package-specific options
@@ -392,12 +392,12 @@ raw_qstnr_suppl_proposal <- function(ballot_date = all_ballot_dates,
 
   proposals <-
     lvl %>%
-    purrr::when(. == "federal" ~
-                  raw_qstnr_suppl_lvl(ballot_date = ballot_date,
-                                      lvl = .),
-                ~ raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
-                                             lvl = .,
-                                             canton = canton)) %>%
+    pal::when(. == "federal" ~
+                raw_qstnr_suppl_lvl(ballot_date = ballot_date,
+                                    lvl = .),
+              ~ raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
+                                           lvl = .,
+                                           canton = canton)) %>%
     purrr::pluck("proposal")
   
   if (is.null(proposals)) {
@@ -855,7 +855,7 @@ raw_qstnr_suppl_skill_questions <- function(ballot_date = all_ballot_dates,
   lvl <- rlang::arg_match(lvl)
   result <-
     lvl %>%
-    purrr::when(
+    pal::when(
       
       # federal non-proposal-specific skill questions (e.g. at federal elections)
       length(proposal_nr) == 0L && . == "federal" ~
@@ -1022,13 +1022,13 @@ pick_right_helper <- function(x,
     ballot_types <- ballot_types(ballot_date = ballot_date,
                                  canton = canton)
 
-    x <- names(x) %>% purrr::when(
-
+    x <- names(x) %>% pal::when(
+      
       # canton and ballot date
       ## consider overrides for binary keys
       canton %in% x[["false"]] || ballot_date %in% x[["false"]] ~ FALSE,
       canton %in% x[["true"]] || ballot_date %in% x[["true"]] ~ TRUE,
-
+      
       ## consider overrides for non-binary keys
       ### single canton subkey
       canton %in% . ~ x[[canton]],
@@ -1036,16 +1036,16 @@ pick_right_helper <- function(x,
       ballot_date_squeezed %in% . ~ x[[ballot_date_squeezed]],
       ### begin-end date subkey
       length(which(matches_begin_end_subkeys)) > 0L ~ x[[begin_end_subkeys[matches_begin_end_subkeys]]],
-
+      
       # consider overrides for ballot types (we take the first one in case of ambiguity)
       any(ballot_types %in% .) ~ x[[intersect(., ballot_types)[1L]]],
-
+      
       # return default value if defined
       "default" %in% . ~ x[["default"]],
-
+      
       # fall back on key's default value if no subkey matches canton and ballot date
       key %in% qstnr_item_keys$key ~ unlist(qstnr_item_keys$default_val[qstnr_item_keys$key == key]),
-
+      
       # abort in any remaining case
       ~ cli::cli_abort("Undefined behavior, please debug. {.arg {key}} is {.val {key}}, {.arg {x}} is {.field {x}}.",
                        .internal = TRUE)
@@ -1104,17 +1104,17 @@ resolve_qstnr_val <- function(x,
     raw_pick_right(key = key,
                    ballot_date = ballot_date,
                    canton = canton) %>%
-    purrr::when(is.character(.) ~ interpolate_qstnr_val(.,
-                                                        ballot_date = ballot_date,
-                                                        canton = canton,
-                                                        key = key,
-                                                        lvl = lvl,
-                                                        i = i,
-                                                        j = j,
-                                                        ... = ...),
-                ~ .) %>%
+    pal::when(is.character(.) ~ interpolate_qstnr_val(.,
+                                                      ballot_date = ballot_date,
+                                                      canton = canton,
+                                                      key = key,
+                                                      lvl = lvl,
+                                                      i = i,
+                                                      j = j,
+                                                      ... = ...),
+              ~ .) %>%
     # convert to proper type
-    purrr::when(
+    pal::when(
       key %in% qstnr_item_keys$key[qstnr_item_keys$type == "character"] ~
         as.character(.),
       key %in% qstnr_item_keys$key[qstnr_item_keys$type == "logical"] ~
@@ -1355,7 +1355,7 @@ assemble_qstnr_item_tibble <- function(ballot_date,
                                             i = i,
                                             j = j,
                                             question = question) %>%
-                            purrr::when(
+                            pal::when(
                               # replace empty scalars with NA
                               length(.) == 0L && .x %in% qstnr_item_keys$key[qstnr_item_keys$is_scalar] ~
                                 .[NA],
@@ -1401,23 +1401,23 @@ assemble_qstnr_item_tibble <- function(ballot_date,
                         
                         question_common_fallback <-
                           item_map %>%
-                          purrr::when("default" %in% names(.$question_full) ~
-                                        resolve_qstnr_val(x = item_map$question_full$default,
-                                                          ballot_date = ballot_date,
-                                                          canton = canton,
-                                                          key = "question_full",
-                                                          lvl = lvl,
-                                                          i = i,
-                                                          j = j),
-                                      "default" %in% names(.$question) ~
-                                        resolve_qstnr_val(x = item_map$question$default,
-                                                          ballot_date = ballot_date,
-                                                          canton = canton,
-                                                          key = "question",
-                                                          lvl = lvl,
-                                                          i = i,
-                                                          j = j),
-                                      ~ result$question_full)
+                          pal::when("default" %in% names(.$question_full) ~
+                                      resolve_qstnr_val(x = item_map$question_full$default,
+                                                        ballot_date = ballot_date,
+                                                        canton = canton,
+                                                        key = "question_full",
+                                                        lvl = lvl,
+                                                        i = i,
+                                                        j = j),
+                                    "default" %in% names(.$question) ~
+                                      resolve_qstnr_val(x = item_map$question$default,
+                                                        ballot_date = ballot_date,
+                                                        canton = canton,
+                                                        key = "question",
+                                                        lvl = lvl,
+                                                        i = i,
+                                                        j = j),
+                                    ~ result$question_full)
                         
                         if (isTRUE(question_common_fallback != result$question)) {
                           result$question_common <- question_common_fallback
@@ -1580,11 +1580,11 @@ add_who_constraint <- function(x,
                                who) {
   if (who != "all") {
 
-    result <- who %>% purrr::when(stringr::str_detect(string = x, pattern = "\\)$") ~
-                                    stringr::str_replace(string = x,
-                                                         pattern = "\\)$",
-                                                         replacement = paste0("; only *", ., "*)")),
-                                  ~ paste0(x, " (only *", ., "*)"))
+    result <- who %>% pal::when(stringr::str_detect(string = x, pattern = "\\)$") ~
+                                  stringr::str_replace(string = x,
+                                                       pattern = "\\)$",
+                                                       replacement = paste0("; only *", ., "*)")),
+                                ~ paste0(x, " (only *", ., "*)"))
   } else {
 
     result <- x
@@ -1686,9 +1686,9 @@ gen_qstnr_md <- function(qstnr_tibble,
                                                              canton = canton)) %>%
                                       length() %>%
                                       magrittr::is_greater_than(0L)) %>%
-                  purrr::when(length(.) == 0L ~ FALSE,
-                              ~ stringr::str_detect(string = qstnr_tibble$who,
-                                                    pattern = pal::fuse_regex(paste0("\\Q", ., "\\E")))) %>%
+                  pal::when(length(.) == 0L ~ FALSE,
+                            ~ stringr::str_detect(string = qstnr_tibble$who,
+                                                  pattern = pal::fuse_regex(paste0("\\Q", ., "\\E")))) %>%
                   any()) %>%
     # assemble who lines
     purrr::map_depth(.depth = 1L,
@@ -1815,14 +1815,14 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
             tidyr::replace_na(topic,
                               "-"),
             who,
-            question %>% purrr::when(is.na(.) ~ "-",
-                                     ~ c(c(question_intro_i[isTRUE(i == 1L && j %in% c(1L, NA_integer_))],
-                                           question_intro_j[isTRUE(j == 1L)]) %>%
-                                           magrittr::extract(!is.na(.)) %>%
-                                           pal::as_string(),
-                                         .) %>%
-                                       magrittr::extract(!is.na(.)) %>%
-                                       pal::as_string(sep = " <br><br>")),
+            question %>% pal::when(is.na(.) ~ "-",
+                                   ~ c(c(question_intro_i[isTRUE(i == 1L && j %in% c(1L, NA_integer_))],
+                                         question_intro_j[isTRUE(j == 1L)]) %>%
+                                         magrittr::extract(!is.na(.)) %>%
+                                         pal::as_string(),
+                                       .) %>%
+                                     magrittr::extract(!is.na(.)) %>%
+                                     pal::as_string(sep = " <br><br>")),
             allow_multiple_answers,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
@@ -1838,19 +1838,19 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
               pal::wrap_chr("`"),
             variable_label,
             response_options %>%
-              purrr::when(is_skill_question_var(variable_name) ~
-                            format_md_multival_col(x = .,
-                                                   collapse_break = FALSE) %>%
-                            md_emphasize(which = skill_question_answer_nr(ballot_date = ballot_date,
-                                                                          lvl = var_lvls(var_name = variable_name),
-                                                                          canton = canton,
-                                                                          proposal_nr =
-                                                                            var_proposal_nr(variable_name) %>%
-                                                                            purrr::when(is.na(.) ~ NULL,
-                                                                                        ~ .),
-                                                                          skill_question_nr = var_skill_question_nr(variable_name))) %>%
-                            collapse_break(),
-                          ~ format_md_multival_col(.)),
+              pal::when(is_skill_question_var(variable_name) ~
+                          format_md_multival_col(x = .,
+                                                 collapse_break = FALSE) %>%
+                          md_emphasize(which = skill_question_answer_nr(ballot_date = ballot_date,
+                                                                        lvl = var_lvls(var_name = variable_name),
+                                                                        canton = canton,
+                                                                        proposal_nr =
+                                                                          var_proposal_nr(variable_name) %>%
+                                                                          pal::when(is.na(.) ~ NULL,
+                                                                                    ~ .),
+                                                                        skill_question_nr = var_skill_question_nr(variable_name))) %>%
+                          collapse_break(),
+                        ~ format_md_multival_col(.)),
             format_md_multival_col(variable_values),
             format_md_multival_col(value_labels),
             randomize_response_options,
@@ -1877,10 +1877,10 @@ format_md_multival_col <- function(x,
     result <-
       x %>%
       pal::wrap_chr(wrap = "`") %>%
-      purrr::when(collapse_break ~ collapse_break(.),
-                  ~ .)
+      pal::when(collapse_break ~ collapse_break(.),
+                ~ .)
   }
-
+  
   result
 }
 
@@ -2274,10 +2274,10 @@ read_voting_register_ids <- function(ballot_date,
   path_input %>%
     readr::read_csv(col_types = "i") %>%
     # integrity check
-    purrr::when(ncol(.) > 1L ~
-                  cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug.",
-                                 .internal = TRUE),
-                ~ .) %>%
+    pal::when(ncol(.) > 1L ~
+                cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug.",
+                               .internal = TRUE),
+              ~ .) %>%
     dplyr::first()
 }
 
@@ -2412,16 +2412,16 @@ qstnr_md_table_header <-
                                     rep(x = "-",
                                         times = .x) %>%
                                     paste0(collapse = "") %>%
-                                    purrr::when(.y == "left" ~ stringr::str_replace(string = .,
-                                                                                    pattern = "^.",
-                                                                                    replacement = ":"),
-                                                .y == "right" ~ stringr::str_replace(string = .,
-                                                                                     pattern = ".$",
-                                                                                     replacement = ":"),
-                                                .y == "center" ~ stringr::str_replace_all(string = .,
-                                                                                          pattern = "(^.|.$)",
-                                                                                          replacement = ":"),
-                                                ~ .))) %$%
+                                    pal::when(.y == "left" ~ stringr::str_replace(string = .,
+                                                                                  pattern = "^.",
+                                                                                  replacement = ":"),
+                                              .y == "right" ~ stringr::str_replace(string = .,
+                                                                                   pattern = ".$",
+                                                                                   replacement = ":"),
+                                              .y == "center" ~ stringr::str_replace_all(string = .,
+                                                                                        pattern = "(^.|.$)",
+                                                                                        replacement = ":"),
+                                              ~ .))) %$%
   c(paste0(name, collapse = " | "),
     paste0(sep, collapse = " | "))
 
@@ -3248,8 +3248,8 @@ has_proposal_nrs <- function(ballot_date = all_ballot_dates,
         purrr::map(~ .x %in% present_proposal_nrs)
     }) %>%
     unlist() %>%
-    purrr::when(is.null(.) ~ FALSE,
-                ~ .)
+    pal::when(is.null(.) ~ FALSE,
+              ~ .)
 }
 
 #' Determine whether ballot includes elections
@@ -3324,8 +3324,8 @@ has_election_nrs <- function(ballot_date = all_ballot_dates,
                    })
     }) %>%
     unlist() %>%
-    purrr::when(is.null(.) ~ FALSE,
-                ~ .)
+    pal::when(is.null(.) ~ FALSE,
+              ~ .)
 }
 
 #' Get proposal type
@@ -3716,9 +3716,9 @@ election_names_combined <- function(ballot_date = all_ballot_dates,
                                                lvl = .x,
                                                canton = canton) %>%
                      purrr::chuck("names_combined", lang, "short")) %>%
-    purrr::when(federal_first ~ .[sort(x = seq_along(.),
-                                       decreasing = TRUE)],
-                ~ .) %>%
+    pal::when(federal_first ~ .[sort(x = seq_along(.),
+                                     decreasing = TRUE)],
+              ~ .) %>%
     pal::prose_ls(last_sep = switch(EXPR = lang,
                                     "de" = " sowie ",
                                     "en" = " as well as "))
@@ -4055,11 +4055,11 @@ n_skill_questions <- function(ballot_date = all_ballot_dates,
   
   raw_qstnr_suppl(ballot_date = ballot_date) %>%
     purrr::pluck(lvl) %>%
-    purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
-                ~ .) %>%
+    pal::when(lvl == "cantonal" ~ purrr::pluck(., canton),
+              ~ .) %>%
     # get non-proposal-specific skill questions if `proposal_nr = NULL`
-    purrr::when(length(proposal_nr) > 0L ~ purrr::pluck(., "proposal", proposal_nr),
-                ~ .) %>%
+    pal::when(length(proposal_nr) > 0L ~ purrr::pluck(., "proposal", proposal_nr),
+              ~ .) %>%
     purrr::pluck("skill_question") %>%
     length()
 }
@@ -4199,8 +4199,8 @@ skill_question_proposal_nrs <- function(ballot_date = all_ballot_dates,
   
   raw_qstnr_suppl(ballot_date = ballot_date) %>%
     purrr::pluck(lvl) %>%
-    purrr::when(lvl == "cantonal" ~ purrr::pluck(., canton),
-                ~ .) %>%
+    pal::when(lvl == "cantonal" ~ purrr::pluck(., canton),
+              ~ .) %>%
     purrr::pluck("proposal") %>%
     purrr::keep(~ .x %>% rlang::has_name("skill_question")) %>%
     names() %>%
@@ -4242,9 +4242,9 @@ ballot_title <- function(ballot_date = all_ballot_dates,
 
     result <-
       ballot_types %>%
-      purrr::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
-                  . == "referendum" ~ "Abstimmungs",
-                  . == "election" ~ "Wahl") %>%
+      pal::when(length(.) > 1L ~ "Abstimmungs- und Wahl",
+                . == "referendum" ~ "Abstimmungs",
+                . == "election" ~ "Wahl") %>%
       paste0("termin vom ", stringi::stri_datetime_format(time = ballot_date,
                                                           format = "date_long",
                                                           locale = lang_to_locale(lang)))
@@ -4253,8 +4253,8 @@ ballot_title <- function(ballot_date = all_ballot_dates,
 
     result <-
       ballot_types %>%
-      purrr::when(length(.) > 1L ~ "Referendum and election",
-                  ~ stringr::str_to_sentence(.)) %>%
+      pal::when(length(.) > 1L ~ "Referendum and election",
+                ~ stringr::str_to_sentence(.)) %>%
       paste0(" date of ", stringi::stri_datetime_format(time = ballot_date,
                                                         format = "date_long",
                                                         locale = lang_to_locale(lang)))
@@ -5019,22 +5019,22 @@ shorten_var_names <- function(var_names,
   rules %<>% dplyr::mutate(pattern = purrr::map2_chr(
     .x = string,
     .y = allowed_at,
-    .f = ~ .y %>% purrr::when(. == "begin" ~
-                                paste0("^", .x, "(?=_)"),
-                              . == "middle" ~
-                                paste0("(?<=_)", .x, "(?=_)"),
-                              . == "end" ~
-                                paste0("(?<=_)", .x, "$"),
-                              . == "begin-middle" ~
-                                paste0("(?<=(^|_))", .x, "(?=_)"),
-                              . == "begin-end" ~
-                                paste0("(^", .x, "(?=_)|(?<=_)", .x, "$)"),
-                              . == "middle-end" ~
-                                paste0("(?<=_)", .x, "(?=(_|$))"),
-                              . == "begin-middle-end" ~
-                                paste0("(?<=(^|_))", .x, "(?=(_|$))"),
-                              ~ cli::cli_abort("Unknown {.var allowed_at} type: {.val {.}}.",
-                                               .internal = TRUE))
+    .f = ~ .y %>% pal::when(. == "begin" ~
+                              paste0("^", .x, "(?=_)"),
+                            . == "middle" ~
+                              paste0("(?<=_)", .x, "(?=_)"),
+                            . == "end" ~
+                              paste0("(?<=_)", .x, "$"),
+                            . == "begin-middle" ~
+                              paste0("(?<=(^|_))", .x, "(?=_)"),
+                            . == "begin-end" ~
+                              paste0("(^", .x, "(?=_)|(?<=_)", .x, "$)"),
+                            . == "middle-end" ~
+                              paste0("(?<=_)", .x, "(?=(_|$))"),
+                            . == "begin-middle-end" ~
+                              paste0("(?<=(^|_))", .x, "(?=(_|$))"),
+                            ~ cli::cli_abort("Unknown {.var allowed_at} type: {.val {.}}.",
+                                             .internal = TRUE))
   ))
 
   pattern_replacement <- rules$replacement
@@ -5411,21 +5411,21 @@ backup_g_sheet <- function(g_id,
     if (overwrite || !fs::file_exists(path)) {
       
       filetype %>%
-        purrr::when(. == "csv" ~
-                      readr::write_csv(x = data,
-                                       file = path,
-                                       na = ""),
-                    
-                    . == "xlsx" ~ {
-                      pal::assert_pkg("writexl")
-                      writexl::write_xlsx(x = data,
-                                          path = path)
-                    },
-                    
-                    . == "" ~
-                      cli::cli_abort("{.arg path} must have a file extension ({.file .csv} or {.file .xlsx})."),
-                    
-                    ~ cli::cli_abort("Exporting filetype {.file {.}} not yet implemented."))
+        pal::when(. == "csv" ~
+                    readr::write_csv(x = data,
+                                     file = path,
+                                     na = ""),
+                  
+                  . == "xlsx" ~ {
+                    pal::assert_pkg("writexl")
+                    writexl::write_xlsx(x = data,
+                                        path = path)
+                  },
+                  
+                  . == "" ~
+                    cli::cli_abort("{.arg path} must have a file extension ({.file .csv} or {.file .xlsx})."),
+                  
+                  ~ cli::cli_abort("Exporting filetype {.file {.}} not yet implemented."))
       
     } else {
       cli::cli_alert_warning("A file already exists under {.arg path} {.file {path}} but {.arg overwrite} was set to {.val FALSE}. Nothing done.")
@@ -5538,25 +5538,4 @@ lgl_to_unicode <- function(x) {
   dplyr::if_else(x,
                  unicode_checkmark,
                  unicode_crossmark)
-}
-
-#' Read in and parse a TOML file as a strict list
-#'
-#' Reads in a file in [Tom's Obvious Minimal Language](https://toml.io/) format and returns its content as a (nested) [strict list][xfun::strict_list()].
-#'
-#' The file is parsed using [`RcppTOML::parseTOML(escape = FALSE)`][RcppTOML::parseTOML].
-#'
-#' @param path Path to a TOML file. A character scalar.
-#'
-#' @return `r pkgsnip::return_label("strict_list")`
-#' @export
-read_toml <- function(path) {
-
-  pal::assert_pkg("RcppTOML")
-
-  path %>%
-    purrr::when(length(.) > 0L ~ RcppTOML::parseTOML(input = .,
-                                                     escape = FALSE),
-                ~ NULL) %>%
-    xfun::as_strict_list()
 }
