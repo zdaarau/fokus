@@ -1224,7 +1224,7 @@ assemble_qstnr_tibble <- function(ballot_date,
     
     map %<>%
       purrr::list_modify(!!!raw_qstnr_branch) %>%
-      pal::list_keep(keep = qstnr_item_keys$key)
+      purrr::keep_at(at = qstnr_item_keys$key)
   }
   
   result <- NULL
@@ -1977,7 +1977,7 @@ qstnr_item_val <- function(ballot_date = all_ballot_dates,
       purrr::chuck(!!!branch_depth) %>%
       purrr::list_modify(.x = parent_map,
                          !!!.) %>%
-      pal::list_keep(keep = qstnr_item_keys$key)
+      purrr::keep_at(at = qstnr_item_keys$key)
   }
 
   # evaluate requested item value

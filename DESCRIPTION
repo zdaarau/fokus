@@ -26,7 +26,7 @@ Imports:
     magrittr (>= 2.0.0),
     pal (>= 0.0.9091),
     pkgpins (>= 0.7.0.9004),
-    purrr (>= 0.3.4),
+    purrr (>= 1.0.0),
     readr (>= 1.4.0),
     rlang (>= 1.0.1),
     stringi (>= 1.7.6),
