@@ -47,7 +47,7 @@ fokus:::raw_qstnr_suppl_skill_questions(ballot_date = "2018-09-23",
                                         canton = "aargau",
                                         proposal_nr = 1) |>
   purrr::map_depth(1L, "de") |>
-  purrr::flatten_chr()
+  purrr::list_c(ptype = character())
 }
 \seealso{
 Other raw questionnaire data functions:

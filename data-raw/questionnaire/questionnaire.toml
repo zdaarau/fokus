@@ -4429,7 +4429,7 @@ respondent's latent expertise on all cantonal proposals together (based on a 2�
                         '_cantonal_proposal_',
                         .x,
                         '`')) %>%
-    purrr::flatten_chr() %>%
+    purrr::list_c(ptype = character()) %>%
     pal::prose_ls()
 })"""
 variable_label_common = "respondent's latent expertise on all cantonal proposals together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_cantonal_proposal_*`)"
@@ -4452,7 +4452,7 @@ respondent's latent expertise on all federal proposals together (based on a 2–
                         '_federal_proposal_',
                         .x,
                         '`')) %>%
-    purrr::flatten_chr() %>%
+    purrr::list_c(ptype = character()) %>%
     pal::prose_ls()
 })"""
 variable_label_common = "respondent's latent expertise on all federal proposals together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal_proposal_*`)"
@@ -4610,7 +4610,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'cantonal',
                   canton = canton,
@@ -4629,7 +4629,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     pal::prose_ls()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions in the current `ballot_date` (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
@@ -4644,7 +4644,7 @@ the weight assigned to the respondent as a result of the weighting by {
               prcds = 'proportional') %>%
     seq_len() %>%
     purrr::map(~ paste0('`voting_decision_', c('', 'past_'), 'federal_proportional_election_', .x, '_party`')) %>%
-    purrr::flatten_chr() %>%
+    purrr::list_c(ptype = character()) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'federal',
                   canton = canton,
@@ -4657,14 +4657,14 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'cantonal',
                   canton = canton,
                   prcds = 'proportional') %>%
         seq_len() %>%
         purrr::map(~ paste0('`voting_decision_', c('', 'past_'), 'cantonal_proportional_election_', .x, '_party`')) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'cantonal',
                   canton = canton,
@@ -4677,7 +4677,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     pal::prose_ls()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions including those in past elections (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
@@ -4714,7 +4714,7 @@ the weight assigned to the respondent as a result of the weighting by `participa
               prcds = 'proportional') %>%
     seq_len() %>%
     purrr::map(~ paste0('`voting_decision_', c('', 'past_'), 'federal_proportional_election_', .x, '_party`')) %>%
-    purrr::flatten_chr() %>%
+    purrr::list_c(ptype = character()) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'federal',
                   canton = canton,
@@ -4727,14 +4727,14 @@ the weight assigned to the respondent as a result of the weighting by `participa
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'cantonal',
                   canton = canton,
                   prcds = 'proportional') %>%
         seq_len() %>%
         purrr::map(~ paste0('`voting_decision_', c('', 'past_'), 'cantonal_proportional_election_', .x, '_party`')) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'cantonal',
                   canton = canton,
@@ -4747,7 +4747,7 @@ the weight assigned to the respondent as a result of the weighting by `participa
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     pal::prose_ls()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by `participation` as well as all voting decisions including those in past ones (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
@@ -4822,7 +4822,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c(n_elections(ballot_date = ballot_date,
                   lvls = 'cantonal',
                   canton = canton,
@@ -4841,7 +4841,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
-        purrr::flatten_chr()) %>%
+        purrr::list_c(ptype = character())) %>%
     c('`is_vaccinated_covid`') %>%
     pal::prose_ls()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""

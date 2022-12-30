@@ -77,7 +77,7 @@ cantons_at <-
 ```{r}
 all_cantons <-
   cantons_at %>%
-  purrr::flatten_chr() %>%
+  purrr::list_c(ptype = character()) %>%
   unique()
 ```
 
