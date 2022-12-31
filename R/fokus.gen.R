@@ -968,7 +968,7 @@ raw_pick_right <- function(x,
   canton
   key
   
-  if (purrr::vec_depth(x) > 1L) {
+  if (purrr::pluck_depth(x) > 1L) {
     
     x <-
       pick_right_helper(x = x,
@@ -988,7 +988,7 @@ pick_right_helper <- function(x,
                               canton,
                               key) {
   
-  if (purrr::is_list(x) && (length(x) > 1L || purrr::vec_depth(x) > 1L)) {
+  if (purrr::is_list(x) && (length(x) > 1L || purrr::pluck_depth(x) > 1L)) {
     
     # create plain ballot date as in subkeys
     ballot_date_squeezed <- stringr::str_remove_all(string = ballot_date,
@@ -1236,7 +1236,7 @@ assemble_qstnr_tibble <- function(ballot_date,
                                          item_map = map,
                                          verbose = verbose)
     
-  } else if (purrr::vec_depth(raw_qstnr_branch) > 2L) {
+  } else if (purrr::pluck_depth(raw_qstnr_branch) > 2L) {
     
     result <- purrr::map2_dfr(.x = raw_qstnr_branch,
                               .y = names(raw_qstnr_branch) %||% seq_along(raw_qstnr_branch),
@@ -2340,13 +2340,13 @@ assert_var_names <- function(var_names,
 as_flat_list <- function(x) {
   
   result <- x
-  depth <- purrr::vec_depth(result)
+  depth <- purrr::pluck_depth(result)
   
   # unlist until only a single list level remains
   while (depth > 2L) {
     
     result %<>% unlist(recursive = FALSE)
-    depth <- purrr::vec_depth(result)
+    depth <- purrr::pluck_depth(result)
   }
   
   # wrap in list if necessary
