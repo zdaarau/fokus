@@ -2,7 +2,7 @@
 # See `README.md#r-markdown-format` for more information on the literate programming approach used applying the R Markdown format.
 
 # fokus: Provides an API around the FOKUS Post-voting Surveys
-# Copyright (C) 2022 Centre for Democracy Studies Aarau (ZDA)
+# Copyright (C) 2023 Centre for Democracy Studies Aarau (ZDA)
 # 
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, either version 3 of the License, or any later version.
@@ -104,7 +104,8 @@ abbreviations <- function(expand = FALSE) {
   tibble::tibble(full_expressions = list("google"),
                  abbreviation = "g") %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
-    dplyr::arrange(full_expressions %>% purrr::map_chr(dplyr::first)) %>%
+    dplyr::arrange(purrr::map_chr(full_expressions,
+                                  dplyr::first)) %>%
     pal::when(expand ~ tidyr::unnest_longer(data = .,
                                             col = full_expressions,
                                             values_to = "full_expression"),
@@ -204,18 +205,13 @@ print_fokus_private_structure <- function() {
 #' fokus:::opts()
 opts <- function(pretty_colnames = FALSE) {
   
-  tibble::tibble(name = "fokus.path_private",
-                 description = paste0("path to the working directory (the local instance of the ",
-                                      "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
-                                      "directory"),
-                 has_fallback = TRUE) |>
-    tibble::add_row(name = "fokus.global_cache_lifespan",
-                    description = glue::glue("default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
-                                             global_cache_lifespan),
-                    has_fallback = TRUE) |>
-    pal::when(checkmate::assert_flag(pretty_colnames) ~ dplyr::rename(.data = .,
-                                                                      "has fallback if unset" = has_fallback),
-              ~ .)
+  checkmate::assert_flag(pretty_colnames)
+  
+  if (pretty_colnames) {
+    pkg_opts %<>% dplyr::rename("has fallback if unset" = has_fallback)
+  }
+  
+  pkg_opts
 }
 
 #' Pretty-print package-specific options
@@ -1501,12 +1497,20 @@ clean_qstnr_tibble <- function(qstnr_tibble) {
   qstnr_tibble %>%
     # remove (single) placeholders
     dplyr::mutate(dplyr::across(any_of(qstnr_item_keys_multival) & where(~ is.character(.x[[1L]])),
-                                ~ .x %>% purrr::map(~ { if (length(.x) == 1L && isTRUE(stringr::str_detect(.x, "^_.+_$"))) character() else .x }))) %>%
+                                ~ purrr::map(.x,
+                                             ~ {
+                                               if (length(.x) == 1L && isTRUE(stringr::str_detect(.x, "^_.+_$"))) {
+                                                 character()
+                                               } else {
+                                                 .x
+                                               }
+                                             }))) %>%
     # strip MD
     dplyr::mutate(dplyr::across(where(is.character),
                                 pal::strip_md),
                   dplyr::across(where(is.list) & where(~ is.character(.x[[1L]])),
-                                ~ .x %>% purrr::map(pal::strip_md)))
+                                ~ purrr::map(.x,
+                                             pal::strip_md)))
 }
 
 validate_qstnr_tibble <- function(qstnr_tibble) {
@@ -1583,10 +1587,9 @@ add_who_constraint <- function(x,
                                who) {
   if (who != "all") {
     
-    result <- who %>% pal::when(stringr::str_detect(string = x, pattern = "\\)$") ~
-                                  stringr::str_replace(string = x,
-                                                       pattern = "\\)$",
-                                                       replacement = paste0("; only *", ., "*)")),
+    result <- who %>% pal::when(endsWith(x, ")") ~ stringr::str_replace(string = x,
+                                                                        pattern = "\\)$",
+                                                                        replacement = paste0("; only *", ., "*)")),
                                 ~ paste0(x, " (only *", ., "*)"))
   } else {
     
@@ -2322,7 +2325,9 @@ assert_var_names <- function(var_names,
                              as_scalar = FALSE,
                              null_ok = FALSE) {
   
-  if (checkmate::assert_flag(as_scalar)) {
+  checkmate::assert_flag(as_scalar)
+  
+  if (as_scalar) {
     
     checkmate::assert_choice(var_names,
                              choices = unique(fokus::qstnrs$variable_name),
@@ -2373,9 +2378,23 @@ wrap_backtick <- function(x) {
 
 this_pkg <- utils::packageName()
 
-# URLs
-url_survey_host <- list(aargau = "https://umfrage.fokus.ag")
-url_parameter_survey <- list(aargau = "pw")
+cli_theme <-
+  cli::builtin_theme() %>%
+  purrr::list_modify(h2 = list("margin-bottom" = 0.0),
+                     h3 = list("margin-top" = 0.0))
+
+global_cache_lifespan <- "30 days"
+
+pkg_opts <-
+  tibble::tibble(name = "fokus.path_repo_private",
+                 description = paste0("path to the working directory (the local instance of the ",
+                                      "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
+                                      "directory"),
+                 has_fallback = TRUE) |>
+  tibble::add_row(name = "fokus.global_cache_lifespan",
+                  description = glue::glue("default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
+                                           global_cache_lifespan),
+                  has_fallback = TRUE)
 
 #' Questionnaire item keys
 #'
@@ -2409,23 +2428,22 @@ qstnr_md_table_header <-
     "Antwortoptionen in Zufallsreihenfolge",       3L,     "left",
     "Antwort obligatorisch",                       3L,     "left"
   ) %>%
-  dplyr::mutate(sep =
-                  purrr::map2_chr(.x = width,
-                                  .y = alignment,
-                                  .f = ~
-                                    rep(x = "-",
-                                        times = .x) %>%
-                                    paste0(collapse = "") %>%
-                                    pal::when(.y == "left" ~ stringr::str_replace(string = .,
-                                                                                  pattern = "^.",
-                                                                                  replacement = ":"),
-                                              .y == "right" ~ stringr::str_replace(string = .,
-                                                                                   pattern = ".$",
-                                                                                   replacement = ":"),
-                                              .y == "center" ~ stringr::str_replace_all(string = .,
-                                                                                        pattern = "(^.|.$)",
-                                                                                        replacement = ":"),
-                                              ~ .))) %$%
+  dplyr::mutate(sep = purrr::map2_chr(.x = width,
+                                      .y = alignment,
+                                      .f = ~
+                                        rep(x = "-",
+                                            times = .x) %>%
+                                        paste0(collapse = "") %>%
+                                        pal::when(.y == "left" ~ stringr::str_replace(string = .,
+                                                                                      pattern = "^.",
+                                                                                      replacement = ":"),
+                                                  .y == "right" ~ stringr::str_replace(string = .,
+                                                                                       pattern = ".$",
+                                                                                       replacement = ":"),
+                                                  .y == "center" ~ stringr::str_replace_all(string = .,
+                                                                                            pattern = "(^.|.$)",
+                                                                                            replacement = ":"),
+                                                  ~ .))) %$%
   c(paste0(name, collapse = " | "),
     paste0(sep, collapse = " | "))
 
@@ -2433,12 +2451,8 @@ unicode_checkmark <- "\u2705"
 unicode_crossmark <- "\u274C"
 unicode_ellipsis  <- "\u2026"
 
-global_cache_lifespan <- "30 days"
-
-cli_theme <-
-  cli::builtin_theme() %>%
-  purrr::list_modify(h2 = list("margin-bottom" = 0),
-                     h3 = list("margin-top" = 0))
+url_survey_host <- list(aargau = "https://umfrage.fokus.ag")
+url_parameter_survey <- list(aargau = "pw")
 
 #' FOKUS-covered ballot dates
 #'
@@ -4212,7 +4226,8 @@ skill_question_proposal_nrs <- function(ballot_date = all_ballot_dates,
     pal::when(lvl == "cantonal" ~ purrr::pluck(., canton),
               ~ .) %>%
     purrr::pluck("proposal") %>%
-    purrr::keep(~ .x %>% rlang::has_name("skill_question")) %>%
+    purrr::keep(~ rlang::has_name(.x,
+                                  "skill_question")) %>%
     names() %>%
     as.integer()
 }
@@ -4578,6 +4593,7 @@ export_qstnr <- function(ballot_date = all_ballot_dates,
                            msg_done = paste(status_msg, "done"),
                            msg_failed = paste(status_msg, "failed"))
     
+    # TODO: either deploy to this pkg's pkgdown site or introduce pkg option for `to_path` instead of hardcoding it
     yay::deploy_static_site(from_path = path_dir,
                             to_path = "~/Arbeit/ZDA/Git/c2d-zda/c2d-zda.gitlab.io/public/",
                             clean_to_path = FALSE,
@@ -4700,7 +4716,7 @@ export_qr_codes <- function(ballot_date = all_ballot_dates,
                    url_parameter <- url_parameter_survey %>% purrr::chuck(canton)
                    
                    qrencoder::qrencode_svg(to_encode = glue::glue("{url}?{url_parameter}={.x}"),
-                                           level = 3) %>%
+                                           level = 3L) %>%
                      readr::write_file(file = path_svg)
                    
                    # create EPS file from SVG file
@@ -4917,7 +4933,7 @@ var_lbl <- function(var_name,
     
     is_arg_invalid <- purrr::map_lgl(list(ballot_date, canton),
                                      is.null)
-    arg_names <- c('ballot_date', 'canton')
+    arg_names <- c("ballot_date", "canton")
     
     if (any(is_arg_invalid)) {
       cli::cli_abort(paste0("Either {.arg ballot_date} and {.arg canton} must both be {.val NULL} or set to a valid canton name and ballot date, but ",

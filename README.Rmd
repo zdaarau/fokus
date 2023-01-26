@@ -57,7 +57,9 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 ```{r, echo = FALSE}
 fokus:::abbreviations() %>%
   # flatten list col to comma-separted char col in order to avoid weird whitespacing before (some) commas (apparently `pal::pipe_table()` has flaws)
-  dplyr::mutate(full_expressions = full_expressions %>% purrr::map_chr(pal::prose_ls, last_sep = ", ")) %>%
+  dplyr::mutate(full_expressions = purrr::map_chr(full_expressions,
+                                                  pal::prose_ls,
+                                                  last_sep = ", ")) %>%
   dplyr::rename("Full expression(s)" = full_expressions,
                 "Abbreviation" = abbreviation) %>%
   pal::pipe_table()

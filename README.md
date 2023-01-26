@@ -175,6 +175,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | conditions                              | cnds             |
 | configurations                          | configs          |
 | configure, configuration                | config           |
+| current                                 | cur              |
 | database                                | db               |
 | dataframe                               | df               |
 | dataframe column                        | dfc              |
