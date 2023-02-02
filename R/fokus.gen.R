@@ -105,7 +105,7 @@ abbreviations <- function(expand = FALSE) {
                  abbreviation = "g") %>%
     dplyr::bind_rows(pkgsnip::abbreviations()) %>%
     dplyr::arrange(purrr::map_chr(full_expressions,
-                                  dplyr::first)) %>%
+                                  ~ stringr::str_to_lower(dplyr::first(.x)))) %>%
     pal::when(expand ~ tidyr::unnest_longer(data = .,
                                             col = full_expressions,
                                             values_to = "full_expression"),
@@ -1539,9 +1539,10 @@ validate_qstnr_tibble <- function(qstnr_tibble) {
   # integrity check 2: ensure all multi-value columns have the same length or alternatively are empty, and if not, tell which ones don't
   multi_val_var_lengths <-
     qstnr_tibble %>%
-    dplyr::transmute(dplyr::across(where(is.list),
-                                   purrr::map_int,
-                                   length)) %>%
+    dplyr::mutate(dplyr::across(where(is.list),
+                                ~ purrr::map_int(.x,
+                                                 length)),
+                  .keep = "none") %>%
     dplyr::rename_with(~ paste0("length_", .x)) %>%
     dplyr::mutate(matches_length = length_variable_values == 0L | length_value_labels == 0L | length_variable_values == length_value_labels) %>%
     dplyr::mutate(matches_length =
@@ -1795,9 +1796,9 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
   qstnr_tibble_block %>%
     # replace logicals by German ja/nein
     dplyr::mutate(dplyr::across(where(is.logical),
-                                ifelse,
-                                "ja",
-                                "nein")) %>%
+                                ~ ifelse(.x,
+                                         "ja",
+                                         "nein"))) %>%
     purrr::pmap_chr(function(ballot_date,
                              canton,
                              enumerator,
@@ -2194,19 +2195,20 @@ read_voting_register_data_extra <- function(ballot_date,
                   n_adults_in_household_official = "Haushaltsgr\u00f6sse Anzahl Personen \u00fcber 18 Jahren",
                   n_kids_in_household_official = "Haushaltsgr\u00f6sse Anzahl Personen unter 18 Jahren") %>%
     # convert numeric columns to type integer
-    dplyr::mutate(dplyr::across(.cols = c(id,
-                                          year_of_birth_official,
-                                          household_size_official,
-                                          n_adults_in_household_official,
-                                          n_kids_in_household_official),
-                                .fns = as.integer)) %>%
+    dplyr::mutate(dplyr::across(c(id,
+                                  year_of_birth_official,
+                                  household_size_official,
+                                  n_adults_in_household_official,
+                                  n_kids_in_household_official),
+                                as.integer)) %>%
     # transform variable values to our scheme
-    dplyr::mutate(dplyr::across(.cols = c(sex_official, marital_status_official),
-                                .fns = stringr::str_to_lower)) %>%
-    dplyr::mutate(marital_status_official = dplyr::recode(.x = marital_status_official,
-                                                          "eingetragene partnerschaft" = "in eingetragener Partnerschaft",
-                                                          "aufgel\u00f6ste partnerschaft" = "aufgel\u00f6ste Partnerschaft",
-                                                          "unverheiratet" = "ledig"))
+    dplyr::mutate(dplyr::across(c(sex_official, marital_status_official),
+                                stringr::str_to_lower)) %>%
+    dplyr::mutate(marital_status_official = dplyr::case_match(.x = marital_status_official,
+                                                              "eingetragene partnerschaft"    ~ "in eingetragener Partnerschaft",
+                                                              "aufgel\u00f6ste partnerschaft" ~ "aufgel\u00f6ste Partnerschaft",
+                                                              "unverheiratet"                 ~ "ledig",
+                                                              .default = marital_status_official))
   
   # integrity check 1: ensure no unexpected columns occur
   if (ncol(data) > 7L) {

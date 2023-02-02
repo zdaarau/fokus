@@ -12,7 +12,7 @@ The following package-specific R options are used to control the package's funct
 
   **name**                        **description**                                                                                                                                                                       **has fallback if unset**
   ------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------
-  `fokus.path_private`            path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working directory   ✅
+  `fokus.path_repo_private`       path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working directory   ✅
   `fokus.global_cache_lifespan`   default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                                      ✅
 
 ### Private FOKUS directory structure
@@ -227,6 +227,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   labels                                    lbls
   language                                  lang
   languages                                 langs
+  left-hand side                            lhs
   level                                     lvl
   levels                                    lvls
   list                                      ls
@@ -266,15 +267,22 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   regular expression, regular expressions   regex
   relative                                  rel
   remove, removal                           rm
+  repo                                      repository
+  repos                                     repositories
+  right-hand side                           rhs
   roxygen2                                  roxy
   separate, separator                       sep
   separators                                seps
   sequence                                  seq
   sequences                                 seqs
+  source                                    src
+  sources                                   srcs
   specifications                            specs
   specify, specification                    spec
   string                                    str
   strings                                   strs
+  structure                                 struct
+  structures                                structs
   supplemental, supplementary               suppl
   symbolize, symbol                         sym
   symbols                                   syms
