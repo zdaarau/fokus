@@ -10,10 +10,10 @@ fokus allows to (pre-)process and clean the raw data, analyze and visualize the 
 
 The following package-specific R options are used to control the package's functionality:
 
-  **name**                        **description**                                                                                                                                                                       **has fallback if unset**
-  ------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------
-  `fokus.path_repo_private`       path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working directory   ✅
-  `fokus.global_cache_lifespan`   default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to 30 days                                                                                      ✅
+  **name**                       **description**                                                                                                                                                                       **has fallback if unset**
+  ------------------------------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------
+  `fokus.path_repo_private`      path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working directory   ✅
+  `fokus.global_max_cache_age`   default maximum cache age for all functions taking a `max_cache_age` argument; defaults to 30 days                                                                                    ✅
 
 ### Private FOKUS directory structure
 
@@ -197,6 +197,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   elements                                  els
   environment                               env
   environments                              envs
+  evaluate, evaluation                      eval
+  evaluations                               evals
   exclude, exclusion                        excl
   expression                                expr
   expressions                               exprs
@@ -252,8 +254,11 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   packages                                  pkgs
   parameterize, parameter                   param
   parameters                                params
+  position                                  pos
   procedures                                prcds
   proceed, procedure                        prcd
+  properties                                props
+  property                                  prop
   prototype                                 ptype
   prototypes                                ptypes
   Quarto Markdown                           qmd

@@ -14,7 +14,7 @@ fokus allows to (pre-)process and clean the raw data, analyze and visualize the 
 The following package-specific R options are used to control the package's functionality:\tabular{lll}{
    \strong{name} \tab \strong{description} \tab \strong{has fallback if unset} \cr
    \code{fokus.path_repo_private} \tab path to the working directory (the local instance of the \href{https://gitlab.com/zdaarau/private/fokus_private}{\code{fokus_private} repository}); defaults to the current working directory \tab ✅ \cr
-   \code{fokus.global_cache_lifespan} \tab default cache lifespan for all functions taking a \code{cache_lifespan} argument; defaults to 30 days \tab ✅ \cr
+   \code{fokus.global_max_cache_age} \tab default maximum cache age for all functions taking a \code{max_cache_age} argument; defaults to 30 days \tab ✅ \cr
 }
 }
 

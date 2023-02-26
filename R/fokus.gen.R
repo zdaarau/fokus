@@ -15,8 +15,8 @@
 .onLoad <- function(libname, pkgname) {
   
   pkgpins::clear_cache(board = pkgpins::board(pkg = pkgname),
-                       max_age = getOption(paste0(pkgname, ".global_cache_lifespan"),
-                                           default = global_cache_lifespan))
+                       max_age = getOption(paste0(pkgname, ".global_max_cache_age"),
+                                           default = global_max_cache_age))
 }
 
 utils::globalVariables(names = c(".",
@@ -2385,7 +2385,7 @@ cli_theme <-
   purrr::list_modify(h2 = list("margin-bottom" = 0.0),
                      h3 = list("margin-top" = 0.0))
 
-global_cache_lifespan <- "30 days"
+global_max_cache_age <- "30 days"
 
 pkg_opts <-
   tibble::tibble(name = "fokus.path_repo_private",
@@ -2393,9 +2393,9 @@ pkg_opts <-
                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
                                       "directory"),
                  has_fallback = TRUE) |>
-  tibble::add_row(name = "fokus.global_cache_lifespan",
-                  description = glue::glue("default cache lifespan for all functions taking a `cache_lifespan` argument; defaults to ",
-                                           global_cache_lifespan),
+  tibble::add_row(name = "fokus.global_max_cache_age",
+                  description = glue::glue("default maximum cache age for all functions taking a `max_cache_age` argument; defaults to ",
+                                           global_max_cache_age),
                   has_fallback = TRUE)
 
 #' Questionnaire item keys

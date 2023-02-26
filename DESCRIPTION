@@ -1,6 +1,6 @@
 Package: fokus
 Title: Provides an API around the FOKUS Post-voting Surveys
-Version: 0.0.9024
+Version: 0.0.9025
 Authors@R: c(
     person("Salim", "Brüggemann", , "salim-b@pm.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-5329-5987")),
@@ -24,8 +24,8 @@ Imports:
     glue (>= 1.5.0),
     lubridate (>= 1.7.9),
     magrittr (>= 2.0.0),
-    pal (>= 0.0.9092),
-    pkgpins (>= 0.7.0.9004),
+    pal (>= 0.0.9093),
+    pkgpins (>= 0.8.0.9000),
     purrr (>= 1.0.0),
     readr (>= 1.4.0),
     rlang (>= 1.0.1),
@@ -44,7 +44,7 @@ Suggests:
     knitr (>= 1.30),
     pkgload (>= 1.3.0),
     pkgpurl (>= 0.0.9015),
-    pkgsnip (>= 0.0.9032),
+    pkgsnip (>= 0.0.9034),
     qrencoder (>= 0.2.1),
     RcppTOML (>= 0.1.6),
     readxl (>= 1.3.1),

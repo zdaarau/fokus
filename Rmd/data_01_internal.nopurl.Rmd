@@ -435,7 +435,7 @@ md_snippets <-
   fs::dir_ls(path = "data-raw/snippets/",
              type = "file",
              glob = "*.md") %>%
-  magrittr::set_names(value = fs::path_file(.) %>% fs::path_ext_remove()) %>%
+  magrittr::set_names(value = fs::path_ext_remove(fs::path_file(.))) %>%
   purrr::map(brio::read_file)
 ```
 
