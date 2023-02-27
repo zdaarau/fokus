@@ -52,7 +52,6 @@
 <div class="section level2">
 <h2 id="general">General<a class="anchor" aria-label="anchor" href="#general"></a></h2>
 <ul><li><p>Report <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> issue with zero-length chr input -&gt; no useful error msg (in contrast to <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">base::match.arg()</a></code>). Triggered e.g. by <code><a href="reference/n_election_seats.html">fokus::n_election_seats()</a></code>.</p></li>
-<li><p>Migrate to <code><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pal::pkg_config_val()</a></code>.</p></li>
 <li>
 <p>Somehow, including multiple asciicasts in the same Rmd doesn’t work properly (the second asciicast’s <code>&lt;asciinema-player&gt;</code> custom HTML tag is missing in the resulting HTML; both via asciicast’s knitr engine as well as embedding the generated asciicast htmlwidget via <code><a href="https://r-lib.github.io/asciicast/reference/asciinema_player.html" class="external-link">asciicast::asciinema_player()</a></code>), thus the second asciicast containing an intentionally triggered error in the raw qstnr had to be removed.</p>
 <p>-&gt; Investigate the actual cause of the inclusion failure (and report/fix upstream)!</p>

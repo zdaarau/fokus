@@ -127,5 +127,6 @@ reference:
   - g_file_mod_time
 - title: Miscellaneous
 - contents:
-  - md_emphasize
   - lgl_to_unicode
+  - md_emphasize
+  - pkg_config

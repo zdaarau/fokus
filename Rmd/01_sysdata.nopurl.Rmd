@@ -3,12 +3,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-NOTES:
+# NOTES
 
 -   This file is *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) because of the [`.nopurl` suffix in the
     filename](https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling).
 
 -   The chunks below have to be manually executed in order to regenerate the package data.
+
+-   Although the datasets below are saved as ["internal data" in `R/sysdata.rda`](https://r-pkgs.org/data.html#data-sysdata), some of them are still exported
+    and documented (in the main `.Rmd` document), something [not explicitly
+    mentioned](https://coolbutuseless.github.io/2018/12/10/r-packages-internal-and-external-data/) in the book [R
+    Packages](https://r-pkgs.org/data.html#data-data).
 
 # Setup
 
@@ -19,14 +24,7 @@ library(magrittr,
         include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
 ```
 
-# Internal data
-
-NOTES:
-
--   Although the datasets below are saved as ["internal data" in `R/sysdata.rda`](https://r-pkgs.org/data.html#data-sysdata), some of them are still exported
-    and documented (in the main `.Rmd` document), something [not explicitly
-    mentioned](https://coolbutuseless.github.io/2018/12/10/r-packages-internal-and-external-data/) in the book [R
-    Packages](https://r-pkgs.org/data.html#data-data).
+# Define data
 
 ## `all_ballot_dates`
 
@@ -169,6 +167,26 @@ all_postal_dispatch_ways <-
   unlist(use.names = FALSE) %>%
   unique() %>%
   sort()
+```
+
+## `pkg_config`
+
+```{r}
+pkg_config <-
+  tibble::tibble(key = character(),
+                 default_value = list(),
+                 description = character()) |>
+  tibble::add_row(key = "global_max_cache_age",
+                  default_value = list("1 day"),
+                  description = pkgsnip::md_snip("opt_global_max_cache_age")) |>
+  tibble::add_row(key = "path_repo_private",
+                  default_value = list(NULL),
+                  description = paste0("path to the working directory (the local instance of the ",
+                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
+                                       "directory")) |>
+  tibble::add_row(key = "qstnr.local_deploy_path",
+                  default_value = list(NULL),
+                  description = "local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website)")
 ```
 
 ## `qstnr_item_keys`
@@ -439,7 +457,7 @@ md_snippets <-
   purrr::map(brio::read_file)
 ```
 
-## Write data
+# Write data
 
 Save all the small data objects as a single internal file `R/sysdata.rda`. Note that when documenting them, they must be explicitly `@export`ed to be available
 to package users.
@@ -458,12 +476,13 @@ usethis::use_data(all_ballot_dates,
                   all_response_option_types,
                   all_postal_dispatch_types,
                   all_postal_dispatch_ways,
+                  fokus_private_structure,
+                  md_snippets,
+                  pkg_config,
                   qstnr_item_keys,
                   qstnr_item_keys_multival,
                   qstnr_non_item_lvls,
                   shortening_rules,
-                  fokus_private_structure,
-                  md_snippets,
                   internal = TRUE,
                   overwrite = TRUE,
                   compress = "xz",

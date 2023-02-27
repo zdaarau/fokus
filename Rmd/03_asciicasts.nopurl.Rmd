@@ -3,7 +3,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-NOTES:
+# NOTES
 
 -   This file is *not* included in the [source package](https://r-pkgs.org/package-structure-state.html#source-package) because of the [`.nopurl` suffix in the
     filename](https://rpkg.dev/pkgpurl/reference/purl_rmd.html#-rmd-files-excluded-from-purling).
@@ -19,7 +19,7 @@ library(magrittr,
         include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
 ```
 
-# asciicasts
+# Record and write asciicasts
 
 NOTES:
 

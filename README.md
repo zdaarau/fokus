@@ -6,18 +6,19 @@ fokus allows to (pre-)process and clean the raw data, analyze and visualize the 
 
 ## Details
 
-### R options
+### Package configuration
 
-The following package-specific R options are used to control the package’s functionality:
+Some of fokus’s functionality is controlled via package-specific global configuration which can either be set via \R [options][options] or [environment variables](https://en.wikipedia.org/wiki/Environment_variable) (the former take precedence). This configuration includes:
 
-| **name**                     | **description**                                                                                                                                                                     | **has fallback if unset** |
-|:-----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------|
-| `fokus.path_repo_private`    | path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working directory | ✅                        |
-| `fokus.global_max_cache_age` | default maximum cache age for all functions taking a `max_cache_age` argument; defaults to 30 days                                                                                  | ✅                        |
+| **Description**                                                                                                                                                                     | **R option**                    | **Environment variable**        | **Default value** |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------|:--------------------------------|:------------------|
+| Maximal timespan to preserve the package’s [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will be deleted upon package loading.                          | `fokus.global_max_cache_age`    | `FOKUS_GLOBAL_MAX_CACHE_AGE`    | `"1 day"`         |
+| path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working directory | `fokus.path_repo_private`       | `FOKUS_PATH_REPO_PRIVATE`       |                   |
+| local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website)                                                             | `fokus.qstnr.local_deploy_path` | `FOKUS_QSTNR_LOCAL_DEPLOY_PATH` |                   |
 
 ### Private FOKUS directory structure
 
-For part of this package’s functionality, a separate private directory (defined by the R option `fokus.path_private`) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the `input/` subdirectory and certain files are written to its `output/` subdirectory.
+For part of this package’s functionality, a separate private directory (defined by the [package configuration option](https://fokus.rpkg.dev/reference/pkg_config.html) `path_private`) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the `input/` subdirectory and certain files are written to its `output/` subdirectory.
 
 <details>
 <summary>

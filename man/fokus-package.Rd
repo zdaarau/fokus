@@ -8,13 +8,14 @@
 \description{
 fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.
 }
-\section{Package options}{
+\section{Package configuration}{
 
 
-The following package-specific R options are used to control the package's functionality:\tabular{lll}{
-   \strong{name} \tab \strong{description} \tab \strong{has fallback if unset} \cr
-   \code{fokus.path_repo_private} \tab path to the working directory (the local instance of the \href{https://gitlab.com/zdaarau/private/fokus_private}{\code{fokus_private} repository}); defaults to the current working directory \tab ✅ \cr
-   \code{fokus.global_max_cache_age} \tab default maximum cache age for all functions taking a \code{max_cache_age} argument; defaults to 30 days \tab ✅ \cr
+Some of fokus's functionality is controlled via package-specific global configuration which can either be set via \R \link{options} or \href{https://en.wikipedia.org/wiki/Environment_variable}{environment variables} (the former take precedence). This configuration includes:\tabular{llll}{
+   \strong{Description} \tab \strong{R option} \tab \strong{Environment variable} \tab \strong{Default value} \cr
+   Maximal timespan to preserve the package's \href{https://pkgpins.rpkg.dev/}{pkgpins} cache. Cache entries older than this will be deleted upon package loading. \tab \code{fokus.global_max_cache_age} \tab \code{FOKUS_GLOBAL_MAX_CACHE_AGE} \tab \code{"1 day"} \cr
+   path to the working directory (the local instance of the \href{https://gitlab.com/zdaarau/private/fokus_private}{\code{fokus_private} repository}); defaults to the current working directory \tab \code{fokus.path_repo_private} \tab \code{FOKUS_PATH_REPO_PRIVATE} \tab  \cr
+   local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website) \tab \code{fokus.qstnr.local_deploy_path} \tab \code{FOKUS_QSTNR_LOCAL_DEPLOY_PATH} \tab  \cr
 }
 }
 

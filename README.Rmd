@@ -10,12 +10,13 @@ output: pal::gitlab_document
 
 ## Details
 
-### R options
+### Package configuration
 
-The following package-specific R options are used to control the package's functionality:
-
-```{r, echo = FALSE}
-fokus:::print_opts()
+```{r, echo = FALSE, results = "asis"}
+pkgsnip::md_snip(name = "pkg_config",
+                 pkg = "fokus")
+cat("\n\n")
+pal::print_pkg_config("fokus")
 ```
 
 ### Private FOKUS directory structure

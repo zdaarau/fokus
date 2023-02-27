@@ -5,8 +5,6 @@
 -   Report `rlang::arg_match()` issue with zero-length chr input -\> no useful error msg (in contrast to `base::match.arg()`). Triggered e.g. by
     `fokus::n_election_seats()`.
 
--   Migrate to `pal::pkg_config_val()`.
-
 -   Somehow, including multiple asciicasts in the same Rmd doesn't work properly (the second asciicast's `<asciinema-player>` custom HTML tag is missing in the
     resulting HTML; both via asciicast's knitr engine as well as embedding the generated asciicast htmlwidget via `asciicast::asciinema_player()`), thus the
     second asciicast containing an intentionally triggered error in the raw qstnr had to be removed.

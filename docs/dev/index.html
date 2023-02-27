@@ -76,25 +76,34 @@
 <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
 </h2>
 <div class="section level3">
-<h3 id="r-options">R options<a class="anchor" aria-label="anchor" href="#r-options"></a>
+<h3 id="package-configuration">Package configuration<a class="anchor" aria-label="anchor" href="#package-configuration"></a>
 </h3>
-<p>The following package-specific R options are used to control the package’s functionality:</p>
+<p>Some of fokus’s functionality is controlled via package-specific global configuration which can either be set via or <a href="https://en.wikipedia.org/wiki/Environment_variable" class="external-link">environment variables</a> (the former take precedence). This configuration includes:</p>
 <table class="table">
 <thead><tr class="header">
-<th align="left"><strong>name</strong></th>
-<th align="left"><strong>description</strong></th>
-<th align="left"><strong>has fallback if unset</strong></th>
+<th align="left"><strong>Description</strong></th>
+<th align="left"><strong>R option</strong></th>
+<th align="left"><strong>Environment variable</strong></th>
+<th align="left"><strong>Default value</strong></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>fokus.path_repo_private</code></td>
-<td align="left">path to the working directory (the local instance of the <a href="https://gitlab.com/zdaarau/private/fokus_private" class="external-link"><code>fokus_private</code> repository</a>); defaults to the current working directory</td>
-<td align="left">✅</td>
+<td align="left">Maximal timespan to preserve the package’s <a href="https://pkgpins.rpkg.dev/" class="external-link">pkgpins</a> cache. Cache entries older than this will be deleted upon package loading.</td>
+<td align="left"><code>fokus.global_max_cache_age</code></td>
+<td align="left"><code>FOKUS_GLOBAL_MAX_CACHE_AGE</code></td>
+<td align="left"><code>"1 day"</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>fokus.global_max_cache_age</code></td>
-<td align="left">default maximum cache age for all functions taking a <code>max_cache_age</code> argument; defaults to 30 days</td>
-<td align="left">✅</td>
+<td align="left">path to the working directory (the local instance of the <a href="https://gitlab.com/zdaarau/private/fokus_private" class="external-link"><code>fokus_private</code> repository</a>); defaults to the current working directory</td>
+<td align="left"><code>fokus.path_repo_private</code></td>
+<td align="left"><code>FOKUS_PATH_REPO_PRIVATE</code></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website)</td>
+<td align="left"><code>fokus.qstnr.local_deploy_path</code></td>
+<td align="left"><code>FOKUS_QSTNR_LOCAL_DEPLOY_PATH</code></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -102,7 +111,7 @@
 <div class="section level3">
 <h3 id="private-fokus-directory-structure">Private FOKUS directory structure<a class="anchor" aria-label="anchor" href="#private-fokus-directory-structure"></a>
 </h3>
-<p>For part of this package’s functionality, a separate private directory (defined by the R option <code>fokus.path_private</code>) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the <code>input/</code> subdirectory and certain files are written to its <code>output/</code> subdirectory.</p>
+<p>For part of this package’s functionality, a separate private directory (defined by the <a href="https://fokus.rpkg.dev/reference/pkg_config.html">package configuration option</a> <code>path_private</code>) is required which is expected to be organized according to a very specific structure. This private directory i.a. must contain additional sensitive, non-public (survey) data under the <code>input/</code> subdirectory and certain files are written to its <code>output/</code> subdirectory.</p>
 <details><summary><strong>Directory structure schema</strong>
 </summary><div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>fokus_private</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>├── bibliography</span>

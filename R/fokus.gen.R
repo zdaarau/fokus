@@ -14,9 +14,11 @@
 
 .onLoad <- function(libname, pkgname) {
   
-  pkgpins::clear_cache(board = pkgpins::board(pkg = pkgname),
-                       max_age = getOption(paste0(pkgname, ".global_max_cache_age"),
-                                           default = global_max_cache_age))
+  # clear pkgpins cache
+  tryCatch(expr = pkgpins::clear_cache(board = pkgpins::board(pkg = pkgname),
+                                       max_age = pal::pkg_config_val(key = "global_max_cache_age",
+                                                                     pkg = pkgname)),
+           error = function(e) cli::cli_alert_warning(text = "Failed to clear pkgpins cache on load of {.pkg {pkgname}}. Error message: {e$message}"))
 }
 
 utils::globalVariables(names = c(".",
@@ -147,19 +149,22 @@ lang_to_locale <- function(lang = c("de", "en")) {
 #' @keywords internal
 path_private <- function(...) {
   
-  dir_private <- getOption("fokus.path_private",
-                           default = getwd())
+  dir_private <- pal::pkg_config_val(key = "path_repo_private",
+                                     pkg = this_pkg,
+                                     default = getwd())
   
-  # ensure `fokus.path_private` is valid (read access plus file `input/data/aargau/survey_data_2018-09-23.xlsx` exists)
+  # ensure `fokus.path_repo_private` is valid (read access plus file `input/data/aargau/survey_data_2018-09-23.xlsx` exists)
   is_dir_private_valid <-
     checkmate::test_directory(dir_private, access = "r") &&
     fs::file_exists(path = fs::path(dir_private, "input/data/aargau/survey_data_2018-09-23.xlsx"))
   
   if (!is_dir_private_valid) {
     
-    cli::cli_abort(paste0(ifelse(!is.null(getOption("fokus.path_private")),
-                                 "The option {.field fokus.path_private} is set to {.path {dir_private}}.",
-                                 "The option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}."),
+    cli::cli_abort(paste0(ifelse(!is.null(pal::pkg_config_val(key = "path_repo_private",
+                                                              pkg = this_pkg,
+                                                              default = NULL)),
+                                 "The package configuration option {.field fokus.path_private} is set to {.path {dir_private}}.",
+                                 "The package configuration option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}."),
                           " This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
   }
   
@@ -190,46 +195,6 @@ print_fokus_private_structure <- function() {
                  "-   `{ballot_date}` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`",
                  paste0("-   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical ",
                         "office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`"))
-}
-
-#' List package-specific options
-#'
-#' Returns a tibble of R options specific to the FOKUS package.
-#'
-#' @param pretty_colnames Whether or not to return prose colnames. If `FALSE`, snake-cased colnames safe to use in R expressions are returned.
-#'
-#' @return `r pkgsnip::param_label("data")`
-#' @keywords internal
-#'
-#' @examples
-#' fokus:::opts()
-opts <- function(pretty_colnames = FALSE) {
-  
-  checkmate::assert_flag(pretty_colnames)
-  
-  if (pretty_colnames) {
-    pkg_opts %<>% dplyr::rename("has fallback if unset" = has_fallback)
-  }
-  
-  pkg_opts
-}
-
-#' Pretty-print package-specific options
-#'
-#' Pretty-prints the output of [opts()] as a Markdown [pipe table][pal::pipe_table].
-#'
-#' @inherit pal::pipe_table return
-#' @keywords internal
-#'
-#' @examples
-#' fokus:::print_opts()
-print_opts <- function() {
-  
-  opts(pretty_colnames = TRUE) |>
-    dplyr::mutate(name = paste0("`", name, "`"),
-                  dplyr::across(all_of("has fallback if unset"),
-                                lgl_to_unicode)) |>
-    pal::pipe_table()
 }
 
 #' Raw FOKUS questionnaire data
@@ -2387,17 +2352,6 @@ cli_theme <-
 
 global_max_cache_age <- "30 days"
 
-pkg_opts <-
-  tibble::tibble(name = "fokus.path_repo_private",
-                 description = paste0("path to the working directory (the local instance of the ",
-                                      "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
-                                      "directory"),
-                 has_fallback = TRUE) |>
-  tibble::add_row(name = "fokus.global_max_cache_age",
-                  description = glue::glue("default maximum cache age for all functions taking a `max_cache_age` argument; defaults to ",
-                                           global_max_cache_age),
-                  has_fallback = TRUE)
-
 #' Questionnaire item keys
 #'
 #' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_qstnr].
@@ -4472,7 +4426,8 @@ export_qstnr <- function(ballot_date = all_ballot_dates,
                          incl_html = TRUE,
                          incl_xlsx = incl_html,
                          deploy = TRUE,
-                         local_deploy_path = getOption("fokus.qstnr.local_deploy_path"),
+                         local_deploy_path = pal::pkg_config_val(key = "qstnr.local_deploy_path",
+                                                                 pkg = this_pkg),
                          upload_to_g_drive = TRUE,
                          g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
   
@@ -4632,7 +4587,8 @@ export_qstnr_all <- function(verbose = FALSE,
                              incl_html = TRUE,
                              incl_xlsx = FALSE,
                              deploy = FALSE,
-                             local_deploy_path = getOption("fokus.qstnr.local_deploy_path"),
+                             local_deploy_path = pal::pkg_config_val(key = "qstnr.local_deploy_path",
+                                                                     pkg = this_pkg),
                              upload_to_g_drive = FALSE,
                              g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
   all_ballot_dates %>%
@@ -5536,22 +5492,6 @@ g_file_mod_time <- function(g_id,
     lubridate::as_datetime()
 }
 
-#' Emphasize xth element of character vector (Markdown)
-#'
-#' @param x Input as a character vector.
-#' @param which Indices of the elements to be emphasized.
-#' @param emph Character sequence used for emphasis.
-#'
-#' @return A character vector of the same length as `x`.
-#' @export
-md_emphasize <- function(x,
-                         which = TRUE,
-                         emph = "**") {
-  
-  x[which] %<>% paste0(emph, ., emph)
-  x
-}
-
 #' Convert logical vector to Unicode symbols `r unicode_checkmark` and `r unicode_crossmark`
 #'
 #' @param x A logical vector.
@@ -5569,3 +5509,30 @@ lgl_to_unicode <- function(x) {
                  unicode_checkmark,
                  unicode_crossmark)
 }
+
+#' Emphasize xth element of character vector (Markdown)
+#'
+#' @param x Input as a character vector.
+#' @param which Indices of the elements to be emphasized.
+#' @param emph Character sequence used for emphasis.
+#'
+#' @return A character vector of the same length as `x`.
+#' @export
+md_emphasize <- function(x,
+                         which = TRUE,
+                         emph = "**") {
+  
+  x[which] %<>% paste0(emph, ., emph)
+  x
+}
+
+#' `r this_pkg` package configuration metadata
+#'
+#' A [tibble][tibble::tbl_df] with metadata of all possible `r this_pkg` package configuration options. See [pal::pkg_config_val()] for more information.
+#'
+#' @format `r pkgsnip::return_label("data_cols", cols = colnames(pkg_config))`
+#' @export
+#'
+#' @examples
+#' fokus::pkg_config
+"pkg_config"

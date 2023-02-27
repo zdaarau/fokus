@@ -10,7 +10,8 @@ export_qstnr_all(
   incl_html = TRUE,
   incl_xlsx = FALSE,
   deploy = FALSE,
-  local_deploy_path = getOption("fokus.qstnr.local_deploy_path"),
+  local_deploy_path = pal::pkg_config_val(key = "qstnr.local_deploy_path", pkg =
+    this_pkg),
   upload_to_g_drive = FALSE,
   g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
 )

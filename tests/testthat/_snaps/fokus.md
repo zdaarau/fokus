@@ -123,22 +123,26 @@
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error in the cli package, please report it to the package authors.
+    i This is an internal error that was detected in the fokus package.
+      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error in the cli package, please report it to the package authors.
+    i This is an internal error that was detected in the fokus package.
+      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error in the cli package, please report it to the package authors.
+    i This is an internal error that was detected in the fokus package.
+      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
     No political issues present in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error in the cli package, please report it to the package authors.
+    i This is an internal error that was detected in the fokus package.
+      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
