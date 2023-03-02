@@ -181,12 +181,12 @@ pkg_config <-
                   description = pkgsnip::md_snip("opt_global_max_cache_age")) |>
   tibble::add_row(key = "path_repo_private",
                   default_value = list(NULL),
-                  description = paste0("path to the working directory (the local instance of the ",
-                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)); defaults to the current working ",
-                                       "directory")) |>
+                  description = paste0("Path to the working directory (the local instance of the ",
+                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)). Defaults to the current working ",
+                                       "directory.")) |>
   tibble::add_row(key = "qstnr.local_deploy_path",
                   default_value = list(NULL),
-                  description = "local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website)")
+                  description = "Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).")
 ```
 
 ## `qstnr_item_keys`
