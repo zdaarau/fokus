@@ -14,6 +14,20 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
 ---
 
+```{r}
+#| label: setup
+#| include: false
+
+# set RNG seeds
+set.seed(42L)
+htmlwidgets::setWidgetIdSeed(seed = 42L)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 # Main semantic rules
 
 The [raw questionnaire](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/questionnaire.toml) is written in the [TOML file
@@ -26,17 +40,23 @@ The following main semantic rules apply:
 1.  Top table level (`blockname`) defines a questionnaire block[^1], whereby the (alphabetical) order of the table levels conforms to the order of the blocks in
     the questionnaire:
 
-        [blockname]
+    ``` toml
+    [blockname]
+    ```
 
 2.  Lower table level names ideally start with a 3-digit number (`###`) since table levels (and hence questionnare items below them) are always ordered
     according to the (alphabetical) order of their names:
 
-        [blockname.00X_2nd_lvl.00X_3rd_lvl]
+    ``` toml
+    [blockname.00X_2nd_lvl.00X_3rd_lvl]
+    ```
 
 3.  Deepest[^2] table level named `item` defines an "atomic" questionnaire item (= single row in Markdown questionnaires) or a template for multiple similar
     "atomic" questionnaire items. It can be defined multiple times (once for each item) and must be wrapped in double brackets:
 
-        [[blockname.00X_2nd_lvl.00X_3rd_lvl.item]]
+    ``` toml
+    [[blockname.00X_2nd_lvl.00X_3rd_lvl.item]]
+    ```
 
     Items appear in the final questionnaire in the same order they are defined here. Technically, the level `item` is an [array of
     tables](https://toml.io/en/latest#array-of-tables) which is represented as a list of unnamed lists in R.
@@ -74,7 +94,10 @@ Depending on the table level, the set of possible keys includes:
 
 -   Regarded on all levels incl. individual `item`-level nodes:
 
-```{r, echo = FALSE, results = "asis"}
+```{r}
+#| echo: false
+#| results: "asis"
+
 library(magrittr)
 options(knitr.kable.NA = '')
 
@@ -143,16 +166,18 @@ The keys regarded on `item`-level nodes are resolved in the following order
 
     Examples:
 
-        topic.default = "bla"
-        topic.aargau = "oops"
-        topic.zurich = "upsala"
-        who.20180923 = "alle"
-        who.20181125_20201018 = "Online-Respondenten"
-        who.20181125_20201018.zurich = "Print-Respondenten"
-        include.default = true
-        include.false = [ 2018-09-23 ]
-        question.default.election = "lalala"
-        question.default.referendum = "nenene"
+    ```         
+    topic.default = "bla"
+    topic.aargau = "oops"
+    topic.zurich = "upsala"
+    who.20180923 = "alle"
+    who.20181125_20201018 = "Online-Respondenten"
+    who.20181125_20201018.zurich = "Print-Respondenten"
+    include.default = true
+    include.false = [ 2018-09-23 ]
+    question.default.election = "lalala"
+    question.default.referendum = "nenene"
+    ```
 
     **NOTES:**
 
@@ -198,7 +223,9 @@ progress information when its `verbose` argument is set to `TRUE` (default is `F
 
 For the questionnaire \@ 2018-09-23 in Aargau, this looks as follows:
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
+
 fs::path_package("asciicasts/gen_qstnr_tibble-success.json",
                  package = "fokus") %>%
   asciicast::read_cast() %>%
