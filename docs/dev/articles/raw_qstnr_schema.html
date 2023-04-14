@@ -547,7 +547,7 @@ questionnaire items only once. If any of them evaluate to
 <code>NULL</code> or an empty vector, the respective item is
 automatically excluded, i.e. it’s not necessary to explicitly set
 <code>include</code> (sub)keys in such case.</p></li>
-<li><p>You can even cross-reference keys from non-parent nodes using <a href="https://rpkg.dev/fokus/reference/qstnr_item_val.html" class="external-link"><code>qstnr_item_val()</code></a>.
+<li><p>You can even cross-reference keys from non-parent nodes using <a href="https://fokus.rpkg.dev/reference/qstnr_item_val.html"><code>qstnr_item_val()</code></a>.
 But be careful to not create infinite loops via circular
 references.</p></li>
 <li><p>To explicitly unset a key, just assign a string containing
@@ -576,7 +576,7 @@ interpolation<a class="anchor" aria-label="anchor" href="#supplemental-assumptio
 <li>
 <p>The following R packages are loaded and <a href="https://rdrr.io/r/base/library.html" class="external-link">attached</a>.</p>
 <ul>
-<li><a href="https://rpkg.dev/fokus/" class="external-link">fokus</a></li>
+<li><a href="https://fokus.rpkg.dev/">fokus</a></li>
 <li><a href="https://magrittr.tidyverse.org/" class="external-link">magrittr</a></li>
 </ul>
 </li>
@@ -596,7 +596,7 @@ questionnaire is to be generated for (all lowercase).</p></li>
 <div class="section level2">
 <h2 id="debugging">Debugging<a class="anchor" aria-label="anchor" href="#debugging"></a>
 </h2>
-<p>The R function <a href="https://rpkg.dev/fokus/reference/gen_qstnr_tibble.html" class="external-link"><code>fokus:::gen_qstnr_tibble()</code></a>,
+<p>The R function <a href="https://fokus.rpkg.dev/reference/gen_qstnr_tibble.html"><code>fokus:::gen_qstnr_tibble()</code></a>,
 which is designed to turn the raw questionnaire into a <a href="https://tibble.tidyverse.org/reference/tbl_df-class.html" class="external-link">tibble</a>
 containing the questionnaire data for a specific ballot date and canton,
 prints helpful progress information when its <code>verbose</code>

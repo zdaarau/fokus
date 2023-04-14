@@ -189,7 +189,7 @@ The keys regarded on `item`-level nodes are resolved in the following order
     define similar questionnaire items only once. If any of them evaluate to `NULL` or an empty vector, the respective item is automatically excluded, i.e. it's
     not necessary to explicitly set `include` (sub)keys in such case.
 
--   You can even cross-reference keys from non-parent nodes using [`qstnr_item_val()`](https://rpkg.dev/fokus/reference/qstnr_item_val.html). But be careful to
+-   You can even cross-reference keys from non-parent nodes using [`qstnr_item_val()`](https://fokus.rpkg.dev/reference/qstnr_item_val.html). But be careful to
     not create infinite loops via circular references.
 
 -   To explicitly unset a key, just assign a string containing `NA` of the correct type wrapped in curly braces (`"{NA_character_}"` for values of type string,
@@ -206,7 +206,7 @@ The keys regarded on `item`-level nodes are resolved in the following order
 
 -   The following R packages are loaded and [attached](https://rdrr.io/r/base/library.html).
 
-    -   [fokus](https://rpkg.dev/fokus/)
+    -   [fokus](https://fokus.rpkg.dev/)
     -   [magrittr](https://magrittr.tidyverse.org/)
 
 -   The following R objects are present in the evaluation environment:
@@ -217,7 +217,7 @@ The keys regarded on `item`-level nodes are resolved in the following order
 
 # Debugging
 
-The R function [`fokus:::gen_qstnr_tibble()`](https://rpkg.dev/fokus/reference/gen_qstnr_tibble.html), which is designed to turn the raw questionnaire into a
+The R function [`fokus:::gen_qstnr_tibble()`](https://fokus.rpkg.dev/reference/gen_qstnr_tibble.html), which is designed to turn the raw questionnaire into a
 [tibble](https://tibble.tidyverse.org/reference/tbl_df-class.html) containing the questionnaire data for a specific ballot date and canton, prints helpful
 progress information when its `verbose` argument is set to `TRUE` (default is `FALSE`).
 
