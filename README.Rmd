@@ -8,18 +8,38 @@ output: pal::gitlab_document
 
 `r pal::desc_value("Description")`
 
-## Details
+## Installation
 
-### Package configuration
-
-```{r, echo = FALSE, results = "asis"}
-pkgsnip::md_snip(name = "pkg_config",
-                 pkg = "fokus")
-cat("\n\n")
-pal::print_pkg_config("fokus")
+```{r}
+#| label: install-snippet-dev
+#| child: !expr pkgsnip::snip_path("installation-notice_dev-version_gitlab.Rmd")
 ```
 
-### Private FOKUS directory structure
+```{r}
+#| label: usage
+#| eval: !expr isTRUE(getOption("pal.build_readme.is_pkgdown"))
+#| results: asis
+#| echo: false
+pkgsnip::md_snip(name = "usage_notice") %>%
+  paste0("## Usage\n\n", .) %>%
+  pal::cat_lines()
+```
+
+## Package configuration
+
+```{r}
+#| label: pkg-config
+#| echo: false
+#| results: "asis"
+
+pkgsnip::md_snip(name = "pkg_config",
+                 pkg = "fokus")
+cat("\n\n::: {.table-wide}\n ")
+pal::print_pkg_config("fokus")
+cat("\n:::")
+```
+
+## Private FOKUS directory structure
 
 ```{r, child = "data-raw/snippets/fokus_private_description.Rmd"}
 ```
@@ -47,7 +67,7 @@ pkgsnip::md_snip(name = "pkgdown_notice") %>%
   pal::cat_lines()
 ```
 
-### Abbreviations
+## Abbreviations
 
 The abbreviations used to name things (function and parameter names etc.) in this package.
 
@@ -67,23 +87,6 @@ fokus:::abbreviations() %>%
 ```
 
 </details>
-
-## Installation
-
-```{r}
-#| label: install-snippet-dev
-#| child: !expr pkgsnip::snip_path("installation-notice_dev-version_gitlab.Rmd")
-```
-
-```{r}
-#| label: usage
-#| eval: !expr isTRUE(getOption("pal.build_readme.is_pkgdown"))
-#| results: asis
-#| echo: false
-pkgsnip::md_snip(name = "usage_notice") %>%
-  paste0("## Usage\n\n", .) %>%
-  pal::cat_lines()
-```
 
 ## Development
 
