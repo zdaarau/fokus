@@ -31,8 +31,8 @@ A character scalar.
 Extracts a variable's (common) label from the \link[=qstnrs]{questionnaire data}.
 }
 \details{
-If no \code{ballot_date} and \code{canton} are specified, \href{https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label_common}} is returned,
-otherwise \href{https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label}}. Note that \code{ballot_date} and \code{canton} either must both be
+If no \code{ballot_date} and \code{canton} are specified, \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label_common}} is returned,
+otherwise \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label}}. Note that \code{ballot_date} and \code{canton} either must both be
 \code{NULL} or set to a valid canton name and ballot date respectively.
 }
 \examples{

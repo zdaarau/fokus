@@ -19,12 +19,12 @@ A tibble containing the data of all FOKUS questionnaires.
 \item \code{\link[=gen_qstnr_tibble]{gen_qstnr_tibble()}} was run for all valid combinations of \code{canton} and \code{ballot_date}, some validation checks were performed, and the results were merged
 into a single tibble.
 \item List columns were \link[=expand_qstnr_tibble]{expanded} to \href{https://en.wikipedia.org/wiki/Wide_and_narrow_data}{long format}.
-\item Columns \href{https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys}{\code{question_intro_i} and \code{question_intro_j}} were merged into the single
+\item Columns \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{question_intro_i} and \code{question_intro_j}} were merged into the single
 column \code{question_intro}.
-\item Column \href{https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys}{\code{question_full}} was complemented, i.e. made to fall back on \code{question} if
+\item Column \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{question_full}} was complemented, i.e. made to fall back on \code{question} if
 \code{NA}.
-\item Columns \href{https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys}{\code{question_common}} and
-\href{https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label_common}} were complemented, i.e. made to fall back on
+\item Columns \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{question_common}} and
+\href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label_common}} were complemented, i.e. made to fall back on
 \code{question_full} and \code{variable_label} respectively if \code{NA}.
 \item Markdown formatting was \link[pal:strip_md]{stripped} from all character columns.
 }

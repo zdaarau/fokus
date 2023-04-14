@@ -4362,12 +4362,12 @@ response_options <- function(type = all_response_option_types,
 #' 1. [gen_qstnr_tibble()] was run for all valid combinations of `canton` and `ballot_date`, some validation checks were performed, and the results were merged
 #'    into a single tibble.
 #' 2. List columns were [expanded][expand_qstnr_tibble] to [long format](https://en.wikipedia.org/wiki/Wide_and_narrow_data).
-#' 3. Columns [`question_intro_i` and `question_intro_j`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) were merged into the single
+#' 3. Columns [`question_intro_i` and `question_intro_j`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) were merged into the single
 #'    column `question_intro`.
-#' 4. Column [`question_full`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) was complemented, i.e. made to fall back on `question` if
+#' 4. Column [`question_full`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) was complemented, i.e. made to fall back on `question` if
 #'    `NA`.
-#' 5. Columns [`question_common`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) and
-#'    [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) were complemented, i.e. made to fall back on
+#' 5. Columns [`question_common`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) and
+#'    [`variable_label_common`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) were complemented, i.e. made to fall back on
 #'    `question_full` and `variable_label` respectively if `NA`.
 #' 6. Markdown formatting was [stripped][pal::strip_md] from all character columns.
 #'
@@ -4845,8 +4845,8 @@ is_skill_question_var <- function(var_names) {
 #'
 #' Extracts a variable's (common) label from the [questionnaire data][qstnrs].
 #'
-#' If no `ballot_date` and `canton` are specified, [`variable_label_common`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys) is returned,
-#' otherwise [`variable_label`](https://rpkg.dev/fokus/articles/raw_qstnr_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be
+#' If no `ballot_date` and `canton` are specified, [`variable_label_common`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) is returned,
+#' otherwise [`variable_label`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be
 #' `NULL` or set to a valid canton name and ballot date respectively.
 #'
 #' @param var_name Variable name. A character scalar.
