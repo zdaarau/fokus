@@ -36,7 +36,7 @@ pkgsnip::md_snip(name = "pkg_config",
                  pkg = "fokus")
 cat("\n\n::: {.table-wide}\n ")
 pal::print_pkg_config("fokus")
-cat("\n:::")
+cat("\n :::")
 ```
 
 ## Private FOKUS directory structure

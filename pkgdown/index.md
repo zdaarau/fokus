@@ -25,12 +25,14 @@ The (function) reference is found [here](reference).
 
 Some of fokus's functionality is controlled via package-specific global configuration which can either be set via [R options](https://rdrr.io/r/base/options.html) or [environment variables](https://en.wikipedia.org/wiki/Environment_variable) (the former take precedence). This configuration includes:
 
-::: table-wide
+::: {.table-wide}
+
   **Description**                                                                                                                                                                        **R option**                      **Environment variable**          **Default value**
   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------- --------------------------------- -------------------
   Maximal timespan to preserve the package's [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will be deleted upon package loading.                             `fokus.global_max_cache_age`      `FOKUS_GLOBAL_MAX_CACHE_AGE`      `"1 day"`
   Path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)). Defaults to the current working directory.   `fokus.path_repo_private`         `FOKUS_PATH_REPO_PRIVATE`         
   Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).                                                               `fokus.qstnr.local_deploy_path`   `FOKUS_QSTNR_LOCAL_DEPLOY_PATH`   
+
 :::
 
 ## Private FOKUS directory structure
