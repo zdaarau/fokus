@@ -15,6 +15,7 @@ read_easyvote_municipalities(ballot_date, canton)
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
 \item \code{"2021-11-28"}
+\item \code{"2023-06-18"}
 }}
 
 \item{canton}{Canton name. One of

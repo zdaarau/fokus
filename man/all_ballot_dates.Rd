@@ -11,7 +11,7 @@ A vector of \link[base:Dates]{dates}.
 all_ballot_dates
 }
 \description{
-A vector of ballot dates covered by FOKUS surveys up until 2021-11-28.
+A vector of ballot dates covered by FOKUS surveys up until 2023-06-18.
 }
 \examples{
 fokus::all_ballot_dates

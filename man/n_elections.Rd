@@ -20,6 +20,7 @@ n_elections(
 \item \code{"2020-09-27"}
 \item \code{"2020-10-18"}
 \item \code{"2021-11-28"}
+\item \code{"2023-06-18"}
 }}
 
 \item{lvls}{Political level(s). One or more of

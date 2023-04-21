@@ -257,7 +257,7 @@ topic = "Politisches Interesse Schweiz"
 question = "Wie interessiert sind Sie im Allgemeinen an der Schweizer Politik? Ich bin …"
 variable_name = "political_interest"
 variable_label = "respondent's interest in Swiss politics"
-include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
+include.false = [ 2018-09-23, 2018-11-25, 2020-09-27, 2023-06-18 ]
 [[02_political_start.001_general.002_other.item]]
 topic = "Teilnahme"
 question.default.referendum = "Gerade erst fanden Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an der Abstimmung vom { stringi::stri_datetime_format(time = ballot_date, format = 'date_long', locale = lang_to_locale('de')) } teilgenommen oder nicht? (leer einlegen zählt als Teilnahme)"
@@ -3016,7 +3016,7 @@ response_options = [ "1 (Umweltschutz wichtiger)", "2", "3", "4", "5 (wirtschaft
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "1 (environmental protection more important)", "2", "3", "4", "5 (economic prosperity more important)", "don't know" ]
 include.default = false
-include.true = [ 2018-09-23, 2018-11-25 ]
+include.true = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[05_political_attitudes.item]]
 topic = "Sozialstaat vs. Eigenverantwortung"
 question = "Möchten Sie eine Schweiz, wo der Staat mehr Verantwortung dafür übernimmt, dass alle abgesichert sind (1) oder eine Schweiz, in der jeder einzelne mehr Verantwortung für sich selbst übernehmen muss (5)?"
@@ -3960,7 +3960,7 @@ variable_name = "time_introduction"
 variable_label = "time in seconds the respondent spent on the survey introduction page"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[x_polling_agency.008_online.item]]
 topic = "Interviewdauer Thema/Themen XYZ"
 variable_name = "time_xyz"

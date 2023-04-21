@@ -1,0 +1,308 @@
+ballot_date = 2023-06-18
+
+[mode.aargau]
+n = 8000
+invitation = [ "online" ]
+reminder = [ "online", "print" ]
+constraints = "reminder_print_1970" # only persons with year of birth < 1970 received a print questionnaire!
+[mode.aargau.postal_dispatch.type]
+invitation = "B bulk mailing"
+reminder = "B bulk mailing"
+prepaid_reply_envelope = "B"
+[mode.aargau.postal_dispatch.date]
+invitation = 2023-06-14
+reminder = 2021-06-28
+
+
+[url]
+federal.booklet = "https://www.admin.ch/dam/gov/de/Dokumentation/Abstimmungen/Juni2023/DE_Erlaeuterungen_Juni_2023_web.pdf.download.pdf/DE_Erlaeuterungen_Juni_2023_web.pdf"
+cantonal.booklet = "?"
+cantonal.archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/abstimmungen/archiv?dc=c51a4929-7beb-474b-bce4-61f849c3d94d_de"
+
+
+[federal.proposal.1]
+type = "mandatory referendum"
+[federal.proposal.1.name.de]
+long.text = "Umsetzung des OECD/G20-Projekts zur Besteuerung grosser Unternehmensgruppen"
+short.text = "OECD-Mindeststeuer für Unternehmen"
+short.gender = "feminine"
+[federal.proposal.1.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230618/oecd-g20-mindestbesteuerung.html"
+[federal.proposal.2]
+type = "optional referendum"
+[federal.proposal.2.name.de]
+long.text = "Bundesgesetz über die Ziele im Klimaschutz, die Innovation und die Stärkung der Energiesicherheit (indirekter Gegenvorschlag zur Gletscher-Initiative)"
+short.text = "Klimagesetz"
+short.gender = "neuter"
+[federal.proposal.2.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230618/klimagesetz.html"
+proponents = "https://klimaschutzgesetz-ja.ch/"
+opponents = "https://stromfresser-gesetz-nein.ch/"
+[federal.proposal.3]
+type = "optional referendum"
+[federal.proposal.3.name.de]
+long.text = "Änderung vom 16. Dezember 2022 des Covid-19-Gesetzes"
+short.text = "Änderung des Covid-19-Gesetzes"
+short.gender = "feminine"
+[federal.proposal.3.url]
+government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230618/covid-19-gesetz.html"
+
+
+[cantonal.aargau.proposal.1]
+type = "optional referendum"
+[cantonal.aargau.proposal.1.name.de]
+long.text = "Gesetz über die Ombudsstelle (Ombudsgesetz) vom 17. Januar 2023"
+long.gender = "neuter"
+short.text = "Ombudsgesetz"
+short.gender = "neuter"
+[cantonal.aargau.proposal.1.url]
+overview = "?"
+parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5785553"
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 2
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 3
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 4
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 5
+[[cantonal.aargau.proposal.1.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 6
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.1.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "TODO"
+en = "TODO"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "TODO"
+en = "TODO"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question]]
+de = "TODO"
+en = "TODO"
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+
+[cantonal.aargau.proposal.2]
+type = "optional referendum"
+[cantonal.aargau.proposal.2.name.de]
+long.text = "Verdichtung des Bahnangebots der Regio-S-Bahn Stein-Säckingen–Laufenburg; Verpflichtungskredit vom 17. Januar 2023"
+long.gender = "feminine"
+short.text = "Verdichtung des Bahnangebots Stein-Säckingen–Laufenburg"
+short.gender = "feminine"
+[cantonal.aargau.proposal.2.url]
+overview = "?"
+parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5785623"
+
+[cantonal.aargau.proposal.3]
+type = "optional referendum"
+[cantonal.aargau.proposal.3.name.de]
+long.text = "Aargauische Volksinitiative \"Klimaschutz braucht Initiative! (Aargauische Klimaschutzinitiative)\""
+long.gender = "feminine"
+short.text = "Aargauische Klimaschutzinitiative"
+short.gender = "feminine"
+[cantonal.aargau.proposal.3.url]
+overview = "?"
+parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5847694"
+[[cantonal.aargau.proposal.3.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.3.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 2
+[[cantonal.aargau.proposal.3.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 3
+[[cantonal.aargau.proposal.3.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 4
+[[cantonal.aargau.proposal.3.main_motive.yes]]
+de = "TODO"
+en = "TODO"
+code = 5
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 2
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 3
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 4
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "TODO"
+en = "TODO"
+code = 5
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
+en = "to keep things the way they are"
+code = 6
+[[cantonal.aargau.proposal.3.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "pro"
+nr = 1
+[[cantonal.aargau.proposal.3.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "contra"
+nr = 1
+[[cantonal.aargau.proposal.3.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "pro"
+nr = 2
+[[cantonal.aargau.proposal.3.argument]]
+de.long = "TODO"
+de.short = "TODO"
+en.long = "TODO"
+side = "contra"
+nr = 2
+[[cantonal.aargau.proposal.3.skill_question]]
+de = "TODO"
+en = "TODO"
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = true
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question]]
+de = "TODO"
+en = "TODO"
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = true
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question]]
+de = "TODO"
+en = "TODO"
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = true
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "TODO"
+en = "TODO"
+is_correct = false
