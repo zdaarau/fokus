@@ -15,8 +15,8 @@ reminder = 2018-12-04
 
 [url]
 federal.booklet = "https://www.admin.ch/dam/gov/de/Dokumentation/Abstimmungen/November2018/Volksabstimmung_25.November2018_Erlaeuterungen_Bundesrat.pdf.download.pdf/Erlaeuterungen%20des%20Bundesrates%20zur%20Volksabstimmung%20vom%2025%20November%202018.pdf"
-aargau.booklet = "https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/abstimmungen_1/2018_11_25/2018-11-25_Abst.Broschuere_AG.pdf"
-aargau.archive = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/abstimmungen/archiv_1/archiv_details/archiv_details_102981.jsp"
+aargau.booklet = "https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2018-11-25/2018-11-25-abst-broschuere-ag.pdf"
+aargau.archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/abstimmungen/archiv?dc=8409e4c5-bd7c-47b8-8092-3bebfc74006a_de"
 
 
 [federal.proposal.1]

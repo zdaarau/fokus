@@ -15,8 +15,8 @@ reminder = 2018-10-02
 
 [url]
 federal.booklet = "https://www.bk.admin.ch/dam/bk/de/dokumente/Abstimmungsbuechlein/Erlaeuterungen%20des%20Bundesrats-23092018.pdf.download.pdf/erlauterungendesbundesrats_23092018_de.pdf"
-aargau.booklet = "https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/abstimmungen_1/2018_09_23/2018-09-23_Abst.Broschuere_AG.pdf"
-aargau.archive = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/abstimmungen/archiv_1/archiv_details/archiv_details_98505.jsp"
+aargau.booklet = "https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2018-09-23/vorlage-4/2018-09-23-abst-broschuere-ag.pdf"
+aargau.archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/abstimmungen/archiv?dc=418b68ed-9d80-442f-a05c-ab1532ca0c56_de"
 
 
 [federal.proposal.1]

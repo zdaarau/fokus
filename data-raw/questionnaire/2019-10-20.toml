@@ -26,7 +26,7 @@ long.text = "Gesamterneuerungswahl des Nationalrats"
 short.text = "Nationalratswahl"
 body.text = "Nationalrat"
 [federal.election.proportional.1.url]
-aargau = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_112069.jsp"
+aargau = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=9fa9d161-28a2-43cc-94d5-959d2793b1d8_de"
 parliament = "https://www.parlament.ch/de/%C3%BCber-das-parlament/wahlen2019/nationalratswahlen-2019"
 bk = "https://www.bk.admin.ch/bk/de/home/politische-rechte/nationalratswahlen/nationalratswahlen-2019.html"
 
@@ -424,7 +424,7 @@ party = "EP"
 
 
 [federal.election.majoritarian.1.url]
-aargau = "https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_112067.jsp"
+aargau = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=ff2dae53-5b04-4f93-8da3-149a45c0ea7a_de"
 parliament = "https://www.parlament.ch/de/%C3%BCber-das-parlament/wahlen2019/staenderatswahlen-2019"
 
 [federal.aargau.election.majoritarian.1]
@@ -549,7 +549,7 @@ long.text = "Ersatzwahl eines Mitglieds des Regierungsrats"
 short.text = "Regierungsratsersatzwahl"
 body.text = "Regierungsrat"
 [cantonal.aargau.election.majoritarian.1.url]
-archive = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_124831.jsp"
+archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=025e1986-848a-46c1-a310-4f6b1bccb8d5_de"
 [cantonal.aargau.election.majoritarian.1.n_seats]
 total = 5
 vacant = 1

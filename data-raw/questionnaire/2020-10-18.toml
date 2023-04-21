@@ -28,7 +28,7 @@ short.text = "Grossratswahl"
 body.text = "Grossrat"
 body_alt.text = "Grossen Rat"
 [cantonal.aargau.election.proportional.1.url]
-cantonal.official = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_135554.jsp"
+cantonal.official = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=86d1ec3b-56e2-4fe7-b733-24f4892cbc58_de"
 [cantonal.aargau.election.proportional.1.n_seats]
 total = 140
 vacant = 140
@@ -156,7 +156,7 @@ long.text = "Gesamterneuerungswahl des Regierungsrats"
 short.text = "Regierungsratswahl"
 body.text = "Regierungsrat"
 [cantonal.aargau.election.majoritarian.1.url]
-cantonal.official = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_135556.jsp"
+cantonal.official = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=8dd69d72-47f1-42c9-b0c0-6022682daa9a_de"
 [cantonal.aargau.election.majoritarian.1.n_seats]
 total = 5
 vacant = 5

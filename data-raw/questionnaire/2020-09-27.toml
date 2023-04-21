@@ -15,8 +15,8 @@ reminder = 2020-09-30
 
 [url]
 federal.booklet = "https://www.admin.ch/dam/gov/de/Dokumentation/Abstimmungen/September2020/Abstimmungsbroschuere_27-09-2020_de.pdf.download.pdf/Abstimmungsbroschuere_27-09-2020_de.pdf"
-aargau.booklet = "https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/abstimmungen_1/2020_09_27/2020-09-27_Abst.Broschuere_AG_barrierefrei.pdf"
-aargau.archive = "https://www.ag.ch/de/aktuelles/wahlen_und_abstimmungen/abstimmungen/archiv_1/archiv_details/archiv_details_140482.jsp"
+aargau.booklet = "https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2020-09-27/2020-09-27-abst-broschuere-ag-barrierefrei.pdf"
+aargau.archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/abstimmungen/archiv?dc=c8933e28-2bd6-4e27-bcfc-13c4b2a8e358_de"
 
 
 [federal.proposal.1]
