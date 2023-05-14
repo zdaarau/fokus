@@ -9,8 +9,8 @@ shorten_colnames(x, max_n_char = 32L)
 \arguments{
 \item{x}{A tabular data object like a \link[base:data.frame]{data frame} or \link[tibble:tbl_df-class]{tibble}.}
 
-\item{max_n_char}{Maximum allowed number of characters. Either \code{NULL} to skip the check or otherwise an integerish scalar in which case it is ensured that
-the maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.}
+\item{max_n_char}{Maximum allowed number of characters. It is ensured that the maximum resulting variable name length doesn't exceed this limit. Has no
+influence on the applied shortening logic. An integerish scalar or \code{Inf} for no limit.}
 }
 \value{
 \code{x} with column names shortened to a maximum length of 32 characters.

@@ -4981,8 +4981,8 @@ var_skill_question_nr <- function(var_names) {
 #'
 #' @param var_names A character vector of variable names.
 #' @param reverse Whether to apply the inversion of the shortening logic, i.e. to restore original/unshortened variable names.
-#' @param max_n_char Maximum allowed number of characters. Either `NULL` to skip the check or otherwise an integerish scalar in which case it is ensured that 
-#'   the maximum resulting variable name length doesn't exceed it. Doesn't have any influence on the applied shortening logic.
+#' @param max_n_char Maximum allowed number of characters. It is ensured that the maximum resulting variable name length doesn't exceed this limit. Has no
+#'   influence on the applied shortening logic. An integerish scalar or `Inf` for no limit.
 #'
 #' @return A character vector of the same length as `var_names`.
 #' @family var_name_shortening
@@ -4994,8 +4994,10 @@ shorten_var_names <- function(var_names,
   checkmate::assert_character(var_names,
                               any.missing = FALSE)
   checkmate::assert_flag(reverse)
-  checkmate::assert_count(max_n_char,
-                          null.ok = TRUE)
+  if (!isTRUE(is.infinite(max_n_char))) {
+    checkmate::assert_count(max_n_char)
+  }
+  
   rules <- shortening_rules
   
   if (reverse) colnames(rules) %<>% .[c(2L, 1L, 3L)]
