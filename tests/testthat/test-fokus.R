@@ -295,10 +295,10 @@ test_that("`shorten_var_names` is reversible for all qstnr variable names", {
 
   comparison <- tibble::tibble(name = unique(qstnrs$variable_name),
                                shortened = shorten_var_names(var_names = name,
-                                                             max_n_char = NULL),
+                                                             max_n_char = Inf),
                                reversed = shorten_var_names(var_names = shortened,
                                                             reverse = TRUE,
-                                                            max_n_char = NULL))
+                                                            max_n_char = Inf))
   expect_identical(object = comparison$reversed,
                    expected = comparison$name)
 })
