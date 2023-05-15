@@ -38,7 +38,7 @@ short.gender = "feminine"
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20211128/justiz-initiative.html"
 proponents = "https://www.justiz-initiative.ch/"
 [[federal.proposal.2.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.yes]]
@@ -62,7 +62,7 @@ de = "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen
 en = "have no confidence in the Parliament to elect the best and most capable candidates to the Federal Supreme Court."
 code = 6
 [[federal.proposal.2.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.no]]
@@ -177,7 +177,7 @@ government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20211
 opponents = [ "https://covidgesetz-nein.ch/", "https://zertifikat-nein.ch/" ]
 proponents = [ "https://covid19gesetzja.ch/", "https://zertifikat-ja.ch/" ]
 [[federal.proposal.3.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.3.main_motive.yes]]
@@ -205,7 +205,7 @@ de = "wollte, dass der Bund endlich die Kompetenz erhält, ein funktionierendes,
 en = "wanted the federal government to finally have the authority to set up a working, nationwide contact tracing system."
 code = 7
 [[federal.proposal.3.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.3.main_motive.no]]

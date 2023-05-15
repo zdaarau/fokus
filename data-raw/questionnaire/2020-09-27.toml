@@ -169,7 +169,7 @@ parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?Pro
 proponents = "https://www.zeitgemaesse-schulfuehrung-ja.ch/"
 opponents = "https://nein-zur-abschaffung-der-schulpflege.ch/"
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.yes]]
@@ -189,7 +189,7 @@ de = "finde grundsätzlich, die Schulpflege gehört abgeschafft"
 en = "to be of the fundamental opinion that the school board ought to be abolished"
 code = 5
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.no]]
@@ -294,7 +294,7 @@ short.gender = "neuter"
 opponents = "https://energiegesetz-aargau-nein.ch/"
 proponents = "https://ja-zum-energiegesetz.ch/"
 [[cantonal.aargau.proposal.2.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.2.main_motive.yes]]
@@ -318,7 +318,7 @@ de = "wollte die lokale Produktion erneuerbarer Energie (bspw. Solarstrom) förd
 en = "to promote the local production of renewable energy (e.g. solar power)"
 code = 6
 [[cantonal.aargau.proposal.2.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.2.main_motive.no]]

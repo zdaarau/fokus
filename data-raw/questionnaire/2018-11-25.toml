@@ -50,7 +50,7 @@ long.gender = "feminine"
 short.text = "Waldinitiative"
 short.gender = "feminine"
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.yes]]
@@ -74,7 +74,7 @@ de = "wollte mich für einheimisches Holz einsetzen"
 en = "to support local wood"
 code = 6
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.no]]
@@ -172,7 +172,7 @@ long.gender = "neuter"
 short.text = "Auslandschweizer-Ständeratswahlrecht"
 short.gender = "neuter"
 [[cantonal.aargau.proposal.2.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.2.main_motive.yes]]
@@ -188,7 +188,7 @@ de = "finde, das ist eine Selbstverständlichkeit"
 en = "to think that's a matter of course"
 code = 4
 [[cantonal.aargau.proposal.2.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.2.main_motive.no]]
