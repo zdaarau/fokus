@@ -341,6 +341,7 @@ shortening_rules <- tibble::tribble(
   "booklet",                                    "bkl",                                 "begin-middle-end",
   "candidate",                                  "cand",                                "begin-middle-end",
   "competent",                                  "cmp",                                 "begin-middle-end",
+  "comprehension",                              "cmprh",                               "begin-middle-end",
   "contentment",                                "cntmnt",                              "begin-middle-end",
   "convincing",                                 "cnv",                                 "begin-middle-end",
   "custom",                                     "cm",                                  "begin-middle-end",
@@ -363,13 +364,16 @@ shortening_rules <- tibble::tribble(
   "typology",                                   "typ",                                 "begin-middle-end",
   
   # lazy rules
+  ## ubiqiutous
+  "environmentalism_vs_economic_prosperity",    "env_vs_econ",                         "begin-middle-end",
+  "equal_opportunity_foreigners",               "equal_opportunity_foreign",           "begin-middle-end",
+  "equivalised_income",                         "equi_inc",                            "begin-middle-end",
+  "reader_letters_comments",                    "reader_comments",                     "begin-middle-end",
   "reason_non_participation",                   "reason_non_part",                     "begin-middle-end",
   "weight_participation",                       "weight_prt",                          "begin-middle-end",
-  "equivalised_income",                         "equi_inc",                            "begin-middle-end",
-  "environmentalism_vs_economic_prosperity",    "env_vs_econ",                         "begin-middle-end",
   "welfare_state_vs_self_responsibility",       "welfare_vs_self_respon",              "begin-middle-end",
-  "equal_opportunity_foreigners",               "equal_opportunity_foreign",           "begin-middle-end",
-  "reader_letters_comments",                    "reader_comments",                     "begin-middle-end",
+  ## rare
+  "demokratiefabrik",                           "demfab",                              "begin-middle-end",
   "infectious_disease_specialists",             "infct_disease_spclsts",               "begin-middle-end"
 )
 ```
