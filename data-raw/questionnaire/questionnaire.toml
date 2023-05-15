@@ -26,6 +26,13 @@ variable_values = [ 1, 2, 3 ]
 value_labels = [ "referendum", "election", "both_referendum_and_election" ]
 
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
+topic = "Stichprobenkategorie"
+variable_name = "sample_category"
+variable_label = "sample category the respondent is part of"
+response_options = [ "kantonsweit", "Aarau", "Baden", "Muhen", "Safenwil", "Wohlen" ]
+include.default = false
+include.true = [ 2023-06-18 ]
+[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Nachname (amtliche Information)[^anon]"
 variable_name = "last_name"
 variable_label = "respondent's last name (official cantonal register information)"
@@ -257,7 +264,7 @@ topic = "Politisches Interesse Schweiz"
 question = "Wie interessiert sind Sie im Allgemeinen an der Schweizer Politik? Ich bin …"
 variable_name = "political_interest"
 variable_label = "respondent's interest in Swiss politics"
-include.false = [ 2018-09-23, 2018-11-25, 2020-09-27, 2023-06-18 ]
+include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
 [[02_political_start.001_general.002_other.item]]
 topic = "Teilnahme"
 question.default.referendum = "Gerade erst fanden Abstimmungen statt. Bei solchen nimmt normalerweise weniger als die Hälfte der Stimmberechtigten teil. Haben Sie an der Abstimmung vom { stringi::stri_datetime_format(time = ballot_date, format = 'date_long', locale = lang_to_locale('de')) } teilgenommen oder nicht? (leer einlegen zählt als Teilnahme)"
@@ -672,14 +679,13 @@ variable_label = "whether or not the respondent used the official webpage of the
 topic = "Informationsquelle: Eidgenössische Wahlbroschüre"
 question = "_Wahlanleitung des Bundes (Broschüre oder online)_"
 variable_name = "federal_information_source_official_booklet"
-variable_label.election = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the parties and candidates"
-variable_label.referendum = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the cantonal proposals"
+variable_label = "whether or not the respondent used the official federal election manual (booklet or online) to learn about the parties and candidates"
 include = "{ any(has_election(ballot_date = ballot_date, lvls = 'federal', canton = canton)) }"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: Kantonale Wahlbroschüre"
 question = "_Wahlanleitung des Kantons (Broschüre oder online)_"
 variable_name = "cantonal_information_source_official_booklet"
-variable_label = "whether or not the respondent used the official cantonal election manual (booklet or online) to learn about the cantonal proposals"
+variable_label = "whether or not the respondent used the official cantonal election manual (booklet or online) to learn about the parties and candidates"
 # NOTE: A cantonal election manual doesn't actually exist in the canton of Aargau. Only a booklet explaining the *election procedure* is available (see `cantonal_information_source_election_booklet`)
 include.default = "{ any(has_election(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) }"
 include.aargau = false
@@ -1270,6 +1276,126 @@ variable_label = "respondent's time of decision in the cantonal majoritarian ele
 variable_label_common = "respondent's time of decision in the { salim::rank_nr(i) } cantonal majoritarian election"
 
 
+[02b_demoscan]
+title = "Demoscan-spezifische Fragen"
+who = "alle"
+include.default = false
+include.true = [ 2023-06-18 ]
+[[02b_demoscan.item]]
+question = "Haben Sie bereits von dem Projekt «Demoscan Aargau» gehört?"
+variable_name = "demoscan_heard"
+response_options = [ "Noch nie gehört.", "Schon mal gehört.", "Ich kenne das Projekt sehr gut." ]
+variable_values = [ 1, 2, 3 ]
+is_mandatory = true
+
+[02b_demoscan.known]
+who = "kennt Demoscan"
+[[02b_demoscan.known.item]]
+question = "Wie haben Sie vom Projekt «Demoscan Aargau» erfahren?"
+variable_name = "demoscan_channel"
+response_options = [ "Zeitung", "Radio", "Internet", "TV / Fernseher", "Soziale Medien", "Briefversand von der Universität Zürich", "Durch Freunde, Bekannte oder Familie", "anderes, nämlich: ✍ (Freitextfeld)" ]
+variable_values = [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+[[02b_demoscan.known.item]]
+question = "Haben Sie den Demoscan-Flyer per Post erhalten?"
+variable_name = "demoscan_flyer_received"
+response_options = [ "Ja", "Nein", "weiss nicht" ]
+variable_values = [ 1, 2, 99 ]
+[[02b_demoscan.known.item]]
+question = "Haben Sie den Demoscan-Flyer gelesen?"
+variable_name = "demoscan_flyer_read"
+response_options = [ "Ja", "Nein", "weiss nicht" ]
+variable_values = [ 1, 2, 99 ]
+
+[02b_demoscan.read]
+who = "hat Demoscan-Flyer gelesen"
+[[02b_demoscan.read.item]]
+question = "Inwiefern fanden Sie den Bürgerbrief *informativ*?"
+variable_name = "demoscan_letter_informative"
+response_options = [ "überhaupt nicht informativ", "eher nicht informativ", "eher informativ", "sehr informativ", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+[[02b_demoscan.read.item]]
+question = "Inwiefern fanden Sie den Demoscan-Flyer *nützlich*, um sich eine Meinung zu bilden für die Abstimmungsvorlage?"
+variable_name = "demoscan_flyer_utility"
+response_options = [ "überhaupt nicht nützlich", "eher nicht nützlich", "eher nützlich", "sehr nützlich", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+[[02b_demoscan.read.item]]
+question = "Inwiefern haben Sie durch den Demoscan-Flyer *neue Informationen* über die Abstimmungsvorlage erhalten?"
+variable_name = "demoscan_flyer_new_info"
+response_options = [ "keine neuen Informationen erhalten", "wenig neue Informationen erhalten", "einige neue Informationen erhalten", "viele neue Informationen erhalten", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+[[02b_demoscan.read.item]]
+question = "Wie *vertrauenswürdig* fanden Sie die Informationen im Demoscan-Flyer?"
+variable_name = "demoscan_flyer_trust"
+response_options = [ "überhaupt nicht vertrauenswürdig", "eher nicht vertrauenswürdig", "eher vertrauenswürdig", "absolut vertrauenswürdig", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+
+[02b_demoscan.x]
+who = "kennt Demoscan"
+[[02b_demoscan.x.item]]
+question = "Würden Sie es begrüssen, wenn es weitere Durchführungen des Projekts «Demoscan Aargau» geben würde, in dem Bürgerinnen und Bürger eine Abstimmungshilfe zu einer kantonalen Vorlage erstellen?"
+variable_name = "demoscan_again"
+response_options = [ "Ja", "Nein", "weiss nicht" ]
+variable_values = [ 1, 2, 99 ]
+
+
+[02c_demokratiefabrik]
+title = "Demokratiefabrik-spezifische Fragen"
+who = "Stichprobenkategorie Wohlen"
+include.default = false
+include.true = [ 2023-06-18 ]
+[[02c_demokratiefabrik.item]]
+question = "Haben Sie bereits von der Online-Plattform «Demokratiefabrik» gehört?"
+variable_name = "demokratiefabrik_heard"
+response_options = [ "Noch nie gehört.", "Schon mal gehört.", "Ich kenne sie sehr gut." ]
+variable_values = [ 1, 2, 3 ]
+is_mandatory = true
+
+[02c_demokratiefabrik.known]
+who = "kennt Demokratiefabrik"
+[[02c_demokratiefabrik.known.item]]
+question = "Haben Sie das Demokratiefabrik-Argumentarium per Post erhalten?"
+variable_name = "demokratiefabrik_argumentary_received"
+response_options = [ "Ja", "Nein", "weiss nicht" ]
+variable_values = [ 1, 2, 99 ]
+[[02c_demokratiefabrik.known.item]]
+question = "Haben Sie das Demokratiefabrik-Argumentarium gelesen?"
+variable_name = "demokratiefabrik_argumentary_read"
+response_options = [ "Ja", "Ja, aber nur sehr schnell/oberflächlich", "Nein", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 99 ]
+
+[02c_demokratiefabrik.read]
+who = "hat Demokratiefabrik-Argumentarium gelesen"
+[[02c_demokratiefabrik.read.item]]
+question = "Inwiefern fanden Sie das Demokratiefabrik-Argumentarium *informativ*?"
+variable_name = "demokratiefabrik_argumentary_informative"
+response_options = [ "überhaupt nicht informativ", "eher nicht informativ", "eher informativ", "sehr informativ", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+[[02c_demokratiefabrik.read.item]]
+question = "Inwiefern fanden Sie das Demokratiefabrik-Argumentarium *nützlich*, um sich eine Meinung zu bilden für die Abstimmungsvorlage?"
+variable_name = "demokratiefabrik_argumentary_utility"
+response_options = [ "überhaupt nicht nützlich", "eher nicht nützlich", "eher nützlich", "sehr nützlich", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+[[02c_demokratiefabrik.read.item]]
+question = "Inwiefern haben Sie durch das Demokratiefabrik-Argumentarium *neue Informationen* über die Abstimmungsvorlage erhalten?"
+variable_name = "demokratiefabrik_argumentary_new_info"
+response_options = [ "keine neuen Informationen erhalten", "wenig neue Informationen erhalten", "einige neue Informationen erhalten", "viele neue Informationen erhalten", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+[[02c_demokratiefabrik.read.item]]
+question = "Wie *vertrauenswürdig* fanden Sie die Informationen im Demokratiefabrik-Argumentarium?"
+variable_name = "demokratiefabrik_argumentary_trust"
+response_options = [ "überhaupt nicht vertrauenswürdig", "eher nicht vertrauenswürdig", "eher vertrauenswürdig", "absolut vertrauenswürdig", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+
+[02c_demokratiefabrik.x]
+who = "kennt Demokratiefabrik"
+[[02c_demokratiefabrik.x.item]]
+question = "Würden Sie es begrüssen, wenn es weitere Durchführungen der «Demokratiefabrik» geben würde, wo Bürgerinnen und Bürger online ein Argumentarium zu einer eidgenössischen Vorlage erstellen?"
+variable_name = "demokratiefabrik_again"
+response_options = [ "Ja", "Nein", "weiss nicht" ]
+variable_values = [ 1, 2, 99 ]
+
+
+
 [03_proposal_specific]
 title = "Vorlagenspezifische Fragen"
 ballot_types = [ "referendum" ]
@@ -1634,13 +1760,15 @@ variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
 value_labels = [ "0 (not important at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (very important)", "don't know" ]
 value_scale = "ordinal_ascending"
 [[03_proposal_specific.002_all.001_importance.item]]
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.20230618 = 2
 topic = "Wichtigkeit eidgenössische Vorlage {i}"
 question = """
 {
   ifelse(i == 1L,
          paste0('Wie wichtig war',
-                ifelse(n_proposals(ballot_date = ballot_date,
+                ifelse(ballot_date != '2023-06-18' &&
+                       n_proposals(ballot_date = ballot_date,
                                    lvls = 'federal',
                                    canton = canton) > 1L,
                        'en die eidgenössischen Vorlagen für Sie persönlich? <br><br>',
@@ -1697,8 +1825,9 @@ question_common = "Stufen Sie bitte die Bedeutung der eidgenössischen Vorlage {
 variable_name = "importance_federal_proposal_{i}"
 variable_label = "importance the respondent attaches to the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "importance the respondent attaches to the { salim::rank_nr(i) } federal proposal"
+who.20230618 = "Stichprobenkategorie Wohlen"
 include.default = false
-include.true = [ 2021-11-28 ]
+include.true = [ 2021-11-28, 2023-06-18 ]
 [[03_proposal_specific.002_all.001_importance.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Wichtigkeit kantonale Vorlage {i}"
@@ -1763,12 +1892,14 @@ question_common = "Stufen Sie bitte die Bedeutung der kantonalen Vorlage {i} fü
 variable_name = "importance_cantonal_proposal_{i}"
 variable_label = "importance the respondent attaches to the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "importance the respondent attaches to the { salim::rank_nr(i) } cantonal proposal"
+who.20230618 = "{ ifelse(i == 3, 'alle', 'nicht Stichprobenkategorie Wohlen') }"
 [03_proposal_specific.002_all.002_affectedness]
 response_options = [ "nein", "ja, zum Besseren", "ja, zum Schlechteren", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "no", "yes, for the better", "yes, for the worse", "don't know" ]
 [[03_proposal_specific.002_all.002_affectedness.item]]
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.20230618 = 2
 topic = "Betroffenheit eidgenössische Vorlage {i}"
 question.20180923_20201018 = """
 Würde sich durch die Annahme {
@@ -1829,7 +1960,9 @@ question_common = "Würde sich durch die Annahme bzw. Ablehnung der eidgenössis
 variable_name = "affectedness_federal_proposal_{i}"
 variable_label = "whether or not the respondent would be personally affected by the adoption of the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "whether or not the respondent would be personally affected by the adoption of the { salim::rank_nr(i) } federal proposal"
-include = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) && !has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+who.20230618 = "Stichprobenkategorie Wohlen"
+include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) && !has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.20230618 = true
 [[03_proposal_specific.002_all.002_affectedness.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Betroffenheit kantonale Vorlage {i}"
@@ -1869,6 +2002,7 @@ question_common = "Würde sich durch die Annahme bzw. Ablehnung der kantonalen V
 variable_name = "affectedness_cantonal_proposal_{i}"
 variable_label = "whether or not the respondent would be personally affected by the adoption of the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "whether or not the respondent would be personally affected by the adoption of the { salim::rank_nr(i) } cantonal proposal"
+who.20230618 = "{ ifelse(i == 3, 'alle', 'nicht Stichprobenkategorie Wohlen') }"
 include.false = [ 2018-11-25 ]
 [03_proposal_specific.002_all.003_information_level]
 response_options = [ "0 (überhaupt nicht informiert)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (sehr gut informiert)", "weiss nicht" ]
@@ -1876,7 +2010,8 @@ variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
 value_labels = [ "0 (not informed at all)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (very well informed)", "don't know" ]
 value_scale = "ordinal_ascending"
 [[03_proposal_specific.002_all.003_information_level.item]]
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.20230618 = 2
 topic = "Informationsgrad eidgenössische Vorlage {i}"
 question = """
 {
@@ -1920,8 +2055,9 @@ question_common = "Wie gut informiert fühlten Sie sich? Bitte geben Sie für di
 variable_name = "information_level_federal_proposal_{i}"
 variable_label = "respondent's information level on the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's information level on the { salim::rank_nr(i) } federal proposal"
+who.20230618 = "Stichprobenkategorie Wohlen"
 include.default = false
-include.true = [ 2020-09-27, 2021-11-28 ]
+include.true = [ 2020-09-27, 2021-11-28, 2023-06-18 ]
 [[03_proposal_specific.002_all.003_information_level.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Informationsgrad kantonale Vorlage {i}"
@@ -1967,31 +2103,35 @@ question_common = "Wie gut informiert fühlten Sie sich? Bitte geben Sie für di
 variable_name = "information_level_cantonal_proposal_{i}"
 variable_label = "respondent's information level on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "respondent's information level on the { salim::rank_nr(i) } cantonal proposal"
+who.20230618 = "{ ifelse(i == 3, 'alle', 'nicht Stichprobenkategorie Wohlen') }"
 include.false = [ 2018-09-23, 2018-11-25 ]
 
 [03_proposal_specific.003_main_motive.001_federal]
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.20230618 = 2
 allow_multiple_answers = true
 [[03_proposal_specific.003_main_motive.001_federal.item]]
 topic = "Ja-Hauptmotiv eidgenössische Vorlage {i}"
-who = "Ja-Stimmende eidgenössische Vorlage {i}"
+who.default = "Ja-Stimmende eidgenössische Vorlage {i}"
+who.20230618 = "Stichprobenkategorie Wohlen: Ja-Stimmende eidgenössische Vorlage {i}"
 question = "Was war Ihre Hauptmotivation, { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short'), case = 'dative') } _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ zuzustimmen? Ich …"
 question_common = "Was war Ihre Hauptmotivation, der eidgenössischen Vorlage {i} zuzustimmen? Ich …"
 variable_name = "main_motive_federal_proposal_{i}_yes"
 variable_label = "respondent's main motivation to vote in favor of the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's main motivation to vote in favor of the { salim::rank_nr(i) } federal proposal"
+variable_label_common = "respondent's main motivation to vote in favor of the { salim::rank_nr(i) } federal proposal (only *yes-voters of federal proposal {i}*)"
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
 include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') > 0L }"
 [[03_proposal_specific.003_main_motive.001_federal.item]]
 topic = "Nein-Hauptmotiv eidgenössische Vorlage {i}"
-who = "Nein-Stimmende eidgenössische Vorlage {i}"
+who.default = "Nein-Stimmende eidgenössische Vorlage {i}"
+who.20230618 = "Stichprobenkategorie Wohlen: Nein-Stimmende eidgenössische Vorlage {i}"
 question = "Was war Ihre Hauptmotivation, { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short'), case = 'accusative') } _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ abzulehnen? Ich …"
 question_common = "Was war Ihre Hauptmotivation, die eidgenössische Vorlage {i} abzulehnen? Ich …"
 variable_name = "main_motive_federal_proposal_{i}_no"
 variable_label = "respondent's main motivation to vote against the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's main motivation to vote against the { salim::rank_nr(i) } federal proposal"
+variable_label_common = "respondent's main motivation to vote against the { salim::rank_nr(i) } federal proposal (only *no-voters of federal proposal {i}*)"
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
@@ -2004,13 +2144,14 @@ allow_multiple_answers.false = [ 2018-09-23 ]
 [[03_proposal_specific.003_main_motive.002_cantonal.item]]
 topic.default = "Ja-Hauptmotiv kantonale Vorlage {i}"
 topic.20180923 = "Ja-Hauptmotiv kantonale Vorlage {i}[^dup]"
-who = "Ja-Stimmende kantonale Vorlage {i}"
+who.default = "Ja-Stimmende kantonale Vorlage {i}"
+who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Ja-Stimmende kantonale Vorlage {i}"
 question.default = "Was war Ihre Hauptmotivation, { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short'), case = 'dative') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ zuzustimmen? Ich …"
 question.20180923 = "Was war Ihre Hauptmotivation, { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short'), case = 'dative') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ zuzustimmen? Ich wollte in erster Linie …"
 question_common = "Was war Ihre Hauptmotivation, der kantonalen Vorlage {i} zuzustimmen? Ich …"
 variable_name = "main_motive_cantonal_proposal_{i}_yes"
 variable_label = "respondent's main motivation to vote in favor of the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's main motivation to vote in favor of the { salim::rank_nr(i) } cantonal proposal"
+variable_label_common = "respondent's main motivation to vote in favor of the { salim::rank_nr(i) } cantonal proposal (only *yes-voters of cantonal proposal {i}*)"
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
@@ -2018,13 +2159,14 @@ include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal'
 [[03_proposal_specific.003_main_motive.002_cantonal.item]]
 topic.default = "Nein-Hauptmotiv kantonale Vorlage {i}"
 topic.20180923 = "Nein-Hauptmotiv kantonale Vorlage {i}[^dup]"
-who = "Nein-Stimmende kantonale Vorlage {i}"
+who.default = "Nein-Stimmende kantonale Vorlage {i}"
+who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Nein-Stimmende kantonale Vorlage {i}"
 question.default = "Was war Ihre Hauptmotivation, { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short'), case = 'accusative') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ abzulehnen? Ich …"
 question.20180923 = "Was war Ihre Hauptmotivation, { salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short'), case = 'accusative') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ abzulehnen? Ich wollte in erster Linie …"
 question_common = "Was war Ihre Hauptmotivation, die kantonale Vorlage {i} abzulehnen? Ich …"
 variable_name = "main_motive_cantonal_proposal_{i}_no"
 variable_label = "respondent's main motivation to vote against the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's main motivation to vote against the { salim::rank_nr(i) } cantonal proposal"
+variable_label_common = "respondent's main motivation to vote against the { salim::rank_nr(i) } cantonal proposal (only *no-voters of cantonal proposal {i}*)"
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
@@ -2120,7 +2262,7 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "certainly", "probably", "probably not", "certainly not", "don't know" ]
 value_scale = "ordinal_descending"
 include.default = "{ all(has_referendum(ballot_date = ballot_date, lvls = c('cantonal', 'federal'), canton = canton)) }"
-include.false = [ 2018-11-25 ]
+include.false = [ 2018-11-25, 2023-06-18 ]
 [[03_proposal_specific.004_participants.item]]
 who = "eidgenössisch und kantonal Teilnehmende"
 topic = "Anziehungskraft kantonale Vorlagen"
@@ -2245,18 +2387,22 @@ value_labels = [ "certainly", "probably", "probably not", "certainly not", "don'
 value_scale = "ordinal_descending"
 include = "{ all(has_referendum(ballot_date = ballot_date, lvls = c('cantonal', 'federal'), canton = canton)) }"
 [[03_proposal_specific.004_participants.z01_iterated.item]]
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.20230618 = 2
 topic = "Verständnisschwierigkeit eidgenössische Vorlage {i}"
 question = "Ist es Ihnen _eher leicht_ oder _eher schwer_ gefallen, zu verstehen, worum es bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ ging?"
 question_common = "Ist es Ihnen _eher leicht_ oder _eher schwer_ gefallen, zu verstehen, worum es bei der eidgenössischen Vorlage {i} ging?"
 variable_name = "difficulty_federal_proposal_{i}"
 variable_label = "level of difficulty in understanding the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" for the respondent"
-variable_label_common = "level of difficulty in understanding the { salim::rank_nr(i) } federal proposal for the respondent"
+variable_label_common = "level of difficulty in understanding the { salim::rank_nr(i) } federal proposal for the respondent (only *voters*)"
 response_options = [ "eher leicht", "eher schwer", "weiss nicht" ]
 variable_values = [ 1, 2, 99 ]
 value_labels = [ "rather easy", "rather difficult", "don't know" ]
 value_scale = "binary"
-include = "{ n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) == 0L }"
+who.default = "Teilnehmende"
+who.20230618 = "Stichprobenkategorie Wohlen: Teilnehmende"
+include.default = "{ n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) == 0L }"
+include.20230618 = true
 [[03_proposal_specific.004_participants.z01_iterated.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Verständnisschwierigkeit kantonale Vorlage {i}"
@@ -2264,24 +2410,30 @@ question = "Ist es Ihnen _eher leicht_ oder _eher schwer_ gefallen, zu verstehen
 question_common = "Ist es Ihnen _eher leicht_ oder _eher schwer_ gefallen, zu verstehen, worum es bei der kantonalen Vorlage {i} ging?"
 variable_name = "difficulty_cantonal_proposal_{i}"
 variable_label = "level of difficulty in understanding the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" for the respondent"
-variable_label_common = "level of difficulty in understanding the { salim::rank_nr(i) } cantonal proposal for the respondent"
+variable_label_common = "level of difficulty in understanding the { salim::rank_nr(i) } cantonal proposal for the respondent (only *voters*)"
 response_options = [ "eher leicht", "eher schwer", "weiss nicht" ]
 variable_values = [ 1, 2, 99 ]
 value_labels = [ "rather easy", "rather difficult", "don't know" ]
 value_scale = "binary"
+who.default = "Teilnehmende"
+who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Teilnehmende"
 [[03_proposal_specific.004_participants.z01_iterated.item]]
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
+i.20230618 = 2
 topic = "Entscheidzeitpunkt eidgenössische Vorlage {i}"
 question = "Ab wann haben Sie gewusst, wie Sie bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ stimmen werden?"
 question_common = "Ab wann haben Sie gewusst, wie Sie bei der eidgenössischen Vorlage {i} stimmen werden?"
 variable_name = "decision_moment_federal_proposal_{i}"
 variable_label = "respondent's time of decision concerning the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's time of decision concerning the { salim::rank_nr(i) } federal proposal"
+variable_label_common = "respondent's time of decision concerning the { salim::rank_nr(i) } federal proposal (only *voters*)"
 response_options = [ "von Anfang an", "während des Abstimmungskampfes", "im letzten Moment", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "from the very beginning", "during the voting campaign", "at the last moment", "don't know" ]
 value_scale = "ordinal_ascending"
-include = "{ n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) == 0L }"
+who.default = "Teilnehmende"
+who.20230618 = "Stichprobenkategorie Wohlen: Teilnehmende"
+include.default = "{ n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) == 0L }"
+include.20230618 = true
 [[03_proposal_specific.004_participants.z01_iterated.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Entscheidzeitpunkt kantonale Vorlage {i}"
@@ -2289,17 +2441,21 @@ question = "Ab wann haben Sie gewusst, wie Sie bei{ ifelse(proposal_name_gender(
 question_common = "Ab wann haben Sie gewusst, wie Sie bei der kantonalen Vorlage {i} stimmen werden?"
 variable_name = "decision_moment_cantonal_proposal_{i}"
 variable_label = "respondent's time of decision concerning the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's time of decision concerning the { salim::rank_nr(i) } cantonal proposal"
+variable_label_common = "respondent's time of decision concerning the { salim::rank_nr(i) } cantonal proposal (only *voters*)"
 response_options = [ "von Anfang an", "während des Abstimmungskampfes", "im letzten Moment", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "from the very beginning", "during the voting campaign", "at the last moment", "don't know" ]
 value_scale = "ordinal_ascending"
+who.default = "Teilnehmende"
+who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Teilnehmende"
 [03_proposal_specific.004_participants.z01_iterated.z01_arguments]
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
 [03_proposal_specific.004_participants.z01_iterated.z01_arguments.001_federal]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 j = "{ seq_len(n_proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)) }"
+who.default = "Teilnehmende"
+who.20230618 = "Stichprobenkategorie Wohlen: Teilnehmende"
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.001_federal.item]]
 topic = "Zustimmung { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } eidgenössische Vorlage {i}"
 question_intro_j = """
@@ -2323,7 +2479,7 @@ question = "Ich bin mit dem Argument _«{ proposal_arguments(ballot_date = ballo
 question_common = "Ich bin mit dem { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } …"
 variable_name = "agreement_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] }_federal_proposal_{i}"
 variable_label = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument \"{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$en.long[j] }\" { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] %>% salim::rank_nr() } { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } federal proposal"
+variable_label_common = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] %>% salim::rank_nr() } { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } federal proposal (only *voters*)"
 response_options = [ "voll und ganz einverstanden", "eher einverstanden", "eher nicht einverstanden", "überhaupt nicht einverstanden", "weiss nicht" ]
 value_labels = [ "fully agree", "rather agree", "rather disagree", "strongly disagree", "don't know" ]
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.001_federal.item]]
@@ -2333,12 +2489,14 @@ question = "Ich empfand das Argument _«{ proposal_arguments(ballot_date = ballo
 question_common = "Ich empfand das { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] } als …"
 variable_name = "importance_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j] }_federal_proposal_{i}"
 variable_label = "importance the respondent attaches to the { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument \"{ proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$en.long[j] }\" { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "importance the respondent attaches to the { salim::rank_nr(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j]) } { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } federal proposal"
+variable_label_common = "importance the respondent attaches to the { salim::rank_nr(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$nr[j]) } { proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } federal proposal (only *voters*)"
 response_options = [ "sehr wichtig", "eher wichtig", "eher unwichtig", "bedeutungslos", "weiss nicht" ]
 value_labels = [ "very important", "rather important", "rather unimportant", "irrelevant", "don't know" ]
 [03_proposal_specific.004_participants.z01_iterated.z01_arguments.002_cantonal]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 j = "{ seq_len(n_proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)) }"
+who.default = "Teilnehmende"
+who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Teilnehmende"
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.002_cantonal.item]]
 topic = "Zustimmung { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } kantonale Vorlage {i}"
 question_intro_j = """
@@ -2362,7 +2520,7 @@ question = "Ich bin mit dem Argument _«{ proposal_arguments(ballot_date = ballo
 question_common = "Ich bin mit dem { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } …"
 variable_name = "agreement_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] }_cantonal_proposal_{i}"
 variable_label = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument \"{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$en.long[j] }\" { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] %>% salim::rank_nr() } { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } cantonal proposal"
+variable_label_common = "respondent's agreement to the { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] %>% salim::rank_nr() } { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } cantonal proposal (only *voters*)"
 response_options = [ "voll und ganz einverstanden", "eher einverstanden", "eher nicht einverstanden", "überhaupt nicht einverstanden", "weiss nicht" ]
 value_labels = [ "fully agree", "rather agree", "rather disagree", "strongly disagree", "don't know" ]
 [[03_proposal_specific.004_participants.z01_iterated.z01_arguments.002_cantonal.item]]
@@ -2372,12 +2530,14 @@ question = "Ich empfand das Argument _«{ proposal_arguments(ballot_date = ballo
 question_common = "Ich empfand das { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'Pro', 'Kontra') }-Argument { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] } als …"
 variable_name = "importance_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }_argument_{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j] }_cantonal_proposal_{i}"
 variable_label = "importance the respondent attaches to the { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument \"{ proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$en.long[j] }\" { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
-variable_label_common = "importance the respondent attaches to the { salim::rank_nr(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j]) } { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } cantonal proposal"
+variable_label_common = "importance the respondent attaches to the { salim::rank_nr(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$nr[j]) } { proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] }-argument { ifelse(proposal_arguments(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i)$side[j] == 'pro', 'in favor of', 'against') } the { salim::rank_nr(i) } cantonal proposal (only *voters*)"
 response_options = [ "sehr wichtig", "eher wichtig", "eher unwichtig", "bedeutungslos", "weiss nicht" ]
 value_labels = [ "very important", "rather important", "rather unimportant", "irrelevant", "don't know" ]
 [[03_proposal_specific.004_participants.z01_iterated.z02_skill_questions.item]]
 i = "{ skill_question_proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 j = "{ skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i) }"
+who.default = "Teilnehmende"
+who.20230618 = "Stichprobenkategorie Wohlen: Teilnehmende"
 topic = "Wissensfrage {j} eidgenössische Vorlage {i}"
 question_intro_j = """
 Nachfolgend {
@@ -2405,13 +2565,15 @@ question = "_{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton
 question_common = "Wissensfrage {j} zur eidgenössischen Vorlage {i}"
 variable_name = "skill_question_{j}_federal_proposal_{i}"
 variable_label = "respondent's answer to the skill question \"{ skill_question(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'en') }\" about the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'federal', proposal_nr = i, skill_question_nr = j) %>% salim::rank_nr() } answer is correct)"
-variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill question about the { salim::rank_nr(i) } federal proposal"
+variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill question about the { salim::rank_nr(i) } federal proposal (only *voters*)"
 response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
 value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[03_proposal_specific.004_participants.z01_iterated.z02_skill_questions.item]]
 i = "{ skill_question_proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 j = "{ skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i) }"
+who.default = "Teilnehmende"
+who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Teilnehmende"
 topic = "Wissensfrage {j} kantonale Vorlage {i}"
 question_intro_j.default = """
 Nachfolgend {
@@ -2455,19 +2617,72 @@ question = "_{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canto
 question_common = "Wissensfrage {j} zur kantonalen Vorlage {i}"
 variable_name = "skill_question_{j}_cantonal_proposal_{i}"
 variable_label = "respondent's answer to the skill question \"{ skill_question(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j, lang = 'en') }\" about the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" ({ skill_question_answer_nr(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', proposal_nr = i, skill_question_nr = j) %>% salim::rank_nr() } answer is correct)"
-variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill question about the { salim::rank_nr(i) } cantonal proposal"
+variable_label_common = "respondent's answer to the { salim::rank_nr(j) } skill question about the { salim::rank_nr(i) } cantonal proposal (only *voters*)"
 response_options = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% de %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(nrow(skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
 value_labels = "{ skill_question_response_options(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, skill_question_nr = j) %$% en %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+[03_proposal_specific.004_participants.z01b_other_opinions]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+i.20230618 = 3
+response_options = [ "überhaupt keine Zeit", "eher wenig Zeit", "eher viel Zeit", "sehr viel Zeit", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+include.default = false
+include.true = [ 2023-06-18 ]
+[[03_proposal_specific.004_participants.z01b_other_opinions.item]]
+variable_name = "comprehension_effort_pro_side_cantonal_proposal_{i}"
+topic = "Verständnisaufwand Pro-Seite kantonale Vorlage {i}"
+question = """
+Wie viel Zeit haben Sie aufgewendet, um die Meinungen und Perspektiven der Menschen zu verstehen, die für {
+  gender <- proposal_name_gender(ballot_date = ballot_date,
+                                 lvl = 'cantonal',
+                                 canton = canton,
+                                 proposal_nr = i,
+                                 type = 'short')
+
+  paste0(salim::definite_article_de(gender = gender,
+                                    case = 'accusative'),
+         ' kantonale', ifelse(gender == 'masculine', 'n', ''), ' _',
+         proposal_name(ballot_date = ballot_date,
+                       lvl = 'cantonal',
+                       canton = canton,
+                       proposal_nr = i,
+                       lang = 'de',
+                       type = 'short'))
+}_ sind?"""
+variable_label = "amount of time the respondent spent to understand the opinions and perspectives of people who are in favor of the \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
+[[03_proposal_specific.004_participants.z01b_other_opinions.item]]
+variable_name = "comprehension_effort_contra_side_cantonal_proposal_{i}"
+topic = "Verständnisaufwand Kontra-Seite kantonale Vorlage {i}"
+question = """
+Wie viel Zeit haben Sie aufgewendet, um die Meinungen und Perspektiven der Menschen zu verstehen, die gegen {
+  gender <- proposal_name_gender(ballot_date = ballot_date,
+                                 lvl = 'cantonal',
+                                 canton = canton,
+                                 proposal_nr = i,
+                                 type = 'short')
+
+  paste0(salim::definite_article_de(gender = gender,
+                                    case = 'accusative'),
+         ' kantonale', ifelse(gender == 'masculine', 'n', ''), ' _',
+         proposal_name(ballot_date = ballot_date,
+                       lvl = 'cantonal',
+                       canton = canton,
+                       proposal_nr = i,
+                       lang = 'de',
+                       type = 'short'))
+}_ sind?"""
+variable_label = "amount of time the respondent spent to understand the opinions and perspectives of people who are against the \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 [03_proposal_specific.004_participants.z02_information_source]
 # NOTE: non-proposal-specific information source items are defined under `03_1_election_general.z02_information_source`, information is just sourced from there
-lvl = "{ if (has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) 'cantonal' else 'federal' }"
+lvl.default = "{ if (has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) 'cantonal' else 'federal' }"
+lvl.20230618 = [ "cantonal", "federal" ]
 response_options = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'response_options') }"
 variable_values = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'variable_values') }"
 value_labels = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'value_labels') }"
 value_scale = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'value_scale') }"
 question_intro_i = """
 Haben Sie die folgenden Quellen genutzt, um sich über {
+  if (lvl == 'federal' && ballot_date == '2023-06-18') 'das Klimagesetz' else
   ifelse(n_proposals(ballot_date = ballot_date,
                      lvls = lvl,
                      canton = canton) > 1L,
@@ -2497,6 +2712,8 @@ Haben Sie die folgenden Quellen genutzt, um sich über {
                               type = 'short'),
                 '_'))
 } zu informieren und eine Meinung zu bilden?"""
+who.default = "Teilnehmende"
+who.20230618 = "{ if (lvl == 'federal') 'Stichprobenkategorie Wohlen: Teilnehmende' else 'Teilnehmende' }"
 [[03_proposal_specific.004_participants.z02_information_source.item]]
 # set iterator to trigger `question_intro_i`
 i = 1
@@ -2605,7 +2822,7 @@ variable_values = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, 
 value_labels = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), var_name = 'intensity_political_discussions', key = 'value_labels') }"
 value_scale = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z03_more'), var_name = 'intensity_political_discussions', key = 'value_scale') }"
 [[03_proposal_specific.005_all.002_deliberation.001_cantonal.item]]
-# NOTE: new 'discussions' item after 2018-11-25
+# NOTE: new 'discussions' items after 2018-11-25
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über kantonale Vorlagen"
 question = """
 Wie oft haben Sie sich im Bekanntenkreis über {
@@ -2638,7 +2855,42 @@ question_common = "Wie oft haben Sie sich im Bekanntenkreis über die **kantonal
 variable_label = "how often the respondent discussed the cantonal proposals with acquaintances"
 variable_name = "intensity_political_discussions_cantonal_proposals"
 include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
+[[03_proposal_specific.005_all.002_deliberation.001_cantonal.item]]
+i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über kantonale Vorlage {i}"
+question_intro_i = """{
+if (n_proposals(ballot_date = ballot_date,
+                lvls = 'cantonal',
+                canton = canton) > 1L) 'Wie oft haben Sie sich im Bekanntenkreis über die **kantonale(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?' else NULL
+}"""
+question = """{
+ifelse(n_proposals(ballot_date = ballot_date,
+                   lvls = 'cantonal',
+                   canton = canton) > 1L,
+       paste0('_', proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short'), '_'),
+       paste0('Wie oft haben Sie sich im Bekanntenkreis über ',
+              salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                       lvl = 'cantonal',
+                                                                       canton = canton,
+                                                                       proposal_nr = 1L,
+                                                                       type = 'short'),
+                                         case = 'accusative'),
+              ' _',
+              proposal_name(ballot_date = ballot_date,
+                            lvl = 'cantonal',
+                            canton = canton,
+                            proposal_nr = 1L,
+                            lang = 'de',
+                            type = 'short'),
+              '_'))
+}"""
+question_common = "Wie oft haben Sie sich im Bekanntenkreis über die kantonale Vorlage {i} ausgetauscht bzw. über diese diskutiert?"
+variable_label = "how often the respondent discussed the cantonal proposal {i} with acquaintances"
+variable_name = "intensity_political_discussions_cantonal_proposal_{i}"
+who.20230618 = "{ ifelse(i == 3, 'alle', 'nicht Stichprobenkategorie Wohlen') }"
+include.default = false
+include.true = [ 2023-06-18 ]
 [[03_proposal_specific.005_all.002_deliberation.002_federal.item]]
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über eidgenössische Vorlagen"
 question = """
@@ -2672,7 +2924,43 @@ question_common = "Wie oft haben Sie sich im Bekanntenkreis über die **eidgenö
 variable_label = "how often the respondent discussed the federal proposals with acquaintances"
 variable_name = "intensity_political_discussions_federal_proposals"
 include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) }"
-include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
+include.false = [ 2018-09-23, 2018-11-25, 2020-09-27, 2023-06-18 ]
+[[03_proposal_specific.005_all.002_deliberation.002_federal.item]]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
+i.20230618 = 2
+topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über eidgenössische Vorlage {i}"
+question_intro_i = """{
+if (n_proposals(ballot_date = ballot_date,
+                lvls = 'federal',
+                canton = canton) > 1L) 'Wie oft haben Sie sich im Bekanntenkreis über die **eidgenössische(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?' else NULL
+}"""
+question = """{
+ifelse(n_proposals(ballot_date = ballot_date,
+                   lvls = 'federal',
+                   canton = canton) > 1L,
+       paste0('_', proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short'), '_'),
+       paste0('Wie oft haben Sie sich im Bekanntenkreis über ',
+              salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                                       lvl = 'federal',
+                                                                       canton = canton,
+                                                                       proposal_nr = 1L,
+                                                                       type = 'short'),
+                                         case = 'accusative'),
+              ' _',
+              proposal_name(ballot_date = ballot_date,
+                            lvl = 'federal',
+                            canton = canton,
+                            proposal_nr = 1L,
+                            lang = 'de',
+                            type = 'short'),
+              '_'))
+}"""
+question_common = "Wie oft haben Sie sich im Bekanntenkreis über die eidgenössische Vorlage {i} ausgetauscht bzw. über diese diskutiert?"
+variable_label = "how often the respondent discussed the federal proposal {i} with acquaintances"
+variable_name = "intensity_political_discussions_federal_proposal_{i}"
+who.20230618 = "Stichprobenkategorie Wohlen"
+include.default = false
+include.true = [ 2023-06-18 ]
 [[03_proposal_specific.005_all.item]]
 topic = "Sichtung politischer Werbung kantonale Vorlagen"
 question = """
@@ -2720,7 +3008,8 @@ value_labels = [
   "No, I have not seen any political advertising",
   "don't know"
 ]
-include = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
+include.false = [ 2023-06-18 ]
 [[03_proposal_specific.005_all.item]]
 topic = "Primäre Informationsquelle (on- vs. offline)"
 question = "Ganz generell: Wo informieren Sie sich am häufigsten über Politik: Ist das …?"
@@ -2796,6 +3085,32 @@ value_labels = [
   "don't know"
 ]
 include.false = [ 2018-09-23 ]
+[[03_proposal_specific.006_importance_position.item]]
+i.20230618 = 3
+topic = "Bedeutung Demoscan-Flyer kantonale Vorlage {i}"
+question = "Wie wichtig war der Demoscan-Flyer für Ihren Entscheid zu{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', 'r', 'm') } _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_?"
+question_common = "Wie wichtig war der Demoscan-Flyer für Ihren Entscheid zur kantonalen Vorlage {i}?"
+variable_name = "importance_demoscan_cantonal_proposal_{i}"
+variable_label = "importance the respondent attaches to the *Demoscan* Flyer regarding his/her voting decision on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
+variable_label_common = "importance the respondent attaches to the *Demoscan* Flyer regarding his/her voting decision on the { salim::rank_nr(i) } cantonal proposal"
+response_options = [
+  "bedeutungslos",
+  "eher unwichtig",
+  "eher wichtig",
+  "sehr wichtig",
+  "weiss nicht"
+]
+variable_values = [ 4, 3, 2, 1, 99 ]
+value_labels = [
+  "irrelevant",
+  "rather unimportant",
+  "rather important",
+  "very important",
+  "don't know"
+]
+who.20230618 = "nicht Stichprobenkategorie Wohlen"
+include.default = false
+include.true = [ 2023-06-18 ]
 
 
 [04_political_general]
@@ -2851,20 +3166,20 @@ question = "_Demokratie in der Schweiz_"
 variable_name = "trust_in_swiss_democracy"
 variable_label = "respondent's trust in the Swiss democracy"
 include.false = [ 2020-09-27 ]
-[[04_political_general.z01_trust.z01_corona.item]]
+[[04_political_general.z01_trust.item]]
 topic = "Vertrauen in Bundesrat"
 question = "_Bundesrat_"
 variable_name = "trust_in_federal_government"
 variable_label = "respondent's trust in the federal government"
 include.default = false
-include.true = [ 2021-11-28 ]
-[[04_political_general.z01_trust.z01_corona.item]]
+include.true = [ 2021-11-28, 2023-06-18 ]
+[[04_political_general.z01_trust.item]]
 topic = "Vertrauen in eidgenössisches Parlament"
 question = "_eidgenössisches Parlament_"
 variable_name = "trust_in_federal_parliament"
 variable_label = "respondent's trust in the federal parliament"
 include.default = false
-include.true = [ 2021-11-28 ]
+include.true = [ 2021-11-28, 2023-06-18 ]
 [[04_political_general.z01_trust.z01_corona.item]]
 topic = "Vertrauen in Bundesamt für Gesundheit (BAG)"
 question = "_Bundesamt für Gesundheit (BAG)_"
@@ -2907,6 +3222,51 @@ variable_name = "trust_in_pharma"
 variable_label = "respondent's trust in pharmaceutical manufacturers"
 include.default = false
 include.true = [ 2021-11-28 ]
+[[04_political_general.z01_trust.z02_demoscan.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
+topic = "Vertrauen in Bürgerrat"
+question_intro_i = "Im Aargau hat erstmals ein Bürgerrat getagt, um sich mit einer kantonalen Abstimmungsvorlage zu befassen. Im Rahmen des Pilotprojekts «Demoscan Aargau» haben 22 zufällig ausgeloste Personen aus dem ganzen Kanton die kantonale Klimaschutz-Initiative während vier Tagen unter die Lupe genommen und einfach und verständlich für die Stimmbevölkerung zusammengefasst."
+question = "Wie stark vertrauen Sie im Allgemeinen diesem Aargauer Bürgerrat?"
+variable_name = "trust_in_demoscan"
+variable_label = "respondent's trust in the cantonal citizen council \"Demoscan Aargau\""
+include.default = false
+include.true = [ 2023-06-18 ]
+[[04_political_general.z01_trust.z03_demokratiefabrik.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
+topic = "Vertrauen in Demokratiefabrik"
+question_intro_i = "Zwischen März und April 2023 haben mehr als 1000 zufällig ausgeloste Personen aus der ganzen Deutschschweiz auf der dafür entwickelten Online-Plattform «Demokratiefabrik» das Bundesgesetz über die Ziele im Klimaschutz, die Innovation und die Stärkung der Energiesicherheit unter die Lupe genommen und einfach und verständlich Argumente für und gegen die Vorlage erstellt."
+question = "Wie stark vertrauen Sie im Allgemeinen dieser Demokratiefabrik?"
+variable_name = "trust_in_citizens_council"
+variable_label = "respondent's trust in the Swiss online citizen council \"Demokratiefabrik\""
+include.default = false
+include.true = [ 2023-06-18 ]
+[04_political_general.z02_trait]
+response_options = [ "trifft überhaupt nicht auf mich zu", "trifft eher nicht auf mich zu", "trifft eher auf mich zu", "trifft voll und ganz auf mich zu", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_labels = [ "does not apply to me at all", "does rather not apply to me", "does rather apply to me", "does fully apply to me", "don't know" ]
+value_scale = "ordinal_ascending"
+question_intro_i = "Bei einer Abstimmung kann man jeweils unterschiedliche Ansichten und Meinungen haben. Bitte geben Sie an, inwiefern die folgenden Aussagen im Zusammenhang mit einer Abstimmungsvorlage auf Sie zutreffen."
+who = "Online-Respondenten"
+include.20180923_20211128 = false
+[[04_political_general.z02_trait.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
+topic = "Empathievermögen für Gegenseite"
+question = "Ich finde es manchmal schwierig, die Dinge aus der Sicht derjenigen zu verstehen, die eine andere Meinung als ich haben."
+variable_name = "trait_empathy"
+variable_label = "respondent's empathy for those who hold a different opinion"
+[[04_political_general.z02_trait.item]]
+topic = "Ignoranz gegenüber fremder Argumente"
+question = "Wenn ich mir sicher bin, dass ich Recht habe, verschwende ich nicht viel Zeit damit, mir die Argumente anderer Leute anzuhören."
+variable_name = "trait_ignorance"
+variable_label = "respondent's ignorance of other people's arguments"
+[[04_political_general.z02_trait.item]]
+topic = "Ausgewogenheitsaffinität"
+question = "Ich glaube, dass jede Frage zwei Seiten hat und versuche, beide Seiten zu verstehen."
+variable_name = "trait_balance"
+variable_label = "respondent's affinity for a balanced view of matters"
 
 
 [04_2_covid_related]
@@ -3085,6 +3445,30 @@ value_labels = [ "clearly in favor", "rather in favor", "rather against", "clear
 variable_values = [ 1, 2, 3, 4, 99 ]
 value_scale = "ordinal_descending"
 ballot_types = [ "election" ]
+[05_political_attitudes.z00_eco]
+include.default = false
+include.true = [ 2023-06-18 ]
+question_intro_i = "Was denken Sie über Regulierungen in verschiedenen Bereichen zugunsten des Umweltschutzes?"
+[[05_political_attitudes.z00_eco.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
+topic = "Umweltschutzregulierung"
+question = "Sind sie eher für weniger Regulierungen im Vergleich zu heute oder eher für mehr?"
+variable_name = "attitude_environmental_regulation"
+variable_label = "respondent's attitude towards environmental regulation"
+response_options = [ "deutlich weniger als heute", "eher weniger als heute", "eher mehr als heute", "deutlich mehr als heute", "weiss nicht" ]
+value_labels = [ "much less than today", "rather less than today", "rather more than today", "much more than today", "don't know" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_scale = "ordinal_ascending"
+[[05_political_attitudes.z00_eco.item]]
+topic = "Verbrennungsmotorenverbot"
+question = "Sind Sie für oder gegen ein Verbot von Verbrennungsmotoren?"
+variable_name = "attitude_combustion_engine_ban"
+variable_label = "respondent's attitude towards a ban of combustion engines"
+response_options = [ "klar dafür", "eher dafür", "eher dagegen", "klar dagegen", "weiss nicht" ]
+value_labels = [ "clearly in favor", "rather in favor", "rather against", "clearly against", "don't know" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_scale = "ordinal_descending"
 [05_political_attitudes.z01_evoting]
 question_intro_i.default = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit dem Frühling 2019 sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton { stringr::str_to_sentence(canton) } ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
 question_intro_i.20201018 = "Die in der Schweiz angewandten Systeme fürs Abstimmen und Wählen via Internet (E-Voting) standen immer wieder wegen Sicherheitsbedenken in der Kritik und seit vergangenem Jahr sind die E-Voting-Versuche in allen Kantonen ausgesetzt. Bislang stand E-Voting im Kanton { stringr::str_to_sentence(canton) } ausschliesslich den AuslandschweizerInnen zur Verfügung und es sind in erster Linie sie, welche eine Wiederaufnahme des Betriebes fordern."
@@ -3121,6 +3505,46 @@ value_scale = "ordinal_descending"
 who.default = "alle"
 who.20201018_20211128 = "Online-Respondenten"
 include.false = [ 2018-09-23, 2020-09-27 ]
+[05_political_attitudes.z02_efficacy]
+response_options = [ "stimme gar nicht zu", "stimme eher nicht zu", "stimme eher zu", "stimme voll und ganz zu", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_labels = [ "strongly disagree", "rather disagree", "rather agree", "fully agree", "don't know" ]
+include.default = false
+include.true = [ 2023-06-18 ]
+[[05_political_attitudes.z02_efficacy.item]]
+variable_name = "political_efficacy_own_1"
+question = "Wichtige politische Fragen kann ich gut verstehen und einschätzen."
+topic = "Einschätzung eigener politischer Wirksamkeit, Verständnis"
+variable_label = "respondent's estimation of his or her own competence to comprehend political issues"
+[[05_political_attitudes.z02_efficacy.item]]
+variable_name = "political_efficacy_own_2"
+question = "Ich traue mir zu, mich an einem Gespräch über politische Fragen aktiv zu beteiligen."
+topic = "Einschätzung eigener politischer Wirksamkeit, Diskussion"
+variable_label = "respondent's estimation of his or her own competence to participate in political discussions"
+[[05_political_attitudes.z02_efficacy.item]]
+variable_name = "political_efficacy_politicians_1"
+question = "Die Politiker kümmern sich darum, was einfache Leute denken."
+topic = "Einschätzung Wirksamkeit Politiker, kümmern um einfache Leute"
+variable_label = "respondent's estimate on whether politicians care about what ordinary people think"
+[[05_political_attitudes.z02_efficacy.item]]
+variable_name = "political_efficacy_politicians_2"
+question = "Die Politiker bemühen sich um einen engen Kontakt zur Bevölkerung."
+topic = "Einschätzung Wirksamkeit Politiker, Kontakt zur Bevölkerung"
+variable_label = "respondent's estimation on whether politicians strive to maintain close contact with the population."
+[05_political_attitudes.z02_efficacy.citizen_council]
+question_intro_i = "Nun haben wir zwei Aussagen für Sie zu anderen Formen der Beteiligung. Sagen Sie uns bitte, wie sehr Sie diesen zustimmen."
+[[05_political_attitudes.z02_efficacy.citizen_council.item]]
+# set iterator to trigger `question_intro_i`
+i = 1
+variable_name = "attitude_citizens_councils_discuss"
+question = "Die Schweiz würde davon profitieren, wenn zufällig ausgewählte Personen in sogenannten Bürger- und Bürgerinnenforen (Mini-Publics) wichtige politische Fragen diskutieren würden."
+topic = "Bürgerräte diskutieren"
+variable_label = "respondent's attitude towards randomly chosen citizens' councils discussing poltical issues"
+[[05_political_attitudes.z02_efficacy.citizen_council.item]]
+variable_name = "attitude_citizens_councils_decide"
+question = "Die Schweiz würde davon profitieren, wenn zufällig ausgewählte Personen in sogenannten Bürger- und Bürgerinnenforen (Mini-Publics) gewisse politische Entscheidungen treffen könnten."
+topic = "Bürgerräte entscheiden"
+variable_label = "respondent's attitude towards randomly chosen citizens' councils deciding on policy issues"
 
 
 [06_personality]
@@ -3137,7 +3561,7 @@ response_options = [ "trifft überhaupt nicht zu", "trifft eher nicht zu", "wede
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "disagree strongly", "disagree a little", "neither agree nor disagree", "agree a little", "agree strongly", "don't know" ]
 value_scale = "ordinal_ascending"
-include.false = [ 2018-11-25, 2020-09-27, 2021-11-28 ]
+include.false = [ 2018-11-25, 2020-09-27, 2021-11-28, 2023-06-18 ]
 [[06_personality.item]]
 topic = "Persönlichkeitsmerkmal Extraversion 1"
 question = "«Ich bin eher zurückhaltend, reserviert.»"
@@ -3435,7 +3859,7 @@ response_options = [ "1–9", "10–49", "50–249", "250–999", "1'000 und meh
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "1–9", "10–49", "50–249", "250–999", "1'000+", "don't know" ]
 value_scale = "ordinal_ascending"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[07_personal_more.z01_current_former.item]]
 # item source: [Fragebogen ZDA-Nachbefragung AG 2016-10-23](https://drive.google.com/drive/u/0/folders/1ACZSaHBbauJUqlCpdof1PveYT8vn5tmr)
 topic = "{ ifelse(lvl == 'inactive', 'Ehemalige ', '') }Betriebsbranche"
@@ -3478,7 +3902,7 @@ value_labels = [
   "information and communication",
   "custom answer"
 ]
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[07_personal_more.z02_more.item]]
 topic = "Haushaltsgrösse[^statag-household]"
 question.default = "Wie viele Personen (Sie eingeschlossen) leben in Ihrem Haushalt?"
@@ -3503,6 +3927,16 @@ variable_label = "respondent's housing situation"
 response_options = [ "MieterIn oder PächterIn", "EigentümerIn", "anderes (z. B. Frei-, Dienstwohnung)", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "tenant", "owner", "other (e.g. free or official residence)", "don't know" ]
+[[07_personal_more.z02_more.item]]
+topic = "Autobesitz"
+question = "Besitzen Sie ein oder mehrere Auto(s)?"
+variable_name = "car_ownership"
+variable_label = "whether or not the respondent owns one or more car(s)"
+response_options = [ "Nein, ich besitze kein Auto.", "Ja, ich besitze ein Auto.", "Ja, ich besitze mehrere Autos.", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 99 ]
+value_labels = [ "no car", "one car", "multiple cars", "don't know" ]
+value_scale = "ordinal_ascending"
+include.20180923_20211128 = false
 [[07_personal_more.z02_more.item]]
 topic = "Staatsbürgerschaft bei Geburt"
 question = "Welche Staatsbürgerschaft hatten Sie bei der Geburt?"
@@ -3964,7 +4398,7 @@ include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[x_polling_agency.008_online.item]]
 topic = "Interviewdauer Thema/Themen XYZ"
 variable_name = "time_xyz"
-variable_label = "time in seconds it took the respondent to complete the variable(s) xyz"
+variable_label = "time in seconds it took the respondent to complete the variable(s) `xyz`"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
 
@@ -4865,7 +5299,7 @@ variable_label = "dummy value indicating whether or not the proband participated
 response_options = [ "nicht teilgenommen", "teilgenommen" ]
 value_labels = [ "not participated", "participated" ]
 value_scale = "binary"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 
 
 # values shared across multiple ballot dates
@@ -5254,13 +5688,171 @@ dplyr::filter(participation == 'not participated'
 [[who]]
 value.de = "Klimaneutrale"
 value.en = "climate neutrals"
-description.de = "All jene Respondenten, welche die Frage zur Schweizer Klimaneutralität bejahten (`attitude_climate_neutral_switzerland in (1, 2, 3)`.)"
+description.de = "All jene Respondenten, welche die Frage zur Schweizer Klimaneutralität bejahten (`attitude_climate_neutral_switzerland in (1, 2, 3)`)."
 [who.filter.positive]
 de = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('ja, so schnell wie nur möglich', 'ja, bis spätestens 2035', 'ja, bis spätestens 2050'))"
 en = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('yes, as soon as possible', 'yes, by 2035 at the latest', 'yes, by 2050 at the latest'))"
 [who.filter.negative]
 de = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('no', NA))"
 en = "dplyr::filter(attitude_climate_neutral_switzerland %in% c('no', NA))"
+
+[[who]]
+value.de = "Stichprobenkategorie Wohlen"
+value.en = "sample category Wohlen"
+description.de = "All jene Respondenten, welche der Stichprobenkategorie (`sample_category`) Wohlen angehören. Diese haben das *Demokratiefabrik-Argumentarium* erhalten."
+[who.filter.positive]
+de = "dplyr::filter(place == 'Wohlen')"
+en = "dplyr::filter(place == 'Wohlen')"
+[who.filter.negative]
+de = "dplyr::filter(place != 'Wohlen')"
+en = "dplyr::filter(place != 'Wohlen')"
+
+[[who]]
+value.de = "nicht Stichprobenkategorie Wohlen"
+value.en = "not sample category Wohlen"
+description.de = "All jene Respondenten, welche nicht der Stichprobenkategorie (`sample_category`) Wohlen angehören."
+[who.filter.positive]
+de = "dplyr::filter(place != 'Wohlen')"
+en = "dplyr::filter(place != 'Wohlen')"
+[who.filter.negative]
+de = "dplyr::filter(place == 'Wohlen')"
+en = "dplyr::filter(place == 'Wohlen')"
+
+[[who]]
+value.de = "Stichprobenkategorie Wohlen: Teilnehmende"
+value.en = "sample category Wohlen: voters"
+description.de = "All jene Respondenten, welche der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zur Teilnahme (`participation`) mit _teilgenommen_ (`1`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place == 'Wohlen' & participation == 'teilgenommen')"
+en = "dplyr::filter(place == 'Wohlen' & participation == 'participated')"
+[who.filter.negative]
+de = "dplyr::filter(place != 'Wohlen' | participation == 'nicht teilgenommen')"
+en = "dplyr::filter(place != 'Wohlen' | participation == 'not participated')"
+
+[[who]]
+value.de = "nicht Stichprobenkategorie Wohlen: Teilnehmende"
+value.en = "not sample category Wohlen: voters"
+description.de = "All jene Respondenten, welche nicht der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zur Teilnahme (`participation`) mit _teilgenommen_ (`1`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place != 'Wohlen' & participation == 'teilgenommen')"
+en = "dplyr::filter(place != 'Wohlen' & participation == 'participated')"
+[who.filter.negative]
+de = "dplyr::filter(place == 'Wohlen' | participation == 'nicht teilgenommen')"
+en = "dplyr::filter(place == 'Wohlen' | participation == 'not participated')"
+
+[[who]]
+ballot_types = [ "referendum" ]
+i.20230618 = 2
+value.de = "Stichprobenkategorie Wohlen: Ja-Stimmende eidgenössische Vorlage {i}"
+value.en = "sample category Wohlen: yes-voters of federal proposal {i}"
+description.de = "All jene Respondenten, welche der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zum Stimmentscheid bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } eidgenössischen _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ mit _Ja (angenommen)_ (`1`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place == 'Wohlen' & voting_decision_federal_proposal_{i} == 'Ja (angenommen)')"
+en = "dplyr::filter(place == 'Wohlen' & voting_decision_federal_proposal_{i} == 'yes (affirmative vote)')"
+[who.filter.negative]
+de = "dplyr::filter(place != 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('Nein (abgelehnt)', NA))"
+en = "dplyr::filter(place != 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('no (negative vote)', NA))"
+
+[[who]]
+ballot_types = [ "referendum" ]
+i.20230618 = 2
+value.de = "nicht Stichprobenkategorie Wohlen: Ja-Stimmende eidgenössische Vorlage {i}"
+value.en = "not sample category Wohlen: yes-voters of federal proposal {i}"
+description.de = "All jene Respondenten, welche nicht der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zum Stimmentscheid bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } eidgenössischen _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ mit _Ja (angenommen)_ (`1`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place != 'Wohlen' & voting_decision_federal_proposal_{i} == 'Ja (angenommen)')"
+en = "dplyr::filter(place != 'Wohlen' & voting_decision_federal_proposal_{i} == 'yes (affirmative vote)')"
+[who.filter.negative]
+de = "dplyr::filter(place == 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('Nein (abgelehnt)', NA))"
+en = "dplyr::filter(place == 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('no (negative vote)', NA))"
+
+[[who]]
+ballot_types = [ "referendum" ]
+i.20230618 = 2
+value.de = "Stichprobenkategorie Wohlen: Nein-Stimmende eidgenössische Vorlage {i}"
+value.en = "sample category Wohlen: no-voters of federal proposal {i}"
+description.de = "All jene Respondenten, welche der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zum Stimmentscheid bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } eidgenössischen _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ mit _Nein (abgelehnt)_ (`2`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place == 'Wohlen' & voting_decision_federal_proposal_{i} == 'Nein (abgelehnt)')"
+en = "dplyr::filter(place == 'Wohlen' & voting_decision_federal_proposal_{i} == 'no (negative vote)')"
+[who.filter.negative]
+de = "dplyr::filter(place != 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('Ja (angenommen)', NA))"
+en = "dplyr::filter(place != 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('yes (affirmative vote)', NA))"
+
+[[who]]
+ballot_types = [ "referendum" ]
+i.20230618 = 2
+value.de = "nicht Stichprobenkategorie Wohlen: Nein-Stimmende eidgenössische Vorlage {i}"
+value.en = "not sample category Wohlen: no-voters of federal proposal {i}"
+description.de = "All jene Respondenten, welche nicht der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zum Stimmentscheid bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } eidgenössischen _{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ mit _Nein (abgelehnt)_ (`2`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place != 'Wohlen' & voting_decision_federal_proposal_{i} == 'Nein (abgelehnt)')"
+en = "dplyr::filter(place != 'Wohlen' & voting_decision_federal_proposal_{i} == 'no (negative vote)')"
+[who.filter.negative]
+de = "dplyr::filter(place == 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('Ja (angenommen)', NA))"
+en = "dplyr::filter(place == 'Wohlen' | voting_decision_federal_proposal_{i} %in% c('yes (affirmative vote)', NA))"
+
+[[who]]
+ballot_types = [ "referendum" ]
+i.20230618 = [ 1, 2 ]
+value.de = "nicht Stichprobenkategorie Wohlen: Ja-Stimmende kantonale Vorlage {i}"
+value.en = "not sample category Wohlen: yes-voters of cantonal proposal {i}"
+description.de = "All jene Respondenten, welche nicht der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zum Stimmentscheid bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } kantonalen _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ mit _Ja (angenommen)_ (`1`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place != 'Wohlen' & voting_decision_cantonal_proposal_{i} == 'Ja (angenommen)')"
+en = "dplyr::filter(place != 'Wohlen' & voting_decision_cantonal_proposal_{i} == 'yes (affirmative vote)')"
+[who.filter.negative]
+de = "dplyr::filter(place == 'Wohlen' | voting_decision_cantonal_proposal_{i} %in% c('Nein (abgelehnt)', NA))"
+en = "dplyr::filter(place == 'Wohlen' | voting_decision_cantonal_proposal_{i} %in% c('no (negative vote)', NA))"
+
+[[who]]
+ballot_types = [ "referendum" ]
+i.20230618 = [ 1, 2 ]
+value.de = "nicht Stichprobenkategorie Wohlen: Nein-Stimmende kantonale Vorlage {i}"
+value.en = "not sample category Wohlen: no-voters of cantonal proposal {i}"
+description.de = "All jene Respondenten, welche der Stichprobenkategorie (`sample_category`) Wohlen angehören und die Frage zum Stimmentscheid bei{ ifelse(proposal_name_gender(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'short') == 'feminine', ' der', 'm') } kantonalen _{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'short') }_ mit _Nein (abgelehnt)_ (`2`) beantwortet haben."
+[who.filter.positive]
+de = "dplyr::filter(place != 'Wohlen' & voting_decision_cantonal_proposal_{i} == 'Nein (abgelehnt)')"
+en = "dplyr::filter(place != 'Wohlen' & voting_decision_cantonal_proposal_{i} == 'no (negative vote)')"
+[who.filter.negative]
+de = "dplyr::filter(place == 'Wohlen' | voting_decision_cantonal_proposal_{i} %in% c('Ja (angenommen)', NA))"
+en = "dplyr::filter(place == 'Wohlen' | voting_decision_cantonal_proposal_{i} %in% c('yes (affirmative vote)', NA))"
+
+[[who]]
+value.de = "kennt Demoscan"
+value.en = "knows Demoscan"
+description.de = "All jene Respondenten, welche bereits vom Projekt *Demoscan* gehört haben (`demoscan_heard in (2, 3)`)."
+[who.filter.positive]
+de = "dplyr::filter(demoscan_heard %in% c('Schon mal gehört.', 'Ich kenne das Projekt sehr gut.'))"
+[who.filter.negative]
+de = "dplyr::filter(demoscan_heard == 'Noch nie gehört.')"
+
+[[who]]
+value.de = "hat Demoscan-Flyer gelesen"
+value.en = "read Demoscan flyer"
+description.de = "All jene Respondenten, welche den *Demoscan*-Flyer gelesen haben (`demoscan_flyer_read = 1`)."
+[who.filter.positive]
+de = "dplyr::filter(demoscan_flyer_read == 'Ja')"
+[who.filter.negative]
+de = "dplyr::filter(demoscan_flyer_read %in% c(NA, 'Nein'))"
+
+[[who]]
+value.de = "kennt Demokratiefabrik"
+value.en = "knows Demokratiefabrik"
+description.de = "All jene Respondenten, welche bereits von der Online-Plattform *Demokratiefabrik* gehört haben (`demokratiefabrik_heard in (2, 3)`)."
+[who.filter.positive]
+de = "dplyr::filter(demokratiefabrik_heard %in% c('Schon mal gehört.', 'Ich kenne sie sehr gut.'))"
+[who.filter.negative]
+de = "dplyr::filter(demoscan_heard == 'Noch nie gehört.')"
+
+[[who]]
+value.de = "hat Demokratiefabrik-Argumentarium gelesen"
+value.en = "read Demokratiefabrik argumentary"
+description.de = "All jene Respondenten, welche das *Demokratiefabrik*-Argumentarium gelesen haben (`demokratiefabrik_argumentary_read = 1`)."
+[who.filter.positive]
+de = "dplyr::filter(demokratiefabrik_argumentary_read %in% c('Ja', 'Ja, aber nur sehr schnell/oberflächlich'))"
+[who.filter.negative]
+de = "dplyr::filter(demokratiefabrik_argumentary_read %in% c(NA, 'Nein'))"
 
 
 ## political parties
