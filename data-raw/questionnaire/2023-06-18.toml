@@ -16,7 +16,7 @@ reminder = 2021-06-28
 
 [url]
 federal.booklet = "https://www.admin.ch/dam/gov/de/Dokumentation/Abstimmungen/Juni2023/DE_Erlaeuterungen_Juni_2023_web.pdf.download.pdf/DE_Erlaeuterungen_Juni_2023_web.pdf"
-cantonal.booklet = "?"
+cantonal.booklet = "https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/2023-06-18/2023-06-18-abstimmungserl-uterungen-kanton-aargau-barrierefrei.pdf"
 cantonal.archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/abstimmungen/archiv?dc=c51a4929-7beb-474b-bce4-61f849c3d94d_de"
 
 
@@ -38,6 +38,115 @@ short.gender = "neuter"
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230618/klimagesetz.html"
 proponents = "https://klimaschutzgesetz-ja.ch/"
 opponents = "https://stromfresser-gesetz-nein.ch/"
+[[federal.proposal.2.main_motive.yes]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
+en = "to follow a specific voting recommendation"
+code = 1
+[[federal.proposal.2.main_motive.yes]]
+de = "wollte, dass mehr Geld in innovative klimafreundliche Technologien investiert wird."
+en = "MISSING_TRANSLATION"
+code = 2
+[[federal.proposal.2.main_motive.yes]]
+de = "bin der Überzeugung, dass die Annahme des Gesetzes die Unabhängigkeit der Schweiz beim Energie-Import verbessern wird."
+en = "MISSING_TRANSLATION"
+code = 3
+[[federal.proposal.2.main_motive.yes]]
+de = "glaube, dass generell mehr im Bereich Klima unternommen werden muss."
+en = "MISSING_TRANSLATION"
+code = 4
+[[federal.proposal.2.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
+en = "to follow a specific voting recommendation"
+code = 1
+[[federal.proposal.2.main_motive.no]]
+de = "finde, die Vorlage sollte auch die Rolle anderer Länder beim Klimaschutz miteinbeziehen."
+en = "MISSING_TRANSLATION"
+code = 2
+[[federal.proposal.2.main_motive.no]]
+de = "bin der Überzeugung, dass die Annahme des Gesetzes den Strommangel verschärfen wird."
+en = "MISSING_TRANSLATION"
+code = 3
+[[federal.proposal.2.main_motive.no]]
+de = "erwarte, dass das Gesetz die Energiekosten erhöhen wird."
+en = "MISSING_TRANSLATION"
+code = 4
+[[federal.proposal.2.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
+en = "to keep things the way they are"
+code = 6
+[[federal.proposal.2.argument]]
+de.long = "Auch als kleine Schweiz sind wir für unseren ökologischen Fussabdruck verantwortlich. Jeder und jede muss seinen und ihren Teil beitragen."
+de.short = "Schweiz muss Verantwortung wahrnehmen"
+en.long = "MISSING_TRANSLATION"
+side = "pro"
+nr = 1
+[[federal.proposal.2.argument]]
+de.long = "Viele Klimaschutzmassnahmen in dem Gesetz zielen auf saubere Energie, wichtig ist aber vor allem, dass wir weniger Energie verbrauchen."
+de.short = "Energieverbrauchreduktion wichtiger als Förderung Erneuerbarer"
+en.long = "MISSING_TRANSLATION"
+side = "contra"
+nr = 1
+[[federal.proposal.2.argument]]
+de.long = "Das Anbringen von Photovoltaik-Anlagen an beheizten Gebäuden sollte zum Standard werden. Der nicht selbst verwendete und ins Netz zurück gespeiste Strom muss anständig entgeltet werden."
+de.short = "Photovoltaik ist auszubauen und besser zu vergüten"
+en.long = "MISSING_TRANSLATION"
+side = "pro"
+nr = 2
+[[federal.proposal.2.argument]]
+de.long = "Das Gesetz beinhaltet selbst zwar keine Verbote, sollte es angenommen werden, würden die Verbote aber bald folgen. Das ist schlecht – mit Verboten kann man die Bürgerinnen und Bürger nicht überzeugen."
+de.short = "Verbote sind kontraproduktiv"
+en.long = "MISSING_TRANSLATION"
+side = "contra"
+nr = 2
+[[federal.proposal.2.skill_question]]
+de = "Welche Verbote sind in dem Gesetz enthalten?"
+en = "MISSING_TRANSLATION"
+[[federal.proposal.2.skill_question.response_option]]
+de = "Ein Verbot von Verbrennungsmotoren"
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "Ein Flugverbot für Kurzstrecken"
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "Ein Verbot für Unternehmen, ab 2030 Treibhausgase auszustossen"
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "Keines dieser Verbote"
+en = "MISSING_TRANSLATION"
+is_correct = true
+[[federal.proposal.2.skill_question]]
+de = "Das Bundesgesetz ermöglicht unter anderem…"
+en = "MISSING_TRANSLATION"
+[[federal.proposal.2.skill_question.response_option]]
+de = "…die Bereitstellung von finanziellen Mitteln für den Ersatz nicht nachhaltiger Heizungen."
+en = "MISSING_TRANSLATION"
+is_correct = true
+[[federal.proposal.2.skill_question.response_option]]
+de = "…die Schaffung einer Pflicht für die Haushalte, alle nachhaltigen Heizungen zu ersetzen."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "…ein Verbot von Öl- und Gas-Importen zu Heizungszwecken."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question]]
+de = "Das Bundesgetzt verfolgt das Netto-Null-Ziel. Das beudetet, dass…"
+en = "MISSING_TRANSLATION"
+[[federal.proposal.2.skill_question.response_option]]
+de = "…alle Haushalte ihre Emissionen auf null senken müssen."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "…die Schweiz insgesamt ihre Emissionen auf null senken muss."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[federal.proposal.2.skill_question.response_option]]
+de = "…entweder in der Schweiz keine Treibhausgase mehr ausgestossen werden oder der Ausstoss von Treibhausgasen im Ausland kompensiert werden muss."
+en = "MISSING_TRANSLATION"
+is_correct = true
 [federal.proposal.3]
 type = "optional referendum"
 [federal.proposal.3.name.de]
@@ -56,121 +165,145 @@ long.gender = "neuter"
 short.text = "Ombudsgesetz"
 short.gender = "neuter"
 [cantonal.aargau.proposal.1.url]
-overview = "?"
+overview = "https://www.ag.ch/de/aktuell/anhoerungen-vernehmlassungen/archivierte-anhoerungen?dc=79a5ec8f-65fa-4235-a6fc-973ca37080b9_de"
 parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5785553"
+opponents = "https://verwaltungstiger.ch/"
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "wollte eine von der Verwaltung unabhängige und neutrale Schlichtungsstelle für Konflikte zwischen Bürger:innen und Staat schaffen."
+en = "MISSING_TRANSLATION"
 code = 2
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "wollte zusätzlichen Schutz für Personen in der öffentlichen Verwaltung schaffen, die Missstände melden möchten (Whistleblowing)."
+en = "MISSING_TRANSLATION"
 code = 3
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "wollte mit der Schaffung einer niederschwelligen Schlichtungsstelle die Justiz entlasten, d. h. unnötige Gerichtsverfahren vermeiden helfen."
+en = "MISSING_TRANSLATION"
 code = 4
 [[cantonal.aargau.proposal.1.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "wollte das Vertrauen zwischen Bevölkerung und Behörden stärken helfen."
+en = "MISSING_TRANSLATION"
 code = 5
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
+de = "wollte zusätzliche Bürokratie verhindern."
+en = "MISSING_TRANSLATION"
 code = 2
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
+de = "wollte zusätzliche öffentliche Ausgaben vermeiden."
+en = "MISSING_TRANSLATION"
 code = 3
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
+de = "fand, die Ombudsstelle ist keine gute Lösung, da sie zahnlos bleibt und ihre beabsichtigte Funktion gar nicht erfüllen kann."
+en = "MISSING_TRANSLATION"
 code = 4
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "TODO"
-en = "TODO"
+de = "finde, die direkte Demokratie garantiert bereits genug Bürgernähe. Der Aargau benötigt daher keine Ombudsstelle."
+en = "MISSING_TRANSLATION"
 code = 5
 [[cantonal.aargau.proposal.1.main_motive.no]]
-de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
 en = "to keep things the way they are"
 code = 6
 [[cantonal.aargau.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Die Ombudsperson is unabhängig und neutral, da sie nicht die Interessen der Verwaltung vertritt."
+de.short = "Ombudsstelle ist unabhängig und neutral"
+en.long = "MISSING_TRANSLATION"
 side = "pro"
 nr = 1
 [[cantonal.aargau.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Die in der Schweiz gelebte direkte Demokratie garantiert bereits zahlreiche Möglichkeiten für Bürger:innen, direkt mit Entscheidungsträger:innen in Kontakt zu treten."
+de.short = "Direkte Demokratie bereits ausreichend"
+en.long = "MISSING_TRANSLATION"
 side = "contra"
 nr = 1
 [[cantonal.aargau.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Die Ombudsstelle kann unnötige Gerichtsverfahren vermeiden helfen, indem bei Konflikten zwischen Bürger:innen und Behörden frühzeitig vermittelt und deeskaliert wird."
+de.short = "Unnötige Gerichtsverfahren werden vermieden"
+en.long = "MISSING_TRANSLATION"
 side = "pro"
 nr = 2
 [[cantonal.aargau.proposal.1.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Aufgrund fehlender Weisungs- und Sanktionsbefugnisse läuft die Ombudsstelle Gefahr, ein zahnloser Papiertiger zu bleiben."
+de.short = "Ombudsstelle ist zahnloser Papiertiger"
+en.long = "MISSING_TRANSLATION"
 side = "contra"
 nr = 2
 [[cantonal.aargau.proposal.1.skill_question]]
-de = "TODO"
-en = "TODO"
+de = "Die geplante Ombudsstelle ist…"
+en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false
-[[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "…eine Schlichtungsbehörde ohne eigene Weisungsbefugnisse oder Sanktionsmöglichkeiten."
+en = "MISSING_TRANSLATION"
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "…eine Art Zivilgericht, das im Bedarfsfall auch Bussen und Berufsverbote aussprechen kann."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…erfüllt in erster Linie eine repräsentative Funktion, indem die Ombudsperson den Regierungsrat bei wichtigen Staatsanlässen vertritt."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question]]
-de = "TODO"
-en = "TODO"
+de = "Die Einführung einer Ombudsstelle im Kanton Aargau…"
+en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = true
-[[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "…wäre einzigartig, da noch kein anderer Kanton eine solche Institution kennt."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "…wäre nichts aussergewöhnliches, da heute bereits rund ein Viertel aller Kantone eine Ombudsstelle besitzt."
+en = "MISSING_TRANSLATION"
+is_correct = true
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "…würde bedeuten, dass wir zum Rest der Schweiz aufschliessen. Die meisten anderen Kantone kennen bereits eine solche Stelle."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question]]
-de = "TODO"
-en = "TODO"
+de = "Wie würde die zukünftige Ombudsperson bestimmt, welche die Ombudsstelle leitet?"
+en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Sie würde alle vier Jahre vom Parlament gewählt."
+en = "MISSING_TRANSLATION"
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Sie würde alle vier Jahre vom Volk gewählt."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Sie würde im Losverfahren auf Lebenszeit bestimmt."
+en = "MISSING_TRANSLATION"
 is_correct = false
+[[cantonal.aargau.proposal.1.skill_question.response_option]]
+de = "Sie würde alle vier Jahre von der Regierung ernannt."
+en = "MISSING_TRANSLATION"
+is_correct = false
+# [[cantonal.aargau.proposal.1.skill_question]]
+# de = "Wie würde sich die Ombudsstelle mittelfristig auf die Kantonsfinanzen auswirken?"
+# en = "MISSING_TRANSLATION"
+# [[cantonal.aargau.proposal.1.skill_question.response_option]]
+# de = "Sie hätte keine finanziellen Auswirkungen, das sie selbsttragend ist. Wer Dienstleistungen der Ombudsstelle in Anspruch nimmt, muss dafür bezahlen."
+# en = "MISSING_TRANSLATION"
+# is_correct = false
+# [[cantonal.aargau.proposal.1.skill_question.response_option]]
+# de = "Sie würde sich positiv auf den Finanzhaushalt auswirken, da durch sie automatisch teureres Personal in der kantonalen Justiz eingespart wird."
+# en = "MISSING_TRANSLATION"
+# is_correct = false
+# [[cantonal.aargau.proposal.1.skill_question.response_option]]
+# de = "Das hängt vom zukünftigen Personalaufwand ab. Schätzungen gehen von weniger als einer Million Franken jährlich aus."
+# en = "MISSING_TRANSLATION"
+# is_correct = true
+# [[cantonal.aargau.proposal.1.skill_question.response_option]]
+# de = "Berechnungen des Finanzdepartements zufolge ist von etwas über zehn Millionen Franken jährlich auszugehen."
+# en = "MISSING_TRANSLATION"
+# is_correct = true
 
 [cantonal.aargau.proposal.2]
 type = "optional referendum"
@@ -180,7 +313,7 @@ long.gender = "feminine"
 short.text = "Verdichtung des Bahnangebots Stein-Säckingen–Laufenburg"
 short.gender = "feminine"
 [cantonal.aargau.proposal.2.url]
-overview = "?"
+overview = "https://www.ag.ch/de/aktuell/anhoerungen-vernehmlassungen/archivierte-anhoerungen?dc=0b0ae71e-e6b0-47ee-86fa-c0443570e105_de"
 parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5785623"
 
 [cantonal.aargau.proposal.3]
@@ -191,118 +324,118 @@ long.gender = "feminine"
 short.text = "Aargauische Klimaschutzinitiative"
 short.gender = "feminine"
 [cantonal.aargau.proposal.3.url]
-overview = "?"
 parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5847694"
+proponents = "https://www.aargauische-klimaschutzinitiative.ch/"
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "wollte, CO²-Abgaben für fossile Brennstoffe, welche aus dem Kanton Aargau abfliessen, vollständig in den Kanton zurückgeführt werden."
+en = "MISSING_TRANSLATION"
 code = 2
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "bin der Überzeugung, dass die Annahme des Gesetzes die Unabhängigkeit des Aargaus im Energiebereich stärken wird."
+en = "MISSING_TRANSLATION"
 code = 3
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "wollte, dass mehr Geld in innovative klimafreundliche Technologien investiert wird."
+en = "MISSING_TRANSLATION"
 code = 4
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "TODO"
-en = "TODO"
+de = "denke, dass insbesondere das lokale Aargauer Gewerbe von der Initiative profitiert."
+en = "MISSING_TRANSLATION"
 code = 5
-[[cantonal.aargau.proposal.3.main_motive.no]]
-de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen"
-en = "to follow a specific voting recommendation"
-code = 1
-[[cantonal.aargau.proposal.3.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 2
-[[cantonal.aargau.proposal.3.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 3
-[[cantonal.aargau.proposal.3.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 4
-[[cantonal.aargau.proposal.3.main_motive.no]]
-de = "TODO"
-en = "TODO"
-code = 5
-[[cantonal.aargau.proposal.3.main_motive.no]]
-de = "wollte dafür sorgen, dass alles so bleibt, wie es ist"
-en = "to keep things the way they are"
+[[cantonal.aargau.proposal.3.main_motive.yes]]
+de = "glaube, dass generell mehr im Bereich Klima unternommen werden muss."
+en = "MISSING_TRANSLATION"
 code = 6
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
+en = "to follow a specific voting recommendation"
+code = 1
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "glaube, dass das bestehende Förderprogramm des Kantons Aargau ausreicht."
+en = "MISSING_TRANSLATION"
+code = 2
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "finde, die Initiative verursacht zu hohe Kosten."
+en = "MISSING_TRANSLATION"
+code = 3
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "finde, die Initiative ist handwerklich schlecht gemacht."
+en = "MISSING_TRANSLATION"
+code = 4
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
+en = "to keep things the way they are"
+code = 5
 [[cantonal.aargau.proposal.3.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Von Förderprogrammen zur energetischen Gebäudesanierung profitiert auch das lokale Aargauer Gewerbe."
+de.short = "Lokale Gewerbe profitiert"
+en.long = "MISSING_TRANSLATION"
 side = "pro"
 nr = 1
 [[cantonal.aargau.proposal.3.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Der Kanton Aargau verfügt bereits über ein ausreichend gutes Förderprogramm zur energetischen Gebäudesanierung."
+de.short = "Bestehendes Förderprogramm reicht aus"
+en.long = "MISSING_TRANSLATION"
 side = "contra"
 nr = 1
 [[cantonal.aargau.proposal.3.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Der Aargau soll mehr eigene Mittel für Förderprogramme zur energetischen Sanierung bereitstellen, weil so auch mehr Gelder aus den CO²-Abgaben in den Kanton zurückfliessen."
+de.short = "CO²-Abgaben zurückholen"
+en.long = "MISSING_TRANSLATION"
 side = "pro"
 nr = 2
 [[cantonal.aargau.proposal.3.argument]]
-de.long = "TODO"
-de.short = "TODO"
-en.long = "TODO"
+de.long = "Die zusätzliche Belastung des Staatshaushalts durch die Initiative ist zu hoch."
+de.short = "Kosten sind zu hoch"
+en.long = "MISSING_TRANSLATION"
 side = "contra"
 nr = 2
 [[cantonal.aargau.proposal.3.skill_question]]
-de = "TODO"
-en = "TODO"
+de = "Von welchen beiden politischen Parteien wird die Klimaschutzinitiative unterstützt?"
+en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = false
-[[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "SP und Grüne"
+en = "MISSING_TRANSLATION"
 is_correct = true
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Grüne und GLP"
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "GLP und EVP"
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question]]
-de = "TODO"
-en = "TODO"
+de = "Die Klimaschutzinitiative sieht u. a. vor, dass…"
+en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
-is_correct = true
-[[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "…der Einbau von Öl- und Gasheizungen ab 2030 vollständig verboten wird."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "…jährlich rund dreimal soviele Gebäude wie bislang energetisch saniert werden müssen."
+en = "MISSING_TRANSLATION"
+is_correct = true
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "…ein Gebäude mindestens alle 20 Jahre energetisch saniert werden muss."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question]]
-de = "TODO"
-en = "TODO"
+de = "Wieviel zusätzliches Geld aus der vom Bund erhobenen CO²-Abgabe würde bei Annahme der Initiative (Stand heute) in den Kanton Aargau zurückfliessen?"
+en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Etwa gleich viel, wie der Kanton zusätzlich an eigenen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 8.6 Millionen Franken."
+en = "MISSING_TRANSLATION"
 is_correct = true
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Etwa ein Viertel davon, was der Kanton an eigenen zusätzlichen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 2.3 Millionen Franken."
+en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "TODO"
-en = "TODO"
+de = "Etwa ein Zehntel davon, was der Kanton an eigenen zusätzlichen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 900'000 Franken."
+en = "MISSING_TRANSLATION"
 is_correct = false
