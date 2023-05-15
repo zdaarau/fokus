@@ -232,7 +232,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen", "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden.", "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten.", "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl.", "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden.", "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."]
+          "value": ["wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen.", "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden.", "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten.", "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl.", "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden.", "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."]
         },
         {
           "type": "character",
