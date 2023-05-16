@@ -2779,6 +2779,7 @@ question = "Mit der «easyvote»-Abstimmungsbroschüre des Dachverbandes Schweiz
 variable_label = "whether or not the respondent used the \"easyvote\" booklet to learn about the {lvl} proposals"
 variable_name = "{lvl}_proposals_information_source_easyvote_booklet"
 include.false = [ 2018-09-23, 2018-11-25 ]
+who.20230618 = "teilnehmende Online-Respondenten"
 [[03_proposal_specific.005_all.001_information_source.item]]
 # NOTE: old 'discussions' item up until 2018-11-25
 topic = "Informationsquelle kantonale Vorlagen: Gespräche/Diskussionen im Bekanntenkreis"
