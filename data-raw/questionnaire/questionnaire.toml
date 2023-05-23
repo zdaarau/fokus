@@ -26,13 +26,6 @@ variable_values = [ 1, 2, 3 ]
 value_labels = [ "referendum", "election", "both_referendum_and_election" ]
 
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
-topic = "Stichprobenkategorie"
-variable_name = "sample_category"
-variable_label = "sample category the respondent is part of"
-response_options = [ "kantonsweit", "Aarau", "Baden", "Muhen", "Safenwil", "Wohlen" ]
-include.default = false
-include.true = [ 2023-06-18 ]
-[[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Nachname (amtliche Information)[^anon]"
 variable_name = "last_name"
 variable_label = "respondent's last name (official cantonal register information)"
@@ -161,12 +154,6 @@ value_labels = [
 ]
 include.default = false
 
-[[00_cantonal_statistical_office.003_to_zda.item]]
-topic = "Identifikator des kantonalen Statistikamtes"
-variable_name = "id_cantonal_statistical_office"
-variable_label = "identifier to match the demographic data supplied by the cantonal statistical office with the survey data supplied by the polling agency"
-response_options = "_Ganzzahl_"
-include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Geburtsjahr (amtliche Information)[^pseudon]"
 variable_name = "year_of_birth_official"
@@ -4089,6 +4076,19 @@ prefix = 2000
 
 [x_polling_agency.001_all]
 who = "alle"
+[[x_polling_agency.001_all.item]]
+topic = "Identifikator des kantonalen Statistikamtes"
+variable_name = "id_cantonal_statistical_office"
+variable_label = "identifier to match the demographic data supplied by the cantonal statistical office with the survey data supplied by the polling agency"
+response_options = "_Ganzzahl_"
+include.false = [ 2018-09-23, 2018-11-25 ]
+[[x_polling_agency.001_all.item]]
+topic = "Stichprobenkategorie"
+variable_name = "sample_category"
+variable_label = "sample category the respondent is part of"
+response_options = [ "restlicher Kanton AG", "Aarau", "Baden", "Muhen", "Safenwil", "Wohlen" ]
+include.default = false
+include.true = [ 2023-06-18 ]
 [[x_polling_agency.001_all.item]]
 topic = "Fragebogennummer"
 variable_name = "questionnaire_nr"
