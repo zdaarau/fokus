@@ -200,6 +200,18 @@ intro = """
 Zu Beginn möchten wir Sie um Angaben zu Ihrer Person bitten."""
 who = "alle"
 [[01_personal.item]]
+topic = "Explizite Einwilligung"
+question = "Bitten geben Sie an, ob Sie freiwillig an der Befragung teilnehmen."
+variable_name = "explicit_consent"
+variable_label = "whether the respondent agrees to participate in the survey of his or her own free will"
+response_options = [ "Ja, ich nehme freiwillig an dieser Befragung teil.", "Nein, ich möchte nicht an dieser Befragung teilnehmen." ]
+variable_values = [ 0, 1 ]
+value_labels = [ "Yes, I am participating in this survey of my own free will.", "No, I do not wish to participate in this survey." ]
+value_scale = "binary"
+is_mandatory = true
+include.default = false
+include.true = [ 2023-06-18 ]
+[[01_personal.item]]
 topic = "Geburtsjahr (Kontrollfrage)"
 question = "In welchem Jahr sind Sie geboren?"
 variable_name = "year_of_birth"
