@@ -1308,8 +1308,8 @@ variable_values = [ 1, 2, 99 ]
 [02b_demoscan.read]
 who = "hat Demoscan-Flyer gelesen"
 [[02b_demoscan.read.item]]
-question = "Inwiefern fanden Sie den Bürgerbrief *informativ*?"
-variable_name = "demoscan_letter_informative"
+question = "Inwiefern fanden Sie den Demoscan-Flyer *informativ*?"
+variable_name = "demoscan_flyer_informative"
 response_options = [ "überhaupt nicht informativ", "eher nicht informativ", "eher informativ", "sehr informativ", "weiss nicht" ]
 variable_values = [ 1, 2, 3, 4, 99 ]
 [[02b_demoscan.read.item]]
