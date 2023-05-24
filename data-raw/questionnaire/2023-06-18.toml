@@ -32,7 +32,7 @@ government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230
 type = "optional referendum"
 [federal.proposal.2.name.de]
 long.text = "Bundesgesetz über die Ziele im Klimaschutz, die Innovation und die Stärkung der Energiesicherheit (indirekter Gegenvorschlag zur Gletscher-Initiative)"
-short.text = "Klimagesetz"
+short.text = "Klimagesetz (Bund)"
 short.gender = "neuter"
 [federal.proposal.2.url]
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230618/klimagesetz.html"
