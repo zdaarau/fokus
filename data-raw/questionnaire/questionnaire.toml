@@ -1969,11 +1969,11 @@ question.20180923_20201018 = "Würde sich durch die Annahme { salim::definite_ar
 question.default = """
 Würde sich durch die {
   ifelse(proposal_type(ballot_date = ballot_date,
-                       lvl = 'federal',
+                       lvl = 'cantonal',
                        canton = canton,
                        proposal_nr = i) %in% c('mandatory referendum', 'optional referendum'),
-         'Ablehnung',
-         'Annahme')
+         '**Ablehnung**',
+         '**Annahme**')
 } {
   salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
                                                            lvl = 'cantonal',
