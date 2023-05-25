@@ -1443,7 +1443,16 @@ question.default = """
                               proposal_nr = i,
                               lang = 'de',
                               type = 'long'),
-                '_ abgestimmt'),
+                ifelse(ballot_date == '2023-06-18' && i == 2L,
+                       paste0('_ (im Folgenden **',
+                              proposal_name(ballot_date = ballot_date,
+                                            lvl = 'federal',
+                                            canton = canton,
+                                            proposal_nr = i,
+                                            lang = 'de',
+                                            type = 'short'),
+                              '** genannt) abgestimmt'),
+                       '_ abgestimmt')),
          'sich entschieden')
 }?"""
 question.20181125 = """
