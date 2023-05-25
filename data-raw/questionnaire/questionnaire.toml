@@ -1543,14 +1543,14 @@ question.default = """
                                             proposal_nr = i,
                                             lang = 'de',
                                             type = 'long'),
-                              '_ (im Folgenden _',
+                              '_ (im Folgenden **',
                               proposal_name(ballot_date = ballot_date,
                                             lvl = 'cantonal',
                                             canton = canton,
                                             proposal_nr = i,
                                             lang = 'de',
                                             type = 'short'),
-                              '_ genannt) befunden. '))),
+                              '** genannt) befunden. '))),
          '')
 }Wie haben Sie sich {
   ifelse(n_proposals(ballot_date = ballot_date,
@@ -1563,14 +1563,14 @@ question.default = """
                               proposal_nr = i,
                               lang = 'de',
                               type = 'long'),
-                '_ (im Folgenden _',
+                '_ (im Folgenden **',
                 proposal_name(ballot_date = ballot_date,
                               lvl = 'cantonal',
                               canton = canton,
                               proposal_nr = i,
                               lang = 'de',
                               type = 'short'),
-                '_ genannt) '),
+                '** genannt) '),
          '')
 }entschieden?"""
 question.20180923 = """
@@ -1626,14 +1626,14 @@ question.20180923 = """
                               proposal_nr = i,
                               lang = 'de',
                               type = 'long'),
-                '_ (im Folgenden _',
+                '_ (im Folgenden **',
                 proposal_name(ballot_date = ballot_date,
                               lvl = 'cantonal',
                               canton = canton,
                               proposal_nr = i,
                               lang = 'de',
                               type = 'short'),
-                '_ genannt) '),
+                '** genannt) '),
          '')
 }entschieden?"""
 question.20181125 = """
@@ -1939,8 +1939,8 @@ Würde sich durch die {
                        lvl = 'federal',
                        canton = canton,
                        proposal_nr = i) %in% c('mandatory referendum', 'optional referendum'),
-         'Ablehnung',
-         'Annahme')
+         '**Ablehnung**',
+         '**Annahme**')
 } {
   salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
                                                            lvl = 'federal',
