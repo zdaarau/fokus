@@ -317,7 +317,7 @@ overview = "https://www.ag.ch/de/aktuell/anhoerungen-vernehmlassungen/archiviert
 parliament = "https://www.ag.ch/grossrat/grweb/de/195/Detail%20Gesch%C3%A4ft?ProzId=5785623"
 
 [cantonal.aargau.proposal.3]
-type = "optional referendum"
+type = "citizens' initiative"
 [cantonal.aargau.proposal.3.name.de]
 long.text = "Aargauische Volksinitiative \"Klimaschutz braucht Initiative! (Aargauische Klimaschutzinitiative)\""
 long.gender = "feminine"
