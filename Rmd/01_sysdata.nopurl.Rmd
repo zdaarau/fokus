@@ -346,6 +346,7 @@ shortening_rules <- tibble::tribble(
   "convincing",                                 "cnv",                                 "begin-middle-end",
   "custom",                                     "cm",                                  "begin-middle-end",
   "decision",                                   "dcsn",                                "begin-middle-end",
+  "groups",                                     "grps",                                "begin-middle-end",
   "hypothetical",                               "hypo",                                "begin-middle-end",
   "importance",                                 "imp",                                 "begin-middle-end",
   "ineffectiveness",                            "ineff",                               "begin-middle-end",
@@ -354,10 +355,13 @@ shortening_rules <- tibble::tribble(
   "insurance",                                  "insrnc",                              "begin-middle-end",
   "management",                                 "mgmt",                                "begin-middle-end",
   "modification",                               "mod",                                 "begin-middle-end",
+  "newspapers",                                 "newsp",                               "begin-middle-end",
+  "official",                                   "offi",                                "begin-middle-end",
   "options",                                    "opts",                                "begin-middle-end",
   "political",                                  "pol",                                 "begin-middle-end",
   "positioning",                                "pos",                                 "begin-middle-end",
   "public",                                     "pub",                                 "begin-middle-end",
+  "reader_letters_comments",                    "rlc",                                 "begin-middle-end",
   "reduction",                                  "red",                                 "begin-middle-end",
   "spending",                                   "spend",                               "begin-middle-end",
   "switzerland",                                "ch",                                  "begin-middle-end",
@@ -368,12 +372,14 @@ shortening_rules <- tibble::tribble(
   "environmentalism_vs_economic_prosperity",    "env_vs_econ",                         "begin-middle-end",
   "equal_opportunity_foreigners",               "equal_opportunity_foreign",           "begin-middle-end",
   "equivalised_income",                         "equi_inc",                            "begin-middle-end",
-  "reader_letters_comments",                    "reader_comments",                     "begin-middle-end",
   "reason_non_participation",                   "reason_non_part",                     "begin-middle-end",
   "weight_participation",                       "weight_prt",                          "begin-middle-end",
   "welfare_state_vs_self_responsibility",       "welfare_vs_self_respon",              "begin-middle-end",
   ## rare
+  "demokratiefabrik_argumentary",               "demfab_argmty",                       "begin-middle-end",
   "demokratiefabrik",                           "demfab",                              "begin-middle-end",
+  "demoscan_flyer",                             "demsc_fly",                           "begin-middle-end",
+  "demoscan",                                   "demsc",                               "begin-middle-end",
   "infectious_disease_specialists",             "infct_disease_spclsts",               "begin-middle-end"
 )
 ```
