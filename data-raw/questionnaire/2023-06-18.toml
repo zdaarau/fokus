@@ -32,7 +32,7 @@ government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230
 type = "optional referendum"
 [federal.proposal.2.name.de]
 long.text = "Bundesgesetz über die Ziele im Klimaschutz, die Innovation und die Stärkung der Energiesicherheit (indirekter Gegenvorschlag zur Gletscher-Initiative)"
-short.text = "Klimagesetz (Bund)"
+short.text = "Klima- und Innovationsgesetz (Bund)"
 short.gender = "neuter"
 [federal.proposal.2.url]
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230618/klimagesetz.html"
@@ -43,7 +43,7 @@ de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.yes]]
-de = "wollte, dass mehr Geld in innovative klimafreundliche Technologien investiert wird."
+de = "wollte, dass der Kanton Aargau mehr Geld in innovative klimafreundliche Technologien investiert."
 en = "MISSING_TRANSLATION"
 code = 2
 [[federal.proposal.2.main_motive.yes]]
@@ -51,9 +51,13 @@ de = "bin der Überzeugung, dass die Annahme des Gesetzes die Unabhängigkeit de
 en = "MISSING_TRANSLATION"
 code = 3
 [[federal.proposal.2.main_motive.yes]]
-de = "glaube, dass generell mehr im Bereich Klima unternommen werden muss."
+de = "befürworte grundsätzlich Massnahmen für mehr Klimaschutz."
 en = "MISSING_TRANSLATION"
 code = 4
+[[federal.proposal.2.main_motive.yes]]
+de = "glaube, dass energetische Gebäudesanierungen einen wichtigen Beitrag zur CO2-Reduktion leisten können."
+en = "MISSING_TRANSLATION"
+code = 5
 [[federal.proposal.2.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
@@ -93,7 +97,7 @@ en.long = "MISSING_TRANSLATION"
 side = "pro"
 nr = 2
 [[federal.proposal.2.argument]]
-de.long = "Das Gesetz beinhaltet selbst zwar keine Verbote, sollte es angenommen werden, würden die Verbote aber bald folgen. Das ist schlecht – mit Verboten kann man die Bürgerinnen und Bürger nicht überzeugen."
+de.long = "Das Gesetz beinhaltet selbst zwar keine Verbote, sollte es angenommen werden, würden die Verbote aber bald folgen. Das ist schlecht – mit Verboten kann man die Bürger:innen nicht überzeugen."
 de.short = "Verbote sind kontraproduktiv"
 en.long = "MISSING_TRANSLATION"
 side = "contra"
@@ -331,7 +335,7 @@ de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "wollte, CO²-Abgaben für fossile Brennstoffe, welche aus dem Kanton Aargau abfliessen, vollständig in den Kanton zurückgeführt werden."
+de = "wollte, dass CO₂-Abgaben für fossile Brennstoffe, welche aus dem Kanton Aargau abfliessen, vollständig in den Kanton zurückgeführt werden."
 en = "MISSING_TRANSLATION"
 code = 2
 [[cantonal.aargau.proposal.3.main_motive.yes]]
@@ -370,6 +374,18 @@ code = 4
 de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
 en = "to keep things the way they are"
 code = 5
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "bezweifle, dass die Initiative umgesetzt werden kann."
+en = "MISSING_TRANSLATION"
+code = 6
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "denke, dass Klimaschutzmassnahmen auf (inter)nationaler Ebene angegangen werden müssen. Kantonale Alleingänge bringen nichts."
+en = "MISSING_TRANSLATION"
+code = 7
+[[cantonal.aargau.proposal.3.main_motive.no]]
+de = "befürchte, dass die Initiative den Handlungsspielraum des Kantons einschränkt, seine begrenzten Steuermittel andersweitig einzusetzen."
+en = "MISSING_TRANSLATION"
+code = 8
 [[cantonal.aargau.proposal.3.argument]]
 de.long = "Von Förderprogrammen zur energetischen Gebäudesanierung profitiert auch das lokale Aargauer Gewerbe."
 de.short = "Lokale Gewerbe profitiert"
@@ -383,8 +399,8 @@ en.long = "MISSING_TRANSLATION"
 side = "contra"
 nr = 1
 [[cantonal.aargau.proposal.3.argument]]
-de.long = "Der Aargau soll mehr eigene Mittel für Förderprogramme zur energetischen Sanierung bereitstellen, weil so auch mehr Gelder aus den CO²-Abgaben in den Kanton zurückfliessen."
-de.short = "CO²-Abgaben zurückholen"
+de.long = "Der Aargau soll mehr eigene Mittel für Förderprogramme zur energetischen Sanierung bereitstellen, weil so auch mehr Gelder aus den CO₂-Abgaben in den Kanton zurückfliessen."
+de.short = "CO₂-Abgaben zurückholen"
 en.long = "MISSING_TRANSLATION"
 side = "pro"
 nr = 2
@@ -394,21 +410,27 @@ de.short = "Kosten sind zu hoch"
 en.long = "MISSING_TRANSLATION"
 side = "contra"
 nr = 2
+[[cantonal.aargau.proposal.3.argument]]
+de.long = "Energetische Gebäudesanierungen tragen wesentlich zur CO₂-Reduktion bei."
+de.short = "CO₂-Reduktion"
+en.long = "MISSING_TRANSLATION"
+side = "pro"
+nr = 3
 [[cantonal.aargau.proposal.3.skill_question]]
-de = "Von welchen beiden politischen Parteien wird die Klimaschutzinitiative unterstützt?"
+de = "Was würde sich voraussichtlich bei einer Annahme der Initiative für Gebäudeeigentümer:innen verändern?"
 en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "SP und Grüne"
+de = "Gebäudeeigentümer:innen müssten Öl- und Gasheizungen bis spätestens 2030 durch erneuerbare Heizungen ersetzen."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "Eigentümer:innen von Gebäuden mit Baujahr vor 2000 werden gezwungen, ihre Gebäude energetisch zu sanieren."
+en = "MISSING_TRANSLATION"
+is_correct = false
+[[cantonal.aargau.proposal.3.skill_question.response_option]]
+de = "Gebäudeeigentümer:innen erhalten mehr Fördergelder vom Kanton für die freiwillige energetische Sanierung ihrer Gebäude."
 en = "MISSING_TRANSLATION"
 is_correct = true
-[[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "Grüne und GLP"
-en = "MISSING_TRANSLATION"
-is_correct = false
-[[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "GLP und EVP"
-en = "MISSING_TRANSLATION"
-is_correct = false
 [[cantonal.aargau.proposal.3.skill_question]]
 de = "Die Klimaschutzinitiative sieht u. a. vor, dass…"
 en = "MISSING_TRANSLATION"
@@ -417,7 +439,7 @@ de = "…der Einbau von Öl- und Gasheizungen ab 2030 vollständig verboten wird
 en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "…jährlich rund dreimal soviele Gebäude wie bislang energetisch saniert werden müssen."
+de = "…jährlich mindestens 3% der Gebäude im Kanton Aargau energetisch saniert werden müssen."
 en = "MISSING_TRANSLATION"
 is_correct = true
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
@@ -425,7 +447,7 @@ de = "…ein Gebäude mindestens alle 20 Jahre energetisch saniert werden muss."
 en = "MISSING_TRANSLATION"
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question]]
-de = "Wieviel zusätzliches Geld aus der vom Bund erhobenen CO²-Abgabe würde bei Annahme der Initiative (Stand heute) in den Kanton Aargau zurückfliessen?"
+de = "Wieviel zusätzliches Geld aus der vom Bund erhobenen CO₂-Abgabe würde bei Annahme der Initiative (Stand heute) in den Kanton Aargau zurückfliessen?"
 en = "MISSING_TRANSLATION"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Etwa gleich viel, wie der Kanton zusätzlich an eigenen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 8.6 Millionen Franken."
