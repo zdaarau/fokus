@@ -2987,6 +2987,8 @@ value_labels = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, bra
 value_scale = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'value_scale') }"
 [[03_proposal_specific.005_all.001_information_source.item]]
 # TODO: are *cantonal* proposals actually covered by easyvote? If not, we can rename the var below to `information_source_easyvote_booklet`
+lvl.default = "{ if (has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton)) 'cantonal' else 'federal' }"
+lvl.20230618 = "federal"
 topic = "Informationsquelle { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e Vorlagen: [easyvote-Abstimmungsbroschüre](https://www.easyvote.ch/de/f/angebote/broschuere)"
 question = "Mit der «easyvote»-Abstimmungsbroschüre des Dachverbandes Schweizer Jugendparlamente (DSJ) existiert eine weitere Hilfestellung, die insbesondere jungen Stimmberechtigten die Abstimmungsvorlagen möglichst einfach erklären soll. Haben Sie die «easyvote»-Abstimmungsbroschüre genutzt?"
 variable_label = "whether or not the respondent used the \"easyvote\" booklet to learn about the {lvl} proposals"
