@@ -69,7 +69,7 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="fokus-provides-an-api-around-the-fokus-post-voting-surveys">fokus: Provides an API around the FOKUS Post-voting Surveys<a class="anchor" aria-label="anchor" href="#fokus-provides-an-api-around-the-fokus-post-voting-surveys"></a>
+<div class="page-header"><h1 id="fokus">fokus<a class="anchor" aria-label="anchor" href="#fokus"></a>
 </h1></div>
 <p></p>
 <p>fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.</p>
@@ -704,6 +704,22 @@
 <td align="left">pos</td>
 </tr>
 <tr class="odd">
+<td align="left">predicate</td>
+<td align="left">pred</td>
+</tr>
+<tr class="even">
+<td align="left">predicates</td>
+<td align="left">preds</td>
+</tr>
+<tr class="odd">
+<td align="left">preparation</td>
+<td align="left">prep</td>
+</tr>
+<tr class="even">
+<td align="left">preparations</td>
+<td align="left">preps</td>
+</tr>
+<tr class="odd">
 <td align="left">procedures</td>
 <td align="left">prcds</td>
 </tr>
@@ -772,12 +788,12 @@
 <td align="left">rm</td>
 </tr>
 <tr class="even">
-<td align="left">repo</td>
-<td align="left">repository</td>
+<td align="left">repositories</td>
+<td align="left">repos</td>
 </tr>
 <tr class="odd">
-<td align="left">repos</td>
-<td align="left">repositories</td>
+<td align="left">repository</td>
+<td align="left">repo</td>
 </tr>
 <tr class="even">
 <td align="left">right-hand side</td>
@@ -913,7 +929,7 @@
 <h3 id="r-markdown-format">R Markdown format<a class="anchor" aria-label="anchor" href="#r-markdown-format"></a>
 </h3>
 <p>This package’s source code is written in the <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> file format to facilitate practices commonly referred to as <a href="https://en.wikipedia.org/wiki/Literate_programming" class="external-link"><em>literate programming</em></a>. It allows the actual code to be freely mixed with explanatory and supplementary information in expressive Markdown format instead of having to rely on <a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Comments" class="external-link"><code>#</code> comments</a> only.</p>
-<p>All the <code>.gen.R</code> suffixed R source code found under <a href="R/"><code>R/</code></a> is generated from the respective R Markdown counterparts under <a href="Rmd/"><code>Rmd/</code></a> using <a href="https://pkgpurl.rpkg.dev/dev/reference/purl_rmd.html" class="external-link"><code>pkgpurl::purl_rmd()</code></a><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This naming convention as well as the very idea to leverage the R Markdown format to author R packages was originally proposed by Yihui Xie. See his excellent &lt;a href="https://yihui.name/rlp/" class="external-link"&gt;blog post&lt;/a&gt; for more detailed information about the benefits of literate programming techniques and some practical examples. Note that using &lt;code&gt;&lt;a href="https://pkgpurl.rpkg.dev/reference/purl_rmd.html" class="external-link"&gt;pkgpurl::purl_rmd()&lt;/a&gt;&lt;/code&gt; is a less cumbersome alternative to the Makefile approach outlined by him.&lt;/p&gt;'><sup>1</sup></a>. Always make changes only to the <code>.Rmd</code> files – never the <code>.R</code> files – and then run <code><a href="https://pkgpurl.rpkg.dev/reference/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> to regenerate the R source files.</p>
+<p>All the <code>.gen.R</code> suffixed R source code found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/R/" class="external-link"><code>R/</code></a> is generated from the respective R Markdown counterparts under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/Rmd/" class="external-link"><code>Rmd/</code></a> using <a href="https://pkgpurl.rpkg.dev/dev/reference/purl_rmd.html" class="external-link"><code>pkgpurl::purl_rmd()</code></a><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This naming convention as well as the very idea to leverage the R Markdown format to author R packages was originally proposed by Yihui Xie. See his excellent &lt;a href="https://yihui.name/rlp/" class="external-link"&gt;blog post&lt;/a&gt; for more detailed information about the benefits of literate programming techniques and some practical examples. Note that using &lt;code&gt;&lt;a href="https://pkgpurl.rpkg.dev/reference/purl_rmd.html" class="external-link"&gt;pkgpurl::purl_rmd()&lt;/a&gt;&lt;/code&gt; is a less cumbersome alternative to the Makefile approach outlined by him.&lt;/p&gt;'><sup>1</sup></a>. Always make changes only to the <code>.Rmd</code> files – never the <code>.R</code> files – and then run <code><a href="https://pkgpurl.rpkg.dev/reference/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> to regenerate the R source files.</p>
 </div>
 <div class="section level3">
 <h3 id="coding-style">Coding style<a class="anchor" aria-label="anchor" href="#coding-style"></a>
