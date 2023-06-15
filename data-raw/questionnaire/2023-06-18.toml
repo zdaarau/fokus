@@ -137,7 +137,7 @@ de = "…ein Verbot von Öl- und Gas-Importen zu Heizungszwecken."
 en = "MISSING_TRANSLATION"
 is_correct = false
 [[federal.proposal.2.skill_question]]
-de = "Das Bundesgetzt verfolgt das Netto-Null-Ziel. Das beudetet, dass…"
+de = "Das Bundesgesetz verfolgt das Netto-Null-Ziel. Das beudetet, dass…"
 en = "MISSING_TRANSLATION"
 [[federal.proposal.2.skill_question.response_option]]
 de = "…alle Haushalte ihre Emissionen auf null senken müssen."
@@ -148,7 +148,7 @@ de = "…die Schweiz insgesamt ihre Emissionen auf null senken muss."
 en = "MISSING_TRANSLATION"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "…entweder in der Schweiz keine Treibhausgase mehr ausgestossen werden oder der Ausstoss von Treibhausgasen im Ausland kompensiert werden muss."
+de = "…entweder in der Schweiz keine Treibhausgase mehr ausgestossen werden oder der verbleibende Treibhausgasausstoss vollständig kompensiert wird."
 en = "MISSING_TRANSLATION"
 is_correct = true
 [federal.proposal.3]
@@ -343,7 +343,7 @@ de = "bin der Überzeugung, dass die Annahme des Gesetzes die Unabhängigkeit de
 en = "MISSING_TRANSLATION"
 code = 3
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "wollte, dass mehr Geld in innovative klimafreundliche Technologien investiert wird."
+de = "wollte, dass der Kanton Aargau mehr Geld in innovative klimafreundliche Technologien investiert."
 en = "MISSING_TRANSLATION"
 code = 4
 [[cantonal.aargau.proposal.3.main_motive.yes]]

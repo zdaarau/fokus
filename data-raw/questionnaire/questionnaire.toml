@@ -201,7 +201,7 @@ Zu Beginn möchten wir Sie um Angaben zu Ihrer Person bitten."""
 who = "alle"
 [[01_personal.item]]
 topic = "Explizite Einwilligung"
-question = "Bitten geben Sie an, ob Sie freiwillig an der Befragung teilnehmen."
+question = "Bitte geben Sie an, ob Sie freiwillig an der Befragung teilnehmen."
 variable_name = "explicit_consent"
 variable_label = "whether the respondent agrees to participate in the survey of his or her own free will"
 response_options = [ "Ja, ich nehme freiwillig an dieser Befragung teil.", "Nein, ich möchte nicht an dieser Befragung teilnehmen." ]
@@ -290,7 +290,8 @@ variable_values = [ 0, 1, 99 ]
 value_labels = [ "is not true", "is true", "don't know" ]
 value_scale = "binary"
 [02_political_start.002_non_participation.001_both]
-question_intro_i.referendum = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { ifelse(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht."
+question_intro_i.referendum.default = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte geben Sie jeweils an, ob der angegebene Grund auf Sie zutrifft."
+question_intro_i.referendum.20180923_20211128 = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Abstimmungen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { ifelse(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Abstimmungen**', 'Sie') } zutrifft oder nicht."
 question_intro_i.election = "Nachfolgend sehen Sie verschiedene Gründe, weshalb man an Wahlen nicht teilnimmt. Bitte sagen Sie uns jeweils, ob der angegebene Grund für { ifelse(lvl == 'cantonal', 'Ihre Nichtteilnahme/Enthaltung an den **kantonalen Wahlen**', 'Sie') } zutrifft oder nicht."
 question_full = "Trifft «{question}» als Grund für Ihre Nichtteilnahme/Enthaltung an den{ ifelse(lvl == 'cantonal', ' **kantonalen**', '') } Abstimmungen/Wahlen zu oder nicht?"
 [[02_political_start.002_non_participation.001_both.item]]
@@ -1283,7 +1284,7 @@ who = "alle"
 include.default = false
 include.true = [ 2023-06-18 ]
 [[02b_demoscan.item]]
-question = "Haben Sie bereits von dem Projekt «Demoscan Aargau» gehört?"
+question = "Im Kanton Aargau fand im Zusammenhang mit der Aargauischen Klimaschutzinitiative erstmals das Projekt «Demoscan Aargau» statt. Haben Sie bereits von dem Projekt «Demoscan Aargau» gehört?"
 variable_name = "demoscan_heard"
 response_options = [ "Noch nie gehört.", "Schon mal gehört.", "Ich kenne das Projekt gut." ]
 variable_values = [ 1, 2, 3 ]
@@ -1346,7 +1347,7 @@ who = "Stichprobenkategorie Wohlen"
 include.default = false
 include.true = [ 2023-06-18 ]
 [[02c_demokratiefabrik.item]]
-question = "Haben Sie bereits von der Online-Plattform «Demokratiefabrik» gehört?"
+question = "Im Zusammenhang mit dem Klima- und Innovationsgesetz (Bund) fand erstmals das Projekt «Demokratiefabrik» statt. Haben Sie bereits von der Online-Plattform «Demokratiefabrik» gehört?"
 variable_name = "demokratiefabrik_heard"
 response_options = [ "Noch nie gehört.", "Schon mal gehört.", "Ich kenne sie gut." ]
 variable_values = [ 1, 2, 3 ]
@@ -1975,7 +1976,7 @@ variable_label = "whether or not the respondent would be personally affected by 
 variable_label_common = "whether or not the respondent would be personally affected by the adoption of the { salim::rank_nr(i) } federal proposal"
 who.20230618 = "Stichprobenkategorie Wohlen"
 include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'federal', canton = canton) && !has_referendum(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) }"
-include.20230618 = true
+include.false = [ 2023-06-18 ]
 [[03_proposal_specific.002_all.002_affectedness.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Betroffenheit kantonale Vorlage {i}"
@@ -2016,7 +2017,7 @@ variable_name = "affectedness_cantonal_proposal_{i}"
 variable_label = "whether or not the respondent would be personally affected by the adoption of the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "whether or not the respondent would be personally affected by the adoption of the { salim::rank_nr(i) } cantonal proposal"
 who.20230618 = "{ ifelse(i == 3, 'alle', 'nicht Stichprobenkategorie Wohlen') }"
-include.false = [ 2018-11-25 ]
+include.false = [ 2018-11-25, 2023-06-18 ]
 [03_proposal_specific.002_all.003_information_level]
 response_options = [ "0 (überhaupt nicht informiert)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10 (sehr gut informiert)", "weiss nicht" ]
 variable_values = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99 ]
@@ -2795,7 +2796,7 @@ response_options = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton,
 variable_values = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'variable_values') }"
 value_labels = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'value_labels') }"
 value_scale = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_1_election_general', 'z02_information_source'), var_name = 'information_source_free_newspapers', key = 'value_scale') }"
-question_intro_i = """
+question_intro_i.default = """
 Haben Sie die folgenden Quellen genutzt, um sich über {
   if (lvl == 'federal' && ballot_date == '2023-06-18') 'das Klimagesetz (Bund)' else
   ifelse(n_proposals(ballot_date = ballot_date,
@@ -2827,6 +2828,7 @@ Haben Sie die folgenden Quellen genutzt, um sich über {
                               type = 'short'),
                 '_'))
 } zu informieren und eine Meinung zu bilden?"""
+question_intro_i.20230618 = "Haben Sie die folgenden Quellen genutzt, um sich über { if (lvl == 'federal') 'das **Klimagesetz (Bund)**' else 'die **Aargauische Klimaschutzinitiative**' } zu informieren und eine Meinung zu bilden?"
 who.default = "Teilnehmende"
 who.20230618 = "{ if (lvl == 'cantonal') 'nicht ' else '' }Stichprobenkategorie Wohlen: Teilnehmende"
 [[03_proposal_specific.004_participants.z02_information_source.item]]
@@ -3075,7 +3077,7 @@ include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[03_proposal_specific.005_all.002_deliberation.001_cantonal.item]]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis über kantonale Vorlage {i}"
-question_intro_i = """{
+question_intro_i.default = """{
 if (n_proposals(ballot_date = ballot_date,
                 lvls = 'cantonal',
                 canton = canton) > 1L) 'Wie oft haben Sie sich im Bekanntenkreis über die **kantonale(n)** Vorlage(n) ausgetauscht bzw. über diese diskutiert?' else NULL
@@ -3101,6 +3103,7 @@ ifelse(n_proposals(ballot_date = ballot_date,
                             type = 'short'),
               '_'))
 }"""
+question_intro_i.20230618 = "Wie oft haben Sie sich im Bekanntenkreis über die nachfolgenden Vorlagen ausgetauscht bzw. über diese diskutiert?"
 question_common = "Wie oft haben Sie sich im Bekanntenkreis über die kantonale Vorlage {i} ausgetauscht bzw. über diese diskutiert?"
 variable_label = "how often the respondent discussed the cantonal proposal {i} with acquaintances"
 variable_name = "intensity_political_discussions_cantonal_proposal_{i}"
@@ -3228,7 +3231,7 @@ include.default = "{ has_referendum(ballot_date = ballot_date, lvls = 'cantonal'
 include.false = [ 2023-06-18 ]
 [[03_proposal_specific.005_all.item]]
 topic = "Primäre Informationsquelle (on- vs. offline)"
-question = "Ganz generell: Wo informieren Sie sich *am häufigsten* über Politik: Ist das …?"
+question = "Ganz generell: Wo informieren Sie sich **am häufigsten** über Politik: Ist das …?"
 variable_name = "primary_political_information_source"
 variable_label = "respondent's primary source of political information (on- vs. offline)"
 response_options.default = [
@@ -6101,57 +6104,57 @@ de = "dplyr::filter(demokratiefabrik_argumentary_read %in% c(NA, 'Nein'))"
 [[who]]
 value.de = "nutzte Infoquelle: Gratiszeitungen"
 value.en = "used information source: free newspapers"
-description.de = "All jene Respondenten, welche Gratiszeitungen genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_free_newspapers == 1`)."
+description.de = "All jene Respondenten, welche Gratiszeitungen genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_free_newspapers == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Abonnementszeitungen"
 value.en = "used information source: paid newspapers"
-description.de = "All jene Respondenten, welche Abonnementszeitungen genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_paid_newspapers == 1`)."
+description.de = "All jene Respondenten, welche Abonnementszeitungen genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_paid_newspapers == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Abstimmungsbroschüre"
 value.en = "used information source: official booklet"
-description.de = "All jene Respondenten, welche die Abstimmungsbroschüre genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_official_booklet == 1`)."
+description.de = "All jene Respondenten, welche die Abstimmungsbroschüre genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_official_booklet == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Radiosendungen"
 value.en = "used information source: radio program"
-description.de = "All jene Respondenten, welche Radiosendungen genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_radio_program == 1`)."
+description.de = "All jene Respondenten, welche Radiosendungen genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_radio_program == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Fernsehsendungen"
 value.en = "used information source: tv program"
-description.de = "All jene Respondenten, welche Fernsehsendungen genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_tv_program == 1`)."
+description.de = "All jene Respondenten, welche Fernsehsendungen genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_tv_program == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Kantonswebseite"
 value.en = "used information source: official webpage"
-description.de = "All jene Respondenten, welche die Kantonswebseite genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_official_webpage == 1`)."
+description.de = "All jene Respondenten, welche die Kantonswebseite genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_official_webpage == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Leserkommentare"
 value.en = "used information source: reader comments"
-description.de = "All jene Respondenten, welche Leserkommentare genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_reader_letters_comments == 1`)."
+description.de = "All jene Respondenten, welche Leserkommentare genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_reader_letters_comments == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Soziale Medien"
 value.en = "used information source: social media"
-description.de = "All jene Respondenten, welche soziale Medien genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_social_media == 1`)."
+description.de = "All jene Respondenten, welche soziale Medien genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_social_media == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Chatgruppen"
 value.en = "used information source: public chat groups"
-description.de = "All jene Respondenten, welche Chatgruppen genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_information_source_public_chat_groups == 1`)."
+description.de = "All jene Respondenten, welche Chatgruppen genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_information_source_public_chat_groups == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Demoscan-Flyer"
 value.en = "used information source: Demoscan flyer"
-description.de = "All jene Respondenten, welche den Demoscan-Flyer genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_demoscan_flyer == 1`)."
+description.de = "All jene Respondenten, welche den Demoscan-Flyer genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_demoscan_flyer == 1`)."
 
 [[who]]
 value.de = "nutzte Infoquelle: Demokratiefabrik-Argumentarium"
 value.en = "used information source: Demokratiefabrik argumentary"
-description.de = "All jene Respondenten, welche das Demokratiefabrik-Argumentarium genutzt haben, um sich über die Vorlage zu informieren (`importance_*_proposals_demokratiefabrik_argumentary == 1`)."
+description.de = "All jene Respondenten, welche das Demokratiefabrik-Argumentarium genutzt haben, um sich über die Vorlage zu informieren (`*_proposals_demokratiefabrik_argumentary == 1`)."
 
 
 ## political parties
