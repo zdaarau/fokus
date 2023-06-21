@@ -101,7 +101,8 @@ utils::globalVariables(names = c(".",
 #' @keywords internal
 abbreviations <- function(expand = FALSE) {
   
-  pal::assert_pkg("pkgsnip")
+  rlang::check_installed("pkgsnip",
+                         reason = pal::reason_pkg_required())
   
   tibble::tibble(full_expressions = list("google"),
                  abbreviation = "g") %>%
@@ -2131,7 +2132,8 @@ read_online_participation_codes <- function(ballot_date,
 
 read_voting_register_data_extra <- function(ballot_date,
                                             canton) {
-  pal::assert_pkg("readxl")
+  rlang::check_installed("readxl",
+                         reason = pal::reason_pkg_required())
   
   # get date of latest dataset delivered *before* ballot date
   date_data <-
@@ -4446,8 +4448,10 @@ export_qstnr <- function(ballot_date = all_ballot_dates,
   checkmate::assert_string(local_deploy_path,
                            null.ok = TRUE)
   checkmate::assert_flag(upload_to_g_drive)
-  pal::assert_pkg("rmarkdown")
-  pal::assert_pkg("yay")
+  rlang::check_installed("rmarkdown",
+                         reason = pal::reason_pkg_required())
+  rlang::check_installed("yay",
+                         reason = pal::reason_pkg_required())
   
   md_path <- path_private(glue::glue("output/questionnaires/questionnaire_{ballot_date}_{canton}.md"))
   
@@ -4633,9 +4637,12 @@ export_qr_codes <- function(ballot_date = all_ballot_dates,
   canton <- rlang::arg_match(canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
-  pal::assert_pkg("archive")
-  pal::assert_pkg("qrencoder")
-  pal::assert_pkg("rsvg")
+  rlang::check_installed("archive",
+                         reason = pal::reason_pkg_required())
+  rlang::check_installed("qrencoder",
+                         reason = pal::reason_pkg_required())
+  rlang::check_installed("rsvg",
+                         reason = pal::reason_pkg_required())
   
   participation_codes <- read_online_participation_codes(ballot_date = ballot_date,
                                                          canton = canton)
@@ -5205,7 +5212,8 @@ postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
 #' @keywords internal
 auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
   
-  pal::assert_pkg("googledrive")
+  rlang::check_installed("googledrive",
+                         reason = pal::reason_pkg_required())
   is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
                                          access = "r")
   
@@ -5239,7 +5247,8 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP
 #' @keywords internal
 auth_g_sheets_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
   
-  pal::assert_pkg("googledrive")
+  rlang::check_installed("googledrive",
+                         reason = pal::reason_pkg_required())
   is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
                                          access = "r")
   
@@ -5298,7 +5307,8 @@ backup_g_file <- function(g_id,
   checkmate::assert_flag(overwrite)
   checkmate::assert_flag(force)
   checkmate::assert_flag(quiet)
-  pal::assert_pkg("googledrive")
+  rlang::check_installed("googledrive",
+                         reason = pal::reason_pkg_required())
   
   if (quiet) {
     googledrive::local_drive_quiet()
@@ -5354,9 +5364,10 @@ backup_g_sheet <- function(g_id,
   checkmate::assert_flag(overwrite)
   checkmate::assert_flag(force)
   checkmate::assert_flag(quiet)
-  pal::assert_pkg("googledrive")
-  pal::assert_pkg("googlesheets4")
-  
+  rlang::check_installed("googledrive",
+                         reason = pal::reason_pkg_required())
+  rlang::check_installed("googlesheets4",
+                         reason = pal::reason_pkg_required())
   pal::check_dots_named(...,
                         .fn = googlesheets4::read_sheet,
                         .forbidden = "ss")
@@ -5405,7 +5416,8 @@ backup_g_sheet <- function(g_id,
                                      na = ""),
                   
                   . == "xlsx" ~ {
-                    pal::assert_pkg("writexl")
+                    rlang::check_installed("writexl",
+                                           reason = pal::reason_pkg_required())
                     writexl::write_xlsx(x = data,
                                         path = path)
                   },

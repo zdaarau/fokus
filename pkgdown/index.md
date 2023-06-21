@@ -238,6 +238,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   google                                    g
   identifiers                               ids
   identify, identifier                      id
+  image                                     img
+  images                                    imgs
   include, inclusion                        incl
   index                                     i
   indexes, indices                          ix
