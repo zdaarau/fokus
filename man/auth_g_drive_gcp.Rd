@@ -13,7 +13,7 @@ auth_g_drive_gcp(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"))
 \code{path_gcp_service_account_key}, invisibly.
 }
 \description{
-Authorizes the googledrive package to access and manage files on your Google Drive via a \href{https://cloud.google.com/iam/docs/creating-managing-service-account-keys}{Google Cloud Platform (GCP) Service Account Key} file (in JSON format). See the \href{https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly}{relevant googledrive documentation} for details.
+Authorizes the googledrive package to access and manage files on your Google Drive via a \href{https://cloud.google.com/iam/docs/creating-managing-service-account-keys}{Google Cloud Platform (GCP) Service Account Key} file (in JSON format). See the \href{https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly}{relevant documentation} for details.
 }
 \details{
 The recommended way to provide the filesystem path to the GCP Service Account Key file is to set the \href{https://en.wikipedia.org/wiki/Environment_variable}{environment variable} \code{PATH_GCP_KEY_ZDA} to that path, e.g. via the \href{https://rstats.wtf/r-startup.html#renviron}{\code{.Renviron} file}.

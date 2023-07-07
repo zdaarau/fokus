@@ -5198,7 +5198,7 @@ postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
 #' Authorize googledrive using GCP Service Account Key
 #'
 #' Authorizes the googledrive package to access and manage files on your Google Drive via a [Google Cloud Platform (GCP) Service
-#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file (in JSON format). See the [relevant googledrive
+#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file (in JSON format). See the [relevant
 #' documentation](https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly) for details.
 #'
 #' The recommended way to provide the filesystem path to the GCP Service Account Key file is to set the [environment
@@ -5233,7 +5233,7 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP
 #' Authorize googlesheets4 using GCP Service Account Key
 #'
 #' Authorizes the googlesheets4 package to access and manage Google Sheets via a [Google Cloud Platform (GCP) Service
-#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file (in JSON format). See the [relevant googledrive
+#' Account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) file (in JSON format). See the [relevant
 #' documentation](https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly) for details.
 #'
 #' The recommended way to provide the filesystem path to the GCP Service Account Key file is to set the [environment
@@ -5247,22 +5247,19 @@ auth_g_drive_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP
 #' @keywords internal
 auth_g_sheets_gcp <- function(path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA")) {
   
-  rlang::check_installed("googledrive",
+  rlang::check_installed("googlesheets4",
                          reason = pal::reason_pkg_required())
   is_file <- checkmate::test_file_exists(path_gcp_service_account_key,
                                          access = "r")
   
   if (is_file) {
-    googledrive::drive_auth(path = path_gcp_service_account_key,
+    googlesheets4::gs4_auth(path = path_gcp_service_account_key,
                             use_oob = TRUE)
     
   } else {
-    # TODO: Remove the intermittent `url` assignment as soon as [issue #370](https://github.com/r-lib/cli/issues/370) is resolved.
-    url <- "https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly"
-    
     cli::cli_abort(paste0("No Google Cloud Platform service account key found under {.path {path_gcp_service_account_key}} ",
                           "Instructions to store such a key can be found here: ",
-                          "{.url {url}}"))
+                          "{.url https://gargle.r-lib.org/articles/non-interactive-auth.html#provide-a-service-account-token-directly}"))
   }
   
   invisible(path_gcp_service_account_key)
