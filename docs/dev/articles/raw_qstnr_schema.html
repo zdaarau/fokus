@@ -76,7 +76,7 @@
             <h3 data-toc-skip class="subtitle">Structure and semantic
 rules of the raw TOML questionnaire</h3>
             
-            <h4 data-toc-skip class="date">2023-06-22</h4>
+            <h4 data-toc-skip class="date">2023-07-07</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.com/zdaarau/rpkgs/fokus/blob/HEAD/vignettes/raw_qstnr_schema.Rmd" class="external-link"><code>vignettes/raw_qstnr_schema.Rmd</code></a></small>
       <div class="d-none name"><code>raw_qstnr_schema.Rmd</code></div>
@@ -109,14 +109,14 @@ questionnaire items.&lt;/p&gt;
 &lt;/ul&gt;"><sup>1</sup></a>,
 whereby the (alphabetical) order of the table levels conforms to the
 order of the blocks in the questionnaire:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">[</span><span class="dt">blockname</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">[blockname]</span></span></code></pre></div>
 </li>
 <li>
 <p>Lower table level names ideally start with a 3-digit number
 (<code>###</code>) since table levels (and hence questionnare items
 below them) are always ordered according to the (alphabetical) order of
 their names:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="kw">[</span><span class="dt">blockname</span><span class="kw">.</span><span class="dt">00X_2nd_lvl</span><span class="kw">.</span><span class="dt">00X_3rd_lvl</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="kw">[blockname.00X_2nd_lvl.00X_3rd_lvl]</span></span></code></pre></div>
 </li>
 <li>
 <p>Deepest<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;The term “deepest” is kind of misleading here since
@@ -132,7 +132,7 @@ an “atomic” questionnaire item (= single row in Markdown questionnaires)
 or a template for multiple similar “atomic” questionnaire items. It can
 be defined multiple times (once for each item) and must be wrapped in
 double brackets:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">[[</span><span class="dt">blockname</span><span class="kw">.</span><span class="dt">00X_2nd_lvl</span><span class="kw">.</span><span class="dt">00X_3rd_lvl</span><span class="kw">.</span><span class="dt">item</span><span class="kw">]]</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode toml"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">[[blockname.00X_2nd_lvl.00X_3rd_lvl.item]]</span></span></code></pre></div>
 <p>Items appear in the final questionnaire in the same order they are
 defined here. Technically, the level <code>item</code> is an <a href="https://toml.io/en/latest#array-of-tables" class="external-link">array of tables</a>
 which is represented as a list of unnamed lists in R.</p>

@@ -302,12 +302,18 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | remove, removal                         | rm               |
 | repositories                            | repos            |
 | repository                              | repo             |
+| request                                 | req              |
+| requests                                | reqs             |
+| respond, response                       | resp             |
+| responses                               | resps            |
 | right-hand side                         | rhs              |
 | roxygen2                                | roxy             |
 | separate, separator                     | sep              |
 | separators                              | seps             |
 | sequence                                | seq              |
 | sequences                               | seqs             |
+| snippet                                 | snip             |
+| snippets                                | snips            |
 | source                                  | src              |
 | sources                                 | srcs             |
 | specifications                          | specs            |
@@ -330,6 +336,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | variables                               | vars             |
 | vectorize, vector                       | vctr             |
 | vectors                                 | vctrs            |
+| verbatim                                | verb             |
 | version                                 | vrsn             |
 | versions                                | vrsns            |
 | working directory                       | wd               |
@@ -372,7 +379,7 @@ This package borrows a lot of the [Tidyverse](https://www.tidyverse.org/) design
 
 -   Usage of [R’s right-hand assignment operator `->`](https://rdrr.io/r/base/assignOps.html) is not allowed[^3].
 
--   R source code is *not* split over several files as [suggested by the TSG](https://style.tidyverse.org/package-files.html) but instead is (as far as possible) kept in the single file [`Rmd/fokus.Rmd`](Rmd/fokus.Rmd) which is well-structured thanks to its [Markdown support](#r-markdown-format).
+-   R source code is *not* split over several files as [suggested by the TSG](https://style.tidyverse.org/package-files.html) but instead is (as far as possible) kept in the single file [`Rmd/fokus.Rmd`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/Rmd/fokus.Rmd) which is well-structured thanks to its [Markdown support](#r-markdown-format).
 
 As far as possible, these deviations from the TSG plus some additional restrictions are formally specified in the [lintr configuration file](https://github.com/jimhester/lintr#project-configuration) [`.lintr`](.lintr), so lintr can be used right away to check for formatting issues:
 

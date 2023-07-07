@@ -27,7 +27,7 @@ knitr::opts_knit$set(root.dir = getwd())
 #| eval: !expr isTRUE(getOption("pal.build_readme.is_pkgdown"))
 #| results: asis
 #| echo: false
-pkgsnip::md_snip(name = "usage_notice") %>%
+pkgsnip::md_snip(id = "usage_notice") %>%
   paste0("## Usage\n\n", .) %>%
   pal::cat_lines()
 ```
@@ -39,7 +39,7 @@ pkgsnip::md_snip(name = "usage_notice") %>%
 #| echo: false
 #| results: "asis"
 
-pkgsnip::md_snip(name = "pkg_config",
+pkgsnip::md_snip(id = "pkg_config",
                  pkg = "fokus")
 cat("\n\n::: {.table-wide}\n ")
 pal::print_pkg_config("fokus")
@@ -66,7 +66,7 @@ fokus:::print_fokus_private_structure()
 #| eval: !expr '!isTRUE(getOption("pal.build_readme.is_pkgdown"))'
 #| results: asis
 #| echo: false
-pkgsnip::md_snip(name = "pkgdown_notice") %>%
+pkgsnip::md_snip(id = "pkgdown_notice") %>%
   paste0("## Documentation\n\n",
          "[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)]",
          "(https://app.netlify.com/sites/fokus-rpkg-dev/deploys)\n\n",
@@ -83,7 +83,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 <summary><strong>Table of abbreviations</strong></summary>
 
 ```{r, echo = FALSE}
-fokus:::abbreviations() %>%
+fokus:::abbrs() %>%
   # flatten list col to comma-separted char col in order to avoid weird whitespacing before (some) commas (apparently `pal::pipe_table()` has flaws)
   dplyr::mutate(full_expressions = purrr::map_chr(full_expressions,
                                                   pal::prose_ls,

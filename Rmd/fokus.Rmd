@@ -98,28 +98,28 @@ utils::globalVariables(names = c(".",
 
 ### Basic
 
-#### `abbreviations`
+#### `abbrs`
 
 ```{r}
 #' Abbreviations used in the **fokus** package
 #'
 #' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
 #'
-#' @inheritParams pkgsnip::abbreviations
+#' @inheritParams pkgsnip::abbrs
 #'
-#' @return `r pkgsnip::param_label("data")`
+#' @return `r pkgsnip::param_lbl("tibble")`
 #' @keywords internal
-abbreviations <- function(expand = FALSE) {
+abbrs <- function(unnest = FALSE) {
   
   rlang::check_installed("pkgsnip",
                          reason = pal::reason_pkg_required())
   
   tibble::tibble(full_expressions = list("google"),
                  abbreviation = "g") %>%
-    dplyr::bind_rows(pkgsnip::abbreviations()) %>%
+    dplyr::bind_rows(pkgsnip::abbrs()) %>%
     dplyr::arrange(purrr::map_chr(full_expressions,
                                   ~ stringr::str_to_lower(dplyr::first(.x)))) %>%
-    pal::when(expand ~ tidyr::unnest_longer(data = .,
+    pal::when(unnest ~ tidyr::unnest_longer(data = .,
                                             col = full_expressions,
                                             values_to = "full_expression"),
               ~ .)
@@ -164,7 +164,7 @@ lang_to_locale <- function(lang = c("de", "en")) {
 #'
 #' @param ... Filesystem path elements as unnamed vectors.
 #'
-#' @return `r pkgsnip::param_label("path")`
+#' @return `r pkgsnip::param_lbl("path")`
 #' @keywords internal
 path_private <- function(...) {
   
@@ -235,7 +235,7 @@ Functions to access the raw questionnaire data as defined in the [TOML](https://
 #'
 #' A structured list of the raw questionnaire data of the FOKUS surveys.
 #'
-#' @format `r pkgsnip::return_label("strict_list")`
+#' @format `r pkgsnip::return_lbl("strict_list")`
 #' @docType data
 #' @family qstnr_raw
 #' @keywords internal
@@ -251,7 +251,7 @@ NULL
 #'
 #' A structured list of raw supplemental date-specific questionnaire data of the FOKUS surveys.
 #'
-#' @format `r pkgsnip::return_label("strict_list")`
+#' @format `r pkgsnip::return_lbl("strict_list")`
 #' @docType data
 #' @family qstnr_raw
 #' @keywords internal
@@ -272,7 +272,7 @@ NULL
 #'
 #' @inheritParams cantons
 #'
-#' @return `r pkgsnip::return_label("strict_list")`
+#' @return `r pkgsnip::return_lbl("strict_list")`
 #' @family qstnr_raw
 #' @keywords internal
 #'
@@ -1262,7 +1262,7 @@ interpolate_qstnr_val <- function(x,
 #' @param verbose Whether or not to print detailed progress information during questionnaire generation. Note that it will take considerably more time when this
 #'   is set to `TRUE`.
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family qstnr_gen
 #' @keywords internal
 gen_qstnr_tibble <- function(ballot_date = all_ballot_dates,
@@ -1594,7 +1594,7 @@ assemble_qstnr_item_tibble <- function(ballot_date,
 #'
 #' @param qstnr_tibble Questionnaire tibble as returned by [gen_qstnr_tibble()].
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family qstnr_gen
 #' @keywords internal
 expand_qstnr_tibble <- function(qstnr_tibble) {
@@ -2209,7 +2209,7 @@ qstnr_item_val <- function(ballot_date = all_ballot_dates,
 #'
 #' Returns a tibble of ballot-date-specific political party metadata defined in the [raw FOKUS questionnaire data][raw_qstnr].
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family qstnr_internal
 #' @keywords internal
 qstnr_parties <- function(ballot_date = all_ballot_dates) {
@@ -2283,7 +2283,7 @@ qstnr_response_option_codes <- function(types = all_response_option_types) {
 #'
 #' @inheritParams proposal_name
 #'
-#' @return `r pkgsnip::return_label("symbol")`
+#' @return `r pkgsnip::return_lbl("sym")`
 #' @family qstnr_predicate
 #' @keywords internal
 #'
@@ -2318,7 +2318,7 @@ qstnr_lbl_col_sym <- function(lang = c("de", "en")) {
 #'
 #' @inheritParams raw_qstnr_suppl_lvl_canton
 #'
-#' @return `r pkgsnip::param_label("data")`
+#' @return `r pkgsnip::param_lbl("tibble")`
 #' @keywords internal
 #'
 #' @examples
@@ -2673,7 +2673,7 @@ global_max_cache_age <- "30 days"
 #'
 #' A tibble of item keys supported in the [raw FOKUS questionnaire data][raw_qstnr].
 #'
-#' @format `r pkgsnip::return_label("data")`
+#' @format `r pkgsnip::return_lbl("tibble")`
 #' @docType data
 #' @family metadata
 #' @keywords internal
@@ -2759,7 +2759,7 @@ the [predicate functions](#section-predicates).
 #'
 #' A vector of ballot dates covered by FOKUS surveys up until `r max(all_ballot_dates)`.
 #'
-#' @format `r pkgsnip::return_label("dates")`
+#' @format `r pkgsnip::return_lbl("dates")`
 #' @family metadata
 #' @export
 #'
@@ -3883,7 +3883,7 @@ proposal_name_gender <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams proposal_name
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_proposal
 #' @export
 #'
@@ -4018,7 +4018,7 @@ n_proposal_arguments <- function(ballot_date = all_ballot_dates,
 #'   - `"yes"`
 #'   - `"no"`
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_proposal
 #' @export
 #'
@@ -4249,7 +4249,7 @@ n_election_seats <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams n_election_seats
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_election
 #' @export
 #'
@@ -4372,7 +4372,7 @@ election_candidate_prose <- function(ballot_date = all_ballot_dates,
 #' @inheritParams n_election_seats
 #' @param past Whether to extract the current or the predecessor election's parties.
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_election
 #' @export
 #'
@@ -4418,7 +4418,7 @@ election_parties <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams n_election_seats
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_election
 #' @export
 #'
@@ -4641,7 +4641,7 @@ skill_question <- function(ballot_date = all_ballot_dates,
 #'
 #' @inheritParams skill_question
 #'
-#' @return `r pkgsnip::return_label("data")`
+#' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_skill_question
 #' @export
 #'
@@ -4961,7 +4961,7 @@ Functions to process the [raw FOKUS questionnaire data](raw_qstnr.html) and othe
 #' 6. Markdown formatting was [stripped][pal::strip_md] from all character columns.
 #'
 #' @family qstnr_survey
-#' @format `r pkgsnip::return_label("data")`
+#' @format `r pkgsnip::return_lbl("tibble")`
 #'
 #' @examples
 #' fokus::qstnrs
@@ -4976,7 +4976,7 @@ Functions to process the [raw FOKUS questionnaire data](raw_qstnr.html) and othe
 #' A tibble containing basic referendum proposal data of all FOKUS questionnaires.
 #'
 #' @family qstnr_survey
-#' @format `r pkgsnip::return_label("data")`
+#' @format `r pkgsnip::return_lbl("tibble")`
 #'
 #' @examples
 #' fokus::proposals
@@ -4991,7 +4991,7 @@ Functions to process the [raw FOKUS questionnaire data](raw_qstnr.html) and othe
 #' A tibble containing basic election data of all FOKUS questionnaires.
 #'
 #' @family qstnr_survey
-#' @format `r pkgsnip::return_label("data")`
+#' @format `r pkgsnip::return_lbl("tibble")`
 #'
 #' @examples
 #' fokus::elections
@@ -5739,7 +5739,7 @@ shorten_var_names <- function(var_names,
 #' [here](https://www.statalist.org/forums/forum/general-stata-discussion/general/1452366-number-of-characters-in-variable-names)).
 #'
 #' @inheritParams shorten_var_names
-#' @param x `r pkgsnip::param_label("tabular_data")`
+#' @param x `r pkgsnip::param_lbl("tbl_data")`
 #'
 #' @return `x` with column names shortened to a maximum length of 32 characters.
 #' @family var_name_shortening
@@ -6224,7 +6224,7 @@ upload_to_g_drive <- function(filepaths,
 #' @param g_id Google Drive file ID. A character scalar.
 #' @param path_gcp_service_account_key Path to the GCP Service Account Key JSON file. See [auth_g_drive_gcp()] for details.
 #'
-#' @return `r pkgsnip::return_label("datetime")`
+#' @return `r pkgsnip::return_lbl("datetime")`
 #' @family g_apps
 #' @export
 g_file_mod_time <- function(g_id,
@@ -6291,7 +6291,7 @@ md_emphasize <- function(x,
 #'
 #' A [tibble][tibble::tbl_df] with metadata of all possible `r this_pkg` package configuration options. See [pal::pkg_config_val()] for more information.
 #'
-#' @format `r pkgsnip::return_label("data_cols", cols = colnames(pkg_config))`
+#' @format `r pkgsnip::return_lbl("tibble_cols", cols = colnames(pkg_config))`
 #' @export
 #'
 #' @examples
