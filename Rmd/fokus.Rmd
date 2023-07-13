@@ -2334,8 +2334,9 @@ read_easyvote_municipalities <- function(ballot_date,
   date_boundary_lower <- lubridate::as_date(ballot_date) - 90L
   date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
   
-  date_data <-
-    path_private("input/data", canton) %>%
+  # we need to resolve `path_private()` outside of a pipe to trigger the proper error message
+  date_data <- path_private("input/data", canton)
+  date_data %<>%
     fs::dir_ls(type = "file",
                regexp = "easyvote_municipalities_\\d{4}-\\d{2}-\\d{2}\\.csv$") %>%
     stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.csv$)") %>%
