@@ -4,7 +4,7 @@ Die Spalte `Mehrfachnennungen` gibt an, ob es den Befragten möglich ist, mehrer
 tunlichst zu vermeiden, hat sich bei einigen Fragen ein solches Vorgehen als die praktikabelste Lösung herausgestellt. Die Spalte `Mehrfachnennungen` kennt die
 beiden folgenden Werte:
 
--   **ja**: Mehrfachnennungen sind möglich und werden in der Analyse anteilsmässig gewichtet. Wählt eine RespondentIn also bspw. drei Antwortoptionen zugleich
+-   **ja**: Mehrfachnennungen sind möglich und werden in der Analyse anteilsmässig gewichtet. Wählt eine Respondent:in also bspw. drei Antwortoptionen zugleich
     aus, wird jede davon zu einem Drittel gezählt, entscheidet sie sich hingegen nur für eine Antwortoption, zählt diese voll.
 
     Die Konvention zur Kodierung gewollter Mehrfachnennungen lautet, dass `#` einzelne Variablen benannt nach dem Schema `<VARIABLENNAME>_d#` statt der einen

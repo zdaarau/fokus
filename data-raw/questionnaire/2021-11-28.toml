@@ -42,11 +42,11 @@ de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.yes]]
-de = "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden."
+de = "wollte ermöglichen, dass parteilose Kandidat:innen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden."
 en = "wanted to allow non-party candidates to have the same chances as party members to be elected to the Federal Supreme Court."
 code = 2
 [[federal.proposal.2.main_motive.yes]]
-de = "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten."
+de = "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der Bundesrichter:innen nicht gewährleisten."
 en = "believe the current electoral system cannot guarantee the independence of federal judges."
 code = 3
 [[federal.proposal.2.main_motive.yes]]
@@ -54,11 +54,11 @@ de = "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung 
 en = "believe the use of the lottery ticket prevents bribery or otherwise influencing the election."
 code = 4
 [[federal.proposal.2.main_motive.yes]]
-de = "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden."
+de = "wollte dafür sorgen, dass Bundesrichter:innen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden."
 en = "wanted to ensure that federal judges need not fear being voted out of office for politically inconvenient rulings."
 code = 5
 [[federal.proposal.2.main_motive.yes]]
-de = "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
+de = "habe kein Vertrauen ins Parlament, die besten und fähigsten Kandidat:innen ans Bundesgericht zu wählen."
 en = "have no confidence in the Parliament to elect the best and most capable candidates to the Federal Supreme Court."
 code = 6
 [[federal.proposal.2.main_motive.no]]
@@ -66,15 +66,15 @@ de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.no]]
-de = "wollte verhindern, dass in Zukunft weitgehend der Zufall über die Wahl der BundesrichterInnen entscheidet."
+de = "wollte verhindern, dass in Zukunft weitgehend der Zufall über die Wahl der Bundesrichter:innen entscheidet."
 en = "wanted to prevent a future situation in which the election of federal judges is largely decided by chance."
 code = 2
 [[federal.proposal.2.main_motive.no]]
-de = "wollte verhindern, dass sich die BundesrichterInnen nach erfolgreicher Erstwahl keinerlei Wiederwahl mehr stellen müssen."
+de = "wollte verhindern, dass sich die Bundesrichter:innen nach erfolgreicher Erstwahl keinerlei Wiederwahl mehr stellen müssen."
 en = "wanted to prevent federal judges from not having to face any kind of re-election after a successful first election."
 code = 3
 [[federal.proposal.2.main_motive.no]]
-de = "wollte sicherstellen, dass BundesrichterInnen weiterhin Mitglied einer politschen Partei sind, da dies für Transparenz sorgt."
+de = "wollte sicherstellen, dass Bundesrichter:innen weiterhin Mitglied einer politschen Partei sind, da dies für Transparenz sorgt."
 en = "wanted to ensure that federal judges continue to be members of a political party, as this provides transparency."
 code = 4
 [[federal.proposal.2.main_motive.no]]
@@ -82,7 +82,7 @@ de = "finde, die Initiative ist zu vage formuliert. Unklar ist vor allem, wie di
 en = "think the initiative is formulated too loosely Above all, it is unclear how the expert commission is to be formed."
 code = 5
 [[federal.proposal.2.main_motive.no]]
-de = "vertraue dem Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."
+de = "vertraue dem Parlament, die besten und fähigsten Kandidat:innen ans Bundesgericht zu wählen."
 en = "have confidence in the Parliament to elect the best and most capable candidates to the Federal Supreme Court."
 code = 6
 [[federal.proposal.2.main_motive.no]]
@@ -90,25 +90,25 @@ de = "finde das heutige System ganz in Ordnung und sehe keinen Bedarf, etwas dar
 en = "think the current system is just fine and see no need to change anything."
 code = 7
 [[federal.proposal.2.argument]]
-de.long = "Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der BundesrichterInnen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt."
+de.long = "Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der Bundesrichter:innen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt."
 de.short = "Verletzung Gewaltenteilung"
 en.long = "By having the parliament decide on the (re)election of federal judges every six years, the separation of powers between the legislative and judicial branches is violated."
 side = "pro"
 nr = 1
 [[federal.proposal.2.argument]]
-de.long = "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig."
+de.long = "Bei der Wahl für ein derart wichtiges Amt wie jenes der Bundesrichter:innen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig."
 de.short = "Zufallsbasierte Wahl unvernünftig"
 en.long = "Leaving anything to chance (drawing lots) in the election for such an important office as that of federal judges is unreasonable."
 side = "contra"
 nr = 1
 [[federal.proposal.2.argument]]
-de.long = "Dass Bundesrichter-KandidatInnen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit."
+de.long = "Dass Bundesrichter-Kandidat:innen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit."
 de.short = "Parteimitgliedschaft und Mandatsabgabe gefährden Unabhängigkeit"
 en.long = "The fact that, under the current system, federal judge candidates de facto have to be party members and commit to paying a mandate tax to their party jeopardizes their independence."
 side = "pro"
 nr = 2
 [[federal.proposal.2.argument]]
-de.long = "Die heute gängige Parteizugehörigkeit der BundesrichterInnen schafft Transparenz über deren politische Gesinnung."
+de.long = "Die heute gängige Parteizugehörigkeit der Bundesrichter:innen schafft Transparenz über deren politische Gesinnung."
 de.short = "Parteizugehörigkeit schafft Transparenz"
 en.long = "The common party affiliation of federal judges today creates transparency about their political views."
 side = "contra"
@@ -136,34 +136,34 @@ is_correct = false
 de = "Die Justiz-Initiative verlangt, dass in Zukunft…"
 en = "The Justice Initiative demands that from now…"
 [[federal.proposal.2.skill_question.response_option]]
-de = "…BundesrichterInnen keiner Partei mehr angehören dürfen."
+de = "…Bundesrichter:innen keiner Partei mehr angehören dürfen."
 en = "…federal judges may no longer belong to any party."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "…ein Zufallsverfahren über die Wahl fachlich und persönlich geeigneter KandidatInnen entscheidet."
+de = "…ein Zufallsverfahren über die Wahl fachlich und persönlich geeigneter Kandidat:innen entscheidet."
 en = "…a random procedure should decide on the election of professionally and personally suitable candidates."
 is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
-de = "…BundesrichterInnen zur Gewährleistung ihrer eigenen Sicherheit in Ausnahmefällen anonyme Entscheide fällen dürfen (bspw. Prozesse im Bereich organisierter Kriminalität)."
+de = "…Bundesrichter:innen zur Gewährleistung ihrer eigenen Sicherheit in Ausnahmefällen anonyme Entscheide fällen dürfen (bspw. Prozesse im Bereich organisierter Kriminalität)."
 en = "…federal judges be allowed to make anonymous decisions in exceptional cases in order to guarantee their own security (e.g. trials in the area of organized crime)."
 is_correct = false
 [[federal.proposal.2.skill_question]]
-de = "Das heutige Wahlverfahren der BundesrichterInnen stellt sicher, dass…"
+de = "Das heutige Wahlverfahren der Bundesrichter:innen stellt sicher, dass…"
 en = "The current election procedure for federal judges ensures that…"
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die unterschiedlichen Geschlechter, politischen Gesinnungen und Amtssprachen allesamt gleichmässig vertreten sind."
 en = "…the different genders, political views and official languages are all equally represented."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "…die KandidatInnen keinerlei Parteibindungen aufweisen müssen, um gewählt zu werden."
+de = "…die Kandidat:innen keinerlei Parteibindungen aufweisen müssen, um gewählt zu werden."
 en = "…candidates do not have to have any party ties to get elected."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "…die KandidatInnen alle dieselbe Chance haben, gewählt zu werden."
+de = "…die Kandidat:innen alle dieselbe Chance haben, gewählt zu werden."
 en = "…candidates all have an equal chance of being elected."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "…sich die AmtsinhaberInnen alle sechs Jahre der Wiederwahl stellen müssen."
+de = "…sich die Amtsinhaber:innen alle sechs Jahre der Wiederwahl stellen müssen."
 en = "…incumbents must stand for re-election every six years."
 is_correct = true
 [federal.proposal.3]
@@ -197,7 +197,7 @@ de = "wollte eine weitere Spaltung der Schweizer Gesellschaft verhindern."
 en = "wanted to prevent a further split in Swiss society."
 code = 5
 [[federal.proposal.3.main_motive.yes]]
-de = "wollte ein Zeichen setzen gegen MassnahmengegnerInnen und/oder ImpfskeptikerInnen."
+de = "wollte ein Zeichen setzen gegen Massnahmengegner:innen und/oder Impfskeptiker:innen."
 en = "wanted to set an example against opponents of measures and/or vaccination skeptics."
 code = 6
 [[federal.proposal.3.main_motive.yes]]
@@ -237,7 +237,7 @@ de = "wollte eine Machtausweitung des Bundesrates verhindern."
 en = "wanted to prevent an extension of the Federal Council's power."
 code = 8
 [[federal.proposal.3.main_motive.no]]
-de = "wollte ein Zeichen setzen gegen MassnahmenbefürworterInnen und/oder ImpfbefürworterInnen."
+de = "wollte ein Zeichen setzen gegen Massnahmenbefürworter:innen und/oder Impfbefürworter:innen."
 en = "wanted to set an example against supporters of measures and/or vaccination."
 code = 9
 [[federal.proposal.3.argument]]

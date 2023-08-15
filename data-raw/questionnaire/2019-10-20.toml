@@ -61,9 +61,9 @@ name.de.run = "Grüne Partei"
 name.de.qstnr = "Grüne oder Junge Grüne"
 code = 5
 [[federal.aargau.election.proportional.1.party]]
-name.de.short = "glp"
+name.de.short = "GLP"
 name.de.run = "Grünliberale Partei"
-name.de.qstnr = "glp oder Junge glp"
+name.de.qstnr = "GLP oder Junge GLP"
 code = 6
 [[federal.aargau.election.proportional.1.party]]
 name.de.short = "BDP"
@@ -193,15 +193,15 @@ party = "Grüne"
 [[federal.aargau.election.proportional.1.ticket]]
 nr = "06a"
 name = "glp – Grünliberale Partei"
-party = "glp"
+party = "GLP"
 [[federal.aargau.election.proportional.1.ticket]]
 nr = "06b"
 name = "jglp – Junge Grünliberale"
-party = "glp"
+party = "GLP"
 [[federal.aargau.election.proportional.1.ticket]]
 nr = "06c"
 name = "glp-u – Grünliberale Unternehmer"
-party = "glp"
+party = "GLP"
 [[federal.aargau.election.proportional.1.ticket]]
 nr = "07a"
 name = "BDP – Bürgerlich-Demokratische Partei"
@@ -285,9 +285,9 @@ name.de.run = "Bürgerlich-Demokratische Partei"
 name.de.qstnr = "BDP oder Junge BDP"
 code = 7
 [[federal.aargau.election.proportional.1.past_party]]
-name.de.short = "glp"
+name.de.short = "GLP"
 name.de.run = "Grünliberale Partei"
-name.de.qstnr = "glp oder Junge glp"
+name.de.qstnr = "GLP oder Junge GLP"
 code = 6
 [[federal.aargau.election.proportional.1.past_party]]
 name.de.short = "EVP"
@@ -343,7 +343,7 @@ name = "SP und Gewerkschaften"
 party = "SP"
 [[federal.aargau.election.proportional.1.past_ticket]]
 nr = "02b"
-name = "SP und Gewerkschaften – JUSO (JungsozialistInnen)"
+name = "SP und Gewerkschaften – JUSO (Jungsozialist:innen)"
 party = "SP"
 [[federal.aargau.election.proportional.1.past_ticket]]
 nr = "03a"
@@ -380,11 +380,11 @@ party = "BDP"
 [[federal.aargau.election.proportional.1.past_ticket]]
 nr = "07a"
 name = "GLP – Grünliberale Partei"
-party = "glp"
+party = "GLP"
 [[federal.aargau.election.proportional.1.past_ticket]]
 nr = "07b"
 name = "JGLP – Junge Grünliberale Partei"
-party = "glp"
+party = "GLP"
 [[federal.aargau.election.proportional.1.past_ticket]]
 nr = "08a"
 name = "EVP – Evangelische Volkspartei"
@@ -459,7 +459,7 @@ party = "Grüne"
 [[federal.aargau.election.majoritarian.1.candidate]]
 first_name = "Beat"
 last_name = "Flach"
-party = "glp"
+party = "GLP"
 [[federal.aargau.election.majoritarian.1.candidate]]
 first_name = "Maya"
 last_name = "Bally"
@@ -572,7 +572,7 @@ party = "Grüne"
 [[cantonal.aargau.election.majoritarian.1.candidate]]
 first_name = "Doris"
 last_name = "Aebi"
-party = "glp"
+party = "GLP"
 [[cantonal.aargau.election.majoritarian.1.candidate]]
 first_name = "Pius"
 last_name = "Lischer"
@@ -648,7 +648,7 @@ en = "OASI/pension provision"
 de = "Gesundheit/Krankenkassen"
 en = "health/health insurance"
 [[political_issues.issue]]
-de = "AusländerInnen"
+de = "Ausländer:innen"
 en = "foreigners"
 [[political_issues.issue]]
 de = "Flüchtlinge/Asyl"

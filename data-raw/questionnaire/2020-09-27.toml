@@ -116,8 +116,8 @@ is_correct = false
 de = "Welche der folgenden Parteien bzw. Organisationen haben eine **Ja**-Parole zum Jagdgesetz beschlossen?"
 en = "Which of the following parties and organizations have issued a **Yes** recommendation on the hunting law?"
 [[federal.proposal.2.skill_question.response_option]]
-de = "Grüne und glp"
-en = "Grüne and glp"
+de = "Grüne und GLP"
+en = "Grüne and GLP"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "CVP und SVP"
@@ -404,8 +404,8 @@ de = "SP und Grüne"
 en = "SP and Grüne"
 is_correct = false
 [[cantonal.aargau.proposal.2.skill_question.response_option]]
-de = "SVP, EDU und glp"
-en = "SVP, EDU and glp"
+de = "SVP, EDU und GLP"
+en = "SVP, EDU and GLP"
 is_correct = true
 [[cantonal.aargau.proposal.2.skill_question.response_option]]
 de = "SVP und FDP"

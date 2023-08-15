@@ -59,9 +59,9 @@ name.de.run = "Grüne und Junge Grüne"
 name.de.qstnr = "Grüne / Junge Grüne"
 code = 5
 [[cantonal.aargau.election.proportional.1.party]]
-name.de.short = "glp"
+name.de.short = "GLP"
 name.de.run = "Grünliberale Partei"
-name.de.qstnr = "glp"
+name.de.qstnr = "GLP"
 code = 6
 [[cantonal.aargau.election.proportional.1.party]]
 name.de.short = "EVP"
@@ -117,9 +117,9 @@ name.de.run = "Grüne"
 name.de.qstnr = "Grüne"
 code = 5
 [[cantonal.aargau.election.proportional.1.past_party]]
-name.de.short = "glp"
+name.de.short = "GLP"
 name.de.run = "Grünliberale Partei"
-name.de.qstnr = "glp"
+name.de.qstnr = "GLP"
 code = 6
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "BDP"
@@ -291,7 +291,7 @@ en = "OASI/pension provision"
 de = "Gesundheit/Krankenkassen"
 en = "health/health insurance"
 [[political_issues.issue]]
-de = "AusländerInnen"
+de = "Ausländer:innen"
 en = "foreigners"
 [[political_issues.issue]]
 de = "Umweltschutz/Klima"

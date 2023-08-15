@@ -138,7 +138,7 @@ en.long = "Taxes in the canton of Aargau should generally be as low as possible.
 side = "contra"
 nr = 3
 [[cantonal.aargau.proposal.1.skill_question]]
-de = "Die Zahl der AargauerInnen, die Vermögenssteuer zahlen müssen (d. h. ein Vermögen besitzen, das über dem Freibetrag liegt), würde sich durch die Initiative …"
+de = "Die Zahl der Aargauer:innen, die Vermögenssteuer zahlen müssen (d. h. ein Vermögen besitzen, das über dem Freibetrag liegt), würde sich durch die Initiative …"
 en = "With the initiative, the number of people in Aargau who have to pay wealth tax (i.e. own more than the tax-free amount) would be …"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "verdoppeln"
