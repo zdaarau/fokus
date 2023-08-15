@@ -1054,6 +1054,7 @@ resolve_qstnr_val <- function(x,
                               ...) {
   
   checkmate::assert_string(lvl,
+                           na.ok = TRUE,
                            null.ok = TRUE)
   checkmate::assert_count(i,
                           na.ok = TRUE,
@@ -1061,7 +1062,6 @@ resolve_qstnr_val <- function(x,
   checkmate::assert_count(j,
                           na.ok = TRUE,
                           null.ok = TRUE)
-  
   x %>%
     raw_pick_right(key = key,
                    ballot_date = ballot_date,
@@ -1107,16 +1107,18 @@ interpolate_qstnr_val <- function(x,
   if (key %in% qstnr_item_keys$key[qstnr_item_keys$is_scalar]) {
     
     result <- cli::pluralize(x,
+                             .na = NULL,
                              .null = NA_character_,
                              .trim = FALSE)
   } else {
     
     result <-
       x %>%
-      purrr::map(.f = glue::glue,
-                 .envir = rlang::current_env(),
-                 .null = NA_character_,
-                 .trim = FALSE) %>%
+      purrr::map(\(x) glue::glue(x,
+                                 .envir = rlang::current_env(),
+                                 .na = NULL,
+                                 .null = NA_character_,
+                                 .trim = FALSE)) %>%
       unlist()
   }
   
