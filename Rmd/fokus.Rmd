@@ -2015,7 +2015,7 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
                           format_md_multival_col(x = .,
                                                  collapse_break = FALSE) %>%
                           md_emphasize(which = skill_question_answer_nr(ballot_date = ballot_date,
-                                                                        lvl = var_lvls(var_name = variable_name),
+                                                                        lvl = var_lvls(var_names = variable_name),
                                                                         canton = canton,
                                                                         proposal_nr =
                                                                           var_proposal_nr(variable_name) %>%
@@ -5568,11 +5568,11 @@ var_lbl <- function(var_name,
 ```{r}
 #' Determine variable's political level(s)
 #'
-#' Determines a variable's political level(s).
+#' Determines political level(s) of one or more variables.
 #'
-#' Note that the political levels are determined by simply parsing `var_name`.
+#' Note that the political levels are determined by simply parsing `var_names`.
 #'
-#' @inheritParams var_lbl
+#' @inheritParams is_skill_question_var
 #'
 #' @return A character vector of political levels, of length 0 if no specific levels could be determined.
 #' @family vars
@@ -5580,13 +5580,15 @@ var_lbl <- function(var_name,
 #'
 #' @examples
 #' fokus::var_lvls("skill_question_1_cantonal_proposal_1")
-var_lvls <- function(var_name) {
+#'
+#' fokus::var_lvls(c("skill_question_1_cantonal_proposal_1",
+#'                   "skill_question_1_federal_proposal_1"))
+var_lvls <- function(var_names) {
   
-  checkmate::assert_string(var_name,
-                           na.ok = TRUE)
+  checkmate::assert_character(var_names)
   
-  is_cantonal <- var_name %>% stringr::str_detect(pattern = "cantonal")
-  is_federal <- var_name %>% stringr::str_detect(pattern = "federal")
+  is_cantonal <- var_names |> stringr::str_detect(pattern = "cantonal") |> any()
+  is_federal <- var_names |> stringr::str_detect(pattern = "federal") |> any()
   
   c("cantonal"[is_cantonal], "federal"[is_federal])
 }

@@ -4,22 +4,25 @@
 \alias{var_lvls}
 \title{Determine variable's political level(s)}
 \usage{
-var_lvls(var_name)
+var_lvls(var_names)
 }
 \arguments{
-\item{var_name}{Variable name. A character scalar.}
+\item{var_names}{A character vector of FOKUS variable names.}
 }
 \value{
 A character vector of political levels, of length 0 if no specific levels could be determined.
 }
 \description{
-Determines a variable's political level(s).
+Determines political level(s) of one or more variables.
 }
 \details{
-Note that the political levels are determined by simply parsing \code{var_name}.
+Note that the political levels are determined by simply parsing \code{var_names}.
 }
 \examples{
 fokus::var_lvls("skill_question_1_cantonal_proposal_1")
+
+fokus::var_lvls(c("skill_question_1_cantonal_proposal_1",
+                  "skill_question_1_federal_proposal_1"))
 }
 \seealso{
 Other variable-related functions:
