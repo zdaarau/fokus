@@ -31,7 +31,7 @@ fokus::cantons(ballot_date = "2018-09-23")
 library(magrittr)
 
 fokus::all_ballot_dates \%>\%
-  magrittr::set_names(., .) \%>\%
+  magrittr::set_names(., .) |>
   purrr::map_chr(fokus::cantons)
 }
 \seealso{

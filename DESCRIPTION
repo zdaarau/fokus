@@ -15,7 +15,7 @@ License: AGPL (>= 3)
 URL: https://fokus.rpkg.dev, https://gitlab.com/zdaarau/rpkgs/fokus
 BugReports: https://gitlab.com/zdaarau/rpkgs/fokus/issues
 Depends: 
-    R (>= 4.1)
+    R (>= 4.2)
 Imports: 
     checkmate (>= 2.0.0),
     cli (>= 3.6.1),

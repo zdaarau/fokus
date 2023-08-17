@@ -27,11 +27,11 @@ Transforms a \link[=all_ballot_types]{ballot type} into a full prose string repr
 }
 \examples{
 fokus::all_ballot_types |>
-  purrr::map(~ tibble::tibble(type = .x,
-                              de = fokus::ballot_type_prose(ballot_type = .x,
-                                                            lang = "de"),
-                              en = fokus::ballot_type_prose(ballot_type = .x,
-                                                            lang = "en"))) \%>\%
+  purrr::map(\(x) tibble::tibble(type = x,
+                                 de = fokus::ballot_type_prose(ballot_type = x,
+                                                               lang = "de"),
+                                 en = fokus::ballot_type_prose(ballot_type = x,
+                                                               lang = "en"))) |>
   purrr::list_rbind()
 }
 \seealso{

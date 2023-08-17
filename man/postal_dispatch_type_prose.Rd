@@ -31,11 +31,11 @@ Transforms a \link[=all_postal_dispatch_types]{postal dispatch type} into a full
 }
 \examples{
 fokus::all_postal_dispatch_types |>
-  purrr::map(~ tibble::tibble(type = .x,
-                              de = fokus::postal_dispatch_type_prose(dispatch_type = .x,
-                                                                     lang = "de"),
-                              en = fokus::postal_dispatch_type_prose(dispatch_type = .x,
-                                                                     lang = "en"))) \%>\%
+  purrr::map(\(x) tibble::tibble(type = x,
+                                 de = fokus::postal_dispatch_type_prose(dispatch_type = x,
+                                                                        lang = "de"),
+                                 en = fokus::postal_dispatch_type_prose(dispatch_type = x,
+                                                                        lang = "en"))) |>
   purrr::list_rbind()
 }
 \seealso{
