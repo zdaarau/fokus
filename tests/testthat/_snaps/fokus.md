@@ -157,27 +157,27 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["de.long", "de.short", "en.long", "nr", "side"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["de.long", "de.short", "en.long", "nr", "side"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
         {
           "type": "character",
           "attributes": {},
-          "value": ["Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der BundesrichterInnen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt.", "Bei der Wahl für ein derart wichtiges Amt wie jenes der BundesrichterInnen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig.", "Dass Bundesrichter-KandidatInnen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit.", "Die heute gängige Parteizugehörigkeit der BundesrichterInnen schafft Transparenz über deren politische Gesinnung."]
+          "value": ["Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der Bundesrichter:innen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt.", "Bei der Wahl für ein derart wichtiges Amt wie jenes der Bundesrichter:innen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig.", "Dass Bundesrichter-Kandidat:innen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit.", "Die heute gängige Parteizugehörigkeit der Bundesrichter:innen schafft Transparenz über deren politische Gesinnung."]
         },
         {
           "type": "character",
@@ -207,20 +207,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["code", "de", "en"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5, 6]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["code", "de", "en"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
@@ -232,7 +232,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen.", "wollte ermöglichen, dass parteilose KandidatInnen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden.", "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der BundesrichterInnen nicht gewährleisten.", "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl.", "wollte dafür sorgen, dass BundesrichterInnen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden.", "habe kein Vertrauen ins Parlament, die besten und fähigsten KandidatInnen ans Bundesgericht zu wählen."]
+          "value": ["wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen.", "wollte ermöglichen, dass parteilose Kandidat:innen dieselben Chancen wie Parteimitglieder haben, ans Bundesgericht gewählt zu werden.", "glaube, das bisherige Wahlsystem kann die Unabhängigkeit der Bundesrichter:innen nicht gewährleisten.", "bin der Überzeugung, die Verwendung des Loses verhindert eine Bestechung oder anderweitige Beeinflussung der Wahl.", "wollte dafür sorgen, dass Bundesrichter:innen keine Angst zu haben brauchen, für politisch unbequeme Urteile abgewählt zu werden.", "habe kein Vertrauen ins Parlament, die besten und fähigsten Kandidat:innen ans Bundesgericht zu wählen."]
         },
         {
           "type": "character",
