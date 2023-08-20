@@ -4322,6 +4322,7 @@ topic = "Stichprobenkategorie"
 variable_name = "sample_category"
 variable_label = "sample category the respondent is part of"
 response_options = [ "restlicher Kanton AG", "Aarau", "Baden", "Muhen", "Safenwil", "Wohlen" ]
+variable_values = [ 1, 2, 3, 4, 5, 6 ]
 include.default = false
 include.true = [ 2023-06-18 ]
 [[x_polling_agency.001_all.item]]
