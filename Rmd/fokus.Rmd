@@ -1623,14 +1623,14 @@ clean_qstnr_tibble <- function(qstnr_tibble) {
   qstnr_tibble |>
     # remove (single) placeholders
     dplyr::mutate(dplyr::across(any_of(qstnr_item_keys_multival) & where(\(x) is.character(x[[1L]])),
-                                \(x) purrr::map(x,
-                                                ~ {
-                                                  if (length(x) == 1L && isTRUE(stringr::str_detect(x, "^_.+_$"))) {
-                                                    character()
-                                                  } else {
-                                                    x
-                                                  }
-                                                }))) |>
+                                \(col) purrr::map(col,
+                                                  \(x) {
+                                                    if (length(x) == 1L && isTRUE(stringr::str_detect(x, "^_.+_$"))) {
+                                                      character()
+                                                    } else {
+                                                      x
+                                                    }
+                                                  }))) |>
     # strip MD
     dplyr::mutate(dplyr::across(where(is.character),
                                 pal::strip_md),
@@ -1792,8 +1792,8 @@ gen_qstnr_md <- function(qstnr_tibble,
                                                                   .default = 0L))) |>
     # add across-block item enumerator
     dplyr::group_by(enumerator_base) |>
-    dplyr::group_modify(\(x) tibble::rowid_to_column(x,
-                                                     var = "enumerator")) |>
+    dplyr::group_modify(\(d, k) tibble::rowid_to_column(d,
+                                                        var = "enumerator")) |>
     dplyr::ungroup() |>
     dplyr::mutate(enumerator = enumerator_base + enumerator) |>
     dplyr::arrange(block, enumerator) |>
