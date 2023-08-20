@@ -2964,14 +2964,14 @@ variable_name = "importance_{lvl}_proposals_information_source_public_chat_group
 variable_label = "importance of public chat groups (e.g. via [Telegram](https://en.wikipedia.org/wiki/Telegram_(software))) for the respondent to learn about the {lvl} proposals"
 who = "nutzte Infoquelle: Chatgruppen"
 [[03_proposal_specific.004_participants.z03_information_source_importance.item]]
-lvl = "federal"
+lvl = "cantonal"
 topic = "Bedeutung Informationsquelle { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e Vorlagen: Demoscan-Flyer"
 question = "_Demoscan-Flyer_"
 variable_label = "importance of the Demoscan flyer for the respondent to learn about the {lvl} proposals"
 variable_name = "importance_{lvl}_proposals_information_source_demoscan_flyer"
 who = "nutzte Infoquelle: Demoscan-Flyer"
 [[03_proposal_specific.004_participants.z03_information_source_importance.item]]
-lvl = "cantonal"
+lvl = "federal"
 topic = "Bedeutung Informationsquelle { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }e Vorlagen: Demokratiefabrik-Argumentarium"
 question = "_Demokratiefabrik-Argumentarium_"
 variable_label = "importance of the Demokratiefabrik argumentary for the respondent to learn about the {lvl} proposals"
