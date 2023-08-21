@@ -1409,9 +1409,9 @@ assemble_qstnr_item_tibble <- function(ballot_date,
                       ### get English `who` value
                       who_en <-
                         raw_qstnr$who |>
-                        purrr::detect(\(x) x$value$de == stringr::str_replace(string = result$who,
-                                                                              pattern = "\\d+",
-                                                                              replacement = "{i}")) |>
+                        purrr::detect(\(x) result$who == cli::pluralize(x$value$de,
+                                                                        .null = NA_character_,
+                                                                        .trim = FALSE)) |>
                         purrr::chuck("value", "en") |>
                         cli::pluralize(.null = NA_character_,
                                        .trim = FALSE)
