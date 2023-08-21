@@ -1288,6 +1288,7 @@ question = "Im Kanton Aargau fand im Zusammenhang mit der Aargauischen Klimaschu
 variable_name = "demoscan_heard"
 response_options = [ "Noch nie gehört.", "Schon mal gehört.", "Ich kenne das Projekt gut." ]
 variable_values = [ 1, 2, 3 ]
+value_labels = [ "Never heard of it.", "Heard of it before.", "I know the project well." ]
 is_mandatory = true
 
 [02b_demoscan.known]
@@ -1351,6 +1352,7 @@ question = "Im Zusammenhang mit dem Klima- und Innovationsgesetz (Bund) fand ers
 variable_name = "demokratiefabrik_heard"
 response_options = [ "Noch nie gehört.", "Schon mal gehört.", "Ich kenne sie gut." ]
 variable_values = [ 1, 2, 3 ]
+value_labels = [ "Never heard of it.", "Heard of it before.", "I know the project well." ]
 is_mandatory = true
 
 [02c_demokratiefabrik.known]
