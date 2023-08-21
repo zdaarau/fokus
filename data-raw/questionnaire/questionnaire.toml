@@ -6198,9 +6198,9 @@ value.de = "nutzte Infoquelle { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenös
 value.en = "used information source {lvl}: Demoscan flyer"
 description.de = "All jene Respondenten, welche den Demoscan-Flyer genutzt haben, um sich über die { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }en Vorlagen zu informieren (`*_proposals_demoscan_flyer == 1`)."
 [who.filter.positive]
-de = "dplyr::filter({lvl}_proposals_demoscan_flyer == 'genutzt')"
+de = "dplyr::filter({lvl}_proposals_information_source_demoscan_flyer == 'genutzt')"
 [who.filter.negative]
-de = "dplyr::filter({lvl}_proposals_demoscan_flyer %in% c(NA, 'nicht genutzt'))"
+de = "dplyr::filter({lvl}_proposals_information_source_demoscan_flyer %in% c(NA, 'nicht genutzt'))"
 
 [[who]]
 lvl = [ "federal" ]
@@ -6208,9 +6208,9 @@ value.de = "nutzte Infoquelle { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenös
 value.en = "used information source {lvl}: Demokratiefabrik argumentary"
 description.de = "All jene Respondenten, welche das Demokratiefabrik-Argumentarium genutzt haben, um sich über die { ifelse(lvl == 'cantonal', 'kantonal', 'eidgenössisch') }en Vorlagen zu informieren (`*_proposals_demokratiefabrik_argumentary == 1`)."
 [who.filter.positive]
-de = "dplyr::filter({lvl}_proposals_demokratiefabrik_argumentary == 'genutzt')"
+de = "dplyr::filter({lvl}_proposals_information_source_demokratiefabrik_argumentary == 'genutzt')"
 [who.filter.negative]
-de = "dplyr::filter({lvl}_proposals_demokratiefabrik_argumentary %in% c(NA, 'nicht genutzt'))"
+de = "dplyr::filter({lvl}_proposals_information_source_demokratiefabrik_argumentary %in% c(NA, 'nicht genutzt'))"
 
 
 ## political parties
