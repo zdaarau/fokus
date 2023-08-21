@@ -4940,7 +4940,8 @@ lvl = """
     which() %>%
     names()
 }"""
-i = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
+i.20230618 = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) |> setdiff(c(1L, 3L)) }"
 topic = "Wichtigkeit {switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische')} Vorlage {i} (reduziert)"
 question = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), var_name = glue::glue('importance_{lvl}_proposal_{{i}}'), key = 'question', i = i) }"
 question_common = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), var_name = glue::glue('importance_{lvl}_proposal_{{i}}'), key = 'question_common', i = i) }"
