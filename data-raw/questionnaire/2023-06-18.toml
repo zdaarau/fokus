@@ -77,7 +77,7 @@ code = 4
 [[federal.proposal.2.main_motive.no]]
 de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
 en = "to keep things the way they are"
-code = 6
+code = 5
 [[federal.proposal.2.argument]]
 de.long = "Auch als kleine Schweiz sind wir für unseren ökologischen Fussabdruck verantwortlich. Jeder und jede muss seinen und ihren Teil beitragen."
 de.short = "Schweiz muss Verantwortung wahrnehmen"
@@ -354,6 +354,10 @@ code = 5
 de = "glaube, dass generell mehr im Bereich Klima unternommen werden muss."
 en = "MISSING_TRANSLATION"
 code = 6
+[[federal.proposal.2.main_motive.yes]]
+de = "glaube, dass energetische Gebäudesanierungen einen wichtigen Beitrag zur CO2-Reduktion leisten können."
+en = "MISSING_TRANSLATION"
+code = 7
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
 en = "to follow a specific voting recommendation"
