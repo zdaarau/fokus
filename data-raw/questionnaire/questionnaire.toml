@@ -1297,7 +1297,7 @@ who = "kennt Demoscan"
 question = "Wie haben Sie vom Projekt «Demoscan Aargau» erfahren?"
 variable_name = "demoscan_channel"
 response_options = [ "Zeitung", "Radio", "Internet", "TV / Fernseher", "Soziale Medien", "Briefversand von der Universität Zürich", "Durch Freunde, Bekannte oder Familie", "anderes, nämlich: ✍ (Freitextfeld)" ]
-variable_values = [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+variable_values = [ 1, 2, 3, 4, 5, 6, 7, 90 ]
 allow_multiple_answers = true
 [[02b_demoscan.known.item]]
 question = "Haben Sie den Demoscan-Flyer per Post erhalten?"
