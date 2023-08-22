@@ -1833,73 +1833,80 @@ gen_qstnr_md <- function(qstnr_tibble,
                       .trim = FALSE)
   
   technical_notes <-
-    raw_qstnr %$%
-    who |>
-    # reduce to who's that actually occur in data
-    purrr::keep(~ .x |>
-                  purrr::chuck("value", "de") |>
-                  glue::glue(i = glue::glue(.x$i),
-                             j = glue::glue(.x$j)) |>
-                  magrittr::extract(.x |>
-                                      purrr::pluck("ballot_types",
-                                                   .default = all_ballot_types) |>
-                                      intersect(ballot_types(ballot_date = ballot_date,
-                                                             canton = canton)) |>
-                                      length() |>
-                                      magrittr::is_greater_than(0L)) |>
-                  pal::when(length(.) == 0L ~ FALSE,
-                            ~ stringr::str_detect(string = qstnr_tibble$who,
-                                                  pattern = pal::fuse_regex(paste0("\\Q", ., "\\E")))) |>
-                  any()) |>
+    raw_qstnr$who |>
     # assemble who lines
     purrr::map_depth(.depth = 1L,
                      .f = function(who_map) {
+                       
+                       lvl <- resolve_qstnr_val(x = who_map$lvl %||% "",
+                                                ballot_date = ballot_date,
+                                                canton = canton,
+                                                key = "lvl",
+                                                lvl = "",
+                                                i = 1L,
+                                                j = 1L)
                        
                        i <- resolve_qstnr_val(x = who_map$i %||% 1L,
                                               ballot_date = ballot_date,
                                               canton = canton,
                                               key = "i",
                                               lvl = "",
-                                              i = NA_integer_,
-                                              j = NA_integer_)
+                                              i = 1L,
+                                              j = 1L)
                        
                        j <- resolve_qstnr_val(x = who_map$j %||% 1L,
                                               ballot_date = ballot_date,
                                               canton = canton,
                                               key = "j",
                                               lvl = "",
-                                              i = NA_integer_,
-                                              j = NA_integer_)
+                                              i = 1L,
+                                              j = 1L)
                        value <-
-                         i |>
-                         purrr::map(function(i) {
-                           j |>
-                             purrr::map_chr(i = i,
-                                            .f = function(i, j) {
-                                              
-                                              who_map$value$de |>
-                                                glue::glue(.null = NA_character_,
-                                                           .trim = FALSE) |>
-                                                md_emphasize()
-                                            })
+                         lvl |>
+                         purrr::map(\(lvl) {
+                           i |>
+                             purrr::map(lvl = lvl,
+                                        \(lvl, i) {
+                                          j |>
+                                            purrr::map_chr(lvl = lvl,
+                                                           i = i,
+                                                           .f = \(lvl, i, j) {
+                                                             
+                                                             glue::glue(who_map$value$de,
+                                                                        .null = NA_character_,
+                                                                        .trim = FALSE)
+                                                           })
+                                        })
                          }) |>
+                         purrr::flatten() |>
                          purrr::list_c(ptype = character())
                        
                        description <-
-                         i |>
-                         purrr::map(function(i) {
-                           j |>
-                             purrr::map_chr(i = i,
-                                            .f = function(i, j) {
-                                              
-                                              who_map$description$de |>
-                                                glue::glue(.null = NA_character_,
-                                                           .trim = FALSE)
-                                            })
+                         lvl |>
+                         purrr::map(\(lvl) {
+                           i |>
+                             purrr::map(lvl = lvl,
+                                        \(lvl, i) {
+                                          j |>
+                                            purrr::map_chr(lvl = lvl,
+                                                           i = i,
+                                                           .f = \(lvl, i, j) {
+                                                             
+                                                             glue::glue(who_map$description$de,
+                                                                        .null = NA_character_,
+                                                                        .trim = FALSE)
+                                                           })
+                                        })
                          }) |>
+                         purrr::flatten() |>
                          purrr::list_c(ptype = character())
                        
-                       glue::glue("- {value}: {description}")
+                       # reduce to who's that actually occur in data
+                       ix_keep <- which(value %in% qstnr_tibble$who)
+                       value %<>% magrittr::extract(ix_keep)
+                       description %<>% magrittr::extract(ix_keep)
+                       
+                       glue::glue("- { md_emphasize(value) }: { description }")
                      }) |>
     purrr::list_c(ptype = character()) %>%
     c("## Technische Vorbemerkungen",
@@ -5065,7 +5072,6 @@ export_qstnr <- function(ballot_date = all_ballot_dates,
   # Generate questionnaire tibble and Markdown version
   qstnr_tibble <- gen_qstnr_tibble(ballot_date = ballot_date,
                                    verbose = verbose)
-  
   qstnr_tibble |>
     gen_qstnr_md() |>
     readr::write_lines(file = md_path)

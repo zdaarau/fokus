@@ -5993,6 +5993,7 @@ en = "dplyr::filter(sample_category == 'Wohlen' | questionnaire_channel != 'onli
 
 [[who]]
 ballot_types = [ "referendum" ]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 i.20230618 = 2
 value.de = "Stichprobenkategorie Wohlen: Ja-Stimmende eidgenössische Vorlage {i}"
 value.en = "sample category Wohlen: yes-voters of federal proposal {i}"
@@ -6006,6 +6007,7 @@ en = "dplyr::filter(sample_category != 'Wohlen' | voting_decision_federal_propos
 
 [[who]]
 ballot_types = [ "referendum" ]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 i.20230618 = 2
 value.de = "nicht Stichprobenkategorie Wohlen: Ja-Stimmende eidgenössische Vorlage {i}"
 value.en = "not sample category Wohlen: yes-voters of federal proposal {i}"
@@ -6019,6 +6021,7 @@ en = "dplyr::filter(sample_category == 'Wohlen' | voting_decision_federal_propos
 
 [[who]]
 ballot_types = [ "referendum" ]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 i.20230618 = 2
 value.de = "Stichprobenkategorie Wohlen: Nein-Stimmende eidgenössische Vorlage {i}"
 value.en = "sample category Wohlen: no-voters of federal proposal {i}"
@@ -6032,6 +6035,7 @@ en = "dplyr::filter(sample_category != 'Wohlen' | voting_decision_federal_propos
 
 [[who]]
 ballot_types = [ "referendum" ]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 i.20230618 = 2
 value.de = "nicht Stichprobenkategorie Wohlen: Nein-Stimmende eidgenössische Vorlage {i}"
 value.en = "not sample category Wohlen: no-voters of federal proposal {i}"
@@ -6045,6 +6049,7 @@ en = "dplyr::filter(sample_category == 'Wohlen' | voting_decision_federal_propos
 
 [[who]]
 ballot_types = [ "referendum" ]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 i.20230618 = [ 1, 2 ]
 value.de = "nicht Stichprobenkategorie Wohlen: Ja-Stimmende kantonale Vorlage {i}"
 value.en = "not sample category Wohlen: yes-voters of cantonal proposal {i}"
@@ -6058,6 +6063,7 @@ en = "dplyr::filter(sample_category == 'Wohlen' | voting_decision_cantonal_propo
 
 [[who]]
 ballot_types = [ "referendum" ]
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 i.20230618 = [ 1, 2 ]
 value.de = "nicht Stichprobenkategorie Wohlen: Nein-Stimmende kantonale Vorlage {i}"
 value.en = "not sample category Wohlen: no-voters of cantonal proposal {i}"
