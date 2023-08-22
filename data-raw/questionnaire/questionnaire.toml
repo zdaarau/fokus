@@ -2417,7 +2417,7 @@ value_labels.default = [ "very easy", "rather easy", "rather difficult", "very d
 response_options.20180923_20211128 = [ "eher leicht", "eher schwer", "weiss nicht" ]
 variable_values.20180923_20211128 = [ 1, 2, 99 ]
 value_labels.20180923_20211128 = [ "rather easy", "rather difficult", "don't know" ]
-value_scale = "binary"
+value_scale = "ordinal_ascending"
 who.default = "Teilnehmende"
 who.20230618 = "Stichprobenkategorie Wohlen: Teilnehmende"
 include.default = "{ n_proposals(ballot_date = ballot_date, lvls = 'cantonal', canton = canton) == 0L }"
@@ -2436,7 +2436,7 @@ value_labels.default = [ "very easy", "rather easy", "rather difficult", "very d
 response_options.20180923_20211128 = [ "eher leicht", "eher schwer", "weiss nicht" ]
 variable_values.20180923_20211128 = [ 1, 2, 99 ]
 value_labels.20180923_20211128 = [ "rather easy", "rather difficult", "don't know" ]
-value_scale = "binary"
+value_scale = "ordinal_ascending"
 who.default = "Teilnehmende"
 who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Teilnehmende"
 [[03_proposal_specific.004_participants.z01_iterated.item]]
@@ -4944,7 +4944,7 @@ lvl = """
 }"""
 i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
 i.20230618 = "{ if (lvl == 'federal') 2L else proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
-topic = "Wichtigkeit {switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische')} Vorlage {i} (reduziert)"
+topic = "Wichtigkeit { switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische') } Vorlage {i} (reduziert)"
 question = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), var_name = glue::glue('importance_{lvl}_proposal_{{i}}'), key = 'question', i = i) }"
 question_common = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '001_importance'), var_name = glue::glue('importance_{lvl}_proposal_{{i}}'), key = 'question_common', i = i) }"
 variable_name = "importance_{lvl}_proposal_{i}_reduced"
@@ -4952,6 +4952,31 @@ variable_label = "importance (reduced) the respondent attaches to the {lvl} prop
 variable_label_common = "importance (reduced) the respondent attaches to the { salim::rank_nr(i) } {lvl} proposal"
 response_options = [ "sehr gering (0–2)", "eher gering (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
 value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
+value_scale = "ordinal_ascending"
+[[y_generated.001_all.002_referendum.item]]
+lvl = """
+{
+  all_lvls %>%
+    magrittr::set_names(., .) %>%
+    purrr::map_lgl(~ qstnr_item_val(ballot_date = ballot_date,
+                                    canton = canton,
+                                    branch_path = c('03_proposal_specific', '004_participants', 'z01_iterated'),
+                                    var_name = glue::glue('difficulty_{.x}_proposal_{{i}}'),
+                                    key = 'include',
+                                    i = i)) %>%
+    which() %>%
+    names()
+}"""
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
+i.20230618 = "{ if (lvl == 'federal') 2L else proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
+topic = "Verständnisschwierigkeit  { switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische') } Vorlage {i} (reduziert)"
+question = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '004_participants', 'z01_iterated'), var_name = glue::glue('difficulty_{lvl}_proposal_{{i}}'), key = 'question', i = i) }"
+question_common = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '004_participants', 'z01_iterated'), var_name = glue::glue('difficulty_{lvl}_proposal_{{i}}'), key = 'question_common', i = i) }"
+variable_name = "difficulty_{lvl}_proposal_{i}_reduced"
+variable_label = "level of difficulty in understanding the {lvl} proposal \"{ proposal_name(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" for the respondent (reduced)"
+variable_label_common = "level of difficulty in understanding the respondent attaches to the { salim::rank_nr(i) } {lvl} proposal (reduced; only *voters*)"
+response_options = [ "leicht", "schwer", "weiss nicht" ]
+value_labels = [ "easy", "difficult", "don't know" ]
 value_scale = "ordinal_ascending"
 
 [y_generated.001_all.003_election]
