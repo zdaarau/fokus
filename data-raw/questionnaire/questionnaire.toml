@@ -758,7 +758,7 @@ question = "Wie schwierig war es für Sie, das Wahlprozedere zu verstehen?"
 variable_name = "difficulty_election_procedure"
 variable_label = "level of difficulty in understanding the election procedure for the respondent"
 response_options = [ "sehr leicht", "eher leicht", "eher schwer", "sehr schwer", "weiss nicht" ]
-value_labels = [ "very easy", "rather easy", "rather difficult", "very difficult", "don't know" ]
+value_labels = [ "very easy", "rather easy", "rather hard", "very hard", "don't know" ]
 include.false = [ 2019-10-20 ]
 [[03_1_election_general.z03_more.item]]
 topic = "Intensität politischer Gespräche/Diskussionen im Bekanntenkreis"
@@ -2413,10 +2413,10 @@ variable_label = "level of difficulty in understanding the federal proposal \"{ 
 variable_label_common = "level of difficulty in understanding the { salim::rank_nr(i) } federal proposal for the respondent (only *voters*)"
 response_options.default = [ "sehr leicht", "eher leicht", "eher schwer", "sehr schwer", "weiss nicht" ]
 variable_values.default = [ 1, 2, 3, 4, 99 ]
-value_labels.default = [ "very easy", "rather easy", "rather difficult", "very difficult", "don't know" ]
+value_labels.default = [ "very easy", "rather easy", "rather hard", "very hard", "don't know" ]
 response_options.20180923_20211128 = [ "eher leicht", "eher schwer", "weiss nicht" ]
 variable_values.20180923_20211128 = [ 1, 2, 99 ]
-value_labels.20180923_20211128 = [ "rather easy", "rather difficult", "don't know" ]
+value_labels.20180923_20211128 = [ "rather easy", "rather hard", "don't know" ]
 value_scale = "ordinal_ascending"
 who.default = "Teilnehmende"
 who.20230618 = "Stichprobenkategorie Wohlen: Teilnehmende"
@@ -2432,10 +2432,10 @@ variable_label = "level of difficulty in understanding the cantonal proposal \"{
 variable_label_common = "level of difficulty in understanding the { salim::rank_nr(i) } cantonal proposal for the respondent (only *voters*)"
 response_options.default = [ "sehr leicht", "eher leicht", "eher schwer", "sehr schwer", "weiss nicht" ]
 variable_values.default = [ 1, 2, 3, 4, 99 ]
-value_labels.default = [ "very easy", "rather easy", "rather difficult", "very difficult", "don't know" ]
+value_labels.default = [ "very easy", "rather easy", "rather hard", "very hard", "don't know" ]
 response_options.20180923_20211128 = [ "eher leicht", "eher schwer", "weiss nicht" ]
 variable_values.20180923_20211128 = [ 1, 2, 99 ]
-value_labels.20180923_20211128 = [ "rather easy", "rather difficult", "don't know" ]
+value_labels.20180923_20211128 = [ "rather easy", "rather hard", "don't know" ]
 value_scale = "ordinal_ascending"
 who.default = "Teilnehmende"
 who.20230618 = "{ ifelse(i == 3, '', 'nicht Stichprobenkategorie Wohlen: ') }Teilnehmende"
@@ -4970,13 +4970,11 @@ lvl = """
 i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
 i.20230618 = "{ if (lvl == 'federal') 2L else proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
 topic = "Verständnisschwierigkeit  { switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische') } Vorlage {i} (reduziert)"
-question = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '004_participants', 'z01_iterated'), var_name = glue::glue('difficulty_{lvl}_proposal_{{i}}'), key = 'question', i = i) }"
-question_common = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '004_participants', 'z01_iterated'), var_name = glue::glue('difficulty_{lvl}_proposal_{{i}}'), key = 'question_common', i = i) }"
 variable_name = "difficulty_{lvl}_proposal_{i}_reduced"
 variable_label = "level of difficulty in understanding the {lvl} proposal \"{ proposal_name(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" for the respondent (reduced)"
 variable_label_common = "level of difficulty in understanding the respondent attaches to the { salim::rank_nr(i) } {lvl} proposal (reduced; only *voters*)"
 response_options = [ "leicht", "schwer", "weiss nicht" ]
-value_labels = [ "easy", "difficult", "don't know" ]
+value_labels = [ "easy", "hard", "don't know" ]
 value_scale = "ordinal_ascending"
 
 [y_generated.001_all.003_election]
