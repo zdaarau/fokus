@@ -1,9 +1,9 @@
-pandoc: 3.1.4
+pandoc: 3.1.8
 pkgdown: 2.0.7.9000
 pkgdown_sha: 74872270eda08c87b0bd197b7ef4ab69e6c71996
 articles:
   raw_qstnr_schema: raw_qstnr_schema.html
-last_built: 2023-07-07T14:43Z
+last_built: 2023-09-19T14:27Z
 urls:
   reference: https://fokus.rpkg.dev/reference
   article: https://fokus.rpkg.dev/articles

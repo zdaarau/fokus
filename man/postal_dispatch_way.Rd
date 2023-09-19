@@ -46,11 +46,14 @@ fokus::postal_dispatch_way(ballot_date = "2018-09-23",
                            dispatch_type = "invitation")
 }
 \seealso{
-\code{\link[=postal_dispatch_way_prose]{postal_dispatch_way_prose()}}
-
 Other predicate functions:
 \code{\link{ballot_title}()},
 \code{\link{political_issues}()},
 \code{\link{response_options}()}
+
+Other postal dispatch functions:
+\code{\link{postal_dispatch_type_prose}()},
+\code{\link{postal_dispatch_way_prose}()}
 }
+\concept{postal_dispatch}
 \concept{predicate_other}

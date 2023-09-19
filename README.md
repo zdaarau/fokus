@@ -256,6 +256,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | left-hand side                          | lhs              |
 | level                                   | lvl              |
 | levels                                  | lvls             |
+| limit                                   | lim              |
+| limits                                  | lims             |
 | list                                    | ls               |
 | logical                                 | lgl              |
 | logicals                                | lgls             |

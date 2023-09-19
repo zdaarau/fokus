@@ -39,5 +39,10 @@ fokus::postal_dispatch_way(ballot_date = "2018-09-23",
 Other prose text functions:
 \code{\link{ballot_type_prose}()},
 \code{\link{postal_dispatch_type_prose}()}
+
+Other postal dispatch functions:
+\code{\link{postal_dispatch_type_prose}()},
+\code{\link{postal_dispatch_way}()}
 }
+\concept{postal_dispatch}
 \concept{prose}

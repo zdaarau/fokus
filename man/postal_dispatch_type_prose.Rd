@@ -42,5 +42,10 @@ fokus::all_postal_dispatch_types |>
 Other prose text functions:
 \code{\link{ballot_type_prose}()},
 \code{\link{postal_dispatch_way_prose}()}
+
+Other postal dispatch functions:
+\code{\link{postal_dispatch_way_prose}()},
+\code{\link{postal_dispatch_way}()}
 }
+\concept{postal_dispatch}
 \concept{prose}

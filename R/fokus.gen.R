@@ -4306,7 +4306,7 @@ political_issues <- function(ballot_date = all_ballot_dates,
 #'
 #' @return A character scalar.
 #' @family predicate_other
-#' @seealso [postal_dispatch_way_prose()]
+#' @family postal_dispatch
 #' @export
 #'
 #' @examples
@@ -5146,6 +5146,7 @@ ballot_type_prose <- function(ballot_type = all_ballot_types,
 #'
 #' @return A character scalar.
 #' @family prose
+#' @family postal_dispatch
 #' @export
 #'
 #' @examples
@@ -5183,6 +5184,7 @@ postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types
 #'
 #' @return A character scalar.
 #' @family prose
+#' @family postal_dispatch
 #' @export
 #'
 #' @examples
