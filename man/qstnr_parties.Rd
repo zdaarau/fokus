@@ -4,7 +4,9 @@
 \alias{qstnr_parties}
 \title{Get political parties}
 \usage{
-qstnr_parties(ballot_date = all_ballot_dates)
+qstnr_parties(
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg)
+)
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.

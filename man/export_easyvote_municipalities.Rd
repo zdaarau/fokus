@@ -5,7 +5,7 @@
 \title{Export easyvote municipality details}
 \usage{
 export_easyvote_municipalities(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
   g_drive_folder = paste0("fokus/aargau/Umfragen/Dateien für Umfrageinstitut/",
@@ -25,7 +25,7 @@ export_easyvote_municipalities(
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

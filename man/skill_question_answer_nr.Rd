@@ -5,7 +5,7 @@
 \title{Get correct skill question answer number}
 \usage{
 skill_question_answer_nr(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL,
@@ -30,7 +30,7 @@ skill_question_answer_nr(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }

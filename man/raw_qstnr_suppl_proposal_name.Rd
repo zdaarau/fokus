@@ -5,9 +5,9 @@
 \title{Get a proposal's raw name supplemental questionnaire data}
 \usage{
 raw_qstnr_suppl_proposal_name(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvl = all_lvls,
-  canton = all_cantons,
+  canton = pal::pkg_config_val(key = "canton", pkg = this_pkg),
   proposal_nr = 1L
 )
 }
@@ -29,7 +29,7 @@ raw_qstnr_suppl_proposal_name(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

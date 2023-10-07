@@ -23,7 +23,7 @@ error is thrown in case none of the subkeys matches).}
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

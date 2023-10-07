@@ -5,7 +5,7 @@
 \title{Determine whether majoritarian election requires candidate registration}
 \usage{
 requires_candidate_registration(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L
@@ -29,7 +29,7 @@ requires_candidate_registration(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

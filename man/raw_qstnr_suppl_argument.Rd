@@ -5,9 +5,9 @@
 \title{Get a proposal argument's raw supplemental questionnaire data}
 \usage{
 raw_qstnr_suppl_argument(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvl = all_lvls,
-  canton = all_cantons,
+  canton = pal::pkg_config_val(key = "canton", pkg = this_pkg),
   proposal_nr = 1L,
   argument_nr = 1L,
   side = all_argument_sides
@@ -31,7 +31,7 @@ raw_qstnr_suppl_argument(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

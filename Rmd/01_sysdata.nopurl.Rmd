@@ -177,6 +177,20 @@ pkg_config <-
   tibble::tibble(key = character(),
                  default_value = list(),
                  description = character()) |>
+  tibble::add_row(key = "ballot_date",
+                  default_value = list(all_ballot_dates[1L]),
+                  description = paste0("FOKUS-covered ballot date to fall back to in various functions of this package when it isn't explicitly specified. ",
+                                       "Basically a means to globally define the ballot date to be processed. One of ",
+                                       cli::ansi_collapse(pal::as_md_vals(as.character(all_ballot_dates)),
+                                                          last = " or "),
+                                       ".")) |>
+  tibble::add_row(key = "canton",
+                  default_value = list(all_cantons[1L]),
+                  description = paste0("FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. ",
+                                       "Basically a means to globally define the canton to be processed. One of ",
+                                       cli::ansi_collapse(pal::as_md_vals(as.character(all_cantons)),
+                                                          last = " or "),
+                                       ".")) |>
   tibble::add_row(key = "global_max_cache_age",
                   default_value = list("1 day"),
                   description = pkgsnip::md_snip("opt_global_max_cache_age")) |>
@@ -185,7 +199,7 @@ pkg_config <-
                   description = paste0("Path to the working directory (the local instance of the ",
                                        "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)). Defaults to the current working ",
                                        "directory.")) |>
-  tibble::add_row(key = "qstnr.local_deploy_path",
+  tibble::add_row(key = "local_deploy_path",
                   default_value = list(NULL),
                   description = "Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).")
 ```

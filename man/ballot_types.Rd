@@ -5,7 +5,7 @@
 \title{Get ballot types}
 \usage{
 ballot_types(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date)
 )
@@ -28,7 +28,7 @@ ballot_types(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

@@ -5,15 +5,14 @@
 \title{Export questionnaire data}
 \usage{
 export_qstnr(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   verbose = FALSE,
   incl_csv = TRUE,
   incl_html = TRUE,
   incl_xlsx = incl_html,
   deploy = TRUE,
-  local_deploy_path = pal::pkg_config_val(key = "qstnr.local_deploy_path", pkg =
-    this_pkg),
+  local_deploy_path = pal::pkg_config_val(key = "local_deploy_path", pkg = this_pkg),
   upload_to_g_drive = TRUE,
   g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
 )
@@ -30,7 +29,7 @@ export_qstnr(
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

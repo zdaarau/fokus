@@ -5,7 +5,7 @@
 \title{Export QR codes with personalized survey URL}
 \usage{
 export_qr_codes(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
   g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/",
@@ -24,7 +24,7 @@ export_qr_codes(
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

@@ -4,7 +4,7 @@
 \alias{cantons}
 \title{Get cantons covered by FOKUS survey}
 \usage{
-cantons(ballot_date = all_ballot_dates)
+cantons(ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg))
 }
 \arguments{
 \item{ballot_date}{FOKUS-covered ballot date. One of

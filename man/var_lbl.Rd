@@ -20,7 +20,7 @@ var_lbl(var_name, ballot_date = NULL, canton = NULL)
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{\code{NULL} or a canton name, i.e. one of
+\item{canton}{\code{NULL} or a FOKUS-covered canton name, i.e. one of
 \itemize{
 \item \code{"aargau"}
 }}

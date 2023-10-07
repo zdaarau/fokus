@@ -4,7 +4,10 @@
 \alias{raw_qstnr_suppl_mode}
 \title{Get raw supplemental survey mode questionnaire data}
 \usage{
-raw_qstnr_suppl_mode(ballot_date = all_ballot_dates, canton = all_cantons)
+raw_qstnr_suppl_mode(
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  canton = pal::pkg_config_val(key = "canton", pkg = this_pkg)
+)
 }
 \arguments{
 \item{ballot_date}{FOKUS-covered ballot date. One of
@@ -18,7 +21,7 @@ raw_qstnr_suppl_mode(ballot_date = all_ballot_dates, canton = all_cantons)
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

@@ -4,7 +4,10 @@
 \alias{political_issues}
 \title{Get political issues}
 \usage{
-political_issues(ballot_date = all_ballot_dates, lang = c("de", "en"))
+political_issues(
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  lang = c("de", "en")
+)
 }
 \arguments{
 \item{ballot_date}{FOKUS-covered ballot date. One of

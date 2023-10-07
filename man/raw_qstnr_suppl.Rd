@@ -4,7 +4,9 @@
 \alias{raw_qstnr_suppl}
 \title{Get raw supplemental date-specific FOKUS questionnaire data}
 \usage{
-raw_qstnr_suppl(ballot_date = all_ballot_dates)
+raw_qstnr_suppl(
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg)
+)
 }
 \arguments{
 \item{ballot_date}{FOKUS-covered ballot date. One of

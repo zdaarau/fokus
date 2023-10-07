@@ -5,7 +5,7 @@
 \title{Get postal dispatch way}
 \usage{
 postal_dispatch_way(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   dispatch_type = all_postal_dispatch_types
 )
@@ -22,7 +22,7 @@ postal_dispatch_way(
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

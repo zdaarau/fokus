@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes a political level}
 \usage{
 has_lvl(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   ballot_types = all_ballot_types,
@@ -30,7 +30,7 @@ has_lvl(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }
@@ -47,9 +47,9 @@ Only relevant if \code{lvl = "cantonal"} or \code{ballot_types} includes \code{"
 \itemize{
 \item \code{"proportional"}
 \item \code{"majoritarian"}
-}
 
-Only relevant if \code{ballot_types} includes \code{"election"}.}
+Only relevant if \code{ballot_types} includes \code{"election"}.
+}}
 }
 \value{
 A logical vector of the same length as (\code{prcds} ×) \code{ballot_types}, named after \verb{lvl(.prcds).ballot_types}.

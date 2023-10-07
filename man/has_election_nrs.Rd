@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes elections}
 \usage{
 has_election_nrs(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date),
   prcds = all_prcds,
@@ -30,7 +30,7 @@ has_election_nrs(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

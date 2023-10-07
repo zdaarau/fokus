@@ -5,7 +5,7 @@
 \title{Generate questionnaire tibble}
 \usage{
 gen_qstnr_tibble(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   verbose = FALSE
 )
@@ -22,7 +22,7 @@ gen_qstnr_tibble(
 \item \code{"2023-06-18"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}

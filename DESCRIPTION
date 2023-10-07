@@ -24,7 +24,7 @@ Imports:
     glue (>= 1.5.0),
     lubridate (>= 1.7.9),
     magrittr (>= 2.0.0),
-    pal (>= 0.0.9099),
+    pal (>= 0.0.9101),
     pkgpins (>= 0.8.0.9000),
     purrr (>= 1.0.0),
     readr (>= 1.4.0),
@@ -54,7 +54,7 @@ Suggests:
     testthat (>= 3.1.1),
     utils,
     writexl (>= 1.4.0),
-    yay (>= 0.0.9011)
+    yay (>= 0.0.9013)
 VignetteBuilder: 
     knitr
 Remotes:

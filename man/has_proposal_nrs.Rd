@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes referendum proposals}
 \usage{
 has_proposal_nrs(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date),
   proposal_nrs = NULL
@@ -29,7 +29,7 @@ has_proposal_nrs(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }

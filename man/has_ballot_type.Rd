@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes type}
 \usage{
 has_ballot_type(
-  ballot_date = all_ballot_dates,
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date),
   ballot_type = ballot_types(ballot_date = ballot_date, lvls = lvls, canton = canton),
@@ -30,7 +30,7 @@ has_ballot_type(
 \item \code{"federal"}
 }}
 
-\item{canton}{Canton name. One of
+\item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }
@@ -47,9 +47,9 @@ Only relevant if \code{lvls} includes \code{"cantonal"} or \code{ballot_type = "
 \itemize{
 \item \code{"proportional"}
 \item \code{"majoritarian"}
-}
 
-Only relevant if \code{ballot_type = "election"}.}
+Only relevant if \code{ballot_type = "election"}.
+}}
 }
 \value{
 A logical vector of the same length as \code{lvl} (× \code{prcds}), named after \verb{lvls(.prcds).ballot_type}.
