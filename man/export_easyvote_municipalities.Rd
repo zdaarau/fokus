@@ -8,8 +8,8 @@ export_easyvote_municipalities(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
-  g_drive_folder = paste0("fokus/aargau/Umfragen/Dateien für Umfrageinstitut/",
-    "easyvote-Gemeinden/"),
+  g_drive_folder =
+    "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/easyvote-Gemeinden/",
   quiet = TRUE
 )
 }

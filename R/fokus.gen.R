@@ -161,11 +161,11 @@ path_private <- function(...) {
   
   if (!is_dir_private_valid) {
     
-    cli::cli_abort(paste0(ifelse(!is.null(pal::pkg_config_val(key = "path_repo_private",
-                                                              pkg = this_pkg,
-                                                              default = NULL)),
-                                 "The package configuration option {.field fokus.path_private} is set to {.path {dir_private}}.",
-                                 "The package configuration option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}."),
+    cli::cli_abort(paste0(ifelse(is.null(pal::pkg_config_val(key = "path_repo_private",
+                                                             pkg = this_pkg,
+                                                             default = NULL)),
+                                 "The package configuration option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}.",
+                                 "The package configuration option {.field fokus.path_private} is set to {.path {dir_private}}."),
                           " This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
   }
   
@@ -988,7 +988,7 @@ pick_right_helper <- function(x,
     
     # create plain ballot date as in subkeys
     ballot_date_squeezed <- stringr::str_remove_all(string = ballot_date,
-                                                    pattern = "-")
+                                                    pattern = stringr::fixed("-"))
     # convert ballot date to type date
     ballot_date %<>% lubridate::as_date()
     
@@ -1031,7 +1031,7 @@ pick_right_helper <- function(x,
       ### single date subkey
       ballot_date_squeezed %in% . ~ x[[ballot_date_squeezed]],
       ### begin-end date subkey
-      length(which(matches_begin_end_subkeys)) > 0L ~ x[[begin_end_subkeys[matches_begin_end_subkeys]]],
+      any(matches_begin_end_subkeys) ~ x[[begin_end_subkeys[matches_begin_end_subkeys]]],
       
       # consider overrides for ballot types (we take the first one in case of ambiguity)
       any(ballot_types %in% .) ~ x[[intersect(., ballot_types)[1L]]],
@@ -1543,8 +1543,7 @@ validate_qstnr_tibble <- function(qstnr_tibble) {
   multi_val_var_lengths <-
     qstnr_tibble |>
     dplyr::mutate(dplyr::across(where(is.list),
-                                \(x) purrr::map_int(x,
-                                                    length)),
+                                lengths),
                   .keep = "none") |>
     dplyr::rename_with(\(x) paste0("length_", x)) |>
     dplyr::mutate(matches_length = length_variable_values == 0L | length_value_labels == 0L | length_variable_values == length_value_labels) |>
@@ -3769,8 +3768,8 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
                                      decreasing = TRUE)],
               ~ .) |>
     pal::prose_ls(last_sep = switch(EXPR = lang,
-                                    "de" = " sowie ",
-                                    "en" = " as well as "))
+                                    de = " sowie ",
+                                    en = " as well as "))
 }
 
 #' Get number of majoritarian election seats
@@ -4534,8 +4533,6 @@ export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
     cli::cli_abort("{.arg incl_html} must be set to {.val TRUE} when {.code incl_xlsx = TRUE} because the XLSX file is generated from the HTML file.")
   }
   checkmate::assert_flag(deploy)
-  checkmate::assert_string(local_deploy_path,
-                           null.ok = TRUE)
   checkmate::assert_flag(upload_to_g_drive)
   rlang::check_installed("rmarkdown",
                          reason = pal::reason_pkg_required())
@@ -4644,7 +4641,7 @@ export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
     
     # TODO: either deploy to this pkg's pkgdown site or introduce pkg option for `to_path` instead of hardcoding it
     yay::deploy_static_site(from_path = path_dir,
-                            to_path = "~/Arbeit/ZDA/Git/c2d-zda/c2d-zda.gitlab.io/public/",
+                            to_path = local_deploy_path,
                             clean_to_path = FALSE,
                             quiet = !verbose)
     cli::cli_progress_done()
@@ -4885,8 +4882,7 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
                                                                              pkg = this_pkg),
                                            canton = cantons(ballot_date),
                                            upload_to_g_drive = TRUE,
-                                           g_drive_folder = paste0("fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/",
-                                                                   "easyvote-Gemeinden/"),
+                                           g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/easyvote-Gemeinden/",
                                            quiet = TRUE) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
@@ -5033,8 +5029,8 @@ var_lvls <- function(var_names) {
   
   checkmate::assert_character(var_names)
   
-  is_cantonal <- var_names |> stringr::str_detect(pattern = "cantonal") |> any()
-  is_federal <- var_names |> stringr::str_detect(pattern = "federal") |> any()
+  is_cantonal <- var_names |> stringr::str_detect(pattern = stringr::fixed("cantonal")) |> any()
+  is_federal <- var_names |> stringr::str_detect(pattern = stringr::fixed("federal")) |> any()
   
   c("cantonal"[is_cantonal], "federal"[is_federal])
 }
@@ -5281,13 +5277,13 @@ postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
   
   switch(EXPR = lang,
          de = switch(EXPR = dispatch_way,
-                     "A" = "A-Post",
-                     "B" = "B-Post",
-                     "B bulk mailing" = "B-Post-Massensendung"),
+                     A = "A-Post",
+                     B = "B-Post",
+                     `B bulk mailing` = "B-Post-Massensendung"),
          en = switch(EXPR = dispatch_way,
-                     "A" = "A priority mail",
-                     "B" = "B mail",
-                     "B bulk mailing" = "B bulk mailing"))
+                     A = "A priority mail",
+                     B = "B mail",
+                     `B bulk mailing` = "B bulk mailing"))
 }
 
 #' Authorize googledrive using GCP Service Account Key
