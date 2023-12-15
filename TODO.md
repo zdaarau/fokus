@@ -2,6 +2,11 @@
 
 ## General
 
+-   Get rid of `fokus.local_deploy_path` and instead
+
+    -   change `export_qstnr/_all()`'s param `local_deploy_path` to `path`/`output` or the like which defaults to the relative path `output/`.
+    -   remove the `deploy` param and its functionality (and instead directly deploy from the `fokus_reports`' output dir to Netlify).
+
 -   Report `rlang::arg_match()` issue with zero-length chr input -\> no useful error msg (in contrast to `base::match.arg()`). Triggered e.g. by
     `fokus::n_election_seats()`.
 
