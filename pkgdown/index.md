@@ -27,13 +27,13 @@ Some of fokus's functionality is controlled via package-specific global configur
 
 ::: {.table-wide}
 
-  **Description**                                                                                                                                                                                                                                                                                                     **R option**                   **Environment variable**       **Default value**
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------ ------------------------------ -------------------
-  FOKUS-covered ballot date to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the ballot date to be processed. One of `"2018-09-23"`, `"2018-11-25"`, `"2019-10-20"`, `"2020-09-27"`, `"2020-10-18"`, `"2021-11-28"` or `"2023-06-18"`.   `fokus.ballot_date`            `FOKUS_BALLOT_DATE`            `2018-09-23`
-  FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the canton to be processed. One of `"aargau"`.                                                                                                              `fokus.canton`                 `FOKUS_CANTON`                 `"aargau"`
-  Maximal timespan to preserve the package's [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will be deleted upon package loading.                                                                                                                                                          `fokus.global_max_cache_age`   `FOKUS_GLOBAL_MAX_CACHE_AGE`   `"1 day"`
-  Path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)). Defaults to the current working directory.                                                                                                                                `fokus.path_repo_private`      `FOKUS_PATH_REPO_PRIVATE`      
-  Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).                                                                                                                                                                                            `fokus.local_deploy_path`      `FOKUS_LOCAL_DEPLOY_PATH`      
+  **Description**                                                                                                                                                                                                                                                                                                     **R option**                   **Environment variable**         **Default value**
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------ -------------------------------- -------------------
+  FOKUS-covered ballot date to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the ballot date to be processed. One of `"2018-09-23"`, `"2018-11-25"`, `"2019-10-20"`, `"2020-09-27"`, `"2020-10-18"`, `"2021-11-28"` or `"2023-06-18"`.   `fokus.ballot_date`            `R_FOKUS_BALLOT_DATE`            `2018-09-23`
+  FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the canton to be processed. One of `"aargau"`.                                                                                                              `fokus.canton`                 `R_FOKUS_CANTON`                 `"aargau"`
+  Maximal timespan to preserve the package's [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will be deleted upon package loading.                                                                                                                                                          `fokus.global_max_cache_age`   `R_FOKUS_GLOBAL_MAX_CACHE_AGE`   `"1 day"`
+  Path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)). Defaults to the current working directory.                                                                                                                                `fokus.path_repo_private`      `R_FOKUS_PATH_REPO_PRIVATE`      
+  Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).                                                                                                                                                                                            `fokus.local_deploy_path`      `R_FOKUS_LOCAL_DEPLOY_PATH`      
 
 :::
 
@@ -217,6 +217,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   doubles                                   dbls
   element                                   el
   elements                                  els
+  enumerate, enumeration                    enum
+  enumerations                              enums
   environment                               env
   environments                              envs
   evaluate, evaluation                      eval
@@ -249,6 +251,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   initialize, initialization                init
   integer                                   int
   integers                                  ints
+  iterate, iterator                         itr
+  iterators                                 itrs
   label                                     lbl
   labels                                    lbls
   language                                  lang

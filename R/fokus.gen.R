@@ -2,7 +2,7 @@
 # See `README.md#r-markdown-format` for more information on the literate programming approach used applying the R Markdown format.
 
 # fokus: Provides an API around the FOKUS Post-voting Surveys
-# Copyright (C) 2023 Centre for Democracy Studies Aarau (ZDA)
+# Copyright (C) 2024 Centre for Democracy Studies Aarau (ZDA)
 # 
 # This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, either version 3 of the License, or any later version.
@@ -3593,6 +3593,49 @@ n_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot
     length()
 }
 
+#' Get proposals for which arguments have been queried
+#'
+#' Returns a list containing the political levels and proposal numbers for which pro/contra arguments have been queried in the post-voting survey for the
+#' specified ballot date.
+#'
+#' @inheritParams ballot_types
+#'
+#' @return A list with an element per political-level-proposal-number combination.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
+#'                                  canton = "aargau")
+combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                        pkg = this_pkg),
+                                      lvls = all_lvls,
+                                      canton = cantons(ballot_date)) {
+  lvls |>
+    purrr::map(\(lvl) {
+      
+      proposal_nrs(ballot_date = ballot_date,
+                   lvl = lvl,
+                   canton = canton) |>
+        purrr::map(\(proposal_nr) {
+          
+          result <- NULL
+          
+          if (n_proposal_arguments(ballot_date = ballot_date,
+                                   lvl = lvl,
+                                   canton = canton,
+                                   proposal_nr = proposal_nr) > 0L) {
+            result <- list(lvl = lvl,
+                           proposal_nr = proposal_nr)
+          }
+          
+          result
+        }) |>
+        purrr::compact()
+    }) |>
+    purrr::list_flatten()
+}
+
 #' Get proposal's main motives
 #'
 #' Returns text and code number of all main motives on the specified proposal.
@@ -3666,6 +3709,56 @@ n_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "bal
     purrr::pluck("main_motive") |>
     purrr::pluck(type) |>
     length()
+}
+
+#' Get proposals for which main motives have been queried
+#'
+#' Returns a list containing the political levels and proposal numbers for which main motives have been queried in the post-voting survey for the specified
+#' ballot date.
+#'
+#' @inheritParams ballot_types
+#'
+#' @inherit combos_proposal_arguments return
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
+#'                                     canton = "aargau")
+combos_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                           pkg = this_pkg),
+                                         lvls = all_lvls,
+                                         canton = cantons(ballot_date)) {
+  lvls |>
+    purrr::map(\(lvl) {
+      
+      proposal_nrs(ballot_date = ballot_date,
+                   lvl = lvl,
+                   canton = canton) |>
+        purrr::map(\(proposal_nr) {
+          
+          result <- NULL
+          has_main_motives <-
+            c("yes",
+              "no") |>
+            purrr::map_int(\(type) n_proposal_main_motives(ballot_date = ballot_date,
+                                                           lvl = lvl,
+                                                           canton = canton,
+                                                           proposal_nr = proposal_nr,
+                                                           type = type)) |>
+            sum() |>
+            magrittr::is_greater_than(0L)
+          
+          if (has_main_motives) {
+            result <- list(lvl = lvl,
+                           proposal_nr = proposal_nr)
+          }
+          
+          result
+        }) |>
+        purrr::compact()
+    }) |>
+    purrr::list_flatten()
 }
 
 #' Get election name

@@ -2,7 +2,7 @@
 
 ## General
 
--   Get rid of `fokus.local_deploy_path` and instead
+-   Get rid of `fokus.local_deploy_path`:
 
     -   change `export_qstnr/_all()`'s param `local_deploy_path` to `path`/`output` or the like which defaults to the relative path `output/`.
     -   remove the `deploy` param and its functionality (and instead directly deploy from the `fokus_reports`' output dir to Netlify).

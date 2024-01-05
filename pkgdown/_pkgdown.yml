@@ -63,8 +63,10 @@ reference:
   - proposal_arguments
   - proposal_argument
   - n_proposal_arguments
+  - combos_proposal_arguments
   - proposal_main_motives
   - n_proposal_main_motives
+  - combos_proposal_main_motives
 - subtitle: Election predicates
 - contents:
   - election_name

@@ -51,7 +51,12 @@
 
 <div class="section level2">
 <h2 id="general">General<a class="anchor" aria-label="anchor" href="#general"></a></h2>
-<ul><li><p>Report <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> issue with zero-length chr input -&gt; no useful error msg (in contrast to <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">base::match.arg()</a></code>). Triggered e.g. by <code><a href="reference/n_election_seats.html">fokus::n_election_seats()</a></code>.</p></li>
+<ul><li>
+<p>Get rid of <code>fokus.local_deploy_path</code>:</p>
+<ul><li>change <code>export_qstnr/_all()</code>’s param <code>local_deploy_path</code> to <code>path</code>/<code>output</code> or the like which defaults to the relative path <code>output/</code>.</li>
+<li>remove the <code>deploy</code> param and its functionality (and instead directly deploy from the <code>fokus_reports</code>’ output dir to Netlify).</li>
+</ul></li>
+<li><p>Report <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> issue with zero-length chr input -&gt; no useful error msg (in contrast to <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">base::match.arg()</a></code>). Triggered e.g. by <code><a href="reference/n_election_seats.html">fokus::n_election_seats()</a></code>.</p></li>
 <li>
 <p>Somehow, including multiple asciicasts in the same Rmd doesn’t work properly (the second asciicast’s <code>&lt;asciinema-player&gt;</code> custom HTML tag is missing in the resulting HTML; both via asciicast’s knitr engine as well as embedding the generated asciicast htmlwidget via <code><a href="https://asciicast.r-lib.org/reference/asciinema_player.html" class="external-link">asciicast::asciinema_player()</a></code>), thus the second asciicast containing an intentionally triggered error in the raw qstnr had to be removed.</p>
 <p>-&gt; Investigate the actual cause of the inclusion failure (and report/fix upstream)!</p>
