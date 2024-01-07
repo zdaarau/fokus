@@ -27,12 +27,7 @@ postal_dispatch_way(
 \item \code{"aargau"}
 }}
 
-\item{dispatch_type}{Postal dispatch type. One of
-\itemize{
-\item \code{"invitation"}
-\item \code{"prepaid_reply_envelope"}
-\item \code{"reminder"}
-}}
+\item{dispatch_type}{Postal dispatch type. One of \code{"invitation"}, \code{"prepaid_reply_envelope"} or \code{"reminder"}.}
 }
 \value{
 A character scalar.

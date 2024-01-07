@@ -4,20 +4,12 @@
 \alias{ballot_type_prose}
 \title{Transform ballot type into prose string}
 \usage{
-ballot_type_prose(ballot_type = all_ballot_types, lang = c("de", "en"))
+ballot_type_prose(ballot_type = all_ballot_types, lang = all_langs)
 }
 \arguments{
-\item{ballot_type}{Ballot type. One of
-\itemize{
-\item \code{"referendum"}
-\item \code{"election"}
-}}
+\item{ballot_type}{Ballot type. One of \code{"referendum"} or \code{"election"}.}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

@@ -6,22 +6,13 @@
 \usage{
 postal_dispatch_type_prose(
   dispatch_type = all_postal_dispatch_types,
-  lang = c("de", "en")
+  lang = all_langs
 )
 }
 \arguments{
-\item{dispatch_type}{Postal dispatch type. One of
-\itemize{
-\item \code{"invitation"}
-\item \code{"prepaid_reply_envelope"}
-\item \code{"reminder"}
-}}
+\item{dispatch_type}{Postal dispatch type. One of \code{"invitation"}, \code{"prepaid_reply_envelope"} or \code{"reminder"}.}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

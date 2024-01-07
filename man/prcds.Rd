@@ -22,11 +22,7 @@ prcds(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -68,6 +64,8 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
-\code{\link{proposal_nrs}()}
+\code{\link{proposal_nrs}()},
+\code{\link{proposal_qstn_groups}()},
+\code{\link{qstn_groups_proposal_nrs}()}
 }
 \concept{predicate_fundamental}

@@ -61,8 +61,8 @@
 <span>  proposal_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  argument_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  side <span class="op">=</span> <span class="va">all_argument_sides</span>,</span>
-<span>  lang <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"de"</span>, <span class="st">"en"</span><span class="op">)</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"short"</span>, <span class="st">"long"</span><span class="op">)</span></span>
+<span>  lang <span class="op">=</span> <span class="va">all_langs</span>,</span>
+<span>  type <span class="op">=</span> <span class="va">all_name_types</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,9 +80,7 @@
 
 
 <dt>lvl</dt>
-<dd><p>Political level. One of</p><ul><li><p><code>"cantonal"</code></p></li>
-<li><p><code>"federal"</code></p></li>
-</ul></dd>
+<dd><p>Political level. One of <code>"cantonal"</code> or <code>"federal"</code>.</p></dd>
 
 
 <dt>canton</dt>
@@ -99,21 +97,15 @@
 
 
 <dt>side</dt>
-<dd><p>Proposal argument side. One of</p><ul><li><p><code>"pro"</code></p></li>
-<li><p><code>"contra"</code></p></li>
-</ul></dd>
+<dd><p>Proposal argument side. One of <code>"pro"</code> or <code>"contra"</code>.</p></dd>
 
 
 <dt>lang</dt>
-<dd><p>Language. One of</p><ul><li><p><code>"de"</code></p></li>
-<li><p><code>"en"</code></p></li>
-</ul></dd>
+<dd><p>Language. One of <code>"de"</code> or <code>"en"</code>.</p></dd>
 
 
 <dt>type</dt>
-<dd><p>Name type. One of</p><ul><li><p><code>"short"</code></p></li>
-<li><p><code>"long"</code></p></li>
-</ul></dd>
+<dd><p>Name type. One of <code>"short"</code> or <code>"long"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -125,8 +117,12 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other proposal predicate functions:
+<code><a href="argument_proposal_nrs.html">argument_proposal_nrs</a>()</code>,
 <code><a href="combos_proposal_arguments.html">combos_proposal_arguments</a>()</code>,
 <code><a href="combos_proposal_main_motives.html">combos_proposal_main_motives</a>()</code>,
+<code><a href="has_proposal_arguments.html">has_proposal_arguments</a>()</code>,
+<code><a href="has_proposal_main_motives.html">has_proposal_main_motives</a>()</code>,
+<code><a href="main_motive_proposal_nrs.html">main_motive_proposal_nrs</a>()</code>,
 <code><a href="n_proposal_arguments.html">n_proposal_arguments</a>()</code>,
 <code><a href="n_proposal_main_motives.html">n_proposal_main_motives</a>()</code>,
 <code><a href="proposal_arguments.html">proposal_arguments</a>()</code>,

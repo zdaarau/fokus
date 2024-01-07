@@ -9,7 +9,7 @@ proposal_name_gender(
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
-  type = c("short", "long")
+  type = all_name_types
 )
 }
 \arguments{
@@ -24,11 +24,7 @@ proposal_name_gender(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -39,11 +35,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{type}{Name type. One of
-\itemize{
-\item \code{"short"}
-\item \code{"long"}
-}}
+\item{type}{Name type. One of \code{"short"} or \code{"long"}.}
 }
 \value{
 A character scalar.
@@ -53,15 +45,25 @@ Returns the grammatical gender of the German name of the specified proposal.
 }
 \examples{
 fokus::proposal_name_gender(ballot_date = "2018-09-23",
-                            lvl = "cantonal",
+                            lvl = "federal",
                             canton = "aargau",
                             proposal_nr = 1,
                             type = "short")
+                            
+fokus::proposal_name_gender(ballot_date = "2018-09-23",
+                            lvl = "federal",
+                            canton = "aargau",
+                            proposal_nr = 1,
+                            type = "long")
 }
 \seealso{
 Other proposal predicate functions:
+\code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
 \code{\link{combos_proposal_main_motives}()},
+\code{\link{has_proposal_arguments}()},
+\code{\link{has_proposal_main_motives}()},
+\code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},

@@ -9,7 +9,7 @@ n_proposal_main_motives(
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
-  type = c("yes", "no")
+  types = all_main_motive_types
 )
 }
 \arguments{
@@ -24,11 +24,7 @@ n_proposal_main_motives(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -39,29 +35,36 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{type}{Main motive type. One of
-\itemize{
-\item \code{"yes"}
-\item \code{"no"}
-}}
+\item{types}{Main motive type(s). One or more of \code{"yes"} and \code{"no"}.}
 }
 \value{
 An integer scalar.
 }
 \description{
-Determines the number of main motives on the specified proposal.
+Determines the number of main motives for the specified proposal and motive type.
 }
 \examples{
+# count all motive types
+fokus::n_proposal_main_motives(ballot_date = "2018-09-23",
+                               lvl = "cantonal",
+                               canton = "aargau",
+                               proposal_nr = 1)
+
+# count only motives of type "no"
 fokus::n_proposal_main_motives(ballot_date = "2018-09-23",
                                lvl = "cantonal",
                                canton = "aargau",
                                proposal_nr = 1,
-                               type = "no")
+                               types = "no")
 }
 \seealso{
 Other proposal predicate functions:
+\code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
 \code{\link{combos_proposal_main_motives}()},
+\code{\link{has_proposal_arguments}()},
+\code{\link{has_proposal_main_motives}()},
+\code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{proposal_arguments}()},
 \code{\link{proposal_argument}()},

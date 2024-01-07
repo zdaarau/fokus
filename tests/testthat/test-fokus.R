@@ -41,12 +41,18 @@ test_that("Predicate functions return correct default values", {
                    1L)
   expect_identical(election_nrs(),
                    integer())
+  expect_identical(proposal_qstn_groups(),
+                   c("argument", "main_motive", "skill_question"))
+  expect_identical(qstn_groups_proposal_nrs(),
+                   1L)
   expect_identical(proposal_type(),
                    "citizens' initiative")
   expect_identical(proposal_name(),
                    "Millionärssteuerinitiative")
   expect_identical(proposal_name_gender(),
                    "feminine")
+  expect_true(has_proposal_arguments())
+  expect_true(has_proposal_main_motives())
   expect_snapshot_value(proposal_arguments(),
                         style = "json2")
   expect_identical(proposal_argument(),
@@ -58,7 +64,7 @@ test_that("Predicate functions return correct default values", {
   expect_snapshot_value(proposal_main_motives(),
                         style = "json2")
   expect_identical(n_proposal_main_motives(),
-                   6L)
+                   13L)
   expect_identical(combos_proposal_main_motives(),
                    list(list(lvl = "cantonal", proposal_nr = 1L)))
   expect_snapshot_error(election_name())
@@ -114,6 +120,10 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
   expect_identical(proposal_name_gender(lvl = "federal",
                                         canton = invalid_canton),
                    "feminine")
+  expect_false(has_proposal_arguments(lvl = "federal",
+                                      canton = invalid_canton))
+  expect_false(has_proposal_main_motives(lvl = "federal",
+                                         canton = invalid_canton))
   expect_snapshot_value(proposal_arguments(ballot_date = "2021-11-28",
                                            lvl = "federal",
                                            canton = invalid_canton,
@@ -168,6 +178,20 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
 ## not FOKUS-covered ----
 test_that("relevant fns don't fail when non-FOKUS-covered", {
 
+  expect_identical(proposal_nrs(ballot_date = "2019-10-20"),
+                   integer())
+  expect_identical(election_nrs(ballot_date = "2018-09-23"),
+                   integer())
+  expect_identical(proposal_qstn_groups(ballot_date = "2019-10-20"),
+                   character())
+  expect_identical(proposal_qstn_groups(ballot_date = "2021-11-28",
+                                        lvl = "cantonal"),
+                   character())
+  expect_identical(qstn_groups_proposal_nrs(ballot_date = "2019-10-20"),
+                   integer())
+  expect_identical(qstn_groups_proposal_nrs(ballot_date = "2021-11-28",
+                                            lvl = "cantonal"),
+                   integer())
   expect_identical(n_proposals(ballot_date = "2019-10-20"),
                    c(cantonal = 0L,
                      federal = 0L))

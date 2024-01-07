@@ -6,22 +6,13 @@
 \usage{
 postal_dispatch_way_prose(
   dispatch_way = all_postal_dispatch_ways,
-  lang = c("de", "en")
+  lang = all_langs
 )
 }
 \arguments{
-\item{dispatch_way}{Postal dispatch way One of
-\itemize{
-\item \code{"A"}
-\item \code{"B"}
-\item \code{"B bulk mailing"}
-}}
+\item{dispatch_way}{Postal dispatch way One of \code{"A"}, \code{"B"} or \code{"B bulk mailing"}.}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

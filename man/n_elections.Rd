@@ -23,22 +23,14 @@ n_elections(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvls}{Political level(s). One or more of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}
 
-\item{prcds}{Election procedure(s). One or more of
-\itemize{
-\item \code{"proportional"}
-\item \code{"majoritarian"}
-}}
+\item{prcds}{Election procedure(s). One or more of \code{"proportional"} and \code{"majoritarian"}.}
 }
 \value{
 An integer vector of length \code{lvls} × \code{prcds}, named after \code{lvls.prcds}.
@@ -74,6 +66,8 @@ Other fundamental predicate functions:
 \code{\link{lvls}()},
 \code{\link{n_proposals}()},
 \code{\link{prcds}()},
-\code{\link{proposal_nrs}()}
+\code{\link{proposal_nrs}()},
+\code{\link{proposal_qstn_groups}()},
+\code{\link{qstn_groups_proposal_nrs}()}
 }
 \concept{predicate_fundamental}

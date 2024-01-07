@@ -4,14 +4,10 @@
 \alias{qstnr_lbl_col_sym}
 \title{Determine questionnaire data's value label column}
 \usage{
-qstnr_lbl_col_sym(lang = c("de", "en"))
+qstnr_lbl_col_sym(lang = all_langs)
 }
 \arguments{
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A \link[base:name]{symbol}.

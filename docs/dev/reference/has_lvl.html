@@ -77,9 +77,7 @@
 
 
 <dt>lvl</dt>
-<dd><p>Political level to test for. One of</p><ul><li><p><code>"cantonal"</code></p></li>
-<li><p><code>"federal"</code></p></li>
-</ul></dd>
+<dd><p>Political level to test for. One of <code>"cantonal"</code> or <code>"federal"</code>.</p></dd>
 
 
 <dt>canton</dt>
@@ -88,16 +86,14 @@
 
 
 <dt>ballot_types</dt>
-<dd><p>Ballot type(s). One or more of</p><ul><li><p><code>"referendum"</code></p></li>
+<dd><p>Ballot type(s). One or more of <code>"referendum"</code> and <code>"election"</code>.</p><ul><li><p><code>"referendum"</code></p></li>
 <li><p><code>"election"</code></p></li>
 </ul></dd>
 
 
 <dt>prcds</dt>
-<dd><p>Election procedure(s). One or more of</p><ul><li><p><code>"proportional"</code></p></li>
-<li><p><code>"majoritarian"</code></p>
-<p>Only relevant if <code>ballot_types</code> includes <code>"election"</code>.</p></li>
-</ul></dd>
+<dd><p>Election procedure(s). One or more of <code>"proportional"</code> and <code>"majoritarian"</code>.</p>
+<p>Only relevant if <code>ballot_types</code> includes <code>"election"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -121,7 +117,9 @@
 <code><a href="n_elections.html">n_elections</a>()</code>,
 <code><a href="n_proposals.html">n_proposals</a>()</code>,
 <code><a href="prcds.html">prcds</a>()</code>,
-<code><a href="proposal_nrs.html">proposal_nrs</a>()</code></p></div>
+<code><a href="proposal_nrs.html">proposal_nrs</a>()</code>,
+<code><a href="proposal_qstn_groups.html">proposal_qstn_groups</a>()</code>,
+<code><a href="qstn_groups_proposal_nrs.html">qstn_groups_proposal_nrs</a>()</code></p></div>
     </div>
 
     <div class="section level2">

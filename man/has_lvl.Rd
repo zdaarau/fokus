@@ -24,11 +24,7 @@ has_lvl(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level to test for. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level to test for. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -37,19 +33,15 @@ has_lvl(
 
 Only relevant if \code{lvl = "cantonal"} or \code{ballot_types} includes \code{"election"}.}
 
-\item{ballot_types}{Ballot type(s). One or more of
+\item{ballot_types}{Ballot type(s). One or more of \code{"referendum"} and \code{"election"}.
 \itemize{
 \item \code{"referendum"}
 \item \code{"election"}
 }}
 
-\item{prcds}{Election procedure(s). One or more of
-\itemize{
-\item \code{"proportional"}
-\item \code{"majoritarian"}
+\item{prcds}{Election procedure(s). One or more of \code{"proportional"} and \code{"majoritarian"}.
 
-Only relevant if \code{ballot_types} includes \code{"election"}.
-}}
+Only relevant if \code{ballot_types} includes \code{"election"}.}
 }
 \value{
 A logical vector of the same length as (\code{prcds} ×) \code{ballot_types}, named after \verb{lvl(.prcds).ballot_types}.
@@ -86,6 +78,8 @@ Other fundamental predicate functions:
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
 \code{\link{prcds}()},
-\code{\link{proposal_nrs}()}
+\code{\link{proposal_nrs}()},
+\code{\link{proposal_qstn_groups}()},
+\code{\link{qstn_groups_proposal_nrs}()}
 }
 \concept{predicate_fundamental}

@@ -48,6 +48,8 @@ Other fundamental predicate functions:
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
 \code{\link{prcds}()},
-\code{\link{proposal_nrs}()}
+\code{\link{proposal_nrs}()},
+\code{\link{proposal_qstn_groups}()},
+\code{\link{qstn_groups_proposal_nrs}()}
 }
 \concept{predicate_fundamental}

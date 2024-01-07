@@ -9,7 +9,7 @@ proposal_main_motives(
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
-  type = c("yes", "no")
+  type = all_main_motive_types
 )
 }
 \arguments{
@@ -24,11 +24,7 @@ proposal_main_motives(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -39,17 +35,13 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{type}{Main motive type. One of
-\itemize{
-\item \code{"yes"}
-\item \code{"no"}
-}}
+\item{type}{Main motive type. One of \code{"yes"} or \code{"no"}.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-Returns text and code number of all main motives on the specified proposal.
+Returns text and code number of all main motives for the specified proposal.
 }
 \examples{
 fokus::proposal_main_motives(ballot_date = "2018-09-23",
@@ -60,8 +52,12 @@ fokus::proposal_main_motives(ballot_date = "2018-09-23",
 }
 \seealso{
 Other proposal predicate functions:
+\code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
 \code{\link{combos_proposal_main_motives}()},
+\code{\link{has_proposal_arguments}()},
+\code{\link{has_proposal_main_motives}()},
+\code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},

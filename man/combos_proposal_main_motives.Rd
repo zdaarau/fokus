@@ -22,11 +22,7 @@ combos_proposal_main_motives(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvls}{Political level(s). One or more of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -46,7 +42,11 @@ fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
 }
 \seealso{
 Other proposal predicate functions:
+\code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
+\code{\link{has_proposal_arguments}()},
+\code{\link{has_proposal_main_motives}()},
+\code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},

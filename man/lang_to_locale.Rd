@@ -4,14 +4,10 @@
 \alias{lang_to_locale}
 \title{Convert language code to country-specific locale ID}
 \usage{
-lang_to_locale(lang = c("de", "en"))
+lang_to_locale(lang = all_langs)
 }
 \arguments{
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

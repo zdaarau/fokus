@@ -24,6 +24,7 @@ cantonal.archive = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/abstimmunge
 type = "mandatory referendum"
 [federal.proposal.1.name.de]
 long.text = "Umsetzung des OECD/G20-Projekts zur Besteuerung grosser Unternehmensgruppen"
+long.gender = "feminine"
 short.text = "OECD-Mindeststeuer für Unternehmen"
 short.gender = "feminine"
 [federal.proposal.1.url]
@@ -32,6 +33,7 @@ government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20230
 type = "optional referendum"
 [federal.proposal.2.name.de]
 long.text = "Bundesgesetz über die Ziele im Klimaschutz, die Innovation und die Stärkung der Energiesicherheit (indirekter Gegenvorschlag zur Gletscher-Initiative)"
+long.gender = "neuter"
 short.text = "Klima- und Innovationsgesetz (Bund)"
 short.gender = "neuter"
 [federal.proposal.2.url]
@@ -155,6 +157,7 @@ is_correct = true
 type = "optional referendum"
 [federal.proposal.3.name.de]
 long.text = "Änderung vom 16. Dezember 2022 des Covid-19-Gesetzes"
+long.gender = "feminine"
 short.text = "Änderung des Covid-19-Gesetzes"
 short.gender = "feminine"
 [federal.proposal.3.url]

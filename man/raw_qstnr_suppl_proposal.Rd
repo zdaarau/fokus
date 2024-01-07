@@ -23,11 +23,7 @@ raw_qstnr_suppl_proposal(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -62,6 +58,7 @@ Other raw questionnaire data functions:
 \code{\link{raw_qstnr_suppl_main_motives}()},
 \code{\link{raw_qstnr_suppl_mode}()},
 \code{\link{raw_qstnr_suppl_proposal_name}()},
+\code{\link{raw_qstnr_suppl_proposal_safe}()},
 \code{\link{raw_qstnr_suppl_skill_questions}()},
 \code{\link{raw_qstnr_suppl_skill_question}()},
 \code{\link{raw_qstnr_suppl}()},

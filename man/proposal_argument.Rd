@@ -11,8 +11,8 @@ proposal_argument(
   proposal_nr = 1L,
   argument_nr = 1L,
   side = all_argument_sides,
-  lang = c("de", "en"),
-  type = c("short", "long")
+  lang = all_langs,
+  type = all_name_types
 )
 }
 \arguments{
@@ -27,11 +27,7 @@ proposal_argument(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -44,23 +40,11 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{argument_nr}{Proposal argument number. A positive integerish scalar.}
 
-\item{side}{Proposal argument side. One of
-\itemize{
-\item \code{"pro"}
-\item \code{"contra"}
-}}
+\item{side}{Proposal argument side. One of \code{"pro"} or \code{"contra"}.}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
-\item{type}{Name type. One of
-\itemize{
-\item \code{"short"}
-\item \code{"long"}
-}}
+\item{type}{Name type. One of \code{"short"} or \code{"long"}.}
 }
 \value{
 A character scalar.
@@ -79,8 +63,12 @@ fokus::proposal_argument(ballot_date = "2018-09-23",
 }
 \seealso{
 Other proposal predicate functions:
+\code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
 \code{\link{combos_proposal_main_motives}()},
+\code{\link{has_proposal_arguments}()},
+\code{\link{has_proposal_main_motives}()},
+\code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},

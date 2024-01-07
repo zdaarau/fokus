@@ -57,7 +57,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ballot_title</span><span class="op">(</span></span>
 <span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"ballot_date"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
-<span>  lang <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"de"</span>, <span class="st">"en"</span><span class="op">)</span></span>
+<span>  lang <span class="op">=</span> <span class="va">all_langs</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,9 +80,7 @@
 
 
 <dt>lang</dt>
-<dd><p>Language. One of</p><ul><li><p><code>"de"</code></p></li>
-<li><p><code>"en"</code></p></li>
-</ul></dd>
+<dd><p>Language. One of <code>"de"</code> or <code>"en"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

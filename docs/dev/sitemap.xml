@@ -34,7 +34,19 @@
     <loc>https://fokus.rpkg.dev/dev/reference/all_cantons.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/all_election_seat_types.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/all_langs.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/all_lvls.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/all_main_motive_types.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/all_name_types.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/all_postal_dispatch_types.html</loc>
@@ -49,7 +61,13 @@
     <loc>https://fokus.rpkg.dev/dev/reference/all_proposal_types.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/all_qstn_groups.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/all_response_option_types.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/argument_proposal_nrs.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/auth_g_drive_gcp.html</loc>
@@ -148,6 +166,12 @@
     <loc>https://fokus.rpkg.dev/dev/reference/has_lvl.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/has_proposal_arguments.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/has_proposal_main_motives.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/has_proposal_nrs.html</loc>
   </url>
   <url>
@@ -167,6 +191,9 @@
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/lvls.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/main_motive_proposal_nrs.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/md_emphasize.html</loc>
@@ -235,10 +262,19 @@
     <loc>https://fokus.rpkg.dev/dev/reference/proposal_nrs.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/proposal_qstn_groups.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/proposal_type.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/proposals.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/qstn_groups.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/qstn_groups_proposal_nrs.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/qstnr_item_keys.html</loc>
@@ -299,6 +335,9 @@
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal_name.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal_safe.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_skill_question.html</loc>

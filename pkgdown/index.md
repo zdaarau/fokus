@@ -300,8 +300,10 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   prototype                                 ptype
   prototypes                                ptypes
   Quarto Markdown                           qmd
+  question                                  qstn
   questionnaire                             qstnr
   questionnaires                            qstnrs
+  questions                                 qstns
   R Markdown                                rmd
   refer, reference                          ref
   references                                refs

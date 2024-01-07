@@ -29,10 +29,15 @@ reference:
   - all_lvls
   - all_prcds
   - all_proposal_types
+  - all_qstn_groups
   - all_argument_sides
+  - all_main_motive_types
+  - all_election_seat_types
   - all_response_option_types
   - all_postal_dispatch_types
   - all_postal_dispatch_ways
+  - all_langs
+  - all_name_types
 - title: Predicates
   desc: Predicate functions based on the [metadata](#section-fokus-metadata) and the
     [raw questionnaire data](raw_qstnr.html).
@@ -47,6 +52,8 @@ reference:
   - prcds
   - proposal_nrs
   - election_nrs
+  - proposal_qstn_groups
+  - qstn_groups_proposal_nrs
   - n_proposals
   - n_elections
   - has_referendum
@@ -62,21 +69,25 @@ reference:
   - proposal_name_gender
   - proposal_arguments
   - proposal_argument
-  - n_proposal_arguments
-  - combos_proposal_arguments
   - proposal_main_motives
+  - n_proposal_arguments
   - n_proposal_main_motives
+  - has_proposal_arguments
+  - has_proposal_main_motives
+  - argument_proposal_nrs
+  - main_motive_proposal_nrs
+  - combos_proposal_arguments
   - combos_proposal_main_motives
 - subtitle: Election predicates
 - contents:
   - election_name
   - election_names_combined
-  - n_election_seats
   - election_candidates
-  - n_election_candidates
   - election_candidate_prose
   - election_parties
   - election_tickets
+  - n_election_seats
+  - n_election_candidates
   - requires_candidate_registration
 - subtitle: Skill question predicates
 - contents:

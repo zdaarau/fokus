@@ -10,7 +10,7 @@ skill_question(
   canton = cantons(ballot_date),
   proposal_nr = NULL,
   skill_question_nr = 1L,
-  lang = c("de", "en")
+  lang = all_langs
 )
 }
 \arguments{
@@ -25,11 +25,7 @@ skill_question(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -43,11 +39,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{skill_question_nr}{Skill question number. A positive integerish scalar.}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

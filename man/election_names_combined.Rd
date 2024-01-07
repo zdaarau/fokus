@@ -8,7 +8,7 @@ election_names_combined(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date),
-  lang = c("de", "en"),
+  lang = all_langs,
   federal_first = TRUE
 )
 }
@@ -24,22 +24,14 @@ election_names_combined(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvls}{Political level(s). One or more of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
 \item{federal_first}{Whether or not to list federal elections before cantonal ones. Only has an effect if \code{"federal" \%in\% lvls}.}
 }

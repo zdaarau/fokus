@@ -7,7 +7,7 @@
 ballot_title(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
-  lang = c("de", "en")
+  lang = all_langs
 )
 }
 \arguments{
@@ -27,11 +27,7 @@ ballot_title(
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

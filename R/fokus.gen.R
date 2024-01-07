@@ -119,9 +119,7 @@ abbrs <- function(unnest = FALSE) {
 #'
 #' Converts a language code as used in many of this package's functions to a country-specific locale identifier.
 #'
-#' @param lang Language. One of
-#'   - `"de"`
-#'   - `"en"`
+#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = lang_to_locale)`.
 #'
 #' @return A character scalar.
 #' @keywords internal
@@ -129,7 +127,7 @@ abbrs <- function(unnest = FALSE) {
 #' @examples
 #' fokus:::lang_to_locale("de")
 #' fokus:::lang_to_locale("en")
-lang_to_locale <- function(lang = c("de", "en")) {
+lang_to_locale <- function(lang = all_langs) {
   
   lang <- rlang::arg_match(lang)
   
@@ -251,8 +249,7 @@ raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #' level.
 #'
 #' @inheritParams cantons
-#' @param lvl Political level. One of
-#' `r pal::as_md_val_list(all_lvls)`
+#' @param lvl Political level. One of `r pal::enum_fn_param_defaults(param = "lvl", fn = raw_qstnr_suppl_lvl)`.
 #'
 #' @inherit raw_qstnr_suppl return seealso
 #' @family qstnr_raw
@@ -398,6 +395,47 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
   }
   
   proposal
+}
+
+#' Safely get raw proposal supplemental questionnaire data
+#'
+#' Returns a structured list of a proposal's data from the [supplemental date-specific FOKUS questionnaire data][raw_qstnr_suppl], or `NULL` if no referendums
+#' proposals were covered.
+#'
+#' @inheritParams raw_qstnr_suppl_proposal
+#' @param proposal_nr Proposal number. Either a positive integerish scalar or `NULL` to return the data for all proposals.
+#'
+#' @return A [strict list][xfun::strict_list()], or `NULL` if no referendums proposals were covered.
+#' @family qstnr_raw
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::raw_qstnr_suppl_proposal_safe(ballot_date = "2019-10-20",
+#'                                       lvl = "cantonal",
+#'                                       canton = "aargau")
+raw_qstnr_suppl_proposal_safe <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                            pkg = this_pkg),
+                                          lvl = all_lvls,
+                                          canton = pal::pkg_config_val(key = "canton",
+                                                                       pkg = this_pkg),
+                                          proposal_nr = NULL) {
+  lvl <- rlang::arg_match(lvl)
+  checkmate::assert_count(proposal_nr,
+                          positive = TRUE,
+                          null.ok = TRUE)
+  
+  if (lvl == "cantonal") {
+    canton <- rlang::arg_match(arg = canton,
+                               values = cantons(ballot_date))
+  }
+  
+  raw_qstnr_suppl(ballot_date = ballot_date) |>
+    purrr::pluck(lvl) |>
+    pal::when(lvl == "cantonal" ~ purrr::pluck(., canton),
+              ~ .) |>
+    purrr::pluck("proposal") |>
+    pal::when(is.null(proposal_nr) ~ .,
+              ~ purrr::pluck(., proposal_nr))
 }
 
 #' Get a proposal's raw name supplemental questionnaire data
@@ -583,7 +621,6 @@ raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key =
                              canton = canton,
                              proposal_nr = proposal_nr) |>
     purrr::pluck("main_motive")
-  
   
   if (is.null(result)) {
     
@@ -1835,10 +1872,10 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
                                   ~ c(c(question_intro_i[isTRUE(i == 1L && j %in% c(1L, NA_integer_))],
                                         question_intro_j[isTRUE(j == 1L)]) %>%
                                         magrittr::extract(!is.na(.)) |>
-                                        pal::as_string(),
+                                        pal::as_str(),
                                       .) %>%
                                     magrittr::extract(!is.na(.)) |>
-                                    pal::as_string(sep = " <br><br>")),
+                                    pal::as_str(sep = " <br><br>")),
             allow_multiple_answers,
             pal::wrap_chr(variable_name,
                           wrap = "`"),
@@ -1978,9 +2015,11 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
   
   if (!rlang::has_name(x = item_map, name = "variable_name")) {
     cli::cli_abort(paste0("There is no item with {.arg variable_name} {.val {var_name}} defined under the questionnaire branch path {.field ",
-                          pal::prose_ls(x = branch_path,
-                                        sep = " -> ",
-                                        last_sep = " -> "),
+                          cli::ansi_collapse(x = branch_path,
+                                             x = branch_path,
+                                             sep = " -> ",
+                                             sep2 = " -> ",
+                                             last = " -> "),
                           "}."))
   }
   
@@ -2096,7 +2135,7 @@ qstnr_response_option_codes <- function(types = all_response_option_types) {
 #' `r qstnr_lbl_col_sym("en") |> as.character() |> pal::wrap_chr("\x60")`. `qstnr_lbl_col_sym()` is intended to ease language-agnostic questionnaire data
 #' programming.
 #'
-#' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #'
 #' @return `r pkgsnip::return_lbl("sym")`
 #' @family qstnr_predicate
@@ -2106,7 +2145,7 @@ qstnr_response_option_codes <- function(types = all_response_option_types) {
 #' fokus:::qstnr_lbl_col_sym(lang = "de")
 #' 
 #' fokus:::qstnr_lbl_col_sym(lang = "en")
-qstnr_lbl_col_sym <- function(lang = c("de", "en")) {
+qstnr_lbl_col_sym <- function(lang = all_langs) {
   
   lang <- rlang::arg_match(lang)
   
@@ -2530,6 +2569,18 @@ url_parameter_survey <- list(aargau = "pw")
 #' fokus::all_proposal_types
 "all_proposal_types"
 
+#' Standardized referendum proposal question groups
+#'
+#' A vector of all possible referendum [proposal question groups][proposal_qstn_groups].
+#'
+#' @format A character vector.
+#' @family metadata
+#' @export
+#'
+#' @examples
+#' fokus::all_qstn_groups
+"all_qstn_groups"
+
 #' Referendum proposal argument sides
 #'
 #' A vector of all possible referendum proposal argument sides.
@@ -2541,6 +2592,30 @@ url_parameter_survey <- list(aargau = "pw")
 #' @examples
 #' fokus::all_argument_sides
 "all_argument_sides"
+
+#' Referendum proposal main motive types
+#'
+#' A vector of all possible referendum proposal main motive types.
+#'
+#' @format A character vector.
+#' @family metadata
+#' @export
+#'
+#' @examples
+#' fokus::all_main_motive_types
+"all_main_motive_types"
+
+#' Election seat types
+#'
+#' A vector of all possible election seat types.
+#'
+#' @format A character vector.
+#' @family metadata
+#' @export
+#'
+#' @examples
+#' fokus::all_election_seat_types
+"all_election_seat_types"
 
 #' Response option types
 #'
@@ -2578,6 +2653,30 @@ url_parameter_survey <- list(aargau = "pw")
 #' fokus::all_postal_dispatch_ways
 "all_postal_dispatch_ways"
 
+#' Languages
+#'
+#' A vector of all possible survey metadata languages.
+#'
+#' @format A character vector.
+#' @family metadata
+#' @export
+#'
+#' @examples
+#' fokus::all_langs
+"all_langs"
+
+#' Name types
+#'
+#' A vector of all possible name types for various entities.
+#'
+#' @format A character vector.
+#' @family metadata
+#' @export
+#'
+#' @examples
+#' fokus::all_name_types
+"all_name_types"
+
 #' Get cantons covered by FOKUS survey
 #'
 #' Determines the cantons covered by the FOKUS survey at the specified ballot date.
@@ -2614,8 +2713,7 @@ cantons <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' @inheritParams cantons
 #' @param canton FOKUS-covered canton name. One of
 #'   `r pal::as_md_val_list(all_cantons)`
-#' @param ballot_type Ballot type. One of
-#'   `r pal::as_md_val_list(all_ballot_types)`
+#' @param ballot_type Ballot type. One of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
 #'
 #' @return A character vector.
 #' @family predicate_fundamental
@@ -2663,8 +2761,7 @@ lvls <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' specified ballot date.
 #'
 #' @inheritParams lvls
-#' @param lvls Political level(s). One or more of
-#' `r pal::as_md_val_list(all_lvls)`
+#' @param lvls Political level(s). One or more of `r all_lvls |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'
 #' @return A character vector.
 #' @family predicate_fundamental
@@ -2717,8 +2814,7 @@ ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' date.
 #'
 #' @inheritParams lvls
-#' @param lvl Political level. One of
-#' `r pal::as_md_val_list(all_lvls)`
+#' @param lvl Political level. One of `r all_lvls |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
 #'
 #' @return A character vector.
 #' @family predicate_fundamental
@@ -2805,7 +2901,8 @@ proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                     canton,
                                     ballot_type = "referendum"),
                          canton = cantons(ballot_date)) {
-  if (length(lvl)) {
+  
+  if (length(lvl) > 0L) {
     lvl <- rlang::arg_match(arg = lvl,
                             values = all_lvls)
   }
@@ -2839,8 +2936,7 @@ proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' the specified election procedure(s).
 #'
 #' @inheritParams prcds
-#' @param prcd Election procedure. One of
-#' `r pal::as_md_val_list(all_prcds)`
+#' @param prcd Election procedure. One of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
 #'
 #' @return An integer vector.
 #' @family predicate_fundamental
@@ -2891,6 +2987,73 @@ election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
   }
   
   result
+}
+
+#' Get referendum proposal question groups
+#'
+#' Determines the referendum proposal [question groups][all_qstn_groups] covered by the FOKUS survey for the specified canton on the specified political level
+#' at the specified ballot date.
+#'
+#' @inheritParams proposal_nrs
+#' @inheritParams raw_qstnr_suppl_proposal
+#'
+#' @return A character vector of question group identifiers.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::proposal_qstn_groups(ballot_date = "2023-06-18",
+#'                             lvl = "federal",
+#'                             canton = "aargau",
+#'                             proposal_nr = 1)
+#'
+#' fokus::proposal_qstn_groups(ballot_date = "2023-06-18",
+#'                             lvl = "federal",
+#'                             canton = "aargau",
+#'                             proposal_nr = 2)
+proposal_qstn_groups <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                   pkg = this_pkg),
+                                 lvl = all_lvls,
+                                 canton = cantons(ballot_date),
+                                 proposal_nr = 1L) {
+  
+  raw_qstnr_suppl_proposal_safe(ballot_date = ballot_date,
+                                lvl = lvl,
+                                canton = canton,
+                                proposal_nr = proposal_nr) |>
+    names() |>
+    intersect(all_qstn_groups) %||%
+    character()
+}
+
+#' Get referendum proposal numbers with question group
+#'
+#' Determines the referendum proposal numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
+#' level for which at least one question of each of the specified standardized question groups has been asked.
+#'
+#' @inheritParams proposal_nrs
+#' @param qstn_groups One or more of the standardized question groups `r pal::enum_fn_param_defaults(param = "qstn_groups", fn = qstn_groups_proposal_nrs)`.
+#'
+#' @return An integer vector.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::qstn_groups_proposal_nrs(ballot_date = "2023-06-18",
+#'                                 lvl = "federal",
+#'                                 canton = "aargau")
+qstn_groups_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                       pkg = this_pkg),
+                                     lvl = all_lvls,
+                                     canton = cantons(ballot_date),
+                                     qstn_groups = all_qstn_groups) {
+  
+  raw_qstnr_suppl_proposal_safe(ballot_date = ballot_date,
+                                lvl = lvl,
+                                canton = canton) |>
+    purrr::keep(\(x) all(qstn_groups %in% names(x))) |>
+    names() |>
+    as.integer()
 }
 
 #' Get number of referendum proposals
@@ -2953,8 +3116,7 @@ n_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' of the specified election procedure(s).
 #'
 #' @inheritParams ballot_types
-#' @param prcds Election procedure(s). One or more of
-#' `r pal::as_md_val_list(all_prcds)`
+#' @param prcds Election procedure(s). One or more of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'
 #' @return An integer vector of length `lvls` × `prcds`, named after `lvls.prcds`.
 #' @family predicate_fundamental
@@ -3085,10 +3247,8 @@ has_election <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'   `r pal::as_md_val_list(all_cantons)`
 #'   
 #'   Only relevant if `lvls` includes `"cantonal"` or `ballot_type = "election"`.
-#' @param ballot_type Ballot type to test for. One of
-#'   `r pal::as_md_val_list(all_ballot_types)`
-#' @param prcds Election procedure(s). One or more of
-#'   `r pal::as_md_val_list(all_prcds)`
+#' @param ballot_type Ballot type to test for. One of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
+#' @param prcds Election procedure(s). One or more of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'   
 #'   Only relevant if `ballot_type = "election"`.
 #'
@@ -3147,16 +3307,14 @@ has_ballot_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date covered the specified political level.
 #'
 #' @inheritParams cantons
-#' @param lvl Political level to test for. One of
-#'   `r pal::as_md_val_list(all_lvls)`
+#' @param lvl Political level to test for. One of `r all_lvls |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
 #' @param canton FOKUS-covered canton name. One of
 #'   `r pal::as_md_val_list(all_cantons)`
 #'   
 #'   Only relevant if `lvl = "cantonal"` or `ballot_types` includes `"election"`.
-#' @param ballot_types Ballot type(s). One or more of
+#' @param ballot_types Ballot type(s). One or more of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'   `r pal::as_md_val_list(all_ballot_types)`
-#' @param prcds Election procedure(s). One or more of
-#'   `r pal::as_md_val_list(all_prcds)`
+#' @param prcds Election procedure(s). One or more of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'   
 #'   Only relevant if `ballot_types` includes `"election"`.
 #'
@@ -3399,12 +3557,9 @@ proposal_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' Returns the name of the specified proposal in the specified language.
 #'
 #' @inheritParams proposal_nrs
+#' @inheritParams raw_qstnr_suppl_proposal
 #' @inheritParams lang_to_locale
-#' 
-#' @param proposal_nr Proposal number. A positive integerish scalar.
-#' @param type Name type. One of
-#'   - `"short"`
-#'   - `"long"`
+#' @param type Name type. One of `r all_name_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
 #'
 #' @return A character scalar.
 #' @family predicate_proposal
@@ -3423,8 +3578,8 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                      ballot_type = "referendum"),
                           canton = cantons(ballot_date),
                           proposal_nr = 1L,
-                          lang = c("de", "en"),
-                          type = c("short", "long")) {
+                          lang = all_langs,
+                          type = all_name_types) {
   
   lang <- rlang::arg_match(lang)
   type <- rlang::arg_match(type)
@@ -3448,10 +3603,16 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'
 #' @examples
 #' fokus::proposal_name_gender(ballot_date = "2018-09-23",
-#'                             lvl = "cantonal",
+#'                             lvl = "federal",
 #'                             canton = "aargau",
 #'                             proposal_nr = 1,
 #'                             type = "short")
+#'                             
+#' fokus::proposal_name_gender(ballot_date = "2018-09-23",
+#'                             lvl = "federal",
+#'                             canton = "aargau",
+#'                             proposal_nr = 1,
+#'                             type = "long")
 proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                    pkg = this_pkg),
                                  lvl = lvls(ballot_date,
@@ -3459,7 +3620,7 @@ proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot
                                             ballot_type = "referendum"),
                                  canton = cantons(ballot_date),
                                  proposal_nr = 1L,
-                                 type = c("short", "long")) {
+                                 type = all_name_types) {
   
   type <- rlang::arg_match(type)
   
@@ -3506,11 +3667,10 @@ proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #'
 #' Returns the specified proposal argument's text of the specified type in the specified language.
 #'
-#' @inheritParams proposal_arguments
 #' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #' @param argument_nr Proposal argument number. A positive integerish scalar.
-#' @param side Proposal argument side. One of
-#' `r pal::as_md_val_list(all_argument_sides)`
+#' @param side Proposal argument side. One of `r all_argument_sides |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
 #'
 #' @return A character scalar.
 #' @family predicate_proposal
@@ -3533,8 +3693,8 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
                               proposal_nr = 1L,
                               argument_nr = 1L,
                               side = all_argument_sides,
-                              lang = c("de", "en"),
-                              type = c("short", "long")) {
+                              lang = all_langs,
+                              type = all_name_types) {
   
   lang <- rlang::arg_match(lang)
   type <- rlang::arg_match(type)
@@ -3548,13 +3708,48 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
     purrr::chuck(lang, type)
 }
 
+#' Get proposal's main motives
+#'
+#' Returns text and code number of all main motives for the specified proposal.
+#'
+#' @inheritParams proposal_name
+#' @param type Main motive type. One of `r pal::enum_fn_param_defaults(param = "type", fn = proposal_main_motives)`.
+#'
+#' @return `r pkgsnip::return_lbl("tibble")`
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::proposal_main_motives(ballot_date = "2018-09-23",
+#'                              lvl = "cantonal",
+#'                              canton = "aargau",
+#'                              proposal_nr = 1,
+#'                              type = "no")
+proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                    pkg = this_pkg),
+                                  lvl = lvls(ballot_date,
+                                             canton,
+                                             ballot_type = "referendum"),
+                                  canton = cantons(ballot_date),
+                                  proposal_nr = 1L,
+                                  type = all_main_motive_types) {
+  type <- rlang::arg_match(type)
+  
+  raw_qstnr_suppl_main_motives(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton,
+                               proposal_nr = proposal_nr) |>
+    purrr::chuck(type) |>
+    purrr::map(tibble::as_tibble) |>
+    purrr::list_rbind()
+}
+
 #' Get proposal's number of arguments
 #'
 #' Determines the number of arguments on the specified proposal of the specified sides.
 #'
 #' @inheritParams proposal_name
-#' @param sides Proposal argument side(s). One or more of
-#' `r pal::as_md_val_list(all_argument_sides)`
+#' @param sides Proposal argument side(s). One or more of `r all_argument_sides |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'
 #' @return An integer scalar.
 #' @family predicate_proposal
@@ -3593,6 +3788,182 @@ n_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot
     length()
 }
 
+#' Get proposal's number of main motives
+#'
+#' Determines the number of main motives for the specified proposal and motive type.
+#'
+#' @inheritParams proposal_main_motives
+#' @param types Main motive type(s). One or more of `r pal::enum_fn_param_defaults(param = "type", fn = proposal_main_motives, sep2 = " and ")`.
+#'
+#' @return An integer scalar.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' # count all motive types
+#' fokus::n_proposal_main_motives(ballot_date = "2018-09-23",
+#'                                lvl = "cantonal",
+#'                                canton = "aargau",
+#'                                proposal_nr = 1)
+#'
+#' # count only motives of type "no"
+#' fokus::n_proposal_main_motives(ballot_date = "2018-09-23",
+#'                                lvl = "cantonal",
+#'                                canton = "aargau",
+#'                                proposal_nr = 1,
+#'                                types = "no")
+n_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                      pkg = this_pkg),
+                                    lvl = lvls(ballot_date,
+                                               canton,
+                                               ballot_type = "referendum"),
+                                    canton = cantons(ballot_date),
+                                    proposal_nr = 1L,
+                                    types = all_main_motive_types) {
+  types <- rlang::arg_match(types,
+                            multiple = TRUE)
+  
+  raw_qstnr_suppl_proposal(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           proposal_nr = proposal_nr) |>
+    purrr::pluck("main_motive") |>
+    purrr::keep_at(at = types) |>
+    pal::when(length(.) > 0L ~
+                purrr::map_depth(.,
+                                 .depth = 1L,
+                                 length) |>
+                purrr::list_c(ptype = integer()),
+              ~ 0L) |>
+    sum()
+}
+
+#' Determine whether arguments have been queried for referendum proposal
+#'
+#' Determines whether or not arguments have been queried for the specified referendum proposal.
+#'
+#' @inheritParams n_proposal_arguments
+#'
+#' @return A logical scalar.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::has_proposal_arguments(ballot_date = "2023-06-18",
+#'                               lvl = "federal",
+#'                               canton = "aargau")
+#'
+#' fokus::has_proposal_arguments(ballot_date = "2023-06-18",
+#'                               lvl = "federal",
+#'                               canton = "aargau",
+#'                               proposal_nr = 2)
+has_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                     pkg = this_pkg),
+                                   lvl = lvls(ballot_date,
+                                              canton,
+                                              ballot_type = "referendum"),
+                                   canton = cantons(ballot_date),
+                                   proposal_nr = 1L,
+                                   sides = all_argument_sides) {
+  
+  n_proposal_arguments(ballot_date = ballot_date,
+                       lvl = lvl,
+                       canton = canton,
+                       proposal_nr = proposal_nr,
+                       sides = sides) > 0L
+}
+
+#' Determine whether main motives have been queried for referendum proposal
+#'
+#' Determines whether or not main motives have been queried for the specified referendum proposal.
+#'
+#' @inheritParams n_proposal_main_motives
+#'
+#' @return A logical scalar.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::has_proposal_main_motives(ballot_date = "2023-06-18",
+#'                                  lvl = "federal",
+#'                                  canton = "aargau")
+#'
+#' fokus::has_proposal_main_motives(ballot_date = "2023-06-18",
+#'                                  lvl = "federal",
+#'                                  canton = "aargau",
+#'                                  proposal_nr = 2)
+has_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                        pkg = this_pkg),
+                                      lvl = lvls(ballot_date,
+                                                 canton,
+                                                 ballot_type = "referendum"),
+                                      canton = cantons(ballot_date),
+                                      proposal_nr = 1L,
+                                      types = all_main_motive_types) {
+  
+  n_proposal_main_motives(ballot_date = ballot_date,
+                          lvl = lvl,
+                          canton = canton,
+                          proposal_nr = proposal_nr,
+                          types = types) > 0L
+}
+
+#' Get referendum proposal numbers with arguments
+#'
+#' Determines the referendum proposal numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
+#' level for which at least one pro/contra argument has been queried.
+#'
+#' @inheritParams proposal_nrs
+#'
+#' @return An integer vector.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::argument_proposal_nrs(ballot_date = "2023-06-18",
+#'                              lvl = "federal",
+#'                              canton = "aargau")
+argument_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                    pkg = this_pkg),
+                                  lvl = lvls(ballot_date,
+                                             canton,
+                                             ballot_type = "referendum"),
+                                  canton = cantons(ballot_date)) {
+  
+  qstn_groups_proposal_nrs(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           qstn_groups = "argument")
+}
+
+#' Get referendum proposal numbers with arguments
+#'
+#' Determines the referendum proposal numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
+#' level for which at least one pro/contra argument has been queried.
+#'
+#' @inheritParams proposal_nrs
+#'
+#' @return An integer vector.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::main_motive_proposal_nrs(ballot_date = "2023-06-18",
+#'                                 lvl = "federal",
+#'                                 canton = "aargau")
+main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                       pkg = this_pkg),
+                                     lvl = lvls(ballot_date,
+                                                canton,
+                                                ballot_type = "referendum"),
+                                     canton = cantons(ballot_date)) {
+  
+  qstn_groups_proposal_nrs(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           qstn_groups = "main_motive")
+}
+
 #' Get proposals for which arguments have been queried
 #'
 #' Returns a list containing the political levels and proposal numbers for which pro/contra arguments have been queried in the post-voting survey for the
@@ -3621,10 +3992,10 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
           
           result <- NULL
           
-          if (n_proposal_arguments(ballot_date = ballot_date,
-                                   lvl = lvl,
-                                   canton = canton,
-                                   proposal_nr = proposal_nr) > 0L) {
+          if (has_proposal_arguments(ballot_date = ballot_date,
+                                     lvl = lvl,
+                                     canton = canton,
+                                     proposal_nr = proposal_nr)) {
             result <- list(lvl = lvl,
                            proposal_nr = proposal_nr)
           }
@@ -3634,81 +4005,6 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
         purrr::compact()
     }) |>
     purrr::list_flatten()
-}
-
-#' Get proposal's main motives
-#'
-#' Returns text and code number of all main motives on the specified proposal.
-#'
-#' @inheritParams proposal_name
-#' @param type Main motive type. One of
-#'   - `"yes"`
-#'   - `"no"`
-#'
-#' @return `r pkgsnip::return_lbl("tibble")`
-#' @family predicate_proposal
-#' @export
-#'
-#' @examples
-#' fokus::proposal_main_motives(ballot_date = "2018-09-23",
-#'                              lvl = "cantonal",
-#'                              canton = "aargau",
-#'                              proposal_nr = 1,
-#'                              type = "no")
-proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                    pkg = this_pkg),
-                                  lvl = lvls(ballot_date,
-                                             canton,
-                                             ballot_type = "referendum"),
-                                  canton = cantons(ballot_date),
-                                  proposal_nr = 1L,
-                                  type = c("yes",
-                                           "no")) {
-  type <- rlang::arg_match(type)
-  
-  raw_qstnr_suppl_main_motives(ballot_date = ballot_date,
-                               lvl = lvl,
-                               canton = canton,
-                               proposal_nr = proposal_nr) |>
-    purrr::chuck(type) |>
-    purrr::map(tibble::as_tibble) |>
-    purrr::list_rbind()
-}
-
-#' Get proposal's number of main motives
-#'
-#' Determines the number of main motives on the specified proposal.
-#'
-#' @inheritParams proposal_main_motives
-#'
-#' @return An integer scalar.
-#' @family predicate_proposal
-#' @export
-#'
-#' @examples
-#' fokus::n_proposal_main_motives(ballot_date = "2018-09-23",
-#'                                lvl = "cantonal",
-#'                                canton = "aargau",
-#'                                proposal_nr = 1,
-#'                                type = "no")
-n_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                      pkg = this_pkg),
-                                    lvl = lvls(ballot_date,
-                                               canton,
-                                               ballot_type = "referendum"),
-                                    canton = cantons(ballot_date),
-                                    proposal_nr = 1L,
-                                    type = c("yes",
-                                             "no")) {
-  type <- rlang::arg_match(type)
-  
-  raw_qstnr_suppl_proposal(ballot_date = ballot_date,
-                           lvl = lvl,
-                           canton = canton,
-                           proposal_nr = proposal_nr) |>
-    purrr::pluck("main_motive") |>
-    purrr::pluck(type) |>
-    length()
 }
 
 #' Get proposals for which main motives have been queried
@@ -3738,18 +4034,11 @@ combos_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key =
         purrr::map(\(proposal_nr) {
           
           result <- NULL
-          has_main_motives <-
-            c("yes",
-              "no") |>
-            purrr::map_int(\(type) n_proposal_main_motives(ballot_date = ballot_date,
-                                                           lvl = lvl,
-                                                           canton = canton,
-                                                           proposal_nr = proposal_nr,
-                                                           type = type)) |>
-            sum() |>
-            magrittr::is_greater_than(0L)
           
-          if (has_main_motives) {
+          if (has_proposal_main_motives(ballot_date = ballot_date,
+                                        lvl = lvl,
+                                        canton = canton,
+                                        proposal_nr = proposal_nr)) {
             result <- list(lvl = lvl,
                            proposal_nr = proposal_nr)
           }
@@ -3768,11 +4057,7 @@ combos_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key =
 #' @inheritParams election_nrs
 #' @inheritParams proposal_name
 #' @param election_nr Election number. A positive integerish scalar.
-#' @param type Name type. One of
-#'   - `"short"`
-#'   - `"long"`
-#'   - `"body"`
-#'   - `"body_alt"`
+#' @param type Name type. One of `r pal::enum_fn_param_defaults(param = "type", fn = election_name)`.
 #'
 #' @return A character scalar.
 #' @family predicate_election
@@ -3795,14 +4080,14 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                        lvl,
                                        canton),
                           election_nr = 1L,
-                          lang = c("de", "en"),
+                          lang = all_langs,
                           type = c("short", "long", "body", "body_alt")) {
   
   lang <- rlang::arg_match(lang)
   type <- rlang::arg_match(type)
   # this is required to trigger a proper error message in case `prcds` is not explicitly set and there are no elections (`prcd = character()`)
   if (!length(prcd)) {
-    cli::cli_abort(paste0("{.arg prcd} must be one of ", pal::prose_ls(paste0("{.val ", all_prcds, "}"), last_sep = " or "), "."))
+    cli::cli_abort(paste0("{.arg prcd} must be one of ", cli::ansi_collapse(paste0("{.val ", all_prcds, "}"), sep2 = " or ", last = " or "), "."))
   }
   
   raw_qstnr_suppl_election_name(ballot_date = ballot_date,
@@ -3818,7 +4103,7 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' Returns the combined name of all elections at the specified date on the specified level(s) for the specified canton in the specified language.
 #'
 #' @inheritParams n_elections
-#' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #' @param federal_first Whether or not to list federal elections before cantonal ones. Only has an effect if `"federal" %in% lvls`.
 #'
 #' @return A character scalar.
@@ -3840,7 +4125,7 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
                                                                       pkg = this_pkg),
                                     lvls = all_lvls,
                                     canton = cantons(ballot_date),
-                                    lang = c("de", "en"),
+                                    lang = all_langs,
                                     federal_first = TRUE) {
   
   lvls <- unique(checkmate::assert_subset(lvls,
@@ -3849,58 +4134,24 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
   lang <- rlang::arg_match(lang)
   checkmate::assert_flag(federal_first)
   
+  sep <- switch(EXPR = lang,
+                de = " sowie ",
+                en = " as well as ")
   lvls |>
     intersect(lvls(ballot_date = ballot_date,
                    canton = canton,
                    ballot_type = "election")) |>
-    purrr::map_chr(\(x) raw_qstnr_suppl_elections(ballot_date = ballot_date,
-                                                  lvl = x,
-                                                  canton = canton) |>
-                     purrr::chuck("names_combined", lang, "short")) |>
+    purrr::map_chr(\(x) {
+      raw_qstnr_suppl_elections(ballot_date = ballot_date,
+                                lvl = x,
+                                canton = canton) |>
+        purrr::chuck("names_combined", lang, "short")
+    }) |>
     pal::when(federal_first ~ .[sort(x = seq_along(.),
                                      decreasing = TRUE)],
               ~ .) |>
-    pal::prose_ls(last_sep = switch(EXPR = lang,
-                                    de = " sowie ",
-                                    en = " as well as "))
-}
-
-#' Get number of majoritarian election seats
-#'
-#' Determines the number of election seats of the specified type for the specified majoritarian election.
-#'
-#' @inheritParams ballot_types
-#' @inheritParams election_name
-#' @param type Seat type. One of
-#'  - `"vacant"`
-#'  - `"total"`
-#'
-#' @return An integer scalar.
-#' @family predicate_election
-#' @export
-#'
-#' @examples
-#' fokus::n_election_seats(ballot_date = "2019-10-20",
-#'                         lvl = "cantonal",
-#'                         canton = "aargau",
-#'                         type = "total")
-n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
-                             lvl = lvls(ballot_date,
-                                        canton,
-                                        ballot_type = "election"),
-                             canton = cantons(ballot_date),
-                             election_nr = 1L,
-                             type = c("vacant", "total")) {
-  
-  type <- rlang::arg_match(type)
-  
-  raw_qstnr_suppl_election(ballot_date = ballot_date,
-                           lvl = lvl,
-                           canton = canton,
-                           prcd = "majoritarian",
-                           election_nr = election_nr) |>
-    purrr::chuck("n_seats", type)
+    cli::ansi_collapse(sep2 = sep,
+                       last = sep)
 }
 
 #' Get majoritarian election's candidates
@@ -3933,37 +4184,6 @@ election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_
     purrr::chuck("candidate") |>
     purrr::map(tibble::as_tibble) |>
     purrr::list_rbind()
-}
-
-#' Get number of (officially registered) majoritarian election candidates
-#'
-#' Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
-#'
-#' @inheritParams n_election_seats
-#'
-#' @return An integer scalar.
-#' @family predicate_election
-#' @export
-#'
-#' @examples
-#' fokus::n_election_candidates(ballot_date = "2019-10-20",
-#'                              lvl = "cantonal",
-#'                              canton = "aargau")
-n_election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                    pkg = this_pkg),
-                                  lvl = lvls(ballot_date,
-                                             canton,
-                                             ballot_type = "election"),
-                                  canton = cantons(ballot_date),
-                                  election_nr = 1L) {
-  
-  raw_qstnr_suppl_election(ballot_date = ballot_date,
-                           lvl = lvl,
-                           canton = canton,
-                           prcd = "majoritarian",
-                           election_nr = election_nr) |>
-    purrr::chuck("candidate") |>
-    length()
 }
 
 #' Assemble majoritarian election's candidate string(s)
@@ -4090,6 +4310,73 @@ election_tickets <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
     purrr::chuck("ticket") |>
     purrr::map(tibble::as_tibble) |>
     purrr::list_rbind()
+}
+
+#' Get number of majoritarian election seats
+#'
+#' Determines the number of election seats of the specified type for the specified majoritarian election.
+#'
+#' @inheritParams ballot_types
+#' @inheritParams election_name
+#' @param type Seat type. One of `r pal::enum_fn_param_defaults(param = "type", fn = n_election_seats)`.
+#'
+#' @return An integer scalar.
+#' @family predicate_election
+#' @export
+#'
+#' @examples
+#' fokus::n_election_seats(ballot_date = "2019-10-20",
+#'                         lvl = "cantonal",
+#'                         canton = "aargau",
+#'                         type = "total")
+n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                               pkg = this_pkg),
+                             lvl = lvls(ballot_date,
+                                        canton,
+                                        ballot_type = "election"),
+                             canton = cantons(ballot_date),
+                             election_nr = 1L,
+                             type = all_election_seat_types) {
+  
+  type <- rlang::arg_match(type)
+  
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "majoritarian",
+                           election_nr = election_nr) |>
+    purrr::chuck("n_seats", type)
+}
+
+#' Get number of (officially registered) majoritarian election candidates
+#'
+#' Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
+#'
+#' @inheritParams n_election_seats
+#'
+#' @return An integer scalar.
+#' @family predicate_election
+#' @export
+#'
+#' @examples
+#' fokus::n_election_candidates(ballot_date = "2019-10-20",
+#'                              lvl = "cantonal",
+#'                              canton = "aargau")
+n_election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                    pkg = this_pkg),
+                                  lvl = lvls(ballot_date,
+                                             canton,
+                                             ballot_type = "election"),
+                                  canton = cantons(ballot_date),
+                                  election_nr = 1L) {
+  
+  raw_qstnr_suppl_election(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           prcd = "majoritarian",
+                           election_nr = election_nr) |>
+    purrr::chuck("candidate") |>
+    length()
 }
 
 #' Determine whether majoritarian election requires candidate registration
@@ -4245,7 +4532,7 @@ skill_question <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
                            canton = cantons(ballot_date),
                            proposal_nr = NULL,
                            skill_question_nr = 1L,
-                           lang = c("de", "en")) {
+                           lang = all_langs) {
   
   lang <- rlang::arg_match(lang)
   
@@ -4348,22 +4635,11 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = 
                                                    canton,
                                                    ballot_type = "referendum"),
                                         canton = cantons(ballot_date)) {
-  lvl <- rlang::arg_match(arg = lvl,
-                          values = all_lvls)
-  if (lvl == "cantonal") {
-    canton <- rlang::arg_match(arg = canton,
-                               values = cantons(ballot_date))
-  }
   
-  raw_qstnr_suppl(ballot_date = ballot_date) |>
-    purrr::pluck(lvl) |>
-    pal::when(lvl == "cantonal" ~ purrr::pluck(., canton),
-              ~ .) |>
-    purrr::pluck("proposal") |>
-    purrr::keep(\(x) rlang::has_name(x,
-                                     "skill_question")) |>
-    names() |>
-    as.integer()
+  qstn_groups_proposal_nrs(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton,
+                           qstn_groups = "skill_question")
 }
 
 #' Get ballot title
@@ -4371,7 +4647,7 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = 
 #' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date in German prose.
 #'
 #' @inheritParams lvls
-#' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #'
 #' @return A character scalar.
 #' @family predicate_other
@@ -4383,7 +4659,7 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = 
 ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                            pkg = this_pkg),
                          canton = cantons(ballot_date),
-                         lang = c("de", "en")) {
+                         lang = all_langs) {
   
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
@@ -4438,7 +4714,7 @@ ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                         lang = "en")
 political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
-                             lang = c("de", "en")) {
+                             lang = all_langs) {
   
   lang <- rlang::arg_match(lang)
   
@@ -4469,8 +4745,7 @@ political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' Returns the FOKUS survey's postal dispatch way of the specified type in the specified language for the specified canton at the specified ballot date.
 #'
 #' @inheritParams lvls
-#' @param dispatch_type Postal dispatch type. One of
-#' `r pal::as_md_val_list(all_postal_dispatch_types)`
+#' @param dispatch_type Postal dispatch type. One of `r pal::enum_fn_param_defaults(param = "dispatch_type", fn = postal_dispatch_way)`.
 #'
 #' @return A character scalar.
 #' @family predicate_other
@@ -4500,7 +4775,7 @@ postal_dispatch_way <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #' Note that only recurring response options are returned which are defined under the `response_options` top-level key in the file
 #' `data-raw/questionnaire/questionnaire.toml`.
 #'
-#' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #' @param type Response option type. One of
 #' `r pal::as_md_val_list(all_response_option_types)`
 #' @param subtypes Hierarchical response option subtypes as a character vector, or `NULL`. If `NULL`, all subtypes are returned.
@@ -4521,7 +4796,7 @@ postal_dispatch_way <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #'                          lang = "de",
 #'                          subtypes = c("election", "proportional"))
 response_options <- function(type = all_response_option_types,
-                             lang = c("de", "en"),
+                             lang = all_langs,
                              subtypes = NULL) {
   
   type <- rlang::arg_match(type)
@@ -5278,7 +5553,7 @@ restore_colnames <- function(x) {
 #' Transforms a [ballot type][all_ballot_types] into a full prose string representation.
 #'
 #' @inheritParams lvls
-#' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #'
 #' @return A character scalar.
 #' @family prose
@@ -5293,7 +5568,7 @@ restore_colnames <- function(x) {
 #'                                                                lang = "en"))) |>
 #'   purrr::list_rbind()
 ballot_type_prose <- function(ballot_type = all_ballot_types,
-                              lang = c("de", "en")) {
+                              lang = all_langs) {
   
   ballot_type <- rlang::arg_match(ballot_type)
   lang <- rlang::arg_match(lang)
@@ -5312,7 +5587,7 @@ ballot_type_prose <- function(ballot_type = all_ballot_types,
 #' Transforms a [postal dispatch type][all_postal_dispatch_types] into a full prose string representation.
 #'
 #' @inheritParams postal_dispatch_way
-#' @inheritParams proposal_name
+#' @inheritParams lang_to_locale
 #'
 #' @return A character scalar.
 #' @family prose
@@ -5328,7 +5603,7 @@ ballot_type_prose <- function(ballot_type = all_ballot_types,
 #'                                                                         lang = "en"))) |>
 #'   purrr::list_rbind()
 postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types,
-                                       lang = c("de", "en")) {
+                                       lang = all_langs) {
   
   dispatch_type <- rlang::arg_match(dispatch_type)
   lang <- rlang::arg_match(lang)
@@ -5348,9 +5623,8 @@ postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types
 #'
 #' Transforms a [postal dispatch way][postal_dispatch_way] into a full prose string representation.
 #'
-#' @inheritParams proposal_name
-#' @param dispatch_way Postal dispatch way One of
-#' `r pal::as_md_val_list(all_postal_dispatch_ways)`
+#' @inheritParams lang_to_locale
+#' @param dispatch_way Postal dispatch way One of `r pal::enum_fn_param_defaults(param = "dispatch_way", fn = postal_dispatch_way_prose)`.
 #'
 #' @return A character scalar.
 #' @family prose
@@ -5363,7 +5637,7 @@ postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types
 #'                            dispatch_type = "invitation") |>
 #'   fokus::postal_dispatch_way_prose()
 postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
-                                      lang = c("de", "en")) {
+                                      lang = all_langs) {
   
   dispatch_way <- rlang::arg_match(dispatch_way)
   lang <- rlang::arg_match(lang)

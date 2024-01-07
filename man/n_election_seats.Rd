@@ -9,7 +9,7 @@ n_election_seats(
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L,
-  type = c("vacant", "total")
+  type = all_election_seat_types
 )
 }
 \arguments{
@@ -24,11 +24,7 @@ n_election_seats(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -37,11 +33,7 @@ n_election_seats(
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 
-\item{type}{Seat type. One of
-\itemize{
-\item \code{"vacant"}
-\item \code{"total"}
-}}
+\item{type}{Seat type. One of \code{"vacant"} or \code{"total"}.}
 }
 \value{
 An integer scalar.

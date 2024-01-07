@@ -10,7 +10,7 @@ election_name(
   canton = cantons(ballot_date),
   prcd = prcds(ballot_date, lvl, canton),
   election_nr = 1L,
-  lang = c("de", "en"),
+  lang = all_langs,
   type = c("short", "long", "body", "body_alt")
 )
 }
@@ -26,38 +26,20 @@ election_name(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}
 
-\item{prcd}{Election procedure. One of
-\itemize{
-\item \code{"proportional"}
-\item \code{"majoritarian"}
-}}
+\item{prcd}{Election procedure. One of \code{"proportional"} or \code{"majoritarian"}.}
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
-\item{type}{Name type. One of
-\itemize{
-\item \code{"short"}
-\item \code{"long"}
-\item \code{"body"}
-\item \code{"body_alt"}
-}}
+\item{type}{Name type. One of \code{"short"}, \code{"long"}, \code{"body"} or \code{"body_alt"}.}
 }
 \value{
 A character scalar.

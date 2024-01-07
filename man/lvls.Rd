@@ -27,11 +27,7 @@ lvls(
 \item \code{"aargau"}
 }}
 
-\item{ballot_type}{Ballot type. One of
-\itemize{
-\item \code{"referendum"}
-\item \code{"election"}
-}}
+\item{ballot_type}{Ballot type. One of \code{"referendum"} or \code{"election"}.}
 }
 \value{
 A character vector.
@@ -61,6 +57,8 @@ Other fundamental predicate functions:
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},
 \code{\link{prcds}()},
-\code{\link{proposal_nrs}()}
+\code{\link{proposal_nrs}()},
+\code{\link{proposal_qstn_groups}()},
+\code{\link{qstn_groups_proposal_nrs}()}
 }
 \concept{predicate_fundamental}

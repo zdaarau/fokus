@@ -122,6 +122,14 @@ all_proposal_types <- c("citizens' initiative",
                         "optional referendum")
 ```
 
+## `all_qstn_groups`
+
+Possible standardized question groups
+
+```{r}
+all_qstn_groups <- c("argument", "main_motive", "skill_question")
+```
+
 ## `all_argument_sides`
 
 Possible proposal argument sides
@@ -129,6 +137,24 @@ Possible proposal argument sides
 ```{r}
 all_argument_sides <- c("pro",
                         "contra")
+```
+
+## `all_main_motive_types`
+
+Possible main motive types
+
+```{r}
+all_main_motive_types <- c("yes",
+                           "no")
+```
+
+## `all_election_seat_types`
+
+Possible election seat types
+
+```{r}
+all_election_seat_types <- c("vacant",
+                             "total")
 ```
 
 ## `all_response_option_types`
@@ -168,6 +194,24 @@ all_postal_dispatch_ways <-
   unlist(use.names = FALSE) %>%
   unique() %>%
   sort()
+```
+
+## `all_langs`
+
+Possible languages (for proposal names etc.).
+
+```{r}
+all_langs <- c("de",
+               "en")
+```
+
+## `all_name_types`
+
+Possible name types for various entities.
+
+```{r}
+all_name_types <- c("short",
+                    "long")
 ```
 
 ## `pkg_config`
@@ -497,10 +541,15 @@ usethis::use_data(all_ballot_dates,
                   all_lvls,
                   all_prcds,
                   all_proposal_types,
+                  all_qstn_groups,
                   all_argument_sides,
+                  all_main_motive_types,
+                  all_election_seat_types,
                   all_response_option_types,
                   all_postal_dispatch_types,
                   all_postal_dispatch_ways,
+                  all_langs,
+                  all_name_types,
                   fokus_private_structure,
                   md_snippets,
                   pkg_config,

@@ -24,22 +24,14 @@ raw_qstnr_suppl_election_name(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
 \item \code{"aargau"}
 }}
 
-\item{prcd}{Election procedure. One of
-\itemize{
-\item \code{"proportional"}
-\item \code{"majoritarian"}
-}}
+\item{prcd}{Election procedure. One of \code{"proportional"} or \code{"majoritarian"}.}
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 }
@@ -67,6 +59,7 @@ Other raw questionnaire data functions:
 \code{\link{raw_qstnr_suppl_main_motives}()},
 \code{\link{raw_qstnr_suppl_mode}()},
 \code{\link{raw_qstnr_suppl_proposal_name}()},
+\code{\link{raw_qstnr_suppl_proposal_safe}()},
 \code{\link{raw_qstnr_suppl_proposal}()},
 \code{\link{raw_qstnr_suppl_skill_questions}()},
 \code{\link{raw_qstnr_suppl_skill_question}()},

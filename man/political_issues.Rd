@@ -6,7 +6,7 @@
 \usage{
 political_issues(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
-  lang = c("de", "en")
+  lang = all_langs
 )
 }
 \arguments{
@@ -21,11 +21,7 @@ political_issues(
 \item \code{"2023-06-18"}
 }}
 
-\item{lang}{Language. One of
-\itemize{
-\item \code{"de"}
-\item \code{"en"}
-}}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character vector.

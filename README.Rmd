@@ -83,13 +83,14 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 <summary><strong>Table of abbreviations</strong></summary>
 
 ```{r, echo = FALSE}
-fokus:::abbrs() %>%
+fokus:::abbrs() |>
   # flatten list col to comma-separted char col in order to avoid weird whitespacing before (some) commas (apparently `pal::pipe_table()` has flaws)
   dplyr::mutate(full_expressions = purrr::map_chr(full_expressions,
-                                                  pal::prose_ls,
-                                                  last_sep = ", ")) %>%
+                                                  \(x) cli::ansi_collapse(x = x,
+                                                                          sep2 = ", ",
+                                                                          last = ", "))) |>
   dplyr::rename("Full expression(s)" = full_expressions,
-                "Abbreviation" = abbreviation) %>%
+                "Abbreviation" = abbreviation) |>
   pal::pipe_table()
 ```
 

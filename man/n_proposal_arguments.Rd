@@ -24,11 +24,7 @@ n_proposal_arguments(
 \item \code{"2023-06-18"}
 }}
 
-\item{lvl}{Political level. One of
-\itemize{
-\item \code{"cantonal"}
-\item \code{"federal"}
-}}
+\item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
 \itemize{
@@ -39,11 +35,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{sides}{Proposal argument side(s). One or more of
-\itemize{
-\item \code{"pro"}
-\item \code{"contra"}
-}}
+\item{sides}{Proposal argument side(s). One or more of \code{"pro"} and \code{"contra"}.}
 }
 \value{
 An integer scalar.
@@ -65,8 +57,12 @@ fokus::n_proposal_arguments(ballot_date = "2018-09-23",
 }
 \seealso{
 Other proposal predicate functions:
+\code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
 \code{\link{combos_proposal_main_motives}()},
+\code{\link{has_proposal_arguments}()},
+\code{\link{has_proposal_main_motives}()},
+\code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_arguments}()},
 \code{\link{proposal_argument}()},
