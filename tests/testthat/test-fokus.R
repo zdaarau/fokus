@@ -69,7 +69,7 @@ test_that("Predicate functions return correct default values", {
                    list(list(lvl = "cantonal", proposal_nr = 1L)))
   expect_snapshot_error(election_name())
   expect_identical(election_names_combined(),
-                   character())
+                   "")
   expect_snapshot_error(n_election_seats())
   expect_snapshot_error(election_candidates())
   expect_snapshot_error(n_election_candidates())

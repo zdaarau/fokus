@@ -36,7 +36,7 @@ election_names_combined(
 \item{federal_first}{Whether or not to list federal elections before cantonal ones. Only has an effect if \code{"federal" \%in\% lvls}.}
 }
 \value{
-A character scalar.
+A character scalar, empty if no elections were held.
 }
 \description{
 Returns the combined name of all elections at the specified date on the specified level(s) for the specified canton in the specified language.

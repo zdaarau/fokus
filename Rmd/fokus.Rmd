@@ -4660,7 +4660,7 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' @inheritParams lang_to_locale
 #' @param federal_first Whether or not to list federal elections before cantonal ones. Only has an effect if `"federal" %in% lvls`.
 #'
-#' @return A character scalar.
+#' @return A character scalar, empty if no elections were held.
 #' @family predicate_election
 #' @export
 #'
