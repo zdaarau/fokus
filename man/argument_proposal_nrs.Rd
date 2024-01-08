@@ -47,6 +47,7 @@ fokus::argument_proposal_nrs(ballot_date = "2023-06-18",
 Other proposal predicate functions:
 \code{\link{combos_proposal_arguments}()},
 \code{\link{combos_proposal_main_motives}()},
+\code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
 \code{\link{main_motive_proposal_nrs}()},

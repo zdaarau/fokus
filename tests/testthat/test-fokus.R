@@ -63,6 +63,15 @@ test_that("Predicate functions return correct default values", {
                    6L)
   expect_identical(n_proposal_main_motives(),
                    13L)
+  expect_identical(combos_proposals(),
+                   list(list(lvl = "cantonal",
+                             proposal_nr = 1L),
+                        list(lvl = "federal",
+                             proposal_nr = 1L),
+                        list(lvl = "federal",
+                             proposal_nr = 2L),
+                        list(lvl = "federal",
+                             proposal_nr = 3L)))
   expect_identical(combos_proposal_arguments(),
                    list(list(lvl = "cantonal",
                              proposal_nr = 1L,

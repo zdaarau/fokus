@@ -76,6 +76,7 @@ reference:
   - has_proposal_main_motives
   - argument_proposal_nrs
   - main_motive_proposal_nrs
+  - combos_proposals
   - combos_proposal_arguments
   - combos_proposal_main_motives
 - subtitle: Election predicates

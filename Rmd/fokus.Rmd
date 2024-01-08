@@ -4500,10 +4500,46 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 }
 ```
 
+#### `combos_proposals`
+
+```{r}
+#' Get proposal combinations
+#'
+#' Returns a list containing the political levels and proposal numbers for all referendum proposals that have been covered by the FOKUS survey for the specified
+#' canton at the specified ballot date on the specified political level(s).
+#'
+#' @inheritParams ballot_types
+#'
+#' @return A list with an element per political-level-proposal-number combination.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::combos_proposals(ballot_date = "2023-06-18",
+#'                         canton = "aargau")
+combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                               pkg = this_pkg),
+                             lvls = all_lvls,
+                             canton = cantons(ballot_date)) {
+  lvls |>
+    purrr::map(\(lvl) {
+      
+      proposal_nrs(ballot_date = ballot_date,
+                   lvl = lvl,
+                   canton = canton) |>
+        purrr::map(\(proposal_nr) {
+          list(lvl = lvl,
+               proposal_nr = proposal_nr)
+        })
+    }) |>
+    purrr::list_flatten()
+}
+```
+
 #### `combos_proposal_arguments`
 
 ```{r}
-#' Get proposals for which arguments have been queried
+#' Get proposal combinations for which arguments have been queried
 #'
 #' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all [proposal
 #' arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
@@ -4580,7 +4616,7 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 #### `combos_proposal_main_motives`
 
 ```{r}
-#' Get proposals for which main motives have been queried
+#' Get proposal combinations for which main motives have been queried
 #'
 #' Returns a list containing the political levels, proposal numbers and optionally motive types for which [main motives][proposal_main_motives] have been
 #' queried in the post-voting survey for the specified ballot date.

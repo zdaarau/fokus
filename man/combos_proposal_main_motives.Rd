@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{combos_proposal_main_motives}
 \alias{combos_proposal_main_motives}
-\title{Get proposals for which main motives have been queried}
+\title{Get proposal combinations for which main motives have been queried}
 \usage{
 combos_proposal_main_motives(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -51,6 +51,7 @@ fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
 Other proposal predicate functions:
 \code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
+\code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
 \code{\link{main_motive_proposal_nrs}()},
