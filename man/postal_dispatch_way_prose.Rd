@@ -28,8 +28,11 @@ fokus::postal_dispatch_way(ballot_date = "2018-09-23",
 }
 \seealso{
 Other prose text functions:
+\code{\link{argument_side_prose}()},
 \code{\link{ballot_type_prose}()},
-\code{\link{postal_dispatch_type_prose}()}
+\code{\link{motive_type_prose}()},
+\code{\link{postal_dispatch_type_prose}()},
+\code{\link{proposal_name_declined_de}()}
 
 Other postal dispatch functions:
 \code{\link{postal_dispatch_type_prose}()},

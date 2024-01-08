@@ -129,9 +129,12 @@ reference:
   - restore_colnames
 - title: Prose text
 - contents:
+  - argument_side_prose
   - ballot_type_prose
+  - motive_type_prose
   - postal_dispatch_type_prose
   - postal_dispatch_way_prose
+  - proposal_name_declined_de
 - title: Google Apps
 - contents:
   - backup_g_file

@@ -70,6 +70,9 @@
     <loc>https://fokus.rpkg.dev/dev/reference/argument_proposal_nrs.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/argument_side_prose.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/auth_g_drive_gcp.html</loc>
   </url>
   <url>
@@ -199,6 +202,9 @@
     <loc>https://fokus.rpkg.dev/dev/reference/md_emphasize.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/motive_type_prose.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/n_election_candidates.html</loc>
   </url>
   <url>
@@ -256,6 +262,9 @@
     <loc>https://fokus.rpkg.dev/dev/reference/proposal_name.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/proposal_name_declined_de.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/proposal_name_gender.html</loc>
   </url>
   <url>
@@ -269,9 +278,6 @@
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/proposals.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstn_groups.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/qstn_groups_proposal_nrs.html</loc>

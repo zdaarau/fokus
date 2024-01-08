@@ -31,8 +31,11 @@ fokus::all_postal_dispatch_types |>
 }
 \seealso{
 Other prose text functions:
+\code{\link{argument_side_prose}()},
 \code{\link{ballot_type_prose}()},
-\code{\link{postal_dispatch_way_prose}()}
+\code{\link{motive_type_prose}()},
+\code{\link{postal_dispatch_way_prose}()},
+\code{\link{proposal_name_declined_de}()}
 
 Other postal dispatch functions:
 \code{\link{postal_dispatch_way_prose}()},

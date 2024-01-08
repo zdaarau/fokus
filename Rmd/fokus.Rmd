@@ -4222,7 +4222,7 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
 ```{r}
 #' Get proposal's main motives
 #'
-#' Returns text and code number of all main motives for the specified proposal.
+#' Returns text and code number of all main motives of the specified `type` for the specified proposal.
 #'
 #' @inheritParams proposal_name
 #' @param type Main motive type. One of `r pal::enum_fn_param_defaults(param = "type", fn = proposal_main_motives)`.
@@ -6348,6 +6348,40 @@ restore_colnames <- function(x) {
 
 ## Prose text
 
+### `argument_side_prose`
+
+```{r}
+#' Transform argument side into prose string
+#'
+#' Transforms a [proposal argument][proposal_arguments] side into a full prose string representation.
+#'
+#' @inheritParams proposal_argument
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::all_argument_sides |>
+#'   purrr::map(\(x) tibble::tibble(side = x,
+#'                                  de = fokus::argument_side_prose(side = x,
+#'                                                                  lang = "de"),
+#'                                  en = fokus::argument_side_prose(side = x,
+#'                                                                  lang = "en"))) |>
+#'   purrr::list_rbind()
+argument_side_prose <- function(side,
+                                lang = all_langs) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = side,
+                     pro = "Pro",
+                     contra = "Kontra"),
+         en = side)
+}
+```
+
 ### `ballot_type_prose`
 
 ```{r}
@@ -6383,6 +6417,41 @@ ballot_type_prose <- function(ballot_type = all_ballot_types,
          en = switch(EXPR = ballot_type,
                      referendum = "referendums",
                      election = "elections"))
+}
+```
+
+### `motive_type_prose`
+
+```{r}
+#' Transform motive type into prose string
+#'
+#' Transforms a [proposal main motives][proposal_main_motives] type into a full prose string representation.
+#'
+#' @inheritParams proposal_main_motives
+#' @inheritParams lang_to_locale
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::all_main_motive_types |>
+#'   purrr::map(\(x) tibble::tibble(type = x,
+#'                                  de = fokus::motive_type_prose(type = x,
+#'                                                                lang = "de"),
+#'                                  en = fokus::motive_type_prose(type = x,
+#'                                                                lang = "en"))) |>
+#'   purrr::list_rbind()
+motive_type_prose <- function(type,
+                              lang = all_langs) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = type,
+                     yes = "Ja",
+                     no = "Nein"),
+         en = type)
 }
 ```
 
@@ -6462,6 +6531,67 @@ postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
                      A = "A priority mail",
                      B = "B mail",
                      `B bulk mailing` = "B bulk mailing"))
+}
+```
+
+### `proposal_name_declined_de`
+
+TODO:
+
+-   Improve the underlying `salim::decline_noun_de()` fn. Cases where it currently fails include:
+
+    -   `fokus::proposal_name_declined_de(ballot_date = "2023-06-18", proposal_nr = 2, lvl = "federal", type = "long", case = "dative")`
+
+```{r}
+#' Get declined German proposal name
+#'
+#' Declines a German [proposal name][proposal_name] to the specified grammatical `case`. Simple convenience function combining [proposal_name()],
+#' [proposal_name_gender()] and [salim::decline_noun_de()].
+#'
+#' @inheritParams proposal_name
+#' @inheritParams salim::decline_noun_de 
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::proposal_name_declined_de(ballot_date = "2023-06-18",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  proposal_nr = 1,
+#'                                  type = "short",
+#'                                  case = "dative")
+#'
+#' fokus::proposal_name_declined_de(ballot_date = "2023-06-18",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  proposal_nr = 1,
+#'                                  type = "short",
+#'                                  case = "genitive")
+proposal_name_declined_de <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                        pkg = this_pkg),
+                                      lvl = lvls(ballot_date,
+                                                 canton,
+                                                 ballot_type = "referendum"),
+                                      canton = cantons(ballot_date),
+                                      proposal_nr = 1L,
+                                      type = all_name_types,
+                                      case = c("nominative", "genitive", "dative", "accusative")) {
+  rlang::check_installed("salim",
+                         reason = pal::reason_pkg_required())
+  
+  proposal_name(ballot_date = ballot_date,
+                lvl = lvl,
+                canton = canton,
+                proposal_nr = proposal_nr,
+                type = type) |>
+    salim::decline_noun_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                         lvl = lvl,
+                                                         canton = canton,
+                                                         proposal_nr = proposal_nr,
+                                                         type = type),
+                           case = case)
 }
 ```
 

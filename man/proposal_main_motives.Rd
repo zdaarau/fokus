@@ -41,7 +41,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-Returns text and code number of all main motives for the specified proposal.
+Returns text and code number of all main motives of the specified \code{type} for the specified proposal.
 }
 \examples{
 fokus::proposal_main_motives(ballot_date = "2018-09-23",
