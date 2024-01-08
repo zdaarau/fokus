@@ -57,16 +57,26 @@ test_that("Predicate functions return correct default values", {
                         style = "json2")
   expect_identical(proposal_argument(),
                    "Vermögenssteuer bringt Kantonshaushalt wieder ins Lot")
-  expect_identical(n_proposal_arguments(),
-                   6L)
-  expect_identical(combos_proposal_arguments(),
-                   list(list(lvl = "cantonal", proposal_nr = 1L)))
   expect_snapshot_value(proposal_main_motives(),
                         style = "json2")
+  expect_identical(n_proposal_arguments(),
+                   6L)
   expect_identical(n_proposal_main_motives(),
                    13L)
+  expect_identical(combos_proposal_arguments(),
+                   list(list(lvl = "cantonal",
+                             proposal_nr = 1L,
+                             side = "pro"),
+                        list(lvl = "cantonal",
+                             proposal_nr = 1L,
+                             side = "contra")))
   expect_identical(combos_proposal_main_motives(),
-                   list(list(lvl = "cantonal", proposal_nr = 1L)))
+                   list(list(lvl = "cantonal",
+                             proposal_nr = 1L,
+                             type = "yes"),
+                        list(lvl = "cantonal",
+                             proposal_nr = 1L,
+                             type = "no")))
   expect_snapshot_error(election_name())
   expect_identical(election_names_combined(),
                    "")

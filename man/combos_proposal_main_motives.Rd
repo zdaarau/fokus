@@ -7,7 +7,8 @@
 combos_proposal_main_motives(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
-  canton = cantons(ballot_date)
+  canton = cantons(ballot_date),
+  incl_type = TRUE
 )
 }
 \arguments{
@@ -28,17 +29,23 @@ combos_proposal_main_motives(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{incl_type}{Whether or not to include motive types (yes/no) in the resulting list. Setting this to \code{FALSE} potentially results in fewer combinations.}
 }
 \value{
-A list with an element per political-level-proposal-number combination.
+A list with an element per political-level-proposal-number and optionally -type combination.
 }
 \description{
-Returns a list containing the political levels and proposal numbers for which main motives have been queried in the post-voting survey for the specified
-ballot date.
+Returns a list containing the political levels, proposal numbers and optionally motive types for which \link[=proposal_main_motives]{main motives} have been
+queried in the post-voting survey for the specified ballot date.
 }
 \examples{
 fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
                                     canton = "aargau")
+# without types
+fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
+                                    canton = "aargau",
+                                    incl_type = FALSE)
 }
 \seealso{
 Other proposal predicate functions:

@@ -7,7 +7,8 @@
 combos_proposal_arguments(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
-  canton = cantons(ballot_date)
+  canton = cantons(ballot_date),
+  incl_side = TRUE
 )
 }
 \arguments{
@@ -28,17 +29,23 @@ combos_proposal_arguments(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{incl_side}{Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to \code{FALSE} potentially results in fewer
+combinations.}
 }
 \value{
-A list with an element per political-level-proposal-number combination.
+A list with an element per political-level-proposal-number and optionally -side combination.
 }
 \description{
-Returns a list containing the political levels and proposal numbers for which pro/contra arguments have been queried in the post-voting survey for the
-specified ballot date.
+Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all \link[=proposal_arguments]{proposal arguments} that have been queried in the post-voting survey for the specified ballot date.
 }
 \examples{
 fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
                                  canton = "aargau")
+# without sides
+fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
+                                 canton = "aargau",
+                                 incl_side = FALSE)
 }
 \seealso{
 Other proposal predicate functions:

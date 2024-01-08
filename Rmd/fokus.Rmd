@@ -4506,22 +4506,31 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 ```{r}
 #' Get proposals for which arguments have been queried
 #'
-#' Returns a list containing the political levels and proposal numbers for which pro/contra arguments have been queried in the post-voting survey for the
-#' specified ballot date.
+#' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all [proposal
+#' arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
 #'
 #' @inheritParams ballot_types
+#' @param incl_side Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to `FALSE` potentially results in fewer
+#'   combinations.
 #'
-#' @return A list with an element per political-level-proposal-number combination.
+#' @return A list with an element per political-level-proposal-number and optionally -side combination.
 #' @family predicate_proposal
 #' @export
 #'
 #' @examples
 #' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
 #'                                  canton = "aargau")
+#' # without sides
+#' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
+#'                                  canton = "aargau",
+#'                                  incl_side = FALSE)
 combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                         pkg = this_pkg),
                                       lvls = all_lvls,
-                                      canton = cantons(ballot_date)) {
+                                      canton = cantons(ballot_date),
+                                      incl_side = TRUE) {
+  checkmate::assert_flag(incl_side)
+  
   lvls |>
     purrr::map(\(lvl) {
       
@@ -4530,19 +4539,40 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
                    canton = canton) |>
         purrr::map(\(proposal_nr) {
           
-          result <- NULL
-          
-          if (has_proposal_arguments(ballot_date = ballot_date,
-                                     lvl = lvl,
-                                     canton = canton,
-                                     proposal_nr = proposal_nr)) {
+          if (incl_side) {
+            
+            result <-
+              all_argument_sides |>
+              purrr::map(\(side) {
+                if (has_proposal_arguments(ballot_date = ballot_date,
+                                           lvl = lvl,
+                                           canton = canton,
+                                           proposal_nr = proposal_nr,
+                                           sides = side)) {
+                  list(lvl = lvl,
+                       proposal_nr = proposal_nr,
+                       side = side)
+                } else {
+                  NULL
+                }
+              }) |>
+              purrr::compact()
+            
+          } else if (has_proposal_arguments(ballot_date = ballot_date,
+                                            lvl = lvl,
+                                            canton = canton,
+                                            proposal_nr = proposal_nr)) {
             result <- list(lvl = lvl,
                            proposal_nr = proposal_nr)
+          } else {
+            result <- NULL
           }
           
           result
         }) |>
-        purrr::compact()
+        purrr::compact() |>
+        pal::when(incl_side ~ purrr::list_flatten(.),
+                  ~ .)
     }) |>
     purrr::list_flatten()
 }
@@ -4553,22 +4583,30 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 ```{r}
 #' Get proposals for which main motives have been queried
 #'
-#' Returns a list containing the political levels and proposal numbers for which main motives have been queried in the post-voting survey for the specified
-#' ballot date.
+#' Returns a list containing the political levels, proposal numbers and optionally motive types for which [main motives][proposal_main_motives] have been
+#' queried in the post-voting survey for the specified ballot date.
 #'
 #' @inheritParams ballot_types
+#' @param incl_type Whether or not to include motive types (yes/no) in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
-#' @inherit combos_proposal_arguments return
+#' @return A list with an element per political-level-proposal-number and optionally -type combination.
 #' @family predicate_proposal
 #' @export
 #'
 #' @examples
 #' fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
 #'                                     canton = "aargau")
+#' # without types
+#' fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
+#'                                     canton = "aargau",
+#'                                     incl_type = FALSE)
 combos_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                            pkg = this_pkg),
                                          lvls = all_lvls,
-                                         canton = cantons(ballot_date)) {
+                                         canton = cantons(ballot_date),
+                                         incl_type = TRUE) {
+  checkmate::assert_flag(incl_type)
+  
   lvls |>
     purrr::map(\(lvl) {
       
@@ -4577,19 +4615,40 @@ combos_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key =
                    canton = canton) |>
         purrr::map(\(proposal_nr) {
           
-          result <- NULL
-          
-          if (has_proposal_main_motives(ballot_date = ballot_date,
-                                        lvl = lvl,
-                                        canton = canton,
-                                        proposal_nr = proposal_nr)) {
+          if (incl_type) {
+            
+            result <-
+              all_main_motive_types |>
+              purrr::map(\(type) {
+                if (has_proposal_main_motives(ballot_date = ballot_date,
+                                              lvl = lvl,
+                                              canton = canton,
+                                              proposal_nr = proposal_nr,
+                                              types = type)) {
+                  list(lvl = lvl,
+                       proposal_nr = proposal_nr,
+                       type = type)
+                } else {
+                  NULL
+                }
+              }) |>
+              purrr::compact()
+            
+          } else if (has_proposal_main_motives(ballot_date = ballot_date,
+                                               lvl = lvl,
+                                               canton = canton,
+                                               proposal_nr = proposal_nr)) {
             result <- list(lvl = lvl,
                            proposal_nr = proposal_nr)
+          } else {
+            result <- NULL
           }
           
           result
         }) |>
-        purrr::compact()
+        purrr::compact() |>
+        pal::when(incl_type ~ purrr::list_flatten(.),
+                  ~ .)
     }) |>
     purrr::list_flatten()
 }

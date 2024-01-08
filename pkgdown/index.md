@@ -251,8 +251,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   initialize, initialization                init
   integer                                   int
   integers                                  ints
-  iterate, iterator                         itr
-  iterators                                 itrs
+  iterate, iteration, iterator              itr
+  iterations, iterators                     itrs
   label                                     lbl
   labels                                    lbls
   language                                  lang
