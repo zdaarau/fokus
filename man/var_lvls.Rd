@@ -29,6 +29,7 @@ Other variable-related functions:
 \code{\link{is_skill_question_var}()},
 \code{\link{var_lbl}()},
 \code{\link{var_proposal_nr}()},
-\code{\link{var_skill_question_nr}()}
+\code{\link{var_skill_question_nr}()},
+\code{\link{var_title}()}
 }
 \concept{vars}

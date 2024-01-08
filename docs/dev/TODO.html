@@ -90,6 +90,7 @@ the item `first_name` which in turn is defined under branch path `00_cantonal_st
 </ul></li>
 <li><p>Consider introducing a mechanism to define truly hierarchical first-item question intros on table lvl above <code>item</code> lvl. But maybe not worth the effort? Wait until we conduct an online survey by ourselves to get better understanding of actual requirements!</p></li>
 <li><p>add var <code>latent_expertise_proposals</code> that combines expertise on cantonal <em>and</em> federal proposals</p></li>
+<li><p>Port the FOKUS questionnaire to <a href="https://qstnr.rpkg.dev/" class="external-link">qstnr</a>!</p></li>
 </ul></div>
 <div class="section level2">
 <h2 id="nice-to-have--low-priority">Nice-to-have / Low Priority<a class="anchor" aria-label="anchor" href="#nice-to-have--low-priority"></a></h2>
@@ -98,10 +99,6 @@ the item `first_name` which in turn is defined under branch path `00_cantonal_st
 <ul><li>figure out why there’s <code>mode = "majority"</code> defined under table <code>cantonal.aargau.election.majoritarian.1</code> (seems bollocks)</li>
 </ul></li>
 <li><p>Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found <a href="https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/" class="external-link">here</a></p></li>
-<li>
-<p>Create an R package to facilitate creating <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table-Schema</a>-compatible questionnaires in TOML format. Note there’s an R package <a href="https://libraries.frictionlessdata.io/docs/table-schema/rlang" class="external-link">tableschema.r</a> to work with the Table Schema format (validate etc.)</p>
-<p>Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.</p>
-</li>
 <li><p>Export CSV data in <em>CSV on the Web (CSVW)</em> format using package <a href="https://robsteranium.github.io/csvwr/" class="external-link">csvw</a> once it supports writing CSVW.</p></li>
 </ul></div>
 </div>

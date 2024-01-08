@@ -122,6 +122,7 @@ reference:
   - var_lvls
   - var_proposal_nr
   - var_skill_question_nr
+  - var_title
 - subtitle: Variable name shortening
 - contents:
   - shorten_var_names

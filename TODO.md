@@ -59,6 +59,8 @@
 
 -   add var `latent_expertise_proposals` that combines expertise on cantonal *and* federal proposals
 
+-   Port the FOKUS questionnaire to [qstnr](https://qstnr.rpkg.dev/)!
+
 ## Nice-to-have / Low Priority
 
 -   Supplemental date-specific TOML questionnaire files:
@@ -67,10 +69,5 @@
 
 -   Consider relying on external package for frequency tables and other summary statistics. A good (but a bit aged) overview of available packages is found
     [here](https://dabblingwithdata.wordpress.com/2017/12/20/my-favourite-r-package-for-frequency-tables/)
-
--   Create an R package to facilitate creating [Table-Schema](https://specs.frictionlessdata.io/table-schema/)-compatible questionnaires in TOML format. Note
-    there's an R package [tableschema.r](https://libraries.frictionlessdata.io/docs/table-schema/rlang) to work with the Table Schema format (validate etc.)
-
-    Then, adapt the FOKUS questionnaire generation to rely on this package as far as possible.
 
 -   Export CSV data in *CSV on the Web (CSVW)* format using package [csvw](https://robsteranium.github.io/csvwr/) once it supports writing CSVW.

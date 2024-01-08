@@ -2386,7 +2386,6 @@ assert_var_names <- function(var_names,
     checkmate::assert_choice(var_names,
                              choices = unique(fokus::qstnrs$variable_name),
                              null.ok = null_ok)
-    
   } else {
     
     purrr::map_chr(var_names,
@@ -5498,6 +5497,45 @@ var_skill_question_nr <- function(var_names) {
     checkmate::assert_character() |>
     stringr::str_extract("(?<=skill_question_)\\d+") |>
     as.integer()
+}
+
+#' Get variable title
+#'
+#' Extracts a variable's title from the [questionnaire data][qstnrs].
+#'
+#' @inheritParams lvls
+#' @inheritParams var_lbl
+#'
+#' @return A character scalar.
+#' @family vars
+#' @export
+#'
+#' @examples
+#' fokus::var_title(var_name = "weight_decision",
+#'                  ballot_date = "2018-11-25",
+#'                  canton = "aargau")
+#'
+#' fokus::var_title(var_name = "weight_decision",
+#'                  ballot_date = "2019-10-20",
+#'                  canton = "aargau")
+var_title <- function(var_name,
+                      ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                        pkg = this_pkg),
+                      canton = cantons(ballot_date)) {
+  
+  assert_var_names(var_names = var_name,
+                   as_scalar = TRUE)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(arg = ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  fokus::qstnrs |>
+    dplyr::filter(canton == !!canton
+                  & ballot_date == !!ballot_date
+                  & variable_name == !!var_name) %$%
+    topic |>
+    unique()
 }
 
 #' Shorten variable names to a maximum length of 32 characters
