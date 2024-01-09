@@ -4004,7 +4004,8 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
             list(lvl = lvl,
                  proposal_nr = proposal_nr)
           })
-      } else if (has_lvl(lvl = lvl,
+      } else if (has_lvl(ballot_date = ballot_date,
+                         lvl = lvl,
                          canton = canton,
                          ballot_types = "referendum")) {
         result <- list(lvl = lvl)
@@ -4016,7 +4017,8 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
       result
     }) |>
     pal::when(incl_nr ~ purrr::list_flatten(.),
-              ~ .)
+              ~ .) |>
+    purrr::compact()
 }
 
 #' Get proposal combinations for which arguments have been queried
