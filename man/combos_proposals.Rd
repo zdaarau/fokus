@@ -7,7 +7,8 @@
 combos_proposals(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
-  canton = cantons(ballot_date)
+  canton = cantons(ballot_date),
+  incl_nr = TRUE
 )
 }
 \arguments{
@@ -28,9 +29,11 @@ combos_proposals(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{incl_nr}{Whether or not to include proposal numbers in the resulting list. Setting this to \code{FALSE} potentially results in fewer combinations.}
 }
 \value{
-A list with an element per political-level-proposal-number combination.
+A list with an element per political-level and optionally -proposal-number combination.
 }
 \description{
 Returns a list containing the political levels and proposal numbers for all referendum proposals that have been covered by the FOKUS survey for the specified
@@ -39,6 +42,11 @@ canton at the specified ballot date on the specified political level(s).
 \examples{
 fokus::combos_proposals(ballot_date = "2023-06-18",
                         canton = "aargau")
+
+# without proposal numbers
+fokus::combos_proposals(ballot_date = "2023-06-18",
+                        canton = "aargau",
+                        incl_nr = FALSE)
 }
 \seealso{
 Other proposal predicate functions:

@@ -3969,30 +3969,54 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' canton at the specified ballot date on the specified political level(s).
 #'
 #' @inheritParams ballot_types
+#' @param incl_nr Whether or not to include proposal numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
-#' @return A list with an element per political-level-proposal-number combination.
+#' @return A list with an element per political-level and optionally -proposal-number combination.
 #' @family predicate_proposal
 #' @export
 #'
 #' @examples
 #' fokus::combos_proposals(ballot_date = "2023-06-18",
 #'                         canton = "aargau")
+#'
+#' # without proposal numbers
+#' fokus::combos_proposals(ballot_date = "2023-06-18",
+#'                         canton = "aargau",
+#'                         incl_nr = FALSE)
 combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
                              lvls = all_lvls,
-                             canton = cantons(ballot_date)) {
+                             canton = cantons(ballot_date),
+                             incl_nr = TRUE) {
+  
+  checkmate::assert_flag(incl_nr)
+  
   lvls |>
     purrr::map(\(lvl) {
       
-      proposal_nrs(ballot_date = ballot_date,
-                   lvl = lvl,
-                   canton = canton) |>
-        purrr::map(\(proposal_nr) {
-          list(lvl = lvl,
-               proposal_nr = proposal_nr)
-        })
+      if (incl_nr) {
+        
+        result <-
+          proposal_nrs(ballot_date = ballot_date,
+                       lvl = lvl,
+                       canton = canton) |>
+          purrr::map(\(proposal_nr) {
+            list(lvl = lvl,
+                 proposal_nr = proposal_nr)
+          })
+      } else if (has_lvl(lvl = lvl,
+                         canton = canton,
+                         ballot_types = "referendum")) {
+        result <- list(lvl = lvl)
+        
+      } else {
+        result <- NULL
+      }
+      
+      result
     }) |>
-    purrr::list_flatten()
+    pal::when(incl_nr ~ purrr::list_flatten(.),
+              ~ .)
 }
 
 #' Get proposal combinations for which arguments have been queried

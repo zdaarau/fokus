@@ -60,7 +60,8 @@ canton at the specified ballot date on the specified political level(s).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">combos_proposals</span><span class="op">(</span></span>
 <span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"ballot_date"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
 <span>  lvls <span class="op">=</span> <span class="va">all_lvls</span>,</span>
-<span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span></span>
+<span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
+<span>  incl_nr <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -85,12 +86,16 @@ canton at the specified ballot date on the specified political level(s).</p>
 <dd><p>FOKUS-covered canton name. One of</p><ul><li><p><code>"aargau"</code></p></li>
 </ul></dd>
 
+
+<dt>incl_nr</dt>
+<dd><p>Whether or not to include proposal numbers in the resulting list. Setting this to <code>FALSE</code> potentially results in fewer combinations.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A list with an element per political-level-proposal-number combination.</p>
+<p>A list with an element per political-level and optionally -proposal-number combination.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -161,6 +166,21 @@ canton at the specified ballot date on the specified political level(s).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]$proposal_nr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># without proposal numbers</span></span></span>
+<span class="r-in"><span><span class="fu">fokus</span><span class="fu">::</span><span class="fu">combos_proposals</span><span class="op">(</span>ballot_date <span class="op">=</span> <span class="st">"2023-06-18"</span>,</span></span>
+<span class="r-in"><span>                        canton <span class="op">=</span> <span class="st">"aargau"</span>,</span></span>
+<span class="r-in"><span>                        incl_nr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]$lvl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cantonal"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]$lvl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "federal"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
