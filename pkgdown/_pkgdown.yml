@@ -133,6 +133,7 @@ reference:
 - contents:
   - argument_side_prose
   - ballot_type_prose
+  - lvl_prose
   - motive_type_prose
   - postal_dispatch_type_prose
   - postal_dispatch_way_prose

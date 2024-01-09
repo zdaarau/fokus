@@ -18,7 +18,7 @@ postal_dispatch_way_prose(
 A character scalar.
 }
 \description{
-Transforms a \link[=postal_dispatch_way]{postal dispatch way} into a full prose string representation.
+Transforms a \link[=all_postal_dispatch_ways]{postal dispatch way} into a full prose string representation.
 }
 \examples{
 fokus::postal_dispatch_way(ballot_date = "2018-09-23",
@@ -30,6 +30,7 @@ fokus::postal_dispatch_way(ballot_date = "2018-09-23",
 Other prose text functions:
 \code{\link{argument_side_prose}()},
 \code{\link{ballot_type_prose}()},
+\code{\link{lvl_prose}()},
 \code{\link{motive_type_prose}()},
 \code{\link{postal_dispatch_type_prose}()},
 \code{\link{proposal_name_declined_de}()}

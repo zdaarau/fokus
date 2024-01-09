@@ -29,6 +29,7 @@ fokus::all_ballot_types |>
 \seealso{
 Other prose text functions:
 \code{\link{argument_side_prose}()},
+\code{\link{lvl_prose}()},
 \code{\link{motive_type_prose}()},
 \code{\link{postal_dispatch_type_prose}()},
 \code{\link{postal_dispatch_way_prose}()},

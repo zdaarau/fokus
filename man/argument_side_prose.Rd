@@ -15,7 +15,7 @@ argument_side_prose(side, lang = all_langs)
 A character scalar.
 }
 \description{
-Transforms a \link[=proposal_arguments]{proposal argument} side into a full prose string representation.
+Transforms a \link[=all_argument_sides]{proposal argument} side into a full prose string representation.
 }
 \examples{
 fokus::all_argument_sides |>
@@ -29,6 +29,7 @@ fokus::all_argument_sides |>
 \seealso{
 Other prose text functions:
 \code{\link{ballot_type_prose}()},
+\code{\link{lvl_prose}()},
 \code{\link{motive_type_prose}()},
 \code{\link{postal_dispatch_type_prose}()},
 \code{\link{postal_dispatch_way_prose}()},

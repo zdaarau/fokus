@@ -6465,7 +6465,7 @@ restore_colnames <- function(x) {
 ```{r}
 #' Transform argument side into prose string
 #'
-#' Transforms a [proposal argument][proposal_arguments] side into a full prose string representation.
+#' Transforms a [proposal argument][all_argument_sides] side into a full prose string representation.
 #'
 #' @inheritParams proposal_argument
 #'
@@ -6532,12 +6532,48 @@ ballot_type_prose <- function(ballot_type = all_ballot_types,
 }
 ```
 
+### `lvl_prose`
+
+```{r}
+#' Transform political level into prose string
+#'
+#' Transforms a [political level][all_lvls] into a full prose string representation.
+#'
+#' @inheritParams prcds
+#' @inheritParams lang_to_locale
+#'
+#' @return A character scalar.
+#' @family prose
+#' @export
+#'
+#' @examples
+#' fokus::all_lvls |>
+#'   purrr::map(\(x) tibble::tibble(lvl = x,
+#'                                  de = fokus::lvl_prose(lvl = x,
+#'                                                        lang = "de"),
+#'                                  en = fokus::lvl_prose(lvl = x,
+#'                                                        lang = "en"))) |>
+#'   purrr::list_rbind()
+lvl_prose <- function(lvl,
+                      lang = all_langs) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  switch(EXPR = lang,
+         de = switch(EXPR = lvl,
+                     municipal = "kommunal",
+                     cantonal = "kantonal",
+                     federal = "eidgen\u00f6ssisch"),
+         en = lvl)
+}
+```
+
 ### `motive_type_prose`
 
 ```{r}
 #' Transform motive type into prose string
 #'
-#' Transforms a [proposal main motives][proposal_main_motives] type into a full prose string representation.
+#' Transforms a [proposal main motives][all_main_motive_types] type into a full prose string representation.
 #'
 #' @inheritParams proposal_main_motives
 #' @inheritParams lang_to_locale
@@ -6613,7 +6649,7 @@ postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types
 ```{r}
 #' Transform postal dispatch way into prose string
 #'
-#' Transforms a [postal dispatch way][postal_dispatch_way] into a full prose string representation.
+#' Transforms a [postal dispatch way][all_postal_dispatch_ways] into a full prose string representation.
 #'
 #' @inheritParams lang_to_locale
 #' @param dispatch_way Postal dispatch way One of `r pal::enum_fn_param_defaults(param = "dispatch_way", fn = postal_dispatch_way_prose)`.

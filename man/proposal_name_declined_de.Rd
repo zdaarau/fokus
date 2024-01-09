@@ -66,6 +66,7 @@ fokus::proposal_name_declined_de(ballot_date = "2023-06-18",
 Other prose text functions:
 \code{\link{argument_side_prose}()},
 \code{\link{ballot_type_prose}()},
+\code{\link{lvl_prose}()},
 \code{\link{motive_type_prose}()},
 \code{\link{postal_dispatch_type_prose}()},
 \code{\link{postal_dispatch_way_prose}()}

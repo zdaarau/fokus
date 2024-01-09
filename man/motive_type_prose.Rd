@@ -15,7 +15,7 @@ motive_type_prose(type, lang = all_langs)
 A character scalar.
 }
 \description{
-Transforms a \link[=proposal_main_motives]{proposal main motives} type into a full prose string representation.
+Transforms a \link[=all_main_motive_types]{proposal main motives} type into a full prose string representation.
 }
 \examples{
 fokus::all_main_motive_types |>
@@ -30,6 +30,7 @@ fokus::all_main_motive_types |>
 Other prose text functions:
 \code{\link{argument_side_prose}()},
 \code{\link{ballot_type_prose}()},
+\code{\link{lvl_prose}()},
 \code{\link{postal_dispatch_type_prose}()},
 \code{\link{postal_dispatch_way_prose}()},
 \code{\link{proposal_name_declined_de}()}
