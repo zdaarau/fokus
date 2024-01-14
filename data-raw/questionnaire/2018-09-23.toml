@@ -5,9 +5,9 @@ n = 8000
 invitation = [ "online", "print" ]
 reminder = [ "online", "print" ]
 [mode.aargau.postal_dispatch.type]
-invitation = "B"
-reminder = "B"
-prepaid_reply_envelope = "A"
+invitation = "b"
+reminder = "b"
+prepaid_reply_envelope = "a"
 [mode.aargau.postal_dispatch.date]
 invitation = 2018-09-18
 reminder = 2018-10-02

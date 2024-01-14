@@ -274,8 +274,7 @@ raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_
     ballot_date <- rlang::arg_match(arg = ballot_date,
                                     values = as.character(all_ballot_dates))
     
-    cli::cli_abort("No {.val {lvl}} level present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
-                   .internal = TRUE)
+    cli::cli_abort("No {.val {lvl}} level present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
   
   result
@@ -318,8 +317,7 @@ raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val(key = "
                                     values = as.character(all_ballot_dates))
     lvl <- rlang::arg_match(lvl)
     
-    cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.",
-                   .internal = TRUE)
+    cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.")
   }
   
   result
@@ -373,8 +371,7 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
     
     cli::cli_abort(paste0("No {.val {lvl}} proposals present",
                           " for {.val {canton}}"[lvl == "cantonal"],
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   proposal <- proposals |> purrr::pluck(as.character(proposal_nr))
@@ -390,8 +387,7 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
     
     cli::cli_abort(paste0("No {.val {lvl}} proposal {.val {proposal_nr}} present",
                           " for {.val {canton}}"[lvl == "cantonal"],
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   proposal
@@ -479,8 +475,7 @@ raw_qstnr_suppl_proposal_name <- function(ballot_date = pal::pkg_config_val(key 
     
     cli::cli_abort(paste0("No names present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -527,8 +522,7 @@ raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
     
     cli::cli_abort(paste0("No arguments present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -586,8 +580,7 @@ raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val(key = "ba
     
     cli::cli_abort(paste0("No {.val {side}} argument {.val {argument_nr}} present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -634,8 +627,7 @@ raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key =
     
     cli::cli_abort(paste0("No main motives present for {.val {lvl}} proposal {.val {proposal_nr}} ",
                           "in {.val {canton}} "[lvl == "cantonal"],
-                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          "in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -678,8 +670,7 @@ raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val(key = "b
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
-    cli::cli_abort("No {.val {lvl}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
-                   .internal = TRUE)
+    cli::cli_abort("No {.val {lvl}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
   
   result
@@ -732,8 +723,7 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
                                values = all_cantons)
     
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} elections for canton {.val {canton}} present in the supplemental {.val {ballot_date}} FOKUS ",
-                          "questionnaire data."),
-                   .internal = TRUE)
+                          "questionnaire data."))
   }
   
   result %<>% purrr::pluck(as.character(election_nr))
@@ -749,8 +739,7 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
                                values = all_cantons)
     
     cli::cli_abort(paste0("No {.val {lvl}} {.val {prcd}} election {.val {election_nr}} for canton {.val {canton}} present in the supplemental ",
-                          "{.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          "{.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -813,8 +802,7 @@ raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val(key 
                                values = all_cantons)
     
     cli::cli_abort(paste0("No names present for {.val {lvl}} {.val {prcd}} election {.val {election_nr}} in canton {.val {canton}} in the supplemental ",
-                          "{.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          "{.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -850,8 +838,7 @@ raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val(key = "ballot
     ballot_date <- rlang::arg_match(arg = ballot_date,
                                     values = as.character(all_ballot_dates))
     
-    cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.",
-                   .internal = TRUE)
+    cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
   
   result
@@ -917,8 +904,7 @@ raw_qstnr_suppl_skill_questions <- function(ballot_date = pal::pkg_config_val(ke
                                  paste0(" on the {.val {lvl}} level",
                                         " for {.val {canton}}"[lvl == "cantonal"]),
                                  " for {.val {lvl}} proposal {.val {proposal_nr}}"),
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."),
-                   .internal = TRUE)
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data."))
   }
   
   result
@@ -972,8 +958,7 @@ raw_qstnr_suppl_skill_question <- function(ballot_date = pal::pkg_config_val(key
                           ifelse(length(proposal_nr) == 0L,
                                  paste0(" on the {.val {lvl}} level", " for {.val {canton}}"[lvl == "cantonal"]),
                                  " for {.val {lvl}} proposal {.val {proposal_nr}}"),
-                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data. Only {length(skill_questions)} skill questions included."),
-                   .internal = TRUE)
+                          " in the supplemental {.val {ballot_date}} FOKUS questionnaire data. Only {length(skill_questions)} skill questions included."))
   }
   
   result
@@ -4302,56 +4287,6 @@ election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_
     purrr::list_rbind()
 }
 
-#' Assemble majoritarian election's candidate string(s)
-#'
-#' Assembles one or more majoritarian election candidate string(s) consisting of the candidate's first name, last name and optionally political party (in
-#' parentheses).
-#'
-#' @inheritParams n_election_seats
-#' @param candidate_nrs Election candidate numbers to include. A vector of positive integers or `NULL`. If `NULL`, all candidates will be included.
-#' @param incl_party Whether or not to include the candidate's political party in the resulting string (in parentheses).
-#'
-#' @return A character vector.
-#' @family predicate_election
-#' @export
-#'
-#' @examples
-#' fokus::election_candidate_prose(ballot_date = "2019-10-20",
-#'                                 lvl = "cantonal",
-#'                                 canton = "aargau",
-#'                                 candidate_nrs = 1:3)
-election_candidate_prose <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
-                                     lvl = lvls(ballot_date,
-                                                canton,
-                                                ballot_type = "election"),
-                                     canton = cantons(ballot_date),
-                                     election_nr = 1L,
-                                     candidate_nrs = NULL,
-                                     incl_party = TRUE) {
-  
-  data_candidates <- election_candidates(ballot_date = ballot_date,
-                                         lvl = lvl,
-                                         canton = canton,
-                                         election_nr = election_nr)
-  
-  checkmate::assert_integerish(candidate_nrs,
-                               lower = 1L,
-                               upper = nrow(data_candidates),
-                               any.missing = FALSE,
-                               null.ok = TRUE)
-  checkmate::assert_flag(incl_party)
-  
-  if (length(candidate_nrs)) {
-    data_candidates %<>% dplyr::filter(dplyr::row_number() %in% candidate_nrs)
-  }
-  
-  data_candidates |> purrr::pmap_chr(incl_party = incl_party,
-                                     .f = function(first_name, last_name, party, ..., incl_party) {
-                                       paste0(first_name, " ", last_name, paste0(" (", party, ")")[incl_party])
-                                     })
-}
-
 #' Get proportional election's political parties
 #'
 #' Returns the questionnaire code as well as different versions of the name of all parties for the specified proportional election.
@@ -4760,7 +4695,7 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = 
 
 #' Get ballot title
 #'
-#' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date in German prose.
+#' Returns the ballot title consisting of the [ballot type][ballot_types()] and the ballot date, phrased in German.
 #'
 #' @inheritParams lvls
 #' @inheritParams lang_to_locale
@@ -4845,8 +4780,7 @@ political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
     ballot_date <- rlang::arg_match(arg = ballot_date,
                                     values = as.character(all_ballot_dates))
     
-    cli::cli_abort("No political issues present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.",
-                   .internal = TRUE)
+    cli::cli_abort("No political issues present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
   
   result |>
@@ -5703,202 +5637,87 @@ restore_colnames <- function(x) {
                                                         reverse = TRUE))
 }
 
-#' Transform argument side into prose string
+#' Phrase term
 #'
-#' Transforms a [proposal argument][all_argument_sides] side into a full prose string representation.
-#'
-#' @inheritParams proposal_argument
-#'
-#' @return A character scalar.
-#' @family prose
-#' @export
-#'
-#' @examples
-#' fokus::all_argument_sides |>
-#'   purrr::map(\(x) tibble::tibble(side = x,
-#'                                  de = fokus::argument_side_prose(side = x,
-#'                                                                  lang = "de"),
-#'                                  en = fokus::argument_side_prose(side = x,
-#'                                                                  lang = "en"))) |>
-#'   purrr::list_rbind()
-argument_side_prose <- function(side,
-                                lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = side,
-                     pro = "Pro",
-                     contra = "Kontra"),
-         en = side)
-}
-
-#' Transform ballot type into prose string
-#'
-#' Transforms a [ballot type][all_ballot_types] into a full prose string representation.
-#'
-#' @inheritParams lvls
-#' @inheritParams lang_to_locale
-#'
-#' @return A character scalar.
-#' @family prose
-#' @export
-#'
-#' @examples
-#' fokus::all_ballot_types |>
-#'   purrr::map(\(x) tibble::tibble(type = x,
-#'                                  de = fokus::ballot_type_prose(ballot_type = x,
-#'                                                                lang = "de"),
-#'                                  en = fokus::ballot_type_prose(ballot_type = x,
-#'                                                                lang = "en"))) |>
-#'   purrr::list_rbind()
-ballot_type_prose <- function(ballot_type = all_ballot_types,
-                              lang = all_langs) {
-  
-  ballot_type <- rlang::arg_match(ballot_type)
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = ballot_type,
-                     referendum = "Abstimmungen",
-                     election = "Wahlen"),
-         en = switch(EXPR = ballot_type,
-                     referendum = "referendums",
-                     election = "elections"))
-}
-
-#' Transform political level into prose string
-#'
-#' Transforms a [political level][all_lvls] into a full prose string representation.
-#'
-#' @inheritParams prcds
-#' @inheritParams lang_to_locale
-#'
-#' @return A character scalar.
-#' @family prose
-#' @export
-#'
-#' @examples
-#' fokus::all_lvls |>
-#'   purrr::map(\(x) tibble::tibble(lvl = x,
-#'                                  de = fokus::lvl_prose(lvl = x,
-#'                                                        lang = "de"),
-#'                                  en = fokus::lvl_prose(lvl = x,
-#'                                                        lang = "en"))) |>
-#'   purrr::list_rbind()
-lvl_prose <- function(lvl,
-                      lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = lvl,
-                     municipal = "kommunal",
-                     cantonal = "kantonal",
-                     federal = "eidgen\u00f6ssisch"),
-         en = lvl)
-}
-
-#' Transform motive type into prose string
-#'
-#' Transforms a [proposal main motives][all_main_motive_types] type into a full prose string representation.
-#'
-#' @inheritParams proposal_main_motives
-#' @inheritParams lang_to_locale
-#'
-#' @return A character scalar.
-#' @family prose
-#' @export
-#'
-#' @examples
-#' fokus::all_main_motive_types |>
-#'   purrr::map(\(x) tibble::tibble(type = x,
-#'                                  de = fokus::motive_type_prose(type = x,
-#'                                                                lang = "de"),
-#'                                  en = fokus::motive_type_prose(type = x,
-#'                                                                lang = "en"))) |>
-#'   purrr::list_rbind()
-motive_type_prose <- function(type,
-                              lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = type,
-                     yes = "Ja",
-                     no = "Nein"),
-         en = type)
-}
-
-#' Transform postal dispatch type into prose string
-#'
-#' Transforms a [postal dispatch type][all_postal_dispatch_types] into a full prose string representation.
-#'
-#' @inheritParams postal_dispatch_way
-#' @inheritParams lang_to_locale
-#'
-#' @return A character scalar.
-#' @family prose
-#' @family postal_dispatch
-#' @export
-#'
-#' @examples
-#' fokus::all_postal_dispatch_types |>
-#'   purrr::map(\(x) tibble::tibble(type = x,
-#'                                  de = fokus::postal_dispatch_type_prose(dispatch_type = x,
-#'                                                                         lang = "de"),
-#'                                  en = fokus::postal_dispatch_type_prose(dispatch_type = x,
-#'                                                                         lang = "en"))) |>
-#'   purrr::list_rbind()
-postal_dispatch_type_prose <- function(dispatch_type = all_postal_dispatch_types,
-                                       lang = all_langs) {
-  
-  dispatch_type <- rlang::arg_match(dispatch_type)
-  lang <- rlang::arg_match(lang)
-  
-  switch(EXPR = lang,
-         de = switch(EXPR = dispatch_type,
-                     invitation = "Einladungsschreiben",
-                     reminder = "Erinnerungsschreiben",
-                     prepaid_reply_envelope = "vorfrankiertes R\u00fcckantwortcouvert"),
-         en = switch(EXPR = dispatch_type,
-                     invitation = "invitation letter",
-                     reminder = "reminder letter",
-                     prepaid_reply_envelope = "prepaid reply envelope"))
-}
-
-#' Transform postal dispatch way into prose string
-#'
-#' Transforms a [postal dispatch way][all_postal_dispatch_ways] into a full prose string representation.
+#' Transforms a term's value into a phrased string representation.
 #'
 #' @inheritParams lang_to_locale
-#' @param dispatch_way Postal dispatch way One of `r pal::enum_fn_param_defaults(param = "dispatch_way", fn = postal_dispatch_way_prose)`.
+#' @param term Term to be phrased. A character scalar.
+#' @param vals Value(s) of `term` to be phrased. A character vector.
 #'
 #' @return A character scalar.
-#' @family prose
-#' @family postal_dispatch
+#' @family phrase
 #' @export
 #'
 #' @examples
-#' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
-#'                            canton = "aargau",
-#'                            dispatch_type = "invitation") |>
-#'   fokus::postal_dispatch_way_prose()
-postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
-                                      lang = all_langs) {
+#' phrase(term = "side",
+#'        vals = c("pro", "pro", "contra"),
+#'        lang = "de")
+phrase <- function(term,
+                   vals,
+                   lang = all_langs) {
   
-  dispatch_way <- rlang::arg_match(dispatch_way)
   lang <- rlang::arg_match(lang)
+  term <- rlang::arg_match(arg = term,
+                           values = unique(phrased_terms_tidy$term))
+  data <- phrased_terms_tidy |> dplyr::filter(term == !!term & lang == !!lang)
+  vals <- rlang::arg_match(arg = vals,
+                           values = unique(data$value),
+                           multiple = TRUE)
+  vals |>
+    purrr::map_chr(\(val) {
+      data$phrase[data$value == val]
+    })
+}
+
+#' Phrase majoritarian election's candidate(s)
+#'
+#' Assembles one or more majoritarian election candidate strings consisting of the candidate's first name, last name and optionally political party (in
+#' parentheses).
+#'
+#' @inheritParams n_election_seats
+#' @param candidate_nrs Election candidate numbers to include. A vector of positive integers or `NULL`. If `NULL`, all candidates will be included.
+#' @param incl_party Whether or not to include the candidate's political party in the resulting string (in parentheses).
+#'
+#' @return A character vector.
+#' @family phrase
+#' @export
+#'
+#' @examples
+#' fokus::phrase_election_candidate(ballot_date = "2019-10-20",
+#'                                  lvl = "cantonal",
+#'                                  canton = "aargau",
+#'                                  candidate_nrs = 1:3)
+phrase_election_candidate <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                        pkg = this_pkg),
+                                      lvl = lvls(ballot_date,
+                                                 canton,
+                                                 ballot_type = "election"),
+                                      canton = cantons(ballot_date),
+                                      election_nr = 1L,
+                                      candidate_nrs = NULL,
+                                      incl_party = TRUE) {
   
-  switch(EXPR = lang,
-         de = switch(EXPR = dispatch_way,
-                     A = "A-Post",
-                     B = "B-Post",
-                     `B bulk mailing` = "B-Post-Massensendung"),
-         en = switch(EXPR = dispatch_way,
-                     A = "A priority mail",
-                     B = "B mail",
-                     `B bulk mailing` = "B bulk mailing"))
+  data_candidates <- election_candidates(ballot_date = ballot_date,
+                                         lvl = lvl,
+                                         canton = canton,
+                                         election_nr = election_nr)
+  
+  checkmate::assert_integerish(candidate_nrs,
+                               lower = 1L,
+                               upper = nrow(data_candidates),
+                               any.missing = FALSE,
+                               null.ok = TRUE)
+  checkmate::assert_flag(incl_party)
+  
+  if (length(candidate_nrs)) {
+    data_candidates %<>% dplyr::filter(dplyr::row_number() %in% candidate_nrs)
+  }
+  
+  data_candidates |> purrr::pmap_chr(incl_party = incl_party,
+                                     .f = function(first_name, last_name, party, ..., incl_party) {
+                                       paste0(first_name, " ", last_name, paste0(" (", party, ")")[incl_party])
+                                     })
 }
 
 #' Get declined German proposal name
@@ -5907,35 +5726,35 @@ postal_dispatch_way_prose <- function(dispatch_way = all_postal_dispatch_ways,
 #' [proposal_name_gender()] and [salim::decline_noun_de()].
 #'
 #' @inheritParams proposal_name
-#' @inheritParams salim::decline_noun_de 
+#' @inheritParams salim::decline_noun_de
 #'
 #' @return A character scalar.
-#' @family prose
+#' @family phrase
 #' @export
 #'
 #' @examples
-#' fokus::proposal_name_declined_de(ballot_date = "2023-06-18",
-#'                                  lvl = "cantonal",
-#'                                  canton = "aargau",
-#'                                  proposal_nr = 1,
-#'                                  type = "short",
-#'                                  case = "dative")
+#' fokus::phrase_proposal_name_de(ballot_date = "2023-06-18",
+#'                                lvl = "cantonal",
+#'                                canton = "aargau",
+#'                                proposal_nr = 1,
+#'                                type = "short",
+#'                                case = "dative")
 #'
-#' fokus::proposal_name_declined_de(ballot_date = "2023-06-18",
-#'                                  lvl = "cantonal",
-#'                                  canton = "aargau",
-#'                                  proposal_nr = 1,
-#'                                  type = "short",
-#'                                  case = "genitive")
-proposal_name_declined_de <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                        pkg = this_pkg),
-                                      lvl = lvls(ballot_date,
-                                                 canton,
-                                                 ballot_type = "referendum"),
-                                      canton = cantons(ballot_date),
-                                      proposal_nr = 1L,
-                                      type = all_name_types,
-                                      case = c("nominative", "genitive", "dative", "accusative")) {
+#' fokus::phrase_proposal_name_de(ballot_date = "2023-06-18",
+#'                                lvl = "cantonal",
+#'                                canton = "aargau",
+#'                                proposal_nr = 1,
+#'                                type = "short",
+#'                                case = "genitive")
+phrase_proposal_name_de <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                      pkg = this_pkg),
+                                    lvl = lvls(ballot_date,
+                                               canton,
+                                               ballot_type = "referendum"),
+                                    canton = cantons(ballot_date),
+                                    proposal_nr = 1L,
+                                    type = all_name_types,
+                                    case = c("nominative", "genitive", "dative", "accusative")) {
   rlang::check_installed("salim",
                          reason = pal::reason_pkg_required())
   
@@ -6179,7 +5998,7 @@ backup_g_sheet <- function(g_id,
                   . == "" ~
                     cli::cli_abort("{.arg path} must have a file extension ({.file .csv} or {.file .xlsx})."),
                   
-                  ~ cli::cli_abort("Exporting filetype {.file {.}} not yet implemented."))
+                  ~ cli::cli_abort("Exporting filetype {.file {.}} is not yet implemented."))
       
     } else {
       cli::cli_alert_warning("A file already exists under {.arg path} {.file {path}} but {.arg overwrite} was set to {.val FALSE}. Nothing done.")

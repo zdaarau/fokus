@@ -45,10 +45,6 @@ Other predicate functions:
 \code{\link{ballot_title}()},
 \code{\link{political_issues}()},
 \code{\link{response_options}()}
-
-Other postal dispatch functions:
-\code{\link{postal_dispatch_type_prose}()},
-\code{\link{postal_dispatch_way_prose}()}
 }
 \concept{postal_dispatch}
 \concept{predicate_other}

@@ -439,10 +439,10 @@ variable_label = "the { salim::rank_nr(j) } candidate the respondent would have 
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the { salim::rank_nr(i) } federal majoritarian election ({ salim::rank_nr(j) } seat) if the respondent would have participated"
 response_options = """
 {
-  election_candidate_prose(ballot_date = ballot_date,
-                           lvl = 'federal',
-                           canton = canton,
-                           election_nr = i) %>%
+  phrase_election_candidate(ballot_date = ballot_date,
+                            lvl = 'federal',
+                            canton = canton,
+                            election_nr = i) %>%
     pal::when(requires_candidate_registration(ballot_date = ballot_date,
                                               lvl = 'federal',
                                               canton = canton,
@@ -455,7 +455,7 @@ response_options = """
                        subtypes = 'main'))
 }"""
 variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional') }"
 topic = "Hypothetischer Stimmentscheid Partei kantonale Verhältniswahl {i}"
@@ -520,9 +520,9 @@ question_common = "Wen hätten Sie bei der kantonalen Mehrheitswahl {i} gewählt
 variable_name = "hypothetical_voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent would have voted for in the { salim::rank_nr(i) } cantonal majoritarian election if the respondent would have participated"
-response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_labels = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 
 
 [03_1_election_general]
@@ -1003,9 +1003,9 @@ question_common = "Wen haben Sie bei der eidgenössischen Mehrheitswahl {i} gew�
 variable_name = "voting_decision_federal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent voted for in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent voted for in the { salim::rank_nr(i) } federal majoritarian election"
-response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ seq_len(nrow(election_candidates(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i))) %>% c(qstnr_response_option_codes(types = 'abstain'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 
 [03_2_election_specific.003_cantonal_proportional]
@@ -1234,9 +1234,9 @@ question_common = "Wen haben Sie bei der kantonalen Mehrheitswahl {i} gewählt? 
 variable_name = "voting_decision_cantonal_majoritarian_election_{i}_seat_{j}"
 variable_label = "the { salim::rank_nr(j) } candidate the respondent voted for in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "the { salim::rank_nr(j) } candidate the respondent voted for in the { salim::rank_nr(i) } cantonal majoritarian election"
-response_options = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
+response_options = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'de', subtypes = c('election', 'majoritarian')), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'de', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'forgotten')) }"
 variable_values = "{ seq_len(n_election_candidates(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i)) %>% c(qstnr_response_option_codes(types = 'abstain'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., qstnr_response_option_codes(types = 'other'))) %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
+value_labels = "{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %>% c(response_options(type = 'abstain', lang = 'en', subtypes = 'main'), .) %>% pal::when(requires_candidate_registration(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) ~ ., ~ c(., response_options(type = 'other', lang = 'en', subtypes = 'candidate'))) %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'forgotten')) }"
 is_mandatory = true
 
 [03_2_election_specific.005_decision_moment]
@@ -2138,7 +2138,7 @@ variable_label_common = "respondent's main motivation to vote in favor of the { 
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
-include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'yes') > 0L }"
+include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, types = 'yes') > 0L }"
 [[03_proposal_specific.003_main_motive.001_federal.item]]
 topic = "Nein-Hauptmotiv eidgenössische Vorlage {i}"
 who.default = "Nein-Stimmende eidgenössische Vorlage {i}"
@@ -2151,7 +2151,7 @@ variable_label_common = "respondent's main motivation to vote against the { sali
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
-include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, type = 'no') > 0L }"
+include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, types = 'no') > 0L }"
 
 [03_proposal_specific.003_main_motive.002_cantonal]
 i = "{ proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
@@ -2171,7 +2171,7 @@ variable_label_common = "respondent's main motivation to vote in favor of the { 
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
-include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'yes') > 0L }"
+include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, types = 'yes') > 0L }"
 [[03_proposal_specific.003_main_motive.002_cantonal.item]]
 topic.default = "Nein-Hauptmotiv kantonale Vorlage {i}"
 topic.20180923 = "Nein-Hauptmotiv kantonale Vorlage {i}[^dup]"
@@ -2186,7 +2186,7 @@ variable_label_common = "respondent's main motivation to vote against the { sali
 response_options = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% de %>% c(response_options(type = 'unspecific', lang = 'de', subtypes = 'main'), response_options(type = 'custom', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% code %>% c(qstnr_response_option_codes(types = c('unspecific', 'custom'))) }"
 value_labels = "{ proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') %$% en %>% c(response_options(type = 'unspecific', lang = 'en', subtypes = 'main'), response_options(type = 'custom', lang = 'en', subtypes = 'main')) }"
-include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, type = 'no') > 0L }"
+include = "{ n_proposal_main_motives(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, types = 'no') > 0L }"
 
 [03_proposal_specific.004_participants]
 who = "Teilnehmende"
@@ -5002,7 +5002,7 @@ variable_label_common = "dummy value indicating whether or not the respondent an
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise eidgenössische Politik (kontinuierlich)"
 variable_name = "latent_expertise_federal"
-variable_label = "respondent's latent expertise on the federal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton), '_federal`') %>% pal::prose_ls() })"
+variable_label = "respondent's latent expertise on the federal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton), '_federal`') %>% pal::enum_str() })"
 variable_label_common = "respondent's latent expertise on the cantonal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
@@ -5018,7 +5018,7 @@ include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'federal', canto
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise kantonale Politik (kontinuierlich)"
 variable_name = "latent_expertise_cantonal"
-variable_label = "respondent's latent expertise on the cantonal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton), '_cantonal`') %>% pal::prose_ls() })"
+variable_label = "respondent's latent expertise on the cantonal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton), '_cantonal`') %>% pal::enum_str() })"
 variable_label_common = "respondent's latent expertise on the cantonal political system (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_cantonal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
@@ -5034,7 +5034,7 @@ include = "{ n_skill_questions(ballot_date = ballot_date, lvl = 'cantonal', cant
 [[y_generated.001_all.003_election.item]]
 topic = "Latente Expertise eidgenössische und kantonale Politik (kontinuierlich)"
 variable_name = "latent_expertise"
-variable_label = "respondent's latent expertise on the cantonal and federal political system together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton), '_federal`') %>% c(paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton), '_cantonal`')) %>% pal::prose_ls() })"
+variable_label = "respondent's latent expertise on the cantonal and federal political system together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton), '_federal`') %>% c(paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton), '_cantonal`')) %>% pal::enum_str() })"
 variable_label_common = "respondent's latent expertise on the cantonal and federal political system together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal` and `passed_skill_question_*_cantonal`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
@@ -5080,7 +5080,7 @@ value_scale = "binary"
 i = "{ skill_question_proposal_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton) }"
 topic = "Latente Expertise kantonale Vorlage {i} (kontinuierlich)"
 variable_name = "latent_expertise_cantonal_proposal_{i}"
-variable_label = "respondent's latent expertise on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i), '_cantonal_proposal_', i, '`') %>% pal::prose_ls() })"
+variable_label = "respondent's latent expertise on the cantonal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, proposal_nr = i), '_cantonal_proposal_', i, '`') %>% pal::enum_str() })"
 variable_label_common = "respondent's latent expertise on the { salim::rank_nr(i) } cantonal proposal (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_cantonal_proposal_{i}`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
@@ -5088,7 +5088,7 @@ value_scale = "interval"
 i = "{ skill_question_proposal_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton) }"
 topic = "Latente Expertise eidgenössische Vorlage {i} (kontinuierlich)"
 variable_name = "latent_expertise_federal_proposal_{i}"
-variable_label = "respondent's latent expertise on the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i), '_federal_proposal_', i, '`') %>% pal::prose_ls() })"
+variable_label = "respondent's latent expertise on the federal proposal \"{ proposal_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\" (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with { paste0('`passed_skill_question_', skill_question_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton, proposal_nr = i), '_federal_proposal_', i, '`') %>% pal::enum_str() })"
 variable_label_common = "respondent's latent expertise on the { salim::rank_nr(i) } federal proposal (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal_proposal_{i}`)"
 response_options = "_Gleitkommazahl_"
 value_scale = "interval"
@@ -5127,7 +5127,7 @@ respondent's latent expertise on all cantonal proposals together (based on a 2�
                         .x,
                         '`')) %>%
     purrr::list_c(ptype = character()) %>%
-    pal::prose_ls()
+    pal::enum_str()
 })"""
 variable_label_common = "respondent's latent expertise on all cantonal proposals together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_cantonal_proposal_*`)"
 response_options = "_Gleitkommazahl_"
@@ -5150,7 +5150,7 @@ respondent's latent expertise on all federal proposals together (based on a 2–
                         .x,
                         '`')) %>%
     purrr::list_c(ptype = character()) %>%
-    pal::prose_ls()
+    pal::enum_str()
 })"""
 variable_label_common = "respondent's latent expertise on all federal proposals together (based on a 2–3 parameter[^irt-params] logistic [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) model, also known as _Birnbaum_ model, fed with all `passed_skill_question_*_federal_proposal_*`)"
 response_options = "_Gleitkommazahl_"
@@ -5184,7 +5184,7 @@ i = "{ election_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton,
 j = "{ seq_len(n_election_candidates(canton = canton, ballot_date = ballot_date, lvl = 'federal', election_nr = i)) }"
 topic = "Stimmentscheid eidgenössische Mehrheitswahl {i} Kandidat:in {j} (Dummy)"
 variable_name = "voting_decision_federal_majoritarian_election_{i}_candidate_{j}"
-variable_label = "dummy value indicating whether or not the respondent voted for the candidate \"{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
+variable_label = "dummy value indicating whether or not the respondent voted for the candidate \"{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "dummy value indicating whether or not the respondent voted for the { salim::rank_nr(j) } candidate in the { salim::rank_nr(i) } federal majoritarian election"
 [[y_generated.002_participants.003_election.001_federal.item]]
 topic = "Stimmentscheid eidgenössische Mehrheitswahl {i} vereinzelte (nicht bei Wahlbehörde registrierte) Kandidat:innen (Dummy)"
@@ -5197,7 +5197,7 @@ i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton
 j = "{ seq_len(n_election_candidates(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', election_nr = i)) }"
 topic = "Stimmentscheid kantonale Mehrheitswahl {i} Kandidat:in {j} (Dummy)"
 variable_name = "voting_decision_cantonal_majoritarian_election_{i}_candidate_{j}"
-variable_label = "dummy value indicating whether or not the respondent voted for the candidate \"{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
+variable_label = "dummy value indicating whether or not the respondent voted for the candidate \"{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\""
 variable_label_common = "dummy value indicating whether or not the respondent voted for the { salim::rank_nr(j) } candidate in the { salim::rank_nr(i) } cantonal majoritarian election"
 [[y_generated.002_participants.003_election.002_cantonal.item]]
 topic = "Stimmentscheid kantonale Mehrheitswahl {i} vereinzelte (nicht bei Wahlbehörde registrierte) Kandidat:innen (Dummy)"
@@ -5218,7 +5218,7 @@ i = "{ election_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton,
 j = "{ seq_len(n_election_candidates(canton = canton, ballot_date = ballot_date, lvl = 'federal', election_nr = i)) }"
 topic = "Hypothetischer Stimmentscheid eidgenössische Mehrheitswahl {i} Kandidat:in {j} (Dummy)"
 variable_name = "hypothetical_voting_decision_federal_majoritarian_election_{i}_candidate_{j}"
-variable_label = "dummy value indicating whether or not the respondent would have voted for the candidate \"{ election_candidate_prose(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
+variable_label = "dummy value indicating whether or not the respondent would have voted for the candidate \"{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the federal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "dummy value indicating whether or not the respondent would have voted for the { salim::rank_nr(j) } candidate in the { salim::rank_nr(i) } federal majoritarian election if the respondent would have participated"
 [[y_generated.003_qualified_non_participants.003_election.001_federal.item]]
 topic = "Hypothetischer Stimmentscheid eidgenössische Mehrheitswahl {i} vereinzelte (nicht bei Wahlbehörde registrierte) Kandidat:innen (Dummy)"
@@ -5231,7 +5231,7 @@ i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton
 j = "{ seq_len(n_election_candidates(canton = canton, ballot_date = ballot_date, lvl = 'cantonal', election_nr = i)) }"
 topic = "Hypothetischer Stimmentscheid kantonale Mehrheitswahl {i} Kandidat:in {j} (Dummy)"
 variable_name = "hypothetical_voting_decision_cantonal_majoritarian_election_{i}_candidate_{j}"
-variable_label = "dummy value indicating whether or not the respondent would have voted for the candidate \"{ election_candidate_prose(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
+variable_label = "dummy value indicating whether or not the respondent would have voted for the candidate \"{ phrase_election_candidate(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, candidate_nrs = j) }\" in the cantonal majoritarian election \"{ election_name(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian', election_nr = i, lang = 'de', type = 'long') }\" if the respondent would have participated"
 variable_label_common = "dummy value indicating whether or not the respondent would have voted for the { salim::rank_nr(j) } candidate in the { salim::rank_nr(i) } cantonal majoritarian election if the respondent would have participated"
 [[y_generated.003_qualified_non_participants.003_election.002_cantonal.item]]
 topic = "Hypothetischer Stimmentscheid kantonale Mehrheitswahl {i} vereinzelte (nicht bei Wahlbehörde registrierte) Kandidat:innen (Dummy)"
@@ -5279,7 +5279,7 @@ the weight assigned to the respondent as a result of the weighting by {
                   canton = canton) %>%
         seq_len() %>%
         purrr::map_chr(~ paste0('`voting_decision_cantonal_proposal_', .x, '`'))) %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions in the current `ballot_date` (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 [y_generated.100_weighting.002_participants.002_election]
@@ -5327,7 +5327,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions in the current `ballot_date` (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 [[y_generated.100_weighting.002_participants.002_election.item]]
@@ -5375,7 +5375,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions including those in past elections (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 include = "{ any(has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional')) }"
@@ -5396,7 +5396,7 @@ the weight assigned to the respondent as a result of the weighting by {
                   prcds = 'proportional') %>%
         seq_len() %>%
         purrr::map_chr(~ paste0('`voting_decision_past_cantonal_proportional_election_', .x, '_party`'))) %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by voting decisions in all past elections (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 include = "{ any(has_election(ballot_date = ballot_date, canton = canton, prcds = 'proportional')) }"
@@ -5445,7 +5445,7 @@ the weight assigned to the respondent as a result of the weighting by `participa
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by `participation` as well as all voting decisions including those in past ones (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 # not yet implemented...
@@ -5454,13 +5454,13 @@ include = "{ FALSE && any(has_election(ballot_date = ballot_date, canton = canto
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'proportional') }"
 topic = "Gewichtung nach gegenwärtigem und vergangenem Wahlentscheid eidgenössische Verhältniswahl {i}"
 variable_name = "weight_decision_federal_proportional_election_{i}_incl_past"
-variable_label = "the weight assigned to the respondent as a result of the weighting by { paste0('`voting_decision_', c('', 'past_'), 'federal_proportional_election_', i, '_party`') %>% pal::prose_ls() } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
+variable_label = "the weight assigned to the respondent as a result of the weighting by { paste0('`voting_decision_', c('', 'past_'), 'federal_proportional_election_', i, '_party`') %>% pal::enum_str() } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by the { salim::rank_nr(i) } current and past federal proportional election (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 [[y_generated.100_weighting.002_participants.002_election.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional') }"
 topic = "Gewichtung nach gegenwärtigem und vergangenem Wahlentscheid kantonale Verhältniswahl {i}"
 variable_name = "weight_decision_cantonal_proportional_election_{i}_incl_past"
-variable_label = "the weight assigned to the respondent as a result of the weighting by { paste0('`voting_decision_', c('', 'past_'), 'cantonal_proportional_election_', i, '_party`') %>% pal::prose_ls() } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
+variable_label = "the weight assigned to the respondent as a result of the weighting by { paste0('`voting_decision_', c('', 'past_'), 'cantonal_proportional_election_', i, '_party`') %>% pal::enum_str() } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by the { salim::rank_nr(i) } current and past cantonal proportional election (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 [[y_generated.100_weighting.002_participants.002_election.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional') }"
@@ -5472,7 +5472,7 @@ variable_label_common = "the weight assigned to the respondent as a result of th
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'proportional') }"
 topic = "Gewichtung nach Teilnahme sowie gegenwärtigem und vergangenem Wahlentscheid kantonale Verhältniswahl {i}"
 variable_name = "weight_participation_decision_cantonal_proportional_election_{i}_incl_past"
-variable_label = "the weight assigned to the respondent as a result of the weighting by `participation` as well as { paste0('`voting_decision_', c('', 'past_'), 'cantonal_proportional_election_', i, '_party`') %>% pal::prose_ls() } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
+variable_label = "the weight assigned to the respondent as a result of the weighting by `participation` as well as { paste0('`voting_decision_', c('', 'past_'), 'cantonal_proportional_election_', i, '_party`') %>% pal::enum_str() } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by `participation` as well as the { salim::rank_nr(i) } current and past cantonal proportional election (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 [[y_generated.100_weighting.002_participants.003_both.item]]
 topic = "Gewichtung nach COVID-19-Impfung selbst (dichotom)"
@@ -5497,7 +5497,7 @@ the weight assigned to the respondent as a result of the weighting by {
         seq_len() %>%
         purrr::map_chr(~ paste0('`voting_decision_cantonal_proposal_', .x, '`'))) %>%
     c('`is_vaccinated_covid`') %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label.election = """
 the weight assigned to the respondent as a result of the weighting by {
@@ -5540,7 +5540,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
     c('`is_vaccinated_covid`') %>%
-    pal::prose_ls()
+    pal::enum_str()
 } (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"""
 variable_label_common = "the weight assigned to the respondent as a result of the weighting by all voting decisions in the current `ballot_date` (using an [iterative proportional fitting procedure](https://en.wikipedia.org/wiki/Iterative_proportional_fitting))"
 include = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('y_generated', '001_all', '001_both'), var_name = 'is_vaccinated_covid', key = 'include') }"

@@ -92,7 +92,6 @@ test_that("Predicate functions return correct default values", {
   expect_snapshot_error(n_election_seats())
   expect_snapshot_error(election_candidates())
   expect_snapshot_error(n_election_candidates())
-  expect_snapshot_error(election_candidate_prose())
   expect_snapshot_error(election_parties())
   expect_snapshot_error(election_tickets())
   expect_snapshot_error(requires_candidate_registration())
@@ -109,9 +108,14 @@ test_that("Predicate functions return correct default values", {
                    "Abstimmungstermin vom 23. September 2018")
   expect_snapshot_error(political_issues())
   expect_identical(postal_dispatch_way(),
-                   "B")
+                   "b")
   expect_snapshot_value(response_options(),
                         style = "json2")
+})
+
+test_that("Text phrasing functions return correct default values", {
+
+  expect_snapshot_error(phrase_election_candidate())
 })
 
 ## irrelevant `canton` if `lvl = "federal"` ----

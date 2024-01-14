@@ -45,7 +45,6 @@ fokus::election_candidates(ballot_date = "2019-10-20",
 }
 \seealso{
 Other election predicate functions:
-\code{\link{election_candidate_prose}()},
 \code{\link{election_names_combined}()},
 \code{\link{election_name}()},
 \code{\link{election_parties}()},

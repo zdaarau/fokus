@@ -6,9 +6,9 @@ invitation = [ "online" ]
 reminder = [ "online", "print" ]
 constraints = "reminder_print_1970" # only persons with year of birth < 1970 received a print questionnaire!
 [mode.aargau.postal_dispatch.type]
-invitation = "B bulk mailing"
-reminder = "B bulk mailing"
-prepaid_reply_envelope = "B"
+invitation = "b_bulk"
+reminder = "b_bulk"
+prepaid_reply_envelope = "b"
 [mode.aargau.postal_dispatch.date]
 invitation = 2020-10-12
 reminder = 2020-10-21

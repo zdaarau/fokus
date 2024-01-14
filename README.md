@@ -217,6 +217,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | documents                               | docs             |
 | double                                  | dbl              |
 | doubles                                 | dbls             |
+| duplicate, duplication                  | dupl             |
+| duplicates, duplications                | dupls            |
 | element                                 | el               |
 | elements                                | els              |
 | enumerate, enumeration                  | enum             |

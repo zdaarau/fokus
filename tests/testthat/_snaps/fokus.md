@@ -118,31 +118,19 @@
 
 ---
 
-    `lvl` must be length 1, not length 0
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
 
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error that was detected in the fokus package.
-      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
     No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error that was detected in the fokus package.
-      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
-
----
-
-    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error that was detected in the fokus package.
-      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
     No political issues present in the supplemental "2018-09-23" FOKUS questionnaire data.
-    i This is an internal error that was detected in the fokus package.
-      Please report it at <https://gitlab.com/zdaarau/rpkgs/fokus/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
 
 ---
 
@@ -151,6 +139,10 @@
       "attributes": {},
       "value": ["niemanden (leer eingelegt oder nicht teilgenommen)", "keine (leer eingelegt oder nicht teilgenommen)", "leer eingelegt/nicht abgestimmt", "nicht teilgenommen oder leer eingelegt"]
     }
+
+# Text phrasing functions return correct default values
+
+    `lvl` must be length 1, not length 0
 
 # for certain fns, `canton` is really ignored (i.e. not evaluated) if `lvl = "federal"`
 

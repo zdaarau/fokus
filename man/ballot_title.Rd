@@ -33,7 +33,7 @@ ballot_title(
 A character scalar.
 }
 \description{
-Returns the ballot title consisting of the \link[=ballot_types]{ballot type} and the ballot date in German prose.
+Returns the ballot title consisting of the \link[=ballot_types]{ballot type} and the ballot date, phrased in German.
 }
 \examples{
 fokus::ballot_title(ballot_date = "2019-10-20",

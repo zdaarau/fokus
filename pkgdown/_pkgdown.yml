@@ -84,7 +84,6 @@ reference:
   - election_name
   - election_names_combined
   - election_candidates
-  - election_candidate_prose
   - election_parties
   - election_tickets
   - n_election_seats
@@ -129,15 +128,11 @@ reference:
   - shorten_var_names
   - shorten_colnames
   - restore_colnames
-- title: Prose text
+- title: Text phrasing
 - contents:
-  - argument_side_prose
-  - ballot_type_prose
-  - lvl_prose
-  - motive_type_prose
-  - postal_dispatch_type_prose
-  - postal_dispatch_way_prose
-  - proposal_name_declined_de
+  - phrase
+  - phrase_election_candidate
+  - phrase_proposal_name_de
 - title: Google Apps
 - contents:
   - backup_g_file
