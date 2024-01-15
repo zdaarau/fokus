@@ -2574,11 +2574,9 @@ read_voting_register_ids <- function(ballot_date,
   path_input |>
     readr::read_csv(col_types = "i") |>
     # integrity check
-    pal::when(ncol(.) > 1L ~
-                cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug.",
-                               .internal = TRUE),
-              ~ .) |>
-    dplyr::first()
+    pal::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file {filename}}. Please debug.",
+                                            .internal = TRUE),
+              ~ .)
 }
 ```
 
