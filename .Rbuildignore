@@ -2,6 +2,7 @@
 ^doc$
 ^docs$
 ^Meta$
+^output$
 ^pkgdown$
 ^Rmd$
 ^snippets$
