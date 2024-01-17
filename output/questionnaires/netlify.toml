@@ -34,30 +34,8 @@ X-Content-Type-Options = "nosniff"
 X-Frame-Options = "DENY"
 X-XSS-Protection = "1; mode=block"
 
-# ------- PLUGINS -------
-# documentation: https://docs.netlify.com/integrations/build-plugins/#file-based-installation
-# NOTE: For plugins which are installed via Netlify's UI as [integrations(https://app.netlify.com/plugins), certain settings must be configured via environment
-#       variables instead of the config section below (e.g. `audits` for `netlify-plugin-lighthouse`).
-[[plugins]]
-package = "@netlify/plugin-lighthouse"
-# set the plugin to run prior to deploy, failing the build if minimum thresholds aren't set (required for the report to be statically served)
-[plugins.inputs]
-# set the plugin to run prior to deploy, failing the build if minimum thresholds aren't set
-# NOTES:
-# - Must be set as a string, not as a boolean.
-# - Must be enabled in order for the report to be statically served to the audit's `output_path`.
-# - Disabling this results in the hostname to always equal to `DEPLOY_URL` regardless of the audit's `url`. `DEPLOY_URL`s have the [`X-Robots-Tag` HTTP header](https://http.dev/x-robots-tag) set, so `seo` score is worse than on production site.
-fail_deploy_on_score_thresholds = "true"
-# set minimum thresholds for each report area
-[plugins.inputs.thresholds]
-performance = 0.9
-accessibility = 0.8
-best-practices = 0.9
-seo = 0.7
-# run the desktop instead of the mobile device audit
-[plugins.inputs.settings]
-preset = "desktop"
-locale = "en"
-
 # ------- REDIRECTS -------
 # Redirect rules are processed [from top to bottom](https://docs.netlify.com/routing/redirects/#rule-processing-order), i.e. first matching one has priority
+#
+# NOTE: Redirect rules for this site are defined in https://gitlab.com/zdaarau/websites/fokus.ag/-/blob/master/netlify.toml
+#
