@@ -17,7 +17,7 @@ A vector of all \link{cantons} covered by FOKUS surveys.
 fokus::all_cantons
 }
 \seealso{
-Other FOKUS metadata functions:
+Other FOKUS metadata:
 \code{\link{all_argument_sides}},
 \code{\link{all_ballot_dates}},
 \code{\link{all_ballot_types}},

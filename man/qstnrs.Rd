@@ -11,7 +11,7 @@ A \link[tibble:tbl_df-class]{tibble}.
 qstnrs
 }
 \description{
-A tibble containing the data of all FOKUS questionnaires.
+A tibble containing all FOKUS questionnaires as structured data.
 }
 \details{
 \code{qstnrs} was generated based on the following steps:
@@ -33,14 +33,9 @@ column \code{question_intro}.
 fokus::qstnrs
 }
 \seealso{
-Other questionnaire and survey functions and datasets:
+Other questionnaire data:
 \code{\link{elections}},
-\code{\link{export_easyvote_municipalities}()},
-\code{\link{export_print_recipients}()},
-\code{\link{export_qr_codes}()},
-\code{\link{export_qstnr_all}()},
-\code{\link{export_qstnr}()},
 \code{\link{proposals}}
 }
-\concept{qstnr_survey}
+\concept{qstnr_data}
 \keyword{datasets}

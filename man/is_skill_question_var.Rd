@@ -24,6 +24,7 @@ Other variable-related functions:
 \code{\link{var_lvls}()},
 \code{\link{var_proposal_nr}()},
 \code{\link{var_skill_question_nr}()},
-\code{\link{var_title}()}
+\code{\link{var_title}()},
+\code{\link{var_val_set}()}
 }
 \concept{vars}

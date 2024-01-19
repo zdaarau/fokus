@@ -8,8 +8,10 @@ export_qr_codes(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/QR-Codes/",
-  quiet = TRUE
+  g_drive_folder =
+    glue::glue("fokus/{canton}/Umfragen/Dateien für Umfrageinstitut/QR-Codes/"),
+  quiet = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -31,25 +33,24 @@ export_qr_codes(
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
-\item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
+\item{g_drive_folder}{Google Drive folder to upload the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 
-\item{quiet}{Whether or not to \link[googledrive:googledrive-configuration]{suppress printing status output from googledrive operations}.}
+\item{quiet}{Whether or not to suppress printing status output from internal processing.}
+
+\item{verbose}{Whether or not to print detailed status output from \link[=upload_to_g_drive]{Google Drive file upload}.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble} containing metadata about the contents of the created ZIP archive, invisibly.
 }
 \description{
-Exports a ZIP file that contains a \href{https://en.wikipedia.org/wiki/QR_code}{QR code} in SVG and in EPS format for each survey participant storing the
-personalized survey URL to the \link[=print_fokus_private_structure]{private FOKUS directory}.
+Exports a ZIP file, that contains a \href{https://en.wikipedia.org/wiki/QR_code}{QR code} in SVG and in EPS format for each survey participant storing the
+personalized survey URL, to the \link[=print_private_repo_structure]{private FOKUS repository}.
 }
 \seealso{
-Other questionnaire and survey functions and datasets:
-\code{\link{elections}},
+Other data export functions:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
-\code{\link{export_qstnr_all}()},
 \code{\link{export_qstnr}()},
-\code{\link{proposals}},
-\code{\link{qstnrs}}
+\code{\link{write_private_file}()}
 }
-\concept{qstnr_survey}
+\concept{data_export}

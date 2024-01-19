@@ -17,7 +17,7 @@ A vector of all possible referendum \link[=proposal_qstn_groups]{proposal questi
 fokus::all_qstn_groups
 }
 \seealso{
-Other FOKUS metadata functions:
+Other FOKUS metadata:
 \code{\link{all_argument_sides}},
 \code{\link{all_ballot_dates}},
 \code{\link{all_ballot_types}},

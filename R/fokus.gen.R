@@ -46,6 +46,7 @@ utils::globalVariables(names = c(".",
                                  "household_size_official",
                                  "i",
                                  "id",
+                                 "id_voting_register",
                                  "ID-Nummer",
                                  "is_likely_default",
                                  "j",
@@ -71,6 +72,7 @@ utils::globalVariables(names = c(".",
                                  "n_kids_in_household_official",
                                  "name",
                                  "nr",
+                                 "path",
                                  "question",
                                  "question_full",
                                  "question_intro_i",
@@ -90,111 +92,6 @@ utils::globalVariables(names = c(".",
                                  "width",
                                  "year_of_birth_official",
                                  "Zivilstand"))
-
-#' Abbreviations used in the **fokus** package
-#'
-#' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
-#'
-#' @inheritParams pkgsnip::abbrs
-#'
-#' @return `r pkgsnip::param_lbl("tibble")`
-#' @keywords internal
-abbrs <- function(unnest = FALSE) {
-  
-  rlang::check_installed("pkgsnip",
-                         reason = pal::reason_pkg_required())
-  
-  tibble::tibble(full_expressions = list("google"),
-                 abbreviation = "g") |>
-    dplyr::bind_rows(pkgsnip::abbrs()) |>
-    dplyr::arrange(purrr::map_chr(full_expressions,
-                                  \(x) stringr::str_to_lower(dplyr::first(x)))) |>
-    pal::when(unnest ~ tidyr::unnest_longer(data = .,
-                                            col = full_expressions,
-                                            values_to = "full_expression"),
-              ~ .)
-}
-
-#' Convert language code to country-specific locale ID
-#'
-#' Converts a language code as used in many of this package's functions to a country-specific locale identifier.
-#'
-#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = lang_to_locale)`.
-#'
-#' @return A character scalar.
-#' @keywords internal
-#'
-#' @examples
-#' fokus:::lang_to_locale("de")
-#' fokus:::lang_to_locale("en")
-lang_to_locale <- function(lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
-  
-  switch(lang,
-         de = "de-CH",
-         en = "en-US")
-}
-
-#' Assemble a private FOKUS directory path
-#'
-#' Assembles a path from the private FOKUS directory root plus any additional path elements supplied.
-#'
-#' See [print_fokus_private_structure()] for details about the private FOKUS directory.
-#'
-#' @param ... Filesystem path elements as unnamed vectors.
-#'
-#' @return `r pkgsnip::param_lbl("path")`
-#' @keywords internal
-path_private <- function(...) {
-  
-  dir_private <- pal::pkg_config_val(key = "path_repo_private",
-                                     pkg = this_pkg,
-                                     default = getwd())
-  
-  # ensure `fokus.path_repo_private` is valid (read access plus file `input/data/aargau/survey_data_2018-09-23.xlsx` exists)
-  is_dir_private_valid <-
-    checkmate::test_directory(dir_private, access = "r") &&
-    fs::file_exists(path = fs::path(dir_private, "input/data/aargau/survey_data_2018-09-23.xlsx"))
-  
-  if (!is_dir_private_valid) {
-    
-    cli::cli_abort(paste0(ifelse(is.null(pal::pkg_config_val(key = "path_repo_private",
-                                                             pkg = this_pkg,
-                                                             default = NULL)),
-                                 "The package configuration option {.field fokus.path_private} is unset, thus we fall back to {.path {dir_private}}.",
-                                 "The package configuration option {.field fokus.path_private} is set to {.path {dir_private}}."),
-                          " This doesn't seem to be a valid FOKUS working directory. Please correct this in order for this package to work properly."))
-  }
-  
-  fs::path(dir_private, ...)
-}
-
-#' Print expected structure of the private FOKUS directory
-#'
-#' Returns a textual representation of the expected structure of the private FOKUS directory, formatted as a Markdown [fenced code
-#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
-#'
-#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
-#'
-#' @return A character scalar.
-#' @keywords internal
-print_fokus_private_structure <- function() {
-  
-  pal::cat_lines("``` default")
-  fokus_private_structure |> pal::flatten_path_tree() |> pal::draw_path_tree()
-  pal::cat_lines("```",
-                 "",
-                 "The following placeholders are used in the schema above:",
-                 "",
-                 "-   `...` for further files and/or folders",
-                 "-   `*` for a variable character sequence",
-                 "-   `#` for a count starting with `1`",
-                 "-   `{canton}` for the name of the FOKUS-covered canton (in lower case), e.g. `aargau`",
-                 "-   `{ballot_date}` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`",
-                 paste0("-   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical ",
-                        "office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`"))
-}
 
 #' Raw FOKUS questionnaire data
 #'
@@ -1203,10 +1100,7 @@ gen_qstnr_tibble <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
   checkmate::assert_flag(verbose)
   
   cli::start_app(theme = cli_theme)
-  status_msg <- "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}..."
-  cli::cli_progress_step(msg = status_msg,
-                         msg_done = paste(status_msg, "done"),
-                         msg_failed = paste(status_msg, "failed"))
+  pal::cli_progress_step_quick(msg = "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}")
   
   purrr::map2_dfr(.x = raw_qstnr,
                   .y = names(raw_qstnr),
@@ -1626,7 +1520,7 @@ add_who_constraint <- function(x,
 
 #' Generate Markdown questionnaire
 #'
-#' @inheritParams raw_qstnr_suppl_lvl_canton
+#' @inheritParams expand_qstnr_tibble
 #' @param incl_title Whether or not to generate an `<h1>` questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
 #'   it's recommended to set this to `FALSE` and provide the title via [Pandoc's `--metadata` option](https://pandoc.org/MANUAL.html#option--metadata) instead.
 #'
@@ -1648,10 +1542,7 @@ gen_qstnr_md <- function(qstnr_tibble,
     unique() |>
     checkmate::assert_string(.var.name = "canton")
   
-  status_msg <- "Generating Markdown questionnaire for canton {.val {canton}} @ {.val {ballot_date}}..."
-  cli::cli_progress_step(msg = status_msg,
-                         msg_done = paste(status_msg, "done"),
-                         msg_failed = paste(status_msg, "failed"))
+  pal::cli_progress_step_quick(msg = "Generating Markdown questionnaire for canton {.val {canton}} @ {.val {ballot_date}}")
   
   block_lines <-
     qstnr_tibble |>
@@ -2139,192 +2030,110 @@ qstnr_lbl_col_sym <- function(lang = all_langs) {
                    "value_labels"))
 }
 
-#' Read in easyvote municipality data
+exists_private_file <- function(path) {
+  
+  req_private_file(path = path,
+                   method = "HEAD") |>
+    httr2::req_error(is_error = \(x) FALSE) |>
+    httr2::req_perform() |>
+    httr2::resp_is_error() |>
+    magrittr::not()
+}
+
+#' Print structure of the private FOKUS repository
 #'
-#' Reads in the latest dataset of easyvote municipality information provided to us not earlier than 90 days before and up until 20 days after the `ballot_date`.
+#' Returns a textual representation of the structure of the private FOKUS repository, formatted as a Markdown [fenced code
+#' block](https://pandoc.org/MANUAL.html#extension-fenced_code_blocks).
 #'
-#' If both columns `min_age` and `max_age` are `NA` in the data returned, it means that
+#' @includeRmd data-raw/snippets/fokus_private_description.Rmd
 #'
-#' -   the municipality did not provide easyvote with specific information on the target age range, and
-#' -   the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
-#'     adults between 18--25 years.
+#' @return A character scalar.
+#' @family private
+#' @keywords internal
+print_private_repo_structure <- function() {
+  
+  pal::cat_lines("``` default")
+  fokus_private_structure |> pal::flatten_path_tree() |> pal::draw_path_tree()
+  pal::cat_lines("```",
+                 "",
+                 "The following placeholders are used in the schema above:",
+                 "",
+                 "-   `...` for further files and/or folders",
+                 "-   `*` for a variable character sequence",
+                 "-   `#` for a count starting with `1`",
+                 "-   `{canton}` for the name of the FOKUS-covered canton (in lower case), e.g. `aargau`",
+                 "-   `{ballot_date}` for the FOKUS-covered ballot date (in the format `YYYY-MM-DD`), e.g. `2018-09-23`",
+                 paste0("-   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical ",
+                        "office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`"))
+}
+
+private_file_hash <- function(path) {
+  
+  req_private_file(path = path,
+                   method = "HEAD") |>
+    httr2::req_perform() |>
+    httr2::resp_header(header = "X-Gitlab-Content-Sha256")
+}
+
+push_private_file <- function(path,
+                              content,
+                              encoding,
+                              commit_message,
+                              overwrite) {
+  
+  is_present <- exists_private_file(path = path)
+  
+  if (!overwrite && is_present) return()
+  
+  req_private_file(path = path,
+                   method = ifelse(is_present,
+                                   "PUT",
+                                   "POST")) |>
+    httr2::req_body_json(data = list(branch = repo_private_default_branch,
+                                     commit_message = commit_message,
+                                     content = content,
+                                     encoding = encoding)) |>
+    httr2::req_perform()
+}
+
+req_private_file <- function(path,
+                             method,
+                             max_tries = 3L) {
+  
+  httr2::request(base_url = glue::glue("https://gitlab.com/api/v4/projects/{repo_private_proj_id}/repository/files/", utils::URLencode(path,
+                                                                                                                                       reserved = TRUE))) |>
+    httr2::req_url_query(ref = repo_private_default_branch) |>
+    httr2::req_method(method = method) |>
+    httr2::req_headers(`PRIVATE-TOKEN` = pal::pkg_config_val(key = "token_repo_private",
+                                                             pkg = this_pkg),
+                       .redact = "PRIVATE-TOKEN") |>
+    httr2::req_retry(max_tries = max_tries)
+}
+
+set_private_repo_connection <- function() {
+  
+  rlang::check_installed(pkg = "gitlabr",
+                         reason = pal::reason_pkg_required())
+  
+  gitlabr::set_gitlab_connection(gitlab_con = gitlabr::gl_project_connection(gitlab_url = "https://gitlab.com",
+                                                                             project = repo_private_proj_id,
+                                                                             private_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                                                                 pkg = this_pkg)))
+}
+
+#' Assemble private FOKUS repository URL
 #'
-#' @inheritParams raw_qstnr_suppl_lvl_canton
+#' @param ... Optional path components added to the base URL.
 #'
-#' @return `r pkgsnip::param_lbl("tibble")`
+#' @return A character scalar.
+#' @family private
 #' @keywords internal
 #'
 #' @examples
-#' # private FOKUS directory needs to be accessible for this function to work
-#' try(
-#'   fokus:::read_easyvote_municipalities(ballot_date = "2020-09-27",
-#'                                        canton = "aargau")
-#' )
-read_easyvote_municipalities <- function(ballot_date,
-                                         canton) {
+#' fokus:::url_repo_private("generated")
+url_repo_private <- function(...) {
   
-  # get date of latest dataset delivered *not earlier than 90 days before ballot date* and *up until 20 days after ballot date*
-  date_boundary_lower <- lubridate::as_date(ballot_date) - 90L
-  date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
-  
-  # we need to resolve `path_private()` outside of a pipe to trigger the proper error message
-  date_data <- path_private("input/data", canton)
-  date_data %<>%
-    fs::dir_ls(type = "file",
-               regexp = "easyvote_municipalities_\\d{4}-\\d{2}-\\d{2}\\.csv$") %>%
-    stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.csv$)") %>%
-    lubridate::as_date() %>%
-    magrittr::extract(. >= date_boundary_lower & . <= date_boundary_upper)
-  
-  if (length(date_data)) {
-    date_data %<>% max()
-  } else {
-    cli::cli_abort(paste0("No easyvote municipality data present for canton {.val {canton}} with effective date at minimum 90 days before and at maximum 20 ",
-                          "days after the ballot date {.val {ballot_date}}."))
-  }
-  
-  path_private("input/data", canton, glue::glue("easyvote_municipalities_{date_data}.csv")) |>
-    readr::read_csv(col_types = "ciii")
-}
-
-read_online_participation_codes <- function(ballot_date,
-                                            canton) {
-  
-  path_input <- path_private(glue::glue("input/data/{canton}/online_participation_codes_{ballot_date}.txt"))
-  
-  if (!fs::file_exists(path_input)) {
-    cli::cli_abort("No online participation codes present for canton {.val {canton}} @ {.val {ballot_date}}.")
-  }
-  
-  readr::read_lines(file = path_input,
-                    skip_empty_rows = TRUE)
-}
-
-read_voting_register_data_extra <- function(ballot_date,
-                                            canton) {
-  rlang::check_installed("readxl",
-                         reason = pal::reason_pkg_required())
-  
-  # get date of latest dataset delivered *before* ballot date
-  date_data <-
-    path_private("input/data", canton) |>
-    fs::dir_ls(type = "file",
-               regexp = "voting_register_data_extra_\\d{4}-\\d{2}-\\d{2}\\.xlsx$") |>
-    stringr::str_extract("\\d{4}-\\d{2}-\\d{2}(?=\\.xlsx$)") |>
-    lubridate::as_date() %>%
-    magrittr::extract(. < lubridate::as_date(ballot_date))
-  
-  if (length(date_data)) {
-    date_data %<>% max()
-  } else {
-    cli::cli_abort("No voting register data present for canton {.val {canton}} with effective date before the ballot on {.val {ballot_date}}.")
-  }
-  
-  data <-
-    path_private(glue::glue("input/data/{canton}/voting_register_data_extra_{date_data}.xlsx")) |>
-    readxl::read_xlsx(col_types = "text") |>
-    # rename variables to our scheme
-    dplyr::rename(id = `ID-Nummer`,
-                  sex_official = Geschlecht,
-                  year_of_birth_official = Jahrgang,
-                  marital_status_official = Zivilstand,
-                  household_size_official = "Haushaltsgr\u00f6sse Anzahl Personen Total",
-                  n_adults_in_household_official = "Haushaltsgr\u00f6sse Anzahl Personen \u00fcber 18 Jahren",
-                  n_kids_in_household_official = "Haushaltsgr\u00f6sse Anzahl Personen unter 18 Jahren") |>
-    # convert numeric columns to type integer
-    dplyr::mutate(dplyr::across(c(id,
-                                  year_of_birth_official,
-                                  household_size_official,
-                                  n_adults_in_household_official,
-                                  n_kids_in_household_official),
-                                as.integer)) |>
-    # transform variable values to our scheme
-    dplyr::mutate(dplyr::across(c(sex_official, marital_status_official),
-                                stringr::str_to_lower)) |>
-    dplyr::mutate(marital_status_official = dplyr::case_match(.x = marital_status_official,
-                                                              "eingetragene partnerschaft"    ~ "in eingetragener Partnerschaft",
-                                                              "aufgel\u00f6ste partnerschaft" ~ "aufgel\u00f6ste Partnerschaft",
-                                                              "unverheiratet"                 ~ "ledig",
-                                                              .default = marital_status_official))
-  
-  # integrity check 1: ensure no unexpected columns occur
-  if (ncol(data) > 7L) {
-    
-    unknown_colnames <-
-      colnames(data) |>
-      setdiff(c(id,
-                sex_official,
-                year_of_birth_official,
-                marital_status_official,
-                household_size_official,
-                n_adults_in_household_official,
-                n_kids_in_household_official))
-    
-    cli::cli_abort("Unexpected column(s) detected in {.file input/data/{canton}/voting_register_data_extra_{date_data}.xlsx}: {.val unknown_colnames}",
-                   .internal = TRUE)
-  }
-  
-  # TODO!
-  # # integrity check 2: ensure no unexpected values occur
-  # ## in `sex_official`
-  # unknown_sex_official_i <-
-  #   data$sex_official |>
-  #   magrittr::is_in(fa_fct_labels(var_name = "sex_official",
-  #                                 check_var_presence = FALSE,
-  #                                 lang = "de")) |>
-  #   magrittr::not() |>
-  #   which()
-  #
-  # if (length(unknown_sex_official_i)) {
-  #   
-  #   rlang::abort(message = style_error(paste0(
-  #     style_var_name("sex_official"), " in raw extra voting register data has unknown values: ",
-  #     data$sex_official[unknown_sex_official_i] |>
-  #       unique() |>
-  #       style_arg_invalid() |>
-  #       list_pretty(lang = "en")
-  #   )))
-  # }
-  # ## in `marital_status_official`
-  # unknown_marital_status_official_i <-
-  #   data$marital_status_official |>
-  #   magrittr::is_in(fa_fct_labels(var_name = "marital_status_official",
-  #                                 check_var_presence = FALSE,
-  #                                 lang = "de")) |>
-  #   magrittr::not() |>
-  #   which()
-  #
-  # if (length(unknown_marital_status_official_i)) {
-  #   
-  #   rlang::abort(message = style_error(paste0(
-  #     style_var_name("marital_status_official"), " in raw extra voting register data has unknown values: ",
-  #     data$sex_official[unknown_marital_status_official_i] |>
-  #       unique() |>
-  #       style_arg_invalid() |>
-  #       list_pretty(lang = "en")
-  #   )))
-  # }
-  
-  data
-}
-
-read_voting_register_ids <- function(ballot_date,
-                                     canton) {
-  
-  path_input <- path_private(glue::glue("input/data/{canton}/voting_register_ids_{ballot_date}.csv"))
-  
-  if (!fs::file_exists(path_input)) {
-    cli::cli_abort("No voting register ID data present for canton {.val {canton}} @ {.val {ballot_date}}.")
-  }
-  
-  path_input |>
-    readr::read_csv(col_types = "i") |>
-    # integrity check
-    pal::when(ncol(.) > 1L ~
-                cli::cli_abort("More than one column present in {.file input/data/{canton}/voting_register_ids_{ballot_date}.csv}. Please debug.",
-                               .internal = TRUE),
-              ~ .) |>
-    dplyr::first()
+  paste0("https://gitlab.com/c2d-zda/private/fokus_private/", fs::path(...))
 }
 
 assert_countish <- function(x,
@@ -2380,6 +2189,30 @@ assert_var_names <- function(var_names,
   }
 }
 
+#' Abbreviations used in the **fokus** package
+#'
+#' Returns a [tibble][tibble::tbl_df] listing an opinionated set of abbreviations used in the \R code and documentation of the **fokus** package.
+#'
+#' @inheritParams pkgsnip::abbrs
+#'
+#' @return `r pkgsnip::param_lbl("tibble")`
+#' @keywords internal
+abbrs <- function(unnest = FALSE) {
+  
+  rlang::check_installed("pkgsnip",
+                         reason = pal::reason_pkg_required())
+  
+  tibble::tibble(full_expressions = list("google"),
+                 abbreviation = "g") |>
+    dplyr::bind_rows(pkgsnip::abbrs()) |>
+    dplyr::arrange(purrr::map_chr(full_expressions,
+                                  \(x) stringr::str_to_lower(dplyr::first(x)))) |>
+    pal::when(unnest ~ tidyr::unnest_longer(data = .,
+                                            col = full_expressions,
+                                            values_to = "full_expression"),
+              ~ .)
+}
+
 as_flat_list <- function(x) {
   
   result <- x
@@ -2404,6 +2237,53 @@ as_flat_list <- function(x) {
 collapse_break <- function(s) {
   
   paste0(s, collapse = "<br>")
+}
+
+#' Convert language code to country-specific locale ID
+#'
+#' Converts a language code as used in many of this package's functions to a country-specific locale identifier.
+#'
+#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = lang_to_locale)`.
+#'
+#' @return A character scalar.
+#' @keywords internal
+#'
+#' @examples
+#' fokus:::lang_to_locale("de")
+#' fokus:::lang_to_locale("en")
+lang_to_locale <- function(lang = all_langs) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  switch(lang,
+         de = "de-CH",
+         en = "en-US")
+}
+
+var_predicate <- function(predicate,
+                          var_name,
+                          ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                            pkg = this_pkg),
+                          canton = cantons(ballot_date)) {
+  
+  predicate <- rlang::arg_match(predicate,
+                                values = setdiff(colnames(fokus::qstnrs),
+                                                 c("ballot_date",
+                                                   "canton",
+                                                   "variable_name")))
+  assert_var_names(var_names = var_name,
+                   as_scalar = TRUE)
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(arg = ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  fokus::qstnrs |>
+    dplyr::filter(canton == !!canton
+                  & ballot_date == !!ballot_date
+                  & variable_name == !!var_name) %$%
+    eval(as.symbol(predicate)) |>
+    unique()
 }
 
 wrap_backtick <- function(x) {
@@ -2474,10 +2354,14 @@ qstnr_md_table_header <-
   c(paste0(name, collapse = " | "),
     paste0(sep, collapse = " | "))
 
+repo_private_default_branch <- "master"
+repo_private_proj_id <- 21325371L
+
 unicode_checkmark <- "\u2705"
 unicode_crossmark <- "\u274C"
 unicode_ellipsis  <- "\u2026"
 
+url_qstnr <- list(aargau = "https://qstnr.fokus.ag")
 url_survey_host <- list(aargau = "https://umfrage.fokus.ag")
 url_parameter_survey <- list(aargau = "pw")
 
@@ -2916,8 +2800,8 @@ proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 
 #' Get ballot's election numbers
 #'
-#' Determines the election numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) and of
-#' the specified election procedure(s).
+#' Determines the election numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level and of the
+#' specified election procedure(s).
 #'
 #' @inheritParams prcds
 #' @param prcd Election procedure. One of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
@@ -2946,28 +2830,65 @@ election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                          prcd = prcds(ballot_date = ballot_date,
                                       lvl = lvl,
                                       canton = canton)) {
-  if (length(lvl)) {
-    lvl <- rlang::arg_match(arg = lvl,
-                            values = all_lvls)
-  }
+  
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
-  if (length(prcd)) {
+  result <- integer()
+  
+  if (length(prcd) > 0L) {
+    
+    lvl <- rlang::arg_match(arg = lvl,
+                            values = all_lvls)
     prcd <- rlang::arg_match(arg = prcd,
                              values = all_prcds)
+    
+    raw <- raw_qstnr_suppl(ballot_date = ballot_date)
+    result <- as.integer(names(raw[[lvl]][[canton]]$election[[prcd]]))
   }
   
-  result <- integer()
-  raw <- raw_qstnr_suppl(ballot_date = ballot_date)
+  result
+}
+
+#' Get ballot's election procedures
+#'
+#' Determines the election procedures covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level.
+#'
+#' @inheritParams prcds
+#'
+#' @return A character vector.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::election_prcds(ballot_date = "2019-10-20",
+#'                       lvl = "federal",
+#'                       canton = "aargau")
+#'
+#' # in case of no (matching) elections, an empty integer vector is returned
+#' fokus::election_prcds(ballot_date = "2019-10-20",
+#'                       lvl = "cantonal",
+#'                       canton = "aargau")
+election_prcds <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                             pkg = this_pkg),
+                           lvl = lvls(ballot_date,
+                                      canton,
+                                      ballot_type = "election"),
+                           canton = cantons(ballot_date)) {
   
-  if (isTRUE(lvl == "federal")) {
-    
-    result <- as.integer(names(raw$federal[[canton]]$election[[prcd]]))
-  }
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  result <- character()
   
-  if (isTRUE(lvl == "cantonal")) {
+  if (length(lvl) > 0L) {
     
-    result <- as.integer(names(raw$cantonal[[canton]]$election[[prcd]]))
+    lvl <- rlang::arg_match(arg = lvl,
+                            values = all_lvls)
+    
+    raw <- raw_qstnr_suppl(ballot_date = ballot_date)
+    
+    result <-
+      names(raw[[lvl]][[canton]]$election) |>
+      intersect(y = all_prcds)
   }
   
   result
@@ -3950,8 +3871,8 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 
 #' Get proposal combinations
 #'
-#' Returns a list containing the political levels and proposal numbers for all referendum proposals that have been covered by the FOKUS survey for the specified
-#' canton at the specified ballot date on the specified political level(s).
+#' Returns a list containing the political levels and optionally proposal numbers for all referendum proposals that have been covered by the FOKUS survey for
+#' the specified canton at the specified ballot date on the specified political level(s).
 #'
 #' @inheritParams ballot_types
 #' @param incl_nr Whether or not to include proposal numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
@@ -3985,14 +3906,14 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
           proposal_nrs(ballot_date = ballot_date,
                        lvl = lvl,
                        canton = canton) |>
-          purrr::map(\(proposal_nr) {
-            list(lvl = lvl,
-                 proposal_nr = proposal_nr)
-          })
+          purrr::map(\(nr) list(lvl = lvl,
+                                proposal_nr = nr))
+        
       } else if (has_lvl(ballot_date = ballot_date,
                          lvl = lvl,
                          canton = canton,
                          ballot_types = "referendum")) {
+        
         result <- list(lvl = lvl)
         
       } else {
@@ -4365,7 +4286,7 @@ election_tickets <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 
 #' Get number of majoritarian election seats
 #'
-#' Determines the number of election seats of the specified type for the specified majoritarian election.
+#' Determines the number of election seats of the specified type for the specified majority election.
 #'
 #' @inheritParams ballot_types
 #' @inheritParams election_name
@@ -4401,7 +4322,7 @@ n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 
 #' Get number of (officially registered) majoritarian election candidates
 #'
-#' Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
+#' Determines the number of (officially registered) candidates of a majority election at the specified ballot date on the specified political level.
 #'
 #' @inheritParams n_election_seats
 #'
@@ -4460,6 +4381,90 @@ requires_candidate_registration <- function(ballot_date = pal::pkg_config_val(ke
                            prcd = "majoritarian",
                            election_nr = election_nr) |>
     purrr::chuck("requires_candidate_registration")
+}
+
+#' Get election combinations
+#'
+#' Returns a list containing the political levels, election procedures and election numbers for all elections that have been covered by the FOKUS survey for the
+#' specified canton at the specified ballot date on the specified political level(s).
+#'
+#' @inheritParams ballot_types
+#' @param incl_prcd Whether or not to include election procedures in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
+#' @param incl_nr Whether or not to include election numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations. Only
+#'   relevant if `incl_prcd = TRUE`.
+#'
+#' @return A list with an element per political-level and optionally -election-procedure and -election-number combination.
+#' @family predicate_election
+#' @export
+#'
+#' @examples
+#' fokus::combos_elections(ballot_date = "2019-10-20",
+#'                         canton = "aargau")
+#'
+#' # without election numbers
+#' fokus::combos_elections(ballot_date = "2019-10-20",
+#'                         canton = "aargau",
+#'                         incl_prcd = TRUE,
+#'                         incl_nr = FALSE)
+#'
+#' # without election procedures and numbers
+#' fokus::combos_elections(ballot_date = "2019-10-20",
+#'                         canton = "aargau",
+#'                         incl_prcd = FALSE,
+#'                         incl_nr = FALSE)
+combos_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                               pkg = this_pkg),
+                             lvls = all_lvls,
+                             canton = cantons(ballot_date),
+                             incl_prcd = TRUE,
+                             incl_nr = incl_prcd) {
+  
+  checkmate::assert_flag(incl_prcd)
+  checkmate::assert_flag(incl_nr)
+  
+  lvls |>
+    purrr::map(\(lvl) {
+      
+      if (incl_prcd) {
+        
+        result <-
+          election_prcds(ballot_date = ballot_date,
+                         lvl = lvl,
+                         canton = canton) |>
+          purrr::map(\(prcd) {
+            
+            if (incl_nr) {
+              return(election_nrs(ballot_date = ballot_date,
+                                  lvl = lvl,
+                                  canton = canton,
+                                  prcd = prcd) |>
+                       purrr::map(\(nr) list(lvl = lvl,
+                                             prcd = prcd,
+                                             election_nr = nr)))
+            } else {
+              return(list(lvl = lvl,
+                          prcd = prcd))
+            }
+          }) |>
+          pal::when(incl_nr ~ purrr::list_flatten(.),
+                    ~ .)
+        
+      } else if (any(has_lvl(ballot_date = ballot_date,
+                             lvl = lvl,
+                             canton = canton,
+                             ballot_types = "election"))) {
+        
+        result <- list(lvl = lvl)
+        
+      } else {
+        result <- NULL
+      }
+      
+      result
+    }) |>
+    pal::when(incl_prcd ~ purrr::list_flatten(.),
+              ~ .) |>
+    purrr::compact()
 }
 
 #' Get skill question numbers
@@ -4792,7 +4797,7 @@ political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 
 #' Get postal dispatch way
 #'
-#' Returns the FOKUS survey's postal dispatch way of the specified type in the specified language for the specified canton at the specified ballot date.
+#' Returns the FOKUS survey's postal dispatch way of the specified type for the specified canton at the specified ballot date.
 #'
 #' @inheritParams lvls
 #' @param dispatch_type Postal dispatch type. One of `r pal::enum_fn_param_defaults(param = "dispatch_type", fn = postal_dispatch_way)`.
@@ -4862,7 +4867,7 @@ response_options <- function(type = all_response_option_types,
 
 #' Questionnaire data
 #'
-#' A tibble containing the data of all FOKUS questionnaires.
+#' A tibble containing all FOKUS questionnaires as structured data.
 #'
 #' `qstnrs` was generated based on the following steps:
 #'
@@ -4878,7 +4883,7 @@ response_options <- function(type = all_response_option_types,
 #'    `question_full` and `variable_label` respectively if `NA`.
 #' 6. Markdown formatting was [stripped][pal::strip_md] from all character columns.
 #'
-#' @family qstnr_survey
+#' @family qstnr_data
 #' @format `r pkgsnip::return_lbl("tibble")`
 #'
 #' @examples
@@ -4889,7 +4894,7 @@ response_options <- function(type = all_response_option_types,
 #'
 #' A tibble containing basic referendum proposal data of all FOKUS questionnaires.
 #'
-#' @family qstnr_survey
+#' @family qstnr_data
 #' @format `r pkgsnip::return_lbl("tibble")`
 #'
 #' @examples
@@ -4900,82 +4905,397 @@ response_options <- function(type = all_response_option_types,
 #'
 #' A tibble containing basic election data of all FOKUS questionnaires.
 #'
-#' @family qstnr_survey
+#' @family qstnr_data
 #' @format `r pkgsnip::return_lbl("tibble")`
 #'
 #' @examples
 #' fokus::elections
 "elections"
 
+#' Read in easyvote municipality data
+#'
+#' Reads in the latest dataset of easyvote municipality information provided to us not earlier than 90 days before and up until 20 days after the `ballot_date`.
+#'
+#' If both columns `min_age` and `max_age` are `NA` in the data returned, it means that
+#'
+#' -   the municipality did not provide easyvote with specific information on the target age range, and
+#' -   the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
+#'     adults between 18--25 years.
+#'
+#' @inheritParams lvls
+#'
+#' @return `r pkgsnip::param_lbl("tibble")`
+#' @family data_import
+#' @export
+#'
+#' @examples
+#' # GitLab PAT with access to the private FOKUS repository is required for this function to work
+#' try(
+#'   fokus::read_easyvote_municipalities(ballot_date = "2020-09-27",
+#'                                       canton = "aargau")
+#' )
+read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                           pkg = this_pkg),
+                                         canton = cantons(ballot_date)) {
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(arg = ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  
+  # get date of latest dataset delivered *not earlier than 90 days before ballot date* and *up until 20 days after ballot date*
+  date_boundary_lower <- lubridate::as_date(ballot_date) - 90L
+  date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
+  
+  set_private_repo_connection()
+  
+  date_data <-
+    gitlabr::gl_list_files(ref = repo_private_default_branch,
+                           path = "raw") %$%
+    path |>
+    stringr::str_subset(pattern = stringr::fixed("raw/easyvote_municipalities_")) |>
+    stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.csv$)")) |>
+    lubridate::as_date() %>%
+    magrittr::extract(. >= date_boundary_lower & . <= date_boundary_upper) |>
+    pal::safe_max()
+  
+  if (length(date_data) == 0L) {
+    cli::cli_abort(paste0("No easyvote municipality data present for canton {.val {canton}} with effective date at minimum 90 days before and at maximum 20 ",
+                          "days after the ballot date {.val {ballot_date}}."))
+  }
+  
+  read_private_file(path = glue::glue("raw/easyvote_municipalities_{date_data}_{canton}.csv"),
+                    as_chr = FALSE) |>
+    readr::read_csv(col_types = "ciii")
+}
+
+#' Read in online participation codes
+#'
+#' Reads in the online participation codes externally generated by the survey institute that are necessary to [generate QR codes with personalized survey
+#' URLs][export_qr_codes].
+#'
+#' @inheritParams lvls
+#'
+#' @return A character vector.
+#' @family data_import
+#' @export
+#'
+#' @examples
+#' # GitLab PAT with access to the private FOKUS repository is required for this function to work
+#' try(
+#'   fokus::read_online_participation_codes(ballot_date = "2018-11-25",
+#'                                          canton = "aargau")
+#' )
+read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                              pkg = this_pkg),
+                                            canton = cantons(ballot_date)) {
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(arg = ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  
+  path <- glue::glue("raw/online_participation_codes_{ballot_date}_{canton}.txt")
+  
+  set_private_repo_connection()
+  
+  if (!gitlabr::gl_file_exists(file_path = path,
+                               ref = repo_private_default_branch)) {
+    cli::cli_abort("No online participation codes present for canton {.val {canton}} @ {.val {ballot_date}}.")
+  }
+  
+  read_private_file(path = path,
+                    as_chr = TRUE) |>
+    stringr::str_split_1(pattern = stringr::fixed("\n"))
+}
+
+#' Read in extra voting register data
+#'
+#' Reads in the raw extra voting register data provided by the statistical office, performs various integrity checks and returns it in tidy shape.
+#'
+#' @inheritParams lvls
+#'
+#' @return `r pkgsnip::return_lbl("tibble")`
+#' @family data_import
+#' @export
+#'
+#' @examples
+#' # GitLab PAT with access to the private FOKUS repository is required for this function to work
+#' try(
+#'   fokus::read_voting_register_data_extra(ballot_date = "2018-11-25",
+#'                                          canton = "aargau")
+#' )
+read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                              pkg = this_pkg),
+                                            canton = cantons(ballot_date)) {
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(arg = ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  rlang::check_installed("readxl",
+                         reason = pal::reason_pkg_required())
+  
+  # get date of latest dataset delivered *before* ballot date
+  set_private_repo_connection()
+  
+  date_data <-
+    gitlabr::gl_list_files(ref = repo_private_default_branch,
+                           path = "raw") %$%
+    path |>
+    stringr::str_subset(pattern = stringr::fixed("raw/voting_register_data_extra_")) |>
+    stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.xlsx$)")) |>
+    lubridate::as_date() %>%
+    magrittr::extract(. < lubridate::as_date(ballot_date)) |>
+    pal::safe_max()
+  
+  if (length(date_data) == 0L) {
+    cli::cli_abort("No voting register data present for canton {.val {canton}} with effective date before the ballot on {.val {ballot_date}}.")
+  }
+  
+  # NOTE: `readxl::read_xlsx()` can only read from file, so we have to temporarily write the file to disk
+  tmp_file <- fs::file_temp(pattern = glue::glue("voting_register_data_extra_{date_data}_{canton}"),
+                            ext = "xlsx")
+  
+  read_private_file(path = glue::glue("raw/voting_register_data_extra_{date_data}_{canton}.xlsx"),
+                    as_chr = FALSE) |>
+    brio::write_file_raw(path = tmp_file)
+  
+  data <-
+    readxl::read_xlsx(path = tmp_file,
+                      col_types = "text") |>
+    # rename variables to our scheme
+    dplyr::rename(id = `ID-Nummer`,
+                  sex_official = Geschlecht,
+                  year_of_birth_official = Jahrgang,
+                  marital_status_official = Zivilstand,
+                  household_size_official = "Haushaltsgr\u00f6sse Anzahl Personen Total",
+                  n_adults_in_household_official = "Haushaltsgr\u00f6sse Anzahl Personen \u00fcber 18 Jahren",
+                  n_kids_in_household_official = "Haushaltsgr\u00f6sse Anzahl Personen unter 18 Jahren") |>
+    # convert numeric columns to type integer
+    dplyr::mutate(dplyr::across(c(id,
+                                  year_of_birth_official,
+                                  household_size_official,
+                                  n_adults_in_household_official,
+                                  n_kids_in_household_official),
+                                as.integer)) |>
+    # transform variable values to our scheme
+    dplyr::mutate(dplyr::across(c(sex_official, marital_status_official),
+                                stringr::str_to_lower)) |>
+    dplyr::mutate(marital_status_official = dplyr::case_match(.x = marital_status_official,
+                                                              "eingetragene partnerschaft"    ~ "in eingetragener Partnerschaft",
+                                                              "aufgel\u00f6ste partnerschaft" ~ "aufgel\u00f6ste Partnerschaft",
+                                                              "unverheiratet"                 ~ "ledig",
+                                                              .default = marital_status_official))
+  # integrity check 1: ensure no unexpected columns occur
+  if (ncol(data) > 7L) {
+    
+    unknown_colnames <-
+      colnames(data) |>
+      setdiff(c(id,
+                sex_official,
+                year_of_birth_official,
+                marital_status_official,
+                household_size_official,
+                n_adults_in_household_official,
+                n_kids_in_household_official))
+    
+    cli::cli_abort("Unexpected column(s) detected in private file {.file raw/voting_register_data_extra_{date_data}_{canton}.xlsx}: {.val unknown_colnames}",
+                   .internal = TRUE)
+  }
+  
+  # integrity check 2: ensure no unexpected values occur
+  ## in `sex_official`
+  unknown_sex_official_i <-
+    data$sex_official |>
+    magrittr::is_in(var_val_set(var_name = "sex_official",
+                                ballot_date = ballot_date,
+                                canton = canton,
+                                lang = "de")) |>
+    magrittr::not() |>
+    which()
+
+  if (length(unknown_sex_official_i) > 0L) {
+    cli::cli_abort("{.var sex_official} in raw extra voting register data has unknown values: {.val {unique(data$sex_official[unknown_sex_official_i])}}")
+  }
+  ## in `marital_status_official`
+  unknown_marital_status_official_i <-
+    data$marital_status_official |>
+    magrittr::is_in(var_val_set(var_name = "marital_status_official",
+                                ballot_date = ballot_date,
+                                canton = canton,
+                                lang = "de")) |>
+    magrittr::not() |>
+    which()
+
+  if (length(unknown_marital_status_official_i)) {
+    cli::cli_abort(paste0("{.var marital_status_official} in raw extra voting register data has unknown values: ",
+                          "{.val {unique(data$sex_official[unknown_marital_status_official_i])}}"))
+  }
+  
+  data
+}
+
+#' Read in voting register identifiers
+#'
+#' Reads in the voting register identifiers of the population that was invited to participate in the FOKUS survey at the specified ballot date in the specified
+#' canton.
+#' 
+#' Note that this data is not available for all FOKUS surveys.
+#'
+#' @inheritParams lvls
+#'
+#' @return `r pkgsnip::return_lbl("tibble_cols", cols = "id_voting_register")`
+#' @family data_import
+#' @export
+#'
+#' @examples
+#' # GitLab PAT with access to the private FOKUS repository is required for this function to work
+#' try(
+#'   fokus::read_voting_register_ids(ballot_date = "2019-10-20",
+#'                                   canton = "aargau")
+#' )
+read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                       pkg = this_pkg),
+                                     canton = cantons(ballot_date)) {
+  ballot_date %<>% as.character()
+  ballot_date <- rlang::arg_match(arg = ballot_date,
+                                  values = as.character(all_ballot_dates))
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  
+  path <- glue::glue("raw/voting_register_ids_{ballot_date}_{canton}.csv")
+  
+  set_private_repo_connection()
+  
+  if (!gitlabr::gl_file_exists(file_path = path,
+                               ref = repo_private_default_branch)) {
+    cli::cli_abort("No voting register ID data present for canton {.val {canton}} @ {.val {ballot_date}}.")
+  }
+  
+  read_private_file(path = glue::glue("raw/voting_register_ids_{ballot_date}_{canton}.csv"),
+                    as_chr = FALSE) |>
+    readr::read_csv(col_types = "i") |>
+    # integrity check
+    pal::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file {path}}. Please debug.",
+                                            .internal = TRUE),
+              ~ .) |>
+    dplyr::rename(id_voting_register = 1L)
+}
+
+#' Read in file from private FOKUS repository
+#'
+#' Downloads a file from the [private FOKUS repository](`r url_repo_private()`) and returns it as a raw vector or a character scalar, depending on `as_chr`.
+#'
+#' Files are downloaded via [GitLab's RESTful API (v4)](https://docs.gitlab.com/ee/api/rest/). If `use_cache = TRUE` (the default), a downloaded file is cached
+#' on disk in this package's [user-cache pins board][pkgpins::board] and only newly fetched from the private FOKUS repository GitLab remote if is has changed
+#' since being downloaded the last time. Caching saves a bit of time and (potentially) a lot of bandwidth.
+#'
+#' @param path File path relative to the repository root.
+#' @param as_chr Whether to return the file content as a character scalar, which is only recommended for text files. If `FALSE`, the file is returned as a
+#'   [raw vector][raw] instead.
+#' @param use_cache Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
+#'   actually changed since the last download. If `FALSE`, the file is always newly fetched.
+#'
+#' @return The file content, as character scalar if `as_chr`, otherwise as a [raw vector][raw].
+#' @family data_import
+#' @family private
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' fokus::read_private_file("raw/survey_data_2018-09-23_aargau.xlsx")}
+read_private_file <- function(path,
+                              as_chr = FALSE,
+                              use_cache = TRUE) {
+  
+  checkmate::assert_flag(as_chr)
+  checkmate::assert_string(path)
+  
+  pkgpins::with_cache(
+    expr = {
+      set_private_repo_connection()
+      gitlabr::gl_get_file(file_path = utils::URLencode(path,
+                                                        reserved = TRUE),
+                           ref = repo_private_default_branch,
+                           to_char = as_chr)
+    },
+    pkg = this_pkg,
+    from_fn = "read_private_file",
+    private_file_hash(path = path),
+    as_chr,
+    use_cache = use_cache,
+    max_cache_age = Inf
+  )
+}
+
 #' Export questionnaire data
 #'
 #' Generates the [questionnaire tibble][gen_qstnr_tibble], the [Markdown questionnaire][gen_qstnr_md] and optionally a CSV, an HTML and an XLSX version of it,
-#' and writes all of them to the [private FOKUS directory][print_fokus_private_structure] and optionally deploys them as a static site (`local_deploy_path`) and
-#' uploads them to a Google Drive folder (`g_drive_folder`).
+#' and writes all of them to `path` and optionally uploads them to a Google Drive folder.
+#' 
+#' The generated files are named according to the scheme `{ballot_date}_{canton}.{ext}`, so if the `qstnr_tibble` of the 2018-09-23 survey in the canton of
+#' Aargau is input, the following files will be written to `path` by default:
+#' 
+#' - `2018-09-23_aargau.csv`
+#' - `2018-09-23_aargau.html`
+#' - `2018-09-23_aargau.md`
+#' - `2018-09-23_aargau.xlsx`
 #'
-#' @inheritParams gen_qstnr_tibble
+#' @inheritParams expand_qstnr_tibble
+#' @param path Path to the directory to write the generated questionnaire files to. A character scalar.
 #' @param verbose Whether or not to print detailed progress information during questionnaire generation and Google Drive file upload. Note that questionnaire
 #'   generation takes considerably more time when this is set to `TRUE`.
 #' @param incl_csv Whether or not to also generate and export a CSV version of the questionnaire.
 #' @param incl_html Whether or not to also generate and export an HTML version of the questionnaire.
 #' @param incl_xlsx Whether or not to also generate and export an XLSX version of the questionnaire.
-#' @param deploy Whether or not to deploy the generated files as a static site to the Git repository specified under `local_deploy_path`.
-#' @param local_deploy_path Local filesystem path to the Git repository of the static site to deploy the generated files files to. Ignored if `deploy = FALSE`.
 #' @param upload_to_g_drive Whether or not to upload the generated files to the Google Drive folder `g_drive_folder`.
-#' @param g_drive_folder Google Drive folder to deploy the generated files to. Ignored if `upload_to_g_drive = FALSE`.
+#' @param g_drive_folder Google Drive folder to upload the generated files to. Ignored if `upload_to_g_drive = FALSE`.
 #'
-#' @family qstnr_survey
+#' @return `path`, invisibly.
+#' @family data_export
 #' @export
-export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                           pkg = this_pkg),
-                         canton = cantons(ballot_date),
+export_qstnr <- function(qstnr_tibble,
+                         path,
                          verbose = FALSE,
                          incl_csv = TRUE,
                          incl_html = TRUE,
                          incl_xlsx = incl_html,
-                         deploy = TRUE,
-                         local_deploy_path = pal::pkg_config_val(key = "local_deploy_path",
-                                                                 pkg = this_pkg),
-                         upload_to_g_drive = TRUE,
-                         g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
+                         upload_to_g_drive = FALSE,
+                         g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/")) {
   
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
-                             values = cantons(ballot_date))
+  path <- fs::path_abs(path)
+  fs::dir_create(path)
   checkmate::assert_flag(incl_csv)
   checkmate::assert_flag(incl_html)
   checkmate::assert_flag(incl_xlsx)
   if (incl_xlsx && !incl_html) {
     cli::cli_abort("{.arg incl_html} must be set to {.val TRUE} when {.code incl_xlsx = TRUE} because the XLSX file is generated from the HTML file.")
   }
-  checkmate::assert_flag(deploy)
   checkmate::assert_flag(upload_to_g_drive)
   rlang::check_installed("rmarkdown",
                          reason = pal::reason_pkg_required())
   rlang::check_installed("yay",
                          reason = pal::reason_pkg_required())
   
-  md_path <- path_private(glue::glue("output/questionnaires/questionnaire_{ballot_date}_{canton}.md"))
+  # extract ballot date and canton from `qstnr_tibble`
+  ballot_date <- checkmate::assert_string(unique(qstnr_tibble$ballot_date))
+  canton <- checkmate::assert_string(unique(qstnr_tibble$canton))
   
-  # Generate questionnaire tibble and Markdown version
-  qstnr_tibble <- gen_qstnr_tibble(ballot_date = ballot_date,
-                                   verbose = verbose)
+  # Generate Markdown version
+  md_path <- fs::path(path, glue::glue("{ballot_date}_{canton}.md"))
+  
   qstnr_tibble |>
     gen_qstnr_md() |>
-    readr::write_lines(file = md_path)
+    brio::write_lines(path = md_path)
   
   # create CSV version from tibble if requested
   if (incl_csv) {
     
-    status_msg <- "Converting questionnaire tibble to CSV..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
+    pal::cli_progress_step_quick(msg = "Converting questionnaire tibble to CSV")
     
-    csv_path <- md_path |> fs::path_ext_set(ext = "csv")
-    
+    csv_path <- fs::path_ext_set(path = md_path,
+                                 ext = "csv")
     qstnr_tibble |>
       clean_qstnr_tibble() |>
       dplyr::mutate(variable_name_32 =
@@ -5001,6 +5321,8 @@ export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
       expand_qstnr_tibble() |>
       readr::write_csv(file = csv_path,
                        na = "")
+    
+    cli::cli_progress_done()
   }
   
   # create HTML version from Markdown questionnaire if requested
@@ -5008,12 +5330,8 @@ export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
     
     html_path <- fs::path_ext_set(path = md_path,
                                   ext = "html")
-    path_dir <- fs::path_dir(html_path)
     
-    status_msg <- "Converting Markdown questionnaire to HTML using Pandoc..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
+    pal::cli_progress_step_quick(msg = "Converting Markdown questionnaire to HTML using Pandoc")
     
     rmarkdown::pandoc_convert(input = md_path,
                               to = "html5",
@@ -5031,10 +5349,7 @@ export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
   # create XLSX version from HTML questionnaire if requested
   if (incl_xlsx) {
     
-    status_msg <- "Converting HTML questionnaire to XLSX using LibreOffice..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
+    pal::cli_progress_step_quick(msg = "Converting HTML questionnaire to XLSX using LibreOffice")
     
     system2(command = "flatpak",
             args = glue::glue("run --command=libreoffice",
@@ -5042,98 +5357,50 @@ export_qstnr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                               "--calc",
                               "--headless",
                               "--convert-to xlsx",
-                              "--outdir \"{path_dir}\"",
+                              "--outdir \"{path}\"",
                               "\"{html_path}\"",
                               .sep = " "),
             stdout = ifelse(verbose, "", FALSE))
-    cli::cli_progress_done()
-  }
-  
-  # deploy HTML to GitLab Pages if requested
-  if (deploy) {
     
-    status_msg <- "Deploying questionnaire to GitLab Pages..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
-    
-    # TODO: either deploy to this pkg's pkgdown site or introduce pkg option for `to_path` instead of hardcoding it
-    yay::deploy_static_site(from_path = path_dir,
-                            to_path = local_deploy_path,
-                            clean_to_path = FALSE,
-                            quiet = !verbose)
     cli::cli_progress_done()
   }
   
   # upload files to Google Drive for polling agency if requested
   if (upload_to_g_drive) {
-    
     upload_to_g_drive(filepaths = c(md_path,
                                     csv_path[incl_csv],
                                     html_path[incl_html],
-                                    fs::path(path_dir, "github-pandoc.css")[incl_html],
+                                    fs::path(path, "github-pandoc.css")[incl_html],
                                     fs::path_ext_set(path = html_path,
                                                      ext = "xlsx")[incl_xlsx]),
                       g_drive_folder = g_drive_folder,
                       quiet = !verbose)
   }
-}
-
-#' Export all questionnaires
-#'
-#' Exports *all* questionnaires, *softly* by default (i.e. without an XLSX version, without deploying as a static site and without uploading to Google Drive).
-#'
-#' Useful to efficiently test and inspect latest changes in generated questionnaire files.
-#'
-#' @inheritParams export_qstnr
-#'
-#' @family qstnr_survey
-#' @export
-export_qstnr_all <- function(verbose = FALSE,
-                             incl_csv = TRUE,
-                             incl_html = TRUE,
-                             incl_xlsx = FALSE,
-                             deploy = FALSE,
-                             local_deploy_path = pal::pkg_config_val(key = "local_deploy_path",
-                                                                     pkg = this_pkg),
-                             upload_to_g_drive = FALSE,
-                             g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
-  all_ballot_dates %>%
-    magrittr::set_names(., .) |>
-    purrr::map(cantons) |>
-    purrr::iwalk(function(cantons, ballot_date) {
-      
-      purrr::walk(cantons,
-                  \(x) export_qstnr(ballot_date = ballot_date,
-                                    canton = x,
-                                    verbose = verbose,
-                                    incl_csv = incl_csv,
-                                    incl_html = incl_html,
-                                    incl_xlsx = incl_xlsx,
-                                    deploy = deploy,
-                                    local_deploy_path = local_deploy_path,
-                                    upload_to_g_drive = upload_to_g_drive,
-                                    g_drive_folder = g_drive_folder))
-    })
+  
+  invisible(path)
 }
 
 #' Export QR codes with personalized survey URL
 #'
-#' Exports a ZIP file that contains a [QR code](https://en.wikipedia.org/wiki/QR_code) in SVG and in EPS format for each survey participant storing the
-#' personalized survey URL to the [private FOKUS directory][print_fokus_private_structure].
+#' Exports a ZIP file, that contains a [QR code](https://en.wikipedia.org/wiki/QR_code) in SVG and in EPS format for each survey participant storing the
+#' personalized survey URL, to the [private FOKUS repository][print_private_repo_structure].
 #'
+#' @inheritParams lvls
 #' @inheritParams export_qstnr
 #' @inheritParams upload_to_g_drive
+#' @param quiet `r pkgsnip::param_lbl("quiet")`
+#' @param verbose Whether or not to print detailed status output from [Google Drive file upload][upload_to_g_drive].
 #'
 #' @return A [tibble][tibble::tbl_df] containing metadata about the contents of the created ZIP archive, invisibly.
-#' @family qstnr_survey
+#' @family data_export
 #' @export
 export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                               pkg = this_pkg),
                             canton = cantons(ballot_date),
                             upload_to_g_drive = TRUE,
-                            g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/",
-                            quiet = TRUE) {
+                            g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/"),
+                            quiet = FALSE,
+                            verbose = FALSE) {
   
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
@@ -5141,6 +5408,8 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
+  checkmate::assert_flag(quiet)
+  checkmate::assert_flag(verbose)
   rlang::check_installed("archive",
                          reason = pal::reason_pkg_required())
   rlang::check_installed("qrencoder",
@@ -5155,7 +5424,8 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
     fs::path_temp() |>
     fs::dir_create()
   
-  on.exit(fs::dir_delete(tmp_dir))
+  on.exit(fs::dir_delete(tmp_dir),
+          add = TRUE)
   
   tmp_dir_svg <-
     fs::path(tmp_dir, "svg") |>
@@ -5166,15 +5436,15 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
     fs::dir_create()
   
   # create SVG and EPS image files
-  status_msg <- "Generating {length(participation_codes)} personalized QR code{?s} in SVG and EPS format for canton {.val {canton}} @ {.val {ballot_date}}..."
-  cli::cli_progress_step(msg = status_msg,
-                         msg_done = paste(status_msg, "done"),
-                         msg_failed = paste(status_msg, "failed"),
-                         .auto_close = FALSE)
+  if (!quiet) {
+    cli_id <- pal::cli_progress_step_quick(
+      msg = "Generating {length(participation_codes)} personalized QR code{?s} in SVG and EPS format for canton {.val {canton}} @ {.val {ballot_date}}"
+    )
+  }
   
   participation_codes |>
-    cli::cli_progress_along() |>
-    purrr::walk2(.x = participation_codes,
+    purrr::walk2(.progress = !quiet,
+                 .x = participation_codes,
                  .y = _,
                  .f = ~ {
                    
@@ -5186,7 +5456,7 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
                    
                    qrencoder::qrencode_svg(to_encode = glue::glue("{url}?{url_parameter}={.x}"),
                                            level = 3L) |>
-                     readr::write_file(file = path_svg)
+                     brio::write_file(path = path_svg)
                    
                    # create EPS file from SVG file
                    rsvg::rsvg_eps(svg = path_svg,
@@ -5194,29 +5464,35 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
                                                   ext = "eps"))
                  })
   
-  cli::cli_progress_done()
+  if (!quiet) {
+    cli::cli_progress_done(id = cli_id)
+  }
   
   # create ZIP archive of SVG and EPS files
-  status_msg <- "Compressing SVG and EPS QR code files to ZIP archive..."
-  cli::cli_progress_step(msg = status_msg,
-                         msg_done = paste(status_msg, "done"),
-                         msg_failed = paste(status_msg, "failed"),
-                         .auto_close = FALSE)
+  if (!quiet) {
+    cli_id <- pal::cli_progress_step_quick(msg = "Compressing SVG and EPS QR code files to ZIP archive")
+  }
   
-  dir_output <- fs::dir_create(path_private("output/images/qr_codes"))
-  path_zip <- fs::path(dir_output, glue::glue("{ballot_date}_{canton}.zip"))
-  
-  result <- archive::archive_write_dir(archive = path_zip,
+  filename_zip <- glue::glue("{ballot_date}_{canton}_qr_codes.zip")
+  tmp_path_zip <- fs::path(tmp_dir, filename_zip)
+  result <- archive::archive_write_dir(archive = tmp_path_zip,
                                        dir = tmp_dir,
                                        format = "zip")
-  cli::cli_progress_done()
+  if (!quiet) {
+    cli::cli_progress_done(id = cli_id)
+  }
   
-  # upload files to Google Drive for polling agency if requested
+  # upload ZIP archive to private repo
+  write_private_file(path = fs::path("generated/for-polling-agency", filename_zip),
+                     content = tmp_path_zip,
+                     from_file = TRUE,
+                     quiet = quiet)
+  
+  # upload ZIP archive to Google Drive for polling agency if requested
   if (upload_to_g_drive) {
-    
-    upload_to_g_drive(filepaths = path_zip,
+    upload_to_g_drive(filepaths = tmp_path_zip,
                       g_drive_folder = g_drive_folder,
-                      quiet = quiet)
+                      quiet = quiet || !verbose)
   }
   
   invisible(result)
@@ -5224,21 +5500,28 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 
 #' Export print recipients data
 #'
-#' Exports a CSV dataset containing the two columns `id` and `receives_print` to the [private FOKUS directory][print_fokus_private_structure].
+#' Exports a CSV dataset containing the two columns `id` and `receives_print` to the [private FOKUS repository][print_private_repo_structure].
 #'
-#' @inheritParams ballot_title
+#' @inheritParams export_qr_codes
 #'
 #' @return `NULL` if no export for the specified ballot date is possible, otherwise a [tibble][tibble::tbl_df] of the exported data, invisibly.
-#' @family qstnr_survey
+#' @family data_export
 #' @export
 export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                       pkg = this_pkg),
-                                    canton = cantons(ballot_date)) {
+                                    canton = cantons(ballot_date),
+                                    upload_to_g_drive = TRUE,
+                                    g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/Print-Zielgruppen/"),
+                                    quiet = FALSE,
+                                    verbose = FALSE) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
+  checkmate::assert_flag(upload_to_g_drive)
+  checkmate::assert_flag(quiet)
+  checkmate::assert_flag(verbose)
   
   # only export if `reminder_print_*` constraint present
   if (raw_qstnr_suppl_mode(ballot_date = ballot_date,
@@ -5247,16 +5530,19 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
       stringr::str_detect("^reminder_print_.+") |>
       any()) {
     
-    status_msg <- "Exporting print recipients data for canton {.val {canton}} @ {.val {ballot_date}}..."
-    cli::cli_progress_step(msg = status_msg,
-                           msg_done = paste(status_msg, "done"),
-                           msg_failed = paste(status_msg, "failed"))
+    pal::cli_progress_step_quick(msg = "Exporting print recipients data for canton {.val {canton}} @ {.val {ballot_date}}")
     
     # read in statistical office IDs used for current survey
-    ids <- read_voting_register_ids(ballot_date = ballot_date,
-                                    canton = canton)
+    ids <-
+      read_voting_register_ids(ballot_date = ballot_date,
+                               canton = canton) %$%
+      id_voting_register
+    
     # ensure output folder exists
-    fs::dir_create(path_private(glue::glue("output/data/polling_agency/{canton}")))
+    filename <- glue::glue("{ballot_date}_{canton}_print_recipients.csv")
+    tmp_path <- fs::path_temp(filename)
+    on.exit(fs::file_delete(tmp_path),
+            add = TRUE)
     
     # export data
     result <-
@@ -5265,8 +5551,19 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
       dplyr::filter(id %in% !!ids) |>
       dplyr::mutate(receives_print = year_of_birth_official < 1970L) |>
       dplyr::select(id, receives_print) |>
-      readr::write_csv(file = path_private(glue::glue("output/data/polling_agency/{canton}/{ballot_date}_print_recipients.csv")))
+      readr::write_csv(file = tmp_path)
     
+    write_private_file(path = fs::path("generated/for-polling-agency", filename),
+                       content = tmp_path,
+                       from_file = TRUE,
+                       quiet = quiet)
+    
+    # upload data to Google Drive for polling agency if requested
+    if (upload_to_g_drive) {
+      upload_to_g_drive(filepaths = tmp_path,
+                        g_drive_folder = g_drive_folder,
+                        quiet = quiet || !verbose)
+    }
   } else {
     
     cli::cli_alert_info("No print recipients data export sensible or possible for canton {.val {canton}} @ {.val {ballot_date}}.")
@@ -5279,7 +5576,7 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
 #' Export easyvote municipality details
 #'
 #' Exports a CSV dataset containing the columns `municipality`, `municipality_id`, `min_age` and `max_age` to the [private FOKUS
-#' directory][print_fokus_private_structure].
+#' repository][print_private_repo_structure].
 #'
 #' The meaning of the individual columns is as follows:
 #'
@@ -5290,26 +5587,32 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
 #' | `min_age` | `r var_lbl("easyvote_municipality_min_age")` |
 #' | `max_age` | `r var_lbl("easyvote_municipality_max_age")` |
 #'
-#' @inheritParams export_qstnr
-#' @inheritParams upload_to_g_drive
+#' @inheritParams export_qr_codes
 #'
 #' @return A [tibble][tibble::tbl_df] of the exported data, invisibly.
-#' @family qstnr_survey
+#' @family data_export
 #' @export
 export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                              pkg = this_pkg),
                                            canton = cantons(ballot_date),
                                            upload_to_g_drive = TRUE,
-                                           g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/easyvote-Gemeinden/",
-                                           quiet = TRUE) {
+                                           g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/easyvote-Gemeinden/"),
+                                           quiet = FALSE,
+                                           verbose = FALSE) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
+  checkmate::assert_flag(quiet)
+  checkmate::assert_flag(verbose)
   
-  path_csv <- path_private(glue::glue("output/data/polling_agency/{canton}/{ballot_date}_easyvote_municipalities.csv"))
+  file_basename <- glue::glue("{ballot_date}_{canton}_easyvote_municipalities")
+  tmp_path <- fs::file_temp(pattern = file_basename,
+                            ext = "csv")
+  on.exit(fs::file_delete(tmp_path),
+          add = TRUE)
   
   result <-
     read_easyvote_municipalities(ballot_date = ballot_date,
@@ -5323,16 +5626,112 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
                                            25L,
                                            max_age)) |>
     dplyr::select(-is_likely_default) |>
-    readr::write_csv(file = path_csv)
+    readr::write_csv(file = tmp_path)
+  
+  write_private_file(path = fs::path("generated/for-polling-agency", file_basename,
+                                     ext = "csv"),
+                     content = tmp_path,
+                     from_file = TRUE,
+                     quiet = quiet)
   
   if (upload_to_g_drive) {
-    
-    upload_to_g_drive(filepaths = path_csv,
+    upload_to_g_drive(filepaths = tmp_path,
                       g_drive_folder = g_drive_folder,
-                      quiet = quiet)
+                      quiet = quiet || !verbose)
   }
   
   invisible(result)
+}
+
+#' Write file to private FOKUS repository
+#'
+#' Uploads a file to the [private FOKUS repository](`r url_repo_private()`) via [GitLab's RESTful API (v4)](https://docs.gitlab.com/ee/api/rest/).
+#'
+#' @inheritParams read_private_file
+#' @param content File content, as a character scalar for text files, or a [raw vector][raw] for binary files. Or the path to a local file as a character scalar
+#'   if `from_file = TRUE`.
+#' @param from_file Whether or not `content` indicates the path to a local file instead of the actual file content.
+#' @param overwrite Whether or not to overwrite an already existing file.
+#' @param commit_message Git commit message for file creation/update.
+#' @param quiet `r pkgsnip::param_lbl("quiet")`
+#'
+#' @return `path`, invisibly.
+#' @family data_export
+#' @family private
+#' @export
+write_private_file <- function(path,
+                               content,
+                               from_file = FALSE,
+                               overwrite = TRUE,
+                               commit_message = "auto: update file via fokus R pkg",
+                               quiet = FALSE) {
+  
+  checkmate::assert_string(path)
+  checkmate::assert_flag(from_file)
+  checkmate::assert_flag(overwrite)
+  checkmate::assert_string(commit_message)
+  checkmate::assert_flag(quiet)
+  
+  is_raw <- is.raw(content)
+  
+  if (is_raw && from_file) {
+    cli::cli_abort("{.arg content} must be a character scalar if {.arg from_file} is {.val {from_file}}.")
+  }
+  if (!is_raw) {
+    checkmate::assert_string(content)
+  }
+  
+  set_private_repo_connection()
+  
+  if (from_file) {
+    
+    rlang::check_installed("digest", reason = pal::reason_pkg_required())
+    rlang::check_installed("gitlabr", reason = pal::reason_pkg_required())
+    
+    # return early if file hasn't changed
+    if (gitlabr::gl_file_exists(file_path = path,
+                                ref = repo_private_default_branch) &&
+        identical(private_file_hash(path = path),
+                  digest::digest(algo = "sha256",
+                                 file = content))) {
+      if (!quiet) {
+        cli::cli_alert_info("The new file contents are identical to the existing file contents and thus no data was uploaded to the private FOKUS repository.")
+      }
+      return(invisible(path))
+    }
+    
+    content %<>% brio::read_file_raw()
+    is_raw <- TRUE
+  }
+
+  if (is_raw) {
+    rlang::check_installed("base64enc", reason = pal::reason_pkg_required())
+    content %<>% base64enc::base64encode()
+  }
+  
+  if (!quiet) {
+    cli_id <- pal::cli_progress_step_quick(msg = "Uploading file to private FOKUS repository under path {.field {path}}.")
+  }
+  
+  api_result <- tryCatch(expr = push_private_file(path = path,
+                                                  content = content,
+                                                  encoding = ifelse(is_raw,
+                                                                    "base64",
+                                                                    "text"),
+                                                  commit_message = commit_message,
+                                                  overwrite = overwrite),
+                         error = \(e) e)
+  
+  if (!quiet) {
+    cli::cli_progress_done(id = cli_id)
+  }
+  
+  if (!quiet && utils::hasName(api_result, "message")) {
+    cli::cli_alert_info(paste0("The GitLab API call didn't succeed and returned {.emph {api_result$message}}, which most likely means the new file contents ",
+                               "were identical to the existing file contents in the private FOKUS repository."))
+  }
+  
+  invisible(path)
 }
 
 #' Determine whether variable is skill question
@@ -5353,13 +5752,14 @@ is_skill_question_var <- function(var_names) {
     stringr::str_detect(pattern = "^skill_question_\\d+_(cantonal|federal)(_proposal_\\d+)?$")
 }
 
-#' Get variable label
+#' Get variable description
 #'
-#' Extracts a variable's (common) label from the [questionnaire data][qstnrs].
+#' Extracts a variable's (common) description from the [questionnaire data][qstnrs].
 #'
-#' If no `ballot_date` and `canton` are specified, [`variable_label_common`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) is returned,
-#' otherwise [`variable_label`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be
-#' `NULL` or set to a valid canton name and ballot date respectively.
+#' If no `ballot_date` and `canton` are specified or `var_name` is not included at `ballot_date`,
+#' [`variable_label_common`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys) is returned, otherwise
+#' [`variable_label`](https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys). Note that `ballot_date` and `canton` either must both be `NULL` or
+#' set to a valid canton name and ballot date respectively.
 #'
 #' @param var_name Variable name. A character scalar.
 #' @param ballot_date `NULL` or a FOKUS-covered ballot date, i.e. one of
@@ -5387,19 +5787,9 @@ var_lbl <- function(var_name,
                     ballot_date = NULL,
                     canton = NULL) {
   
-  assert_var_names(var_names = var_name,
-                   as_scalar = TRUE)
-  
   is_common <- is.null(ballot_date) && is.null(canton)
   
-  if (is_common) {
-    
-    result <-
-      fokus::qstnrs |>
-      dplyr::filter(variable_name == !!var_name) %$%
-      variable_label_common
-    
-  } else {
+  if (!is_common) {
     
     is_arg_invalid <- purrr::map_lgl(list(ballot_date, canton),
                                      is.null)
@@ -5411,19 +5801,24 @@ var_lbl <- function(var_name,
                             "{.val {get(arg_names[!is_arg_invalid])}}."))
     }
     
-    result <-
-      fokus::qstnrs |>
-      dplyr::filter(canton == !!canton
-                    & ballot_date == !!ballot_date
-                    & variable_name == !!var_name) %$%
-      variable_label
+    result <- var_predicate(predicate = "variable_label",
+                            var_name = var_name,
+                            ballot_date = ballot_date,
+                            canton = canton)
+    
+    is_common <- length(result) == 0L
   }
   
-  (checkmate::assert_string(unique(result),
-                            na.ok = TRUE,
-                            .var.name = ifelse(is_common,
-                                               "variable_label_common",
-                                               "variable_label")))
+  if (is_common) {
+    
+    result <-
+      fokus::qstnrs |>
+      dplyr::filter(variable_name == !!var_name) %$%
+      variable_label_common |>
+      unique()
+  }
+  
+  result
 }
 
 #' Determine variable's political level(s)
@@ -5515,19 +5910,59 @@ var_title <- function(var_name,
                                                         pkg = this_pkg),
                       canton = cantons(ballot_date)) {
   
-  assert_var_names(var_names = var_name,
-                   as_scalar = TRUE)
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
-  canton <- rlang::arg_match(arg = canton,
-                             values = all_cantons)
-  fokus::qstnrs |>
-    dplyr::filter(canton == !!canton
-                  & ballot_date == !!ballot_date
-                  & variable_name == !!var_name) %$%
-    topic |>
-    unique()
+  var_predicate(predicate = "topic",
+                var_name = var_name,
+                ballot_date = ballot_date,
+                canton = canton)
+}
+
+#' Get variable's value set
+#'
+#' Extracts a variable's value set from the [questionnaire data][qstnrs] in the specified language (or its integer representation if `lang = "int"`).
+#'
+#' @inheritParams lvls
+#' @inheritParams var_lbl
+#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = var_val_set)` for the value set's integer codes."
+#'
+#' @return A character scalar.
+#' @family vars
+#' @export
+#'
+#' @examples
+#' fokus::var_val_set(var_name = "favored_party",
+#'                    ballot_date = "2018-09-23",
+#'                    canton = "aargau")
+#'
+#' fokus::var_val_set(var_name = "favored_party",
+#'                    ballot_date = "2023-06-18",
+#'                    canton = "aargau")
+#'
+#' fokus::var_val_set(var_name = "favored_party",
+#'                    ballot_date = "2023-06-18",
+#'                    canton = "aargau",
+#'                    lang = "en")
+#'
+#' fokus::var_val_set(var_name = "favored_party",
+#'                    ballot_date = "2023-06-18",
+#'                    canton = "aargau",
+#'                    lang = "int")
+var_val_set <- function(var_name,
+                        ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                          pkg = this_pkg),
+                        canton = cantons(ballot_date),
+                        lang = c(all_langs, "int")) {
+  
+  lang <- rlang::arg_match(lang)
+  
+  var_predicate(predicate = switch(EXPR = lang,
+                                   de = "response_options",
+                                   en = "value_labels",
+                                   int = "variable_values",
+                                   cli::cli_abort("Not implemented. Please debug.",
+                                                  .internal = TRUE)),
+                var_name = var_name,
+                ballot_date = ballot_date,
+                canton = canton)
 }
 
 #' Shorten variable names to a maximum length of 32 characters
@@ -5714,10 +6149,7 @@ phrase_election_candidate <- function(ballot_date = pal::pkg_config_val(key = "b
     data_candidates %<>% dplyr::filter(dplyr::row_number() %in% candidate_nrs)
   }
   
-  data_candidates |> purrr::pmap_chr(incl_party = incl_party,
-                                     .f = function(first_name, last_name, party, ..., incl_party) {
-                                       paste0(first_name, " ", last_name, paste0(" (", party, ")")[incl_party])
-                                     })
+  data_candidates |> purrr::pmap_chr(\(first_name, last_name, party, ...) paste0(first_name, " ", last_name, paste0(" (", party, ")")[incl_party]))
 }
 
 #' Get declined German proposal name
@@ -5762,6 +6194,7 @@ phrase_proposal_name_de <- function(ballot_date = pal::pkg_config_val(key = "bal
                 lvl = lvl,
                 canton = canton,
                 proposal_nr = proposal_nr,
+                lang = "de",
                 type = type) |>
     salim::decline_noun_de(gender = proposal_name_gender(ballot_date = ballot_date,
                                                          lvl = lvl,
@@ -6023,7 +6456,7 @@ backup_g_sheet <- function(g_id,
 #' @family g_apps
 #' @export
 upload_to_g_drive <- function(filepaths,
-                              g_drive_folder = "fokus/aargau/",
+                              g_drive_folder,
                               path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"),
                               quiet = FALSE) {
   
@@ -6042,10 +6475,7 @@ upload_to_g_drive <- function(filepaths,
   auth_g_drive_gcp(path_gcp_service_account_key)
   
   # upload files
-  status_msg <- "Uploading {length(filepaths)} file{?s} to Google Drive folder {.path {g_drive_folder}}..."
-  cli::cli_progress_step(msg = status_msg,
-                         msg_done = paste(status_msg, "done"),
-                         msg_failed = paste(status_msg, "failed"))
+  pal::cli_progress_step_quick(msg = "Uploading {length(filepaths)} file{?s} to Google Drive folder {.field {g_drive_folder}}")
   
   purrr::walk2(.x = filenames,
                .y = filepaths,

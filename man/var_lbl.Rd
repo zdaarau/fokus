@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{var_lbl}
 \alias{var_lbl}
-\title{Get variable label}
+\title{Get variable description}
 \usage{
 var_lbl(var_name, ballot_date = NULL, canton = NULL)
 }
@@ -29,12 +29,13 @@ var_lbl(var_name, ballot_date = NULL, canton = NULL)
 A character scalar.
 }
 \description{
-Extracts a variable's (common) label from the \link[=qstnrs]{questionnaire data}.
+Extracts a variable's (common) description from the \link[=qstnrs]{questionnaire data}.
 }
 \details{
-If no \code{ballot_date} and \code{canton} are specified, \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label_common}} is returned,
-otherwise \href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label}}. Note that \code{ballot_date} and \code{canton} either must both be
-\code{NULL} or set to a valid canton name and ballot date respectively.
+If no \code{ballot_date} and \code{canton} are specified or \code{var_name} is not included at \code{ballot_date},
+\href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label_common}} is returned, otherwise
+\href{https://fokus.rpkg.dev/articles/raw_qstnr_schema.html#supported-keys}{\code{variable_label}}. Note that \code{ballot_date} and \code{canton} either must both be \code{NULL} or
+set to a valid canton name and ballot date respectively.
 }
 \examples{
 # if `ballot_date` and `canton` are not supplied, `variable_label_common` is returned:
@@ -55,6 +56,7 @@ Other variable-related functions:
 \code{\link{var_lvls}()},
 \code{\link{var_proposal_nr}()},
 \code{\link{var_skill_question_nr}()},
-\code{\link{var_title}()}
+\code{\link{var_title}()},
+\code{\link{var_val_set}()}
 }
 \concept{vars}

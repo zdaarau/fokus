@@ -4,7 +4,10 @@
 \alias{read_easyvote_municipalities}
 \title{Read in easyvote municipality data}
 \usage{
-read_easyvote_municipalities(ballot_date, canton)
+read_easyvote_municipalities(
+  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  canton = cantons(ballot_date)
+)
 }
 \arguments{
 \item{ballot_date}{FOKUS-covered ballot date. One of
@@ -38,10 +41,17 @@ adults between 18--25 years.
 }
 }
 \examples{
-# private FOKUS directory needs to be accessible for this function to work
+# GitLab PAT with access to the private FOKUS repository is required for this function to work
 try(
-  fokus:::read_easyvote_municipalities(ballot_date = "2020-09-27",
-                                       canton = "aargau")
+  fokus::read_easyvote_municipalities(ballot_date = "2020-09-27",
+                                      canton = "aargau")
 )
 }
-\keyword{internal}
+\seealso{
+Other data import functions:
+\code{\link{read_online_participation_codes}()},
+\code{\link{read_private_file}()},
+\code{\link{read_voting_register_data_extra}()},
+\code{\link{read_voting_register_ids}()}
+}
+\concept{data_import}

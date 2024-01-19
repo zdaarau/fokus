@@ -14,7 +14,7 @@ A tibble of item keys supported in the \link[=raw_qstnr]{raw FOKUS questionnaire
 fokus:::qstnr_item_keys
 }
 \seealso{
-Other FOKUS metadata functions:
+Other FOKUS metadata:
 \code{\link{all_argument_sides}},
 \code{\link{all_ballot_dates}},
 \code{\link{all_ballot_types}},

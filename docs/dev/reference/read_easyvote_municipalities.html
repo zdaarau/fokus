@@ -54,7 +54,10 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_easyvote_municipalities</span><span class="op">(</span><span class="va">ballot_date</span>, <span class="va">canton</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_easyvote_municipalities</span><span class="op">(</span></span>
+<span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"ballot_date"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
+<span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,17 +90,36 @@
 <li><p>the municipality has subscribed to parcel mailing (instead of direct delivery to households) and delivers the brochures itself -- very likely to young
 adults between 18--25 years.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other data import functions:
+<code><a href="read_online_participation_codes.html">read_online_participation_codes</a>()</code>,
+<code><a href="read_private_file.html">read_private_file</a>()</code>,
+<code><a href="read_voting_register_data_extra.html">read_voting_register_data_extra</a>()</code>,
+<code><a href="read_voting_register_ids.html">read_voting_register_ids</a>()</code></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># private FOKUS directory needs to be accessible for this function to work</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># GitLab PAT with access to the private FOKUS repository is required for this function to work</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu">fokus</span><span class="fu">:::</span><span class="fu">read_easyvote_municipalities</span><span class="op">(</span>ballot_date <span class="op">=</span> <span class="st">"2020-09-27"</span>,</span></span>
-<span class="r-in"><span>                                       canton <span class="op">=</span> <span class="st">"aargau"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">fokus</span><span class="fu">::</span><span class="fu">read_easyvote_municipalities</span><span class="op">(</span>ballot_date <span class="op">=</span> <span class="st">"2020-09-27"</span>,</span></span>
+<span class="r-in"><span>                                      canton <span class="op">=</span> <span class="st">"aargau"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in pal::pkg_config_val(key = "path_repo_private", pkg = this_pkg,  : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Please set the fokus package configuration option <span style="color: #00BB00;">path_repo_private</span> by either setting the R option <span style="color: #00BB00;">fokus.path_repo_private</span> or the environment variable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> `R_FOKUS_PATH_REPO_PRIVATE`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 47 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    municipality   municipality_id min_age max_age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Abtwil                    <span style="text-decoration: underline;">4</span>221      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Auw                       <span style="text-decoration: underline;">4</span>223      18      23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Baden                     <span style="text-decoration: underline;">4</span>021      18      19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Beinwil am See            <span style="text-decoration: underline;">4</span>131      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Biberstein                <span style="text-decoration: underline;">4</span>002      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Birrwil                   <span style="text-decoration: underline;">4</span>132      18      25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Bözberg                   <span style="text-decoration: underline;">4</span>124      18      19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Bözen                     <span style="text-decoration: underline;">4</span>094      18      25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Dietwil                   <span style="text-decoration: underline;">4</span>231      18      25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Effingen                  <span style="text-decoration: underline;">4</span>096      18      20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 37 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

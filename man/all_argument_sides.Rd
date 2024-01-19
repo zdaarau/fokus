@@ -17,7 +17,7 @@ A vector of all possible referendum proposal argument sides.
 fokus::all_argument_sides
 }
 \seealso{
-Other FOKUS metadata functions:
+Other FOKUS metadata:
 \code{\link{all_ballot_dates}},
 \code{\link{all_ballot_types}},
 \code{\link{all_cantons}},

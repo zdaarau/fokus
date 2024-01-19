@@ -33,7 +33,7 @@ postal_dispatch_way(
 A character scalar.
 }
 \description{
-Returns the FOKUS survey's postal dispatch way of the specified type in the specified language for the specified canton at the specified ballot date.
+Returns the FOKUS survey's postal dispatch way of the specified type for the specified canton at the specified ballot date.
 }
 \examples{
 fokus::postal_dispatch_way(ballot_date = "2018-09-23",

@@ -36,8 +36,8 @@ election_nrs(
 An integer vector.
 }
 \description{
-Determines the election numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) and of
-the specified election procedure(s).
+Determines the election numbers covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political level and of the
+specified election procedure(s).
 }
 \examples{
 fokus::election_nrs(ballot_date = "2019-10-20",
@@ -55,6 +55,7 @@ fokus::election_nrs(ballot_date = "2019-10-20",
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
+\code{\link{election_prcds}()},
 \code{\link{has_ballot_type}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},

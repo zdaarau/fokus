@@ -216,75 +216,25 @@ all_name_types <- c("short",
 
 ## `fokus_private_structure`
 
-Expected structure for the `fokus_private` directory/repository
+Structure of the `fokus_private` repository.
 
 ```{r}
-fokus_private_structure <-
-  list("fokus_private/" =
-         list("bibliography/" = list("zotero_c2d.bib",
-                                     "zotero_c2d.json"),
-              "bin/" = list("pandoc/" = list("linux/",
-                                             "macos/",
-                                             "windows/")),
-              "config/" = list("csl/",
-                               "css/",
-                               "shared_pandoc_variables/" = list("online_de.yaml",
-                                                                 "online_en.yaml",
-                                                                 "print_de.yaml",
-                                                                 "print_en.yaml"),
-                               "config.toml",
-                               "output.yaml",
-                               "pandoc_template.tex",
-                               "shared_header-includes.tex",
-                               "..."),
-              "input/" = list("data/" = list("{canton}/" = list("easyvote_municipalities_{ballot_date}.csv",
-                                                                "online_participation_codes_{ballot_date}.txt",
-                                                                "survey_data_{ballot_date}.xlsx",
-                                                                "survey_data_{ballot_date}_*.xlsx",
-                                                                "survey_data_preliminary_{ballot_date}.xlsx",
-                                                                "voting_register_data_extra_{date_delivery_statistical_office}.xlsx",
-                                                                "voting_register_ids_{ballot_date}.csv",
-                                                                "..."))),
-              "fonts/" = list("..."),
-              "images/" = list("{canton}/" = list("{ballot_date}"),
-                               "..."),
-              "output/" = list("data/" = list("internal/" = list("r/",
-                                                                 "spss/",
-                                                                 "stata/"),
-                                              "public/",
-                                              "polling_agency/" = list("{canton}/" = list("{ballot_date}_print_recipients.csv"))),
-                               "images/" = list("{ballot_date}/" = list("{canton}/" = list("...")),
-                                                "qr_codes/" = list("{ballot_date}_{canton}.zip")),
-                               "questionnaires/" = list("questionnaire_{ballot_date}_{canton}.csv",
-                                                        "questionnaire_{ballot_date}_{canton}.html",
-                                                        "questionnaire_{ballot_date}_{canton}.md",
-                                                        "questionnaire_{ballot_date}_{canton}.xlsx"),
-                               "publications/" = list("libs/",
-                                                      "..."),
-                               "rmd/" = list("{ballot_date}/" = list("{canton}/" = list("plots/")))),
-              "print_docs/" = list("{canton}/" = list("invitation_{ballot_date}.pdf",
-                                                      "questionnaire_print_{ballot_date}.pdf",
-                                                      "reminder_{ballot_date}.pdf")),
-              "rmd/" = list("snippets/" = list("{canton}/" = list("{ballot_date}_cantonal_proposal_#.Rmd",
-                                                                  "{ballot_date}_opinion_formation_and_participation.Rmd",
-                                                                  "{ballot_date}_special_*.Rmd",
-                                                                  "{ballot_date}_special_*_summary.Rmd",
-                                                                  "{ballot_date}_summary.Rmd"),
-                                               "imprint_de.Rmd",
-                                               "imprint_en.Rmd",
-                                               "methodological_description.Rmd"),
-                            "data_overview.Rmd",
-                            "questionnaire.Rmd",
-                            "paper_{ballot_date}_{canton}.Rmd",
-                            "report_{ballot_date}_{canton}.Rmd",
-                            "report_cantonal_majoritarian_{ballot_date}_{canton}.Rmd",
-                            "report_cantonal_proportional_{ballot_date}_{canton}.Rmd",
-                            "report_federal_majoritarian_{ballot_date}_{canton}.Rmd",
-                            "report_federal_proportional_{ballot_date}_{canton}.Rmd",
-                            "special_*_{ballot_date}_{canton}.Rmd"),
-              "README.Rmd",
-              "...")
-  )
+fokus_private_structure <- list("fokus_private/" = list("generated/" = list("for-polling-agency/" = list("{ballot_date}_{canton}_easyvote_municipalities.csv",
+                                                                                                         "{ballot_date}_{canton}_print_recipients.csv",
+                                                                                                         "{ballot_date}_{canton}_qr_codes.zip"),
+                                                                            "survey_data_de_{ballot_date}_{canton}.rds",
+                                                                            "survey_data_en_{ballot_date}_{canton}.rds",
+                                                                            "survey_data_merged_de_{ballot_date}_{canton}.rds",
+                                                                            "survey_data_merged_en_{ballot_date}_{canton}.rds"),
+                                                        "raw/" = list("easyvote_municipalities_{ballot_date}_{canton}.csv",
+                                                                      "online_participation_codes_{ballot_date}_{canton}.txt",
+                                                                      "survey_data_{ballot_date}_{canton}.xlsx",
+                                                                      "survey_data_{ballot_date}_{canton}_*.xlsx",
+                                                                      "survey_data_preliminary_{ballot_date}_{canton}.xlsx",
+                                                                      "voting_register_data_extra_{date_delivery_statistical_office}_{canton}.xlsx",
+                                                                      "voting_register_ids_{ballot_date}_{canton}.csv",
+                                                                      "..."),
+                                                        "..."))
 ```
 
 ## `md_snippets`
@@ -338,6 +288,7 @@ phrased_terms_tidy <- tidyr::pivot_longer(data = phrased_terms,
 pkg_config <-
   tibble::tibble(key = character(),
                  default_value = list(),
+                 default_value_dynamic = character(),
                  description = character()) |>
   tibble::add_row(key = "ballot_date",
                   default_value = list(all_ballot_dates[1L]),
@@ -356,14 +307,10 @@ pkg_config <-
   tibble::add_row(key = "global_max_cache_age",
                   default_value = list("1 day"),
                   description = pkgsnip::md_snip("opt_global_max_cache_age")) |>
-  tibble::add_row(key = "path_repo_private",
-                  default_value = list(NULL),
-                  description = paste0("Path to the working directory (the local instance of the ",
-                                       "[`fokus_private` repository](https://gitlab.com/zdaarau/private/fokus_private)). Defaults to the current working ",
-                                       "directory.")) |>
-  tibble::add_row(key = "local_deploy_path",
-                  default_value = list(NULL),
-                  description = "Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).")
+  tibble::add_row(key = "token_repo_private",
+                  default_value_dynamic = 'Sys.getenv("GITLAB_COM_TOKEN")',
+                  description = glue::glue("[Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with ",
+                                           "access to the [private FOKUS repository]({fokus:::url_repo_private()})."))
 ```
 
 ## `qstnr_item_keys`

@@ -49,7 +49,7 @@
     <div class="section level2">
       <h2 id="fokus-metadata">FOKUS metadata<a class="anchor" aria-label="anchor" href="#fokus-metadata"></a></h2>
       
-      <p class="section-desc"></p><p>Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a> that serve as a “source of truth” for the <a href="#section-predicates">predicate functions</a>.</p>
+      <p class="section-desc"></p><p>Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/" class="external-link"><code>data-raw/questionnaire/YYYY-MM-DD.toml</code></a> that serve as a “source of truth” for the <code>r "[predicate functions](#predicates)"</code>.</p>
 
       
     </div><div id="" class="section level2">
@@ -135,7 +135,7 @@
       </dl></div><div class="section level2">
       <h2 id="predicates">Predicates<a class="anchor" aria-label="anchor" href="#predicates"></a></h2>
       
-      <p class="section-desc"></p><p>Predicate functions based on the <a href="#section-fokus-metadata">metadata</a> and the <a href="raw_qstnr.html">raw questionnaire data</a>.</p>
+      <p class="section-desc"></p><p>Predicate functions based on the <code>r "[metadata](#fokus-metadata)"</code> and the <a href="raw_qstnr.html">raw questionnaire data</a>.</p>
 
       
     </div><div class="section level2">
@@ -179,6 +179,11 @@
           <code><a href="election_nrs.html">election_nrs()</a></code> 
         </dt>
         <dd>Get ballot's election numbers</dd>
+      </dl><dl><dt>
+          
+          <code><a href="election_prcds.html">election_prcds()</a></code> 
+        </dt>
+        <dd>Get ballot's election procedures</dd>
       </dl><dl><dt>
           
           <code><a href="proposal_qstn_groups.html">proposal_qstn_groups()</a></code> 
@@ -366,6 +371,11 @@
           <code><a href="requires_candidate_registration.html">requires_candidate_registration()</a></code> 
         </dt>
         <dd>Determine whether majoritarian election requires candidate registration</dd>
+      </dl><dl><dt>
+          
+          <code><a href="combos_elections.html">combos_elections()</a></code> 
+        </dt>
+        <dd>Get election combinations</dd>
       </dl></div><div class="section level2">
       
       <h3 id="skill-question-predicates">Skill question predicates<a class="anchor" aria-label="anchor" href="#skill-question-predicates"></a></h3>
@@ -441,7 +451,13 @@
       </dl></div><div class="section level2">
       <h2 id="questionnaire-and-survey">Questionnaire and survey<a class="anchor" aria-label="anchor" href="#questionnaire-and-survey"></a></h2>
       
-      <p class="section-desc"></p><p>Functions to process the <a href="raw_qstnr.html">raw FOKUS questionnaire data</a> and other functions to conduct a survey.</p>
+      <p class="section-desc"></p><p>Datasets and functions to conduct a FOKUS survey.</p>
+
+      
+    </div><div class="section level2">
+      
+      <h3 id="questionnaire-data">Questionnaire data<a class="anchor" aria-label="anchor" href="#questionnaire-data"></a></h3>
+      <p class="section-desc"></p><p>The FOKUS survey questionnaires and supplemental information as structured data.</p>
 
       
     </div><div id="" class="section level2">
@@ -464,16 +480,58 @@
           <code><a href="elections.html">elections</a></code> 
         </dt>
         <dd>Election data</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="data-import">Data import<a class="anchor" aria-label="anchor" href="#data-import"></a></h3>
+      <p class="section-desc"></p><p>Functions to access FOKUS data from the <code>r glue::glue('[private FOKUS repository]({fokus:::url_repo_private()})</code>.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="read_easyvote_municipalities.html">read_easyvote_municipalities()</a></code> 
+        </dt>
+        <dd>Read in easyvote municipality data</dd>
       </dl><dl><dt>
+          
+          <code><a href="read_online_participation_codes.html">read_online_participation_codes()</a></code> 
+        </dt>
+        <dd>Read in online participation codes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_voting_register_data_extra.html">read_voting_register_data_extra()</a></code> 
+        </dt>
+        <dd>Read in extra voting register data</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_voting_register_ids.html">read_voting_register_ids()</a></code> 
+        </dt>
+        <dd>Read in voting register identifiers</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_private_file.html">read_private_file()</a></code> 
+        </dt>
+        <dd>Read in file from private FOKUS repository</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="data-export">Data export<a class="anchor" aria-label="anchor" href="#data-export"></a></h3>
+      <p class="section-desc"></p><p>Functions to export data necessary to conduct a FOKUS survey.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="export_qstnr.html">export_qstnr()</a></code> 
         </dt>
         <dd>Export questionnaire data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="export_qstnr_all.html">export_qstnr_all()</a></code> 
-        </dt>
-        <dd>Export all questionnaires</dd>
       </dl><dl><dt>
           
           <code><a href="export_qr_codes.html">export_qr_codes()</a></code> 
@@ -489,6 +547,11 @@
           <code><a href="export_easyvote_municipalities.html">export_easyvote_municipalities()</a></code> 
         </dt>
         <dd>Export easyvote municipality details</dd>
+      </dl><dl><dt>
+          
+          <code><a href="write_private_file.html">write_private_file()</a></code> 
+        </dt>
+        <dd>Write file to private FOKUS repository</dd>
       </dl></div><div class="section level2">
       <h2 id="variable-related">Variable-related<a class="anchor" aria-label="anchor" href="#variable-related"></a></h2>
       
@@ -509,7 +572,7 @@
           
           <code><a href="var_lbl.html">var_lbl()</a></code> 
         </dt>
-        <dd>Get variable label</dd>
+        <dd>Get variable description</dd>
       </dl><dl><dt>
           
           <code><a href="var_lvls.html">var_lvls()</a></code> 
@@ -530,6 +593,11 @@
           <code><a href="var_title.html">var_title()</a></code> 
         </dt>
         <dd>Get variable title</dd>
+      </dl><dl><dt>
+          
+          <code><a href="var_val_set.html">var_val_set()</a></code> 
+        </dt>
+        <dd>Get variable's value set</dd>
       </dl></div><div class="section level2">
       
       <h3 id="variable-name-shortening">Variable name shortening<a class="anchor" aria-label="anchor" href="#variable-name-shortening"></a></h3>

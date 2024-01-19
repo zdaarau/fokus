@@ -41,6 +41,8 @@ test_that("Predicate functions return correct default values", {
                    1L)
   expect_identical(election_nrs(),
                    integer())
+  expect_identical(election_prcds(),
+                   character())
   expect_identical(proposal_qstn_groups(),
                    c("argument", "main_motive", "skill_question"))
   expect_identical(qstn_groups_proposal_nrs(),
@@ -95,6 +97,8 @@ test_that("Predicate functions return correct default values", {
   expect_snapshot_error(election_parties())
   expect_snapshot_error(election_tickets())
   expect_snapshot_error(requires_candidate_registration())
+  expect_identical(combos_elections(),
+                   list())
   expect_identical(skill_question_nrs(),
                    integer())
   expect_identical(n_skill_questions(),
@@ -205,6 +209,8 @@ test_that("relevant fns don't fail when non-FOKUS-covered", {
                    integer())
   expect_identical(election_nrs(ballot_date = "2018-09-23"),
                    integer())
+  expect_identical(election_prcds(ballot_date = "2018-09-23"),
+                   character())
   expect_identical(proposal_qstn_groups(ballot_date = "2019-10-20"),
                    character())
   expect_identical(proposal_qstn_groups(ballot_date = "2021-11-28",

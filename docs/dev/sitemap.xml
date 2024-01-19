@@ -91,6 +91,9 @@
     <loc>https://fokus.rpkg.dev/dev/reference/cantons.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/combos_elections.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/combos_proposal_arguments.html</loc>
   </url>
   <url>
@@ -115,6 +118,9 @@
     <loc>https://fokus.rpkg.dev/dev/reference/election_parties.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/election_prcds.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/election_tickets.html</loc>
   </url>
   <url>
@@ -134,9 +140,6 @@
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/export_qstnr.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/export_qstnr_all.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/fokus-package.html</loc>
@@ -217,9 +220,6 @@
     <loc>https://fokus.rpkg.dev/dev/reference/n_skill_questions.html</loc>
   </url>
   <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/path_private.html</loc>
-  </url>
-  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/phrase.html</loc>
   </url>
   <url>
@@ -241,7 +241,7 @@
     <loc>https://fokus.rpkg.dev/dev/reference/prcds.html</loc>
   </url>
   <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/print_fokus_private_structure.html</loc>
+    <loc>https://fokus.rpkg.dev/dev/reference/print_private_repo_structure.html</loc>
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/proposal_argument.html</loc>
@@ -349,6 +349,18 @@
     <loc>https://fokus.rpkg.dev/dev/reference/read_easyvote_municipalities.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/read_online_participation_codes.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/read_private_file.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/read_voting_register_data_extra.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/read_voting_register_ids.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/reexports.html</loc>
   </url>
   <url>
@@ -385,6 +397,9 @@
     <loc>https://fokus.rpkg.dev/dev/reference/upload_to_g_drive.html</loc>
   </url>
   <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/url_repo_private.html</loc>
+  </url>
+  <url>
     <loc>https://fokus.rpkg.dev/dev/reference/var_lbl.html</loc>
   </url>
   <url>
@@ -398,5 +413,11 @@
   </url>
   <url>
     <loc>https://fokus.rpkg.dev/dev/reference/var_title.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/var_val_set.html</loc>
+  </url>
+  <url>
+    <loc>https://fokus.rpkg.dev/dev/reference/write_private_file.html</loc>
   </url>
 </urlset>

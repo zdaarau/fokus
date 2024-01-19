@@ -9,8 +9,9 @@ export_easyvote_municipalities(
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
   g_drive_folder =
-    "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/easyvote-Gemeinden/",
-  quiet = TRUE
+    glue::glue("fokus/{canton}/Umfragen/Dateien für Umfrageinstitut/easyvote-Gemeinden/"),
+  quiet = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -32,15 +33,17 @@ export_easyvote_municipalities(
 
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
-\item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
+\item{g_drive_folder}{Google Drive folder to upload the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 
-\item{quiet}{Whether or not to \link[googledrive:googledrive-configuration]{suppress printing status output from googledrive operations}.}
+\item{quiet}{Whether or not to suppress printing status output from internal processing.}
+
+\item{verbose}{Whether or not to print detailed status output from \link[=upload_to_g_drive]{Google Drive file upload}.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble} of the exported data, invisibly.
 }
 \description{
-Exports a CSV dataset containing the columns \code{municipality}, \code{municipality_id}, \code{min_age} and \code{max_age} to the \link[=print_fokus_private_structure]{private FOKUS directory}.
+Exports a CSV dataset containing the columns \code{municipality}, \code{municipality_id}, \code{min_age} and \code{max_age} to the \link[=print_private_repo_structure]{private FOKUS repository}.
 }
 \details{
 The meaning of the individual columns is as follows:\tabular{ll}{
@@ -52,13 +55,10 @@ The meaning of the individual columns is as follows:\tabular{ll}{
 }
 }
 \seealso{
-Other questionnaire and survey functions and datasets:
-\code{\link{elections}},
+Other data export functions:
 \code{\link{export_print_recipients}()},
 \code{\link{export_qr_codes}()},
-\code{\link{export_qstnr_all}()},
 \code{\link{export_qstnr}()},
-\code{\link{proposals}},
-\code{\link{qstnrs}}
+\code{\link{write_private_file}()}
 }
-\concept{qstnr_survey}
+\concept{data_export}

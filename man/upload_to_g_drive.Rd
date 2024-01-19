@@ -6,7 +6,7 @@
 \usage{
 upload_to_g_drive(
   filepaths,
-  g_drive_folder = "fokus/aargau/",
+  g_drive_folder,
   path_gcp_service_account_key = Sys.getenv("PATH_GCP_KEY_ZDA"),
   quiet = FALSE
 )

@@ -16,8 +16,7 @@ Some of fokus's functionality is controlled via package-specific global configur
    FOKUS-covered ballot date to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the ballot date to be processed. One of \code{"2018-09-23"}, \code{"2018-11-25"}, \code{"2019-10-20"}, \code{"2020-09-27"}, \code{"2020-10-18"}, \code{"2021-11-28"} or \code{"2023-06-18"}. \tab \code{fokus.ballot_date} \tab \code{R_FOKUS_BALLOT_DATE} \tab \code{2018-09-23} \cr
    FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the canton to be processed. One of \code{"aargau"}. \tab \code{fokus.canton} \tab \code{R_FOKUS_CANTON} \tab \code{"aargau"} \cr
    Maximal timespan to preserve the package's \href{https://pkgpins.rpkg.dev/}{pkgpins} cache. Cache entries older than this will be deleted upon package loading. \tab \code{fokus.global_max_cache_age} \tab \code{R_FOKUS_GLOBAL_MAX_CACHE_AGE} \tab \code{"1 day"} \cr
-   Path to the working directory (the local instance of the \href{https://gitlab.com/zdaarau/private/fokus_private}{\code{fokus_private} repository}). Defaults to the current working directory. \tab \code{fokus.path_repo_private} \tab \code{R_FOKUS_PATH_REPO_PRIVATE} \tab  \cr
-   Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website). \tab \code{fokus.local_deploy_path} \tab \code{R_FOKUS_LOCAL_DEPLOY_PATH} \tab  \cr
+   \href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}. \tab \code{fokus.token_repo_private} \tab \code{R_FOKUS_TOKEN_REPO_PRIVATE} \tab \code{Sys.getenv("GITLAB_COM_TOKEN")} \cr
 }
 }
 

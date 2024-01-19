@@ -5,34 +5,21 @@
 \title{Export questionnaire data}
 \usage{
 export_qstnr(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
-  canton = cantons(ballot_date),
+  qstnr_tibble,
+  path,
   verbose = FALSE,
   incl_csv = TRUE,
   incl_html = TRUE,
   incl_xlsx = incl_html,
-  deploy = TRUE,
-  local_deploy_path = pal::pkg_config_val(key = "local_deploy_path", pkg = this_pkg),
-  upload_to_g_drive = TRUE,
-  g_drive_folder = "fokus/aargau/Umfragen/Dateien für Umfrageinstitut/Fragebogen/"
+  upload_to_g_drive = FALSE,
+  g_drive_folder =
+    glue::glue("fokus/{canton}/Umfragen/Dateien für Umfrageinstitut/Fragebogen/")
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
-\itemize{
-\item \code{"2018-09-23"}
-\item \code{"2018-11-25"}
-\item \code{"2019-10-20"}
-\item \code{"2020-09-27"}
-\item \code{"2020-10-18"}
-\item \code{"2021-11-28"}
-\item \code{"2023-06-18"}
-}}
+\item{qstnr_tibble}{Questionnaire tibble as returned by \code{\link[=gen_qstnr_tibble]{gen_qstnr_tibble()}}.}
 
-\item{canton}{FOKUS-covered canton name. One of
-\itemize{
-\item \code{"aargau"}
-}}
+\item{path}{Path to the directory to write the generated questionnaire files to. A character scalar.}
 
 \item{verbose}{Whether or not to print detailed progress information during questionnaire generation and Google Drive file upload. Note that questionnaire
 generation takes considerably more time when this is set to \code{TRUE}.}
@@ -43,27 +30,32 @@ generation takes considerably more time when this is set to \code{TRUE}.}
 
 \item{incl_xlsx}{Whether or not to also generate and export an XLSX version of the questionnaire.}
 
-\item{deploy}{Whether or not to deploy the generated files as a static site to the Git repository specified under \code{local_deploy_path}.}
-
-\item{local_deploy_path}{Local filesystem path to the Git repository of the static site to deploy the generated files files to. Ignored if \code{deploy = FALSE}.}
-
 \item{upload_to_g_drive}{Whether or not to upload the generated files to the Google Drive folder \code{g_drive_folder}.}
 
-\item{g_drive_folder}{Google Drive folder to deploy the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
+\item{g_drive_folder}{Google Drive folder to upload the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
+}
+\value{
+\code{path}, invisibly.
 }
 \description{
 Generates the \link[=gen_qstnr_tibble]{questionnaire tibble}, the \link[=gen_qstnr_md]{Markdown questionnaire} and optionally a CSV, an HTML and an XLSX version of it,
-and writes all of them to the \link[=print_fokus_private_structure]{private FOKUS directory} and optionally deploys them as a static site (\code{local_deploy_path}) and
-uploads them to a Google Drive folder (\code{g_drive_folder}).
+and writes all of them to \code{path} and optionally uploads them to a Google Drive folder.
+}
+\details{
+The generated files are named according to the scheme \verb{\{ballot_date\}_\{canton\}.\{ext\}}, so if the \code{qstnr_tibble} of the 2018-09-23 survey in the canton of
+Aargau is input, the following files will be written to \code{path} by default:
+\itemize{
+\item \verb{2018-09-23_aargau.csv}
+\item \verb{2018-09-23_aargau.html}
+\item \verb{2018-09-23_aargau.md}
+\item \verb{2018-09-23_aargau.xlsx}
+}
 }
 \seealso{
-Other questionnaire and survey functions and datasets:
-\code{\link{elections}},
+Other data export functions:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
 \code{\link{export_qr_codes}()},
-\code{\link{export_qstnr_all}()},
-\code{\link{proposals}},
-\code{\link{qstnrs}}
+\code{\link{write_private_file}()}
 }
-\concept{qstnr_survey}
+\concept{data_export}

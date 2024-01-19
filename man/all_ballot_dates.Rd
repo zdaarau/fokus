@@ -17,7 +17,7 @@ A vector of ballot dates covered by FOKUS surveys up until 2023-06-18.
 fokus::all_ballot_dates
 }
 \seealso{
-Other FOKUS metadata functions:
+Other FOKUS metadata:
 \code{\link{all_argument_sides}},
 \code{\link{all_ballot_types}},
 \code{\link{all_cantons}},

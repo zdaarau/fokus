@@ -21,7 +21,7 @@ reference:
   desc: |-
     Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under
     [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as a "source of truth" for
-    the [predicate functions](#section-predicates).
+    the `r "[predicate functions](#predicates)"`.
 - contents:
   - all_ballot_dates
   - all_cantons
@@ -39,7 +39,7 @@ reference:
   - all_langs
   - all_name_types
 - title: Predicates
-  desc: Predicate functions based on the [metadata](#section-fokus-metadata) and the
+  desc: Predicate functions based on the `r "[metadata](#fokus-metadata)"` and the
     [raw questionnaire data](raw_qstnr.html).
 - subtitle: Fundamental predicates
   desc: |-
@@ -52,6 +52,7 @@ reference:
   - prcds
   - proposal_nrs
   - election_nrs
+  - election_prcds
   - proposal_qstn_groups
   - qstn_groups_proposal_nrs
   - n_proposals
@@ -89,6 +90,7 @@ reference:
   - n_election_seats
   - n_election_candidates
   - requires_candidate_registration
+  - combos_elections
 - subtitle: Skill question predicates
 - contents:
   - skill_question_nrs
@@ -104,17 +106,30 @@ reference:
   - postal_dispatch_way
   - response_options
 - title: Questionnaire and survey
-  desc: Functions to process the [raw FOKUS questionnaire data](raw_qstnr.html) and
-    other functions to conduct a survey.
+  desc: Datasets and functions to conduct a FOKUS survey.
+- subtitle: Questionnaire data
+  desc: The FOKUS survey questionnaires and supplemental information as structured
+    data.
 - contents:
   - qstnrs
   - proposals
   - elections
+- subtitle: Data import
+  desc: Functions to access FOKUS data from the `r glue::glue('[private FOKUS repository]({fokus:::url_repo_private()})`.
+- contents:
+  - read_easyvote_municipalities
+  - read_online_participation_codes
+  - read_voting_register_data_extra
+  - read_voting_register_ids
+  - read_private_file
+- subtitle: Data export
+  desc: Functions to export data necessary to conduct a FOKUS survey.
+- contents:
   - export_qstnr
-  - export_qstnr_all
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities
+  - write_private_file
 - title: Variable-related
 - contents:
   - is_skill_question_var
@@ -123,6 +138,7 @@ reference:
   - var_proposal_nr
   - var_skill_question_nr
   - var_title
+  - var_val_set
 - subtitle: Variable name shortening
 - contents:
   - shorten_var_names

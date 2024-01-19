@@ -64,6 +64,7 @@ Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
 \code{\link{election_nrs}()},
+\code{\link{election_prcds}()},
 \code{\link{has_election_nrs}()},
 \code{\link{has_election}()},
 \code{\link{has_lvl}()},

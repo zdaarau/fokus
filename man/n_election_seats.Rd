@@ -39,7 +39,7 @@ n_election_seats(
 An integer scalar.
 }
 \description{
-Determines the number of election seats of the specified type for the specified majoritarian election.
+Determines the number of election seats of the specified type for the specified majority election.
 }
 \examples{
 fokus::n_election_seats(ballot_date = "2019-10-20",
@@ -49,6 +49,7 @@ fokus::n_election_seats(ballot_date = "2019-10-20",
 }
 \seealso{
 Other election predicate functions:
+\code{\link{combos_elections}()},
 \code{\link{election_candidates}()},
 \code{\link{election_names_combined}()},
 \code{\link{election_name}()},

@@ -36,7 +36,7 @@ n_election_candidates(
 An integer scalar.
 }
 \description{
-Determines the number of (officially registered) candidates of a majoritarian election at the specified ballot date on the specified political level.
+Determines the number of (officially registered) candidates of a majority election at the specified ballot date on the specified political level.
 }
 \examples{
 fokus::n_election_candidates(ballot_date = "2019-10-20",
@@ -45,6 +45,7 @@ fokus::n_election_candidates(ballot_date = "2019-10-20",
 }
 \seealso{
 Other election predicate functions:
+\code{\link{combos_elections}()},
 \code{\link{election_candidates}()},
 \code{\link{election_names_combined}()},
 \code{\link{election_name}()},

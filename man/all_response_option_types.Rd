@@ -17,7 +17,7 @@ A vector of all possible response option types defined in the \link[=raw_qstnr]{
 fokus::all_response_option_types
 }
 \seealso{
-Other FOKUS metadata functions:
+Other FOKUS metadata:
 \code{\link{all_argument_sides}},
 \code{\link{all_ballot_dates}},
 \code{\link{all_ballot_types}},

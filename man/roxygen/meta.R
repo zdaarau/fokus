@@ -1,7 +1,9 @@
 list(
-  rd_family_title = list(fct                      = "Other factor-variable-specific functions:",
+  rd_family_title = list(data_export              = "Other data export functions:",
+                         data_import              = "Other data import functions:",
+                         fct                      = "Other factor-variable-specific functions:",
                          g_apps                   = "Other Google Apps functions:",
-                         metadata                 = "Other FOKUS metadata functions:",
+                         metadata                 = "Other FOKUS metadata:",
                          phrase                   = "Other text phrasing functions:",
                          postal_dispatch          = "Other postal dispatch functions:",
                          predicate_fundamental    = "Other fundamental predicate functions:",
@@ -9,12 +11,13 @@ list(
                          predicate_election       = "Other election predicate functions:",
                          predicate_skill_question = "Other skill question predicate functions:",
                          predicate_other          = "Other predicate functions:",
-                         private                  = "Other private FOKUS directory functions:",
+                         private                  = "Other private FOKUS repository functions:",
+                         qstnr_data               = "Other questionnaire data:",
                          qstnr_gen                = "Other questionnaire generation functions:",
                          qstnr_internal           = "Other questionnaire-internal functions:",
                          qstnr_predicate          = "Other questionnaire predicate functions:",
                          qstnr_raw                = "Other raw questionnaire data functions:",
-                         qstnr_survey             = "Other questionnaire and survey functions and datasets:",
+                         qstnr_survey             = "Other questionnaire and survey functions:",
                          vars                     = "Other variable-related functions:",
                          var_name_shortening      = "Other variable name shortening functions:")
 )

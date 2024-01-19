@@ -46,6 +46,36 @@ pal::print_pkg_config("fokus")
 cat("\n :::")
 ```
 
+## Questionnaires
+
+[![Netlify
+Status](https://api.netlify.com/api/v1/badges/16855d14-c491-42cd-bc9d-a346e16b6672/deploy-status)](https://app.netlify.com/sites/qstnr-fokus-ag/deploys)
+
+Generated survey questionnaires are automatically deployed to `qstnr.fokus.ag/{ballot_date}_{canton}.{ext}`, where `{ext}` is `html`, `md`, `csv` or `xlsx`. The
+following questionnaires are available:
+
+```{r}
+#| label: qstnrs
+#| echo: false
+#| results: "asis"
+
+fokus::all_ballot_dates |>
+  purrr::map_chr(\(ballot_date) {
+    fokus::cantons(ballot_date = ballot_date) |>
+      purrr::map_chr(\(canton) {
+        url_start <- glue::glue(fokus:::url_qstnr[[canton]], "/{ballot_date}_{canton}")
+        glue::glue("-   {ballot_date} {stringr::str_to_title(canton)}: ",
+                   "[{fontawesome::fa(name = 'fab fa-html5')}]({url_start}.html) | ",
+                   "[{fontawesome::fa(name = 'fab fa-markdown')}]({url_start}.md) | ",
+                   "[{fontawesome::fa(name = 'fas fa-file-csv')}]({url_start}.csv) | ",
+                   "[{fontawesome::fa(name = 'fas fa-file-excel')}]({url_start}.xlsx)")
+      }) |>
+      paste0(collapse = "\n")
+  }) |>
+  paste0(collapse = "\n") |>
+  cat()
+```
+
 ## Private FOKUS directory structure
 
 ```{r, child = "data-raw/snippets/fokus_private_description.Rmd"}
@@ -56,7 +86,7 @@ cat("\n :::")
 <summary><strong>Directory structure schema</strong></summary>
 
 ```{r, echo = FALSE, results = "asis"}
-fokus:::print_fokus_private_structure()
+fokus:::print_private_repo_structure()
 ```
 
 </details>

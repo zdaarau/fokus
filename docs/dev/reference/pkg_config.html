@@ -59,20 +59,19 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A <a href="https://tibble.tidyverse.org/reference/tbl_df-class.html" class="external-link">tibble</a> with the columns <code>key</code>, <code>default_value</code>, and <code>description</code>.</p>
+    <p>A <a href="https://tibble.tidyverse.org/reference/tbl_df-class.html" class="external-link">tibble</a> with the columns <code>key</code>, <code>default_value</code>, <code>default_value_dynamic</code>, and <code>description</code>.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fokus</span><span class="fu">::</span><span class="va">pkg_config</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   key                  default_value description                                                                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                                                                                                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ballot_date          <span style="color: #949494;">&lt;date [1]&gt;</span>    FOKUS-covered ballot date to fall back to in various functions of this package when it isn't explicitly specified. Basical…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> canton               <span style="color: #949494;">&lt;chr [1]&gt;</span>     FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. Basical…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> global_max_cache_age <span style="color: #949494;">&lt;chr [1]&gt;</span>     Maximal timespan to preserve the package's [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> path_repo_private    <span style="color: #949494;">&lt;NULL&gt;</span>        Path to the working directory (the local instance of the [`fokus_private` repository](https://gitlab.com/zdaarau/private/f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> local_deploy_path    <span style="color: #949494;">&lt;NULL&gt;</span>        Local filesystem path to copy the built fokus qstnr to (e.g. a Git repository that in turn deploys to a static website).   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   key                  default_value default_value_dynamic              description                                                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ballot_date          <span style="color: #949494;">&lt;date [1]&gt;</span>     <span style="color: #BB0000;">NA</span>                                FOKUS-covered ballot date to fall back to in various functions of this package when it …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> canton               <span style="color: #949494;">&lt;chr [1]&gt;</span>      <span style="color: #BB0000;">NA</span>                                FOKUS-covered canton name to fall back to in various functions of this package when it …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> global_max_cache_age <span style="color: #949494;">&lt;chr [1]&gt;</span>      <span style="color: #BB0000;">NA</span>                                Maximal timespan to preserve the package's [pkgpins](https://pkgpins.rpkg.dev/) cache. …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> token_repo_private   <span style="color: #949494;">&lt;NULL&gt;</span>        <span style="color: #949494;">"</span>Sys.getenv(\"GITLAB_COM_TOKEN\")<span style="color: #949494;">"</span> [Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/pers…</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

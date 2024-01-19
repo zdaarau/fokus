@@ -36,8 +36,8 @@ combos_proposals(
 A list with an element per political-level and optionally -proposal-number combination.
 }
 \description{
-Returns a list containing the political levels and proposal numbers for all referendum proposals that have been covered by the FOKUS survey for the specified
-canton at the specified ballot date on the specified political level(s).
+Returns a list containing the political levels and optionally proposal numbers for all referendum proposals that have been covered by the FOKUS survey for
+the specified canton at the specified ballot date on the specified political level(s).
 }
 \examples{
 fokus::combos_proposals(ballot_date = "2023-06-18",

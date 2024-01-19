@@ -7,6 +7,8 @@
 gen_qstnr_md(qstnr_tibble, incl_title = FALSE)
 }
 \arguments{
+\item{qstnr_tibble}{Questionnaire tibble as returned by \code{\link[=gen_qstnr_tibble]{gen_qstnr_tibble()}}.}
+
 \item{incl_title}{Whether or not to generate an \verb{<h1>} questionnaire title at the beginning of the document. If the result is intended to be fed to Pandoc,
 it's recommended to set this to \code{FALSE} and provide the title via \href{https://pandoc.org/MANUAL.html#option--metadata}{Pandoc's \code{--metadata} option} instead.}
 }
