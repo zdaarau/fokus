@@ -21,7 +21,7 @@ reference:
   desc: |-
     Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under
     [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as a "source of truth" for
-    the `r "[predicate functions](#predicates)"`.
+    the [predicate functions](#predicates).
 - contents:
   - all_ballot_dates
   - all_cantons
@@ -39,8 +39,8 @@ reference:
   - all_langs
   - all_name_types
 - title: Predicates
-  desc: Predicate functions based on the `r "[metadata](#fokus-metadata)"` and the
-    [raw questionnaire data](raw_qstnr.html).
+  desc: Predicate functions based on the [metadata](#fokus-metadata) and the [raw
+    questionnaire data](raw_qstnr.html).
 - subtitle: Fundamental predicates
   desc: |-
     Fundamental predicate functions never fail in case of incomplete [raw questionnaire data](raw_qstnr.html) (they do still fail in case of completely missing
@@ -115,7 +115,7 @@ reference:
   - proposals
   - elections
 - subtitle: Data import
-  desc: Functions to access FOKUS data from the `r glue::glue('[private FOKUS repository]({fokus:::url_repo_private()})`.
+  desc: Functions to access FOKUS data from the [private FOKUS repository](https://gitlab.com/c2d-zda/private/fokus_private/).
 - contents:
   - read_easyvote_municipalities
   - read_online_participation_codes

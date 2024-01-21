@@ -2726,7 +2726,7 @@ url_parameter_survey <- list(aargau = "pw")
 
 Metadata about the FOKUS surveys, generated from the raw supplemental date-specific questionnaire data files found under
 [`data-raw/questionnaire/YYYY-MM-DD.toml`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/data-raw/questionnaire/) that serve as a "source of truth" for
-the [predicate functions](#section-predicates).
+the `r "[predicate functions](#predicates)"`.
 
 ### `all_ballot_dates`
 
@@ -2972,7 +2972,7 @@ the [predicate functions](#section-predicates).
 
 ### DESCRIPTION
 
-Predicate functions based on the [metadata](#section-fokus-metadata) and the [raw questionnaire data](raw_qstnr.html).
+Predicate functions based on the `r "[metadata](#fokus-metadata)"` and the [raw questionnaire data](raw_qstnr.html).
 
 ### Fundamental predicates
 
@@ -5605,7 +5605,7 @@ The FOKUS survey questionnaires and supplemental information as structured data.
 
 #### DESCRIPTION
 
-Functions to access FOKUS data from the `r glue::glue('[private FOKUS repository]({fokus:::url_repo_private()})`.
+Functions to access FOKUS data from the `r glue::glue("[private FOKUS repository]({fokus:::url_repo_private()})")`.
 
 #### `read_easyvote_municipalities`
 
