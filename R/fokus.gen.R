@@ -5425,7 +5425,8 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
     fs::dir_create()
   
   on.exit(fs::dir_delete(tmp_dir),
-          add = TRUE)
+          add = TRUE,
+          after = FALSE)
   
   tmp_dir_svg <-
     fs::path(tmp_dir, "svg") |>
@@ -5542,7 +5543,8 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
     filename <- glue::glue("{ballot_date}_{canton}_print_recipients.csv")
     tmp_path <- fs::path_temp(filename)
     on.exit(fs::file_delete(tmp_path),
-            add = TRUE)
+            add = TRUE,
+            after = FALSE)
     
     # export data
     result <-
@@ -5612,7 +5614,8 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
   tmp_path <- fs::file_temp(pattern = file_basename,
                             ext = "csv")
   on.exit(fs::file_delete(tmp_path),
-          add = TRUE)
+          add = TRUE,
+          after = FALSE)
   
   result <-
     read_easyvote_municipalities(ballot_date = ballot_date,
@@ -5721,7 +5724,6 @@ write_private_file <- function(path,
                                                   commit_message = commit_message,
                                                   overwrite = overwrite),
                          error = \(e) e)
-  
   if (!quiet) {
     cli::cli_progress_done(id = cli_id)
   }
