@@ -26,7 +26,7 @@ Content-Security-Policy = '''
   default-src 'none';
   connect-src 'self' data: https://t.counter.dev;
   font-src 'self';
-  img-src 'self' data: https://r-pkg.org;
+  img-src 'self' data: https://r-pkg.org https://api.netlify.com;
   manifest-src 'self';
   object-src 'self';
   prefetch-src 'self';
