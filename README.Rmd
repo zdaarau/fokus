@@ -51,8 +51,8 @@ cat("\n :::")
 [![Netlify
 Status](https://api.netlify.com/api/v1/badges/16855d14-c491-42cd-bc9d-a346e16b6672/deploy-status)](https://app.netlify.com/sites/qstnr-fokus-ag/deploys)
 
-Generated survey questionnaires are automatically deployed to `qstnr.fokus.ag/{ballot_date}_{canton}.{ext}`, where `{ext}` is `html`, `md`, `csv` or `xlsx`. The
-following questionnaires are available:
+Generated survey questionnaires are automatically deployed to `qstnr.fokus.ag/{ballot_date}_{canton}.{ext}`, where `{ext}` is one of `html`, `md`, `csv` or
+`xlsx`. The following questionnaires are available:
 
 ```{r}
 #| label: qstnrs
