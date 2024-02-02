@@ -59,9 +59,9 @@ fokus::skill_question_nrs(ballot_date = "2019-10-20",
 \seealso{
 Other skill question predicate functions:
 \code{\link{n_skill_questions}()},
+\code{\link{skill_question}()},
 \code{\link{skill_question_answer_nr}()},
 \code{\link{skill_question_proposal_nrs}()},
-\code{\link{skill_question_response_options}()},
-\code{\link{skill_question}()}
+\code{\link{skill_question_response_options}()}
 }
 \concept{predicate_skill_question}

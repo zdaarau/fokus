@@ -53,7 +53,7 @@ fokus::phrase_election_candidate(ballot_date = "2019-10-20",
 }
 \seealso{
 Other text phrasing functions:
-\code{\link{phrase_proposal_name_de}()},
-\code{\link{phrase}()}
+\code{\link{phrase}()},
+\code{\link{phrase_proposal_name_de}()}
 }
 \concept{phrase}

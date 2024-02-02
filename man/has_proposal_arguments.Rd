@@ -63,11 +63,11 @@ Other proposal predicate functions:
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
-\code{\link{proposal_arguments}()},
 \code{\link{proposal_argument}()},
+\code{\link{proposal_arguments}()},
 \code{\link{proposal_main_motives}()},
-\code{\link{proposal_name_gender}()},
 \code{\link{proposal_name}()},
+\code{\link{proposal_name_gender}()},
 \code{\link{proposal_type}()}
 }
 \concept{predicate_proposal}

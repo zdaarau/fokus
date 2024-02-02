@@ -119,11 +119,13 @@ reference:
 - contents:
   - read_easyvote_municipalities
   - read_online_participation_codes
+  - read_survey_data
   - read_voting_register_data_extra
   - read_voting_register_ids
   - read_private_file
 - subtitle: Data export
-  desc: Functions to export data necessary to conduct a FOKUS survey.
+  desc: Functions to export data necessary to conduct a FOKUS survey and perform survey
+    data analysis.
 - contents:
   - export_qstnr
   - export_qr_codes

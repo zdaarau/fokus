@@ -51,6 +51,7 @@ try(
 Other data import functions:
 \code{\link{read_online_participation_codes}()},
 \code{\link{read_private_file}()},
+\code{\link{read_survey_data}()},
 \code{\link{read_voting_register_data_extra}()},
 \code{\link{read_voting_register_ids}()}
 }
