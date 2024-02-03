@@ -6,7 +6,8 @@
 \usage{
 read_voting_register_ids(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
-  canton = cantons(ballot_date)
+  canton = cantons(ballot_date),
+  use_cache = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ read_voting_register_ids(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{use_cache}{Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
+actually changed since the last download. If \code{FALSE}, the file is always newly fetched.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble} with the column \code{id_voting_register}.
@@ -40,7 +44,8 @@ Note that this data is not available for all FOKUS surveys.
 # GitLab PAT with access to the private FOKUS repository is required for this function to work
 try(
   fokus::read_voting_register_ids(ballot_date = "2019-10-20",
-                                  canton = "aargau")
+                                  canton = "aargau") |>
+    nrow()
 )
 }
 \seealso{

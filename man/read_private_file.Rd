@@ -27,8 +27,11 @@ on disk in this package's \link[pkgpins:board]{user-cache pins board} and only n
 since being downloaded the last time. Caching saves a bit of time and (potentially) a lot of bandwidth.
 }
 \examples{
-\dontrun{
-fokus::read_private_file("raw/survey_data_2018-09-23_aargau.xlsx")}
+# GitLab PAT with access to the private FOKUS repository is required for this function to work
+try(
+  fokus::read_private_file("raw/survey_data_2018-09-23_aargau.xlsx") |>
+    colnames()
+)
 }
 \seealso{
 Other data import functions:

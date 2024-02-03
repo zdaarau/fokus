@@ -3,7 +3,7 @@ pkgdown: 2.0.7.9000
 pkgdown_sha: ~
 articles:
   raw_qstnr_schema: raw_qstnr_schema.html
-last_built: 2024-02-02T13:09Z
+last_built: 2024-02-03T14:41Z
 urls:
   reference: https://fokus.rpkg.dev/reference
   article: https://fokus.rpkg.dev/articles
