@@ -156,6 +156,10 @@ short.gender = "feminine"
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/bundesbeschluss-ueber-die-beschaffung-neuer-kampfflugzeuge.html"
 
 
+# NOTE: Technically, there were two proposals about this issue – a constitutional change and a change in the school act – but they were usually communicated as
+#       one single entity in the referendum campaign and also understood as such by the voters (which is clearly reflected in the official ballot numbers). We
+#       thus chose to treat these two proposals as *one single* proposal in the survey. Where we must refer to official numbers, we take the ones from the
+#       *change in the school act* (which showed a tiny little higher turnout, indicating it was considered to be the more important change by the voters).
 [cantonal.aargau.proposal.1]
 type = "citizens' initiative"
 [cantonal.aargau.proposal.1.name.de]
