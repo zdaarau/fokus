@@ -51,6 +51,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},
 \code{\link{proposal_argument}()},

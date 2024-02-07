@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{combos_proposals}
 \alias{combos_proposals}
-\title{Get proposal combinations}
+\title{Get referendum proposal combinations}
 \usage{
 combos_proposals(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -55,6 +55,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposal_main_motives}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

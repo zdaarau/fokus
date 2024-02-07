@@ -3427,7 +3427,9 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
               ~ .)
 }
 
-#' Get proposal type
+#' Get referendum proposal type
+#'
+#' Returns the [type][all_proposal_types] of the specified referendum proposal.
 #'
 #' @inheritParams proposal_name
 #'
@@ -3457,9 +3459,9 @@ proposal_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
     purrr::chuck("type")
 }
 
-#' Get proposal name
+#' Get referendum proposal name
 #'
-#' Returns the name of the specified proposal in the specified language.
+#' Returns the name of the specified referendum proposal in the specified language.
 #'
 #' @inheritParams proposal_nrs
 #' @inheritParams raw_qstnr_suppl_proposal
@@ -3496,9 +3498,9 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
     purrr::chuck(lang, type, "text")
 }
 
-#' Get German proposal name's grammatical gender
+#' Get German referendum proposal name's grammatical gender
 #'
-#' Returns the grammatical gender of the German name of the specified proposal.
+#' Returns the grammatical gender of the German name of the specified referendum proposal.
 #'
 #' @inheritParams proposal_name
 #'
@@ -3509,13 +3511,11 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' @examples
 #' fokus::proposal_name_gender(ballot_date = "2018-09-23",
 #'                             lvl = "federal",
-#'                             canton = "aargau",
 #'                             proposal_nr = 1,
 #'                             type = "short")
 #'                             
 #' fokus::proposal_name_gender(ballot_date = "2018-09-23",
 #'                             lvl = "federal",
-#'                             canton = "aargau",
 #'                             proposal_nr = 1,
 #'                             type = "long")
 proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
@@ -3526,7 +3526,6 @@ proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot
                                  canton = cantons(ballot_date),
                                  proposal_nr = 1L,
                                  type = all_name_types) {
-  
   type <- rlang::arg_match(type)
   
   raw_qstnr_suppl_proposal_name(ballot_date = ballot_date,
@@ -3536,9 +3535,42 @@ proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot
     purrr::chuck("de", type, "gender")
 }
 
-#' Get proposal's arguments
+#' Determine whether German referendum proposal name is plural
 #'
-#' Returns text, side and number of all arguments on the specified proposal.
+#' Determines whether or not the German name of the specified referendum proposal is a plural.
+#'
+#' @inheritParams proposal_name
+#'
+#' @return A logical scalar.
+#' @family predicate_proposal
+#' @export
+#'
+#' @examples
+#' fokus::is_proposal_name_plural(ballot_date = "2020-09-27",
+#'                                lvl = "federal",
+#'                                proposal_nr = 3,
+#'                                type = "short")
+is_proposal_name_plural <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                      pkg = this_pkg),
+                                    lvl = lvls(ballot_date,
+                                               canton,
+                                               ballot_type = "referendum"),
+                                    canton = cantons(ballot_date),
+                                    proposal_nr = 1L,
+                                    type = all_name_types) {
+  type <- rlang::arg_match(type)
+  
+  raw_qstnr_suppl_proposal_name(ballot_date = ballot_date,
+                                lvl = lvl,
+                                canton = canton,
+                                proposal_nr = proposal_nr) |>
+    purrr::pluck("de", type, "is_plural",
+                 .default = FALSE)
+}
+
+#' Get referendum proposal's arguments
+#'
+#' Returns text, side and number of all referendum arguments on the specified proposal.
 #'
 #' @inheritParams proposal_name
 #'
@@ -3568,9 +3600,9 @@ proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
     purrr::list_rbind()
 }
 
-#' Get proposal argument
+#' Get referendum proposal argument
 #'
-#' Returns the specified proposal argument's text of the specified type in the specified language.
+#' Returns the specified referendum proposal argument's text of the specified type in the specified language.
 #'
 #' @inheritParams proposal_name
 #' @param argument_nr Proposal argument number. A positive integerish scalar.
@@ -3612,9 +3644,9 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
     purrr::chuck(lang, type)
 }
 
-#' Get proposal's main motives
+#' Get referendum proposal's main motives
 #'
-#' Returns text and code number of all main motives of the specified `type` for the specified proposal.
+#' Returns text and code number of all main motives of the specified `type` for the specified referendum proposal.
 #'
 #' @inheritParams proposal_name
 #' @param type Main motive type. One of `r pal::enum_fn_param_defaults(param = "type", fn = proposal_main_motives)`.
@@ -3648,9 +3680,9 @@ proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballo
     purrr::list_rbind()
 }
 
-#' Get proposal's number of arguments
+#' Get referendum proposal's number of arguments
 #'
-#' Determines the number of arguments on the specified proposal of the specified sides.
+#' Determines the number of arguments on the specified referendum proposal of the specified sides.
 #'
 #' @inheritParams proposal_name
 #' @param sides Proposal argument side(s). One or more of `r all_argument_sides |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
@@ -3692,7 +3724,7 @@ n_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot
     length()
 }
 
-#' Get proposal's number of main motives
+#' Get referendum proposal's number of main motives
 #'
 #' Determines the number of main motives for the specified proposal and motive type.
 #'
@@ -3868,7 +3900,7 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
                            qstn_groups = "main_motive")
 }
 
-#' Get proposal combinations
+#' Get referendum proposal combinations
 #'
 #' Returns a list containing the political levels and optionally proposal numbers for all referendum proposals that have been covered by the FOKUS survey for
 #' the specified canton at the specified ballot date on the specified political level(s).
@@ -3926,9 +3958,9 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
     purrr::compact()
 }
 
-#' Get proposal combinations for which arguments have been queried
+#' Get referendum proposal combinations for which arguments have been queried
 #'
-#' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all [proposal
+#' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all referendum [proposal
 #' arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
 #'
 #' @inheritParams ballot_types
@@ -3999,7 +4031,7 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
     purrr::list_flatten()
 }
 
-#' Get proposal combinations for which main motives have been queried
+#' Get referendum proposal combinations for which main motives have been queried
 #'
 #' Returns a list containing the political levels, proposal numbers and optionally motive types for which [main motives][proposal_main_motives] have been
 #' queried in the post-voting survey for the specified ballot date.
@@ -4910,6 +4942,8 @@ response_options <- function(type = all_response_option_types,
 #' @examples
 #' fokus::elections
 "elections"
+
+
 
 #' Read in easyvote municipality data
 #'

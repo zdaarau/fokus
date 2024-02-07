@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{proposal_name}
 \alias{proposal_name}
-\title{Get proposal name}
+\title{Get referendum proposal name}
 \usage{
 proposal_name(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -44,7 +44,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 A character scalar.
 }
 \description{
-Returns the name of the specified proposal in the specified language.
+Returns the name of the specified referendum proposal in the specified language.
 }
 \examples{
 fokus::proposal_name(ballot_date = "2018-09-23",
@@ -61,6 +61,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

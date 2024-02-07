@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{combos_proposal_arguments}
 \alias{combos_proposal_arguments}
-\title{Get proposal combinations for which arguments have been queried}
+\title{Get referendum proposal combinations for which arguments have been queried}
 \usage{
 combos_proposal_arguments(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -37,7 +37,7 @@ combinations.}
 A list with an element per political-level-proposal-number and optionally -side combination.
 }
 \description{
-Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all \link[=proposal_arguments]{proposal arguments} that have been queried in the post-voting survey for the specified ballot date.
+Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all referendum \link[=proposal_arguments]{proposal arguments} that have been queried in the post-voting survey for the specified ballot date.
 }
 \examples{
 fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
@@ -54,6 +54,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{proposal_name_gender}
 \alias{proposal_name_gender}
-\title{Get German proposal name's grammatical gender}
+\title{Get German referendum proposal name's grammatical gender}
 \usage{
 proposal_name_gender(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -41,18 +41,16 @@ Only relevant if \code{lvl = "cantonal"}.}
 A character scalar.
 }
 \description{
-Returns the grammatical gender of the German name of the specified proposal.
+Returns the grammatical gender of the German name of the specified referendum proposal.
 }
 \examples{
 fokus::proposal_name_gender(ballot_date = "2018-09-23",
                             lvl = "federal",
-                            canton = "aargau",
                             proposal_nr = 1,
                             type = "short")
                             
 fokus::proposal_name_gender(ballot_date = "2018-09-23",
                             lvl = "federal",
-                            canton = "aargau",
                             proposal_nr = 1,
                             type = "long")
 }
@@ -64,6 +62,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

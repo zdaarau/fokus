@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{proposal_arguments}
 \alias{proposal_arguments}
-\title{Get proposal's arguments}
+\title{Get referendum proposal's arguments}
 \usage{
 proposal_arguments(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -38,7 +38,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-Returns text, side and number of all arguments on the specified proposal.
+Returns text, side and number of all referendum arguments on the specified proposal.
 }
 \examples{
 fokus::proposal_arguments(ballot_date = "2018-09-23",
@@ -54,6 +54,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

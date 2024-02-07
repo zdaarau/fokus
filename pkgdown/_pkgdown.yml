@@ -68,6 +68,7 @@ reference:
   - proposal_type
   - proposal_name
   - proposal_name_gender
+  - is_proposal_name_plural
   - proposal_arguments
   - proposal_argument
   - proposal_main_motives
@@ -107,7 +108,7 @@ reference:
   - response_options
 - title: Questionnaire and survey
   desc: Datasets and functions to conduct a FOKUS survey.
-- subtitle: Questionnaire data
+- subtitle: Datasets
   desc: The FOKUS survey questionnaires and supplemental information as structured
     data.
 - contents:

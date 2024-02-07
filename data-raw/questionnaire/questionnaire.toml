@@ -2053,19 +2053,36 @@ question = """
                               '_? '))),
          '')
 }Bitte geben Sie für {
-  salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
+  ifelse(is_proposal_name_plural(ballot_date = ballot_date,
+                                 lvl = 'federal',
+                                 canton = canton,
+                                 proposal_nr = i,
+                                 type = 'short'),
+         'die',
+         salim::definite_article_de(gender = proposal_name_gender(ballot_date = ballot_date,
                                                            lvl = 'federal',
                                                            canton = canton,
                                                            proposal_nr = i,
                                                            type = 'short'),
-                             case = 'accusative')
+                                    case = 'accusative'))
 } _{
   proposal_name(ballot_date = ballot_date,
                 lvl = 'federal',
                 canton = canton,
                 proposal_nr = i,
                 lang = 'de',
-                type = 'short')
+                type = 'short') |>
+    salim::decline_noun_de(gender = proposal_name_gender(ballot_date = ballot_date,
+                                                         lvl = 'federal',
+                                                         canton = canton,
+                                                         proposal_nr = i,
+                                                         type = 'short'),
+                           case = 'accusative',
+                           is_plural = is_proposal_name_plural(ballot_date = ballot_date,
+                                                               lvl = 'federal',
+                                                               canton = canton,
+                                                               proposal_nr = i,
+                                                               type = 'short'))
 }_ einen Wert an zwischen 0 (überhaupt nicht informiert) und 10 (sehr gut informiert)."""
 question_common = "Wie gut informiert fühlten Sie sich? Bitte geben Sie für die eidgenössische Vorlage {i} einen Wert an zwischen 0 (überhaupt nicht informiert) und 10 (sehr gut informiert)."
 variable_name = "information_level_federal_proposal_{i}"
@@ -3335,7 +3352,7 @@ question = "Welche Partei steht Ihnen am nächsten?"
 variable_name = "favored_party"
 variable_label = "the political party the respondent feels closest to his/her own political stance"
 response_options.default = "{ c(qstnr_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
-response_options.20230618 = "{ c(qstnr_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) |> stringr::str_replace('^Mitte$', 'Die Mitte') }"
+response_options.20230618 = "{ c(qstnr_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ c(qstnr_parties(ballot_date = ballot_date) %$% code, qstnr_response_option_codes(types = c('custom', 'none', 'dunno'))) }"
 value_labels = "{ c(qstnr_parties(ballot_date = ballot_date) %$% en.short, response_options(type = 'custom', lang = 'en', subtypes = 'main'), response_options(type = 'none', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options.default = true

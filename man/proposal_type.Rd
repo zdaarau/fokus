@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{proposal_type}
 \alias{proposal_type}
-\title{Get proposal type}
+\title{Get referendum proposal type}
 \usage{
 proposal_type(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -45,7 +45,7 @@ Proposal type. One of
 }
 }
 \description{
-Get proposal type
+Returns the \link[=all_proposal_types]{type} of the specified referendum proposal.
 }
 \examples{
 fokus::proposal_type(ballot_date = "2018-09-23",
@@ -61,6 +61,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

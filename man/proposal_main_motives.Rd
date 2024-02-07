@@ -2,7 +2,7 @@
 % Please edit documentation in R/fokus.gen.R
 \name{proposal_main_motives}
 \alias{proposal_main_motives}
-\title{Get proposal's main motives}
+\title{Get referendum proposal's main motives}
 \usage{
 proposal_main_motives(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
@@ -41,7 +41,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 A \link[tibble:tbl_df-class]{tibble}.
 }
 \description{
-Returns text and code number of all main motives of the specified \code{type} for the specified proposal.
+Returns text and code number of all main motives of the specified \code{type} for the specified referendum proposal.
 }
 \examples{
 fokus::proposal_main_motives(ballot_date = "2018-09-23",
@@ -58,6 +58,7 @@ Other proposal predicate functions:
 \code{\link{combos_proposals}()},
 \code{\link{has_proposal_arguments}()},
 \code{\link{has_proposal_main_motives}()},
+\code{\link{is_proposal_name_plural}()},
 \code{\link{main_motive_proposal_nrs}()},
 \code{\link{n_proposal_arguments}()},
 \code{\link{n_proposal_main_motives}()},

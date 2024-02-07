@@ -53,6 +53,8 @@ test_that("Predicate functions return correct default values", {
                    "Millionärssteuerinitiative")
   expect_identical(proposal_name_gender(),
                    "feminine")
+  expect_identical(is_proposal_name_plural(),
+                   FALSE)
   expect_true(has_proposal_arguments())
   expect_true(has_proposal_main_motives())
   expect_snapshot_value(proposal_arguments(),
@@ -147,6 +149,9 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
   expect_identical(proposal_name_gender(lvl = "federal",
                                         canton = invalid_canton),
                    "feminine")
+  expect_identical(is_proposal_name_plural(lvl = "federal",
+                                           canton = invalid_canton),
+                   FALSE)
   expect_false(has_proposal_arguments(lvl = "federal",
                                       canton = invalid_canton))
   expect_false(has_proposal_main_motives(lvl = "federal",

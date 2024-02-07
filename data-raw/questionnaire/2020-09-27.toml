@@ -132,8 +132,9 @@ type = "optional referendum"
 [federal.proposal.3.name.de]
 long.text = "Änderung des Bundesgesetzes über die direkte Bundessteuer (Steuerliche Berücksichtigung der Kinderdrittbetreuungskosten)"
 long.gender = "feminine"
-short.text = "Höhere Kinder- und Fremdbetreuungsabzüge"
-short.gender = "feminine"
+short.text = "höhere Steuerabzüge für Kinder- und Fremdbetreuung"
+short.gender = "masculine"
+short.is_plural = true
 [federal.proposal.3.url]
 government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200927/aenderung-des-bundesgesetzes-ueber-die-direkte-bundessteuer.html"
 [federal.proposal.4]
@@ -157,9 +158,10 @@ government = "https://www.admin.ch/gov/de/start/dokumentation/abstimmungen/20200
 
 
 # NOTE: Technically, there were two proposals about this issue – a constitutional change and a change in the school act – but they were usually communicated as
-#       one single entity in the referendum campaign and also understood as such by the voters (which is clearly reflected in the official ballot numbers). We
-#       thus chose to treat these two proposals as *one single* proposal in the survey. Where we must refer to official numbers, we take the ones from the
-#       *change in the school act* (which showed a tiny little higher turnout, indicating it was considered to be the more important change by the voters).
+#       one single entity in the referendum campaign and also understood as such by the voters (which is clearly reflected in the official ballot numbers).
+#       Accordingly, we chose to treat these two proposals as *one single* proposal in the survey. Where we must refer to official numbers, we take the ones
+#       from the *change in the school act* (which showed a tiny little higher turnout, indicating it was considered to be the more important change by the
+#       voters).
 [cantonal.aargau.proposal.1]
 type = "citizens' initiative"
 [cantonal.aargau.proposal.1.name.de]
