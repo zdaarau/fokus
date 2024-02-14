@@ -63,6 +63,7 @@ reference:
   - has_lvl
   - has_proposal_nrs
   - has_election_nrs
+  - combos_ballot_types
 - subtitle: Proposal predicates
 - contents:
   - proposal_type

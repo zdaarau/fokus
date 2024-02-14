@@ -48,6 +48,7 @@ fokus::ballot_types(ballot_date = "2020-10-18",
 \seealso{
 Other fundamental predicate functions:
 \code{\link{cantons}()},
+\code{\link{combos_ballot_types}()},
 \code{\link{election_nrs}()},
 \code{\link{election_prcds}()},
 \code{\link{has_ballot_type}()},

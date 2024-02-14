@@ -37,6 +37,7 @@ fokus::all_ballot_dates \%>\%
 \seealso{
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
+\code{\link{combos_ballot_types}()},
 \code{\link{election_nrs}()},
 \code{\link{election_prcds}()},
 \code{\link{has_ballot_type}()},

@@ -68,6 +68,7 @@ fokus::has_lvl(ballot_date = "2019-10-20",
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
+\code{\link{combos_ballot_types}()},
 \code{\link{election_nrs}()},
 \code{\link{election_prcds}()},
 \code{\link{has_ballot_type}()},

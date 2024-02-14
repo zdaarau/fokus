@@ -3935,6 +3935,35 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 }
 ```
 
+#### `combos_ballot_types`
+
+```{r}
+#' Get ballot type combinations
+#'
+#' Returns a list containing the ballot types that have been covered by the FOKUS survey for the specified canton at the specified ballot date on the specified
+#' political level(s).
+#'
+#' @inheritParams ballot_types
+#'
+#' @return A list with an element per ballot type.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::combos_ballot_types(ballot_date = "2023-06-18",
+#'                            canton = "aargau")
+combos_ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                  pkg = this_pkg),
+                                lvls = all_lvls,
+                                canton = cantons(ballot_date)) {
+  
+  ballot_types(ballot_date = ballot_date,
+               lvls = lvls,
+               canton = canton) |>
+    purrr::map(\(x) list(ballot_type = x))
+}
+```
+
 ### Proposal predicates
 
 #### `proposal_type`
