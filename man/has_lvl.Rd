@@ -33,11 +33,7 @@ has_lvl(
 
 Only relevant if \code{lvl = "cantonal"} or \code{ballot_types} includes \code{"election"}.}
 
-\item{ballot_types}{Ballot type(s). One or more of \code{"referendum"} and \code{"election"}.
-\itemize{
-\item \code{"referendum"}
-\item \code{"election"}
-}}
+\item{ballot_types}{Ballot type(s). One or more of \code{"referendum"} or \code{"election"}}
 
 \item{prcds}{Election procedure(s). One or more of \code{"proportional"} and \code{"majoritarian"}.
 

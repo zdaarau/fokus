@@ -7,7 +7,9 @@
 combos_ballot_types(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
-  canton = cantons(ballot_date)
+  canton = cantons(ballot_date),
+  ballot_types = all_ballot_types,
+  incl_lvl = TRUE
 )
 }
 \arguments{
@@ -28,13 +30,17 @@ combos_ballot_types(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{ballot_types}{Ballot type(s). One or more of \code{"referendum"} or \code{"election"}}
+
+\item{incl_lvl}{Whether or not to include the political levels in the resulting list. Setting this to \code{FALSE} potentially results in fewer combinations.}
 }
 \value{
-A list with an element per ballot type.
+A list with an element per ballot-type and optionally -political-level combination.
 }
 \description{
-Returns a list containing the ballot types that have been covered by the FOKUS survey for the specified canton at the specified ballot date on the specified
-political level(s).
+Returns a list containing the ballot types and optionally political levels that have been covered by the FOKUS survey for
+the specified canton at the specified ballot date on the specified political level(s).
 }
 \examples{
 fokus::combos_ballot_types(ballot_date = "2023-06-18",

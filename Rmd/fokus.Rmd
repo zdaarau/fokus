@@ -2207,9 +2207,8 @@ qstnr_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                                               "abstain"))
 qstnr_response_option_codes <- function(types = all_response_option_types) {
   
-  types <- unique(checkmate::assert_subset(types,
-                                           choices = all_response_option_types,
-                                           empty.ok = FALSE))
+  types <- rlang::arg_match(arg = types,
+                            multiple = TRUE)
   
   types |> purrr::map_int(\(x) raw_qstnr |> purrr::chuck("response_options", x, "code"))
 }
@@ -3099,15 +3098,11 @@ ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                          lvls = all_lvls,
                          canton = cantons(ballot_date)) {
   
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
-  lvls <- unique(checkmate::assert_subset(lvls,
-                                          choices = all_lvls,
-                                          empty.ok = FALSE))
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
-  result <- NULL
+  result <- character()
   raw <- raw_qstnr_suppl(ballot_date = ballot_date)
   
   if ("federal" %in% lvls) {
@@ -3472,9 +3467,8 @@ n_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                         lvls = all_lvls,
                         canton = cantons(ballot_date)) {
   
-  lvls <- unique(checkmate::assert_subset(lvls,
-                                          choices = all_lvls,
-                                          empty.ok = TRUE))
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
   result <- integer()
   raw <- raw_qstnr_suppl(ballot_date = ballot_date)
   
@@ -3528,14 +3522,12 @@ n_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                         canton = cantons(ballot_date),
                         prcds = all_prcds) {
   
-  lvls <- unique(checkmate::assert_subset(lvls,
-                                          choices = all_lvls,
-                                          empty.ok = TRUE))
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
-  prcds <- unique(checkmate::assert_subset(prcds,
-                                           choices = all_prcds,
-                                           empty.ok = TRUE))
+  prcds <- unique(rlang::arg_match(arg = prcds,
+                                   multiple = TRUE))
   result <- integer()
   raw <- raw_qstnr_suppl(ballot_date = ballot_date)
   
@@ -3716,8 +3708,7 @@ has_ballot_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #'   `r pal::as_md_val_list(all_cantons)`
 #'   
 #'   Only relevant if `lvl = "cantonal"` or `ballot_types` includes `"election"`.
-#' @param ballot_types Ballot type(s). One or more of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
-#'   `r pal::as_md_val_list(all_ballot_types)`
+#' @param ballot_types Ballot type(s). One or more of `r pal::enum_fn_param_defaults(param = "ballot_types", fn = has_lvl)`
 #' @param prcds Election procedure(s). One or more of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
 #'   
 #'   Only relevant if `ballot_types` includes `"election"`.
@@ -3752,9 +3743,8 @@ has_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
     lvl <- rlang::arg_match(arg = lvl,
                             values = all_lvls)
   }
-  ballot_types <- unique(checkmate::assert_subset(ballot_types,
-                                                  choices = all_ballot_types,
-                                                  empty.ok = FALSE))
+  ballot_types <- rlang::arg_match(arg = ballot_types,
+                                   multiple = TRUE)
   result <- logical()
   
   if ("election" %in% ballot_types) {
@@ -3825,10 +3815,8 @@ has_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                              canton = cantons(ballot_date),
                              proposal_nrs = NULL) {
   
-  lvls <- unique(checkmate::assert_subset(lvls,
-                                          choices = all_lvls,
-                                          empty.ok = TRUE))
-  
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
   checkmate::assert_integerish(proposal_nrs,
                                lower = 1L,
                                any.missing = FALSE,
@@ -3898,10 +3886,8 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                              prcds = all_prcds,
                              election_nrs = NULL) {
   
-  lvls <- unique(checkmate::assert_subset(lvls,
-                                          choices = all_lvls,
-                                          empty.ok = TRUE))
-  
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
   checkmate::assert_integerish(election_nrs,
                                lower = 1L,
                                any.missing = FALSE,
@@ -3940,12 +3926,14 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 ```{r}
 #' Get ballot type combinations
 #'
-#' Returns a list containing the ballot types that have been covered by the FOKUS survey for the specified canton at the specified ballot date on the specified
-#' political level(s).
+#' Returns a list containing the ballot types and optionally political levels that have been covered by the FOKUS survey for
+#' the specified canton at the specified ballot date on the specified political level(s).
 #'
 #' @inheritParams ballot_types
+#' @inheritParams has_lvl
+#' @param incl_lvl Whether or not to include the political levels in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
-#' @return A list with an element per ballot type.
+#' @return A list with an element per ballot-type and optionally -political-level combination.
 #' @family predicate_fundamental
 #' @export
 #'
@@ -3955,12 +3943,42 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 combos_ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                   pkg = this_pkg),
                                 lvls = all_lvls,
-                                canton = cantons(ballot_date)) {
+                                canton = cantons(ballot_date),
+                                ballot_types = all_ballot_types,
+                                incl_lvl = TRUE) {
   
-  ballot_types(ballot_date = ballot_date,
-               lvls = lvls,
-               canton = canton) |>
-    purrr::map(\(x) list(ballot_type = x))
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
+  ballot_types <- rlang::arg_match(arg = ballot_types,
+                                   multiple = TRUE)
+  checkmate::assert_flag(incl_lvl)
+  
+  if (incl_lvl) {
+    
+    result <-
+      lvls |>
+      purrr::map(\(lvl) {
+        
+        ballot_types(ballot_date = ballot_date,
+                     lvls = lvl,
+                     canton = canton) |>
+          intersect(y = ballot_types) |>
+          purrr::map(\(x) list(lvl = lvl,
+                               ballot_type = x))
+      }) |>
+      purrr::list_flatten()
+    
+  } else {
+    
+    result <-
+      ballot_types(ballot_date = ballot_date,
+                   lvls = lvls,
+                   canton = canton) |>
+      intersect(y = ballot_types) |>
+      purrr::map(\(x) list(ballot_type = x))
+  }
+  
+  result
 }
 ```
 
@@ -4281,9 +4299,8 @@ n_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot
                                  proposal_nr = 1L,
                                  sides = all_argument_sides) {
   
-  sides <- unique(checkmate::assert_subset(sides,
-                                           choices = all_argument_sides,
-                                           empty.ok = FALSE))
+  sides <- rlang::arg_match(arg = sides,
+                            multiple = TRUE)
   
   raw_qstnr_suppl_proposal(ballot_date = ballot_date,
                            lvl = lvl,
@@ -4793,9 +4810,8 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
                                     lang = all_langs,
                                     federal_first = TRUE) {
   
-  lvls <- unique(checkmate::assert_subset(lvls,
-                                          choices = all_lvls,
-                                          empty.ok = FALSE))
+  lvls <- unique(rlang::arg_match(arg = lvls,
+                                  multiple = TRUE))
   lang <- rlang::arg_match(lang)
   checkmate::assert_flag(federal_first)
   
