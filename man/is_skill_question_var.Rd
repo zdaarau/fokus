@@ -20,6 +20,7 @@ Note that the determination is performed by simply parsing \code{var_names}.
 }
 \seealso{
 Other variable-related functions:
+\code{\link{add_vars_to_combos}()},
 \code{\link{var_lbl}()},
 \code{\link{var_lvls}()},
 \code{\link{var_proposal_nr}()},

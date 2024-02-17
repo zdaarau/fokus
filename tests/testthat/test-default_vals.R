@@ -1,5 +1,4 @@
-# DEFAULT VALUES ----
-## proper implicit args / fall-backs ----
+# proper implicit args / fall-backs ----
 test_that("Predicate functions return correct default values", {
 
   expect_identical(ballot_types(),
@@ -124,7 +123,7 @@ test_that("Text phrasing functions return correct default values", {
   expect_snapshot_error(phrase_election_candidate())
 })
 
-## irrelevant `canton` if `lvl = "federal"` ----
+# irrelevant `canton` if `lvl = "federal"` ----
 test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `lvl = \"federal\"`", {
 
   invalid_canton <- "kantonien"
@@ -204,163 +203,4 @@ test_that("for certain fns, `canton` is really ignored (i.e. not evaluated) if `
                                                lvl = "federal",
                                                canton = invalid_canton),
                    2:3)
-})
-
-# FAILSAFE FUNCTIONS ----
-## not FOKUS-covered ----
-test_that("relevant fns don't fail when non-FOKUS-covered", {
-
-  expect_identical(proposal_nrs(ballot_date = "2019-10-20"),
-                   integer())
-  expect_identical(election_nrs(ballot_date = "2018-09-23"),
-                   integer())
-  expect_identical(election_prcds(ballot_date = "2018-09-23"),
-                   character())
-  expect_identical(proposal_qstn_groups(ballot_date = "2019-10-20"),
-                   character())
-  expect_identical(proposal_qstn_groups(ballot_date = "2021-11-28",
-                                        lvl = "cantonal"),
-                   character())
-  expect_identical(qstn_groups_proposal_nrs(ballot_date = "2019-10-20"),
-                   integer())
-  expect_identical(qstn_groups_proposal_nrs(ballot_date = "2021-11-28",
-                                            lvl = "cantonal"),
-                   integer())
-  expect_identical(n_proposals(ballot_date = "2019-10-20"),
-                   c(cantonal = 0L,
-                     federal = 0L))
-  expect_identical(n_proposals(ballot_date = "2021-11-28",
-                               lvls = "cantonal"),
-                   c(cantonal = 0L))
-  expect_identical(n_elections(ballot_date = "2018-09-23"),
-                   c(cantonal.proportional = 0L,
-                     cantonal.majoritarian = 0L,
-                     federal.proportional = 0L,
-                     federal.majoritarian = 0L))
-  expect_identical(n_elections(ballot_date = "2020-10-18",
-                               lvls = "federal"),
-                   c(federal.proportional = 0L,
-                     federal.majoritarian = 0L))
-  expect_identical(has_ballot_type(ballot_date = "2019-10-20",
-                                   lvls = "federal",
-                                   ballot_type = "referendum"),
-                   c(federal.referendum = FALSE))
-  expect_identical(has_referendum(ballot_date = "2019-10-20",
-                                  lvls = "federal"),
-                   c(federal = FALSE))
-  expect_identical(has_election(ballot_date = "2018-09-23"),
-                   c(cantonal.proportional = FALSE,
-                     cantonal.majoritarian = FALSE,
-                     federal.proportional = FALSE,
-                     federal.majoritarian = FALSE))
-  expect_identical(has_election(ballot_date = "2020-10-18",
-                                lvls = "federal"),
-                   c(federal.proportional = FALSE,
-                     federal.majoritarian = FALSE))
-  expect_identical(has_lvl(ballot_date = "2021-11-28",
-                           lvl = "cantonal"),
-                   c(cantonal.referendum = FALSE,
-                     cantonal.proportional.election = FALSE,
-                     cantonal.majoritarian.election = FALSE))
-  expect_identical(has_proposal_nrs(ballot_date = "2019-10-20"),
-                   FALSE)
-  expect_identical(has_proposal_nrs(ballot_date = "2021-11-28",
-                                    lvls = "cantonal"),
-                   FALSE)
-  expect_identical(has_proposal_nrs(ballot_date = "2021-11-28",
-                                    lvls = "federal",
-                                    proposal_nrs = 4L),
-                   c(federal.4 = FALSE))
-  expect_identical(has_election_nrs(ballot_date = "2018-09-23"),
-                   FALSE)
-  expect_identical(has_election_nrs(ballot_date = "2020-10-18",
-                                    lvls = "federal"),
-                   FALSE)
-  expect_identical(has_election_nrs(ballot_date = "2019-10-20",
-                                    lvls = "cantonal",
-                                    prcds = "proportional"),
-                   FALSE)
-  expect_identical(has_election_nrs(ballot_date = "2019-10-20",
-                                    lvls = "federal",
-                                    prcds = "proportional",
-                                    election_nrs = 2L),
-                   c(federal.proportional.2 = FALSE))
-  expect_identical(lvls(ballot_date = "2019-10-20",
-                        ballot_type = "referendum"),
-                   character())
-  expect_identical(prcds(ballot_date = "2018-09-23"),
-                   character())
-  expect_identical(prcds(ballot_date = "2020-10-18",
-                         lvl = "federal"),
-                   character())
-  expect_identical(skill_question_nrs(ballot_date = "2018-09-23",
-                                      lvl = "cantonal",
-                                      proposal_nr = NULL),
-                   integer())
-  expect_identical(skill_question_nrs(ballot_date = "2021-11-28",
-                                      lvl = "cantonal",
-                                      proposal_nr = 1L),
-                   integer())
-  expect_identical(skill_question_nrs(ballot_date = "2019-10-20",
-                                      proposal_nr = 1L),
-                   integer())
-  expect_identical(n_skill_questions(ballot_date = "2018-09-23",
-                                     lvl = "cantonal",
-                                     proposal_nr = NULL),
-                   0L)
-  expect_identical(n_skill_questions(ballot_date = "2021-11-28",
-                                     lvl = "cantonal",
-                                     proposal_nr = 1L),
-                   0L)
-  expect_identical(n_skill_questions(ballot_date = "2019-10-20",
-                                     proposal_nr = 1L),
-                   0L)
-})
-
-# VARIABLE-RELATED ----
-## shortening_rules ----
-test_that("`shortening_rules` are non-overlapping", {
-
-  # non-overlapping strings
-  expect_true(
-    shortening_rules %>%
-      tibble::rowid_to_column() %>%
-      purrr::pmap_lgl(~ shortening_rules %>%
-                        dplyr::filter(dplyr::row_number() > ..1
-                                      & stringr::str_detect(string = string,
-                                                            pattern = glue::glue("(^|_)\\Q{..2}\\E(_|$)"))
-                                      & stringr::str_detect(string = allowed_at,
-                                                            pattern = ..4)) %>%
-                        nrow() %>%
-                        magrittr::equals(0L)) %>%
-      all()
-  )
-
-  # non-overlapping replacements
-  expect_true(
-    shortening_rules %>%
-      tibble::rowid_to_column() %>%
-      purrr::pmap_lgl(~ shortening_rules %>%
-                        dplyr::filter(dplyr::row_number() > ..1
-                                      & stringr::str_detect(string = replacement,
-                                                            pattern = glue::glue("(^|_)\\Q{..3}\\E(_|$)"))
-                                      & stringr::str_detect(string = allowed_at,
-                                                            pattern = ..4)) %>%
-                        nrow() %>%
-                        magrittr::equals(0L)) %>%
-      all()
-  )
-})
-
-## shorten_var_names ----
-test_that("`shorten_var_names` is reversible for all qstnr variable names", {
-
-  comparison <- tibble::tibble(name = unique(qstnrs$variable_name),
-                               shortened = shorten_var_names(var_names = name,
-                                                             max_n_char = Inf),
-                               reversed = shorten_var_names(var_names = shortened,
-                                                            reverse = TRUE,
-                                                            max_n_char = Inf))
-  expect_identical(object = comparison$reversed,
-                   expected = comparison$name)
 })

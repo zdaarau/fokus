@@ -46,6 +46,7 @@ fokus::var_title(var_name = "weight_decision",
 }
 \seealso{
 Other variable-related functions:
+\code{\link{add_vars_to_combos}()},
 \code{\link{is_skill_question_var}()},
 \code{\link{var_lbl}()},
 \code{\link{var_lvls}()},

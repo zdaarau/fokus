@@ -47,6 +47,13 @@ fokus::combos_ballot_types(ballot_date = "2023-06-18",
                            canton = "aargau")
 }
 \seealso{
+Other combination functions:
+\code{\link{add_vars_to_combos}()},
+\code{\link{combos_elections}()},
+\code{\link{combos_proposal_arguments}()},
+\code{\link{combos_proposal_main_motives}()},
+\code{\link{combos_proposals}()}
+
 Other fundamental predicate functions:
 \code{\link{ballot_types}()},
 \code{\link{cantons}()},
@@ -66,4 +73,5 @@ Other fundamental predicate functions:
 \code{\link{proposal_qstn_groups}()},
 \code{\link{qstn_groups_proposal_nrs}()}
 }
+\concept{combo}
 \concept{predicate_fundamental}

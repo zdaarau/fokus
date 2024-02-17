@@ -1,5 +1,6 @@
 list(
-  rd_family_title = list(data_export              = "Other data export functions:",
+  rd_family_title = list(combo                    = "Other combination functions:",
+                         data_export              = "Other data export functions:",
                          data_import              = "Other data import functions:",
                          fct                      = "Other factor-variable-specific functions:",
                          g_apps                   = "Other Google Apps functions:",

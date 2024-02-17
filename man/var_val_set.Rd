@@ -59,6 +59,7 @@ fokus::var_val_set(var_name = "favored_party",
 }
 \seealso{
 Other variable-related functions:
+\code{\link{add_vars_to_combos}()},
 \code{\link{is_skill_question_var}()},
 \code{\link{var_lbl}()},
 \code{\link{var_lvls}()},

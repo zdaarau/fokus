@@ -49,6 +49,13 @@ fokus::combos_proposals(ballot_date = "2023-06-18",
                         incl_nr = FALSE)
 }
 \seealso{
+Other combination functions:
+\code{\link{add_vars_to_combos}()},
+\code{\link{combos_ballot_types}()},
+\code{\link{combos_elections}()},
+\code{\link{combos_proposal_arguments}()},
+\code{\link{combos_proposal_main_motives}()}
+
 Other proposal predicate functions:
 \code{\link{argument_proposal_nrs}()},
 \code{\link{combos_proposal_arguments}()},
@@ -66,4 +73,5 @@ Other proposal predicate functions:
 \code{\link{proposal_name_gender}()},
 \code{\link{proposal_type}()}
 }
+\concept{combo}
 \concept{predicate_proposal}

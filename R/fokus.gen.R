@@ -3423,6 +3423,7 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' @param incl_lvl Whether or not to include the political levels in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
 #' @return A list with an element per ballot-type and optionally -political-level combination.
+#' @family combo
 #' @family predicate_fundamental
 #' @export
 #'
@@ -3951,6 +3952,7 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' @param incl_nr Whether or not to include proposal numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
 #' @return A list with an element per political-level and optionally -proposal-number combination.
+#' @family combo
 #' @family predicate_proposal
 #' @export
 #'
@@ -4010,6 +4012,7 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #'   combinations.
 #'
 #' @return A list with an element per political-level-proposal-number and optionally -side combination.
+#' @family combo
 #' @family predicate_proposal
 #' @export
 #'
@@ -4082,6 +4085,7 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 #' @param incl_type Whether or not to include motive types (yes/no) in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
 #' @return A list with an element per political-level-proposal-number and optionally -type combination.
+#' @family combo
 #' @family predicate_proposal
 #' @export
 #'
@@ -4466,6 +4470,7 @@ requires_candidate_registration <- function(ballot_date = pal::pkg_config_val(ke
 #'   relevant if `incl_prcd = TRUE`.
 #'
 #' @return A list with an element per political-level and optionally -election-procedure and -election-number combination.
+#' @family combo
 #' @family predicate_election
 #' @export
 #'
@@ -5893,24 +5898,6 @@ write_private_file <- function(path,
   invisible(path)
 }
 
-#' Determine whether variable is skill question
-#'
-#' Determines for each variable whether or not it is a skill question.
-#'
-#' Note that the determination is performed by simply parsing `var_names`.
-#'
-#' @param var_names A character vector of FOKUS variable names.
-#'
-#' @return A logical vector of the same length as `var_names`.
-#' @family vars
-#' @export
-is_skill_question_var <- function(var_names) {
-  
-  var_names |>
-    checkmate::assert_character() |>
-    stringr::str_detect(pattern = "^skill_question_\\d+_(cantonal|federal)(_proposal_\\d+)?$")
-}
-
 #' Get variable description
 #'
 #' Extracts a variable's (common) description from the [questionnaire data][qstnrs].
@@ -6122,6 +6109,59 @@ var_val_set <- function(var_name,
                 var_name = var_name,
                 ballot_date = ballot_date,
                 canton = canton)
+}
+
+#' Add variable names to combination list
+#'
+#' Adds one or more `var_name`s to a combination list.
+#'
+#' @inheritParams shorten_var_names
+#' @param list A list as returned by the `combos_*()` functions like [combos_ballot_types()].
+#'
+#' @return A list with `list` × `var_names` elements.
+#' @family combo
+#' @family vars
+#' @export
+#'
+#' @examples
+#' fokus::combos_proposals(ballot_date = "2023-06-18",
+#'                         canton = "aargau",
+#'                         incl_nr = FALSE) |>
+#'   fokus::add_vars_to_combos(var_names = c("age_group", "favored_party"))
+add_vars_to_combos <- function(list,
+                               var_names) {
+  checkmate::assert_list(list,
+                         any.missing = FALSE)
+  checkmate::assert_character(var_names,
+                              min.chars = 1L,
+                              any.missing = FALSE)
+  list |>
+    purrr::map(\(x) {
+      purrr::map(var_names,
+                 \(var_name) purrr::assign_in(x = x,
+                                              where = "var_name",
+                                              value = var_name))
+      
+    }) |>
+    purrr::list_flatten()
+}
+
+#' Determine whether variable is skill question
+#'
+#' Determines for each variable whether or not it is a skill question.
+#'
+#' Note that the determination is performed by simply parsing `var_names`.
+#'
+#' @param var_names A character vector of FOKUS variable names.
+#'
+#' @return A logical vector of the same length as `var_names`.
+#' @family vars
+#' @export
+is_skill_question_var <- function(var_names) {
+  
+  var_names |>
+    checkmate::assert_character() |>
+    stringr::str_detect(pattern = "^skill_question_\\d+_(cantonal|federal)(_proposal_\\d+)?$")
 }
 
 #' Shorten variable names to a maximum length of 32 characters

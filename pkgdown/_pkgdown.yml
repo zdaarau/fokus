@@ -136,13 +136,14 @@ reference:
   - write_private_file
 - title: Variable-related
 - contents:
-  - is_skill_question_var
   - var_lbl
   - var_lvls
   - var_proposal_nr
   - var_skill_question_nr
   - var_title
   - var_val_set
+  - add_vars_to_combos
+  - is_skill_question_var
 - subtitle: Variable name shortening
 - contents:
   - shorten_var_names

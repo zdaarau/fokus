@@ -60,6 +60,13 @@ fokus::combos_elections(ballot_date = "2019-10-20",
                         incl_nr = FALSE)
 }
 \seealso{
+Other combination functions:
+\code{\link{add_vars_to_combos}()},
+\code{\link{combos_ballot_types}()},
+\code{\link{combos_proposal_arguments}()},
+\code{\link{combos_proposal_main_motives}()},
+\code{\link{combos_proposals}()}
+
 Other election predicate functions:
 \code{\link{election_candidates}()},
 \code{\link{election_name}()},
@@ -70,4 +77,5 @@ Other election predicate functions:
 \code{\link{n_election_seats}()},
 \code{\link{requires_candidate_registration}()}
 }
+\concept{combo}
 \concept{predicate_election}

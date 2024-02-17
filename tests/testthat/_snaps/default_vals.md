@@ -3,20 +3,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["de.long", "de.short", "en.long", "nr", "side"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5, 6]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["de.long", "de.short", "en.long", "nr", "side"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
@@ -53,20 +53,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["code", "de", "en"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5, 6]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["code", "de", "en"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
@@ -239,20 +239,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["de", "en", "is_correct"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["de", "en", "is_correct"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
