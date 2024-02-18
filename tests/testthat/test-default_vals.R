@@ -75,13 +75,8 @@ test_that("Predicate functions return correct default values", {
                              proposal_nr = 2L),
                         list(lvl = "federal",
                              proposal_nr = 3L)))
-  expect_identical(combos_proposal_arguments(),
-                   list(list(lvl = "cantonal",
-                             proposal_nr = 1L,
-                             side = "pro"),
-                        list(lvl = "cantonal",
-                             proposal_nr = 1L,
-                             side = "contra")))
+  expect_snapshot_value(combos_proposal_arguments(),
+                        style = "json2")
   expect_identical(combos_proposal_main_motives(),
                    list(list(lvl = "cantonal",
                              proposal_nr = 1L,

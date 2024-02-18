@@ -90,6 +90,207 @@
 
 ---
 
+    {
+      "type": "list",
+      "attributes": {},
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["cantonal"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["pro"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["cantonal"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["contra"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["cantonal"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["pro"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [2]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["cantonal"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["pro"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [3]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["cantonal"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["contra"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [2]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["cantonal"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [1]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["contra"]
+            },
+            {
+              "type": "integer",
+              "attributes": {},
+              "value": [3]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
     `prcd` must be one of "proportional" or "majoritarian".
 
 ---

@@ -4577,14 +4577,16 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 ```{r}
 #' Get referendum proposal combinations for which arguments have been queried
 #'
-#' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) for all referendum [proposal
-#' arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
+#' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) plus argument numbers for all referendum
+#' [proposal arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
 #'
 #' @inheritParams ballot_types
-#' @param incl_side Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to `FALSE` potentially results in fewer
+#' @param incl_arg_side Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to `FALSE` potentially results in fewer
 #'   combinations.
+#' @param incl_arg_nr Whether or not to include argument numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
+#'   Setting this to `TRUE` implies `incl_arg_side = TRUE`.
 #'
-#' @return A list with an element per political-level-proposal-number and optionally -side combination.
+#' @return A list with an element per political-level-proposal-number and optionally -argument-side and -argument-number combination.
 #' @family combo
 #' @family predicate_proposal
 #' @export
@@ -4592,16 +4594,28 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' @examples
 #' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
 #'                                  canton = "aargau")
-#' # without sides
+#' # without argument numbers
 #' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
 #'                                  canton = "aargau",
-#'                                  incl_side = FALSE)
+#'                                  incl_arg_nr = FALSE)
+#' # without argument sides and numbers
+#' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
+#'                                  canton = "aargau",
+#'                                  incl_arg_side = FALSE,
+#'                                  incl_arg_nr = FALSE)
 combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                         pkg = this_pkg),
                                       lvls = all_lvls,
                                       canton = cantons(ballot_date),
-                                      incl_side = TRUE) {
-  checkmate::assert_flag(incl_side)
+                                      incl_arg_side = TRUE,
+                                      incl_arg_nr = incl_arg_side) {
+  checkmate::assert_flag(incl_arg_side)
+  checkmate::assert_flag(incl_arg_nr)
+  
+  # ensure `incl_arg_nr` and `incl_arg_side` do not conflict
+  if (incl_arg_nr && !incl_arg_side) {
+    cli::cli_abort("{.arg incl_arg_nr} cannot be {.val {TRUE}} when {.arg incl_arg_side} is {.val {FALSE}}.")
+  }
   
   lvls |>
     purrr::map(\(lvl) {
@@ -4611,31 +4625,34 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
                    canton = canton) |>
         purrr::map(\(proposal_nr) {
           
-          if (incl_side) {
-            
-            result <-
-              all_argument_sides |>
-              purrr::map(\(side) {
-                if (has_proposal_arguments(ballot_date = ballot_date,
-                                           lvl = lvl,
-                                           canton = canton,
-                                           proposal_nr = proposal_nr,
-                                           sides = side)) {
-                  list(lvl = lvl,
-                       proposal_nr = proposal_nr,
-                       side = side)
-                } else {
-                  NULL
-                }
-              }) |>
-              purrr::compact()
-            
-          } else if (has_proposal_arguments(ballot_date = ballot_date,
-                                            lvl = lvl,
-                                            canton = canton,
-                                            proposal_nr = proposal_nr)) {
-            result <- list(lvl = lvl,
-                           proposal_nr = proposal_nr)
+          if (has_proposal_arguments(ballot_date = ballot_date,
+                                     lvl = lvl,
+                                     canton = canton,
+                                     proposal_nr = proposal_nr)) {
+            if (incl_arg_side) {
+              result <-
+                raw_qstnr_suppl_arguments(ballot_date = ballot_date,
+                                          lvl = lvl,
+                                          canton = canton,
+                                          proposal_nr = proposal_nr) |>
+                purrr::map(\(arg) {
+                  if (incl_arg_nr) {
+                    return(list(lvl = lvl,
+                                proposal_nr = proposal_nr,
+                                argument_side = arg$side,
+                                argument_nr = arg$nr))
+                  } else {
+                    return(list(lvl = lvl,
+                                proposal_nr = proposal_nr,
+                                argument_side = arg$side))
+                  }
+                }) |>
+                unique()
+              
+            } else {
+              result <- list(lvl = lvl,
+                             proposal_nr = proposal_nr)
+            }
           } else {
             result <- NULL
           }
@@ -4643,7 +4660,7 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
           result
         }) |>
         purrr::compact() |>
-        pal::when(incl_side ~ purrr::list_flatten(.),
+        pal::when(incl_arg_side ~ purrr::list_flatten(.),
                   ~ .)
     }) |>
     purrr::list_flatten()
