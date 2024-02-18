@@ -9,8 +9,8 @@ proposal_argument(
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
-  argument_nr = 1L,
   side = all_argument_sides,
+  argument_nr = 1L,
   lang = all_langs,
   type = all_name_types
 )
@@ -38,9 +38,9 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{argument_nr}{Proposal argument number. A positive integerish scalar.}
-
 \item{side}{Proposal argument side. One of \code{"pro"} or \code{"contra"}.}
+
+\item{argument_nr}{Proposal argument number. A positive integerish scalar.}
 
 \item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
@@ -57,8 +57,8 @@ fokus::proposal_argument(ballot_date = "2018-09-23",
                          lvl = "cantonal",
                          canton = "aargau",
                          proposal_nr = 1,
-                         argument_nr = 3,
                          side = "contra",
+                         argument_nr = 3,
                          type = "long")
 }
 \seealso{

@@ -59,8 +59,8 @@
 <span>  lvl <span class="op">=</span> <span class="fu"><a href="lvls.html">lvls</a></span><span class="op">(</span><span class="va">ballot_date</span>, <span class="va">canton</span>, ballot_type <span class="op">=</span> <span class="st">"referendum"</span><span class="op">)</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
 <span>  proposal_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  argument_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  side <span class="op">=</span> <span class="va">all_argument_sides</span>,</span>
+<span>  argument_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  lang <span class="op">=</span> <span class="va">all_langs</span>,</span>
 <span>  type <span class="op">=</span> <span class="va">all_name_types</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -92,12 +92,12 @@
 <dd><p>Proposal number. A positive integerish scalar.</p></dd>
 
 
-<dt>argument_nr</dt>
-<dd><p>Proposal argument number. A positive integerish scalar.</p></dd>
-
-
 <dt>side</dt>
 <dd><p>Proposal argument side. One of <code>"pro"</code> or <code>"contra"</code>.</p></dd>
+
+
+<dt>argument_nr</dt>
+<dd><p>Proposal argument number. A positive integerish scalar.</p></dd>
 
 
 <dt>lang</dt>
@@ -140,8 +140,8 @@
 <span class="r-in"><span>                         lvl <span class="op">=</span> <span class="st">"cantonal"</span>,</span></span>
 <span class="r-in"><span>                         canton <span class="op">=</span> <span class="st">"aargau"</span>,</span></span>
 <span class="r-in"><span>                         proposal_nr <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>                         argument_nr <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span>                         side <span class="op">=</span> <span class="st">"contra"</span>,</span></span>
+<span class="r-in"><span>                         argument_nr <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span>                         type <span class="op">=</span> <span class="st">"long"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."</span>
 </code></pre></div>

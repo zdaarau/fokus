@@ -8,8 +8,8 @@ combos_proposal_arguments(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date),
-  incl_arg_side = TRUE,
-  incl_arg_nr = incl_arg_side
+  incl_side = TRUE,
+  incl_argument_nr = incl_side
 )
 }
 \arguments{
@@ -31,11 +31,11 @@ combos_proposal_arguments(
 \item \code{"aargau"}
 }}
 
-\item{incl_arg_side}{Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to \code{FALSE} potentially results in fewer
+\item{incl_side}{Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to \code{FALSE} potentially results in fewer
 combinations.}
 
-\item{incl_arg_nr}{Whether or not to include argument numbers in the resulting list. Setting this to \code{FALSE} potentially results in fewer combinations.
-Setting this to \code{TRUE} implies \code{incl_arg_side = TRUE}.}
+\item{incl_argument_nr}{Whether or not to include argument numbers in the resulting list. Setting this to \code{FALSE} potentially results in fewer combinations.
+Setting this to \code{TRUE} implies \code{incl_side = TRUE}.}
 }
 \value{
 A list with an element per political-level-proposal-number and optionally -argument-side and -argument-number combination.
@@ -50,12 +50,12 @@ fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
 # without argument numbers
 fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
                                  canton = "aargau",
-                                 incl_arg_nr = FALSE)
+                                 incl_argument_nr = FALSE)
 # without argument sides and numbers
 fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
                                  canton = "aargau",
-                                 incl_arg_side = FALSE,
-                                 incl_arg_nr = FALSE)
+                                 incl_side = FALSE,
+                                 incl_argument_nr = FALSE)
 }
 \seealso{
 Other combination functions:

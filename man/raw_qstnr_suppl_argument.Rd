@@ -9,8 +9,8 @@ raw_qstnr_suppl_argument(
   lvl = all_lvls,
   canton = pal::pkg_config_val(key = "canton", pkg = this_pkg),
   proposal_nr = 1L,
-  argument_nr = 1L,
-  side = all_argument_sides
+  side = all_argument_sides,
+  argument_nr = 1L
 )
 }
 \arguments{
@@ -34,9 +34,9 @@ raw_qstnr_suppl_argument(
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{argument_nr}{Proposal argument number. A positive integerish scalar.}
-
 \item{side}{Proposal argument side. One of \code{"pro"} or \code{"contra"}.}
+
+\item{argument_nr}{Proposal argument number. A positive integerish scalar.}
 }
 \value{
 A \link[xfun:strict_list]{strict list}.
@@ -49,8 +49,8 @@ fokus:::raw_qstnr_suppl_argument(ballot_date = "2018-11-25",
                                  lvl = "cantonal",
                                  canton = "aargau",
                                  proposal_nr = 2,
-                                 argument_nr = 2,
-                                 side = "pro")
+                                 side = "pro",
+                                 argument_nr = 2)
 }
 \seealso{
 Other raw questionnaire data functions:

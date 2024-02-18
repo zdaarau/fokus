@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["de.long", "de.short", "en.long", "nr", "side"]
+          "value": ["side", "nr", "de.short", "de.long", "en.long"]
         },
         "row.names": {
           "type": "integer",
@@ -23,17 +23,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["Eine Erhöhung der Vermögenssteuer für Reiche ist ein geeignetes Mittel, um den Kantonshaushalt wieder ins Lot zu bringen.", "Eine Erhöhung der Vermögenssteuer für Reiche bringt nichts, denn Wohlhabende finden immer ein Schlupfloch, um sich ihrer Steuerpflicht zu entziehen.", "Die Reichen wurden in der Vergangenheit nicht ausreichend in die finanzielle Verantwortung genommen. Sie sollten sich stärker als heute an der Finanzierung des Staates beteiligen.", "Der Kanton Aargau braucht höhere Steuereinnahmen, um all seine öffentlichen Aufgaben ohne Leistungsabbau erfüllen zu können.", "Wird der Vermögenssteuersatz für Reiche erhöht, ziehen diese aus dem Kanton weg. Dies führt zu Steuerausfällen statt höheren Einnahmen.", "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["Vermögenssteuer bringt Kantonshaushalt wieder ins Lot", "Wohlhabende finden immer ein Schlupfloch", "Reiche sollten sich stärker an Finanzierung des Staates beteiligen", "Höhere Steuereinnahmen gegen Leistungsabbau", "Reiche ziehen weg, was zu Steuerausfällen führt", "Steuern im Aargau sollten generell tief sein"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["An increase in wealth tax for the rich is a suitable means to bring the cantonal budget back into balance.", "An increase in wealth tax for the rich is useless because they always find a loophole to avoid their tax liability.", "In the past, the rich were not sufficiently held financially responsible. They should contribute more to the financing of the state than they do today.", "The canton of Aargau needs higher tax revenues in order to be able to fulfill all its public tasks without reducing services.", "If the millionaire tax initiative is accepted, the wealthy simply move away from the canton. This leads to tax losses instead of higher revenues.", "Taxes in the canton of Aargau should generally be as low as possible."]
+          "value": ["pro", "contra", "pro", "pro", "contra", "contra"]
         },
         {
           "type": "integer",
@@ -43,7 +33,17 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["pro", "contra", "pro", "pro", "contra", "contra"]
+          "value": ["Vermögenssteuer bringt Kantonshaushalt wieder ins Lot", "Wohlhabende finden immer ein Schlupfloch", "Reiche sollten sich stärker an Finanzierung des Staates beteiligen", "Höhere Steuereinnahmen gegen Leistungsabbau", "Reiche ziehen weg, was zu Steuerausfällen führt", "Steuern im Aargau sollten generell tief sein"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Eine Erhöhung der Vermögenssteuer für Reiche ist ein geeignetes Mittel, um den Kantonshaushalt wieder ins Lot zu bringen.", "Eine Erhöhung der Vermögenssteuer für Reiche bringt nichts, denn Wohlhabende finden immer ein Schlupfloch, um sich ihrer Steuerpflicht zu entziehen.", "Die Reichen wurden in der Vergangenheit nicht ausreichend in die finanzielle Verantwortung genommen. Sie sollten sich stärker als heute an der Finanzierung des Staates beteiligen.", "Der Kanton Aargau braucht höhere Steuereinnahmen, um all seine öffentlichen Aufgaben ohne Leistungsabbau erfüllen zu können.", "Wird der Vermögenssteuersatz für Reiche erhöht, ziehen diese aus dem Kanton weg. Dies führt zu Steuerausfällen statt höheren Einnahmen.", "Die Steuern im Kanton Aargau sollten generell möglichst tief sein."]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["An increase in wealth tax for the rich is a suitable means to bring the cantonal budget back into balance.", "An increase in wealth tax for the rich is useless because they always find a loophole to avoid their tax liability.", "In the past, the rich were not sufficiently held financially responsible. They should contribute more to the financing of the state than they do today.", "The canton of Aargau needs higher tax revenues in order to be able to fulfill all its public tasks without reducing services.", "If the millionaire tax initiative is accepted, the wealthy simply move away from the canton. This leads to tax losses instead of higher revenues.", "Taxes in the canton of Aargau should generally be as low as possible."]
         }
       ]
     }
@@ -100,7 +100,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+              "value": ["lvl", "proposal_nr", "side", "argument_nr"]
             }
           },
           "value": [
@@ -132,7 +132,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+              "value": ["lvl", "proposal_nr", "side", "argument_nr"]
             }
           },
           "value": [
@@ -164,7 +164,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+              "value": ["lvl", "proposal_nr", "side", "argument_nr"]
             }
           },
           "value": [
@@ -196,7 +196,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+              "value": ["lvl", "proposal_nr", "side", "argument_nr"]
             }
           },
           "value": [
@@ -228,7 +228,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+              "value": ["lvl", "proposal_nr", "side", "argument_nr"]
             }
           },
           "value": [
@@ -260,7 +260,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "proposal_nr", "argument_side", "argument_nr"]
+              "value": ["lvl", "proposal_nr", "side", "argument_nr"]
             }
           },
           "value": [
@@ -353,7 +353,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["de.long", "de.short", "en.long", "nr", "side"]
+          "value": ["side", "nr", "de.short", "de.long", "en.long"]
         },
         "row.names": {
           "type": "integer",
@@ -370,17 +370,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der Bundesrichter:innen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt.", "Bei der Wahl für ein derart wichtiges Amt wie jenes der Bundesrichter:innen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig.", "Dass Bundesrichter-Kandidat:innen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit.", "Die heute gängige Parteizugehörigkeit der Bundesrichter:innen schafft Transparenz über deren politische Gesinnung."]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["Verletzung Gewaltenteilung", "Zufallsbasierte Wahl unvernünftig", "Parteimitgliedschaft und Mandatsabgabe gefährden Unabhängigkeit", "Parteizugehörigkeit schafft Transparenz"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["By having the parliament decide on the (re)election of federal judges every six years, the separation of powers between the legislative and judicial branches is violated.", "Leaving anything to chance (drawing lots) in the election for such an important office as that of federal judges is unreasonable.", "The fact that, under the current system, federal judge candidates de facto have to be party members and commit to paying a mandate tax to their party jeopardizes their independence.", "The common party affiliation of federal judges today creates transparency about their political views."]
+          "value": ["pro", "contra", "pro", "contra"]
         },
         {
           "type": "integer",
@@ -390,7 +380,17 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["pro", "contra", "pro", "contra"]
+          "value": ["Verletzung Gewaltenteilung", "Zufallsbasierte Wahl unvernünftig", "Parteimitgliedschaft und Mandatsabgabe gefährden Unabhängigkeit", "Parteizugehörigkeit schafft Transparenz"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Indem das Parlament alle sechs Jahre über die (Wieder-)Wahl der Bundesrichter:innen entscheidet, wird die Gewaltenteilung zwischen Legislative und Judikative verletzt.", "Bei der Wahl für ein derart wichtiges Amt wie jenes der Bundesrichter:innen etwas dem Zufall zu überlassen (Losziehung), ist unvernünftig.", "Dass Bundesrichter-Kandidat:innen mit dem heutigen System de facto Parteimitglied sein und sich zur Zahlung einer Mandatssteuer an ihre Partei verpflichten müssen, gefährdet ihre Unabhängigkeit.", "Die heute gängige Parteizugehörigkeit der Bundesrichter:innen schafft Transparenz über deren politische Gesinnung."]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["By having the parliament decide on the (re)election of federal judges every six years, the separation of powers between the legislative and judicial branches is violated.", "Leaving anything to chance (drawing lots) in the election for such an important office as that of federal judges is unreasonable.", "The fact that, under the current system, federal judge candidates de facto have to be party members and commit to paying a mandate tax to their party jeopardizes their independence.", "The common party affiliation of federal judges today creates transparency about their political views."]
         }
       ]
     }

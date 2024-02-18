@@ -27,6 +27,7 @@ utils::globalVariables(names = c(".",
                                  "any_of",
                                  "ends_with",
                                  "everything",
+                                 "starts_with",
                                  "where",
                                  # other
                                  "alignment",
@@ -442,20 +443,20 @@ raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 #'                                  lvl = "cantonal",
 #'                                  canton = "aargau",
 #'                                  proposal_nr = 2,
-#'                                  argument_nr = 2,
-#'                                  side = "pro")
+#'                                  side = "pro",
+#'                                  argument_nr = 2)
 raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                        pkg = this_pkg),
                                      lvl = all_lvls,
                                      canton = pal::pkg_config_val(key = "canton",
                                                                   pkg = this_pkg),
                                      proposal_nr = 1L,
-                                     argument_nr = 1L,
-                                     side = all_argument_sides) {
+                                     side = all_argument_sides,
+                                     argument_nr = 1L) {
   
+  side <- rlang::arg_match(side)
   checkmate::assert_count(argument_nr,
                           positive = TRUE)
-  side <- rlang::arg_match(side)
   
   result <-
     raw_qstnr_suppl_arguments(ballot_date = ballot_date,
@@ -3641,7 +3642,12 @@ proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
                             proposal_nr = proposal_nr) |>
     purrr::map(as_flat_list) |>
     purrr::map(tibble::as_tibble) |>
-    purrr::list_rbind()
+    purrr::list_rbind() |>
+    dplyr::relocate(any_of(c("side", "nr")),
+                    any_of("de.short"),
+                    starts_with("de."),
+                    any_of("en.short"),
+                    starts_with("en."))
 }
 
 #' Get referendum proposal argument
@@ -3649,8 +3655,8 @@ proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #' Returns the specified referendum proposal argument's text of the specified type in the specified language.
 #'
 #' @inheritParams proposal_name
-#' @param argument_nr Proposal argument number. A positive integerish scalar.
 #' @param side Proposal argument side. One of `r all_argument_sides |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
+#' @param argument_nr Proposal argument number. A positive integerish scalar.
 #'
 #' @return A character scalar.
 #' @family predicate_proposal
@@ -3661,8 +3667,8 @@ proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #'                          lvl = "cantonal",
 #'                          canton = "aargau",
 #'                          proposal_nr = 1,
-#'                          argument_nr = 3,
 #'                          side = "contra",
+#'                          argument_nr = 3,
 #'                          type = "long")
 proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                 pkg = this_pkg),
@@ -3671,8 +3677,8 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
                                          ballot_type = "referendum"),
                               canton = cantons(ballot_date),
                               proposal_nr = 1L,
-                              argument_nr = 1L,
                               side = all_argument_sides,
+                              argument_nr = 1L,
                               lang = all_langs,
                               type = all_name_types) {
   
@@ -3683,8 +3689,8 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
                            lvl = lvl,
                            canton = canton,
                            proposal_nr = proposal_nr,
-                           argument_nr = argument_nr,
-                           side = side) |>
+                           side = side,
+                           argument_nr = argument_nr) |>
     purrr::chuck(lang, type)
 }
 
@@ -4008,10 +4014,10 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' [proposal arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
 #'
 #' @inheritParams ballot_types
-#' @param incl_arg_side Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to `FALSE` potentially results in fewer
+#' @param incl_side Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to `FALSE` potentially results in fewer
 #'   combinations.
-#' @param incl_arg_nr Whether or not to include argument numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
-#'   Setting this to `TRUE` implies `incl_arg_side = TRUE`.
+#' @param incl_argument_nr Whether or not to include argument numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
+#'   Setting this to `TRUE` implies `incl_side = TRUE`.
 #'
 #' @return A list with an element per political-level-proposal-number and optionally -argument-side and -argument-number combination.
 #' @family combo
@@ -4024,24 +4030,24 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' # without argument numbers
 #' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
 #'                                  canton = "aargau",
-#'                                  incl_arg_nr = FALSE)
+#'                                  incl_argument_nr = FALSE)
 #' # without argument sides and numbers
 #' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
 #'                                  canton = "aargau",
-#'                                  incl_arg_side = FALSE,
-#'                                  incl_arg_nr = FALSE)
+#'                                  incl_side = FALSE,
+#'                                  incl_argument_nr = FALSE)
 combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                         pkg = this_pkg),
                                       lvls = all_lvls,
                                       canton = cantons(ballot_date),
-                                      incl_arg_side = TRUE,
-                                      incl_arg_nr = incl_arg_side) {
-  checkmate::assert_flag(incl_arg_side)
-  checkmate::assert_flag(incl_arg_nr)
+                                      incl_side = TRUE,
+                                      incl_argument_nr = incl_side) {
+  checkmate::assert_flag(incl_side)
+  checkmate::assert_flag(incl_argument_nr)
   
-  # ensure `incl_arg_nr` and `incl_arg_side` do not conflict
-  if (incl_arg_nr && !incl_arg_side) {
-    cli::cli_abort("{.arg incl_arg_nr} cannot be {.val {TRUE}} when {.arg incl_arg_side} is {.val {FALSE}}.")
+  # ensure `incl_argument_nr` and `incl_side` do not conflict
+  if (incl_argument_nr && !incl_side) {
+    cli::cli_abort("{.arg incl_argument_nr} cannot be {.val {TRUE}} when {.arg incl_side} is {.val {FALSE}}.")
   }
   
   lvls |>
@@ -4056,22 +4062,22 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
                                      lvl = lvl,
                                      canton = canton,
                                      proposal_nr = proposal_nr)) {
-            if (incl_arg_side) {
+            if (incl_side) {
               result <-
                 raw_qstnr_suppl_arguments(ballot_date = ballot_date,
                                           lvl = lvl,
                                           canton = canton,
                                           proposal_nr = proposal_nr) |>
                 purrr::map(\(arg) {
-                  if (incl_arg_nr) {
+                  if (incl_argument_nr) {
                     return(list(lvl = lvl,
                                 proposal_nr = proposal_nr,
-                                argument_side = arg$side,
+                                side = arg$side,
                                 argument_nr = arg$nr))
                   } else {
                     return(list(lvl = lvl,
                                 proposal_nr = proposal_nr,
-                                argument_side = arg$side))
+                                side = arg$side))
                   }
                 }) |>
                 unique()
@@ -4087,7 +4093,7 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
           result
         }) |>
         purrr::compact() |>
-        pal::when(incl_arg_side ~ purrr::list_flatten(.),
+        pal::when(incl_side ~ purrr::list_flatten(.),
                   ~ .)
     }) |>
     purrr::list_flatten()
