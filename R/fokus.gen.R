@@ -4487,7 +4487,7 @@ requires_candidate_registration <- function(ballot_date = pal::pkg_config_val(ke
 #' Returns a list containing the political levels, election procedures and election numbers for all elections that have been covered by the FOKUS survey for the
 #' specified canton at the specified ballot date on the specified political level(s).
 #'
-#' @inheritParams ballot_types
+#' @inheritParams n_elections
 #' @param incl_prcd Whether or not to include election procedures in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #' @param incl_nr Whether or not to include election numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations. Only
 #'   relevant if `incl_prcd = TRUE`.
@@ -4516,9 +4516,12 @@ combos_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                                                                pkg = this_pkg),
                              lvls = all_lvls,
                              canton = cantons(ballot_date),
+                             prcds = all_prcds,
                              incl_prcd = TRUE,
                              incl_nr = incl_prcd) {
   
+  prcds <- rlang::arg_match(arg = prcds,
+                            multiple = TRUE)
   checkmate::assert_flag(incl_prcd)
   checkmate::assert_flag(incl_nr)
   
@@ -4531,6 +4534,7 @@ combos_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
           election_prcds(ballot_date = ballot_date,
                          lvl = lvl,
                          canton = canton) |>
+          intersect(y = prcds) |>
           purrr::map(\(prcd) {
             
             if (incl_nr) {

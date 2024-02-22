@@ -61,6 +61,7 @@ specified canton at the specified ballot date on the specified political level(s
 <span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"ballot_date"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
 <span>  lvls <span class="op">=</span> <span class="va">all_lvls</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
+<span>  prcds <span class="op">=</span> <span class="va">all_prcds</span>,</span>
 <span>  incl_prcd <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  incl_nr <span class="op">=</span> <span class="va">incl_prcd</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -86,6 +87,10 @@ specified canton at the specified ballot date on the specified political level(s
 <dt>canton</dt>
 <dd><p>FOKUS-covered canton name. One of</p><ul><li><p><code>"aargau"</code></p></li>
 </ul></dd>
+
+
+<dt>prcds</dt>
+<dd><p>Election procedure(s). One or more of <code>"proportional"</code> and <code>"majoritarian"</code>.</p></dd>
 
 
 <dt>incl_prcd</dt>

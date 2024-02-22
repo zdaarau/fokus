@@ -8,6 +8,7 @@ combos_elections(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   lvls = all_lvls,
   canton = cantons(ballot_date),
+  prcds = all_prcds,
   incl_prcd = TRUE,
   incl_nr = incl_prcd
 )
@@ -30,6 +31,8 @@ combos_elections(
 \itemize{
 \item \code{"aargau"}
 }}
+
+\item{prcds}{Election procedure(s). One or more of \code{"proportional"} and \code{"majoritarian"}.}
 
 \item{incl_prcd}{Whether or not to include election procedures in the resulting list. Setting this to \code{FALSE} potentially results in fewer combinations.}
 
