@@ -33,7 +33,8 @@ column \code{question_intro}.
 fokus::qstnrs
 }
 \seealso{
-Other questionnaire data:
+Other datasets:
+\code{\link{ballots}},
 \code{\link{elections}},
 \code{\link{proposals}}
 }

@@ -10,14 +10,24 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "var_name"]
+              "value": ["ballot_date", "lvl", "canton", "var_name"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
+              "value": ["2023-06-18"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["cantonal"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aargau"]
             },
             {
               "type": "character",
@@ -32,14 +42,24 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "var_name"]
+              "value": ["ballot_date", "lvl", "canton", "var_name"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
+              "value": ["2023-06-18"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["cantonal"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aargau"]
             },
             {
               "type": "character",
@@ -54,14 +74,24 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "var_name"]
+              "value": ["ballot_date", "lvl", "canton", "var_name"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
+              "value": ["2023-06-18"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["federal"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aargau"]
             },
             {
               "type": "character",
@@ -76,14 +106,24 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["lvl", "var_name"]
+              "value": ["ballot_date", "lvl", "canton", "var_name"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
+              "value": ["2023-06-18"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["federal"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aargau"]
             },
             {
               "type": "character",

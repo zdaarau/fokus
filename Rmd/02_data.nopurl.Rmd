@@ -81,39 +81,28 @@ qstnrs <-
 ## `proposals`
 
 ```{r}
-proposals <- 
-  fokus::all_ballot_dates |>
-  purrr::map(\(ballot_date) {
+proposals <-
+  fokus::combos_proposals() |>
+  purrr::map(\(combo) {
     
-    fokus::cantons(ballot_date) |>
-      purrr::map(\(canton) {
-        
-        fokus::combos_proposals(ballot_date = ballot_date,
-                                canton = canton) |>
-          purrr::map(\(combo) {
-            
-            tibble::tibble(ballot_date = ballot_date,
-                           lvl = combo$lvl,
-                           canton = canton,
-                           nr = combo$proposal_nr,
-                           type = fokus::proposal_type(ballot_date = ballot_date,
-                                                       lvl = lvl,
-                                                       canton = canton,
-                                                       proposal_nr = nr),
-                           name.de.short = fokus::proposal_name(ballot_date = ballot_date,
-                                                                lvl = lvl,
-                                                                canton = canton,
-                                                                proposal_nr = nr,
-                                                                type = "short"),
-                           name.de.long = fokus::proposal_name(ballot_date = ballot_date,
-                                                               lvl = lvl,
-                                                               canton = canton,
-                                                               proposal_nr = nr,
-                                                               type = "long"))
-          }) |>
-          purrr::list_rbind()
-      }) |>
-      purrr::list_rbind()
+    tibble::tibble(ballot_date = combo$ballot_date,
+                   lvl = combo$lvl,
+                   canton = combo$canton,
+                   nr = combo$proposal_nr,
+                   type = fokus::proposal_type(ballot_date = combo$ballot_date,
+                                               lvl = combo$lvl,
+                                               canton = combo$canton,
+                                               proposal_nr = combo$proposal_nr),
+                   name.de.short = fokus::proposal_name(ballot_date = combo$ballot_date,
+                                                        lvl = combo$lvl,
+                                                        canton = combo$canton,
+                                                        proposal_nr = combo$proposal_nr,
+                                                        type = "short"),
+                   name.de.long = fokus::proposal_name(ballot_date = combo$ballot_date,
+                                                       lvl = combo$lvl,
+                                                       canton = combo$canton,
+                                                       proposal_nr = combo$proposal_nr,
+                                                       type = "long"))
   }) |>
   purrr::list_rbind()
 ```
@@ -122,45 +111,326 @@ proposals <-
 
 ```{r}
 elections <- 
-  fokus::all_ballot_dates |>
-  purrr::map(\(ballot_date) {
+  fokus::combos_elections() |>
+  purrr::map(\(combo) {
     
-    fokus::cantons(ballot_date) |>
-      purrr::map(\(canton) {
-                   
-        fokus::combos_elections(ballot_date = ballot_date,
-                                canton = canton) |>
-          purrr::map(\(combo) {
-            
-            tibble::tibble(ballot_date = ballot_date,
-                           lvl = combo$lvl,
-                           canton = canton,
-                           prcd = combo$prcd,
-                           nr = combo$election_nr,
-                           name.de.short = fokus::election_name(ballot_date = ballot_date,
-                                                                lvl = lvl,
-                                                                canton = canton,
-                                                                prcd = prcd,
-                                                                election_nr = nr,
-                                                                type = "short"),
-                           name.de.long = fokus::election_name(ballot_date = ballot_date,
-                                                               lvl = lvl,
-                                                               canton = canton,
-                                                               prcd = prcd,
-                                                               election_nr = nr,
-                                                               type = "long"),
-                           name.de.body = fokus::election_name(ballot_date = ballot_date,
-                                                               lvl = lvl,
-                                                               canton = canton,
-                                                               prcd = prcd,
-                                                               election_nr = nr,
-                                                               type = "body"))
-          }) |>
-          purrr::list_rbind()
-      }) |>
-      purrr::list_rbind()
+    tibble::tibble(ballot_date = combo$ballot_date,
+                   lvl = combo$lvl,
+                   canton = combo$canton,
+                   prcd = combo$prcd,
+                   nr = combo$election_nr,
+                   name.de.short = fokus::election_name(ballot_date = combo$ballot_date,
+                                                        lvl = combo$lvl,
+                                                        canton = combo$canton,
+                                                        prcd = combo$prcd,
+                                                        election_nr = combo$election_nr,
+                                                        type = "short"),
+                   name.de.long = fokus::election_name(ballot_date = combo$ballot_date,
+                                                       lvl = combo$lvl,
+                                                       canton = combo$canton,
+                                                       prcd = combo$prcd,
+                                                       election_nr = combo$election_nr,
+                                                       type = "long"),
+                   name.de.body = fokus::election_name(ballot_date = combo$ballot_date,
+                                                       lvl = combo$lvl,
+                                                       canton = combo$canton,
+                                                       prcd = combo$prcd,
+                                                       election_nr = combo$election_nr,
+                                                       type = "body"))
   }) |>
   purrr::list_rbind()
+```
+
+## `ballots`
+
+NOTES:
+
+-   For every
+
+    -   *referendum proposal* or *majoritarian election*, a CSV file containing the official ballot numbers is expected to be present at
+        `data-raw/ballots/{ballot_date}_{canton}_{lvl}_proposal_{proposal_nr}.csv` or
+        `data-raw/ballots/{ballot_date}_{canton}_{lvl}_majoritarian_election_{election_nr}.csv`, respectively.
+
+    -   *proportional election*, a CSV file containing the officially apportioned party vote numbers is expected to be present at
+        `data-raw/ballots/{ballot_date}_{canton}_federal_proportional_election_{election_nr}_votes.csv` and
+        `data-raw/ballots/{ballot_date}_{canton}_cantonal_proportional_election_{election_nr}_votes_apportioned.csv` respectively. Additionally, a common CSV
+        file containing the electorate and turnout numbers of all proportional elections in the respective canton on the respective political level is expected
+        to be present at `{canton}_{lvl}_proportional_elections_electorate.csv`. The latter file must be updated each time a new proportional election is
+        covered by a FOKUS survey in the respective canton on the respective political level.
+
+    This convention is based on the [data available for the canton of
+    Aargau](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN0TGN0TN0MN0) and might require
+    revision/extension to work for other cantons as well.
+
+    The CSV files must be downloaded manually (it's futile trying to automate this since cantonal websites tend to change more often than we do surveys). The
+    following download locations are currently known:
+
+    -   Aargau
+        -   referendums proposals
+            -   [cantonal](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN5TGN0TN0MN0)
+            -   [federal](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN6TGN0TN0MN0)
+        -   elections
+            -   cantonal
+                -   [majoritarian](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN1TGN1TN0MN0)
+                -   proportional
+                    -   [electorate/turnout](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/data/BN17TBN2TGN1TN1MN1)
+                        (common dataset covering all cantonal proportional election dates)
+
+                    -   [party votes](https://www.ag.ch/app/wahlen/grw2020/output/parteistimmen.html) (2016 is [found
+                        here](https://www.ag.ch/app/wahlen/grw2016/output/parteistimmen_kanton_1.html); no common date-independent site exists)
+
+                        Due to the division into constituencies and the [biproportional election
+                        procedure](https://www.aargauerzeitung.ch/aargau/kanton-aargau/bei-den-grossratswahlen-kommt-der-doppelte-pukelsheim-zur-anwendung-doch-was-ist-das-ld.1310559),
+                        we cannot use the raw number of party votes [provided
+                        here](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN2TGN1TN3MN0), but
+                        instead have to rely on the officially apportionated numbers above.
+            -   federal
+                -   [majoritarian](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN4TGN1TN0MN0)
+                -   proportional
+                    -   [electorate/turnout](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/data/BN17TBN3TGN1TN1MN1)
+                        (common dataset covering all federal proportional election dates)
+
+                    -   [party
+                        votes](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN3TGN1TN3MN0)
+
+```{r}
+ballots <- list()
+
+# define common constants
+na_vals <- c("", "...", "-")
+
+# add referendum proposal data
+ballots$referendum <-
+  fokus::combos_proposals() |>
+  purrr::map(\(combo) {
+    
+    # read in data
+    path_file <- glue::glue("data-raw/ballots/{combo$ballot_date}_{combo$canton}_{combo$lvl}_proposal_{combo$proposal_nr}.csv")
+    
+    if (!fs::file_exists(path_file)) {
+      cli::cli_abort("No raw ballot CSV data file found under {.file {path_file}}. Please first add the necessary CSV file and run again.")
+    }
+    
+    data <-
+      readr::read_delim(file = path_file,
+                        delim = ";",
+                        locale = readr::locale(date_names = "de",
+                                               encoding = "latin1"),
+                        na = na_vals,
+                        col_types = "dcDddddddddddd") |>
+      dplyr::rename(fso_id           = BFSNR,
+                    entity           = NAME,
+                    ballot_date      = DATUM,
+                    electorate_total = STIMMBERECHTIGTE,
+                    votes_received   = EINGELANGTE,
+                    votes_empty      = LEERE,
+                    votes_invalid    = UNGUELTIGE,
+                    votes_valid      = GUELTIGE,
+                    votes_yes        = JA_STIMMEN,
+                    votes_no         = NEIN_STIMMEN) |>
+      # rename cols
+      pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
+      # remove all-NA cols (`AUSL_SCHWEIZER` before e-voting suspension)
+      dplyr::select(-where(\(x) all(is.na(x)))) |>
+      # tidy col types and add remaining cols
+      dplyr::mutate(dplyr::across(.cols = c(any_of("fso_id"),
+                                            starts_with("electorate_"),
+                                            starts_with("votes_"),
+                                            contains("_votes_")),
+                                  .fns = as.integer),
+                    canton = combo$canton,
+                    ballot_type = "referendum",
+                    lvl = combo$lvl,
+                    proposal_nr = combo$proposal_nr)
+    
+    # check data integrity
+    ballot_date_data <- unique(data$ballot_date)
+    
+    if (length(ballot_date_data) > 1L) {
+      cli::cli_abort(paste0("The raw ballot CSV data file {.file {path_file}} contains data for multiple ballot dates: {.val {ballot_date_data}}. ",
+                            "Please fix this and run again."))
+    }
+    if (ballot_date_data != combo$ballot_date) {
+      cli::cli_abort("The raw ballot CSV data file {.file {path_file}} does not contain the data for ballot date {.val {combo$ballot_date}} but ",
+                     "{.val {ballot_date_data}}. Please fix this and run again.")
+    }
+    
+    data
+  }) |>
+  purrr::list_rbind()
+
+# add election data
+ballots$election <-
+  fokus::combos_elections() %>%
+  magrittr::set_names(value = purrr::map_chr(.,
+                                             \(combo) glue::glue("{combo$ballot_date}_{combo$canton}_{combo$lvl}_{combo$prcd}_{combo$election_nr}"))) |>
+  purrr::imap(\(combo, election_str) {
+    
+    path_file <- glue::glue("data-raw/ballots/{combo$ballot_date}_{combo$canton}_{combo$lvl}_{combo$prcd}_election_{combo$election_nr}",
+                            ifelse(combo$prcd == "majoritarian",
+                                   "",
+                                   ifelse(combo$lvl == "federal",
+                                          "_votes",
+                                          "_votes_apportioned")),
+                            ".csv")
+    
+    if (!fs::file_exists(path_file)) {
+      cli::cli_abort("No raw ballot CSV data file found under {.file {path_file}}. Please first add the necessary CSV file and run again.")
+    }
+    
+    if (combo$prcd == "majoritarian") {
+      
+      candidates_phrased <-
+        fokus::phrase_election_candidate(ballot_date = combo$ballot_date,
+                                         lvl = combo$lvl,
+                                         canton = combo$canton,
+                                         election_nr = combo$election_nr)
+      result <-
+        # read in all cols as chr
+        readr::read_delim(file = path_file,
+                          delim = ";",
+                          locale = readr::locale(date_names = "de",
+                                                 encoding = "latin1"),
+                          na = na_vals,
+                          col_types = list(.default = "c")) |>
+        # remove garbage from raw col names
+        dplyr::rename_with(.cols = everything(),
+                           .fn = \(x) stringr::str_remove_all(string = x,
+                                                              pattern = stringr::fixed("#"))) |>
+        # rename common cols
+        pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
+        # ensure we renamed all non-candidate-specific col names
+        pal::when(length(candidates_phrased) != length(stringr::str_subset(colnames(.), "^[[:upper:]_]+$")) ~
+                    cli::cli_abort(paste0("There are raw non-candidate-specific column names left. Please debug. Raw column names include: ",
+                                          "{.vals {stringr::str_subset(colnames(.), '^[[:upper:]_]+$')}}")),
+                  ~ .) |>
+        # rename candidate-specific cols
+        dplyr::rename_with(.cols = -any_of(fokus:::dicts$colnames$ballots),
+                           .fn = \(x) {
+                             
+                             ix <-
+                               candidates_phrased |>
+                               stringi::stri_trans_general(id = "de-ASCII",
+                                                           forward = TRUE) |>
+                               purrr::map_int(\(x2) stringr::str_which(string = x2,
+                                                                       pattern = stringr::coll(pattern =
+                                                                                                 x |>
+                                                                                                 stringi::stri_trans_general(id = "de-ASCII",
+                                                                                                                             forward = TRUE) |>
+                                                                                                 stringr::str_replace_all(pattern = "_",
+                                                                                                                          replacement = "-"),
+                                                                                               ignore_case = TRUE,
+                                                                                               locale = "de-CH")))
+                             candidates_phrased[ix]
+                           }) |>
+        # convert col types
+        dplyr::mutate(ballot_date = clock::date_parse(ballot_date),
+                      dplyr::across(.cols = -any_of(c("entity", "ballot_date")),
+                                    .fns = \(x) as.integer(as.numeric(x))))
+    } else {
+      
+      parties_phrased <-
+        fokus::election_parties(ballot_date = combo$ballot_date,
+                                lvl = combo$lvl,
+                                canton = combo$canton,
+                                election_nr = combo$election_nr) %$%
+        name.de.qstnr
+      
+      if (combo$lvl == "federal") {
+        
+        result <-
+          readr::read_delim(file = path_file,
+                            delim = ";",
+                            locale = readr::locale(date_names = "de",
+                                                   encoding = "latin1"),
+                            na = na_vals,
+                            col_types = list(.default = "c")) |>
+          # rename common cols
+          pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
+          # convert col types
+          dplyr::mutate(ballot_date = clock::date_parse(ballot_date),
+                        dplyr::across(.cols = -any_of(c("entity", "ballot_date")),
+                                      .fns = \(x) as.integer(as.numeric(x))))
+      } else {
+        
+        result <-
+          readr::read_csv(file = path_file,
+                          na = na_vals,
+                          col_types = list(.default = "c")) |>
+          # rename common cols
+          pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
+          # convert col types
+          dplyr::mutate(electorate_total = as.integer(electorate_total),
+                        dplyr::across(.cols = -any_of(c("entity", "electorate_total")),
+                                      .fns = \(x) as.numeric(x)))
+      }
+      
+      # rename party-specific cols
+      parties_phrased_normalized <-
+        parties_phrased |>
+        stringi::stri_trans_general(id = "de-ASCII",
+                                    forward = TRUE) |>
+        stringr::str_replace_all(pattern = "_",
+                                 replacement = "-")
+      
+      party_col_names_normalized <-
+        colnames(result) |>
+        setdiff(y = fokus:::dicts$colnames$ballots) |>
+        stringi::stri_trans_general(id = "de-ASCII",
+                                    forward = TRUE) |>
+        stringr::str_replace_all(pattern = "_",
+                                 replacement = "-") |>
+        # modify junior party names to match ours
+        stringr::str_replace_all(pattern = "^(?i)j(bdp|cvp|evp|glp|gruene|mitte|svp)$",
+                                 replacement = "Junge \\1") %>%
+        stringr::str_replace_all(pattern = "^(?i)jfdp$",
+                                 replacement = "Jungfreisinnige") %>%
+        # modify remaining party names to match ours
+        dplyr::case_match(.x = .,
+                          "DU"    ~ "DU (Die Unabhaengigen)",
+                          "FW-AG" ~ "FW AG",
+                          "T65P"  ~ "TEAM65+",
+                          .default = .)
+      
+      party_col_names_new <-
+        party_col_names_normalized |>
+        purrr::map_chr(\(col_name_normalized) {
+          
+          parties_phrased_normalized |>
+            stringr::str_which(pattern = stringr::coll(pattern = col_name_normalized,
+                                                       ignore_case = TRUE,
+                                                       locale = "de-CH")) %>%
+            magrittr::extract(parties_phrased, .)
+        })
+      
+      colnames(result)[!(colnames(result) %in% fokus:::dicts$colnames$ballots)] <- party_col_names_new
+      
+      # accumulate cols where necessary
+      col_names_duplicated <-
+        colnames(result) |>
+        table(exclude = NULL) %>%
+        magrittr::extract(. > 1L) |>
+        names()
+      
+      for (col_name_duplicated in col_names_duplicated) {
+        ix <- which(colnames(result) == col_name_duplicated)
+        col_new <- rowSums(result[, ix])
+        result %<>% .[, -ix]
+        result[[col_name_duplicated]] <- col_new
+      }
+      
+      # ensure we renamed all cols
+      colnames_raw <- setdiff(x = colnames(result),
+                              y = c(fokus:::dicts$colnames$ballots,
+                                    parties_phrased))
+      
+      if (length(colnames_raw) > 0L) {
+        cli::cli_abort("There are {.val {length(colnames_raw)}} raw column names left. Please debug. Raw column names include: {.vals {colnames_raw}}")
+      }
+    }
+    
+    result
+  })
 ```
 
 # Write data
@@ -172,6 +442,7 @@ already automatically exported and thus available to package users.
 usethis::use_data(qstnrs,
                   proposals,
                   elections,
+                  ballots,
                   internal = FALSE,
                   overwrite = TRUE,
                   compress = "xz",

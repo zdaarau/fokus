@@ -5,15 +5,15 @@
 \title{Get referendum proposal combinations for which arguments have been queried}
 \usage{
 combos_proposal_arguments(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_dates = all_ballot_dates,
   lvls = all_lvls,
-  canton = cantons(ballot_date),
+  cantons = all_cantons,
   incl_side = TRUE,
   incl_argument_nr = incl_side
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
+\item{ballot_dates}{FOKUS-covered ballot date(s). One or more of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -26,7 +26,7 @@ combos_proposal_arguments(
 
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
-\item{canton}{FOKUS-covered canton name. One of
+\item{cantons}{FOKUS-covered canton name(s). One or more of
 \itemize{
 \item \code{"aargau"}
 }}
@@ -41,19 +41,18 @@ Setting this to \code{TRUE} implies \code{incl_side = TRUE}.}
 A list with an element per political-level-proposal-number and optionally -argument-side and -argument-number combination.
 }
 \description{
-Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) plus argument numbers for all referendum
-\link[=proposal_arguments]{proposal arguments} that have been queried in the post-voting survey for the specified ballot date.
+Returns a list with a metadata item per ballot date, political level, canton, proposal number and optionally proposal argument side (pro/contra) and number.
 }
 \examples{
-fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
-                                 canton = "aargau")
+fokus::combos_proposal_arguments(ballot_dates = "2023-06-18",
+                                 cantons = "aargau")
 # without argument numbers
-fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
-                                 canton = "aargau",
+fokus::combos_proposal_arguments(ballot_dates = "2023-06-18",
+                                 cantons = "aargau",
                                  incl_argument_nr = FALSE)
 # without argument sides and numbers
-fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
-                                 canton = "aargau",
+fokus::combos_proposal_arguments(ballot_dates = "2023-06-18",
+                                 cantons = "aargau",
                                  incl_side = FALSE,
                                  incl_argument_nr = FALSE)
 }

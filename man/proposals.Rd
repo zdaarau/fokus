@@ -17,7 +17,8 @@ A tibble containing basic referendum proposal data of all FOKUS questionnaires.
 fokus::proposals
 }
 \seealso{
-Other questionnaire data:
+Other datasets:
+\code{\link{ballots}},
 \code{\link{elections}},
 \code{\link{qstnrs}}
 }

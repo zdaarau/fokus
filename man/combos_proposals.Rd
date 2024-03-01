@@ -5,14 +5,14 @@
 \title{Get referendum proposal combinations}
 \usage{
 combos_proposals(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_dates = all_ballot_dates,
   lvls = all_lvls,
-  canton = cantons(ballot_date),
+  cantons = all_cantons,
   incl_nr = TRUE
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
+\item{ballot_dates}{FOKUS-covered ballot date(s). One or more of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -25,7 +25,7 @@ combos_proposals(
 
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
-\item{canton}{FOKUS-covered canton name. One of
+\item{cantons}{FOKUS-covered canton name(s). One or more of
 \itemize{
 \item \code{"aargau"}
 }}
@@ -36,16 +36,15 @@ combos_proposals(
 A list with an element per political-level and optionally -proposal-number combination.
 }
 \description{
-Returns a list containing the political levels and optionally proposal numbers for all referendum proposals that have been covered by the FOKUS survey for
-the specified canton at the specified ballot date on the specified political level(s).
+Returns a list with a metadata item per ballot date, political level, canton and optionally proposal number.
 }
 \examples{
-fokus::combos_proposals(ballot_date = "2023-06-18",
-                        canton = "aargau")
+fokus::combos_proposals(ballot_dates = "2023-06-18",
+                        cantons = "aargau")
 
 # without proposal numbers
-fokus::combos_proposals(ballot_date = "2023-06-18",
-                        canton = "aargau",
+fokus::combos_proposals(ballot_dates = "2023-06-18",
+                        cantons = "aargau",
                         incl_nr = FALSE)
 }
 \seealso{

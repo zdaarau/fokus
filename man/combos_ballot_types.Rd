@@ -5,15 +5,15 @@
 \title{Get ballot type combinations}
 \usage{
 combos_ballot_types(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_dates = all_ballot_dates,
   lvls = all_lvls,
-  canton = cantons(ballot_date),
+  cantons = all_cantons,
   ballot_types = all_ballot_types,
   incl_lvl = TRUE
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
+\item{ballot_dates}{FOKUS-covered ballot date(s). One or more of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -26,7 +26,7 @@ combos_ballot_types(
 
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
-\item{canton}{FOKUS-covered canton name. One of
+\item{cantons}{FOKUS-covered canton name(s). One or more of
 \itemize{
 \item \code{"aargau"}
 }}
@@ -39,12 +39,15 @@ combos_ballot_types(
 A list with an element per ballot-type and optionally -political-level combination.
 }
 \description{
-Returns a list containing the ballot types and optionally political levels that have been covered by the FOKUS survey for
-the specified canton at the specified ballot date on the specified political level(s).
+Returns a list with a metadata item per ballot type, ballot date, canton and optionally political level.
 }
 \examples{
-fokus::combos_ballot_types(ballot_date = "2023-06-18",
-                           canton = "aargau")
+# of all covered ballots
+fokus::combos_ballot_types()
+
+# only of 2023-06-18 ballot in aargau
+fokus::combos_ballot_types(ballot_dates = "2023-06-18",
+                           cantons = "aargau")
 }
 \seealso{
 Other combination functions:

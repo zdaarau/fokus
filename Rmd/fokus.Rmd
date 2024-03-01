@@ -1222,7 +1222,7 @@ gen_qstnr_tibble <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
   checkmate::assert_flag(verbose)
   
   cli::start_app(theme = cli_theme)
-  pal::cli_progress_step_quick(msg = "Generating questionnaire tibble for canton {.val {canton}} @ {.val {ballot_date}}")
+  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {as.Date(ballot_date)}} questionnaire tibble")
   
   purrr::map2_dfr(.x = raw_qstnr,
                   .y = names(raw_qstnr),
@@ -1717,7 +1717,7 @@ gen_qstnr_md <- function(qstnr_tibble,
     unique() |>
     checkmate::assert_string(.var.name = "canton")
   
-  pal::cli_progress_step_quick(msg = "Generating Markdown questionnaire for canton {.val {canton}} @ {.val {ballot_date}}")
+  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {as.Date(ballot_date)}} Markdown questionnaire")
   
   block_lines <-
     qstnr_tibble |>
@@ -3927,11 +3927,14 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 ```{r}
 #' Get ballot type combinations
 #'
-#' Returns a list containing the ballot types and optionally political levels that have been covered by the FOKUS survey for
-#' the specified canton at the specified ballot date on the specified political level(s).
+#' Returns a list with a metadata item per ballot type, ballot date, canton and optionally political level.
 #'
 #' @inheritParams ballot_types
 #' @inheritParams has_lvl
+#' @param ballot_dates FOKUS-covered ballot date(s). One or more of
+#' `r pal::as_md_val_list(as.character(all_ballot_dates))`
+#' @param cantons FOKUS-covered canton name(s). One or more of
+#'   `r pal::as_md_val_list(all_cantons)`
 #' @param incl_lvl Whether or not to include the political levels in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
 #' @return A list with an element per ballot-type and optionally -political-level combination.
@@ -3940,45 +3943,72 @@ has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' @export
 #'
 #' @examples
-#' fokus::combos_ballot_types(ballot_date = "2023-06-18",
-#'                            canton = "aargau")
-combos_ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                  pkg = this_pkg),
+#' # of all covered ballots
+#' fokus::combos_ballot_types()
+#' 
+#' # only of 2023-06-18 ballot in aargau
+#' fokus::combos_ballot_types(ballot_dates = "2023-06-18",
+#'                            cantons = "aargau")
+combos_ballot_types <- function(ballot_dates = all_ballot_dates,
                                 lvls = all_lvls,
-                                canton = cantons(ballot_date),
+                                cantons = all_cantons,
                                 ballot_types = all_ballot_types,
                                 incl_lvl = TRUE) {
   
+  ballot_dates %<>% as.character()
+  ballot_dates <- rlang::arg_match(arg = ballot_dates,
+                                   values = as.character(all_ballot_dates),
+                                   multiple = TRUE)
   lvls <- rlang::arg_match(arg = lvls,
                            multiple = TRUE)
+  cantons <- rlang::arg_match(arg = cantons,
+                              multiple = TRUE)
   ballot_types <- rlang::arg_match(arg = ballot_types,
                                    multiple = TRUE)
   checkmate::assert_flag(incl_lvl)
   
-  if (incl_lvl) {
-    
-    result <-
-      lvls |>
-      purrr::map(\(lvl) {
-        
-        ballot_types(ballot_date = ballot_date,
-                     lvls = lvl,
-                     canton = canton) |>
-          intersect(y = ballot_types) |>
-          purrr::map(\(x) list(lvl = lvl,
-                               ballot_type = x))
-      }) |>
-      purrr::list_flatten()
-    
-  } else {
-    
-    result <-
-      ballot_types(ballot_date = ballot_date,
-                   lvls = lvls,
-                   canton = canton) |>
-      intersect(y = ballot_types) |>
-      purrr::map(\(x) list(ballot_type = x))
-  }
+  result <-
+    ballot_dates |>
+    purrr::map(\(ballot_date) {
+      
+      cantons(ballot_date = ballot_date) |>
+        intersect(y = cantons) |>
+        purrr::map(\(canton) {
+          
+          if (incl_lvl) {
+            
+            sub_result <-
+              lvls |>
+              purrr::map(\(lvl) {
+                
+                ballot_types(ballot_date = ballot_date,
+                             lvls = lvl,
+                             canton = canton) |>
+                  intersect(y = ballot_types) |>
+                  purrr::map(\(x) list(ballot_date = ballot_date,
+                                       lvl = lvl,
+                                       canton = canton,
+                                       ballot_type = x))
+              }) |>
+              purrr::list_flatten()
+            
+          } else {
+            
+            sub_result <-
+              ballot_types(ballot_date = ballot_date,
+                           lvls = lvls,
+                           canton = canton) |>
+              intersect(y = ballot_types) |>
+              purrr::map(\(x) list(ballot_date = ballot_date,
+                                   canton = canton,
+                                   ballot_type = x))
+          }
+          
+          sub_result
+        }) |>
+        purrr::list_flatten()
+    }) |>
+    purrr::list_flatten()
   
   result
 }
@@ -4520,10 +4550,9 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 ```{r}
 #' Get referendum proposal combinations
 #'
-#' Returns a list containing the political levels and optionally proposal numbers for all referendum proposals that have been covered by the FOKUS survey for
-#' the specified canton at the specified ballot date on the specified political level(s).
+#' Returns a list with a metadata item per ballot date, political level, canton and optionally proposal number.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams combos_ballot_types
 #' @param incl_nr Whether or not to include proposal numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
 #' @return A list with an element per political-level and optionally -proposal-number combination.
@@ -4532,49 +4561,72 @@ main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' @export
 #'
 #' @examples
-#' fokus::combos_proposals(ballot_date = "2023-06-18",
-#'                         canton = "aargau")
+#' fokus::combos_proposals(ballot_dates = "2023-06-18",
+#'                         cantons = "aargau")
 #'
 #' # without proposal numbers
-#' fokus::combos_proposals(ballot_date = "2023-06-18",
-#'                         canton = "aargau",
+#' fokus::combos_proposals(ballot_dates = "2023-06-18",
+#'                         cantons = "aargau",
 #'                         incl_nr = FALSE)
-combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+combos_proposals <- function(ballot_dates = all_ballot_dates,
                              lvls = all_lvls,
-                             canton = cantons(ballot_date),
+                             cantons = all_cantons,
                              incl_nr = TRUE) {
   
+  ballot_dates %<>% as.character()
+  ballot_dates <- rlang::arg_match(arg = ballot_dates,
+                                   values = as.character(all_ballot_dates),
+                                   multiple = TRUE)
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
+  cantons <- rlang::arg_match(arg = cantons,
+                              multiple = TRUE)
   checkmate::assert_flag(incl_nr)
   
-  lvls |>
-    purrr::map(\(lvl) {
+  
+  ballot_dates |>
+    purrr::map(\(ballot_date) {
       
-      if (incl_nr) {
-        
-        result <-
-          proposal_nrs(ballot_date = ballot_date,
-                       lvl = lvl,
-                       canton = canton) |>
-          purrr::map(\(nr) list(lvl = lvl,
-                                proposal_nr = nr))
-        
-      } else if (has_lvl(ballot_date = ballot_date,
-                         lvl = lvl,
-                         canton = canton,
-                         ballot_types = "referendum")) {
-        
-        result <- list(lvl = lvl)
-        
-      } else {
-        result <- NULL
-      }
-      
-      result
+      cantons(ballot_date = ballot_date) |>
+        intersect(y = cantons) |>
+        purrr::map(\(canton) {
+          
+          lvls |>
+            purrr::map(\(lvl) {
+              
+              if (incl_nr) {
+                
+                result <-
+                  proposal_nrs(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton) |>
+                  purrr::map(\(nr) list(ballot_date = ballot_date,
+                                        lvl = lvl,
+                                        canton = canton,
+                                        proposal_nr = nr))
+                
+              } else if (has_lvl(ballot_date = ballot_date,
+                                 lvl = lvl,
+                                 canton = canton,
+                                 ballot_types = "referendum")) {
+                
+                result <- list(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton)
+                
+              } else {
+                result <- NULL
+              }
+              
+              result
+            }) |>
+            pal::when(incl_nr ~ purrr::list_flatten(.),
+                      ~ .) |>
+            purrr::compact()
+        }) |>
+        purrr::list_flatten()
     }) |>
-    pal::when(incl_nr ~ purrr::list_flatten(.),
-              ~ .) |>
-    purrr::compact()
+    purrr::list_flatten()
 }
 ```
 
@@ -4583,10 +4635,9 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 ```{r}
 #' Get referendum proposal combinations for which arguments have been queried
 #'
-#' Returns a list containing the political levels, proposal numbers and optionally argument sides (pro/contra) plus argument numbers for all referendum
-#' [proposal arguments][proposal_arguments] that have been queried in the post-voting survey for the specified ballot date.
+#' Returns a list with a metadata item per ballot date, political level, canton, proposal number and optionally proposal argument side (pro/contra) and number.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams combos_ballot_types
 #' @param incl_side Whether or not to include argument sides (pro/contra) in the resulting list. Setting this to `FALSE` potentially results in fewer
 #'   combinations.
 #' @param incl_argument_nr Whether or not to include argument numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
@@ -4598,23 +4649,30 @@ combos_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' @export
 #'
 #' @examples
-#' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
-#'                                  canton = "aargau")
+#' fokus::combos_proposal_arguments(ballot_dates = "2023-06-18",
+#'                                  cantons = "aargau")
 #' # without argument numbers
-#' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
-#'                                  canton = "aargau",
+#' fokus::combos_proposal_arguments(ballot_dates = "2023-06-18",
+#'                                  cantons = "aargau",
 #'                                  incl_argument_nr = FALSE)
 #' # without argument sides and numbers
-#' fokus::combos_proposal_arguments(ballot_date = "2023-06-18",
-#'                                  canton = "aargau",
+#' fokus::combos_proposal_arguments(ballot_dates = "2023-06-18",
+#'                                  cantons = "aargau",
 #'                                  incl_side = FALSE,
 #'                                  incl_argument_nr = FALSE)
-combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                        pkg = this_pkg),
+combos_proposal_arguments <- function(ballot_dates = all_ballot_dates,
                                       lvls = all_lvls,
-                                      canton = cantons(ballot_date),
+                                      cantons = all_cantons,
                                       incl_side = TRUE,
                                       incl_argument_nr = incl_side) {
+  ballot_dates %<>% as.character()
+  ballot_dates <- rlang::arg_match(arg = ballot_dates,
+                                   values = as.character(all_ballot_dates),
+                                   multiple = TRUE)
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
+  cantons <- rlang::arg_match(arg = cantons,
+                              multiple = TRUE)
   checkmate::assert_flag(incl_side)
   checkmate::assert_flag(incl_argument_nr)
   
@@ -4623,51 +4681,68 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
     cli::cli_abort("{.arg incl_argument_nr} cannot be {.val {TRUE}} when {.arg incl_side} is {.val {FALSE}}.")
   }
   
-  lvls |>
-    purrr::map(\(lvl) {
+  ballot_dates |>
+    purrr::map(\(ballot_date) {
       
-      proposal_nrs(ballot_date = ballot_date,
-                   lvl = lvl,
-                   canton = canton) |>
-        purrr::map(\(proposal_nr) {
+      cantons(ballot_date = ballot_date) |>
+        intersect(y = cantons) |>
+        purrr::map(\(canton) {
           
-          if (has_proposal_arguments(ballot_date = ballot_date,
+          lvls |>
+            purrr::map(\(lvl) {
+              
+              proposal_nrs(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton) |>
+                purrr::map(\(proposal_nr) {
+                  
+                  if (has_proposal_arguments(ballot_date = ballot_date,
+                                             lvl = lvl,
+                                             canton = canton,
+                                             proposal_nr = proposal_nr)) {
+                    if (incl_side) {
+                      result <-
+                        raw_qstnr_suppl_arguments(ballot_date = ballot_date,
+                                                  lvl = lvl,
+                                                  canton = canton,
+                                                  proposal_nr = proposal_nr) |>
+                        purrr::map(\(arg) {
+                          if (incl_argument_nr) {
+                            return(list(ballot_date = ballot_date,
+                                        lvl = lvl,
+                                        canton = canton,
+                                        proposal_nr = proposal_nr,
+                                        side = arg$side,
+                                        argument_nr = arg$nr))
+                          } else {
+                            return(list(ballot_date = ballot_date,
+                                        lvl = lvl,
+                                        canton = canton,
+                                        proposal_nr = proposal_nr,
+                                        side = arg$side))
+                          }
+                        }) |>
+                        unique()
+                      
+                    } else {
+                      result <- list(ballot_date = ballot_date,
                                      lvl = lvl,
                                      canton = canton,
-                                     proposal_nr = proposal_nr)) {
-            if (incl_side) {
-              result <-
-                raw_qstnr_suppl_arguments(ballot_date = ballot_date,
-                                          lvl = lvl,
-                                          canton = canton,
-                                          proposal_nr = proposal_nr) |>
-                purrr::map(\(arg) {
-                  if (incl_argument_nr) {
-                    return(list(lvl = lvl,
-                                proposal_nr = proposal_nr,
-                                side = arg$side,
-                                argument_nr = arg$nr))
+                                     proposal_nr = proposal_nr)
+                    }
                   } else {
-                    return(list(lvl = lvl,
-                                proposal_nr = proposal_nr,
-                                side = arg$side))
+                    result <- NULL
                   }
+                  
+                  result
                 }) |>
-                unique()
-              
-            } else {
-              result <- list(lvl = lvl,
-                             proposal_nr = proposal_nr)
-            }
-          } else {
-            result <- NULL
-          }
-          
-          result
+                purrr::compact() |>
+                pal::when(incl_side ~ purrr::list_flatten(.),
+                          ~ .)
+            }) |>
+            purrr::list_flatten()
         }) |>
-        purrr::compact() |>
-        pal::when(incl_side ~ purrr::list_flatten(.),
-                  ~ .)
+        purrr::list_flatten()
     }) |>
     purrr::list_flatten()
 }
@@ -4678,10 +4753,10 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 ```{r}
 #' Get referendum proposal combinations for which main motives have been queried
 #'
-#' Returns a list containing the political levels, proposal numbers and optionally motive types for which [main motives][proposal_main_motives] have been
-#' queried in the post-voting survey for the specified ballot date.
+#' Returns a list with a metadata item per ballot date, political level, canton, proposal number and optionally motive type for which [main
+#' motives][proposal_main_motives] have been queried in the respective post-voting survey.
 #'
-#' @inheritParams ballot_types
+#' @inheritParams combos_ballot_types
 #' @param incl_type Whether or not to include motive types (yes/no) in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #'
 #' @return A list with an element per political-level-proposal-number and optionally -type combination.
@@ -4690,61 +4765,83 @@ combos_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 #' @export
 #'
 #' @examples
-#' fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
-#'                                     canton = "aargau")
+#' fokus::combos_proposal_main_motives(ballot_dates = "2023-06-18",
+#'                                     cantons = "aargau")
 #' # without types
-#' fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
-#'                                     canton = "aargau",
+#' fokus::combos_proposal_main_motives(ballot_dates = "2023-06-18",
+#'                                     cantons = "aargau",
 #'                                     incl_type = FALSE)
-combos_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                           pkg = this_pkg),
+combos_proposal_main_motives <- function(ballot_dates = all_ballot_dates,
                                          lvls = all_lvls,
-                                         canton = cantons(ballot_date),
+                                         cantons = all_cantons,
                                          incl_type = TRUE) {
+  ballot_dates %<>% as.character()
+  ballot_dates <- rlang::arg_match(arg = ballot_dates,
+                                   values = as.character(all_ballot_dates),
+                                   multiple = TRUE)
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
+  cantons <- rlang::arg_match(arg = cantons,
+                              multiple = TRUE)
   checkmate::assert_flag(incl_type)
   
-  lvls |>
-    purrr::map(\(lvl) {
+  ballot_dates |>
+    purrr::map(\(ballot_date) {
       
-      proposal_nrs(ballot_date = ballot_date,
-                   lvl = lvl,
-                   canton = canton) |>
-        purrr::map(\(proposal_nr) {
+      cantons(ballot_date = ballot_date) |>
+        intersect(y = cantons) |>
+        purrr::map(\(canton) {
           
-          if (incl_type) {
-            
-            result <-
-              all_main_motive_types |>
-              purrr::map(\(type) {
-                if (has_proposal_main_motives(ballot_date = ballot_date,
-                                              lvl = lvl,
-                                              canton = canton,
-                                              proposal_nr = proposal_nr,
-                                              types = type)) {
-                  list(lvl = lvl,
-                       proposal_nr = proposal_nr,
-                       type = type)
-                } else {
-                  NULL
-                }
-              }) |>
-              purrr::compact()
-            
-          } else if (has_proposal_main_motives(ballot_date = ballot_date,
-                                               lvl = lvl,
-                                               canton = canton,
-                                               proposal_nr = proposal_nr)) {
-            result <- list(lvl = lvl,
-                           proposal_nr = proposal_nr)
-          } else {
-            result <- NULL
-          }
-          
-          result
+          lvls |>
+            purrr::map(\(lvl) {
+              
+              proposal_nrs(ballot_date = ballot_date,
+                           lvl = lvl,
+                           canton = canton) |>
+                purrr::map(\(proposal_nr) {
+                  
+                  if (incl_type) {
+                    
+                    result <-
+                      all_main_motive_types |>
+                      purrr::map(\(type) {
+                        if (has_proposal_main_motives(ballot_date = ballot_date,
+                                                      lvl = lvl,
+                                                      canton = canton,
+                                                      proposal_nr = proposal_nr,
+                                                      types = type)) {
+                          list(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton,
+                               proposal_nr = proposal_nr,
+                               type = type)
+                        } else {
+                          NULL
+                        }
+                      }) |>
+                      purrr::compact()
+                    
+                  } else if (has_proposal_main_motives(ballot_date = ballot_date,
+                                                       lvl = lvl,
+                                                       canton = canton,
+                                                       proposal_nr = proposal_nr)) {
+                    result <- list(ballot_date = ballot_date,
+                                   lvl = lvl,
+                                   canton = canton,
+                                   proposal_nr = proposal_nr)
+                  } else {
+                    result <- NULL
+                  }
+                  
+                  result
+                }) |>
+                purrr::compact() |>
+                pal::when(incl_type ~ purrr::list_flatten(.),
+                          ~ .)
+            }) |>
+            purrr::list_flatten()
         }) |>
-        purrr::compact() |>
-        pal::when(incl_type ~ purrr::list_flatten(.),
-                  ~ .)
+        purrr::list_flatten()
     }) |>
     purrr::list_flatten()
 }
@@ -5099,9 +5196,9 @@ requires_candidate_registration <- function(ballot_date = pal::pkg_config_val(ke
 ```{r}
 #' Get election combinations
 #'
-#' Returns a list containing the political levels, election procedures and election numbers for all elections that have been covered by the FOKUS survey for the
-#' specified canton at the specified ballot date on the specified political level(s).
+#' Returns a list with a metadata item per ballot date, political level and optionally election procedure and number.
 #'
+#' @inheritParams combos_ballot_types
 #' @inheritParams n_elections
 #' @param incl_prcd Whether or not to include election procedures in the resulting list. Setting this to `FALSE` potentially results in fewer combinations.
 #' @param incl_nr Whether or not to include election numbers in the resulting list. Setting this to `FALSE` potentially results in fewer combinations. Only
@@ -5113,77 +5210,101 @@ requires_candidate_registration <- function(ballot_date = pal::pkg_config_val(ke
 #' @export
 #'
 #' @examples
-#' fokus::combos_elections(ballot_date = "2019-10-20",
-#'                         canton = "aargau")
+#' fokus::combos_elections(ballot_dates = "2019-10-20",
+#'                         cantons = "aargau")
 #'
 #' # without election numbers
-#' fokus::combos_elections(ballot_date = "2019-10-20",
-#'                         canton = "aargau",
+#' fokus::combos_elections(ballot_dates = "2019-10-20",
+#'                         cantons = "aargau",
 #'                         incl_prcd = TRUE,
 #'                         incl_nr = FALSE)
 #'
 #' # without election procedures and numbers
-#' fokus::combos_elections(ballot_date = "2019-10-20",
-#'                         canton = "aargau",
+#' fokus::combos_elections(ballot_dates = "2019-10-20",
+#'                         cantons = "aargau",
 #'                         incl_prcd = FALSE,
 #'                         incl_nr = FALSE)
-combos_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+combos_elections <- function(ballot_dates = all_ballot_dates,
                              lvls = all_lvls,
-                             canton = cantons(ballot_date),
+                             cantons = all_cantons,
                              prcds = all_prcds,
                              incl_prcd = TRUE,
                              incl_nr = incl_prcd) {
   
+  ballot_dates %<>% as.character()
+  ballot_dates <- rlang::arg_match(arg = ballot_dates,
+                                   values = as.character(all_ballot_dates),
+                                   multiple = TRUE)
+  lvls <- rlang::arg_match(arg = lvls,
+                           multiple = TRUE)
+  cantons <- rlang::arg_match(arg = cantons,
+                              multiple = TRUE)
   prcds <- rlang::arg_match(arg = prcds,
                             multiple = TRUE)
   checkmate::assert_flag(incl_prcd)
   checkmate::assert_flag(incl_nr)
   
-  lvls |>
-    purrr::map(\(lvl) {
+  ballot_dates |>
+    purrr::map(\(ballot_date) {
       
-      if (incl_prcd) {
-        
-        result <-
-          election_prcds(ballot_date = ballot_date,
-                         lvl = lvl,
-                         canton = canton) |>
-          intersect(y = prcds) |>
-          purrr::map(\(prcd) {
-            
-            if (incl_nr) {
-              return(election_nrs(ballot_date = ballot_date,
+      cantons(ballot_date = ballot_date) |>
+        intersect(y = cantons) |>
+        purrr::map(\(canton) {
+          
+          lvls |>
+            purrr::map(\(lvl) {
+              
+              if (incl_prcd) {
+                
+                result <-
+                  election_prcds(ballot_date = ballot_date,
+                                 lvl = lvl,
+                                 canton = canton) |>
+                  intersect(y = prcds) |>
+                  purrr::map(\(prcd) {
+                    
+                    if (incl_nr) {
+                      return(election_nrs(ballot_date = ballot_date,
+                                          lvl = lvl,
+                                          canton = canton,
+                                          prcd = prcd) |>
+                               purrr::map(\(nr) list(ballot_date = ballot_date,
+                                                     lvl = lvl,
+                                                     canton = canton,
+                                                     prcd = prcd,
+                                                     election_nr = nr)))
+                    } else {
+                      return(list(ballot_date = ballot_date,
                                   lvl = lvl,
                                   canton = canton,
-                                  prcd = prcd) |>
-                       purrr::map(\(nr) list(lvl = lvl,
-                                             prcd = prcd,
-                                             election_nr = nr)))
-            } else {
-              return(list(lvl = lvl,
-                          prcd = prcd))
-            }
-          }) |>
-          pal::when(incl_nr ~ purrr::list_flatten(.),
-                    ~ .)
-        
-      } else if (any(has_lvl(ballot_date = ballot_date,
-                             lvl = lvl,
-                             canton = canton,
-                             ballot_types = "election"))) {
-        
-        result <- list(lvl = lvl)
-        
-      } else {
-        result <- NULL
-      }
-      
-      result
+                                  prcd = prcd))
+                    }
+                  }) |>
+                  pal::when(incl_nr ~ purrr::list_flatten(.),
+                            ~ .)
+                
+              } else if (any(has_lvl(ballot_date = ballot_date,
+                                     lvl = lvl,
+                                     canton = canton,
+                                     ballot_types = "election"))) {
+                
+                result <- list(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton)
+                
+              } else {
+                result <- NULL
+              }
+              
+              result
+            }) |>
+            pal::when(incl_prcd ~ purrr::list_flatten(.),
+                      ~ .) |>
+            purrr::compact()
+        }) |>
+        purrr::list_flatten()
     }) |>
-    pal::when(incl_prcd ~ purrr::list_flatten(.),
-              ~ .) |>
-    purrr::compact()
+    purrr::list_flatten()
 }
 ```
 
@@ -5711,6 +5832,22 @@ The FOKUS survey questionnaires and supplemental information as structured data.
 #' @examples
 #' fokus::elections
 "elections"
+```
+
+#### `ballots`
+
+```{r}
+#' Ballot data
+#'
+#' A list of tibbles containing official statistical data about all FOKUS-covered ballots. The data includes i.a. the total electorate as well as participation
+#' numbers per voting channel and per voting decision.
+#'
+#' @format `r pkgsnip::return_lbl("tibble")`
+#' @family qstnr_data
+#'
+#' @examples
+#' fokus::ballots
+"ballots"
 ```
 
 ### Data import
@@ -6242,7 +6379,7 @@ export_qstnr <- function(qstnr_tibble,
   # create CSV version from tibble if requested
   if (incl_csv) {
     
-    pal::cli_progress_step_quick(msg = "Converting questionnaire tibble to CSV")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} questionnaire tibble to CSV")
     
     csv_path <- fs::path_ext_set(path = md_path,
                                  ext = "csv")
@@ -6281,7 +6418,7 @@ export_qstnr <- function(qstnr_tibble,
     html_path <- fs::path_ext_set(path = md_path,
                                   ext = "html")
     
-    pal::cli_progress_step_quick(msg = "Converting Markdown questionnaire to HTML using Pandoc")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} Markdown questionnaire to HTML using Pandoc")
     
     rmarkdown::pandoc_convert(input = md_path,
                               to = "html5",
@@ -6299,7 +6436,7 @@ export_qstnr <- function(qstnr_tibble,
   # create XLSX version from HTML questionnaire if requested
   if (incl_xlsx) {
     
-    pal::cli_progress_step_quick(msg = "Converting HTML questionnaire to XLSX using LibreOffice")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} HTML questionnaire to XLSX using LibreOffice")
     
     system2(command = "flatpak",
             args = glue::glue("run --command=libreoffice",

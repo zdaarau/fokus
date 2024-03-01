@@ -46,19 +46,19 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.yes]]
 de = "wollte, dass der Kanton Aargau mehr Geld in innovative klimafreundliche Technologien investiert."
-en = "MISSING_TRANSLATION"
+en = "to have the canton of Aargau invest more money in innovative, climate-friendly technologies"
 code = 2
 [[federal.proposal.2.main_motive.yes]]
 de = "bin der Überzeugung, dass die Annahme des Gesetzes die Unabhängigkeit der Schweiz beim Energie-Import verbessern wird."
-en = "MISSING_TRANSLATION"
+en = "to be convinced that the adoption of the bill will improve Switzerland's independence in terms of energy imports"
 code = 3
 [[federal.proposal.2.main_motive.yes]]
 de = "befürworte grundsätzlich Massnahmen für mehr Klimaschutz."
-en = "MISSING_TRANSLATION"
+en = "to be generally in favor of measures for more climate protection"
 code = 4
 [[federal.proposal.2.main_motive.yes]]
-de = "glaube, dass energetische Gebäudesanierungen einen wichtigen Beitrag zur CO2-Reduktion leisten können."
-en = "MISSING_TRANSLATION"
+de = "glaube, dass energetische Gebäudesanierungen einen wichtigen Beitrag zur CO₂-Reduktion leisten können."
+en = "to think that energy-efficient building renovations can make an important contribution to reducing CO₂"
 code = 5
 [[federal.proposal.2.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
@@ -66,15 +66,15 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[federal.proposal.2.main_motive.no]]
 de = "finde, die Vorlage sollte auch die Rolle anderer Länder beim Klimaschutz miteinbeziehen."
-en = "MISSING_TRANSLATION"
+en = "to think the proposal should also include the role of other countries in climate protection"
 code = 2
 [[federal.proposal.2.main_motive.no]]
 de = "bin der Überzeugung, dass die Annahme des Gesetzes den Strommangel verschärfen wird."
-en = "MISSING_TRANSLATION"
+en = "to be convinced that the adoption of the bill will exacerbate the electricity shortage"
 code = 3
 [[federal.proposal.2.main_motive.no]]
 de = "erwarte, dass das Gesetz die Energiekosten erhöhen wird."
-en = "MISSING_TRANSLATION"
+en = "to expect that the adoption of the bill will increase energy costs"
 code = 4
 [[federal.proposal.2.main_motive.no]]
 de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
@@ -83,75 +83,75 @@ code = 5
 [[federal.proposal.2.argument]]
 de.long = "Auch als kleine Schweiz sind wir für unseren ökologischen Fussabdruck verantwortlich. Jeder und jede muss seinen und ihren Teil beitragen."
 de.short = "Schweiz muss Verantwortung wahrnehmen"
-en.long = "MISSING_TRANSLATION"
+en.long = "Even as small Switzerland, we are responsible for our ecological footprint. Each and every one of us must do his or her part."
 side = "pro"
 nr = 1
 [[federal.proposal.2.argument]]
 de.long = "Viele Klimaschutzmassnahmen in dem Gesetz zielen auf saubere Energie, wichtig ist aber vor allem, dass wir weniger Energie verbrauchen."
 de.short = "Energieverbrauchreduktion wichtiger als Förderung Erneuerbarer"
-en.long = "MISSING_TRANSLATION"
+en.long = "Many climate protection measures in the bill are aimed at clean energy, but the most important thing is that we consume less energy."
 side = "contra"
 nr = 1
 [[federal.proposal.2.argument]]
 de.long = "Das Anbringen von Photovoltaik-Anlagen an beheizten Gebäuden sollte zum Standard werden. Der nicht selbst verwendete und ins Netz zurück gespeiste Strom muss anständig entgeltet werden."
 de.short = "Photovoltaik ist auszubauen und besser zu vergüten"
-en.long = "MISSING_TRANSLATION"
+en.long = "The installation of photovoltaic systems on heated buildings should become standard. The electricity that is not used and fed back into the grid must be properly remunerated."
 side = "pro"
 nr = 2
 [[federal.proposal.2.argument]]
 de.long = "Das Gesetz beinhaltet selbst zwar keine Verbote, sollte es angenommen werden, würden die Verbote aber bald folgen. Das ist schlecht – mit Verboten kann man die Bürger:innen nicht überzeugen."
 de.short = "Verbote sind kontraproduktiv"
-en.long = "MISSING_TRANSLATION"
+en.long = "The bill itself does not contain any bans, but if it is adopted, the bans would soon follow. That's bad – you can't convince citizens with bans."
 side = "contra"
 nr = 2
 [[federal.proposal.2.skill_question]]
 de = "Welche Verbote sind in dem Gesetz enthalten?"
-en = "MISSING_TRANSLATION"
+en = "What prohibitions are contained in the bill?"
 [[federal.proposal.2.skill_question.response_option]]
-de = "Ein Verbot von Verbrennungsmotoren"
-en = "MISSING_TRANSLATION"
+de = "ein Verbot von Verbrennungsmotoren"
+en = "a ban on combustion engines"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "Ein Flugverbot für Kurzstrecken"
-en = "MISSING_TRANSLATION"
+de = "ein Flugverbot für Kurzstrecken"
+en = "a ban on short-haul flights"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "Ein Verbot für Unternehmen, ab 2030 Treibhausgase auszustossen"
-en = "MISSING_TRANSLATION"
+de = "ein Verbot für Unternehmen, ab 2030 Treibhausgase auszustossen"
+en = "a ban on companies emitting greenhouse gases from 2030"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
-de = "Keines dieser Verbote"
-en = "MISSING_TRANSLATION"
+de = "keines dieser Verbote"
+en = "none of these prohibitions"
 is_correct = true
 [[federal.proposal.2.skill_question]]
 de = "Das Bundesgesetz ermöglicht unter anderem…"
-en = "MISSING_TRANSLATION"
+en = "Among other things, the bill enables…"
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die Bereitstellung von finanziellen Mitteln für den Ersatz nicht nachhaltiger Heizungen."
-en = "MISSING_TRANSLATION"
+en = "…the provision of funding for the replacement of non-sustainable heating systems."
 is_correct = true
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die Schaffung einer Pflicht für die Haushalte, alle nachhaltigen Heizungen zu ersetzen."
-en = "MISSING_TRANSLATION"
+en = "…the introduction of an obligation for households to replace all sustainable heating systems."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…ein Verbot von Öl- und Gas-Importen zu Heizungszwecken."
-en = "MISSING_TRANSLATION"
+en = "…a ban on oil and gas imports for heating purposes."
 is_correct = false
 [[federal.proposal.2.skill_question]]
 de = "Das Bundesgesetz verfolgt das Netto-Null-Ziel. Das beudetet, dass…"
-en = "MISSING_TRANSLATION"
+en = "The bill pursues the net-zero target. This means that…"
 [[federal.proposal.2.skill_question.response_option]]
 de = "…alle Haushalte ihre Emissionen auf null senken müssen."
-en = "MISSING_TRANSLATION"
+en = "…all households must reduce their emissions to zero."
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…die Schweiz insgesamt ihre Emissionen auf null senken muss."
-en = "MISSING_TRANSLATION"
+en = "…Switzerland must reduce its overall emissions to zero"
 is_correct = false
 [[federal.proposal.2.skill_question.response_option]]
 de = "…entweder in der Schweiz keine Treibhausgase mehr ausgestossen werden oder der verbleibende Treibhausgasausstoss vollständig kompensiert wird."
-en = "MISSING_TRANSLATION"
+en = "…either no more greenhouse gases are emitted in Switzerland or the remaining greenhouse gas emissions are fully offset."
 is_correct = true
 [federal.proposal.3]
 type = "optional referendum"
@@ -181,19 +181,19 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.yes]]
 de = "wollte eine von der Verwaltung unabhängige und neutrale Schlichtungsstelle für Konflikte zwischen Bürger:innen und Staat schaffen."
-en = "MISSING_TRANSLATION"
+en = "to create an independent and neutral arbitration body for conflicts between citizens and the state"
 code = 2
 [[cantonal.aargau.proposal.1.main_motive.yes]]
 de = "wollte zusätzlichen Schutz für Personen in der öffentlichen Verwaltung schaffen, die Missstände melden möchten (Whistleblowing)."
-en = "MISSING_TRANSLATION"
+en = "to create additional protection for people in the public administration who want to report wrongdoing (whistleblowing)"
 code = 3
 [[cantonal.aargau.proposal.1.main_motive.yes]]
 de = "wollte mit der Schaffung einer niederschwelligen Schlichtungsstelle die Justiz entlasten, d. h. unnötige Gerichtsverfahren vermeiden helfen."
-en = "MISSING_TRANSLATION"
+en = "to ease the burden on the judiciary, i.e. help avoid unnecessary court proceedings by creating a low-threshold arbitration body"
 code = 4
 [[cantonal.aargau.proposal.1.main_motive.yes]]
 de = "wollte das Vertrauen zwischen Bevölkerung und Behörden stärken helfen."
-en = "MISSING_TRANSLATION"
+en = "to help strengthen trust between the population and the authorities"
 code = 5
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
@@ -201,19 +201,19 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "wollte zusätzliche Bürokratie verhindern."
-en = "MISSING_TRANSLATION"
+en = "to avoid additional bureaucracy"
 code = 2
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "wollte zusätzliche öffentliche Ausgaben vermeiden."
-en = "MISSING_TRANSLATION"
+en = "to avoid additional public spending"
 code = 3
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "fand, die Ombudsstelle ist keine gute Lösung, da sie zahnlos bleibt und ihre beabsichtigte Funktion gar nicht erfüllen kann."
-en = "MISSING_TRANSLATION"
+en = "to believe that the ombuds office is not a good solution, as it remains toothless and cannot fulfill its intended function at all"
 code = 4
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "finde, die direkte Demokratie garantiert bereits genug Bürgernähe. Der Aargau benötigt daher keine Ombudsstelle."
-en = "MISSING_TRANSLATION"
+en = "to think that Aargau does not need an ombuds office since direct democracy already guarantees enough proximity to citizens"
 code = 5
 [[cantonal.aargau.proposal.1.main_motive.no]]
 de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
@@ -222,95 +222,76 @@ code = 6
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Die Ombudsperson ist unabhängig und neutral, da sie nicht die Interessen der Verwaltung vertritt."
 de.short = "Ombudsstelle ist unabhängig und neutral"
-en.long = "MISSING_TRANSLATION"
+en.long = "The ombudsperson is independent and neutral, as they do not represent the interests of the administration."
 side = "pro"
 nr = 1
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Die in der Schweiz gelebte direkte Demokratie garantiert bereits zahlreiche Möglichkeiten für Bürger:innen, direkt mit Entscheidungsträger:innen in Kontakt zu treten."
 de.short = "Direkte Demokratie bereits ausreichend"
-en.long = "MISSING_TRANSLATION"
+en.long = "The direct democracy practiced in Switzerland already guarantees numerous opportunities for citizens to make direct contact with decision-makers."
 side = "contra"
 nr = 1
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Die Ombudsstelle kann unnötige Gerichtsverfahren vermeiden helfen, indem bei Konflikten zwischen Bürger:innen und Behörden frühzeitig vermittelt und deeskaliert wird."
 de.short = "Unnötige Gerichtsverfahren werden vermieden"
-en.long = "MISSING_TRANSLATION"
+en.long = "The ombuds office can help avoid unnecessary legal proceedings by mediating and de-escalating conflicts between citizens and authorities at an early stage."
 side = "pro"
 nr = 2
 [[cantonal.aargau.proposal.1.argument]]
 de.long = "Aufgrund fehlender Weisungs- und Sanktionsbefugnisse läuft die Ombudsstelle Gefahr, ein zahnloser Papiertiger zu bleiben."
 de.short = "Ombudsstelle ist zahnloser Papiertiger"
-en.long = "MISSING_TRANSLATION"
+en.long = "Due to the lack of powers to issue directives and impose sanctions, the ombuds office runs the risk of remaining a toothless paper tiger."
 side = "contra"
 nr = 2
 [[cantonal.aargau.proposal.1.skill_question]]
 de = "Die geplante Ombudsstelle ist…"
-en = "MISSING_TRANSLATION"
+en = "The planned ombuds office is…"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…eine Schlichtungsbehörde ohne eigene Weisungsbefugnisse oder Sanktionsmöglichkeiten."
-en = "MISSING_TRANSLATION"
+en = "…an arbitration body without any powers to issue directives or impose sanctions."
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…eine Art Zivilgericht, das im Bedarfsfall auch Bussen und Berufsverbote aussprechen kann."
-en = "MISSING_TRANSLATION"
+en = "…a kind of civil court that can also impose fines and disbarments if necessary."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…erfüllt in erster Linie eine repräsentative Funktion, indem die Ombudsperson den Regierungsrat bei wichtigen Staatsanlässen vertritt."
-en = "MISSING_TRANSLATION"
+en = "…primarily fulfills a representative role in that the ombudsperson represents the Executive Council at important state events."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question]]
 de = "Die Einführung einer Ombudsstelle im Kanton Aargau…"
-en = "MISSING_TRANSLATION"
+en = "The introduction of an ombuds office in the canton of Aargau…"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…wäre einzigartig, da noch kein anderer Kanton eine solche Institution kennt."
-en = "MISSING_TRANSLATION"
+en = "…would be unique, as no other canton has such an institution yet."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…wäre nichts aussergewöhnliches, da heute bereits rund ein Viertel aller Kantone eine Ombudsstelle besitzt."
-en = "MISSING_TRANSLATION"
+en = "…would be nothing out of the ordinary, as around a quarter of all cantons already have an ombuds office today."
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "…würde bedeuten, dass wir zum Rest der Schweiz aufschliessen. Die meisten anderen Kantone kennen bereits eine solche Stelle."
-en = "MISSING_TRANSLATION"
+en = "…would mean that we would catch up with the rest of Switzerland. Most other cantons already have such a body."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question]]
 de = "Wie würde die zukünftige Ombudsperson bestimmt, welche die Ombudsstelle leitet?"
-en = "MISSING_TRANSLATION"
+en = "How would the future ombudsperson who heads the ombuds office be appointed?"
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "Sie würde alle vier Jahre vom Parlament gewählt."
-en = "MISSING_TRANSLATION"
+en = "They would be elected by Parliament every four years."
 is_correct = true
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "Sie würde alle vier Jahre vom Volk gewählt."
-en = "MISSING_TRANSLATION"
+en = "They would be elected by the people every four years."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "Sie würde im Losverfahren auf Lebenszeit bestimmt."
-en = "MISSING_TRANSLATION"
+en = "They would be appointed by lot for life."
 is_correct = false
 [[cantonal.aargau.proposal.1.skill_question.response_option]]
 de = "Sie würde alle vier Jahre von der Regierung ernannt."
-en = "MISSING_TRANSLATION"
+en = "They would be appointed by the government every four years."
 is_correct = false
-# [[cantonal.aargau.proposal.1.skill_question]]
-# de = "Wie würde sich die Ombudsstelle mittelfristig auf die Kantonsfinanzen auswirken?"
-# en = "MISSING_TRANSLATION"
-# [[cantonal.aargau.proposal.1.skill_question.response_option]]
-# de = "Sie hätte keine finanziellen Auswirkungen, das sie selbsttragend ist. Wer Dienstleistungen der Ombudsstelle in Anspruch nimmt, muss dafür bezahlen."
-# en = "MISSING_TRANSLATION"
-# is_correct = false
-# [[cantonal.aargau.proposal.1.skill_question.response_option]]
-# de = "Sie würde sich positiv auf den Finanzhaushalt auswirken, da durch sie automatisch teureres Personal in der kantonalen Justiz eingespart wird."
-# en = "MISSING_TRANSLATION"
-# is_correct = false
-# [[cantonal.aargau.proposal.1.skill_question.response_option]]
-# de = "Das hängt vom zukünftigen Personalaufwand ab. Schätzungen gehen von weniger als einer Million Franken jährlich aus."
-# en = "MISSING_TRANSLATION"
-# is_correct = true
-# [[cantonal.aargau.proposal.1.skill_question.response_option]]
-# de = "Berechnungen des Finanzdepartements zufolge ist von etwas über zehn Millionen Franken jährlich auszugehen."
-# en = "MISSING_TRANSLATION"
-# is_correct = true
 
 [cantonal.aargau.proposal.2]
 type = "optional referendum"
@@ -339,27 +320,27 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.3.main_motive.yes]]
 de = "wollte, dass CO₂-Abgaben für fossile Brennstoffe, welche aus dem Kanton Aargau abfliessen, vollständig in den Kanton zurückgeführt werden."
-en = "MISSING_TRANSLATION"
+en = "to have CO₂ levies for fossil fuels that flow out of the canton of Aargau returned in full to the canton"
 code = 2
 [[cantonal.aargau.proposal.3.main_motive.yes]]
 de = "bin der Überzeugung, dass die Annahme des Gesetzes die Unabhängigkeit des Aargaus im Energiebereich stärken wird."
-en = "MISSING_TRANSLATION"
+en = "to be convinced that the adoption of the bill will strengthen Aargau's independence in the energy sector"
 code = 3
 [[cantonal.aargau.proposal.3.main_motive.yes]]
 de = "wollte, dass der Kanton Aargau mehr Geld in innovative klimafreundliche Technologien investiert."
-en = "MISSING_TRANSLATION"
+en = "to have the canton of Aargau invest more money in innovative, climate-friendly technologies"
 code = 4
 [[cantonal.aargau.proposal.3.main_motive.yes]]
 de = "denke, dass insbesondere das lokale Aargauer Gewerbe von der Initiative profitiert."
-en = "MISSING_TRANSLATION"
+en = "to think that local Aargau businesses in particular will benefit from the initiative"
 code = 5
 [[cantonal.aargau.proposal.3.main_motive.yes]]
 de = "glaube, dass generell mehr im Bereich Klima unternommen werden muss."
-en = "MISSING_TRANSLATION"
+en = "to think that more needs to be done in the area of climate in general"
 code = 6
 [[cantonal.aargau.proposal.3.main_motive.yes]]
-de = "glaube, dass energetische Gebäudesanierungen einen wichtigen Beitrag zur CO2-Reduktion leisten können."
-en = "MISSING_TRANSLATION"
+de = "glaube, dass energetische Gebäudesanierungen einen wichtigen Beitrag zur CO₂-Reduktion leisten können."
+en = "to think that energy-efficient building renovations can make an important contribution to CO₂ reduction"
 code = 7
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "wollte in erster Linie einer bestimmten Abstimmungsempfehlung folgen."
@@ -367,15 +348,15 @@ en = "to follow a specific voting recommendation"
 code = 1
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "glaube, dass das bestehende Förderprogramm des Kantons Aargau ausreicht."
-en = "MISSING_TRANSLATION"
+en = "to think that the existing subsidy program of the Canton of Aargau is sufficient"
 code = 2
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "finde, die Initiative verursacht zu hohe Kosten."
-en = "MISSING_TRANSLATION"
+en = "to think the initiative is too costly"
 code = 3
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "bezweifle, dass die Ziele der Initiative gemessen und überprüft werden können."
-en = "MISSING_TRANSLATION"
+en = "to doubt that the objectives of the initiative can be measured and verified"
 code = 4
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "wollte dafür sorgen, dass alles so bleibt, wie es ist."
@@ -383,88 +364,88 @@ en = "to keep things the way they are"
 code = 5
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "bezweifle, dass die Initiative umgesetzt werden kann."
-en = "MISSING_TRANSLATION"
+en = "to doubt that the initiative can be implemented"
 code = 6
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "denke, dass Klimaschutzmassnahmen auf (inter)nationaler Ebene angegangen werden müssen. Kantonale Alleingänge bringen nichts."
-en = "MISSING_TRANSLATION"
+en = "to think that climate protection measures need to be tackled at (inter)national level and cantonal solo efforts are useless"
 code = 7
 [[cantonal.aargau.proposal.3.main_motive.no]]
 de = "befürchte, dass die Initiative den Handlungsspielraum des Kantons einschränkt, seine begrenzten Steuermittel andersweitig einzusetzen."
-en = "MISSING_TRANSLATION"
+en = "to fear that the initiative will restrict the canton's room for maneuver to use its limited funds for other purposes"
 code = 8
 [[cantonal.aargau.proposal.3.argument]]
 de.long = "Von Förderprogrammen zur energetischen Gebäudesanierung profitiert auch das lokale Aargauer Gewerbe."
 de.short = "Lokale Gewerbe profitiert"
-en.long = "MISSING_TRANSLATION"
+en.long = "Subsidy programs for energy-efficient building renovation also benefit local Aargau businesses."
 side = "pro"
 nr = 1
 [[cantonal.aargau.proposal.3.argument]]
 de.long = "Der Kanton Aargau verfügt bereits über ein ausreichend gutes Förderprogramm zur energetischen Gebäudesanierung."
 de.short = "Bestehendes Förderprogramm reicht aus"
-en.long = "MISSING_TRANSLATION"
+en.long = "The canton of Aargau already has a sufficiently good subsidy program for energy-efficient building renovation."
 side = "contra"
 nr = 1
 [[cantonal.aargau.proposal.3.argument]]
 de.long = "Der Aargau soll mehr eigene Mittel für Förderprogramme zur energetischen Sanierung bereitstellen, weil so auch mehr Gelder aus den CO₂-Abgaben in den Kanton zurückfliessen."
 de.short = "CO₂-Abgaben zurückholen"
-en.long = "MISSING_TRANSLATION"
+en.long = "The canton of Aargau should provide more of its own funds for subsidy programs for energy-efficient renovation, as this means more money from CO₂ levies will flow back into the canton."
 side = "pro"
 nr = 2
 [[cantonal.aargau.proposal.3.argument]]
 de.long = "Die zusätzliche Belastung des Staatshaushalts durch die Initiative ist zu hoch."
 de.short = "Kosten sind zu hoch"
-en.long = "MISSING_TRANSLATION"
+en.long = "The additional burden on the state budget as a result of the initiative is too high."
 side = "contra"
 nr = 2
 [[cantonal.aargau.proposal.3.argument]]
 de.long = "Energetische Gebäudesanierungen tragen wesentlich zur CO₂-Reduktion bei."
 de.short = "CO₂-Reduktion"
-en.long = "MISSING_TRANSLATION"
+en.long = "Energy-efficient building renovations make a significant contribution to CO₂ reduction."
 side = "pro"
 nr = 3
 [[cantonal.aargau.proposal.3.skill_question]]
 de = "Was würde sich voraussichtlich bei einer Annahme der Initiative für Gebäudeeigentümer:innen verändern?"
-en = "MISSING_TRANSLATION"
+en = "What is likely to change for building owners if the initiative is adopted?"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Gebäudeeigentümer:innen müssten Öl- und Gasheizungen bis spätestens 2030 durch erneuerbare Heizungen ersetzen."
-en = "MISSING_TRANSLATION"
+en = "Building owners would have to replace oil and gas heating systems with renewable heating systems by 2030 at the latest."
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Eigentümer:innen von Gebäuden mit Baujahr vor 2000 werden gezwungen, ihre Gebäude energetisch zu sanieren."
-en = "MISSING_TRANSLATION"
+en = "Owners of buildings constructed before 2000 will be forced to renovate their buildings to make them more energy efficient."
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Gebäudeeigentümer:innen erhalten mehr Fördergelder vom Kanton für die freiwillige energetische Sanierung ihrer Gebäude."
-en = "MISSING_TRANSLATION"
+en = "Building owners receive more subsidies from the canton for the voluntary energy-efficient renovation of their buildings."
 is_correct = true
 [[cantonal.aargau.proposal.3.skill_question]]
 de = "Die Klimaschutzinitiative sieht u. a. vor, dass…"
-en = "MISSING_TRANSLATION"
+en = "Among other things, the climate protection initiative stipulates…"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "…der Einbau von Öl- und Gasheizungen ab 2030 vollständig verboten wird."
-en = "MISSING_TRANSLATION"
+en = "…that the installation of oil and gas heating systems will be completely banned from 2030."
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
-de = "…jährlich mindestens 3% der Gebäude im Kanton Aargau energetisch saniert werden müssen."
-en = "MISSING_TRANSLATION"
+de = "…jährlich mindestens 3 % der Gebäude im Kanton Aargau energetisch saniert werden müssen."
+en = "…that at least 3 % of buildings in the canton of Aargau must be renovated to improve their energy efficiency every year."
 is_correct = true
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "…ein Gebäude mindestens alle 20 Jahre energetisch saniert werden muss."
-en = "MISSING_TRANSLATION"
+en = "…that a building must undergo energy-efficient refurbishment at least every 20 years."
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question]]
 de = "Wieviel zusätzliches Geld aus der vom Bund erhobenen CO₂-Abgabe würde bei Annahme der Initiative (Stand heute) in den Kanton Aargau zurückfliessen?"
-en = "MISSING_TRANSLATION"
+en = "How much additional money from the CO₂ tax levied by the federal government would flow back into the canton of Aargau if the initiative were adopted (as things stand today)?"
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Etwa gleich viel, wie der Kanton zusätzlich an eigenen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 8.6 Millionen Franken."
-en = "MISSING_TRANSLATION"
+en = "Approximately the same amount as the canton would have to spend in additional funds of its own for the building renovation subsidy program, namely around CHF 8.6 million."
 is_correct = true
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Etwa ein Viertel davon, was der Kanton an eigenen zusätzlichen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 2.3 Millionen Franken."
-en = "MISSING_TRANSLATION"
+en = "Around a quarter of what the canton would have to spend on its own additional funds for the building renovation subsidy program, namely around CHF 2.3 million."
 is_correct = false
 [[cantonal.aargau.proposal.3.skill_question.response_option]]
 de = "Etwa ein Zehntel davon, was der Kanton an eigenen zusätzlichen Mitteln fürs Gebäudesanierungsförderprogramm aufwenden müsste, nämlich rund 900'000 Franken."
-en = "MISSING_TRANSLATION"
+en = "Around a tenth of what the canton would have to spend on its own additional funds for the building renovation support program, namely around CHF 900 000."
 is_correct = false

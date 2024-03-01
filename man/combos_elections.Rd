@@ -5,16 +5,16 @@
 \title{Get election combinations}
 \usage{
 combos_elections(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_dates = all_ballot_dates,
   lvls = all_lvls,
-  canton = cantons(ballot_date),
+  cantons = all_cantons,
   prcds = all_prcds,
   incl_prcd = TRUE,
   incl_nr = incl_prcd
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
+\item{ballot_dates}{FOKUS-covered ballot date(s). One or more of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -27,7 +27,7 @@ combos_elections(
 
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
-\item{canton}{FOKUS-covered canton name. One of
+\item{cantons}{FOKUS-covered canton name(s). One or more of
 \itemize{
 \item \code{"aargau"}
 }}
@@ -43,22 +43,21 @@ relevant if \code{incl_prcd = TRUE}.}
 A list with an element per political-level and optionally -election-procedure and -election-number combination.
 }
 \description{
-Returns a list containing the political levels, election procedures and election numbers for all elections that have been covered by the FOKUS survey for the
-specified canton at the specified ballot date on the specified political level(s).
+Returns a list with a metadata item per ballot date, political level and optionally election procedure and number.
 }
 \examples{
-fokus::combos_elections(ballot_date = "2019-10-20",
-                        canton = "aargau")
+fokus::combos_elections(ballot_dates = "2019-10-20",
+                        cantons = "aargau")
 
 # without election numbers
-fokus::combos_elections(ballot_date = "2019-10-20",
-                        canton = "aargau",
+fokus::combos_elections(ballot_dates = "2019-10-20",
+                        cantons = "aargau",
                         incl_prcd = TRUE,
                         incl_nr = FALSE)
 
 # without election procedures and numbers
-fokus::combos_elections(ballot_date = "2019-10-20",
-                        canton = "aargau",
+fokus::combos_elections(ballot_dates = "2019-10-20",
+                        cantons = "aargau",
                         incl_prcd = FALSE,
                         incl_nr = FALSE)
 }

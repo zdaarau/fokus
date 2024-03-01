@@ -214,6 +214,43 @@ all_name_types <- c("short",
                     "long")
 ```
 
+## `dicts`
+
+```{r}
+dicts <- list(colnames = list(ballots = c(BFSNR                     = "fso_id",
+                                          DATUM                     = "ballot_date",
+                                          NAME                      = "entity",
+                                          Bezirk                    = "entity",
+                                          `Bezirk/Liste`            = "entity",
+                                          STIMMBERECHTIGTE          = "electorate_total",
+                                          WAHLBERECHTIGTE           = "electorate_total",
+                                          `Anzahl Stimmberechtigte` = "electorate_total",
+                                          EINGELANGTE               = "votes_received",
+                                          LEERE                     = "votes_empty",
+                                          UNGUELTIGE                = "votes_invalid",
+                                          GUELTIGE                  = "votes_valid",
+                                          TOTAL                     = "votes_total",
+                                          Total                     = "votes_total",
+                                          `Total Wählerzahlen`      = "votes_total",
+                                          LEERE_LINIEN              = "slots_empty",
+                                          Wahlbeteiligung           = "turnout",
+                                          EINGELBRIEF               = "postal_votes_received",
+                                          BRIEF_EINGEL              = "postal_votes_received",
+                                          BRIEFEINGEL               = "postal_votes_received",
+                                          UNGUELTIGBRIEF            = "postal_votes_invalid",
+                                          BRIEF_UNGUELTIG           = "postal_votes_invalid",
+                                          BRIEFUNGUELTG             = "postal_votes_invalid",
+                                          EINGELURNEN               = "ballot_votes_received",
+                                          URNEN_EINGEL              = "ballot_votes_received",
+                                          URNEN_STIMMABG            = "ballot_votes_received",
+                                          EVOTING_EINGEL            = "evoting_votes_received",
+                                          VEREINZELTLEERE           = "isolated_votes_empty",
+                                          VEREINZELTUNGUE           = "isolated_votes_invalid",
+                                          VEREINZELTE               = fokus::response_options(type = "other",
+                                                                                              lang = "de",
+                                                                                              subtypes = "candidate"))))
+```
+
 ## `fokus_private_structure`
 
 Structure of the `fokus_private` repository.
@@ -531,6 +568,7 @@ usethis::use_data(all_ballot_dates,
                   all_postal_dispatch_ways,
                   all_langs,
                   all_name_types,
+                  dicts,
                   fokus_private_structure,
                   md_snippets,
                   phrased_terms,

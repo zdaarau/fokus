@@ -5,14 +5,14 @@
 \title{Get referendum proposal combinations for which main motives have been queried}
 \usage{
 combos_proposal_main_motives(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_dates = all_ballot_dates,
   lvls = all_lvls,
-  canton = cantons(ballot_date),
+  cantons = all_cantons,
   incl_type = TRUE
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
+\item{ballot_dates}{FOKUS-covered ballot date(s). One or more of
 \itemize{
 \item \code{"2018-09-23"}
 \item \code{"2018-11-25"}
@@ -25,7 +25,7 @@ combos_proposal_main_motives(
 
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
-\item{canton}{FOKUS-covered canton name. One of
+\item{cantons}{FOKUS-covered canton name(s). One or more of
 \itemize{
 \item \code{"aargau"}
 }}
@@ -36,15 +36,14 @@ combos_proposal_main_motives(
 A list with an element per political-level-proposal-number and optionally -type combination.
 }
 \description{
-Returns a list containing the political levels, proposal numbers and optionally motive types for which \link[=proposal_main_motives]{main motives} have been
-queried in the post-voting survey for the specified ballot date.
+Returns a list with a metadata item per ballot date, political level, canton, proposal number and optionally motive type for which \link[=proposal_main_motives]{main motives} have been queried in the respective post-voting survey.
 }
 \examples{
-fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
-                                    canton = "aargau")
+fokus::combos_proposal_main_motives(ballot_dates = "2023-06-18",
+                                    cantons = "aargau")
 # without types
-fokus::combos_proposal_main_motives(ballot_date = "2023-06-18",
-                                    canton = "aargau",
+fokus::combos_proposal_main_motives(ballot_dates = "2023-06-18",
+                                    cantons = "aargau",
                                     incl_type = FALSE)
 }
 \seealso{

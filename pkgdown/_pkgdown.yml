@@ -116,6 +116,7 @@ reference:
   - qstnrs
   - proposals
   - elections
+  - ballots
 - subtitle: Data import
   desc: Functions to access FOKUS data from the [private FOKUS repository](https://gitlab.com/c2d-zda/private/fokus_private/).
 - contents:

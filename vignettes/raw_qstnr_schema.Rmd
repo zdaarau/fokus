@@ -1,7 +1,7 @@
 ---
 title: "FOKUS questionnaire schema"
 subtitle: "Structure and semantic rules of the raw TOML questionnaire"
-date: "`r as.Date(pal::git_file_mod_time('vignettes/raw_qstnr_schema.Rmd'))`"
+date: "`r if (git2r::in_repository()) as.Date(pal::git_file_mod_time('vignettes/raw_qstnr_schema.Rmd')) else Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
