@@ -218,16 +218,6 @@ ballots$referendum <-
                                                encoding = "latin1"),
                         na = na_vals,
                         col_types = "dcDddddddddddd") |>
-      dplyr::rename(fso_id           = BFSNR,
-                    entity           = NAME,
-                    ballot_date      = DATUM,
-                    electorate_total = STIMMBERECHTIGTE,
-                    votes_received   = EINGELANGTE,
-                    votes_empty      = LEERE,
-                    votes_invalid    = UNGUELTIGE,
-                    votes_valid      = GUELTIGE,
-                    votes_yes        = JA_STIMMEN,
-                    votes_no         = NEIN_STIMMEN) |>
       # rename cols
       pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
       # remove all-NA cols (`AUSL_SCHWEIZER` before e-voting suspension)
@@ -431,6 +421,9 @@ ballots$election <-
     
     result
   })
+
+# clean up
+rm(na_vals)
 ```
 
 # Write data
