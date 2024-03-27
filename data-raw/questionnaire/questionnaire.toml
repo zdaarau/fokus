@@ -4977,6 +4977,31 @@ lvl = """
     magrittr::set_names(., .) %>%
     purrr::map_lgl(~ qstnr_item_val(ballot_date = ballot_date,
                                     canton = canton,
+                                    branch_path = c('03_proposal_specific', '002_all', '003_information_level'),
+                                    var_name = glue::glue('information_level_{.x}_proposal_{{i}}'),
+                                    key = 'include',
+                                    i = i)) %>%
+    which() %>%
+    names()
+}"""
+i.default = "{ proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
+i.20230618 = "{ if (lvl == 'federal') 2L else proposal_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton) }"
+topic = "Informationsgrad { switch(lvl, cantonal = 'kantonale', federal = 'eidgenössische') } Vorlage {i} (reduziert)"
+question = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '003_information_level'), var_name = glue::glue('information_level_{lvl}_proposal_{{i}}'), key = 'question', i = i) }"
+question_common = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = c('03_proposal_specific', '002_all', '003_information_level'), var_name = glue::glue('information_level_{lvl}_proposal_{{i}}'), key = 'question_common', i = i) }"
+variable_name = "information_level_{lvl}_proposal_{i}_reduced"
+variable_label = "respondent's information level (reduced) on the {lvl} proposal \"{ proposal_name(ballot_date = ballot_date, lvl = lvl, canton = canton, proposal_nr = i, lang = 'de', type = 'long') }\""
+variable_label_common = "respondent's information level (reduced) on the { salim::rank_nr(i) } {lvl} proposal"
+response_options = [ "sehr gering (0–2)", "eher gering (3–4)", "mittel (5)", "eher hoch (6–7)", "sehr hoch (8–10)", "weiss nicht" ]
+value_labels = [ "very low (0–2)", "rather low (3–4)", "medium (5)", "rather high (6–7)", "very high (8–10)", "don't know" ]
+value_scale = "ordinal_ascending"
+[[y_generated.001_all.002_referendum.item]]
+lvl = """
+{
+  all_lvls %>%
+    magrittr::set_names(., .) %>%
+    purrr::map_lgl(~ qstnr_item_val(ballot_date = ballot_date,
+                                    canton = canton,
                                     branch_path = c('03_proposal_specific', '004_participants', 'z01_iterated'),
                                     var_name = glue::glue('difficulty_{.x}_proposal_{{i}}'),
                                     key = 'include',
