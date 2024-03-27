@@ -2258,10 +2258,12 @@ Functions around the `r glue::glue('[private FOKUS repository]({fokus:::url_repo
 #### `exists_private_file`
 
 ```{r}
-exists_private_file <- function(path) {
-  
+exists_private_file <- function(path,
+                                auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                 pkg = this_pkg)) {
   req_private_file(path = path,
-                   method = "HEAD") |>
+                   method = "HEAD",
+                   auth_token = auth_token) |>
     httr2::req_error(is_error = \(x) FALSE) |>
     httr2::req_perform() |>
     httr2::resp_is_error() |>
@@ -2303,10 +2305,12 @@ print_private_repo_structure <- function() {
 #### `private_file_hash`
 
 ```{r}
-private_file_hash <- function(path) {
-  
+private_file_hash <- function(path,
+                              auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                               pkg = this_pkg)) {
   req_private_file(path = path,
-                   method = "HEAD") |>
+                   method = "HEAD",
+                   auth_token = auth_token) |>
     httr2::req_perform() |>
     httr2::resp_header(header = "X-Gitlab-Content-Sha256")
 }
@@ -2321,17 +2325,20 @@ replacement.
 push_private_file <- function(path,
                               content,
                               encoding,
+                              overwrite,
                               commit_message,
-                              overwrite) {
-  
-  is_present <- exists_private_file(path = path)
+                              auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                               pkg = this_pkg)) {
+  is_present <- exists_private_file(path = path,
+                                    auth_token = auth_token)
   
   if (!overwrite && is_present) return()
   
   req_private_file(path = path,
                    method = ifelse(is_present,
                                    "PUT",
-                                   "POST")) |>
+                                   "POST"),
+                   auth_token = auth_token) |>
     httr2::req_body_json(data = list(branch = repo_private_default_branch,
                                      commit_message = commit_message,
                                      content = content,
@@ -2345,14 +2352,16 @@ push_private_file <- function(path,
 ```{r}
 req_private_file <- function(path,
                              method,
-                             max_tries = 3L) {
+                             max_tries = 3L,
+                             auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                              pkg = this_pkg)) {
+  checkmate::assert_string(auth_token)
   
   httr2::request(base_url = glue::glue("https://gitlab.com/api/v4/projects/{repo_private_proj_id}/repository/files/", utils::URLencode(path,
                                                                                                                                        reserved = TRUE))) |>
     httr2::req_url_query(ref = repo_private_default_branch) |>
     httr2::req_method(method = method) |>
-    httr2::req_headers(`PRIVATE-TOKEN` = pal::pkg_config_val(key = "token_repo_private",
-                                                             pkg = this_pkg),
+    httr2::req_headers(`PRIVATE-TOKEN` = auth_token,
                        .redact = "PRIVATE-TOKEN") |>
     httr2::req_retry(max_tries = max_tries)
 }
@@ -2361,15 +2370,15 @@ req_private_file <- function(path,
 #### `set_private_repo_connection`
 
 ```{r}
-set_private_repo_connection <- function() {
-  
+set_private_repo_connection <- function(auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                         pkg = this_pkg)) {
+  checkmate::assert_string(auth_token)
   rlang::check_installed(pkg = "gitlabr",
                          reason = pal::reason_pkg_required())
   
   gitlabr::set_gitlab_connection(gitlab_con = gitlabr::gl_project_connection(gitlab_url = "https://gitlab.com",
                                                                              project = repo_private_proj_id,
-                                                                             private_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                                                                 pkg = this_pkg)))
+                                                                             private_token = auth_token))
 }
 ```
 
@@ -5886,7 +5895,9 @@ Functions to access FOKUS data from the `r glue::glue("[private FOKUS repository
 read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                            pkg = this_pkg),
                                          canton = cantons(ballot_date),
-                                         use_cache = TRUE) {
+                                         use_cache = TRUE,
+                                         auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                          pkg = this_pkg)) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -5897,7 +5908,7 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
   date_boundary_lower <- lubridate::as_date(ballot_date) - 90L
   date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
   
-  set_private_repo_connection()
+  set_private_repo_connection(auth_token = auth_token)
   
   date_data <-
     gitlabr::gl_list_files(ref = repo_private_default_branch,
@@ -5916,7 +5927,8 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
   
   read_private_file(path = glue::glue("raw/easyvote_municipalities_{date_data}_{canton}.csv"),
                     as_chr = FALSE,
-                    use_cache = use_cache) |>
+                    use_cache = use_cache,
+                    auth_token = auth_token) |>
     readr::read_csv(col_types = "ciii")
 }
 ```
@@ -5945,7 +5957,9 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
 read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                               pkg = this_pkg),
                                             canton = cantons(ballot_date),
-                                            use_cache = TRUE) {
+                                            use_cache = TRUE,
+                                            auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                             pkg = this_pkg)) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -5954,7 +5968,7 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(ke
   
   path <- glue::glue("raw/online_participation_codes_{ballot_date}_{canton}.txt")
   
-  set_private_repo_connection()
+  set_private_repo_connection(auth_token = auth_token)
   
   if (!gitlabr::gl_file_exists(file_path = path,
                                ref = repo_private_default_branch)) {
@@ -5963,7 +5977,8 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(ke
   
   read_private_file(path = path,
                     as_chr = TRUE,
-                    use_cache = use_cache) |>
+                    use_cache = use_cache,
+                    auth_token = auth_token) |>
     stringr::str_split_1(pattern = stringr::fixed("\n"))
 }
 ```
@@ -6022,8 +6037,9 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                              canton = cantons(ballot_date),
                              lang = all_langs,
                              merged = FALSE,
-                             use_cache = TRUE) {
-  
+                             use_cache = TRUE,
+                             auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                              pkg = this_pkg)) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -6034,7 +6050,8 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
   
   read_private_file(path = glue::glue("generated/survey_data_", ifelse(merged, "merged_", ""), "{lang}_{ballot_date}_{canton}.rds"),
                     as_chr = FALSE,
-                    use_cache = use_cache) |>
+                    use_cache = use_cache,
+                    auth_token = auth_token) |>
     memDecompress() |>
     unserialize()
 }
@@ -6076,7 +6093,9 @@ read_survey_data_raw <- function(ballot_date = pal::pkg_config_val(key = "ballot
 read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                               pkg = this_pkg),
                                             canton = cantons(ballot_date),
-                                            use_cache = TRUE) {
+                                            use_cache = TRUE,
+                                            auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                             pkg = this_pkg)) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -6086,7 +6105,7 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
                          reason = pal::reason_pkg_required())
   
   # get date of latest dataset delivered *before* ballot date
-  set_private_repo_connection()
+  set_private_repo_connection(auth_token = auth_token)
   
   date_data <-
     gitlabr::gl_list_files(ref = repo_private_default_branch,
@@ -6108,7 +6127,8 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
   
   read_private_file(path = glue::glue("raw/voting_register_data_extra_{date_data}_{canton}.xlsx"),
                     as_chr = FALSE,
-                    use_cache = use_cache) |>
+                    use_cache = use_cache,
+                    auth_token = auth_token) |>
     brio::write_file_raw(path = tmp_file)
   
   data <-
@@ -6213,7 +6233,9 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
 read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                        pkg = this_pkg),
                                      canton = cantons(ballot_date),
-                                     use_cache = TRUE) {
+                                     use_cache = TRUE,
+                                     auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                      pkg = this_pkg)) {
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
@@ -6222,7 +6244,7 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ba
   
   path <- glue::glue("raw/voting_register_ids_{ballot_date}_{canton}.csv")
   
-  set_private_repo_connection()
+  set_private_repo_connection(auth_token = auth_token)
   
   if (!gitlabr::gl_file_exists(file_path = path,
                                ref = repo_private_default_branch)) {
@@ -6231,7 +6253,8 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ba
   
   read_private_file(path = glue::glue("raw/voting_register_ids_{ballot_date}_{canton}.csv"),
                     as_chr = FALSE,
-                    use_cache = use_cache) |>
+                    use_cache = use_cache,
+                    auth_token = auth_token) |>
     readr::read_csv(col_types = "i") |>
     # integrity check
     pal::when(ncol(.) > 1L ~ cli::cli_abort("More than one column present in {.file {path}}. Please debug.",
@@ -6266,6 +6289,8 @@ NOTES:
 #'   [raw vector][raw] instead.
 #' @param use_cache Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 #'   actually changed since the last download. If `FALSE`, the file is always newly fetched.
+#' @param auth_token [Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private
+#'   FOKUS repository](`r url_repo_private()`).
 #'
 #' @return The file content, as character scalar if `as_chr`, otherwise as a [raw vector][raw].
 #' @family data_import
@@ -6280,14 +6305,15 @@ NOTES:
 #' )
 read_private_file <- function(path,
                               as_chr = FALSE,
-                              use_cache = TRUE) {
-  
+                              use_cache = TRUE,
+                              auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                               pkg = this_pkg)) {
   checkmate::assert_flag(as_chr)
   checkmate::assert_string(path)
   
   pkgpins::with_cache(
     expr = {
-      set_private_repo_connection()
+      set_private_repo_connection(auth_token = auth_token)
       gitlabr::gl_get_file(file_path = utils::URLencode(path,
                                                         reserved = TRUE),
                            ref = repo_private_default_branch,
@@ -6295,7 +6321,8 @@ read_private_file <- function(path,
     },
     pkg = this_pkg,
     from_fn = "read_private_file",
-    private_file_hash(path = path),
+    private_file_hash(path = path,
+                      auth_token = auth_token),
     as_chr,
     use_cache = use_cache,
     max_cache_age = Inf
@@ -6484,6 +6511,7 @@ NOTES:
 #' @inheritParams lvls
 #' @inheritParams export_qstnr
 #' @inheritParams upload_to_g_drive
+#' @inheritParams read_online_participation_codes
 #' @param quiet `r pkgsnip::param_lbl("quiet")`
 #' @param verbose Whether or not to print detailed status output from [Google Drive file upload][upload_to_g_drive].
 #'
@@ -6495,6 +6523,8 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
                             canton = cantons(ballot_date),
                             upload_to_g_drive = TRUE,
                             g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/"),
+                            auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                             pkg = this_pkg),
                             quiet = FALSE,
                             verbose = FALSE) {
   
@@ -6514,7 +6544,8 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
                          reason = pal::reason_pkg_required())
   
   participation_codes <- read_online_participation_codes(ballot_date = ballot_date,
-                                                         canton = canton)
+                                                         canton = canton,
+                                                         auth_token = auth_token)
   tmp_dir <-
     glue::glue("fokus_qr_codes_{ballot_date}_{canton}") |>
     fs::path_temp() |>
@@ -6583,6 +6614,7 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
   write_private_file(path = fs::path("generated/for-polling-agency", filename_zip),
                      content = tmp_path_zip,
                      from_file = TRUE,
+                     auth_token = auth_token,
                      quiet = quiet)
   
   # upload ZIP archive to Google Drive for polling agency if requested
@@ -6613,6 +6645,8 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
                                     canton = cantons(ballot_date),
                                     upload_to_g_drive = TRUE,
                                     g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/Print-Zielgruppen/"),
+                                    auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                     pkg = this_pkg),
                                     quiet = FALSE,
                                     verbose = FALSE) {
   ballot_date %<>% as.character()
@@ -6636,7 +6670,8 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
     # read in statistical office IDs used for current survey
     ids <-
       read_voting_register_ids(ballot_date = ballot_date,
-                               canton = canton) %$%
+                               canton = canton,
+                               auth_token = auth_token) %$%
       id_voting_register
     
     # ensure output folder exists
@@ -6649,7 +6684,8 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
     # export data
     result <-
       read_voting_register_data_extra(ballot_date = ballot_date,
-                                      canton = canton) |>
+                                      canton = canton,
+                                      auth_token = auth_token) |>
       dplyr::filter(id %in% !!ids) |>
       dplyr::mutate(receives_print = year_of_birth_official < 1970L) |>
       dplyr::select(id, receives_print) |>
@@ -6658,6 +6694,7 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
     write_private_file(path = fs::path("generated/for-polling-agency", filename),
                        content = tmp_path,
                        from_file = TRUE,
+                       auth_token = auth_token,
                        quiet = quiet)
     
     # upload data to Google Drive for polling agency if requested
@@ -6707,6 +6744,8 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
                                            canton = cantons(ballot_date),
                                            upload_to_g_drive = TRUE,
                                            g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/easyvote-Gemeinden/"),
+                                           auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                            pkg = this_pkg),
                                            quiet = FALSE,
                                            verbose = FALSE) {
   ballot_date %<>% as.character()
@@ -6727,7 +6766,8 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
   
   result <-
     read_easyvote_municipalities(ballot_date = ballot_date,
-                                 canton = canton) |>
+                                 canton = canton,
+                                 auth_token = auth_token) |>
     # assume 18-25 age range if both min/max age are NA
     dplyr::mutate(is_likely_default = is.na(min_age) & is.na(max_age),
                   min_age = dplyr::if_else(is_likely_default,
@@ -6743,6 +6783,7 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
                                      ext = "csv"),
                      content = tmp_path,
                      from_file = TRUE,
+                     auth_token = auth_token,
                      quiet = quiet)
   
   if (upload_to_g_drive) {
@@ -6797,6 +6838,8 @@ write_private_file <- function(path,
                                from_file = FALSE,
                                overwrite = TRUE,
                                commit_message = "auto: update file via fokus R pkg",
+                               auth_token = pal::pkg_config_val(key = "token_repo_private",
+                                                                pkg = this_pkg),
                                quiet = FALSE) {
   
   checkmate::assert_string(path)
@@ -6814,7 +6857,7 @@ write_private_file <- function(path,
     checkmate::assert_string(content)
   }
   
-  set_private_repo_connection()
+  set_private_repo_connection(auth_token = auth_token)
   
   if (from_file) {
     
@@ -6824,7 +6867,8 @@ write_private_file <- function(path,
     # return early if file hasn't changed
     if (gitlabr::gl_file_exists(file_path = path,
                                 ref = repo_private_default_branch) &&
-        identical(private_file_hash(path = path),
+        identical(private_file_hash(path = path,
+                                    auth_token = auth_token),
                   digest::digest(algo = "sha256",
                                  file = content))) {
       if (!quiet) {
@@ -6851,8 +6895,9 @@ write_private_file <- function(path,
                                                   encoding = ifelse(is_raw,
                                                                     "base64",
                                                                     "text"),
+                                                  overwrite = overwrite,
                                                   commit_message = commit_message,
-                                                  overwrite = overwrite),
+                                                  auth_token = auth_token),
                          error = \(e) e)
   if (!quiet) {
     cli::cli_progress_done(id = cli_id)

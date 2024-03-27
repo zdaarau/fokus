@@ -116,6 +116,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   background                                bg
   bibliographies                            bibs
   bibliography                              bib
+  certificate, certification                cert
+  certificates, certifications              certs
   chapter                                   chpt
   chapters                                  chpts
   character                                 chr
@@ -138,6 +140,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   dataframes                                dfs
   define, definition                        def
   definitions                               defs
+  delete, deletion                          del
+  deletions                                 dels
   depend, dependency                        dep
   dependencies                              deps
   develop, development, developer           dev
@@ -173,6 +177,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   figure                                    fig
   figures                                   figs
   filesystem                                fs
+  foreign key                               fk
+  foreign keys                              fks
   formula                                   fm
   formulas, formulae                        fms
   frequencies                               freqs
@@ -231,10 +237,13 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   parameterize, parameter                   param
   parameters                                params
   position                                  pos
+  PostgreSQL                                pg
   predicate                                 pred
   predicates                                preds
   preparation                               prep
   preparations                              preps
+  primary key                               pk
+  primary keys                              pks
   procedures                                prcds
   proceed, procedure                        prcd
   properties                                props

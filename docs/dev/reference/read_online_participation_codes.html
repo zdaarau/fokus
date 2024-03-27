@@ -6,7 +6,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">fokus</a>
 
@@ -57,7 +57,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_online_participation_codes</span><span class="op">(</span></span>
 <span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"ballot_date"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
-<span>  use_cache <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  use_cache <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  auth_token <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"token_repo_private"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,6 +83,10 @@
 <dt>use_cache</dt>
 <dd><p>Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 actually changed since the last download. If <code>FALSE</code>, the file is always newly fetched.</p></dd>
+
+
+<dt>auth_token</dt>
+<dd><p><a href="https://gitlab.com/-/user_settings/personal_access_tokens" class="external-link">Personal access token of a gitlab.com account</a> with access to the <a href="https://gitlab.com/c2d-zda/private/fokus_private/" class="external-link">private FOKUS repository</a>.</p></dd>
 
 </dl></div>
     <div class="section level2">

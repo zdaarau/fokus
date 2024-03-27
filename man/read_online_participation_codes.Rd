@@ -7,7 +7,8 @@
 read_online_participation_codes(
   ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
   canton = cantons(ballot_date),
-  use_cache = TRUE
+  use_cache = TRUE,
+  auth_token = pal::pkg_config_val(key = "token_repo_private", pkg = this_pkg)
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ read_online_participation_codes(
 
 \item{use_cache}{Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 actually changed since the last download. If \code{FALSE}, the file is always newly fetched.}
+
+\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}.}
 }
 \value{
 A character vector.
