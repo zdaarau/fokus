@@ -228,10 +228,11 @@ ballots$referendum <-
                                             starts_with("votes_"),
                                             contains("_votes_")),
                                   .fns = as.integer),
+                    lvl = combo$lvl,
                     canton = combo$canton,
                     ballot_type = "referendum",
-                    lvl = combo$lvl,
-                    proposal_nr = combo$proposal_nr)
+                    proposal_nr = combo$proposal_nr,
+                    .after = ballot_date)
     
     # check data integrity
     ballot_date_data <- unique(data$ballot_date)

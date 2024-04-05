@@ -115,6 +115,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | attributes                              | attrs            |
 | authenticate, authentication            | auth             |
 | authentications                         | auths            |
+| auxiliary                               | aux              |
 | background                              | bg               |
 | bibliographies                          | bibs             |
 | bibliography                            | bib              |
@@ -295,6 +296,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | template                                | tpl              |
 | templates                               | tpls             |
 | temporary                               | tmp              |
+| user interface                          | ui               |
 | value                                   | val              |
 | values                                  | vals             |
 | variable                                | var              |
