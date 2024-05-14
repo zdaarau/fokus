@@ -20,7 +20,7 @@ editor_options:
 
 ```{r}
 library(rlang,
-        include.only = c("%|%", "%||%"))
+        include.only = "%|%")
 library(magrittr,
         include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
 ```

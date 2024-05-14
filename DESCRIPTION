@@ -15,7 +15,7 @@ License: AGPL (>= 3)
 URL: https://fokus.rpkg.dev, https://gitlab.com/zdaarau/rpkgs/fokus
 BugReports: https://gitlab.com/zdaarau/rpkgs/fokus/issues
 Depends: 
-    R (>= 4.2)
+    R (>= 4.4)
 Imports: 
     brio (>= 1.1.4),
     checkmate (>= 2.0.0),
@@ -76,4 +76,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.1.9000
