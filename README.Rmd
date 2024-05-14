@@ -27,6 +27,7 @@ knitr::opts_knit$set(root.dir = getwd())
 #| eval: !expr isTRUE(getOption("pal.build_readme.is_pkgdown"))
 #| results: asis
 #| echo: false
+
 pkgsnip::md_snip(id = "usage_notice") %>%
   paste0("## Usage\n\n", .) %>%
   pal::cat_lines()
@@ -36,14 +37,7 @@ pkgsnip::md_snip(id = "usage_notice") %>%
 
 ```{r}
 #| label: pkg-config
-#| echo: false
-#| results: "asis"
-
-pkgsnip::md_snip(id = "pkg_config",
-                 pkg = "fokus")
-cat("\n\n::: {.table-wide}\n ")
-pal::print_pkg_config("fokus")
-cat("\n :::")
+#| child: !expr pkgsnip::snip_path("pkg-config-notice.Rmd")
 ```
 
 ## Questionnaires
@@ -78,14 +72,18 @@ fokus::all_ballot_dates |>
 
 ## Private FOKUS directory structure
 
-```{r, child = "data-raw/snippets/fokus_private_description.Rmd"}
+```{r}
+#| child: "data-raw/snippets/fokus_private_description.Rmd"
 ```
 
 <details>
 
 <summary><strong>Directory structure schema</strong></summary>
 
-```{r, echo = FALSE, results = "asis"}
+```{r}
+#| echo: false
+#| results: "asis"
+
 fokus:::print_private_repo_structure()
 ```
 
@@ -96,6 +94,7 @@ fokus:::print_private_repo_structure()
 #| eval: !expr '!isTRUE(getOption("pal.build_readme.is_pkgdown"))'
 #| results: asis
 #| echo: false
+
 pkgsnip::md_snip(id = "pkgdown_notice") %>%
   paste0("## Documentation\n\n",
          "[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)]",
@@ -103,28 +102,6 @@ pkgsnip::md_snip(id = "pkgdown_notice") %>%
          .) %>%
   pal::cat_lines()
 ```
-
-## Abbreviations
-
-The abbreviations used to name things (function and parameter names etc.) in this package.
-
-<details>
-
-<summary><strong>Table of abbreviations</strong></summary>
-
-```{r, echo = FALSE}
-fokus:::abbrs() |>
-  # flatten list col to comma-separted char col in order to avoid weird whitespacing before (some) commas (apparently `pal::pipe_table()` has flaws)
-  dplyr::mutate(full_expressions = purrr::map_chr(full_expressions,
-                                                  \(x) cli::ansi_collapse(x = x,
-                                                                          sep2 = ", ",
-                                                                          last = ", "))) |>
-  dplyr::rename("Full expression(s)" = full_expressions,
-                "Abbreviation" = abbreviation) |>
-  pal::pipe_table()
-```
-
-</details>
 
 ## Development
 
@@ -141,3 +118,27 @@ fokus:::abbrs() |>
 #| label: coding-style
 #| child: !expr pkgsnip::snip_path("coding-style-notice.Rmd")
 ```
+
+### Abbreviations
+
+The abbreviations used to name things (function and parameter names etc.) in this package include:
+
+<details>
+
+<summary><strong>Table of abbreviations</strong></summary>
+
+```{r}
+#| echo: false
+
+fokus:::abbrs() |>
+  # flatten list col to comma-separted char col in order to avoid weird whitespacing before (some) commas (apparently `pal::pipe_table()` has flaws)
+  dplyr::mutate(full_expressions = purrr::map_chr(full_expressions,
+                                                  \(x) cli::ansi_collapse(x = x,
+                                                                          sep2 = ", ",
+                                                                          last = ", "))) |>
+  dplyr::rename("Full expression(s)" = full_expressions,
+                "Abbreviation" = abbreviation) |>
+  pal::pipe_table()
+```
+
+</details>
