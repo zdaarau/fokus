@@ -73,6 +73,7 @@ fokus::all_ballot_dates |>
 ## Private FOKUS directory structure
 
 ```{r}
+#| label: fokus-private-desc
 #| child: "data-raw/snippets/fokus_private_description.Rmd"
 ```
 
@@ -81,6 +82,7 @@ fokus::all_ballot_dates |>
 <summary><strong>Directory structure schema</strong></summary>
 
 ```{r}
+#| label: fokus-private-schema
 #| echo: false
 #| results: "asis"
 
@@ -128,6 +130,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 <summary><strong>Table of abbreviations</strong></summary>
 
 ```{r}
+#| label: abbrs
 #| echo: false
 
 fokus:::abbrs() |>
