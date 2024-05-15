@@ -2318,8 +2318,10 @@ private_file_hash <- function(path,
 
 #### `push_private_file`
 
-`gitlabr::gl_push_file()` [is currently broken](https://github.com/ThinkR-open/gitlabr/issues/111#issuecomment-1897728438), thus we implement a correct
-replacement.
+NOTES:
+
+-   This is a temporary replacement for the [broken `gitlabr::gl_push_file()`](https://github.com/ThinkR-open/gitlabr/issues/111#issuecomment-1897728438) until
+    gitlabr \> 2.0.1 is released which includes [ThinkR-open/gitlabr#106](https://github.com/ThinkR-open/gitlabr/pull/106).
 
 ```{r}
 push_private_file <- function(path,
@@ -6268,7 +6270,7 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ba
 
 TODO:
 
--   Remove `utils::URLencode()` once [ThinkR-open/gitlabr#111](https://github.com/ThinkR-open/gitlabr/issues/111) is fixed and released.
+-   Remove `utils::URLencode()` once gitlabr \> 2.0.1 is released which includes [ThinkR-open/gitlabr#106](https://github.com/ThinkR-open/gitlabr/pull/106).
 
 NOTES:
 
@@ -6809,8 +6811,8 @@ export_survey_data <- function() {
 
 TODO:
 
--   Replace `push_private_file()` with `gitlabr::gl_push_file()` once [ThinkR-open/gitlabr#111](https://github.com/ThinkR-open/gitlabr/issues/111) is fixed and
-    released.
+-   Replace `push_private_file()` with `gitlabr::gl_push_file()` once gitlabr \> 2.0.1 is released which includes
+    [ThinkR-open/gitlabr#106](https://github.com/ThinkR-open/gitlabr/pull/106).
 
 NOTES:
 
