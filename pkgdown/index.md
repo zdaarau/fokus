@@ -271,6 +271,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   numerics                                  nums
   object                                    obj
   objects                                   objs
+  operate, operation, operator              op
+  operations, operators                     ops
   option                                    opt
   options                                   opts
   package                                   pkg

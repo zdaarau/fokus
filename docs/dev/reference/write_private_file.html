@@ -59,6 +59,7 @@
 <span>  from_file <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  commit_message <span class="op">=</span> <span class="st">"auto: update file via fokus R pkg"</span>,</span>
+<span>  branch <span class="op">=</span> <span class="va">repo_private_default_branch</span>,</span>
 <span>  auth_token <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"token_repo_private"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -85,6 +86,10 @@ if <code>from_file = TRUE</code>.</p></dd>
 
 <dt>commit_message</dt>
 <dd><p>Git commit message for file creation/update.</p></dd>
+
+
+<dt>branch</dt>
+<dd><p>Git branch name to upload the file to.</p></dd>
 
 
 <dt>auth_token</dt>
