@@ -4,10 +4,12 @@
 \alias{url_repo_private}
 \title{Assemble private FOKUS repository URL}
 \usage{
-url_repo_private(...)
+url_repo_private(..., .branch = repo_private_default_branch)
 }
 \arguments{
 \item{...}{Optional path components added to the base URL.}
+
+\item{.branch}{Git branch name to use in URL. A character scalar. Only relevant if \code{...} is non-empty.}
 }
 \value{
 A character scalar.

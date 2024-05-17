@@ -2030,18 +2030,6 @@ qstnr_lbl_col_sym <- function(lang = all_langs) {
                    "value_labels"))
 }
 
-exists_private_file <- function(path,
-                                auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                 pkg = this_pkg)) {
-  req_private_file(path = path,
-                   method = "HEAD",
-                   auth_token = auth_token) |>
-    httr2::req_error(is_error = \(x) FALSE) |>
-    httr2::req_perform() |>
-    httr2::resp_is_error() |>
-    magrittr::not()
-}
-
 #' Print structure of the private FOKUS repository
 #'
 #' Returns a textual representation of the structure of the private FOKUS repository, formatted as a Markdown [fenced code
@@ -2079,30 +2067,6 @@ private_file_hash <- function(path,
     httr2::resp_header(header = "X-Gitlab-Content-Sha256")
 }
 
-push_private_file <- function(path,
-                              content,
-                              encoding,
-                              overwrite,
-                              commit_message,
-                              auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                               pkg = this_pkg)) {
-  is_present <- exists_private_file(path = path,
-                                    auth_token = auth_token)
-  
-  if (!overwrite && is_present) return()
-  
-  req_private_file(path = path,
-                   method = ifelse(is_present,
-                                   "PUT",
-                                   "POST"),
-                   auth_token = auth_token) |>
-    httr2::req_body_json(data = list(branch = repo_private_default_branch,
-                                     commit_message = commit_message,
-                                     content = content,
-                                     encoding = encoding)) |>
-    httr2::req_perform()
-}
-
 req_private_file <- function(path,
                              method,
                              max_tries = 3L,
@@ -2116,7 +2080,15 @@ req_private_file <- function(path,
     httr2::req_method(method = method) |>
     httr2::req_headers(`PRIVATE-TOKEN` = auth_token,
                        .redact = "PRIVATE-TOKEN") |>
-    httr2::req_retry(max_tries = max_tries)
+    httr2::req_retry(max_tries = max_tries) |>
+    httr2::req_error(body = \(resp) {
+      
+      if (httr2::resp_has_body(resp)) {
+        return(httr2::resp_body_json(resp)$message)
+      }
+      
+      NULL
+    })
 }
 
 set_private_repo_connection <- function(auth_token = pal::pkg_config_val(key = "token_repo_private",
@@ -2133,6 +2105,7 @@ set_private_repo_connection <- function(auth_token = pal::pkg_config_val(key = "
 #' Assemble private FOKUS repository URL
 #'
 #' @param ... Optional path components added to the base URL.
+#' @param .branch Git branch name to use in URL. A character scalar. Only relevant if `...` is non-empty.
 #'
 #' @return A character scalar.
 #' @family private
@@ -2140,9 +2113,17 @@ set_private_repo_connection <- function(auth_token = pal::pkg_config_val(key = "
 #'
 #' @examples
 #' fokus:::url_repo_private("generated")
-url_repo_private <- function(...) {
+url_repo_private <- function(...,
+                             .branch = repo_private_default_branch) {
   
-  paste0("https://gitlab.com/c2d-zda/private/fokus_private/", fs::path(...))
+  result <- "https://gitlab.com/c2d-zda/private/fokus_private/"
+  
+  if (...length() > 0L) {
+    checkmate::assert_string(.branch)
+    result <- paste0(result, fs::path("-/tree", .branch, ..., "?ref_type=heads"))
+  }
+  
+  result
 }
 
 assert_countish <- function(x,
@@ -5546,7 +5527,7 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' # GitLab PAT with access to the private FOKUS repository is required for this function to work
 #' try(
 #'   fokus::read_private_file("raw/survey_data_2018-09-23_aargau.xlsx") |>
-#'     colnames()
+#'     length()
 #' )
 read_private_file <- function(path,
                               as_chr = FALSE,
@@ -5559,8 +5540,7 @@ read_private_file <- function(path,
   pkgpins::with_cache(
     expr = {
       set_private_repo_connection(auth_token = auth_token)
-      gitlabr::gl_get_file(file_path = utils::URLencode(path,
-                                                        reserved = TRUE),
+      gitlabr::gl_get_file(file_path = path,
                            ref = repo_private_default_branch,
                            to_char = as_chr)
     },
@@ -6017,6 +5997,7 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
 #' @param from_file Whether or not `content` indicates the path to a local file instead of the actual file content.
 #' @param overwrite Whether or not to overwrite an already existing file.
 #' @param commit_message Git commit message for file creation/update.
+#' @param branch Git branch name to upload the file to.
 #' @param quiet `r pkgsnip::param_lbl("quiet")`
 #'
 #' @return `path`, invisibly.
@@ -6028,20 +6009,24 @@ write_private_file <- function(path,
                                from_file = FALSE,
                                overwrite = TRUE,
                                commit_message = "auto: update file via fokus R pkg",
+                               branch = repo_private_default_branch,
                                auth_token = pal::pkg_config_val(key = "token_repo_private",
                                                                 pkg = this_pkg),
                                quiet = FALSE) {
   
+  rlang::check_installed("digest", reason = pal::reason_pkg_required())
+  rlang::check_installed("gitlabr", reason = pal::reason_pkg_required())
   checkmate::assert_string(path)
   checkmate::assert_flag(from_file)
   checkmate::assert_flag(overwrite)
   checkmate::assert_string(commit_message)
+  checkmate::assert_string(branch)
   checkmate::assert_flag(quiet)
   
   is_raw <- is.raw(content)
   
   if (is_raw && from_file) {
-    cli::cli_abort("{.arg content} must be a character scalar if {.arg from_file} is {.val {from_file}}.")
+    cli::cli_abort("{.arg content} must be a character scalar path when {.arg from_file} is {.val {from_file}}.")
   }
   if (!is_raw) {
     checkmate::assert_string(content)
@@ -6049,24 +6034,28 @@ write_private_file <- function(path,
   
   set_private_repo_connection(auth_token = auth_token)
   
-  if (from_file) {
+  # return early if file hasn't changed
+  if (gitlabr::gl_file_exists(file_path = path,
+                              ref = branch)) {
     
-    rlang::check_installed("digest", reason = pal::reason_pkg_required())
-    rlang::check_installed("gitlabr", reason = pal::reason_pkg_required())
-    
-    # return early if file hasn't changed
-    if (gitlabr::gl_file_exists(file_path = path,
-                                ref = repo_private_default_branch) &&
-        identical(private_file_hash(path = path,
-                                    auth_token = auth_token),
-                  digest::digest(algo = "sha256",
-                                 file = content))) {
+    hash_new <- ifelse(from_file,
+                       digest::digest(algo = "sha256",
+                                      file = content),
+                       digest::digest(algo = "sha256",
+                                      object = content,
+                                      serialize = FALSE))
+    if (identical(hash_new,
+                  private_file_hash(path = path,
+                                    auth_token = auth_token))) {
       if (!quiet) {
         cli::cli_alert_info("The new file contents are identical to the existing file contents and thus no data was uploaded to the private FOKUS repository.")
       }
+      
       return(invisible(path))
     }
-    
+  }
+  
+  if (from_file) {
     content %<>% brio::read_file_raw()
     is_raw <- TRUE
   }
@@ -6077,25 +6066,20 @@ write_private_file <- function(path,
   }
   
   if (!quiet) {
-    cli_id <- pal::cli_progress_step_quick(msg = "Uploading file to private FOKUS repository under path {.field {path}}.")
+    cli_msg <- paste0("Uploading file to private FOKUS repository under path {.href [", path, "](", url_repo_private(path), ")}.")
+    cli_id <- pal::cli_progress_step_quick(msg = cli_msg)
   }
   
-  api_result <- tryCatch(expr = push_private_file(path = path,
-                                                  content = content,
-                                                  encoding = ifelse(is_raw,
-                                                                    "base64",
-                                                                    "text"),
-                                                  overwrite = overwrite,
-                                                  commit_message = commit_message,
-                                                  auth_token = auth_token),
-                         error = \(e) e)
+  gitlabr::gl_push_file(file_path = path,
+                        content = content,
+                        commit_message = commit_message,
+                        branch = branch,
+                        overwrite = overwrite,
+                        encoding = ifelse(is_raw,
+                                          "base64",
+                                          "text"))
   if (!quiet) {
     cli::cli_progress_done(id = cli_id)
-  }
-  
-  if (!quiet && utils::hasName(api_result, "message")) {
-    cli::cli_alert_info(paste0("The GitLab API call didn't succeed and returned {.emph {api_result$message}}, which most likely means the new file contents ",
-                               "were identical to the existing file contents in the private FOKUS repository."))
   }
   
   invisible(path)
