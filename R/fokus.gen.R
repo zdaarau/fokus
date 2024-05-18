@@ -6066,7 +6066,7 @@ write_private_file <- function(path,
   }
   
   if (!quiet) {
-    cli_msg <- paste0("Uploading file to private FOKUS repository under path {.href [", path, "](", url_repo_private(path), ")}.")
+    cli_msg <- paste0("Uploading file to private FOKUS repository under path {.href [", path, "](", url_repo_private(path, .branch = branch), ")}.")
     cli_id <- pal::cli_progress_step_quick(msg = cli_msg)
   }
   
