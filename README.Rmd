@@ -7,13 +7,39 @@ output: pal::gitlab_document
 #| include: false
 
 knitr::opts_knit$set(root.dir = getwd())
+
+library(rlang,
+        include.only = "%|%")
+library(magrittr,
+        include.only = c("%>%", "%<>%", "%T>%", "%!>%", "%$%"))
 ```
 
 # `r pal::desc_value("Package")`
 
-`r paste0('[![CRAN Status](https://r-pkg.org/badges/version/', pal::desc_value(key = "Package"), ')](https://cran.r-project.org/package=', pal::desc_value(key = "Package"), '){.pkgdown-release}')`
+```{r}
+#| label: description
+#| results: asis
+#| echo: false
 
-`r pal::desc_value("Description")`
+pal::cat_lines(paste0("[![CRAN Status](https://r-pkg.org/badges/version/", pal::desc_value(key = "Package"), ")](https://cran.r-project.org/package=",
+                      pal::desc_value(key = "Package"), "){.pkgdown-release}"),
+               "",
+               pal::desc_value("Description"))
+```
+
+```{r}
+#| label: documentation
+#| eval: !expr '!isTRUE(getOption("pal.build_readme.is_pkgdown"))'
+#| results: asis
+#| echo: false
+
+pkgsnip::md_snip(id = "pkgdown_notice") %>%
+  paste0("## Documentation\n\n",
+         "[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)]",
+         "(https://app.netlify.com/sites/fokus-rpkg-dev/deploys)\n\n",
+         .) |>
+  pal::cat_lines()
+```
 
 ## Installation
 
@@ -29,7 +55,7 @@ knitr::opts_knit$set(root.dir = getwd())
 #| echo: false
 
 pkgsnip::md_snip(id = "usage_notice") %>%
-  paste0("## Usage\n\n", .) %>%
+  paste0("## Usage\n\n", .) |>
   pal::cat_lines()
 ```
 
@@ -90,20 +116,6 @@ fokus:::print_private_repo_structure()
 ```
 
 </details>
-
-```{r}
-#| label: documentation
-#| eval: !expr '!isTRUE(getOption("pal.build_readme.is_pkgdown"))'
-#| results: asis
-#| echo: false
-
-pkgsnip::md_snip(id = "pkgdown_notice") %>%
-  paste0("## Documentation\n\n",
-         "[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)]",
-         "(https://app.netlify.com/sites/fokus-rpkg-dev/deploys)\n\n",
-         .) %>%
-  pal::cat_lines()
-```
 
 ## Development
 

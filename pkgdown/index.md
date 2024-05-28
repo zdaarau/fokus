@@ -261,7 +261,6 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   messages                                  msgs
   modifications                             mods
   modify, modification                      mod
-  NocoDB                                    ncdb
   not a number                              nan
   not available                             na
   number                                    nr

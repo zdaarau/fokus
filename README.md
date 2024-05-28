@@ -4,6 +4,12 @@
 
 fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.
 
+## Documentation
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)](https://app.netlify.com/sites/fokus-rpkg-dev/deploys)
+
+The documentation of this package is found [here](https://fokus.rpkg.dev).
+
 ## Installation
 
 To install the latest development version of fokus, run the following in R:
@@ -86,12 +92,6 @@ The following placeholders are used in the schema above:
 -   `{date_delivery_statistical_office}` for the delivery date of the voting register data provided by the cantonal statistical office (in the format `YYYY-MM-DD`), e.g. `2019-09-11`
 
 </details>
-
-## Documentation
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/0cc31095-153a-4d21-bec7-be8dd936ddf1/deploy-status)](https://app.netlify.com/sites/fokus-rpkg-dev/deploys)
-
-The documentation of this package is found [here](https://fokus.rpkg.dev).
 
 ## Development
 
@@ -263,7 +263,6 @@ The abbreviations used to name things (function and parameter names etc.) in thi
 | messages                                | msgs             |
 | modifications                           | mods             |
 | modify, modification                    | mod              |
-| NocoDB                                  | ncdb             |
 | not a number                            | nan              |
 | not available                           | na               |
 | number                                  | nr               |
