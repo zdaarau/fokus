@@ -23,7 +23,6 @@ Content-Security-Policy = '''
   img-src 'self' data:;
   manifest-src 'self';
   object-src 'self';
-  prefetch-src 'self';
   script-src 'self' https://fokus.ag;
 
   form-action 'self';
