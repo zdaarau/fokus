@@ -155,7 +155,7 @@ NULL
 #' @keywords internal
 #'
 #' @examples
-#' fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") %$% mode
+#' fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") |> _$mode
 raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                               pkg = this_pkg)) {
   ballot_date %<>% as.character()
@@ -271,8 +271,8 @@ raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val(key = "
 #' fokus:::raw_qstnr_suppl_proposal(ballot_date = "2018-09-23",
 #'                                  lvl = "cantonal",
 #'                                  canton = "aargau",
-#'                                  proposal_nr = 1) %$%
-#'   name
+#'                                  proposal_nr = 1) |>
+#'   _$name
 raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                        pkg = this_pkg),
                                      lvl = all_lvls,
@@ -606,8 +606,8 @@ raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key =
 #' @examples
 #' fokus:::raw_qstnr_suppl_elections(ballot_date = "2019-10-20",
 #'                                   lvl = "cantonal",
-#'                                   canton = "aargau") %$%
-#'   skill_questions_source
+#'                                   canton = "aargau") |>
+#'   _$skill_questions_source
 raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                         pkg = this_pkg),
                                       lvl = all_lvls,
@@ -660,8 +660,8 @@ NOTES:
 #' fokus:::raw_qstnr_suppl_election(ballot_date = "2019-10-20",
 #'                                  lvl = "cantonal",
 #'                                  canton = "aargau",
-#'                                  prcd = "majoritarian") %$%
-#'   n_seats
+#'                                  prcd = "majoritarian") |>
+#'   _$n_seats
 raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                        pkg = this_pkg),
                                      lvl = all_lvls,

@@ -7,6 +7,11 @@
 #' ```
 #'
 #' @keywords internal
+#' @importFrom magrittr %>%
+#' @importFrom magrittr %<>%
+#' @importFrom magrittr %T>%
+#' @importFrom magrittr %!>%
+#' @importFrom magrittr %$%
 #' @importFrom rlang %|%
 "_PACKAGE"
 
