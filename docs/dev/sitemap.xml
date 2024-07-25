@@ -1,438 +1,147 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/TODO.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/articles/raw_qstnr_schema.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/abbrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/add_vars_to_combos.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_argument_sides.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_ballot_dates.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_ballot_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_cantons.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_election_seat_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_langs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_lvls.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_main_motive_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_name_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_postal_dispatch_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_postal_dispatch_ways.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_prcds.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_proposal_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_qstn_groups.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/all_response_option_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/argument_proposal_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/auth_g_drive_gcp.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/auth_g_sheets_gcp.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/backup_g_file.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/backup_g_sheet.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/ballot_title.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/ballot_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/ballots.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/cantons.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/combos_ballot_types.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/combos_elections.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/combos_proposal_arguments.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/combos_proposal_main_motives.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/combos_proposals.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_candidates.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_name.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_names_combined.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_parties.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_prcds.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/election_tickets.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/elections.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/expand_qstnr_tibble.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/export_easyvote_municipalities.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/export_print_recipients.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/export_qr_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/export_qstnr.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/fokus-package.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/g_file_mod_time.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/gen_qstnr_md.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/gen_qstnr_tibble.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_ballot_type.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_election.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_election_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_lvl.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_proposal_arguments.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_proposal_main_motives.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_proposal_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/has_referendum.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/is_proposal_name_plural.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/is_skill_question_var.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/lang_to_locale.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/lgl_to_unicode.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/lvls.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/main_motive_proposal_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/md_emphasize.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_election_candidates.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_election_seats.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_elections.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_proposal_arguments.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_proposal_main_motives.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_proposals.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/n_skill_questions.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/phrase.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/phrase_election_candidate.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/phrase_proposal_name_de.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/pkg_config.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/political_issues.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/postal_dispatch_way.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/prcds.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/print_private_repo_structure.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_argument.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_arguments.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_main_motives.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_name.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_name_gender.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_qstn_groups.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposal_type.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/proposals.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstn_groups_proposal_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstnr_item_keys.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstnr_item_val.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstnr_lbl_col_sym.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstnr_parties.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstnr_response_option_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/qstnrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_pick_right.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_argument.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_arguments.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_election.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_election_name.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_elections.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_lvl.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_lvl_canton.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_main_motives.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_mode.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal_name.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal_safe.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_skill_question.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_skill_questions.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/raw_qstnrs_suppl.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/read_easyvote_municipalities.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/read_online_participation_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/read_private_file.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/read_survey_data.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/read_voting_register_data_extra.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/read_voting_register_ids.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/requires_candidate_registration.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/response_options.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/restore_colnames.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/shorten_colnames.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/shorten_var_names.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/skill_question.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/skill_question_answer_nr.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/skill_question_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/skill_question_proposal_nrs.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/skill_question_response_options.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/upload_to_g_drive.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/url_repo_private.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/var_lbl.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/var_lvls.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/var_proposal_nr.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/var_skill_question_nr.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/var_title.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/var_val_set.html</loc>
-  </url>
-  <url>
-    <loc>https://fokus.rpkg.dev/dev/reference/write_private_file.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://fokus.rpkg.dev/dev/LICENSE.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/TODO.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/articles/index.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/articles/raw_qstnr_schema.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/authors.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/index.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/abbrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/add_vars_to_combos.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_argument_sides.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_ballot_dates.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_ballot_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_cantons.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_election_seat_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_langs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_lvls.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_main_motive_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_name_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_postal_dispatch_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_postal_dispatch_ways.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_prcds.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_proposal_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_qstn_groups.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/all_response_option_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/argument_proposal_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/auth_g_drive_gcp.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/auth_g_sheets_gcp.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/backup_g_file.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/backup_g_sheet.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/ballot_title.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/ballot_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/ballots.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/cantons.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/combos_ballot_types.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/combos_elections.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/combos_proposal_arguments.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/combos_proposal_main_motives.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/combos_proposals.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_candidates.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_name.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_names_combined.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_parties.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_prcds.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/election_tickets.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/elections.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/expand_qstnr_tibble.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/export_easyvote_municipalities.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/export_print_recipients.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/export_qr_codes.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/export_qstnr.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/fokus-package.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/g_file_mod_time.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/gen_qstnr_md.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/gen_qstnr_tibble.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_ballot_type.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_election.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_election_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_lvl.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_proposal_arguments.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_proposal_main_motives.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_proposal_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/has_referendum.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/index.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/is_proposal_name_plural.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/is_skill_question_var.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/lang_to_locale.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/lgl_to_unicode.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/lvls.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/main_motive_proposal_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/md_emphasize.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_election_candidates.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_election_seats.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_elections.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_proposal_arguments.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_proposal_main_motives.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_proposals.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/n_skill_questions.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/phrase.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/phrase_election_candidate.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/phrase_proposal_name_de.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/pkg_config.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/political_issues.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/postal_dispatch_way.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/prcds.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/print_private_repo_structure.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_argument.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_arguments.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_main_motives.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_name.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_name_gender.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_qstn_groups.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposal_type.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/proposals.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstn_groups_proposal_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstnr_item_keys.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstnr_item_val.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstnr_lbl_col_sym.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstnr_parties.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstnr_response_option_codes.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/qstnrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_pick_right.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_argument.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_arguments.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_election.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_election_name.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_elections.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_lvl.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_lvl_canton.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_main_motives.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_mode.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal_name.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_proposal_safe.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_skill_question.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnr_suppl_skill_questions.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/raw_qstnrs_suppl.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/read_easyvote_municipalities.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/read_online_participation_codes.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/read_private_file.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/read_survey_data.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/read_voting_register_data_extra.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/read_voting_register_ids.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/requires_candidate_registration.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/response_options.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/restore_colnames.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/shorten_colnames.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/shorten_var_names.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/skill_question.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/skill_question_answer_nr.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/skill_question_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/skill_question_proposal_nrs.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/skill_question_response_options.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/upload_to_g_drive.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/url_repo_private.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/var_lbl.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/var_lvls.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/var_proposal_nr.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/var_skill_question_nr.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/var_title.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/var_val_set.html</loc></url>
+<url><loc>https://fokus.rpkg.dev/dev/reference/write_private_file.html</loc></url>
 </urlset>
+

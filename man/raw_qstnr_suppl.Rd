@@ -27,7 +27,7 @@ A \link[xfun:strict_list]{strict list}.
 Returns a structured list of the \link[=raw_qstnrs_suppl]{raw supplemental date-specific FOKUS questionnaire data} for the specified ballot date.
 }
 \examples{
-fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") \%$\% mode
+fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") |> _$mode
 }
 \seealso{
 Other raw questionnaire data functions:

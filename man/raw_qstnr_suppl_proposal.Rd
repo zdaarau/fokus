@@ -42,8 +42,8 @@ Returns a structured list of a proposal's data from the \link[=raw_qstnr_suppl]{
 fokus:::raw_qstnr_suppl_proposal(ballot_date = "2018-09-23",
                                  lvl = "cantonal",
                                  canton = "aargau",
-                                 proposal_nr = 1) \%$\%
-  name
+                                 proposal_nr = 1) |>
+  _$name
 }
 \seealso{
 Other raw questionnaire data functions:

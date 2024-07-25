@@ -45,8 +45,8 @@ Returns a structured list of an election's data from the \link[=raw_qstnr_suppl_
 fokus:::raw_qstnr_suppl_election(ballot_date = "2019-10-20",
                                  lvl = "cantonal",
                                  canton = "aargau",
-                                 prcd = "majoritarian") \%$\%
-  n_seats
+                                 prcd = "majoritarian") |>
+  _$n_seats
 }
 \seealso{
 Other raw questionnaire data functions:

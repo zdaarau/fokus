@@ -38,8 +38,8 @@ Returns a structured list of election data from the \link[=raw_qstnr_suppl_lvl_c
 \examples{
 fokus:::raw_qstnr_suppl_elections(ballot_date = "2019-10-20",
                                   lvl = "cantonal",
-                                  canton = "aargau") \%$\%
-  skill_questions_source
+                                  canton = "aargau") |>
+  _$skill_questions_source
 }
 \seealso{
 Other raw questionnaire data functions:
