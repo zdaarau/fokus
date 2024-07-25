@@ -1,9 +1,9 @@
 #' @section Package configuration:
 #'
-#' `r pkgsnip::md_snip("pkg_config", pkg = "fokus")`
+#' `r pkgsnip::md_snip("pkg_config", pkg = this_pkg)`
 #'
 #' ```{r, echo = FALSE}
-#' pal::print_pkg_config("fokus")
+#' pal::print_pkg_config(this_pkg)
 #' ```
 #'
 #' @keywords internal
