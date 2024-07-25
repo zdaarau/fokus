@@ -35,7 +35,6 @@ utils::globalVariables(names = c(".",
                                  "block",
                                  "date_begin",
                                  "date_end",
-                                 "drive_resource",
                                  "enumerator",
                                  "enumerator_base",
                                  "full_expressions",
@@ -47,7 +46,6 @@ utils::globalVariables(names = c(".",
                                  "household_size_official",
                                  "i",
                                  "id",
-                                 "id_voting_register",
                                  "ID-Nummer",
                                  "is_likely_default",
                                  "j",
@@ -59,9 +57,7 @@ utils::globalVariables(names = c(".",
                                  "marital_status_official",
                                  "matches_length",
                                  "max_age",
-                                 "mimeType",
                                  "min_age",
-                                 "modifiedTime",
                                  "n_adults_in_household_official",
                                  "n_cantonal_majoritarian_elections",
                                  "n_cantonal_proportional_elections",
@@ -73,7 +69,6 @@ utils::globalVariables(names = c(".",
                                  "n_kids_in_household_official",
                                  "name",
                                  "nr",
-                                 "path",
                                  "question",
                                  "question_full",
                                  "question_intro_i",
@@ -86,7 +81,6 @@ utils::globalVariables(names = c(".",
                                  "topic",
                                  "value_labels",
                                  "variable_label",
-                                 "variable_label_common",
                                  "variable_name",
                                  "variable_values",
                                  "who",
@@ -1533,13 +1527,13 @@ gen_qstnr_md <- function(qstnr_tibble,
   
   # ensure we have a single ballot date and canton
   ballot_date <-
-    qstnr_tibble %$%
-    ballot_date |>
+    qstnr_tibble |>
+    dplyr::pull("ballot_date") |>
     unique() |>
     checkmate::assert_string(.var.name = "ballot_date")
   canton <-
-    qstnr_tibble %$%
-    canton |>
+    qstnr_tibble |>
+    dplyr::pull("canton") |>
     unique() |>
     checkmate::assert_string(.var.name = "canton")
   
@@ -5183,8 +5177,8 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
   
   date_data <-
     gitlabr::gl_list_files(ref = repo_private_default_branch,
-                           path = "raw") %$%
-    path |>
+                           path = "raw") |>
+    dplyr::pull("path") |>
     stringr::str_subset(pattern = stringr::fixed("raw/easyvote_municipalities_")) |>
     stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.csv$)")) |>
     lubridate::as_date() %>%
@@ -5352,8 +5346,8 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
   
   date_data <-
     gitlabr::gl_list_files(ref = repo_private_default_branch,
-                           path = "raw") %$%
-    path |>
+                           path = "raw") |>
+    dplyr::pull("path") |>
     stringr::str_subset(pattern = stringr::fixed("raw/voting_register_data_extra_")) |>
     stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.xlsx$)")) |>
     lubridate::as_date() %>%
@@ -5869,8 +5863,8 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
     ids <-
       read_voting_register_ids(ballot_date = ballot_date,
                                canton = canton,
-                               auth_token = auth_token) %$%
-      id_voting_register
+                               auth_token = auth_token) |>
+      dplyr::pull("id_voting_register")
     
     # ensure output folder exists
     filename <- glue::glue("{ballot_date}_{canton}_print_recipients.csv")
@@ -6146,8 +6140,8 @@ var_lbl <- function(var_name,
     
     result <-
       fokus::qstnrs |>
-      dplyr::filter(variable_name == !!var_name) %$%
-      variable_label_common |>
+      dplyr::filter(variable_name == !!var_name) |>
+      dplyr::pull("variable_label_common") |>
       unique()
   }
   
@@ -6773,10 +6767,10 @@ backup_g_sheet <- function(g_id,
   
   # ensure `g_id` refers to a spreadsheet
   mime_type <-
-    googledrive::drive_get(id = g_id) %$%
-    drive_resource |>
-    dplyr::first() %$%
-    mimeType
+    googledrive::drive_get(id = g_id) |>
+    dplyr::pull("drive_resource") |>
+    dplyr::first() |>
+    purrr::chuck("mimeType")
   
   if (mime_type != "application/vnd.google-apps.spreadsheet") {
     
@@ -6888,10 +6882,10 @@ g_file_mod_time <- function(g_id,
   
   auth_g_drive_gcp(path_gcp_service_account_key = path_gcp_service_account_key)
   
-  googledrive::drive_get(id = g_id) %$%
-    drive_resource |>
-    dplyr::first() %$%
-    modifiedTime |>
+  googledrive::drive_get(id = g_id) |>
+    dplyr::pull("drive_resource") |>
+    dplyr::first() |>
+    purrr::chuck("modifiedTime") |>
     lubridate::as_datetime()
 }
 
