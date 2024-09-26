@@ -5581,7 +5581,7 @@ export_qstnr <- function(qstnr_tibble,
                          incl_html = TRUE,
                          incl_xlsx = incl_html,
                          upload_to_g_drive = FALSE,
-                         g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/")) {
+                         g_drive_folder = "fokus/aargau/Umfragen/Dateien f\u00fcr Umfrageinstitut/Fragebogen/") {
   
   path <- fs::path_abs(path)
   fs::dir_create(path)
