@@ -162,8 +162,8 @@ NOTES:
     Aargau](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN0TGN0TN0MN0) and might require
     revision/extension to work for other cantons as well.
 
-    The CSV files must be downloaded manually (it's futile trying to automate this since cantonal websites tend to change more often than we do surveys). The
-    following download locations are currently known:
+    The CSV files must be downloaded manually (it's futile trying to automate this since official cantonal websites tend to change more often than we do
+    surveys). The following download locations are currently known:
 
     -   Aargau
         -   referendums proposals
@@ -208,7 +208,9 @@ ballots$referendum <-
     path_file <- glue::glue("data-raw/ballots/{combo$ballot_date}_{combo$canton}_{combo$lvl}_proposal_{combo$proposal_nr}.csv")
     
     if (!fs::file_exists(path_file)) {
-      cli::cli_abort("No raw ballot CSV data file found under {.file {path_file}}. Please first add the necessary CSV file and run again.")
+      cli::cli_alert_warning(paste0("No raw ballot CSV data file found under {.file {path_file}}. Please add the necessary CSV file and run again in order to ",
+                                    "generate the corresponding {.var ballots} results data."))
+      return(NULL)
     }
     
     data <-
@@ -248,6 +250,7 @@ ballots$referendum <-
     
     data
   }) |>
+  purrr::compact() |>
   purrr::list_rbind()
 
 # add election data
@@ -266,7 +269,9 @@ ballots$election <-
                             ".csv")
     
     if (!fs::file_exists(path_file)) {
-      cli::cli_abort("No raw ballot CSV data file found under {.file {path_file}}. Please first add the necessary CSV file and run again.")
+      cli::cli_alert_warning(paste0("No raw ballot CSV data file found under {.file {path_file}}. Please add the necessary CSV file and run again in order to ",
+                                    "generate the corresponding {.var ballots} results data."))
+      return(NULL)
     }
     
     if (combo$prcd == "majoritarian") {
@@ -421,7 +426,8 @@ ballots$election <-
     }
     
     result
-  })
+  }) |>
+  purrr::compact()
 
 # clean up
 rm(na_vals)
