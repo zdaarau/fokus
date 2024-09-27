@@ -16,6 +16,7 @@ reminder = 2020-10-21
 
 [cantonal.aargau.election]
 names_combined.de.short = "Grossrats- und Regierungsratswahlen"
+past_ballot_date = 2016-10-23
 [cantonal.aargau.election.url]
 skill_questions_source = "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
 wikipedia.de = "https://de.wikipedia.org/wiki/Wahlen_im_Kanton_Aargau_2020"

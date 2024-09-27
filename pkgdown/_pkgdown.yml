@@ -74,6 +74,7 @@ reference:
   - election_candidates
   - election_parties
   - election_tickets
+  - past_election_date
   - n_election_seats
   - n_election_candidates
   - requires_candidate_registration

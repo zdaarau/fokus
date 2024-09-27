@@ -181,7 +181,6 @@ raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                   pkg = this_pkg),
                                 lvl = all_lvls) {
-  
   lvl <- rlang::arg_match(lvl)
   
   result <- raw_qstnr_suppl(ballot_date = ballot_date) |> purrr::pluck(lvl)
@@ -5054,6 +5053,86 @@ election_tickets <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
     purrr::chuck("ticket") |>
     purrr::map(tibble::as_tibble) |>
     purrr::list_rbind()
+}
+```
+
+#### `past_election_date`
+
+```{r}
+#' Get election's past date
+#'
+#' Determines the ordinary date (i.e. 1st round of voting) on which the specified election was *last* held (i.e. 4 years earlier than `ballot_date`).
+#'
+#' @inheritParams election_name
+#'
+#' @return `r pkgsnip::return_lbl("date")`
+#' @family predicate_election
+#' @export
+#'
+#' @examples
+#' fokus::past_election_date(ballot_date = "2019-10-20")
+#' fokus::past_election_date(ballot_date = "2020-10-18")
+#' fokus::past_election_date(ballot_date = "2024-10-20")
+past_election_date <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                                 pkg = this_pkg),
+                               lvl = lvls(ballot_date,
+                                          canton,
+                                          ballot_type = "election"),
+                               canton = cantons(ballot_date)) {
+  if (length(lvl)) {
+    lvl <- rlang::arg_match(arg = lvl,
+                            values = all_lvls)
+  }
+  canton <- rlang::arg_match(arg = canton,
+                             values = all_cantons)
+  
+  # priority 1: from current election's metadata (past election was *not* covered by FOKUS survey)
+  result <-
+    lvl |>
+    pal::when(. == "federal" ~
+                raw_qstnr_suppl_lvl(ballot_date = ballot_date,
+                                    lvl = .),
+              ~ raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
+                                           lvl = .,
+                                           canton = canton)) |>
+    purrr::pluck("election", "past_ballot_date") |>
+    checkmate::assert_date(any.missing = FALSE,
+                           null.ok = TRUE)
+  
+  # priority 2: from past election's metadata (past election was covered by FOKUS survey)
+  if (is.null(result)) {
+    
+    # NOTE: we assume the past election must be *4* years before `ballot_date`
+    past_election_year <-
+      clock::date_parse(ballot_date) |>
+      clock::get_year() |>
+      magrittr::subtract(4L)
+    
+    result <-
+      combos_elections(ballot_dates = all_ballot_dates,
+                       lvls = lvl,
+                       cantons = canton,
+                       incl_prcd = FALSE,
+                       incl_nr = FALSE) |>
+      purrr::keep(.p = \(x) {
+        clock::date_parse(x$ballot_date) |>
+          clock::get_year() |>
+          magrittr::equals(past_election_year)
+      }) |>
+      purrr::map_depth(.depth = 1L,
+                       .f = \(x) x$ballot_date) |>
+      unlist(use.names = FALSE) %||%
+      character() |>
+      clock::date_parse() |>
+      pal::safe_min()
+  }
+  
+  if (length(result) == 0L) {
+    cli::cli_abort(paste0("Past election date couldn't be determined. Please set `past_ballot_date` explicitly in the supplemental {.val {ballot_date}} FOKUS ",
+                          "questionnaire data."))
+  }
+  
+  result
 }
 ```
 

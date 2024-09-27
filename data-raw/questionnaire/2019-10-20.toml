@@ -16,6 +16,9 @@ invitation = 2019-10-14
 reminder = 2019-10-29
 
 
+[federal.election]
+past_ballot_date = 2015-10-18
+
 [federal.election.url]
 skill_questions_source = "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
 wikipedia.de = "https://de.wikipedia.org/wiki/Schweizer_Parlamentswahlen_2019"
@@ -32,6 +35,7 @@ bk = "https://www.bk.admin.ch/bk/de/home/politische-rechte/nationalratswahlen/na
 
 [federal.aargau.election]
 names_combined.de.short = "National- und Ständeratswahlen"
+past_ballot_date = 2015-10-18
 [federal.aargau.election.proportional.1.n_seats]
 total = 16
 vacant = 16
