@@ -23,6 +23,7 @@ raw_qstnr_suppl_argument(
 \item \code{"2020-10-18"}
 \item \code{"2021-11-28"}
 \item \code{"2023-06-18"}
+\item \code{"2024-10-20"}
 }}
 
 \item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}

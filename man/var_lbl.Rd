@@ -18,6 +18,7 @@ var_lbl(var_name, ballot_date = NULL, canton = NULL)
 \item \code{"2020-10-18"}
 \item \code{"2021-11-28"}
 \item \code{"2023-06-18"}
+\item \code{"2024-10-20"}
 }}
 
 \item{canton}{\code{NULL} or a FOKUS-covered canton name, i.e. one of

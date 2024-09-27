@@ -1,9 +1,9 @@
-pandoc: 3.2.1
-pkgdown: 2.1.0
+pandoc: '3.4'
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   raw_qstnr_schema: raw_qstnr_schema.html
-last_built: 2024-07-29T13:06Z
+last_built: 2024-09-27T22:40Z
 urls:
   reference: https://fokus.rpkg.dev/reference
   article: https://fokus.rpkg.dev/articles

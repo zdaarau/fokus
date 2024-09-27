@@ -155,26 +155,26 @@ levels the same as any of the keys listed below.</p>
 <col width="5%">
 <col width="79%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th>Key</th>
 <th>Type</th>
 <th>Optional</th>
 <th>Remarks</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>title</code></td>
 <td>character scalar</td>
 <td>❌</td>
 <td>block title</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>intro</code></td>
 <td>character scalar</td>
 <td>✅</td>
 <td>text paragraph introducing the questionnaire items of the block</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>prefix</code></td>
 <td>integer scalar</td>
 <td>✅</td>
@@ -199,7 +199,7 @@ nodes:</p>
 <col width="4%">
 <col width="61%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="left"><strong>Key</strong></th>
 <th align="left"><strong>Type</strong></th>
 <th align="left"><strong>Default Value</strong></th>
@@ -209,7 +209,7 @@ nodes:</p>
 <th align="left"><strong>Remarks</strong></th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td align="left"><code>lvl</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>"?"</code></td>
@@ -218,7 +218,7 @@ nodes:</p>
 <td align="left">❌</td>
 <td align="left">political-level loop iterator</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>i</code></td>
 <td align="left">integer vector</td>
 <td align="left"><code>NA_integer_</code></td>
@@ -227,7 +227,7 @@ nodes:</p>
 <td align="left">❌</td>
 <td align="left">2nd-level loop iterator</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>j</code></td>
 <td align="left">integer vector</td>
 <td align="left"><code>NA_integer_</code></td>
@@ -238,7 +238,7 @@ nodes:</p>
 <code>lvl</code>, iterate over each <code>i</code>, and in turn iterate
 over every <code>j</code>”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>block</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>*top-level block name*</code></td>
@@ -248,7 +248,7 @@ over every <code>j</code>”</td>
 <td align="left">holds the name of the respective top-level block;
 filled automatically during parsing</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>variable_name</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>"???"</code></td>
@@ -259,7 +259,7 @@ filled automatically during parsing</td>
 below); usually not sensible to be inherited since it has to be
 unique</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>who</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>"alle"</code></td>
@@ -268,7 +268,7 @@ unique</td>
 <td align="left">❌</td>
 <td align="left">aka “Wer”</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>topic</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -277,7 +277,7 @@ unique</td>
 <td align="left">❌</td>
 <td align="left">aka “Thema”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>question_intro_i</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -288,7 +288,7 @@ unique</td>
 <code>i == 1</code> and <code>j %in% c(1, NA)</code>
 </td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>question_intro_j</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -299,7 +299,7 @@ unique</td>
 <code>j == 1</code>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>question</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -308,7 +308,7 @@ unique</td>
 <td align="left">❌</td>
 <td align="left">last-priority part of “Frage”, always included</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>question_full</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -319,7 +319,7 @@ unique</td>
 can refer to <code>question</code>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>question_common</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -329,7 +329,7 @@ can refer to <code>question</code>
 <td align="left">version of <code>question</code> that stays the same
 across ballot dates</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>variable_label</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>"???"</code></td>
@@ -338,7 +338,7 @@ across ballot dates</td>
 <td align="left">❌</td>
 <td align="left">aka “Variablenlabel”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>variable_label_common</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>NA</code></td>
@@ -348,7 +348,7 @@ across ballot dates</td>
 <td align="left">version of <code>variable_label</code> that stays the
 same across ballot dates</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>response_options</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>NA</code></td>
@@ -357,7 +357,7 @@ same across ballot dates</td>
 <td align="left">❌</td>
 <td align="left">aka “Antwortoptionen”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>variable_values</code></td>
 <td align="left">integer vector</td>
 <td align="left"><code>NA</code></td>
@@ -366,7 +366,7 @@ same across ballot dates</td>
 <td align="left">❌</td>
 <td align="left">aka “Variablenausprägungen”</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>value_labels</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>NA</code></td>
@@ -375,7 +375,7 @@ same across ballot dates</td>
 <td align="left">❌</td>
 <td align="left">aka “Ausprägungslabels”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>value_scale</code></td>
 <td align="left">character scalar</td>
 <td align="left"><code>"nominal"</code></td>
@@ -389,7 +389,7 @@ measure (aka “level of measurement”)</a>; possible values include
 <code>"interval"</code> and <code>"ratio"</code>
 </td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>allow_multiple_answers</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>FALSE</code></td>
@@ -398,7 +398,7 @@ measure (aka “level of measurement”)</a>; possible values include
 <td align="left">❌</td>
 <td align="left">aka “Mehrfachnennungen”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>randomize_response_options</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>FALSE</code></td>
@@ -411,7 +411,7 @@ displayed in randomized order to online respondents
 <code>90</code> and <code>99</code> are still excluded from
 randomization)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>is_mandatory</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>FALSE</code></td>
@@ -420,7 +420,7 @@ randomization)</td>
 <td align="left">❌</td>
 <td align="left">aka “Antwort obligatorisch”</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left"><code>ballot_types</code></td>
 <td align="left">character vector</td>
 <td align="left"><code>c("referendum", "election")</code></td>
@@ -430,7 +430,7 @@ randomization)</td>
 <td align="left">ballot-type-specific in- and exclusion of the
 respective item(s)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left"><code>include</code></td>
 <td align="left">logical scalar</td>
 <td align="left"><code>TRUE</code></td>
@@ -615,7 +615,7 @@ locate the exact source position of the mistake.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

@@ -9,7 +9,7 @@ n_election_seats(
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L,
-  type = all_election_seat_types
+  seat_type = all_election_seat_types
 )
 }
 \arguments{
@@ -22,6 +22,7 @@ n_election_seats(
 \item \code{"2020-10-18"}
 \item \code{"2021-11-28"}
 \item \code{"2023-06-18"}
+\item \code{"2024-10-20"}
 }}
 
 \item{lvl}{Political level. One of \code{"cantonal"} or \code{"federal"}.}
@@ -33,7 +34,7 @@ n_election_seats(
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 
-\item{type}{Seat type. One of \code{"vacant"} or \code{"total"}.}
+\item{seat_type}{Seat type. One of \code{"vacant"} or \code{"total"}.}
 }
 \value{
 An integer scalar.
@@ -45,7 +46,7 @@ Determines the number of election seats of the specified type for the specified 
 fokus::n_election_seats(ballot_date = "2019-10-20",
                         lvl = "cantonal",
                         canton = "aargau",
-                        type = "total")
+                        seat_type = "total")
 }
 \seealso{
 Other election predicate functions:
@@ -56,6 +57,7 @@ Other election predicate functions:
 \code{\link{election_parties}()},
 \code{\link{election_tickets}()},
 \code{\link{n_election_candidates}()},
+\code{\link{past_election_date}()},
 \code{\link{requires_candidate_registration}()}
 }
 \concept{predicate_election}

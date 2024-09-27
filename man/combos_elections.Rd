@@ -23,6 +23,7 @@ combos_elections(
 \item \code{"2020-10-18"}
 \item \code{"2021-11-28"}
 \item \code{"2023-06-18"}
+\item \code{"2024-10-20"}
 }}
 
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
@@ -77,6 +78,7 @@ Other election predicate functions:
 \code{\link{election_tickets}()},
 \code{\link{n_election_candidates}()},
 \code{\link{n_election_seats}()},
+\code{\link{past_election_date}()},
 \code{\link{requires_candidate_registration}()}
 }
 \concept{combo}

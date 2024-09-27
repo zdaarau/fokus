@@ -53,7 +53,7 @@
 <span>  lvl <span class="op">=</span> <span class="fu"><a href="lvls.html">lvls</a></span><span class="op">(</span><span class="va">ballot_date</span>, <span class="va">canton</span>, ballot_type <span class="op">=</span> <span class="st">"election"</span><span class="op">)</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
 <span>  election_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  type <span class="op">=</span> <span class="va">all_election_seat_types</span></span>
+<span>  seat_type <span class="op">=</span> <span class="va">all_election_seat_types</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -69,6 +69,7 @@
 <li><p><code>"2020-10-18"</code></p></li>
 <li><p><code>"2021-11-28"</code></p></li>
 <li><p><code>"2023-06-18"</code></p></li>
+<li><p><code>"2024-10-20"</code></p></li>
 </ul></dd>
 
 
@@ -85,7 +86,7 @@
 <dd><p>Election number. A positive integerish scalar.</p></dd>
 
 
-<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dt id="arg-seat-type">seat_type<a class="anchor" aria-label="anchor" href="#arg-seat-type"></a></dt>
 <dd><p>Seat type. One of <code>"vacant"</code> or <code>"total"</code>.</p></dd>
 
 </dl></div>
@@ -103,6 +104,7 @@
 <code><a href="election_parties.html">election_parties</a>()</code>,
 <code><a href="election_tickets.html">election_tickets</a>()</code>,
 <code><a href="n_election_candidates.html">n_election_candidates</a>()</code>,
+<code><a href="past_election_date.html">past_election_date</a>()</code>,
 <code><a href="requires_candidate_registration.html">requires_candidate_registration</a>()</code></p></div>
     </div>
 
@@ -111,7 +113,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fokus</span><span class="fu">::</span><span class="fu">n_election_seats</span><span class="op">(</span>ballot_date <span class="op">=</span> <span class="st">"2019-10-20"</span>,</span></span>
 <span class="r-in"><span>                        lvl <span class="op">=</span> <span class="st">"cantonal"</span>,</span></span>
 <span class="r-in"><span>                        canton <span class="op">=</span> <span class="st">"aargau"</span>,</span></span>
-<span class="r-in"><span>                        type <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                        seat_type <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 </code></pre></div>
     </div>
@@ -124,7 +126,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
