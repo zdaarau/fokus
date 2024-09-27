@@ -7,9 +7,6 @@
     -   change `export_qstnr/_all()`'s param `local_deploy_path` to `path`/`output` or the like which defaults to the relative path `output/`.
     -   remove the `deploy` param and its functionality (and instead directly deploy from the `fokus_reports`' output dir to Netlify).
 
--   Report `rlang::arg_match()` issue with zero-length chr input -\> no useful error msg (in contrast to `base::match.arg()`). Triggered e.g. by
-    `fokus::n_election_seats()`.
-
 -   Somehow, including multiple asciicasts in the same Rmd doesn't work properly (the second asciicast's `<asciinema-player>` custom HTML tag is missing in the
     resulting HTML; both via asciicast's knitr engine as well as embedding the generated asciicast htmlwidget via `asciicast::asciinema_player()`), thus the
     second asciicast containing an intentionally triggered error in the raw qstnr had to be removed.
