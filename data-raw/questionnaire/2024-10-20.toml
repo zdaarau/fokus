@@ -1,0 +1,310 @@
+ballot_date = 2024-10-20
+
+[mode.aargau]
+n = 2000
+invitation = [ "online" ]
+reminder = [ "online" ]
+
+
+[cantonal.aargau.election]
+names_combined.de.short = "Grossrats- und Regierungsratswahlen"
+[cantonal.aargau.election.url]
+skill_questions_source = "https://web.archive.org/web/20240926230729/https://www.gemeinden-ag.ch/public/upload/assets/19176/Übungtest_Fragen_ab_20231011-1.pdf"
+wikipedia.de = "https://de.wikipedia.org/wiki/Wahlen_im_Kanton_Aargau_2024"
+
+[cantonal.aargau.election.proportional.1]
+requires_candidate_registration = true
+[cantonal.aargau.election.proportional.1.name.de]
+long.text = "Gesamterneuerungswahl des Grossen Rats"
+short.text = "Grossratswahl"
+body.text = "Grossrat"
+body_alt.text = "Grossen Rat"
+[cantonal.aargau.election.proportional.1.url]
+cantonal.official = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=c168c570-7c31-438b-9249-86420c6a13b9_de"
+[cantonal.aargau.election.proportional.1.n_seats]
+total = 140
+vacant = 140
+# tickets: https://www.ag.ch/media/kanton_aargau/alle_medien/dokumente/aktuell_3/wahlen___abstimmungen/wahlen_1/grossratswahlen_2/2020_10_18/listen___kandidierende/GRW_2020_Amtsblattbeilage_Listen.pdf
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "SVP"
+name.de.run = "Schweizerische Volkspartei"
+name.de.qstnr = "Schweizerische Volkspartei (SVP)"
+code = 1
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "SP"
+name.de.run = "Sozialdemokratische Partei und JUSO"
+name.de.qstnr = "Sozialdemokratische Partei (SP) und JUSO"
+code = 2
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "FDP"
+name.de.run = "FDP.Die Liberalen und Jungfreisinnige"
+name.de.qstnr = "FDP.Die Liberalen und Jungfreisinnige"
+code = 3
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "Mitte"
+name.de.run = "Die Mitte.Miteinander.Für den Aargau."
+name.de.qstnr = "Die Mitte.Miteinander.Für den Aargau."
+code = 4
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "Grüne"
+name.de.run = "Grüne und Junge Grüne"
+name.de.qstnr = "Grüne und Junge Grüne"
+code = 5
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "GLP"
+name.de.run = "Grünliberale Partei"
+name.de.qstnr = "Grünliberale Partei (GLP)"
+code = 6
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "EVP"
+name.de.run = "Evangelische Volkspartei"
+name.de.qstnr = "Evangelische Volkspartei (EVP)"
+code = 7
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "EDU"
+name.de.run = "Eidgenössisch-Demokratische Union"
+name.de.qstnr = "Eidgenössisch-Demokratische Union (EDU)"
+code = 8
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "LOVB"
+name.de.run = "Lösungs-Orientierte Volks-Bewegung"
+name.de.qstnr = "Lösungs-Orientierte Volks-Bewegung (LOVB)"
+code = 9
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "PPS"
+name.de.run = "Piratenpartei Aargau"
+name.de.qstnr = "Piratenpartei Aargau (PPAG)"
+code = 10
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "Fit"
+name.de.run = "Fit – Freiheit"
+name.de.qstnr = "Fit – Freiheit"
+code = 11
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "NB"
+name.de.run = "NB – Neues Bewusstsein"
+name.de.qstnr = "NB – Neues Bewusstsein"
+code = 12
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "DBP"
+name.de.run = "DBP – DieBürgerPartei"
+name.de.qstnr = "DBP – DieBürgerPartei"
+code = 13
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "MASSVOLL"
+name.de.run = "MASS-VOLL! Bewegung für Freiheit, Souveränität & Grundrechte"
+name.de.qstnr = "MASS-VOLL! Bewegung für Freiheit, Souveränität & Grundrechte"
+code = 14
+[[cantonal.aargau.election.proportional.1.party]]
+name.de.short = "Musik"
+name.de.run = "Musikpartei"
+name.de.qstnr = "Musikpartei"
+code = 15
+
+
+[cantonal.aargau.election.majoritarian.1]
+requires_candidate_registration = false # cf. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/wahlen/regierungsratswahlen/2024-10-20/02-rrw-anleitung-wahlvorschlag.pdf
+mode = "majority"
+[cantonal.aargau.election.majoritarian.1.name.de]
+long.text = "Gesamterneuerungswahl des Regierungsrats"
+short.text = "Regierungsratswahl"
+body.text = "Regierungsrat"
+[cantonal.aargau.election.majoritarian.1.url]
+cantonal.official = "https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=88d88e54-0ae2-4e38-b94f-a1af525e5b30_de&jumpto=MjIxODA2NC81MDgyZDEzNi1jNmE1LTQ0YzItOGY2NC03NDZlMDk1YTIwOWQvMGRjMmI5ZjYtZWQxMS00NjJiLWExNmQtODViMDhkMTExODgw"
+[cantonal.aargau.election.majoritarian.1.n_seats]
+total = 5
+vacant = 5
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Stephan"
+last_name = "Attiger"
+party = "FDP"
+is_incumbent = true
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Markus"
+last_name = "Dieth"
+party = "CVP"
+is_incumbent = true
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Jean-Pierre"
+last_name = "Gallati"
+party = "SVP"
+is_incumbent = true
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Dieter"
+last_name = "Egli"
+party = "SP"
+is_incumbent = true
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "İlayda"
+last_name = "Barth"
+party = "JUSO"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Martina"
+last_name = "Bircher"
+party = "SVP"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Melanie"
+last_name = "Del Fabro"
+party = "JUSO"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Beat"
+last_name = "Flach"
+party = "GLP"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Pius"
+last_name = "Lischer"
+party = "ig-gesundheit.ch"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Ruth"
+last_name = "Müri"
+party = "Grüne"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Thomas Rudolf"
+last_name = "Schmid"
+party = "DBP"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Theres"
+last_name = "Schöni"
+party = "LOVB"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Paula"
+last_name = "Sommer"
+party = "JUSO"
+is_incumbent = false
+[[cantonal.aargau.election.majoritarian.1.candidate]]
+first_name = "Stephan"
+last_name = "Zurfluh"
+party = "Musikpartei"
+is_incumbent = false
+
+
+[[cantonal.aargau.skill_question]]
+de = "Wie werden die Mitglieder der aargauischen Regierung bestimmt?"
+en = "How are the members of the Aargau government appointed?"
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden von den Parteien ernannt."
+en = "They are appointed by the parties."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden vom Grossen Rat (Kantonsparlament) gewählt."
+en = "They are elected by the Grand Council (cantonal parliament)."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden auf Parteiversammlungen gewählt."
+en = "They are elected at party meetings."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Sie werden von den Aargauer Stimmberechtigten gewählt."
+en = "They are elected by the voters of Aargau."
+is_correct = true
+[[cantonal.aargau.skill_question]]
+de = "Welches ist die Rolle des Landammanns oder der Frau Landammann im Kanton?"
+en = "What is the role of the \"Landammann\" in the canton?"
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er oder sie ist oberster Chef der Polizei."
+en = "They are chief of police."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er oder sie präsidiert die kantonale Regierung."
+en = "They preside over the cantonal government."
+is_correct = true
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er oder sie steht der Staatskanzlei vor."
+en = "They are in charge of school supervision."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Er oder sie ist Präsident des Grossen Rats (Kantonsparlament)."
+en = "They are president of the Grand Council (cantonal parliament)."
+is_correct = false
+[[cantonal.aargau.skill_question]]
+de = "Was soll der Ressourcenausgleich zwischen Gemeinden im Kanton Aargau sicherstellen?"
+en = "What should the equalization of resources between municipalities in the canton of Aargau ensure?"
+[[cantonal.aargau.skill_question.response_option]]
+de = "Der Ressourcenausgleich existiert nur zwischen Kantonen und nicht zwischen Gemeinden."
+en = "Resource equalization exists only between cantons and not between municipalities."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Ausgewogene Verhältnisse in der Steuerbelastung und in den Leistungen der Gemeinden."
+en = "Balanced conditions in the tax burden and in the services provided by the municipalities."
+is_correct = true
+[[cantonal.aargau.skill_question.response_option]]
+de = "Dass alle Gemeinden über die gleichen finanziellen Mittel verfügen."
+en = "That all municipalities have the same financial resources."
+is_correct = false
+[[cantonal.aargau.skill_question.response_option]]
+de = "Dass reichere Personen im gleichen Kanton gleich besteuert werden."
+en = "That richer people in the same canton are taxed equally."
+is_correct = false
+
+
+[political_issues]
+source.name = "Credit Suisse Sorgenbarometer 2019"
+source.url = "https://web.archive.org/web/20240716083731/https://www.credit-suisse.com/media/assets/corporate/docs/about-us/responsibility/worry-barometer/schlussbericht-credit-suisse-sorgenbarometer-2023.pdf"
+[[political_issues.issue]]
+de = "Gesundheit / Krankenkassen / Prämien"
+en = "health / health insurance / rates"
+[[political_issues.issue]]
+de = "Umweltschutz / Klimawandel / Umweltkatastrophen"
+en = "environmental protection / climate change / environmental disasters"
+[[political_issues.issue]]
+de = "AHV / Altersvorsorge"
+en = "OASI / pension provision"
+[[political_issues.issue]]
+de = "Beziehung zu Europa, EU, Rahmenabkommen, Zugang zum europäischen Markt"
+en = "relationship with Europe, EU, framework agreement, access to the European market"
+[[political_issues.issue]]
+de = "Energiefragen (Stromversorgung, erneuerbare Energie/Kernenergie)"
+en = "energy issues (power supply, renewable energy/nuclear energy)"
+[[political_issues.issue]]
+de = "Ausländer:innen / Personenfreizügigkeit / Zuwanderung"
+en = "foreign nationals / freedom of movement / immigration"
+[[political_issues.issue]]
+de = "Inflation / Geldentwertung / Teuerung"
+en = "inflation / Devaluation"
+[[political_issues.issue]]
+de = "Erhöhte Wohnkosten / Anstieg Mietpreise"
+en = "increased housing costs / rise in rents"
+[[political_issues.issue]]
+de = "Flüchtlinge / Asylfragen"
+en = "refugees / asylum"
+[[political_issues.issue]]
+de = "soziale Sicherheit / Sicherung der Sozialwerke"
+en = "social security / safeguarding the social security system"
+[[political_issues.issue]]
+de = "Krieg in der Ukraine"
+en = "war in Ukraine"
+[[political_issues.issue]]
+de = "Versorgungssicherheit wichtige Güter (z. B. Medikamente, Nahrungsmittel)"
+en = "supply security of important goods (e.g. medicines, food)"
+[[political_issues.issue]]
+de = "Zusammenleben in der Schweiz / Toleranz"
+en = "societal coexistence in Switzerland / tolerance"
+[[political_issues.issue]]
+de = "tiefe Löhne"
+en = "low wages"
+[[political_issues.issue]]
+de = "Verlust der Neutralität"
+en = "loss of neutrality"
+[[political_issues.issue]]
+de = "neue Armut / Armut jüngerer Generationen"
+en = "new poverty / poverty of younger generations"
+[[political_issues.issue]]
+de = "Schul und Bildungswesen"
+en = "schools and education"
+[[political_issues.issue]]
+de = "Verkehrsfragen / Staus / Zukunft der Mobilität"
+en = "traffic issues / traffic jams / future of mobility"
+[[political_issues.issue]]
+de = "Rassismus / Fremdenfeindlichkeit"
+en = "racism / xenophobia"
+[[political_issues.issue]]
+de = "persönliche Sicherheit / Kriminalität / Gewalt"
+en = "personal safety / crime / violence"
