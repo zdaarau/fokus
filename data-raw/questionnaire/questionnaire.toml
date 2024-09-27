@@ -196,8 +196,7 @@ include.false = [ 2018-09-23, 2018-11-25 ]
 
 [01_personal]
 title = "Persönliche Angaben"
-intro = """
-Zu Beginn möchten wir Sie um Angaben zu Ihrer Person bitten."""
+intro = "Zu Beginn möchten wir Sie um Angaben zu Ihrer Person bitten."
 who = "alle"
 [[01_personal.item]]
 topic = "Explizite Einwilligung"
