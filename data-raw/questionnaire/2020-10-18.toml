@@ -18,7 +18,7 @@ reminder = 2020-10-21
 names_combined.de.short = "Grossrats- und Regierungsratswahlen"
 past_ballot_date = 2016-10-23
 [cantonal.aargau.election.url]
-skill_questions_source = "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
+skill_questions_source = "https://web.archive.org/web/20200902162214/http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
 wikipedia.de = "https://de.wikipedia.org/wiki/Wahlen_im_Kanton_Aargau_2020"
 
 [cantonal.aargau.election.proportional.1]
@@ -90,8 +90,8 @@ name.de.run = "Piratenpartei Aargau"
 name.de.qstnr = "PPAG (Piratenpartei)"
 code = 11
 # past election URLs:
-# - overview: https://www.ag.ch/de/weiteres/aktuelles/wahlen_und_abstimmungen/wahlen/archiv_2/archiv_details_2/archiv_details_48432.jsp
-# - tickets: https://www.ag.ch/app/wahlen/grw2016/downloads/Listen%20fuer%20die%20Erneuerungswahl%20des%20Grossen%20Rats.pdf
+# - overview: https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahlen/archiv?dc=f958b508-c14f-437d-80d7-145f00a2e160_de
+# - tickets: https://web.archive.org/web/20200907161648/https://www.ag.ch/app/wahlen/grw2016/downloads/Listen%20fuer%20die%20Erneuerungswahl%20des%20Grossen%20Rats.pdf
 [[cantonal.aargau.election.proportional.1.past_party]]
 name.de.short = "SVP"
 name.de.run = "Schweizerische Volkspartei"
@@ -284,7 +284,7 @@ is_correct = false
 
 [political_issues]
 source.name = "Credit Suisse Sorgenbarometer 2019"
-source.url = "https://www.credit-suisse.com/media/assets/corporate/docs/about-us/responsibility/worry-barometer/schlussbericht-credit-suisse-sorgenbarometer-2019.pdf"
+source.url = "https://web.archive.org/web/20230325220532/https://www.credit-suisse.com/media/assets/corporate/docs/about-us/responsibility/worry-barometer/schlussbericht-credit-suisse-sorgenbarometer-2019.pdf"
 [[political_issues.issue]]
 de = "AHV/Altersvorsorge"
 en = "OASI/pension provision"
