@@ -3497,6 +3497,60 @@ question = "Ich glaube, dass jede Frage zwei Seiten hat und versuche, beide Seit
 variable_name = "trait_balance"
 variable_label = "respondent's affinity for a balanced view of matters"
 
+[04_1_democracy_vouchers]
+title = "Demokratiegutscheine"
+who = "alle"
+intro = "Nun folgen drei Fragen zu sogenannten **Demokratie-Gutscheinen**. Demokratie-Gutscheine sind ein Instrument der öffentlichen Finanzierung von Wahlkampagnen."
+include.default = false
+include.true = [ 2024-10-20 ]
+[[04_1_democracy_vouchers.item]]
+topic = "Verwendung 100-Franken-Demokratiegutschein"
+question = "Nehmen wir an, Sie hätten einen Gutschein von 100 Franken, mit dem Parteien ihre Wahlkampfausgaben finanzieren könnten. Was würden Sie tun, wenn Sie die folgenden Optionen hätten?"
+variable_name = "democracy_voucher_100_whole"
+variable_label = "what the respondent would do with a democracy voucher of 100 francs as a whole"
+response_options = [
+  "alles einer Partei geben",
+  "mehrere Parteien unterstützen",
+  "weitergeben an Familienmitglied, das besser weiss, was damit zu tun ist",
+  "weitergeben an Bekannte, die besser wissen, was damit zu tun ist",
+  "versuchen zu verkaufen und das dafür erhaltene Geld selber ausgeben",
+  "absichtlich verfallen lassen",
+  "anderes, nämlich: ✍ (Freitextfeld)",
+  "weiss nicht"
+]
+variable_values = [ 1, 2, 3, 4, 5, 6, 90, 99 ]
+value_labels = [
+  "give everything to one party",
+  "support several parties",
+  "pass on to a family member who knows better what to do with it",
+  "pass on to acquaintances who know better what to do with it",
+  "try to sell and spend the money you get for it yourself",
+  "deliberately let expire",
+  "custom answer",
+  "don't know"
+]
+value_scale = "nominal"
+[[04_1_democracy_vouchers.item]]
+allow_multiple_answers = true
+lvl = "{ lvls(ballot_date = ballot_date, canton = canton, ballot_type = 'election') }"
+i = "{ election_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton, prcd = 'proportional') }"
+topic = "Aufteilung 100-Franken-Demokratiegutschein"
+question = "Falls Sie die 100 Franken aufteilen müssten: Wie viel würden Sie den folgenden Parteien geben? Im Minimum 10 Franken pro Partei und es dürfen nicht die ganzen 100 Franken einer einzigen Partei gegeben werden."
+variable_name = "democracy_voucher_100_split"
+variable_label = "how the respondent would split a democracy voucher of 100 francs between the different parties running for election"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% name.de.qstnr %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+variable_values = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% code %>% c(qstnr_response_option_codes(types = 'dunno')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_scale = "nominal"
+[[04_1_democracy_vouchers.item]]
+topic = "Haltung zu Demokratiegutscheinen"
+question = "Ganz grundsätzlich: Sollten Ihrer Meinung nach solche Demokratiegutscheine einmal im Kanton Aargau zu Gunsten von Parteien eingesetzt werden können?"
+variable_name = "attitude_democracy_vouchers"
+variable_label = "respondent's attitude towards the introduction of democracy vouchers in the canton of {canton}"
+response_options = [ "ja, absolut", "eher ja", "ist mir egal", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 5, 99 ]
+value_labels = [ "yes, absolutely", "rather yes", "don't care", "rather no", "no, absolutely not", "don't know" ]
+value_scale = "ordinal_descending"
 
 [04_2_covid_related]
 title = "COVID-19-Pandemie"
@@ -3633,6 +3687,19 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, impossible", "don't know" ]
 value_scale = "ordinal_descending"
 ballot_types = [ "election" ]
+include.false = [ 2024-10-20 ]
+[[05_political_attitudes.item]]
+topic = "Neue Atomkraftwerke"
+question = "Soll der Neubau von Atomkraftwerken in der Schweiz wieder erlaubt werden?"
+variable_name = "attitude_nuclear_energy"
+variable_label = "to what degree the respondent thinks that the construction of new nuclear power plants in Switzerland should be permitted again"
+response_options = [ "ja, absolut", "eher ja", "eher nein", "nein, ausgeschlossen", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 99 ]
+value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, impossible", "don't know" ]
+value_scale = "ordinal_descending"
+ballot_types = [ "election" ]
+include.default = false
+include.true = [ 2024-10-20 ]
 [[05_political_attitudes.item]]
 topic = "Klimaneutrale Schweiz"
 question = "Sind Sie der Meinung, dass die Schweiz in absehbarer Zeit vollständig klimaneutral werden muss, also nicht mehr Treibhausgase (CO₂, Methan etc.) ausstossen darf, als sie gleichzeitig der Atmosphäre zu entziehen vermag?"
@@ -3654,6 +3721,7 @@ variable_values = [ 1, 2, 3, 4, 99 ]
 value_labels = [ "yes, absolutely", "rather yes", "rather no", "no, absolutely not", "don't know" ]
 value_scale = "ordinal_descending"
 ballot_types = [ "election" ]
+include.false = [ 2024-10-20 ]
 [[05_political_attitudes.item]]
 topic = "Rentenaltererhöhung"
 question = "Befürworten Sie eine Erhöhung des ordentlichen Rentenalters _für beide Geschlechter_ in naher Zukunft (bspw. auf 67 Jahre)?"
@@ -3790,7 +3858,7 @@ response_options = [ "trifft überhaupt nicht zu", "trifft eher nicht zu", "wede
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "disagree strongly", "disagree a little", "neither agree nor disagree", "agree a little", "agree strongly", "don't know" ]
 value_scale = "ordinal_ascending"
-include.false = [ 2018-11-25, 2020-09-27, 2021-11-28, 2023-06-18 ]
+include.false = [ 2018-11-25, 2020-09-27, 2021-11-28, 2023-06-18, 2024-10-20 ]
 [[06_personality.item]]
 topic = "Persönlichkeitsmerkmal Extraversion 1"
 question = "«Ich bin eher zurückhaltend, reserviert.»"
@@ -4090,7 +4158,7 @@ response_options = [ "1–9", "10–49", "50–249", "250–999", "1'000 und meh
 variable_values = [ 1, 2, 3, 4, 5, 99 ]
 value_labels = [ "1–9", "10–49", "50–249", "250–999", "1'000+", "don't know" ]
 value_scale = "ordinal_ascending"
-include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18, 2024-10-20 ]
 [[07_personal_more.z01_current_former.item]]
 # item source: [Fragebogen ZDA-Nachbefragung AG 2016-10-23](https://drive.google.com/drive/u/0/folders/1ACZSaHBbauJUqlCpdof1PveYT8vn5tmr)
 topic = "{ ifelse(lvl == 'inactive', 'Ehemalige ', '') }Betriebsbranche"
@@ -4228,6 +4296,7 @@ value_labels = [
   "don't know"
 ]
 value_scale = "ordinal_ascending"
+include.false = [ 2024-10-20 ]
 [[07_personal_more.z02_more.item]]
 topic = "Kommentare zur Umfrage"
 question = "Sie sind am Ende der Umfrage angelangt. Gerne nehmen wir hier noch Ihre Kommentare/Anmerkungen entgegen."
@@ -4832,7 +4901,7 @@ randomize_response_options = true
 # NOTE: excluded by default since it is based on hand-curated recodings (result is hardly comparable across ballots)
 #include.default = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = '03_1_election_general', var_name = 'main_political_issue', key = 'include') }"
 include.default = false
-include.true = [ 2020-10-18 ]
+include.true = [ 2020-10-18, 2024-10-20 ]
 [[y_generated.001_all.001_both.item]]
 topic = "Links-rechts-Selbstpositionierung (reduziert)"
 question = "{ qstnr_item_val(ballot_date = ballot_date, canton = canton, branch_path = '04_political_general', var_name = 'left_right_self_positioning', key = 'question') }"
