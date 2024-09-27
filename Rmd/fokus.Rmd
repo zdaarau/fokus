@@ -5006,14 +5006,42 @@ election_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
   
   checkmate::assert_flag(past)
   
-  raw_qstnr_suppl_election(ballot_date = ballot_date,
-                           lvl = lvl,
-                           canton = canton,
-                           prcd = "proportional",
-                           election_nr = election_nr) |>
-    purrr::chuck(ifelse(past,
-                        "past_party",
-                        "party")) |>
+  if (past) {
+    
+    # priority 1: from current election's metadata (past election was *not* covered by FOKUS survey)
+    result <-
+      raw_qstnr_suppl_election(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton,
+                               prcd = "proportional",
+                               election_nr = election_nr) |>
+      purrr::pluck("past_party")
+    
+    # priority 2: from past election's metadata (past election was covered by FOKUS survey)
+    if (is.null(result)) {
+      result <-
+        raw_qstnr_suppl_election(ballot_date = past_election_date(ballot_date = ballot_date,
+                                                                  lvl = lvl,
+                                                                  canton = canton),
+                                 lvl = lvl,
+                                 canton = canton,
+                                 prcd = "proportional",
+                                 election_nr = election_nr) |>
+        purrr::chuck("party")
+    }
+    
+  } else {
+    
+    result <-
+      raw_qstnr_suppl_election(ballot_date = ballot_date,
+                               lvl = lvl,
+                               canton = canton,
+                               prcd = "proportional",
+                               election_nr = election_nr) |>
+      purrr::chuck("party")
+  }
+  
+  result |>
     purrr::map(as_flat_list) |>
     purrr::map(tibble::as_tibble) |>
     purrr::list_rbind()
