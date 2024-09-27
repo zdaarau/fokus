@@ -5145,7 +5145,7 @@ past_election_date <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #'
 #' @inheritParams ballot_types
 #' @inheritParams election_name
-#' @param type Seat type. One of `r pal::enum_fn_param_defaults(param = "type", fn = n_election_seats)`.
+#' @param seat_type Seat type. One of `r pal::enum_fn_param_defaults(param = "seat_type", fn = n_election_seats)`.
 #'
 #' @return An integer scalar.
 #' @family predicate_election
@@ -5155,7 +5155,7 @@ past_election_date <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #' fokus::n_election_seats(ballot_date = "2019-10-20",
 #'                         lvl = "cantonal",
 #'                         canton = "aargau",
-#'                         type = "total")
+#'                         seat_type = "total")
 n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
                              lvl = lvls(ballot_date,
@@ -5163,16 +5163,16 @@ n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                                         ballot_type = "election"),
                              canton = cantons(ballot_date),
                              election_nr = 1L,
-                             type = all_election_seat_types) {
+                             seat_type = all_election_seat_types) {
   
-  type <- rlang::arg_match(type)
+  seat_type <- rlang::arg_match(seat_type)
   
   raw_qstnr_suppl_election(ballot_date = ballot_date,
                            lvl = lvl,
                            canton = canton,
                            prcd = "majoritarian",
                            election_nr = election_nr) |>
-    purrr::chuck("n_seats", type)
+    purrr::chuck("n_seats", seat_type)
 }
 ```
 

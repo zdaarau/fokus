@@ -396,7 +396,7 @@ variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'federal'
 value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian') }"
-j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, type = 'vacant')) }"
+j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, seat_type = 'vacant')) }"
 topic = "Hypothetischer Stimmentscheid Sitz {j} eidgenössische Mehrheitswahl {i}"
 question_intro_j = """
 Wenn Sie an den Wahlen teilgenommen hätten, {
@@ -404,13 +404,13 @@ Wenn Sie an den Wahlen teilgenommen hätten, {
                           lvl = 'federal',
                           canton = canton,
                           election_nr = i,
-                          type = 'vacant') > 1L,
+                          seat_type = 'vacant') > 1L,
          paste0('welche ',
                 salim::write_out_n(n_election_seats(ballot_date = ballot_date,
                                                     lvl = 'federal',
                                                     canton = canton,
                                                     election_nr = i,
-                                                    type = 'vacant'),
+                                                    seat_type = 'vacant'),
                                                     lang = 'de'),
                 ' Kandidat:innen'),
          'wen')
@@ -429,7 +429,7 @@ question = """
                                   lvl = 'federal',
                                   canton = canton,
                                   election_nr = i,
-                                  type = 'vacant') > 1L,
+                                  seat_type = 'vacant') > 1L,
          glue::glue('_Kandidat:in {j}_'),
          '')
 }"""
@@ -479,7 +479,7 @@ variable_values = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal
 value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 [[02_political_start.002_non_participation.003_election.z01_hypothetical.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian') }"
-j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, type = 'vacant')) }"
+j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, seat_type = 'vacant')) }"
 topic = "Hypothetischer Stimmentscheid Sitz {j} kantonale Mehrheitswahl {i}"
 question_intro_j = """
 Wenn Sie an den Wahlen teilgenommen hätten, {
@@ -487,13 +487,13 @@ Wenn Sie an den Wahlen teilgenommen hätten, {
                           lvl = 'cantonal',
                           canton = canton,
                           election_nr = i,
-                          type = 'vacant') > 1L,
+                          seat_type = 'vacant') > 1L,
          paste0('welche ',
                 salim::write_out_n(n_election_seats(ballot_date = ballot_date,
                                                     lvl = 'cantonal',
                                                     canton = canton,
                                                     election_nr = i,
-                                                    type = 'vacant'),
+                                                    seat_type = 'vacant'),
                                    lang = 'de'),
                 ' Kandidat:innen'),
          'wen')
@@ -512,7 +512,7 @@ question = """
                           lvl = 'cantonal',
                           canton = canton,
                           election_nr = i,
-                          type = 'vacant') > 1L,
+                          seat_type = 'vacant') > 1L,
          glue::glue('_Kandidat:in {j}_'),
          '')
 }"""
@@ -929,7 +929,7 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'federal', c
 
 [[03_2_election_specific.002_federal_majoritarian.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'federal', canton = canton, prcd = 'majoritarian') }"
-j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, type = 'vacant')) }"
+j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'federal', canton = canton, election_nr = i, seat_type = 'vacant')) }"
 topic = "Stimmentscheid Sitz {j} eidgenössische Mehrheitswahl {i}"
 question = """
 {
@@ -970,13 +970,13 @@ question = """
                                         lvl = 'federal',
                                         canton = canton,
                                         election_nr = i,
-                                        type = 'vacant') > 1L,
+                                        seat_type = 'vacant') > 1L,
                        paste0('Welche ',
                               salim::write_out_n(n_election_seats(ballot_date = ballot_date,
                                                                   lvl = 'federal',
                                                                   canton = canton,
                                                                   election_nr = i,
-                                                                  type = 'vacant'),
+                                                                  seat_type = 'vacant'),
                                                  lang = 'de'),
                               ' Kandidat:innen'),
                        'Wen'),
@@ -995,7 +995,7 @@ question = """
                           lvl = 'federal',
                           canton = canton,
                           election_nr = i,
-                          type = 'vacant') > 1L,
+                          seat_type = 'vacant') > 1L,
          glue::glue('_Kandidat:in {j}_'),
          '')
 }"""
@@ -1144,7 +1144,7 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', 
 
 [[03_2_election_specific.004_cantonal_majoritarian.item]]
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian') }"
-j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, type = 'vacant')) }"
+j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, seat_type = 'vacant')) }"
 topic = "Stimmentscheid Sitz {j} kantonale Mehrheitswahl {i}"
 question = """
 {
@@ -1201,13 +1201,13 @@ question = """
                                         lvl = 'cantonal',
                                         canton = canton,
                                         election_nr = i,
-                                        type = 'vacant') > 1L,
+                                        seat_type = 'vacant') > 1L,
                        paste0('Welche ',
                               salim::write_out_n(n_election_seats(ballot_date = ballot_date,
                                                                   lvl = 'cantonal',
                                                                   canton = canton,
                                                                   election_nr = i,
-                                                                  type = 'vacant'),
+                                                                  seat_type = 'vacant'),
                                                  lang = 'de'),
                               ' Kandidat:innen'),
                        'Wen'),
@@ -1226,7 +1226,7 @@ question = """
                           lvl = 'cantonal',
                           canton = canton,
                           election_nr = i,
-                          type = 'vacant') > 1L,
+                          seat_type = 'vacant') > 1L,
          paste0('_Kandidat:in ', j, '_'),
          '')
 }"""
@@ -5346,7 +5346,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 lvl = 'federal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5365,7 +5365,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 lvl = 'cantonal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5393,7 +5393,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 lvl = 'federal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5413,7 +5413,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 lvl = 'cantonal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5463,7 +5463,7 @@ the weight assigned to the respondent as a result of the weighting by `participa
                                                 lvl = 'federal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5483,7 +5483,7 @@ the weight assigned to the respondent as a result of the weighting by `participa
                                                 lvl = 'cantonal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5558,7 +5558,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 lvl = 'federal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_federal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
@@ -5577,7 +5577,7 @@ the weight assigned to the respondent as a result of the weighting by {
                                                 lvl = 'cantonal',
                                                 canton = canton,
                                                 election_nr = i,
-                                                type = 'vacant') %>%
+                                                seat_type = 'vacant') %>%
                                  seq_len() %>%
                                  purrr::map_chr(~ paste0('`voting_decision_cantonal_majoritarian_election_', i, '_seat_', .x, '`'))) %>%
         purrr::list_c(ptype = character())) %>%
