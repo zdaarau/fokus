@@ -71,6 +71,7 @@ Other fundamental predicate functions:
 \code{\link{n_proposals}()},
 \code{\link{prcds}()},
 \code{\link{proposal_nrs}()},
-\code{\link{qstn_groups_proposal_nrs}()}
+\code{\link{qstn_groups_proposal_nrs}()},
+\code{\link{survey_channels}()}
 }
 \concept{predicate_fundamental}

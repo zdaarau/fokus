@@ -40,6 +40,7 @@ reference:
   - election_prcds
   - proposal_qstn_groups
   - qstn_groups_proposal_nrs
+  - survey_channels
   - n_proposals
   - n_elections
   - has_referendum
