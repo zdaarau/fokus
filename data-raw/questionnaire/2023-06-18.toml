@@ -1,6 +1,7 @@
 ballot_date = 2023-06-18
 
 [mode.aargau]
+channels = [ "online", "print" ]
 n = 8000
 invitation = [ "online" ]
 reminder = [ "online", "print" ]

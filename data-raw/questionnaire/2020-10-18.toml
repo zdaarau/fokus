@@ -1,6 +1,7 @@
 ballot_date = 2020-10-18
 
 [mode.aargau]
+channels = [ "online", "print" ]
 n = 10000
 invitation = [ "online" ]
 reminder = [ "online", "print" ]

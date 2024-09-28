@@ -1,6 +1,7 @@
 ballot_date = 2024-10-20
 
 [mode.aargau]
+channels = [ "online" ]
 n = 2000
 invitation = [ "online" ]
 reminder = [ "online" ]

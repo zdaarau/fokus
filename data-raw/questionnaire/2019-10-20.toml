@@ -1,6 +1,7 @@
 ballot_date = 2019-10-20
 
 [mode.aargau]
+channels = [ "online", "print" ]
 n = 10000
 # NOTE: We made a simple A/B test: We sent 50% of the sample an online-only invitation – they learned about the print channel and received a printed
 #       questionnaire only with the reminder. The other 50% got a printed questionnaire with the invitation and thus could participate through both channels

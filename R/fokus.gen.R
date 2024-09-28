@@ -1700,7 +1700,12 @@ gen_qstnr_md <- function(qstnr_tibble,
   
   c(title[incl_title],
     technical_notes,
-    md_snippets$qstnr_introduction,
+    paste0(glue::glue(md_snippets$qstnr_introduction,
+                      .envir = rlang::current_env(),
+                      .na = NULL,
+                      .null = NA_character_,
+                      .trim = TRUE),
+           "\n"),
     block_lines,
     footnotes,
     link_refs)
@@ -2938,6 +2943,28 @@ qstn_groups_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
     purrr::keep(\(x) all(qstn_groups %in% names(x))) |>
     names() |>
     as.integer()
+}
+
+#' Get survey channels
+#'
+#' Determines the channels the surevy was conducted over.
+#'
+#' @inheritParams lvls
+#'
+#' @return A character vector.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::survey_channels(ballot_date = "2023-06-18",
+#'                        canton = "aargau")
+survey_channels <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
+                                                              pkg = this_pkg),
+                            canton = cantons(ballot_date)) {
+  
+  raw_qstnr_suppl_mode(ballot_date = ballot_date,
+                       canton = canton) |>
+    purrr::chuck("channels")
 }
 
 #' Get number of referendum proposals
