@@ -25,6 +25,9 @@ response_options = [ "Abstimmung", "Wahl", "beides" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "referendum", "election", "both_referendum_and_election" ]
 
+[00_cantonal_statistical_office.002_to_polling_agency]
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Nachname (amtliche Information)[^anon]"
 variable_name = "last_name"
@@ -154,13 +157,15 @@ value_labels = [
 ]
 include.default = false
 
+[00_cantonal_statistical_office.003_to_zda]
+include.default = true
+include.false = [ 2018-09-23, 2018-11-25, 2024-10-20 ]
 [[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Geburtsjahr (amtliche Information)[^pseudon]"
 variable_name = "year_of_birth_official"
 variable_label = "respondent's year of birth (official cantonal register information)"
 response_options = "_Ganzzahl_"
 value_scale = "interval"
-include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_cantonal_statistical_office.003_to_zda.item]]
 topic.default = "Geschlecht (amtliche Information)[^pseudon]"
 topic.20180923_20181125 = "Geschlecht (amtliche Information)[^anon]"
@@ -169,7 +174,6 @@ variable_label = "respondent's sex (official cantonal register information)"
 response_options = [ "männlich", "weiblich", "unbestimmt" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "male", "female", "indeterminate" ]
-include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Zivilstand (amtliche Information)[^pseudon]"
 variable_name = "marital_status_official"
@@ -177,21 +181,18 @@ variable_label = "respondent's marital status (official cantonal register inform
 response_options = [ "ledig", "verheiratet", "verwitwet", "geschieden", "in eingetragener Partnerschaft", "aufgelöste Partnerschaft" ]
 variable_values = [ 1, 2, 3, 4, 6, 7 ]
 value_labels = [ "single", "married", "widowed", "divorced", "in civil union", "dissolved civil union" ]
-include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Haushaltsgrösse (amtliche Information)[^pseudon]"
 variable_name = "household_size_official"
 variable_label = "number of persons living in respondent's household (official cantonal register information)"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-include.false = [ 2018-09-23, 2018-11-25 ]
 [[00_cantonal_statistical_office.003_to_zda.item]]
 topic = "Anzahl Kinder im Haushalt (amtliche Information)[^pseudon]"
 variable_name = "n_kids_in_household_official"
 variable_label = "number of underaged persons living in respondent's household (official cantonal register information)"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-include.false = [ 2018-09-23, 2018-11-25 ]
 
 
 [01_personal]
@@ -211,7 +212,8 @@ is_mandatory = true
 include.default = false
 include.true = [ 2023-06-18 ]
 [[01_personal.item]]
-topic = "Geburtsjahr (Kontrollfrage)"
+topic.default = "Geburtsjahr (Kontrollfrage)"
+topic.20241020 = "Geburtsjahr"
 question = "In welchem Jahr sind Sie geboren?"
 variable_name = "year_of_birth"
 variable_label = "respondent's year of birth (own statement)"
@@ -219,7 +221,8 @@ response_options = "_Jahreszahl (4 Ziffern)_"
 value_scale = "interval"
 is_mandatory = true
 [[01_personal.item]]
-topic = "Geschlecht (Kontrollfrage)"
+topic.default = "Geschlecht (Kontrollfrage)"
+topic.20241020 = "Geschlecht"
 question = "Welches ist Ihr Geschlecht?"
 variable_name = "sex"
 variable_label = "respondent's sex (own statement)"
@@ -227,6 +230,31 @@ response_options = [ "männlich", "weiblich", "unbestimmt/anderes" ]
 variable_values = [ 1, 2, 3 ]
 value_labels = [ "male", "female", "indeterminate/other" ]
 is_mandatory = true
+[[01_personal.item]]
+topic = "Zivilstand"
+variable_name = "marital_status"
+variable_label = "respondent's marital status"
+response_options = [ "ledig", "verheiratet", "verwitwet", "geschieden", "in eingetragener Partnerschaft", "aufgelöste Partnerschaft" ]
+variable_values = [ 1, 2, 3, 4, 6, 7 ]
+value_labels = [ "single", "married", "widowed", "divorced", "in civil union", "dissolved civil union" ]
+include.default = false
+include.true = [ 2024-10-20 ]
+[[01_personal.item]]
+topic = "Haushaltsgrösse"
+variable_name = "household_size"
+variable_label = "number of persons living in respondent's household"
+response_options = "_Ganzzahl_"
+value_scale = "ratio"
+include.default = false
+include.true = [ 2024-10-20 ]
+[[01_personal.item]]
+topic = "Anzahl Kinder im Haushalt"
+variable_name = "n_kids_in_household"
+variable_label = "number of underaged persons living in respondent's household"
+response_options = "_Ganzzahl_"
+value_scale = "ratio"
+include.default = false
+include.true = [ 2024-10-20 ]
 [[01_personal.item]]
 topic = "Verbundenheit mit dem Kanton"
 question = "Wie verbunden fühlen Sie sich mit dem Kanton { stringr::str_to_sentence(canton) } auf einer Skala von 0 (gar nicht verbunden) bis 4 (stark verbunden)?"
@@ -257,7 +285,7 @@ variable_name = "political_interest_cantonal"
 variable_label = "respondent's interest in politics in the canton of { stringr::str_to_sentence(canton) }"
 variable_label_common = "respondent's interest in cantonal politics"
 include.default = "{ any(has_lvl(ballot_date = ballot_date, lvl = 'cantonal', canton = canton)) }"
-include.false = [ 2019-10-20, 2020-10-18 ]
+include.false = [ 2019-10-20, 2020-10-18, 2024-10-20 ]
 [[02_political_start.001_general.001_political_interest.item]]
 topic = "Politisches Interesse Schweiz"
 question.default = "Wie interessiert sind Sie im Allgemeinen an der **Schweizer Politik**? Ich bin …"
@@ -699,10 +727,12 @@ question = "_Leserbriefe oder Online-Kommentare_"
 variable_name = "information_source_reader_letters_comments"
 variable_label = "whether or not the respondent used readers' letters or online comments to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
-topic = "Informationsquelle: Soziale Medien wie Facebook oder Twitter"
-question = "_Soziale Medien wie Facebook oder Twitter_"
+topic = "Informationsquelle: Soziale Medien wie Facebook oder X (ehemals Twitter)"
+question.default = "_Soziale Medien wie Facebook oder X (ehemals Twitter)_"
+question.20180923_20230618 = "_Soziale Medien wie Facebook oder Twitter_"
 variable_name = "information_source_social_media"
-variable_label = "whether or not the respondent used social media like Facebook or Twitter to learn about the parties and candidates"
+variable_label.default = "whether or not the respondent used social media like Facebook or X (formerly Twitter) to learn about the parties and candidates"
+variable_label.20180923_20230618 = "whether or not the respondent used social media like Facebook or Twitter to learn about the parties and candidates"
 [[03_1_election_general.z02_information_source.item]]
 topic = "Informationsquelle: (Halb-)Öffentliche Chatgruppen (bspw. via [Telegram](https://de.wikipedia.org/wiki/Telegram))"
 question = "_(Halb-)Öffentliche Chatgruppen (bspw. via Telegram)_"
@@ -776,7 +806,8 @@ response_options = [ "nein", "ja" ]
 variable_values = [ 0, 1 ]
 value_labels = [ "no", "yes" ]
 value_scale = "binary"
-question_intro_i = "Parteien und Kandidierende suchen im Wahlkampf den direkten, persönlichen Kontakt zur Wählerschaft. Bei welchen der folgenden Anlässe/Aktionen kamen Sie in Kontakt mit Parteien und Kandidierenden?"
+question_intro_i.default = "Parteien und Kandidat:innen suchen im Wahlkampf den direkten, persönlichen Kontakt zur Wählerschaft. Bei welchen der folgenden Anlässe/Aktionen kamen Sie in Kontakt mit Parteien und Kandidat:innen?"
+question_intro_i.20180923_20230618 = "Parteien und Kandidierende suchen im Wahlkampf den direkten, persönlichen Kontakt zur Wählerschaft. Bei welchen der folgenden Anlässe/Aktionen kamen Sie in Kontakt mit Parteien und Kandidierenden?"
 [[03_1_election_general.z04_political_occasions.item]]
 # set iterator to trigger `question_intro_i`
 i = 1
@@ -3481,7 +3512,9 @@ value_labels = [ "does not apply to me at all", "does rather not apply to me", "
 value_scale = "ordinal_ascending"
 question_intro_i = "Bei einer Abstimmung kann man jeweils unterschiedliche Ansichten und Meinungen haben. Bitte geben Sie an, inwiefern die folgenden Aussagen im Zusammenhang mit einer Abstimmungsvorlage auf Sie zutreffen."
 who = "Online-Respondenten"
+include.default = true
 include.20180923_20211128 = false
+include.false = [ 2024-10-20 ]
 [[04_political_general.z02_trait.item]]
 # set iterator to trigger `question_intro_i`
 i = 1
@@ -3499,61 +3532,6 @@ topic = "Ausgewogenheitsaffinität"
 question = "Ich glaube, dass jede Frage zwei Seiten hat und versuche, beide Seiten zu verstehen."
 variable_name = "trait_balance"
 variable_label = "respondent's affinity for a balanced view of matters"
-
-[04_1_democracy_vouchers]
-title = "Demokratiegutscheine"
-who = "alle"
-intro = "Nun folgen drei Fragen zu sogenannten **Demokratie-Gutscheinen**. Demokratie-Gutscheine sind ein Instrument der öffentlichen Finanzierung von Wahlkampagnen."
-include.default = false
-include.true = [ 2024-10-20 ]
-[[04_1_democracy_vouchers.item]]
-topic = "Verwendung 100-Franken-Demokratiegutschein"
-question = "Nehmen wir an, Sie hätten einen Gutschein von 100 Franken, mit dem Parteien ihre Wahlkampfausgaben finanzieren könnten. Was würden Sie tun, wenn Sie die folgenden Optionen hätten?"
-variable_name = "democracy_voucher_100_use"
-variable_label = "what the respondent would do with a democracy voucher of 100 francs as a whole"
-response_options = [
-  "alles einer Partei geben",
-  "mehrere Parteien unterstützen",
-  "weitergeben an Familienmitglied, das besser weiss, was damit zu tun ist",
-  "weitergeben an Bekannte, die besser wissen, was damit zu tun ist",
-  "versuchen zu verkaufen und das dafür erhaltene Geld selber ausgeben",
-  "absichtlich verfallen lassen",
-  "anderes, nämlich: ✍ (Freitextfeld)",
-  "weiss nicht"
-]
-variable_values = [ 1, 2, 3, 4, 5, 6, 90, 99 ]
-value_labels = [
-  "give everything to one party",
-  "support several parties",
-  "pass on to a family member who knows better what to do with it",
-  "pass on to acquaintances who know better what to do with it",
-  "try to sell and spend the money you get for it yourself",
-  "deliberately let expire",
-  "custom answer",
-  "don't know"
-]
-value_scale = "nominal"
-[[04_1_democracy_vouchers.item]]
-allow_multiple_answers = true
-lvl = "{ lvls(ballot_date = ballot_date, canton = canton, ballot_type = 'election') }"
-i = "{ election_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton, prcd = 'proportional') }"
-topic = "Aufteilung 100-Franken-Demokratiegutschein"
-question = "Falls Sie die 100 Franken aufteilen müssten: Wie viel würden Sie den folgenden Parteien geben? Im Minimum 10 Franken pro Partei und es dürfen nicht die ganzen 100 Franken einer einzigen Partei gegeben werden."
-variable_name = "democracy_voucher_100_split"
-variable_label = "how the respondent would split a democracy voucher of 100 francs between the different parties running for election"
-response_options = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% name.de.qstnr %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
-variable_values = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% code %>% c(qstnr_response_option_codes(types = 'dunno')) }"
-value_labels = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
-value_scale = "nominal"
-[[04_1_democracy_vouchers.item]]
-topic = "Haltung zu Demokratiegutscheinen"
-question = "Ganz grundsätzlich: Sollten Ihrer Meinung nach solche Demokratiegutscheine einmal im Kanton Aargau zu Gunsten von Parteien eingesetzt werden können?"
-variable_name = "attitude_democracy_vouchers"
-variable_label = "respondent's attitude towards the introduction of democracy vouchers in the canton of {canton}"
-response_options = [ "ja, absolut", "eher ja", "ist mir egal", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
-variable_values = [ 1, 2, 3, 4, 5, 99 ]
-value_labels = [ "yes, absolutely", "rather yes", "don't care", "rather no", "no, absolutely not", "don't know" ]
-value_scale = "ordinal_descending"
 
 [04_2_covid_related]
 title = "COVID-19-Pandemie"
@@ -3789,7 +3767,8 @@ value_labels = [ "clearly in favor", "rather in favor", "rather against", "clear
 value_scale = "ordinal_descending"
 who.default = "alle"
 who.20201018_20211128 = "Online-Respondenten"
-include.false = [ 2018-09-23, 2018-11-25, 2020-09-27 ]
+include.default = false
+include.true = [ 2019-10-20, 2020-10-18, 2021-11-28, 2023-06-18 ]
 [[05_political_attitudes.z01_evoting.item]]
 topic = "E-Voting für alle Stimmberechtigten"
 question.default = "_Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** im Kanton { stringr::str_to_sentence(canton) }?_"
@@ -3912,6 +3891,62 @@ topic = "Persönlichkeitsmerkmal Offenheit 2"
 question = "«Ich habe eine aktive Vorstellungskraft, bin fantasievoll.»"
 variable_name = "bfi10_openness_2"
 variable_label = "the extent to which the respondent agrees with the statement \"I see myself as someone who has an active imagination.\""
+
+
+[06_1_democracy_vouchers]
+title = "Demokratiegutscheine"
+who = "alle"
+intro = "Nun folgen drei Fragen zu sogenannten **Demokratie-Gutscheinen**. Demokratie-Gutscheine sind ein Instrument der öffentlichen Finanzierung von Wahlkampagnen."
+include.default = false
+include.true = [ 2024-10-20 ]
+[[06_1_democracy_vouchers.item]]
+topic = "Verwendung 100-Franken-Demokratiegutschein"
+question = "Nehmen wir an, Sie hätten einen Gutschein von 100 Franken, mit dem Parteien ihre Wahlkampfausgaben finanzieren könnten. Was würden Sie tun, wenn Sie die folgenden Optionen hätten?"
+variable_name = "democracy_voucher_100_use"
+variable_label = "what the respondent would do with a democracy voucher of 100 francs as a whole"
+response_options = [
+  "alles einer Partei geben",
+  "mehrere Parteien unterstützen",
+  "weitergeben an Familienmitglied, das besser weiss, was damit zu tun ist",
+  "weitergeben an Bekannte, die besser wissen, was damit zu tun ist",
+  "versuchen zu verkaufen und das dafür erhaltene Geld selber ausgeben",
+  "absichtlich verfallen lassen",
+  "anderes, nämlich: ✍ (Freitextfeld)",
+  "weiss nicht"
+]
+variable_values = [ 1, 2, 3, 4, 5, 6, 90, 99 ]
+value_labels = [
+  "give everything to one party",
+  "support several parties",
+  "pass on to a family member who knows better what to do with it",
+  "pass on to acquaintances who know better what to do with it",
+  "try to sell and spend the money you get for it yourself",
+  "deliberately let expire",
+  "custom answer",
+  "don't know"
+]
+value_scale = "nominal"
+[[06_1_democracy_vouchers.item]]
+allow_multiple_answers = true
+lvl = "{ lvls(ballot_date = ballot_date, canton = canton, ballot_type = 'election') }"
+i = "{ election_nrs(ballot_date = ballot_date, lvl = lvl, canton = canton, prcd = 'proportional') }"
+topic = "Aufteilung 100-Franken-Demokratiegutschein"
+question = "Falls Sie die 100 Franken aufteilen müssten: Wie viel würden Sie den folgenden Parteien geben? Im Minimum 10 Franken pro Partei und es dürfen nicht die ganzen 100 Franken einer einzigen Partei gegeben werden."
+variable_name = "democracy_voucher_100_split"
+variable_label = "how the respondent would split a democracy voucher of 100 francs between the different parties running for election"
+response_options = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% name.de.qstnr %>% c(response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+variable_values = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% code %>% c(qstnr_response_option_codes(types = 'dunno')) }"
+value_labels = "{ election_parties(ballot_date = ballot_date, lvl = lvl, canton = canton, election_nr = i) %$% name.de.short %>% c(response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
+value_scale = "nominal"
+[[06_1_democracy_vouchers.item]]
+topic = "Haltung zu Demokratiegutscheinen"
+question = "Ganz grundsätzlich: Sollten Ihrer Meinung nach solche Demokratiegutscheine einmal im Kanton Aargau zu Gunsten von Parteien eingesetzt werden können?"
+variable_name = "attitude_democracy_vouchers"
+variable_label = "respondent's attitude towards the introduction of democracy vouchers in the canton of {canton}"
+response_options = [ "ja, absolut", "eher ja", "ist mir egal", "eher nein", "nein, auf keinen Fall", "weiss nicht" ]
+variable_values = [ 1, 2, 3, 4, 5, 99 ]
+value_labels = [ "yes, absolutely", "rather yes", "don't care", "rather no", "no, absolutely not", "don't know" ]
+value_scale = "ordinal_descending"
 
 
 [07_personal_more]
@@ -4406,7 +4441,7 @@ topic = "Identifikator des kantonalen Statistikamtes"
 variable_name = "id_cantonal_statistical_office"
 variable_label = "identifier to match the demographic data supplied by the cantonal statistical office with the survey data supplied by the polling agency"
 response_options = "_Ganzzahl_"
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2024-10-20 ]
 [[x_polling_agency.001_all.item]]
 topic = "Stichprobenkategorie"
 variable_name = "sample_category"
@@ -4458,6 +4493,7 @@ variable_label = "respondent's district of residence"
 response_options = [ "Aarau", "Baden", "Bremgarten", "Brugg", "Kulm", "Laufenburg", "Lenzburg", "Muri", "Rheinfelden", "Zofingen", "Zurzach" ]
 variable_values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 value_labels = [ "Aarau", "Baden", "Bremgarten", "Brugg", "Kulm", "Laufenburg", "Lenzburg", "Muri", "Rheinfelden", "Zofingen", "Zurzach" ]
+include.false = [ 2024-10-20 ]
 [[x_polling_agency.001_all.item]]
 topic = "[«easyvote»-Broschüre](https://www.easyvote.ch/de/f/angebote/broschuere): Untere Altersgrenze des Gemeinde-Abonnements"
 variable_name = "easyvote_municipality_min_age"
@@ -4466,7 +4502,7 @@ response_options = [ "keine (Gemeinde hat «easyvote»-Broschüre nicht abonnier
 variable_values.default = [ 0, 18, 19, 20, 21, 22, 23, 24, 25, 80 ]
 variable_values.20191020 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 80 ]
 value_labels = [ "none (municipality has not subscribed to the \"easyvote\" booklet)", "18", "19", "20", "21", "22", "23", "24", "25", "not specified" ]
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2024-10-20 ]
 [[x_polling_agency.001_all.item]]
 topic = "[«easyvote»-Broschüre](https://www.easyvote.ch/de/f/angebote/broschuere): Obere Altersgrenze des Gemeinde-Abonnements"
 variable_name = "easyvote_municipality_max_age"
@@ -4475,9 +4511,10 @@ response_options = [ "keine (Gemeinde hat «easyvote»-Broschüre nicht abonnier
 variable_values.default = [ 0, 18, 19, 20, 21, 22, 23, 24, 25, 80 ]
 variable_values.20191020 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 80 ]
 value_labels = [ "none (municipality has not subscribed to the \"easyvote\" booklet)", "18", "19", "20", "21", "22", "23", "24", "25", "not specified" ]
-include.false = [ 2018-09-23, 2018-11-25 ]
+include.false = [ 2018-09-23, 2018-11-25, 2024-10-20 ]
 [x_polling_agency.001_all.z01_fso]
 value_scale = "ordinal_descending"
+include.false = [ 2024-10-20 ]
 [[x_polling_agency.001_all.z01_fso.item]]
 topic = "BFS-Raumtypologie: Gemeinde-Grössenklasse"
 variable_name = "fso_municipality_size_class"
@@ -4737,7 +4774,7 @@ variable_name = "postal_reception_date"
 variable_label = "date on which the survey institute received the print questionnaire back by postal mail"
 response_options = "_Datum ([ISO 8601][iso8601])_"
 value_scale = "interval"
-include.false = [ 2018-09-23, 2018-11-25, 2019-10-20 ]
+include.false = [ 2018-09-23, 2018-11-25, 2019-10-20, 2024-10-20 ]
 
 
 [y_generated]
