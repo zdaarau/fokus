@@ -3506,7 +3506,7 @@ include.true = [ 2024-10-20 ]
 [[04_1_democracy_vouchers.item]]
 topic = "Verwendung 100-Franken-Demokratiegutschein"
 question = "Nehmen wir an, Sie hätten einen Gutschein von 100 Franken, mit dem Parteien ihre Wahlkampfausgaben finanzieren könnten. Was würden Sie tun, wenn Sie die folgenden Optionen hätten?"
-variable_name = "democracy_voucher_100_whole"
+variable_name = "democracy_voucher_100_use"
 variable_label = "what the respondent would do with a democracy voucher of 100 francs as a whole"
 response_options = [
   "alles einer Partei geben",
