@@ -1647,9 +1647,21 @@ gen_qstnr_md <- function(qstnr_tibble,
                                                            i = i,
                                                            .f = \(lvl, i, j) {
                                                              
-                                                             glue::glue(who_map$description$de,
-                                                                        .null = NA_character_,
-                                                                        .trim = FALSE)
+                                                             # hack to support desc variation @ 2024-10-20
+                                                             if ("de" %in% names(who_map$description)) {
+                                                               result <- glue::glue(who_map$description$de,
+                                                                                    .null = NA_character_,
+                                                                                    .trim = FALSE)
+                                                             } else {
+                                                               result <-
+                                                                 who_map$description[[stringr::str_remove_all(ballot_date, "-")]] %||%
+                                                                 who_map$description$default |>
+                                                                 purrr::chuck("de") |>
+                                                                 glue::glue(.null = NA_character_,
+                                                                            .trim = FALSE)
+                                                             }
+                                                             
+                                                             result
                                                            })
                                         })
                          }) |>
