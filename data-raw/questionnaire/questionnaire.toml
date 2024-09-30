@@ -231,31 +231,6 @@ variable_values = [ 1, 2, 3 ]
 value_labels = [ "male", "female", "indeterminate/other" ]
 is_mandatory = true
 [[01_personal.item]]
-topic = "Zivilstand"
-variable_name = "marital_status"
-variable_label = "respondent's marital status"
-response_options = [ "ledig", "verheiratet", "verwitwet", "geschieden", "in eingetragener Partnerschaft", "aufgelöste Partnerschaft" ]
-variable_values = [ 1, 2, 3, 4, 6, 7 ]
-value_labels = [ "single", "married", "widowed", "divorced", "in civil union", "dissolved civil union" ]
-include.default = false
-include.true = [ 2024-10-20 ]
-[[01_personal.item]]
-topic = "Haushaltsgrösse"
-variable_name = "household_size"
-variable_label = "number of persons living in respondent's household"
-response_options = "_Ganzzahl_"
-value_scale = "ratio"
-include.default = false
-include.true = [ 2024-10-20 ]
-[[01_personal.item]]
-topic = "Anzahl Kinder im Haushalt"
-variable_name = "n_kids_in_household"
-variable_label = "number of underaged persons living in respondent's household"
-response_options = "_Ganzzahl_"
-value_scale = "ratio"
-include.default = false
-include.true = [ 2024-10-20 ]
-[[01_personal.item]]
 topic = "Verbundenheit mit dem Kanton"
 question = "Wie verbunden fühlen Sie sich mit dem Kanton { stringr::str_to_sentence(canton) } auf einer Skala von 0 (gar nicht verbunden) bis 4 (stark verbunden)?"
 variable_name = "cantonal_attachment"
@@ -4241,7 +4216,8 @@ value_labels = [
 ]
 include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
 [[07_personal_more.z02_more.item]]
-topic = "Haushaltsgrösse[^statag-household]"
+topic.default = "Haushaltsgrösse[^statag-household]"
+topic.20241020 = "Haushaltsgrösse"
 question.default = "Wie viele Personen (Sie eingeschlossen) leben in Ihrem Haushalt?"
 question.20180923_20181125 = "Wie viele Personen leben in Ihrem Haushalt?"
 variable_name = "household_size"
@@ -4250,7 +4226,8 @@ response_options = "_Ganzzahl_"
 value_scale = "ratio"
 is_mandatory = true
 [[07_personal_more.z02_more.item]]
-topic = "Anzahl Kinder im Haushalt[^statag-kids]"
+topic.default = "Anzahl Kinder im Haushalt[^statag-kids]"
+topic.20241020 = "Anzahl Kinder im Haushalt"
 question = "Wie viele davon sind minderjährig (unter 18 Jahre alt)?"
 variable_name = "n_kids_in_household"
 variable_label = "number of underaged persons living in respondent's household"
@@ -4273,7 +4250,9 @@ response_options = [ "Nein, ich besitze kein Auto.", "Ja, ich besitze ein Auto."
 variable_values = [ 1, 2, 3, 99 ]
 value_labels = [ "no car", "one car", "multiple cars", "don't know" ]
 value_scale = "ordinal_ascending"
+include.default = true
 include.20180923_20211128 = false
+include.false = [ 2024-10-20 ]
 [[07_personal_more.z02_more.item]]
 topic = "Staatsbürgerschaft bei Geburt"
 question = "Welche Staatsbürgerschaft hatten Sie bei der Geburt?"
