@@ -4703,6 +4703,7 @@ variable_values = [ 1, 2 ]
 value_labels = [ "yes (working)", "no (not working)" ]
 value_scale = "binary"
 is_mandatory = true
+include.false = [ 2024-10-20 ]
 [[x_polling_agency.008_online.item]]
 topic = "Browser"
 variable_name = "web_browser"
@@ -5909,7 +5910,8 @@ en = "dplyr::filter(voting_decision_cantonal_proposal_{i} %in% c('yes (affirmati
 [[who]]
 value.de = "Erwerbstätige"
 value.en = "economically active persons"
-description.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der ersten vier Antwortoptionen (`1`–`4`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _ja_ (`1`) beantwortet haben."
+description.default.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der ersten vier Antwortoptionen (`1`–`4`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _ja_ (`1`) beantwortet haben."
+description.20241020.de = "All jene Respondenten, welche die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der ersten vier Antwortoptionen (`1`–`4`) beantwortet haben."
 [who.filter.positive]
 de = "dplyr::filter(as.integer(employment_situation) < 5L | employment_situation_routing == 'ja')"
 en = "dplyr::filter(as.integer(employment_situation) < 5L | employment_situation_routing == 'yes (working)')"
@@ -5920,7 +5922,8 @@ en = "dplyr::filter(as.integer(employment_situation) > 4L & (employment_situatio
 [[who]]
 value.de = "Nichterwerbstätige"
 value.en = "economically inactive persons"
-description.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _Nein_ (`2`) beantwortet haben."
+description.default.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _Nein_ (`2`) beantwortet haben."
+description.20241020.de = "All jene Respondenten, welche die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben."
 [who.filter.positive]
 de = "dplyr::filter(as.integer(employment_situation) > 4L | employment_situation_routing == 'nein')"
 en = "dplyr::filter(as.integer(employment_situation) > 4L | employment_situation_routing == 'no (not working)')"
@@ -5931,7 +5934,8 @@ en = "dplyr::filter(as.integer(employment_situation) < 5L & (employment_situatio
 [[who]]
 value.de = "nichterwerbstätige Online-Respondenten"
 value.en = "economically inactive online respondents"
-description.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _nein_ (`2`) beantwortet haben."
+description.default.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _nein_ (`2`) beantwortet haben."
+description.20241020.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben."
 [who.filter.positive]
 de = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | employment_situation_routing == 'nein'))"
 en = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | employment_situation_routing == 'no (not working)'))"
