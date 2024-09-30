@@ -54,21 +54,15 @@ disqualifizieren
 All jene Respondenten, welche die Frage zur Teilnahme an den vergangenen
 kantonalen Wahlen (<code>participation_past_cantonal_elections</code>)
 mit <em>teilgenommen</em> (<code>1</code>) beantwortet haben.</li>
-<li><strong>Erwerbstätige</strong>: All jene Respondenten, welche
-entweder die Frage zur Beschäftigungssituation
-(<code>employment_situation</code>) mit einer der ersten vier
-Antwortoptionen (<code>1</code>–<code>4</code>) beantwortet haben oder
-die Zusatzfrage zum Teilzeiterwerb
-(<code>employment_situation_routing</code>) mit <em>ja</em>
-(<code>1</code>) beantwortet haben.</li>
+<li><strong>Erwerbstätige</strong>: All jene Respondenten, welche die
+Frage zur Beschäftigungssituation (<code>employment_situation</code>)
+mit einer der ersten vier Antwortoptionen
+(<code>1</code>–<code>4</code>) beantwortet haben.</li>
 <li><strong>nichterwerbstätige Online-Respondenten</strong>: All jene
-Online-Respondenten (<code>questionnaire_channel = 1</code>), welche
-entweder die Frage zur Beschäftigungssituation
-(<code>employment_situation</code>) mit einer der letzten sechs
-Antwortoptionen (<code>5</code>–<code>10</code>) beantwortet haben oder
-die Zusatzfrage zum Teilzeiterwerb
-(<code>employment_situation_routing</code>) mit <em>nein</em>
-(<code>2</code>) beantwortet haben.</li>
+Online-Respondenten (<code>questionnaire_channel = 1</code>), welche die
+Frage zur Beschäftigungssituation (<code>employment_situation</code>)
+mit einer der letzten sechs Antwortoptionen
+(<code>5</code>–<code>10</code>) beantwortet haben.</li>
 <li><strong>Angestellte</strong>: All jene Respondenten, welche die
 Frage zur Beschäftigungssituation (<code>employment_situation</code>)
 mit <em>Angestellte:r</em> (<code>3</code>) beantwortet haben.</li>
@@ -2935,28 +2929,6 @@ style="text-align: left;"><code>fail</code><br><code>pass</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">2007</td>
-<td style="text-align: left;">Zusatzfrage zum Teilzeiterwerb für
-Schüler-, Studenten- und Rentner:innen (Dummy)</td>
-<td style="text-align: left;">Online-Respondenten</td>
-<td style="text-align: left;">Sind Sie daneben Teilzeit
-erwerbstätig?</td>
-<td style="text-align: left;">nein</td>
-<td
-style="text-align: left;"><code>employment_situation_routing</code></td>
-<td
-style="text-align: left;"><code>employment_situation_routing</code></td>
-<td style="text-align: left;">dummy value indicating whether or not
-respondent is working (additional routing question for students and
-pensioners; only <em>online respondents</em>)</td>
-<td style="text-align: left;"><code>ja</code><br><code>nein</code></td>
-<td style="text-align: left;"><code>1</code><br><code>2</code></td>
-<td
-style="text-align: left;"><code>yes (working)</code><br><code>no (not working)</code></td>
-<td style="text-align: left;">nein</td>
-<td style="text-align: left;">ja</td>
-</tr>
-<tr>
-<td style="text-align: left;">2008</td>
 <td style="text-align: left;">Browser</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
@@ -2972,7 +2944,7 @@ web browser (only <em>online respondents</em>)</td>
 <td style="text-align: left;">nein</td>
 </tr>
 <tr>
-<td style="text-align: left;">2009</td>
+<td style="text-align: left;">2008</td>
 <td style="text-align: left;">HTTP-Referrer</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
@@ -2989,7 +2961,7 @@ respondents</em>)</td>
 <td style="text-align: left;">nein</td>
 </tr>
 <tr>
-<td style="text-align: left;">2010</td>
+<td style="text-align: left;">2009</td>
 <td style="text-align: left;">Interviewstartzeitpunkt</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
@@ -3006,7 +2978,7 @@ href="https://de.wikipedia.org/wiki/ISO_8601">ISO 8601</a>)</em></td>
 <td style="text-align: left;">nein</td>
 </tr>
 <tr>
-<td style="text-align: left;">2011</td>
+<td style="text-align: left;">2010</td>
 <td style="text-align: left;">Letzter Fragebogenzugriffszeitpunkt</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
@@ -3023,7 +2995,7 @@ href="https://de.wikipedia.org/wiki/ISO_8601">ISO 8601</a>)</em></td>
 <td style="text-align: left;">nein</td>
 </tr>
 <tr>
-<td style="text-align: left;">2012</td>
+<td style="text-align: left;">2011</td>
 <td style="text-align: left;">Gesamte Interviewdauer</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
@@ -3039,7 +3011,7 @@ complete the whole questionnaire (only <em>online respondents</em>)</td>
 <td style="text-align: left;">nein</td>
 </tr>
 <tr>
-<td style="text-align: left;">2013</td>
+<td style="text-align: left;">2012</td>
 <td style="text-align: left;">Verweildauer Einstiegsseite</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
@@ -3055,7 +3027,7 @@ the survey introduction page (only <em>online respondents</em>)</td>
 <td style="text-align: left;">nein</td>
 </tr>
 <tr>
-<td style="text-align: left;">2014</td>
+<td style="text-align: left;">2013</td>
 <td style="text-align: left;">Interviewdauer Thema/Themen XYZ</td>
 <td style="text-align: left;">Online-Respondenten</td>
 <td style="text-align: left;">-</td>
