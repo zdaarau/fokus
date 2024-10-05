@@ -7507,6 +7507,36 @@ phrase <- function(term,
 }
 ```
 
+### `phrase_date`
+
+```{r}
+#' Phrase (ballot) date
+#'
+#' Phrases a date according to the specified `format` and `lang`.
+#'
+#' @inheritParams salim::phrase_datetime
+#' @inheritParams lang_to_locale
+#'
+#' @return A character scalar.
+#' @family phrase
+#' @export
+#'
+#' @examples
+#' fokus::phrase_date()
+phrase_date <- function(x = pal::pkg_config_val(key = "ballot_date",
+                                                pkg = this_pkg),
+                        format = "date_long",
+                        lang = pal::pkg_config_val(key = "lang",
+                                                   pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
+  
+  salim::phrase_datetime(x = x,
+                         format = format,
+                         locale = lang)
+}
+```
+
 ### `phrase_election_candidate`
 
 ```{r}
