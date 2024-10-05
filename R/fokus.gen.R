@@ -127,9 +127,9 @@ NULL
 #'
 #' @examples
 #' fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") |> _$mode
-raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                              pkg = this_pkg)) {
-  assert_ballot_date(ballot_date)
+raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
+  
+  ballot_date %<>% as_ballot_date_chr()
   
   raw_qstnrs_suppl[[ballot_date]]
 }
@@ -150,8 +150,7 @@ raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #' fokus:::raw_qstnr_suppl_lvl(ballot_date = "2018-09-23",
 #'                             lvl = "cantonal") |>
 #'   names()
-raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                  pkg = this_pkg),
+raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                 lvl = all_lvls) {
   lvl <- rlang::arg_match(lvl)
   
@@ -160,7 +159,7 @@ raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     
     cli::cli_abort("No {.val {lvl}} level present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
@@ -185,11 +184,10 @@ raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #'                                    lvl = "cantonal",
 #'                                    canton = "aargau") |>
 #'   names()
-raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                         pkg = this_pkg),
+raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                        lvl = all_lvls,
-                                       canton = pal::pkg_config_val(key = "canton",
-                                                                    pkg = this_pkg)) {
+                                       canton = pal::pkg_config_val("canton")) {
+  
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   result <-
@@ -200,7 +198,7 @@ raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val(key = "
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     
     cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.")
@@ -226,11 +224,9 @@ raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val(key = "
 #'                                  canton = "aargau",
 #'                                  proposal_nr = 1) |>
 #'   _$name
-raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      lvl = all_lvls,
-                                     canton = pal::pkg_config_val(key = "canton",
-                                                                  pkg = this_pkg),
+                                     canton = pal::pkg_config_val("canton"),
                                      proposal_nr = 1L) {
   lvl <- rlang::arg_match(lvl)
   checkmate::assert_count(proposal_nr,
@@ -249,7 +245,7 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(proposals)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
@@ -263,7 +259,7 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(proposal)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
@@ -291,11 +287,9 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' fokus:::raw_qstnr_suppl_proposal_safe(ballot_date = "2019-10-20",
 #'                                       lvl = "cantonal",
 #'                                       canton = "aargau")
-raw_qstnr_suppl_proposal_safe <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                            pkg = this_pkg),
+raw_qstnr_suppl_proposal_safe <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                           lvl = all_lvls,
-                                          canton = pal::pkg_config_val(key = "canton",
-                                                                       pkg = this_pkg),
+                                          canton = pal::pkg_config_val("canton"),
                                           proposal_nr = NULL) {
   lvl <- rlang::arg_match(lvl)
   checkmate::assert_count(proposal_nr,
@@ -332,11 +326,9 @@ raw_qstnr_suppl_proposal_safe <- function(ballot_date = pal::pkg_config_val(key 
 #'                                       lvl = "cantonal",
 #'                                       canton = "aargau",
 #'                                       proposal_nr = 2)
-raw_qstnr_suppl_proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                            pkg = this_pkg),
+raw_qstnr_suppl_proposal_name <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                           lvl = all_lvls,
-                                          canton = pal::pkg_config_val(key = "canton",
-                                                                       pkg = this_pkg),
+                                          canton = pal::pkg_config_val("canton"),
                                           proposal_nr = 1L) {
   result <-
     raw_qstnr_suppl_proposal(ballot_date = ballot_date,
@@ -348,7 +340,7 @@ raw_qstnr_suppl_proposal_name <- function(ballot_date = pal::pkg_config_val(key 
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -377,11 +369,9 @@ raw_qstnr_suppl_proposal_name <- function(ballot_date = pal::pkg_config_val(key 
 #'                                   lvl = "cantonal",
 #'                                   canton = "aargau",
 #'                                   proposal_nr = 2)
-raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                        pkg = this_pkg),
+raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                       lvl = all_lvls,
-                                      canton = pal::pkg_config_val(key = "canton",
-                                                                   pkg = this_pkg),
+                                      canton = pal::pkg_config_val("canton"),
                                       proposal_nr = 1L) {
   result <-
     raw_qstnr_suppl_proposal(ballot_date = ballot_date,
@@ -393,7 +383,7 @@ raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -425,11 +415,9 @@ raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
 #'                                  proposal_nr = 2,
 #'                                  side = "pro",
 #'                                  argument_nr = 2)
-raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      lvl = all_lvls,
-                                     canton = pal::pkg_config_val(key = "canton",
-                                                                  pkg = this_pkg),
+                                     canton = pal::pkg_config_val("canton"),
                                      proposal_nr = 1L,
                                      side = all_argument_sides,
                                      argument_nr = 1L) {
@@ -449,7 +437,7 @@ raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -478,11 +466,9 @@ raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val(key = "ba
 #'                                      lvl = "cantonal",
 #'                                      canton = "aargau",
 #'                                      proposal_nr = 2)
-raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                           pkg = this_pkg),
+raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                          lvl = all_lvls,
-                                         canton = pal::pkg_config_val(key = "canton",
-                                                                      pkg = this_pkg),
+                                         canton = pal::pkg_config_val("canton"),
                                          proposal_nr = 1L) {
   result <-
     raw_qstnr_suppl_proposal(ballot_date = ballot_date,
@@ -494,7 +480,7 @@ raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key =
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -523,11 +509,9 @@ raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key =
 #'                                   lvl = "cantonal",
 #'                                   canton = "aargau") |>
 #'   _$skill_questions_source
-raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                        pkg = this_pkg),
+raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                       lvl = all_lvls,
-                                      canton = pal::pkg_config_val(key = "canton",
-                                                                   pkg = this_pkg)) {
+                                      canton = pal::pkg_config_val("canton")) {
   result <-
     raw_qstnr_suppl_lvl_canton(ballot_date = ballot_date,
                                lvl = lvl,
@@ -537,7 +521,7 @@ raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val(key = "b
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -566,11 +550,9 @@ raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val(key = "b
 #'                                  canton = "aargau",
 #'                                  prcd = "majoritarian") |>
 #'   _$n_seats
-raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      lvl = all_lvls,
-                                     canton = pal::pkg_config_val(key = "canton",
-                                                                  pkg = this_pkg),
+                                     canton = pal::pkg_config_val("canton"),
                                      prcd = all_prcds,
                                      election_nr = 1L) {
   
@@ -587,7 +569,7 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -601,7 +583,7 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -629,11 +611,9 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
 #'                                       lvl = "cantonal",
 #'                                       canton = "aargau",
 #'                                       prcd = "majoritarian")
-raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                            pkg = this_pkg),
+raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                           lvl = all_lvls,
-                                          canton = pal::pkg_config_val(key = "canton",
-                                                                       pkg = this_pkg),
+                                          canton = pal::pkg_config_val("canton"),
                                           prcd = all_prcds,
                                           election_nr = 1L) {
   lvl <- rlang::arg_match(lvl)
@@ -663,7 +643,7 @@ raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val(key 
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
@@ -687,10 +667,8 @@ raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val(key 
 #' @examples
 #' fokus:::raw_qstnr_suppl_mode(ballot_date = "2018-09-23",
 #'                              canton = "aargau")
-raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                   pkg = this_pkg),
-                                 canton = pal::pkg_config_val(key = "canton",
-                                                              pkg = this_pkg)) {
+raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val("ballot_date"),
+                                 canton = pal::pkg_config_val("canton")) {
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   result <-
@@ -700,7 +678,7 @@ raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val(key = "ballot
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     
     cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
@@ -726,11 +704,9 @@ raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val(key = "ballot
 #'                                         proposal_nr = 1) |>
 #'   purrr::map_depth(1L, "de") |>
 #'   purrr::list_c(ptype = character())
-raw_qstnr_suppl_skill_questions <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                              pkg = this_pkg),
+raw_qstnr_suppl_skill_questions <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                             lvl = all_lvls,
-                                            canton = pal::pkg_config_val(key = "canton",
-                                                                         pkg = this_pkg),
+                                            canton = pal::pkg_config_val("canton"),
                                             proposal_nr = NULL) {
   lvl <- rlang::arg_match(lvl)
   result <-
@@ -756,7 +732,7 @@ raw_qstnr_suppl_skill_questions <- function(ballot_date = pal::pkg_config_val(ke
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -789,11 +765,9 @@ raw_qstnr_suppl_skill_questions <- function(ballot_date = pal::pkg_config_val(ke
 #'                                        canton = "aargau",
 #'                                        proposal_nr = 1,
 #'                                        skill_question_nr = 1)
-raw_qstnr_suppl_skill_question <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                             pkg = this_pkg),
+raw_qstnr_suppl_skill_question <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                            lvl = all_lvls,
-                                           canton = pal::pkg_config_val(key = "canton",
-                                                                        pkg = this_pkg),
+                                           canton = pal::pkg_config_val("canton"),
                                            proposal_nr = NULL,
                                            skill_question_nr = 1L) {
   
@@ -809,7 +783,7 @@ raw_qstnr_suppl_skill_question <- function(ballot_date = pal::pkg_config_val(key
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -842,7 +816,7 @@ raw_pick_right <- function(x,
                            canton) {
   
   # force evaluation of `ballot_date`, `canton` and `key` to ensure immediate error (with better msg) in case they are missing
-  ballot_date
+  ballot_date %<>% as_ballot_date_chr()
   canton
   key
   
@@ -969,6 +943,7 @@ resolve_qstnr_val <- function(x,
                               j,
                               ...) {
   
+  ballot_date %<>% as_ballot_date_chr()
   checkmate::assert_string(lvl,
                            na.ok = TRUE,
                            null.ok = TRUE)
@@ -1050,12 +1025,11 @@ interpolate_qstnr_val <- function(x,
 #' @return `r pkgsnip::return_lbl("tibble")`
 #' @family qstnr_gen
 #' @keywords internal
-gen_qstnr_tibble <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+gen_qstnr_tibble <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              canton = cantons(ballot_date),
                              verbose = FALSE) {
   
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(verbose)
@@ -1496,14 +1470,15 @@ gen_qstnr_md <- function(qstnr_tibble,
     qstnr_tibble |>
     dplyr::pull("ballot_date") |>
     unique() |>
-    checkmate::assert_string(.var.name = "ballot_date")
+    as_ballot_date()
   canton <-
     qstnr_tibble |>
     dplyr::pull("canton") |>
     unique() |>
-    checkmate::assert_string(.var.name = "canton")
+    rlang::arg_match0(values = all_cantons,
+                      arg_nm = "unique(qstnr_tibble$canton)")
   
-  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {as.Date(ballot_date)}} Markdown questionnaire")
+  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {ballot_date}} Markdown questionnaire")
   
   block_lines <-
     qstnr_tibble |>
@@ -1837,8 +1812,7 @@ block_name_to_nr <- function(x) {
 #'   i = 1:2,
 #'   j = 1:3
 #' )
-qstnr_item_val <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                             pkg = this_pkg),
+qstnr_item_val <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            canton = cantons(ballot_date),
                            branch_path,
                            var_name,
@@ -1847,7 +1821,7 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
                            i = NA_integer_,
                            j = NA_integer_) {
   
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date_chr()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_character(branch_path,
@@ -1927,8 +1901,7 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
 #' @return `r pkgsnip::return_lbl("tibble")`
 #' @family qstnr_internal
 #' @keywords internal
-qstnr_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                            pkg = this_pkg)) {
+qstnr_parties <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
   ballot_date <- as_ballot_date(ballot_date)
   
   raw_qstnr |>
@@ -1996,7 +1969,7 @@ qstnr_response_option_codes <- function(types = all_response_option_types) {
 #' fokus:::qstnr_lbl_col_sym(lang = "de")
 #' 
 #' fokus:::qstnr_lbl_col_sym(lang = "en")
-qstnr_lbl_col_sym <- function(lang = pal::pkg_config_val(key = "lang")) {
+qstnr_lbl_col_sym <- function(lang = pal::pkg_config_val("lang")) {
   
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
@@ -2034,8 +2007,7 @@ print_private_repo_structure <- function() {
 }
 
 private_file_hash <- function(path,
-                              auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                               pkg = this_pkg)) {
+                              auth_token = pal::pkg_config_val("token_repo_private")) {
   req_private_file(path = path,
                    method = "HEAD",
                    auth_token = auth_token) |>
@@ -2046,8 +2018,7 @@ private_file_hash <- function(path,
 req_private_file <- function(path,
                              method,
                              max_tries = 3L,
-                             auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                              pkg = this_pkg)) {
+                             auth_token = pal::pkg_config_val("token_repo_private")) {
   checkmate::assert_string(auth_token)
   
   httr2::request(base_url = glue::glue("https://gitlab.com/api/v4/projects/{repo_private_proj_id}/repository/files/", utils::URLencode(path,
@@ -2067,8 +2038,7 @@ req_private_file <- function(path,
     })
 }
 
-set_private_repo_connection <- function(auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                         pkg = this_pkg)) {
+set_private_repo_connection <- function(auth_token = pal::pkg_config_val("token_repo_private")) {
   checkmate::assert_string(auth_token)
   rlang::check_installed(pkg = "gitlabr",
                          reason = pal::reason_pkg_required())
@@ -2201,9 +2171,9 @@ as_ballot_date <- function(ballot_date) {
 
 as_ballot_date_chr <- function(ballot_date) {
   
-  ballot_date |>
-    as.character() |>
-    rlang::arg_match(values = as.character(all_ballot_dates))
+  rlang::arg_match0(arg = as.character(ballot_date),
+                    values = as.character(all_ballot_dates),
+                    arg_nm = "ballot_date")
 }
 
 as_flat_list <- function(x) {
@@ -2244,8 +2214,7 @@ collapse_break <- function(s) {
 #' @examples
 #' fokus:::lang_to_locale("de")
 #' fokus:::lang_to_locale("en")
-lang_to_locale <- function(lang = pal::pkg_config_val(key = "lang",
-                                                      pkg = this_pkg)) {
+lang_to_locale <- function(lang = pal::pkg_config_val("lang")) {
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   switch(lang,
@@ -2255,8 +2224,7 @@ lang_to_locale <- function(lang = pal::pkg_config_val(key = "lang",
 
 var_predicate <- function(predicate,
                           var_name,
-                          ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                            pkg = this_pkg),
+                          ballot_date = pal::pkg_config_val("ballot_date"),
                           canton = cantons(ballot_date)) {
   
   predicate <- rlang::arg_match(predicate,
@@ -2266,7 +2234,7 @@ var_predicate <- function(predicate,
                                                    "variable_name")))
   assert_var_names(var_names = var_name,
                    as_scalar = TRUE)
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   fokus::qstnrs |>
@@ -2556,9 +2524,9 @@ url_parameter_survey <- list(aargau = "pw")
 #' fokus::all_ballot_dates %>%
 #'   magrittr::set_names(., .) |>
 #'   purrr::map_chr(fokus::cantons)
-cantons <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                      pkg = this_pkg)) {
-  ballot_date %<>% assert_ballot_date_chr()
+cantons <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
+  
+  ballot_date %<>% as_ballot_date_chr()
   cantons_at[[ballot_date]]
 }
 
@@ -2582,13 +2550,12 @@ cantons <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::lvls(ballot_date = "2018-09-23",
 #'             canton = "aargau",
 #'             ballot_type = "election")
-lvls <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                   pkg = this_pkg),
+lvls <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                  canton = cantons(ballot_date),
                  ballot_type = ballot_types(ballot_date = ballot_date,
                                             canton = canton)) {
   
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   ballot_type <- rlang::arg_match(arg = ballot_type,
@@ -2630,8 +2597,7 @@ lvls <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::ballot_types(ballot_date = "2020-10-18",
 #'                     lvls = "federal",
 #'                     canton = "aargau")
-ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                           pkg = this_pkg),
+ballot_types <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          lvls = all_lvls,
                          canton = cantons(ballot_date)) {
   
@@ -2684,8 +2650,7 @@ ballot_types <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::prcds(ballot_date = "2020-10-18",
 #'              lvl = "federal",
 #'              canton = "aargau")
-prcds <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                    pkg = this_pkg),
+prcds <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                   lvl = lvls(ballot_date,
                              canton,
                              ballot_type = "election"),
@@ -2746,8 +2711,7 @@ prcds <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::proposal_nrs(ballot_date = "2019-10-20",
 #'                     lvl = "cantonal",
 #'                     canton = "aargau")
-proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                           pkg = this_pkg),
+proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          lvl = lvls(ballot_date,
                                     canton,
                                     ballot_type = "referendum"),
@@ -2804,8 +2768,7 @@ proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                     lvl = "cantonal",
 #'                     canton = "aargau",
 #'                     prcd = "proportional")
-election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                           pkg = this_pkg),
+election_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          lvl = lvls(ballot_date,
                                     canton,
                                     ballot_type = "election"),
@@ -2851,8 +2814,7 @@ election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::election_prcds(ballot_date = "2019-10-20",
 #'                       lvl = "cantonal",
 #'                       canton = "aargau")
-election_prcds <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                             pkg = this_pkg),
+election_prcds <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            lvl = lvls(ballot_date,
                                       canton,
                                       ballot_type = "election"),
@@ -2899,8 +2861,7 @@ election_prcds <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
 #'                             lvl = "federal",
 #'                             canton = "aargau",
 #'                             proposal_nr = 2)
-proposal_qstn_groups <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                   pkg = this_pkg),
+proposal_qstn_groups <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  lvl = all_lvls,
                                  canton = cantons(ballot_date),
                                  proposal_nr = 1L) {
@@ -2930,8 +2891,7 @@ proposal_qstn_groups <- function(ballot_date = pal::pkg_config_val(key = "ballot
 #' fokus::qstn_groups_proposal_nrs(ballot_date = "2023-06-18",
 #'                                 lvl = "federal",
 #'                                 canton = "aargau")
-qstn_groups_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+qstn_groups_proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      lvl = all_lvls,
                                      canton = cantons(ballot_date),
                                      qstn_groups = all_qstn_groups) {
@@ -2957,8 +2917,7 @@ qstn_groups_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' @examples
 #' fokus::survey_channels(ballot_date = "2023-06-18",
 #'                        canton = "aargau")
-survey_channels <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                              pkg = this_pkg),
+survey_channels <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                             canton = cantons(ballot_date)) {
   
   raw_qstnr_suppl_mode(ballot_date = ballot_date,
@@ -2993,8 +2952,7 @@ survey_channels <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #'                    canton = "aargau")
 #'
 #' fokus::n_proposals(ballot_date = "2019-10-20")
-n_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                          pkg = this_pkg),
+n_proposals <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                         lvls = all_lvls,
                         canton = cantons(ballot_date)) {
   
@@ -3043,8 +3001,7 @@ n_proposals <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                    lvls = "federal",
 #'                    canton = "aargau",
 #'                    prcds = "majoritarian")
-n_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                          pkg = this_pkg),
+n_elections <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                         lvls = all_lvls,
                         canton = cantons(ballot_date),
                         prcds = all_prcds) {
@@ -3099,8 +3056,7 @@ n_elections <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::has_referendum(ballot_date = "2018-09-23",
 #'                       lvls = "federal",
 #'                       canton = "aargau")
-has_referendum <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                             pkg = this_pkg),
+has_referendum <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            lvls = all_lvls,
                            canton = cantons(ballot_date)) {
   
@@ -3132,8 +3088,7 @@ has_referendum <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
 #'                     lvls = "federal",
 #'                     canton = "aargau",
 #'                     prcds = "proportional")
-has_election <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                           pkg = this_pkg),
+has_election <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          lvls = all_lvls,
                          canton = cantons(ballot_date),
                          prcds = all_prcds) {
@@ -3175,8 +3130,7 @@ has_election <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                        canton = "aargau",
 #'                        ballot_type = "election",
 #'                        prcds = "proportional")
-has_ballot_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                              pkg = this_pkg),
+has_ballot_type <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                             lvls = all_lvls,
                             canton = cantons(ballot_date),
                             ballot_type = ballot_types(ballot_date = ballot_date,
@@ -3242,8 +3196,7 @@ has_ballot_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #'                lvl = "federal",
 #'                canton = "aargau",
 #'                ballot_types = "election")
-has_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                      pkg = this_pkg),
+has_lvl <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                     lvl = lvls(ballot_date,
                                canton),
                     canton = cantons(ballot_date),
@@ -3316,8 +3269,7 @@ has_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::has_proposal_nrs(ballot_date = "2021-11-28",
 #'                         lvls = "cantonal",
 #'                         canton = "aargau")
-has_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+has_proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lvls = all_lvls,
                              canton = cantons(ballot_date),
                              proposal_nrs = NULL) {
@@ -3382,8 +3334,7 @@ has_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' fokus::has_election_nrs(ballot_date = "2020-10-18",
 #'                         lvls = "federal",
 #'                         canton = "aargau")
-has_election_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+has_election_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lvls = all_lvls,
                              canton = cantons(ballot_date),
                              prcds = all_prcds,
@@ -3528,8 +3479,7 @@ combos_ballot_types <- function(ballot_dates = all_ballot_dates,
 #'                      lvl = "cantonal",
 #'                      canton = "aargau",
 #'                      proposal_nr = 1)
-proposal_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                            pkg = this_pkg),
+proposal_type <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                           lvl = lvls(ballot_date,
                                      canton,
                                      ballot_type = "referendum"),
@@ -3562,15 +3512,13 @@ proposal_type <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                      canton = "aargau",
 #'                      proposal_nr = 1,
 #'                      type = "long")
-proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                            pkg = this_pkg),
+proposal_name <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                           lvl = lvls(ballot_date,
                                      canton,
                                      ballot_type = "referendum"),
                           canton = cantons(ballot_date),
                           proposal_nr = 1L,
-                          lang = pal::pkg_config_val(key = "lang",
-                                                     pkg = this_pkg),
+                          lang = pal::pkg_config_val("lang"),
                           type = all_name_types) {
   
   lang <- rlang::arg_match(arg = lang,
@@ -3604,8 +3552,7 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                             lvl = "federal",
 #'                             proposal_nr = 1,
 #'                             type = "long")
-proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                   pkg = this_pkg),
+proposal_name_gender <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  lvl = lvls(ballot_date,
                                             canton,
                                             ballot_type = "referendum"),
@@ -3636,8 +3583,7 @@ proposal_name_gender <- function(ballot_date = pal::pkg_config_val(key = "ballot
 #'                                lvl = "federal",
 #'                                proposal_nr = 3,
 #'                                type = "short")
-is_proposal_name_plural <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                      pkg = this_pkg),
+is_proposal_name_plural <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                     lvl = lvls(ballot_date,
                                                canton,
                                                ballot_type = "referendum"),
@@ -3669,8 +3615,7 @@ is_proposal_name_plural <- function(ballot_date = pal::pkg_config_val(key = "bal
 #'                           lvl = "cantonal",
 #'                           canton = "aargau",
 #'                           proposal_nr = 1)
-proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                 pkg = this_pkg),
+proposal_arguments <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                lvl = lvls(ballot_date,
                                           canton,
                                           ballot_type = "referendum"),
@@ -3711,8 +3656,7 @@ proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #'                          side = "contra",
 #'                          argument_nr = 3,
 #'                          type = "long")
-proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                pkg = this_pkg),
+proposal_argument <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                               lvl = lvls(ballot_date,
                                          canton,
                                          ballot_type = "referendum"),
@@ -3720,8 +3664,7 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
                               proposal_nr = 1L,
                               side = all_argument_sides,
                               argument_nr = 1L,
-                              lang = pal::pkg_config_val(key = "lang",
-                                                         pkg = this_pkg),
+                              lang = pal::pkg_config_val("lang"),
                               type = all_name_types) {
   
   lang <- rlang::arg_match(arg = lang,
@@ -3754,8 +3697,7 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
 #'                              canton = "aargau",
 #'                              proposal_nr = 1,
 #'                              type = "no")
-proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                    pkg = this_pkg),
+proposal_main_motives <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                   lvl = lvls(ballot_date,
                                              canton,
                                              ballot_type = "referendum"),
@@ -3795,8 +3737,7 @@ proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballo
 #'                             canton = "aargau",
 #'                             proposal_nr = 1,
 #'                             sides = "pro")
-n_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                   pkg = this_pkg),
+n_proposal_arguments <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  lvl = lvls(ballot_date,
                                             canton,
                                             ballot_type = "referendum"),
@@ -3840,8 +3781,7 @@ n_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot
 #'                                canton = "aargau",
 #'                                proposal_nr = 1,
 #'                                types = "no")
-n_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                      pkg = this_pkg),
+n_proposal_main_motives <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                     lvl = lvls(ballot_date,
                                                canton,
                                                ballot_type = "referendum"),
@@ -3885,8 +3825,7 @@ n_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "bal
 #'                               lvl = "federal",
 #'                               canton = "aargau",
 #'                               proposal_nr = 2)
-has_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                     pkg = this_pkg),
+has_proposal_arguments <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                    lvl = lvls(ballot_date,
                                               canton,
                                               ballot_type = "referendum"),
@@ -3920,8 +3859,7 @@ has_proposal_arguments <- function(ballot_date = pal::pkg_config_val(key = "ball
 #'                                  lvl = "federal",
 #'                                  canton = "aargau",
 #'                                  proposal_nr = 2)
-has_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                        pkg = this_pkg),
+has_proposal_main_motives <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                       lvl = lvls(ballot_date,
                                                  canton,
                                                  ballot_type = "referendum"),
@@ -3951,8 +3889,7 @@ has_proposal_main_motives <- function(ballot_date = pal::pkg_config_val(key = "b
 #' fokus::argument_proposal_nrs(ballot_date = "2023-06-18",
 #'                              lvl = "federal",
 #'                              canton = "aargau")
-argument_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                    pkg = this_pkg),
+argument_proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                   lvl = lvls(ballot_date,
                                              canton,
                                              ballot_type = "referendum"),
@@ -3979,8 +3916,7 @@ argument_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballo
 #' fokus::main_motive_proposal_nrs(ballot_date = "2023-06-18",
 #'                                 lvl = "federal",
 #'                                 canton = "aargau")
-main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+main_motive_proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      lvl = lvls(ballot_date,
                                                 canton,
                                                 ballot_type = "referendum"),
@@ -4302,8 +4238,7 @@ combos_proposal_main_motives <- function(ballot_dates = all_ballot_dates,
 #'                      prcd = "majoritarian",
 #'                      election_nr = 1,
 #'                      type = "body")
-election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                            pkg = this_pkg),
+election_name <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                           lvl = lvls(ballot_date,
                                      canton,
                                      ballot_type = "election"),
@@ -4312,8 +4247,7 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                        lvl,
                                        canton),
                           election_nr = 1L,
-                          lang = pal::pkg_config_val(key = "lang",
-                                                     pkg = this_pkg),
+                          lang = pal::pkg_config_val("lang"),
                           type = c("short", "long", "body", "body_alt")) {
   
   lang <- rlang::arg_match(arg = lang,
@@ -4355,12 +4289,10 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' fokus::election_names_combined(ballot_date = "2019-10-20",
 #'                                canton = "aargau",
 #'                                federal_first = FALSE)
-election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                      pkg = this_pkg),
+election_names_combined <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                     lvls = all_lvls,
                                     canton = cantons(ballot_date),
-                                    lang = pal::pkg_config_val(key = "lang",
-                                                               pkg = this_pkg),
+                                    lang = pal::pkg_config_val("lang"),
                                     federal_first = TRUE) {
   
   lvls <- unique(rlang::arg_match(arg = lvls,
@@ -4403,8 +4335,7 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
 #' fokus::election_candidates(ballot_date = "2019-10-20",
 #'                            lvl = "cantonal",
 #'                            canton = "aargau")
-election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                  pkg = this_pkg),
+election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                 lvl = lvls(ballot_date,
                                            canton,
                                            ballot_type = "election"),
@@ -4441,8 +4372,7 @@ election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #'                         lvl = "federal",
 #'                         canton = "aargau",
 #'                         past = TRUE)
-election_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+election_parties <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lvl = lvls(ballot_date,
                                         canton,
                                         ballot_type = "election"),
@@ -4507,8 +4437,7 @@ election_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' fokus::election_tickets(ballot_date = "2019-10-20",
 #'                         lvl = "federal",
 #'                         canton = "aargau")
-election_tickets <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+election_tickets <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lvl = lvls(ballot_date,
                                         canton,
                                         ballot_type = "election"),
@@ -4539,12 +4468,15 @@ election_tickets <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' fokus::past_election_date(ballot_date = "2019-10-20")
 #' fokus::past_election_date(ballot_date = "2020-10-18")
 #' fokus::past_election_date(ballot_date = "2024-10-20")
-past_election_date <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                 pkg = this_pkg),
+#' fokus::past_election_date(ballot_date = "2019-10-20",
+#'                           lvl = "federal")
+past_election_date <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                lvl = lvls(ballot_date,
                                           canton,
                                           ballot_type = "election"),
                                canton = cantons(ballot_date)) {
+  
+  ballot_date %<>% as_ballot_date()
   if (length(lvl)) {
     lvl <- rlang::arg_match(arg = lvl,
                             values = all_lvls)
@@ -4569,10 +4501,7 @@ past_election_date <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
   if (is.null(result)) {
     
     # NOTE: we assume the past election must be *4* years before `ballot_date`
-    past_election_year <-
-      clock::date_parse(ballot_date) |>
-      clock::get_year() |>
-      magrittr::subtract(4L)
+    past_election_year <- clock::get_year(ballot_date) - 4L
     
     result <-
       combos_elections(ballot_dates = all_ballot_dates,
@@ -4618,8 +4547,7 @@ past_election_date <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #'                         lvl = "cantonal",
 #'                         canton = "aargau",
 #'                         seat_type = "total")
-n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+n_election_seats <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lvl = lvls(ballot_date,
                                         canton,
                                         ballot_type = "election"),
@@ -4651,8 +4579,7 @@ n_election_seats <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' fokus::n_election_candidates(ballot_date = "2019-10-20",
 #'                              lvl = "cantonal",
 #'                              canton = "aargau")
-n_election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                    pkg = this_pkg),
+n_election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                   lvl = lvls(ballot_date,
                                              canton,
                                              ballot_type = "election"),
@@ -4684,8 +4611,7 @@ n_election_candidates <- function(ballot_date = pal::pkg_config_val(key = "ballo
 #' fokus::requires_candidate_registration(ballot_date = "2019-10-20",
 #'                                        lvl = "federal",
 #'                                        canton = "aargau")
-requires_candidate_registration <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                              pkg = this_pkg),
+requires_candidate_registration <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                             lvl = lvls(ballot_date,
                                                        canton,
                                                        ballot_type = "election"),
@@ -4839,8 +4765,7 @@ combos_elections <- function(ballot_dates = all_ballot_dates,
 #' fokus::skill_question_nrs(ballot_date = "2019-10-20",
 #'                           lvl = "cantonal",
 #'                           canton = "aargau")
-skill_question_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                 pkg = this_pkg),
+skill_question_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                lvl = lvls(ballot_date,
                                           canton),
                                canton = cantons(ballot_date),
@@ -4878,8 +4803,7 @@ skill_question_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_d
 #' fokus::n_skill_questions(ballot_date = "2019-10-20",
 #'                          lvl = "cantonal",
 #'                          canton = "aargau")
-n_skill_questions <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                pkg = this_pkg),
+n_skill_questions <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                               lvl = lvls(ballot_date,
                                          canton),
                               canton = cantons(ballot_date),
@@ -4927,15 +4851,13 @@ n_skill_questions <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
 #'                       proposal_nr = 1,
 #'                       skill_question_nr = 2,
 #'                       lang = "en")
-skill_question <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                             pkg = this_pkg),
+skill_question <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            lvl = lvls(ballot_date,
                                       canton),
                            canton = cantons(ballot_date),
                            proposal_nr = NULL,
                            skill_question_nr = 1L,
-                           lang = pal::pkg_config_val(key = "lang",
-                                                      pkg = this_pkg)) {
+                           lang = pal::pkg_config_val("lang")) {
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -4963,8 +4885,7 @@ skill_question <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
 #'                                        canton = "aargau",
 #'                                        proposal_nr = 1,
 #'                                        skill_question_nr = 2)
-skill_question_response_options <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                              pkg = this_pkg),
+skill_question_response_options <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                             lvl = lvls(ballot_date,
                                                        canton),
                                             canton = cantons(ballot_date),
@@ -4997,8 +4918,7 @@ skill_question_response_options <- function(ballot_date = pal::pkg_config_val(ke
 #'                                 canton = "aargau",
 #'                                 proposal_nr = 1,
 #'                                 skill_question_nr = 2)
-skill_question_answer_nr <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+skill_question_answer_nr <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      lvl = lvls(ballot_date,
                                                 canton),
                                      canton = cantons(ballot_date),
@@ -5032,8 +4952,7 @@ skill_question_answer_nr <- function(ballot_date = pal::pkg_config_val(key = "ba
 #' fokus::skill_question_proposal_nrs(ballot_date = "2018-09-23",
 #'                                    lvl = "cantonal",
 #'                                    canton = "aargau")
-skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                          pkg = this_pkg),
+skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                         lvl = lvls(ballot_date,
                                                    canton,
                                                    ballot_type = "referendum"),
@@ -5059,12 +4978,10 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = 
 #' @examples
 #' fokus::ballot_title(ballot_date = "2019-10-20",
 #'                     canton = "aargau")
-ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                           pkg = this_pkg),
+ballot_title <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          canton = cantons(ballot_date),
-                         lang = pal::pkg_config_val(key = "lang",
-                                                    pkg = this_pkg)) {
-  ballot_date %<>% assert_ballot_date()
+                         lang = pal::pkg_config_val("lang")) {
+  ballot_date %<>% as_ballot_date()
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -5114,10 +5031,8 @@ ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #' @examples
 #' fokus::political_issues(ballot_date = "2019-10-20",
 #'                         lang = "en")
-political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
-                             lang = pal::pkg_config_val(key = "lang",
-                                                        pkg = this_pkg)) {
+political_issues <- function(ballot_date = pal::pkg_config_val("ballot_date"),
+                             lang = pal::pkg_config_val("lang")) {
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -5128,7 +5043,7 @@ political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
   if (is.null(result)) {
     
     # reduce to proper arg value for error msg
-    ballot_date %<>% assert_ballot_date()
+    ballot_date %<>% as_ballot_date()
     
     cli::cli_abort("No political issues present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
@@ -5156,8 +5071,7 @@ political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #' fokus::postal_dispatch_way(ballot_date = "2018-09-23",
 #'                            canton = "aargau",
 #'                            dispatch_type = "invitation")
-postal_dispatch_way <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                  pkg = this_pkg),
+postal_dispatch_way <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                 canton = cantons(ballot_date),
                                 dispatch_type = all_postal_dispatch_types) {
   
@@ -5196,8 +5110,7 @@ postal_dispatch_way <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #'                          lang = "de",
 #'                          subtypes = c("election", "proportional"))
 response_options <- function(type = all_response_option_types,
-                             lang = pal::pkg_config_val(key = "lang",
-                                                        pkg = this_pkg),
+                             lang = pal::pkg_config_val("lang"),
                              subtypes = NULL) {
   
   type <- rlang::arg_match(type)
@@ -5295,13 +5208,11 @@ response_options <- function(type = all_response_option_types,
 #'                                       canton = "aargau") |>
 #'     colnames()
 #' )
-read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                           pkg = this_pkg),
+read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                          canton = cantons(ballot_date),
                                          use_cache = TRUE,
-                                         auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                          pkg = this_pkg)) {
-  ballot_date %<>% assert_ballot_date()
+                                         auth_token = pal::pkg_config_val("token_repo_private")) {
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   
@@ -5351,13 +5262,11 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
 #'                                          canton = "aargau") |>
 #'     length()
 #' )
-read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                              pkg = this_pkg),
+read_online_participation_codes <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                             canton = cantons(ballot_date),
                                             use_cache = TRUE,
-                                            auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                             pkg = this_pkg)) {
-  ballot_date %<>% assert_ballot_date()
+                                            auth_token = pal::pkg_config_val("token_repo_private")) {
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   
@@ -5418,16 +5327,13 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(ke
 #'                           merged = TRUE) |>
 #'     nrow()
 #' )
-read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                               pkg = this_pkg),
+read_survey_data <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              canton = cantons(ballot_date),
-                             lang = pal::pkg_config_val(key = "lang",
-                                                        pkg = this_pkg),
+                             lang = pal::pkg_config_val("lang"),
                              merged = FALSE,
                              use_cache = TRUE,
-                             auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                              pkg = this_pkg)) {
-  ballot_date %<>% assert_ballot_date()
+                             auth_token = pal::pkg_config_val("token_repo_private")) {
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   lang <- rlang::arg_match(arg = lang,
@@ -5461,12 +5367,10 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
 #'                                          canton = "aargau") |>
 #'     colnames()
 #' )
-read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                              pkg = this_pkg),
+read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                             canton = cantons(ballot_date),
                                             use_cache = TRUE,
-                                            auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                             pkg = this_pkg)) {
+                                            auth_token = pal::pkg_config_val("token_repo_private")) {
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
@@ -5595,13 +5499,11 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
 #'                                   canton = "aargau") |>
 #'     nrow()
 #' )
-read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                       pkg = this_pkg),
+read_voting_register_ids <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                      canton = cantons(ballot_date),
                                      use_cache = TRUE,
-                                     auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                      pkg = this_pkg)) {
-  ballot_date %<>% assert_ballot_date()
+                                     auth_token = pal::pkg_config_val("token_repo_private")) {
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   
@@ -5656,8 +5558,7 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ba
 read_private_file <- function(path,
                               as_chr = FALSE,
                               use_cache = TRUE,
-                              auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                               pkg = this_pkg)) {
+                              auth_token = pal::pkg_config_val("token_repo_private")) {
   checkmate::assert_flag(as_chr)
   checkmate::assert_string(path)
   
@@ -5728,8 +5629,10 @@ export_qstnr <- function(qstnr_tibble,
                          reason = pal::reason_pkg_required())
   
   # extract ballot date and canton from `qstnr_tibble`
-  ballot_date <- checkmate::assert_string(unique(qstnr_tibble$ballot_date))
-  canton <- checkmate::assert_string(unique(qstnr_tibble$canton))
+  ballot_date <- as_ballot_date(unique(qstnr_tibble$ballot_date))
+  canton <- rlang::arg_match0(arg = unique(qstnr_tibble$canton),
+                              values = all_cantons,
+                              arg_nm = "unique(qstnr_tibble$canton)")
   
   # Generate Markdown version
   md_path <- fs::path(path, glue::glue("{ballot_date}_{canton}.md"))
@@ -5741,7 +5644,7 @@ export_qstnr <- function(qstnr_tibble,
   # create CSV version from tibble if requested
   if (incl_csv) {
     
-    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} questionnaire tibble to CSV")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {ballot_date}} questionnaire tibble to CSV")
     
     csv_path <- fs::path_ext_set(path = md_path,
                                  ext = "csv")
@@ -5780,7 +5683,7 @@ export_qstnr <- function(qstnr_tibble,
     html_path <- fs::path_ext_set(path = md_path,
                                   ext = "html")
     
-    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} Markdown questionnaire to HTML using Pandoc")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {ballot_date}} Markdown questionnaire to HTML using Pandoc")
     
     rmarkdown::pandoc_convert(input = md_path,
                               to = "html5",
@@ -5798,7 +5701,7 @@ export_qstnr <- function(qstnr_tibble,
   # create XLSX version from HTML questionnaire if requested
   if (incl_xlsx) {
     
-    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} HTML questionnaire to XLSX using LibreOffice")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {ballot_date}} HTML questionnaire to XLSX using LibreOffice")
     
     system2(command = "flatpak",
             args = glue::glue("run --command=libreoffice",
@@ -5844,17 +5747,15 @@ export_qstnr <- function(qstnr_tibble,
 #' @return A [tibble][tibble::tbl_df] containing metadata about the contents of the created ZIP archive, invisibly.
 #' @family data_export
 #' @export
-export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                              pkg = this_pkg),
+export_qr_codes <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                             canton = cantons(ballot_date),
                             upload_to_g_drive = TRUE,
                             g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/QR-Codes/"),
-                            auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                             pkg = this_pkg),
+                            auth_token = pal::pkg_config_val("token_repo_private"),
                             quiet = FALSE,
                             verbose = FALSE) {
   
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
@@ -5960,17 +5861,15 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
 #' @return `NULL` if no export for the specified ballot date is possible, otherwise a [tibble][tibble::tbl_df] of the exported data, invisibly.
 #' @family data_export
 #' @export
-export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                      pkg = this_pkg),
+export_print_recipients <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                     canton = cantons(ballot_date),
                                     upload_to_g_drive = TRUE,
                                     g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/Print-Zielgruppen/"),
-                                    auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                     pkg = this_pkg),
+                                    auth_token = pal::pkg_config_val("token_repo_private"),
                                     quiet = FALSE,
                                     verbose = FALSE) {
   
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
@@ -6050,17 +5949,15 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
 #' @return A [tibble][tibble::tbl_df] of the exported data, invisibly.
 #' @family data_export
 #' @export
-export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                             pkg = this_pkg),
+export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                            canton = cantons(ballot_date),
                                            upload_to_g_drive = TRUE,
                                            g_drive_folder = glue::glue("fokus/{canton}/Umfragen/Dateien f\u00fcr Umfrageinstitut/easyvote-Gemeinden/"),
-                                           auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                            pkg = this_pkg),
+                                           auth_token = pal::pkg_config_val("token_repo_private"),
                                            quiet = FALSE,
                                            verbose = FALSE) {
   
-  ballot_date %<>% assert_ballot_date()
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
@@ -6130,8 +6027,7 @@ write_private_file <- function(path,
                                overwrite = TRUE,
                                commit_message = "auto: update file via fokus R pkg",
                                branch = repo_private_default_branch,
-                               auth_token = pal::pkg_config_val(key = "token_repo_private",
-                                                                pkg = this_pkg),
+                               auth_token = pal::pkg_config_val("token_repo_private"),
                                quiet = FALSE) {
   
   rlang::check_installed("digest", reason = pal::reason_pkg_required())
@@ -6359,8 +6255,7 @@ var_skill_question_nr <- function(var_names) {
 #'                  ballot_date = "2019-10-20",
 #'                  canton = "aargau")
 var_title <- function(var_name,
-                      ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                        pkg = this_pkg),
+                      ballot_date = pal::pkg_config_val("ballot_date"),
                       canton = cantons(ballot_date)) {
   
   var_predicate(predicate = "topic",
@@ -6400,11 +6295,9 @@ var_title <- function(var_name,
 #'                    canton = "aargau",
 #'                    lang = "int")
 var_val_set <- function(var_name,
-                        ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                          pkg = this_pkg),
+                        ballot_date = pal::pkg_config_val("ballot_date"),
                         canton = cantons(ballot_date),
-                        lang = pal::pkg_config_val(key = "lang",
-                                                   pkg = this_pkg)) {
+                        lang = pal::pkg_config_val("lang")) {
   lang <- rlang::arg_match(arg = lang,
                            values = c(all_langs, "int"))
   
@@ -6597,8 +6490,7 @@ restore_colnames <- function(x) {
 #'               lang = "de")
 phrase <- function(term,
                    vals,
-                   lang = pal::pkg_config_val(key = "lang",
-                                              pkg = this_pkg)) {
+                   lang = pal::pkg_config_val("lang")) {
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   term <- rlang::arg_match(arg = term,
@@ -6626,11 +6518,9 @@ phrase <- function(term,
 #'
 #' @examples
 #' fokus::phrase_date()
-phrase_date <- function(x = pal::pkg_config_val(key = "ballot_date",
-                                                pkg = this_pkg),
+phrase_date <- function(x = pal::pkg_config_val("ballot_date"),
                         format = "date_long",
-                        lang = pal::pkg_config_val(key = "lang",
-                                                   pkg = this_pkg)) {
+                        lang = pal::pkg_config_val("lang")) {
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -6657,8 +6547,7 @@ phrase_date <- function(x = pal::pkg_config_val(key = "ballot_date",
 #'                                  lvl = "cantonal",
 #'                                  canton = "aargau",
 #'                                  candidate_nrs = 1:3)
-phrase_election_candidate <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                        pkg = this_pkg),
+phrase_election_candidate <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                       lvl = lvls(ballot_date,
                                                  canton,
                                                  ballot_type = "election"),
@@ -6712,8 +6601,7 @@ phrase_election_candidate <- function(ballot_date = pal::pkg_config_val(key = "b
 #'                                proposal_nr = 1,
 #'                                type = "short",
 #'                                case = "genitive")
-phrase_proposal_name_de <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
-                                                                      pkg = this_pkg),
+phrase_proposal_name_de <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                     lvl = lvls(ballot_date,
                                                canton,
                                                ballot_type = "referendum"),
