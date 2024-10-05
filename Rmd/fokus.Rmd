@@ -152,7 +152,7 @@ NULL
 #' fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") |> _$mode
 raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
   
-  ballot_date %<>% as_ballot_date()
+  ballot_date %<>% as_ballot_date_chr()
   
   raw_qstnrs_suppl[[ballot_date]]
 }
@@ -911,7 +911,7 @@ raw_pick_right <- function(x,
                            canton) {
   
   # force evaluation of `ballot_date`, `canton` and `key` to ensure immediate error (with better msg) in case they are missing
-  ballot_date
+  ballot_date %<>% as_ballot_date_chr()
   canton
   key
   
@@ -1050,6 +1050,7 @@ resolve_qstnr_val <- function(x,
                               j,
                               ...) {
   
+  ballot_date %<>% as_ballot_date_chr()
   checkmate::assert_string(lvl,
                            na.ok = TRUE,
                            null.ok = TRUE)
@@ -1643,14 +1644,15 @@ gen_qstnr_md <- function(qstnr_tibble,
     qstnr_tibble |>
     dplyr::pull("ballot_date") |>
     unique() |>
-    checkmate::assert_string(.var.name = "ballot_date")
+    as_ballot_date()
   canton <-
     qstnr_tibble |>
     dplyr::pull("canton") |>
     unique() |>
-    checkmate::assert_string(.var.name = "canton")
+    rlang::arg_match0(values = all_cantons,
+                      arg_nm = "unique(qstnr_tibble$canton)")
   
-  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {as.Date(ballot_date)}} Markdown questionnaire")
+  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {ballot_date}} Markdown questionnaire")
   
   block_lines <-
     qstnr_tibble |>
@@ -2023,7 +2025,7 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            i = NA_integer_,
                            j = NA_integer_) {
   
-  ballot_date %<>% as_ballot_date()
+  ballot_date %<>% as_ballot_date_chr()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_character(branch_path,
@@ -2459,9 +2461,9 @@ as_ballot_date <- function(ballot_date) {
 ```{r}
 as_ballot_date_chr <- function(ballot_date) {
   
-  ballot_date |>
-    as.character() |>
-    rlang::arg_match(values = as.character(all_ballot_dates))
+  rlang::arg_match0(arg = as.character(ballot_date),
+                    values = as.character(all_ballot_dates),
+                    arg_nm = "ballot_date")
 }
 ```
 
@@ -2963,6 +2965,7 @@ questionnaire data for the specified ballot date and possibly canton).
 #'   magrittr::set_names(., .) |>
 #'   purrr::map_chr(fokus::cantons)
 cantons <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
+  
   ballot_date %<>% as_ballot_date_chr()
   cantons_at[[ballot_date]]
 }
@@ -5078,6 +5081,8 @@ past_election_date <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                           canton,
                                           ballot_type = "election"),
                                canton = cantons(ballot_date)) {
+  
+  ballot_date %<>% as_ballot_date()
   if (length(lvl)) {
     lvl <- rlang::arg_match(arg = lvl,
                             values = all_lvls)
@@ -5102,10 +5107,7 @@ past_election_date <- function(ballot_date = pal::pkg_config_val("ballot_date"),
   if (is.null(result)) {
     
     # NOTE: we assume the past election must be *4* years before `ballot_date`
-    past_election_year <-
-      clock::date_parse(ballot_date) |>
-      clock::get_year() |>
-      magrittr::subtract(4L)
+    past_election_year <- clock::get_year(ballot_date) - 4L
     
     result <-
       combos_elections(ballot_dates = all_ballot_dates,
@@ -6401,8 +6403,10 @@ export_qstnr <- function(qstnr_tibble,
                          reason = pal::reason_pkg_required())
   
   # extract ballot date and canton from `qstnr_tibble`
-  ballot_date <- checkmate::assert_string(unique(qstnr_tibble$ballot_date))
-  canton <- checkmate::assert_string(unique(qstnr_tibble$canton))
+  ballot_date <- as_ballot_date(unique(qstnr_tibble$ballot_date))
+  canton <- rlang::arg_match0(arg = unique(qstnr_tibble$canton),
+                              values = all_cantons,
+                              arg_nm = "unique(qstnr_tibble$canton)")
   
   # Generate Markdown version
   md_path <- fs::path(path, glue::glue("{ballot_date}_{canton}.md"))
@@ -6414,7 +6418,7 @@ export_qstnr <- function(qstnr_tibble,
   # create CSV version from tibble if requested
   if (incl_csv) {
     
-    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} questionnaire tibble to CSV")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {ballot_date}} questionnaire tibble to CSV")
     
     csv_path <- fs::path_ext_set(path = md_path,
                                  ext = "csv")
@@ -6453,7 +6457,7 @@ export_qstnr <- function(qstnr_tibble,
     html_path <- fs::path_ext_set(path = md_path,
                                   ext = "html")
     
-    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} Markdown questionnaire to HTML using Pandoc")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {ballot_date}} Markdown questionnaire to HTML using Pandoc")
     
     rmarkdown::pandoc_convert(input = md_path,
                               to = "html5",
@@ -6471,7 +6475,7 @@ export_qstnr <- function(qstnr_tibble,
   # create XLSX version from HTML questionnaire if requested
   if (incl_xlsx) {
     
-    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {as.Date(ballot_date)}} HTML questionnaire to XLSX using LibreOffice")
+    pal::cli_progress_step_quick(msg = "Converting {.val {canton}} @ {.val {ballot_date}} HTML questionnaire to XLSX using LibreOffice")
     
     system2(command = "flatpak",
             args = glue::glue("run --command=libreoffice",

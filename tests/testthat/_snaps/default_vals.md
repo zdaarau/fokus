@@ -118,19 +118,19 @@
 
 ---
 
-    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental 2018-09-23 FOKUS questionnaire data.
 
 ---
 
-    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental 2018-09-23 FOKUS questionnaire data.
 
 ---
 
-    No skill questions present on the "cantonal" level for "aargau" in the supplemental "2018-09-23" FOKUS questionnaire data.
+    No skill questions present on the "cantonal" level for "aargau" in the supplemental 2018-09-23 FOKUS questionnaire data.
 
 ---
 
-    No political issues present in the supplemental "2018-09-23" FOKUS questionnaire data.
+    No political issues present in the supplemental 2018-09-23 FOKUS questionnaire data.
 
 ---
 
