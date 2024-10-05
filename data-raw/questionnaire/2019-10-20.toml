@@ -543,6 +543,7 @@ is_correct = false
 
 
 [cantonal.aargau.election]
+past_ballot_date = 2016-10-23
 names_combined.de.short = "Regierungsratsersatzwahl"
 skill_questions_source.url = "http://www.einbuergerungstest-aargau.ch/Library/Documentation/NeuenFragenKatalog2019.pdf"
 
