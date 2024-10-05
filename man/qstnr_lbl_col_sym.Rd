@@ -4,10 +4,10 @@
 \alias{qstnr_lbl_col_sym}
 \title{Determine questionnaire data's value label column}
 \usage{
-qstnr_lbl_col_sym(lang = all_langs)
+qstnr_lbl_col_sym(lang = pal::pkg_config_val("lang"))
 }
 \arguments{
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 }
 \value{
 A \link[base:name]{symbol}.

@@ -5,7 +5,7 @@
 \title{Generate questionnaire tibble}
 \usage{
 gen_qstnr_tibble(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
   verbose = FALSE
 )

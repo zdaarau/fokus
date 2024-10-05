@@ -5,7 +5,7 @@
 \title{Extract questionnaire item field value}
 \usage{
 qstnr_item_val(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
   branch_path,
   var_name,

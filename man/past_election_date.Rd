@@ -5,7 +5,7 @@
 \title{Get election's past date}
 \usage{
 past_election_date(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date)
 )
@@ -40,6 +40,8 @@ Determines the ordinary date (i.e. 1st round of voting) on which the specified e
 fokus::past_election_date(ballot_date = "2019-10-20")
 fokus::past_election_date(ballot_date = "2020-10-18")
 fokus::past_election_date(ballot_date = "2024-10-20")
+fokus::past_election_date(ballot_date = "2019-10-20",
+                          lvl = "federal")
 }
 \seealso{
 Other election predicate functions:

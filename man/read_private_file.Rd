@@ -8,7 +8,7 @@ read_private_file(
   path,
   as_chr = FALSE,
   use_cache = TRUE,
-  auth_token = pal::pkg_config_val(key = "token_repo_private", pkg = this_pkg)
+  auth_token = pal::pkg_config_val("token_repo_private")
 )
 }
 \arguments{

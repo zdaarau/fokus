@@ -5,13 +5,13 @@
 \title{Get referendum proposal argument}
 \usage{
 proposal_argument(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
   side = all_argument_sides,
   argument_nr = 1L,
-  lang = all_langs,
+  lang = pal::pkg_config_val("lang"),
   type = all_name_types
 )
 }
@@ -43,7 +43,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{argument_nr}{Proposal argument number. A positive integerish scalar.}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 
 \item{type}{Name type. One of \code{"short"} or \code{"long"}.}
 }

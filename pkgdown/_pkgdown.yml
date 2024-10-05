@@ -140,6 +140,7 @@ reference:
 - title: Text phrasing
 - contents:
   - phrase
+  - phrase_date
   - phrase_election_candidate
   - phrase_proposal_name_de
 - title: Google Apps

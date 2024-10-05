@@ -5,9 +5,9 @@
 \title{Safely get raw proposal supplemental questionnaire data}
 \usage{
 raw_qstnr_suppl_proposal_safe(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = all_lvls,
-  canton = pal::pkg_config_val(key = "canton", pkg = this_pkg),
+  canton = pal::pkg_config_val("canton"),
   proposal_nr = NULL
 )
 }

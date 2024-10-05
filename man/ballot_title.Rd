@@ -5,9 +5,9 @@
 \title{Get ballot title}
 \usage{
 ballot_title(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
-  lang = all_langs
+  lang = pal::pkg_config_val("lang")
 )
 }
 \arguments{
@@ -28,7 +28,7 @@ ballot_title(
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 }
 \value{
 A character scalar.

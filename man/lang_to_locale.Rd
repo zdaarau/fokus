@@ -4,10 +4,10 @@
 \alias{lang_to_locale}
 \title{Convert language code to country-specific locale ID}
 \usage{
-lang_to_locale(lang = all_langs)
+lang_to_locale(lang = pal::pkg_config_val("lang"))
 }
 \arguments{
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 }
 \value{
 A character scalar.

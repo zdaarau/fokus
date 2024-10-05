@@ -5,8 +5,8 @@
 \title{Get raw supplemental survey mode questionnaire data}
 \usage{
 raw_qstnr_suppl_mode(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
-  canton = pal::pkg_config_val(key = "canton", pkg = this_pkg)
+  ballot_date = pal::pkg_config_val("ballot_date"),
+  canton = pal::pkg_config_val("canton")
 )
 }
 \arguments{

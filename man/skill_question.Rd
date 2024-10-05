@@ -5,12 +5,12 @@
 \title{Get skill question}
 \usage{
 skill_question(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL,
   skill_question_nr = 1L,
-  lang = all_langs
+  lang = pal::pkg_config_val("lang")
 )
 }
 \arguments{
@@ -40,7 +40,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{skill_question_nr}{Skill question number. A positive integerish scalar.}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 }
 \value{
 A character scalar.

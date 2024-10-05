@@ -30,6 +30,7 @@ Some of fokus's functionality is controlled via package-specific global configur
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------ -------------------------------- ----------------------------------
   FOKUS-covered ballot date to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the ballot date to be processed. One of `"2018-09-23"`, `"2018-11-25"`, `"2019-10-20"`, `"2020-09-27"`, `"2020-10-18"`, `"2021-11-28"`, `"2023-06-18"` or `"2024-10-20"`.   `fokus.ballot_date`            `R_FOKUS_BALLOT_DATE`            `as.Date("2018-09-23")`
   FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the canton to be processed. One of `"aargau"`.                                                                                                                              `fokus.canton`                 `R_FOKUS_CANTON`                 `"aargau"`
+  Language to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the language to process. One of `"de"` and `"en"`.                                                                                                                                           `fokus.lang`                   `R_FOKUS_LANG`                   `"de"`
   Maximal timespan to preserve the package's [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will be deleted upon package loading.                                                                                                                                                                          `fokus.global_max_cache_age`   `R_FOKUS_GLOBAL_MAX_CACHE_AGE`   `"1 day"`
   [Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private FOKUS repository](https://gitlab.com/c2d-zda/private/fokus_private/).                                                                                                                        `fokus.token_repo_private`     `R_FOKUS_TOKEN_REPO_PRIVATE`     `Sys.getenv("GITLAB_COM_TOKEN")`
 :::
@@ -158,8 +159,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   backup                                    bkp
   bibliographies                            bibs
   bibliography                              bib
-  certificate, certification                cert
   certificates, certifications              certs
+  certify, certificate, certification       cert
   chapter                                   chpt
   chapters                                  chpts
   character                                 chr
@@ -281,6 +282,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   operations, operators                     ops
   option                                    opt
   options                                   opts
+  organizations                             orgs
+  organize, organization                    org
   package                                   pkg
   packages                                  pkgs
   parameterize, parameter                   param
@@ -289,8 +292,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   PostgreSQL                                pg
   predicate                                 pred
   predicates                                preds
-  preparation                               prep
   preparations                              preps
+  prepare, preparation                      prep
   primary key                               pk
   primary keys                              pks
   procedures                                prcds
@@ -334,7 +337,7 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   strings                                   strs
   structure                                 struct
   structures                                structs
-  supplemental, supplementary               suppl
+  supplement, supplemental, supplementary   suppl
   symbolize, symbol                         sym
   symbols                                   syms
   tables                                    tbls

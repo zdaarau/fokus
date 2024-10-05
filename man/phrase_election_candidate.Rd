@@ -5,7 +5,7 @@
 \title{Phrase majoritarian election's candidate(s)}
 \usage{
 phrase_election_candidate(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   election_nr = 1L,
@@ -55,6 +55,7 @@ fokus::phrase_election_candidate(ballot_date = "2019-10-20",
 \seealso{
 Other text phrasing functions:
 \code{\link{phrase}()},
+\code{\link{phrase_date}()},
 \code{\link{phrase_proposal_name_de}()}
 }
 \concept{phrase}

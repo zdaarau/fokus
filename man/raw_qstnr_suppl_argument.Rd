@@ -5,9 +5,9 @@
 \title{Get a proposal argument's raw supplemental questionnaire data}
 \usage{
 raw_qstnr_suppl_argument(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = all_lvls,
-  canton = pal::pkg_config_val(key = "canton", pkg = this_pkg),
+  canton = pal::pkg_config_val("canton"),
   proposal_nr = 1L,
   side = all_argument_sides,
   argument_nr = 1L

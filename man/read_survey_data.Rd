@@ -5,12 +5,12 @@
 \title{Read in generated survey data}
 \usage{
 read_survey_data(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
-  lang = all_langs,
+  lang = pal::pkg_config_val("lang"),
   merged = FALSE,
   use_cache = TRUE,
-  auth_token = pal::pkg_config_val(key = "token_repo_private", pkg = this_pkg)
+  auth_token = pal::pkg_config_val("token_repo_private")
 )
 }
 \arguments{
@@ -31,7 +31,7 @@ read_survey_data(
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 
 \item{merged}{Whether or not to read in the \emph{merged} dataset that includes the data from \strong{all} ballot dates up until \code{ballot_date} that were covered by
 FOKUS surveys in the specified \code{canton}. See section \emph{Merged data} below for details. If \code{FALSE}, only the data for \code{ballot_date} itself is returned.}

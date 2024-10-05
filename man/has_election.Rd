@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes an election}
 \usage{
 has_election(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvls = all_lvls,
   canton = cantons(ballot_date),
   prcds = all_prcds

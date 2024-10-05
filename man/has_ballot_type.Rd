@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes type}
 \usage{
 has_ballot_type(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvls = all_lvls,
   canton = cantons(ballot_date),
   ballot_type = ballot_types(ballot_date = ballot_date, lvls = lvls, canton = canton),

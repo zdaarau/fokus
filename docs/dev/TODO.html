@@ -76,7 +76,14 @@ the item `first_name` which in turn is defined under branch path `00_cantonal_st
 </ul></div>
 <div class="section level2">
 <h2 id="questionnaire">Questionnaire<a class="anchor" aria-label="anchor" href="#questionnaire"></a></h2>
-<ul><li><p>Ask Uwe whether easyvote booklet actually covers <em>cantonal</em> proposals. If not, the distinction between <code>cantonal_proposals_information_source_easyvote_booklet</code> and <code>federal_proposals_information_source_easyvote_booklet</code> doesn’t make sense and we could merge the variable with <code>information_source_easyvote_booklet</code> (which currently refers to the election booklet only).</p></li>
+<ul><li>
+<p>add <code>who</code> vaue for <code>ehemals erwerbstätige Online-Respondenten</code> whose filter equals the <code>nichterwerbstätige Online-Respondenten</code> conditions <em>plus</em> <code>former_employment_situation %in% 1:4</code> and use that for</p>
+<ul><li><code>former_employment_level</code></li>
+<li><code>former_occupational_sector</code></li>
+<li><code>former_company_size</code></li>
+<li><code>former_company_sector</code></li>
+</ul></li>
+<li><p>Ask Uwe whether easyvote booklet actually covers <em>cantonal</em> proposals. If not, the distinction between <code>cantonal_proposals_information_source_easyvote_booklet</code> and <code>federal_proposals_information_source_easyvote_booklet</code> doesn’t make sense and we could merge the variable with <code>information_source_easyvote_booklet</code> (which currently refers to the election booklet only).</p></li>
 <li>
 <p>Clean-ups:</p>
 <ul><li>Use EN instead of DE values in <code>who</code> key</li>

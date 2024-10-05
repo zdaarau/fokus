@@ -5,7 +5,7 @@
 \title{Get referendum proposal question groups}
 \usage{
 proposal_qstn_groups(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = all_lvls,
   canton = cantons(ballot_date),
   proposal_nr = 1L

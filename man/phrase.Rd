@@ -4,14 +4,14 @@
 \alias{phrase}
 \title{Phrase term}
 \usage{
-phrase(term, vals, lang = all_langs)
+phrase(term, vals, lang = pal::pkg_config_val("lang"))
 }
 \arguments{
 \item{term}{Term to be phrased. A character scalar.}
 
 \item{vals}{Value(s) of \code{term} to be phrased. A character vector.}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 }
 \value{
 A character scalar.
@@ -20,12 +20,13 @@ A character scalar.
 Transforms a term's value into a phrased string representation.
 }
 \examples{
-phrase(term = "side",
-       vals = c("pro", "pro", "contra"),
-       lang = "de")
+fokus::phrase(term = "side",
+              vals = c("pro", "pro", "contra"),
+              lang = "de")
 }
 \seealso{
 Other text phrasing functions:
+\code{\link{phrase_date}()},
 \code{\link{phrase_election_candidate}()},
 \code{\link{phrase_proposal_name_de}()}
 }

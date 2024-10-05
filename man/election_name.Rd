@@ -5,12 +5,12 @@
 \title{Get election name}
 \usage{
 election_name(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   prcd = prcds(ballot_date, lvl, canton),
   election_nr = 1L,
-  lang = all_langs,
+  lang = pal::pkg_config_val("lang"),
   type = c("short", "long", "body", "body_alt")
 )
 }
@@ -38,7 +38,7 @@ election_name(
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 
 \item{type}{Name type. One of \code{"short"}, \code{"long"}, \code{"body"} or \code{"body_alt"}.}
 }

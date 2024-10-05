@@ -5,7 +5,7 @@
 \title{Get referendum proposal's arguments}
 \usage{
 proposal_arguments(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L

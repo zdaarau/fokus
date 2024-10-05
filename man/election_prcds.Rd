@@ -5,7 +5,7 @@
 \title{Get ballot's election procedures}
 \usage{
 election_prcds(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date)
 )

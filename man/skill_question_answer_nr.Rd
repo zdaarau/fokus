@@ -5,7 +5,7 @@
 \title{Get correct skill question answer number}
 \usage{
 skill_question_answer_nr(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL,

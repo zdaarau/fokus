@@ -5,10 +5,10 @@
 \title{Read in voting register identifiers}
 \usage{
 read_voting_register_ids(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
   use_cache = TRUE,
-  auth_token = pal::pkg_config_val(key = "token_repo_private", pkg = this_pkg)
+  auth_token = pal::pkg_config_val("token_repo_private")
 )
 }
 \arguments{

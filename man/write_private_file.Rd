@@ -11,7 +11,7 @@ write_private_file(
   overwrite = TRUE,
   commit_message = "auto: update file via fokus R pkg",
   branch = repo_private_default_branch,
-  auth_token = pal::pkg_config_val(key = "token_repo_private", pkg = this_pkg),
+  auth_token = pal::pkg_config_val("token_repo_private"),
   quiet = FALSE
 )
 }

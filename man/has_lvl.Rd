@@ -5,7 +5,7 @@
 \title{Determine whether ballot includes a political level}
 \usage{
 has_lvl(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   ballot_types = all_ballot_types,

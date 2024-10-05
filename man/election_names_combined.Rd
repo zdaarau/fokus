@@ -5,10 +5,10 @@
 \title{Get combined elections name}
 \usage{
 election_names_combined(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvls = all_lvls,
   canton = cantons(ballot_date),
-  lang = all_langs,
+  lang = pal::pkg_config_val("lang"),
   federal_first = TRUE
 )
 }
@@ -32,7 +32,7 @@ election_names_combined(
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
+\item{lang}{Language. One of \code{"de"}.}
 
 \item{federal_first}{Whether or not to list federal elections before cantonal ones. Only has an effect if \code{"federal" \%in\% lvls}.}
 }

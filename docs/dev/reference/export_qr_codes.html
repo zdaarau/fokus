@@ -52,12 +52,12 @@ personalized survey URL, to the <a href="print_private_repo_structure.html">priv
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">export_qr_codes</span><span class="op">(</span></span>
-<span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"ballot_date"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
+<span>  ballot_date <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span><span class="st">"ballot_date"</span><span class="op">)</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
 <span>  upload_to_g_drive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  g_drive_folder <span class="op">=</span></span>
 <span>    <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"fokus/{canton}/Umfragen/Dateien für Umfrageinstitut/QR-Codes/"</span><span class="op">)</span>,</span>
-<span>  auth_token <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"token_repo_private"</span>, pkg <span class="op">=</span> <span class="va">this_pkg</span><span class="op">)</span>,</span>
+<span>  auth_token <span class="op">=</span> <span class="fu">pal</span><span class="fu">::</span><span class="fu"><a href="https://pal.rpkg.dev/reference/pkg_config_val.html" class="external-link">pkg_config_val</a></span><span class="op">(</span><span class="st">"token_repo_private"</span><span class="op">)</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>

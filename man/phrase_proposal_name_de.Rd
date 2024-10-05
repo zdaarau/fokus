@@ -5,7 +5,7 @@
 \title{Get declined German proposal name}
 \usage{
 phrase_proposal_name_de(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "referendum"),
   canton = cantons(ballot_date),
   proposal_nr = 1L,
@@ -66,6 +66,7 @@ fokus::phrase_proposal_name_de(ballot_date = "2023-06-18",
 \seealso{
 Other text phrasing functions:
 \code{\link{phrase}()},
+\code{\link{phrase_date}()},
 \code{\link{phrase_election_candidate}()}
 }
 \concept{phrase}

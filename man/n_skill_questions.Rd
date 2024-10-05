@@ -5,7 +5,7 @@
 \title{Get number of skill questions}
 \usage{
 n_skill_questions(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton),
   canton = cantons(ballot_date),
   proposal_nr = NULL

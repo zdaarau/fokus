@@ -5,12 +5,12 @@
 \title{Export easyvote municipality details}
 \usage{
 export_easyvote_municipalities(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
   upload_to_g_drive = TRUE,
   g_drive_folder =
     glue::glue("fokus/{canton}/Umfragen/Dateien für Umfrageinstitut/easyvote-Gemeinden/"),
-  auth_token = pal::pkg_config_val(key = "token_repo_private", pkg = this_pkg),
+  auth_token = pal::pkg_config_val("token_repo_private"),
   quiet = FALSE,
   verbose = FALSE
 )

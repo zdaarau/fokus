@@ -5,7 +5,7 @@
 \title{Get number of referendum proposals}
 \usage{
 n_proposals(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvls = all_lvls,
   canton = cantons(ballot_date)
 )

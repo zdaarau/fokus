@@ -5,7 +5,7 @@
 \title{Get ballot's election numbers}
 \usage{
 election_nrs(
-  ballot_date = pal::pkg_config_val(key = "ballot_date", pkg = this_pkg),
+  ballot_date = pal::pkg_config_val("ballot_date"),
   lvl = lvls(ballot_date, canton, ballot_type = "election"),
   canton = cantons(ballot_date),
   prcd = prcds(ballot_date = ballot_date, lvl = lvl, canton = canton)
