@@ -129,9 +129,8 @@ NULL
 #' fokus:::raw_qstnr_suppl(ballot_date = "2018-09-23") |> _$mode
 raw_qstnr_suppl <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                               pkg = this_pkg)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  assert_ballot_date(ballot_date)
+  
   raw_qstnrs_suppl[[ballot_date]]
 }
 
@@ -161,9 +160,7 @@ raw_qstnr_suppl_lvl <- function(ballot_date = pal::pkg_config_val(key = "ballot_
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     
     cli::cli_abort("No {.val {lvl}} level present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
@@ -203,9 +200,7 @@ raw_qstnr_suppl_lvl_canton <- function(ballot_date = pal::pkg_config_val(key = "
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     
     cli::cli_abort("No {.val {lvl}} supplemental {.val {ballot_date}} FOKUS questionnaire data present for canton {.val {canton}}.")
@@ -254,9 +249,7 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(proposals)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
@@ -270,9 +263,7 @@ raw_qstnr_suppl_proposal <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(proposal)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
@@ -357,9 +348,7 @@ raw_qstnr_suppl_proposal_name <- function(ballot_date = pal::pkg_config_val(key 
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -404,9 +393,7 @@ raw_qstnr_suppl_arguments <- function(ballot_date = pal::pkg_config_val(key = "b
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -462,9 +449,7 @@ raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -509,9 +494,7 @@ raw_qstnr_suppl_main_motives <- function(ballot_date = pal::pkg_config_val(key =
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -554,9 +537,7 @@ raw_qstnr_suppl_elections <- function(ballot_date = pal::pkg_config_val(key = "b
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -606,9 +587,7 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -622,9 +601,7 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val(key = "ba
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -686,9 +663,7 @@ raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val(key 
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
     
@@ -725,9 +700,7 @@ raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val(key = "ballot
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     
     cli::cli_abort("No survey mode data present for canton {.val {canton}} in supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
@@ -783,9 +756,7 @@ raw_qstnr_suppl_skill_questions <- function(ballot_date = pal::pkg_config_val(ke
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -838,9 +809,7 @@ raw_qstnr_suppl_skill_question <- function(ballot_date = pal::pkg_config_val(key
   if (is.null(result)) {
     
     # reduce to proper arg values for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     lvl <- rlang::arg_match(lvl)
     canton <- rlang::arg_match(arg = canton,
                                values = all_cantons)
@@ -903,7 +872,7 @@ pick_right_helper <- function(x,
     ballot_date_squeezed <- stringr::str_remove_all(string = ballot_date,
                                                     pattern = stringr::fixed("-"))
     # convert ballot date to type date
-    ballot_date %<>% lubridate::as_date()
+    ballot_date %<>% clock::date_parse()
     
     # handle begin-end date subkeys
     begin_end_subkeys <-
@@ -1086,15 +1055,13 @@ gen_qstnr_tibble <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                              canton = cantons(ballot_date),
                              verbose = FALSE) {
   
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(verbose)
   
   cli::start_app(theme = cli_theme)
-  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {as.Date(ballot_date)}} questionnaire tibble")
+  pal::cli_progress_step_quick(msg = "Generating {.val {canton}} @ {.val {ballot_date}} questionnaire tibble")
   
   purrr::map2_dfr(.x = raw_qstnr,
                   .y = names(raw_qstnr),
@@ -1880,9 +1847,7 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
                            i = NA_integer_,
                            j = NA_integer_) {
   
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_character(branch_path,
@@ -1964,11 +1929,7 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
 #' @keywords internal
 qstnr_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                             pkg = this_pkg)) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
-  ballot_date %<>% lubridate::as_date()
+  ballot_date <- as_ballot_date(ballot_date)
   
   raw_qstnr |>
     purrr::chuck("party") |>
@@ -1977,8 +1938,12 @@ qstnr_parties <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                          de.long = .x$de$long,
                          de.short = .x$de$short,
                          en.short = .x$en$short %||% .x$de$short,
-                         date_begin = .x$date_begin %||% lubridate::as_date("1970-01-01"),
-                         date_end = .x$date_end %||% lubridate::as_date("2099-12-31"))
+                         date_begin = .x$date_begin %||% clock::date_build(year = 1970L,
+                                                                           month = 1L,
+                                                                           day = 1L),
+                         date_end = .x$date_end %||% clock::date_build(year = 2099L,
+                                                                       month = 12L,
+                                                                       day = 31L))
     }) |>
     purrr::list_rbind() |>
     dplyr::filter(date_begin <= ballot_date & date_end >= ballot_date)
@@ -2031,9 +1996,10 @@ qstnr_response_option_codes <- function(types = all_response_option_types) {
 #' fokus:::qstnr_lbl_col_sym(lang = "de")
 #' 
 #' fokus:::qstnr_lbl_col_sym(lang = "en")
-qstnr_lbl_col_sym <- function(lang = all_langs) {
+qstnr_lbl_col_sym <- function(lang = pal::pkg_config_val(key = "lang")) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   as.symbol(ifelse(lang == "de",
                    "response_options",
@@ -2213,6 +2179,33 @@ abbrs <- function(unnest = FALSE) {
               ~ .)
 }
 
+as_ballot_date <- function(ballot_date) {
+  
+  result <- ballot_date[1L]
+  
+  if (lubridate::is.Date(result)) {
+    
+    if (!(result %in% all_ballot_dates)) {
+      cli::cli_abort("{.arg ballot_date} must be one of {.val all_ballot_dates}, not {.val {ballot_date}}.")
+    }
+    
+  } else {
+    
+    result %<>%
+      as_ballot_date_chr() %>%
+      clock::date_parse()
+  }
+  
+  result
+}
+
+as_ballot_date_chr <- function(ballot_date) {
+  
+  ballot_date |>
+    as.character() |>
+    rlang::arg_match(values = as.character(all_ballot_dates))
+}
+
 as_flat_list <- function(x) {
   
   result <- x
@@ -2251,10 +2244,10 @@ collapse_break <- function(s) {
 #' @examples
 #' fokus:::lang_to_locale("de")
 #' fokus:::lang_to_locale("en")
-lang_to_locale <- function(lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
-  
+lang_to_locale <- function(lang = pal::pkg_config_val(key = "lang",
+                                                      pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   switch(lang,
          de = "de-CH",
          en = "en-US")
@@ -2273,9 +2266,7 @@ var_predicate <- function(predicate,
                                                    "variable_name")))
   assert_var_names(var_names = var_name,
                    as_scalar = TRUE)
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   fokus::qstnrs |>
@@ -2567,10 +2558,7 @@ url_parameter_survey <- list(aargau = "pw")
 #'   purrr::map_chr(fokus::cantons)
 cantons <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                       pkg = this_pkg)) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date_chr()
   cantons_at[[ballot_date]]
 }
 
@@ -2599,9 +2587,8 @@ lvls <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                  canton = cantons(ballot_date),
                  ballot_type = ballot_types(ballot_date = ballot_date,
                                             canton = canton)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   ballot_type <- rlang::arg_match(arg = ballot_type,
@@ -3582,10 +3569,12 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                      ballot_type = "referendum"),
                           canton = cantons(ballot_date),
                           proposal_nr = 1L,
-                          lang = all_langs,
+                          lang = pal::pkg_config_val(key = "lang",
+                                                     pkg = this_pkg),
                           type = all_name_types) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   type <- rlang::arg_match(type)
   
   raw_qstnr_suppl_proposal_name(ballot_date = ballot_date,
@@ -3731,10 +3720,12 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
                               proposal_nr = 1L,
                               side = all_argument_sides,
                               argument_nr = 1L,
-                              lang = all_langs,
+                              lang = pal::pkg_config_val(key = "lang",
+                                                         pkg = this_pkg),
                               type = all_name_types) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   type <- rlang::arg_match(type)
   
   raw_qstnr_suppl_argument(ballot_date = ballot_date,
@@ -4321,10 +4312,12 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                        lvl,
                                        canton),
                           election_nr = 1L,
-                          lang = all_langs,
+                          lang = pal::pkg_config_val(key = "lang",
+                                                     pkg = this_pkg),
                           type = c("short", "long", "body", "body_alt")) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   type <- rlang::arg_match(type)
   # this is required to trigger a proper error message in case `prcds` is not explicitly set and there are no elections (`prcd = character()`)
   if (!length(prcd)) {
@@ -4366,12 +4359,14 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
                                                                       pkg = this_pkg),
                                     lvls = all_lvls,
                                     canton = cantons(ballot_date),
-                                    lang = all_langs,
+                                    lang = pal::pkg_config_val(key = "lang",
+                                                               pkg = this_pkg),
                                     federal_first = TRUE) {
   
   lvls <- unique(rlang::arg_match(arg = lvls,
                                   multiple = TRUE))
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   checkmate::assert_flag(federal_first)
   
   sep <- switch(EXPR = lang,
@@ -4939,9 +4934,10 @@ skill_question <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
                            canton = cantons(ballot_date),
                            proposal_nr = NULL,
                            skill_question_nr = 1L,
-                           lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
+                           lang = pal::pkg_config_val(key = "lang",
+                                                      pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   raw_qstnr_suppl_skill_question(ballot_date = ballot_date,
                                  lvl = lvl,
@@ -5066,12 +5062,11 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val(key = 
 ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                            pkg = this_pkg),
                          canton = cantons(ballot_date),
-                         lang = all_langs) {
-  
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
-  lang <- rlang::arg_match(lang)
+                         lang = pal::pkg_config_val(key = "lang",
+                                                    pkg = this_pkg)) {
+  ballot_date %<>% assert_ballot_date()
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   ballot_types <- ballot_types(ballot_date = ballot_date,
                                canton = canton)
@@ -5121,9 +5116,10 @@ ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                         lang = "en")
 political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
-                             lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
+                             lang = pal::pkg_config_val(key = "lang",
+                                                        pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   result <-
     raw_qstnr_suppl(ballot_date = ballot_date) |>
@@ -5132,9 +5128,7 @@ political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
   if (is.null(result)) {
     
     # reduce to proper arg value for error msg
-    ballot_date %<>% as.character()
-    ballot_date <- rlang::arg_match(arg = ballot_date,
-                                    values = as.character(all_ballot_dates))
+    ballot_date %<>% assert_ballot_date()
     
     cli::cli_abort("No political issues present in the supplemental {.val {ballot_date}} FOKUS questionnaire data.")
   }
@@ -5202,11 +5196,13 @@ postal_dispatch_way <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #'                          lang = "de",
 #'                          subtypes = c("election", "proportional"))
 response_options <- function(type = all_response_option_types,
-                             lang = all_langs,
+                             lang = pal::pkg_config_val(key = "lang",
+                                                        pkg = this_pkg),
                              subtypes = NULL) {
   
   type <- rlang::arg_match(type)
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   checkmate::assert_character(subtypes,
                               any.missing = FALSE,
                               min.len = 1L,
@@ -5305,15 +5301,13 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
                                          use_cache = TRUE,
                                          auth_token = pal::pkg_config_val(key = "token_repo_private",
                                                                           pkg = this_pkg)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   
   # get date of latest dataset delivered *not earlier than 90 days before ballot date* and *up until 20 days after ballot date*
-  date_boundary_lower <- lubridate::as_date(ballot_date) - 90L
-  date_boundary_upper <- lubridate::as_date(ballot_date) + 20L
+  date_boundary_lower <- ballot_date - 90L
+  date_boundary_upper <- ballot_date + 20L
   
   set_private_repo_connection(auth_token = auth_token)
   
@@ -5323,7 +5317,7 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key =
     dplyr::pull("path") |>
     stringr::str_subset(pattern = stringr::fixed("raw/easyvote_municipalities_")) |>
     stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.csv$)")) |>
-    lubridate::as_date() %>%
+    clock::date_parse() %>%
     magrittr::extract(. >= date_boundary_lower & . <= date_boundary_upper) |>
     pal::safe_max()
   
@@ -5363,9 +5357,7 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(ke
                                             use_cache = TRUE,
                                             auth_token = pal::pkg_config_val(key = "token_repo_private",
                                                                              pkg = this_pkg)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   
@@ -5429,17 +5421,17 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val(ke
 read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
                              canton = cantons(ballot_date),
-                             lang = all_langs,
+                             lang = pal::pkg_config_val(key = "lang",
+                                                        pkg = this_pkg),
                              merged = FALSE,
                              use_cache = TRUE,
                              auth_token = pal::pkg_config_val(key = "token_repo_private",
                                                               pkg = this_pkg)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   checkmate::assert_flag(merged)
   
   read_private_file(path = glue::glue("generated/survey_data_", ifelse(merged, "merged_", ""), "{lang}_{ballot_date}_{canton}.rds"),
@@ -5475,9 +5467,7 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
                                             use_cache = TRUE,
                                             auth_token = pal::pkg_config_val(key = "token_repo_private",
                                                                              pkg = this_pkg)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   rlang::check_installed("readxl",
@@ -5492,8 +5482,8 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val(ke
     dplyr::pull("path") |>
     stringr::str_subset(pattern = stringr::fixed("raw/voting_register_data_extra_")) |>
     stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.xlsx$)")) |>
-    lubridate::as_date() %>%
-    magrittr::extract(. < lubridate::as_date(ballot_date)) |>
+    clock::date_parse() %>%
+    magrittr::extract(. < ballot_date) |>
     pal::safe_max()
   
   if (length(date_data) == 0L) {
@@ -5611,9 +5601,7 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val(key = "ba
                                      use_cache = TRUE,
                                      auth_token = pal::pkg_config_val(key = "token_repo_private",
                                                                       pkg = this_pkg)) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   
@@ -5866,9 +5854,7 @@ export_qr_codes <- function(ballot_date = pal::pkg_config_val(key = "ballot_date
                             quiet = FALSE,
                             verbose = FALSE) {
   
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
@@ -5983,9 +5969,8 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val(key = "bal
                                                                      pkg = this_pkg),
                                     quiet = FALSE,
                                     verbose = FALSE) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
@@ -6074,9 +6059,8 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val(key
                                                                             pkg = this_pkg),
                                            quiet = FALSE,
                                            verbose = FALSE) {
-  ballot_date %<>% as.character()
-  ballot_date <- rlang::arg_match(arg = ballot_date,
-                                  values = as.character(all_ballot_dates))
+  
+  ballot_date %<>% assert_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
   checkmate::assert_flag(upload_to_g_drive)
@@ -6391,7 +6375,7 @@ var_title <- function(var_name,
 #'
 #' @inheritParams lvls
 #' @inheritParams var_lbl
-#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = var_val_set)` for the value set's integer codes."
+#' @param lang Language. One of `r c(all_langs, "int") |> pal::as_md_vals() |> pal::enum_str(sep2 = " or ")` for the value set's integer codes."
 #'
 #' @return A character scalar.
 #' @family vars
@@ -6419,9 +6403,10 @@ var_val_set <- function(var_name,
                         ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                           pkg = this_pkg),
                         canton = cantons(ballot_date),
-                        lang = c(all_langs, "int")) {
-  
-  lang <- rlang::arg_match(lang)
+                        lang = pal::pkg_config_val(key = "lang",
+                                                   pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = c(all_langs, "int"))
   
   var_predicate(predicate = switch(EXPR = lang,
                                    de = "response_options",
@@ -6607,14 +6592,15 @@ restore_colnames <- function(x) {
 #' @export
 #'
 #' @examples
-#' phrase(term = "side",
-#'        vals = c("pro", "pro", "contra"),
-#'        lang = "de")
+#' fokus::phrase(term = "side",
+#'               vals = c("pro", "pro", "contra"),
+#'               lang = "de")
 phrase <- function(term,
                    vals,
-                   lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
+                   lang = pal::pkg_config_val(key = "lang",
+                                              pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   term <- rlang::arg_match(arg = term,
                            values = unique(phrased_terms_tidy$term))
   data <- phrased_terms_tidy |> dplyr::filter(term == !!term & lang == !!lang)
@@ -6625,6 +6611,32 @@ phrase <- function(term,
     purrr::map_chr(\(val) {
       data$phrase[data$value == val]
     })
+}
+
+#' Phrase (ballot) date
+#'
+#' Phrases a date according to the specified `format` and `lang`.
+#'
+#' @inheritParams salim::phrase_datetime
+#' @inheritParams lang_to_locale
+#'
+#' @return A character scalar.
+#' @family phrase
+#' @export
+#'
+#' @examples
+#' fokus::phrase_date()
+phrase_date <- function(x = pal::pkg_config_val(key = "ballot_date",
+                                                pkg = this_pkg),
+                        format = "date_long",
+                        lang = pal::pkg_config_val(key = "lang",
+                                                   pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
+  
+  salim::phrase_datetime(x = x,
+                         format = format,
+                         locale = lang)
 }
 
 #' Phrase majoritarian election's candidate(s)
