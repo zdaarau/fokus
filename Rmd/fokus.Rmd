@@ -5076,6 +5076,8 @@ election_tickets <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 #' fokus::past_election_date(ballot_date = "2019-10-20")
 #' fokus::past_election_date(ballot_date = "2020-10-18")
 #' fokus::past_election_date(ballot_date = "2024-10-20")
+#' fokus::past_election_date(ballot_date = "2019-10-20",
+#'                           lvl = "federal")
 past_election_date <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                lvl = lvls(ballot_date,
                                           canton,
