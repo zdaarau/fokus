@@ -2249,9 +2249,10 @@ qstnr_response_option_codes <- function(types = all_response_option_types) {
 #' fokus:::qstnr_lbl_col_sym(lang = "de")
 #' 
 #' fokus:::qstnr_lbl_col_sym(lang = "en")
-qstnr_lbl_col_sym <- function(lang = all_langs) {
+qstnr_lbl_col_sym <- function(lang = pal::pkg_config_val(key = "lang")) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   as.symbol(ifelse(lang == "de",
                    "response_options",
@@ -2552,10 +2553,10 @@ collapse_break <- function(s) {
 #' @examples
 #' fokus:::lang_to_locale("de")
 #' fokus:::lang_to_locale("en")
-lang_to_locale <- function(lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
-  
+lang_to_locale <- function(lang = pal::pkg_config_val(key = "lang",
+                                                      pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   switch(lang,
          de = "de-CH",
          en = "en-US")
@@ -4100,10 +4101,12 @@ proposal_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                      ballot_type = "referendum"),
                           canton = cantons(ballot_date),
                           proposal_nr = 1L,
-                          lang = all_langs,
+                          lang = pal::pkg_config_val(key = "lang",
+                                                     pkg = this_pkg),
                           type = all_name_types) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   type <- rlang::arg_match(type)
   
   raw_qstnr_suppl_proposal_name(ballot_date = ballot_date,
@@ -4265,10 +4268,12 @@ proposal_argument <- function(ballot_date = pal::pkg_config_val(key = "ballot_da
                               proposal_nr = 1L,
                               side = all_argument_sides,
                               argument_nr = 1L,
-                              lang = all_langs,
+                              lang = pal::pkg_config_val(key = "lang",
+                                                         pkg = this_pkg),
                               type = all_name_types) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   type <- rlang::arg_match(type)
   
   raw_qstnr_suppl_argument(ballot_date = ballot_date,
@@ -4901,10 +4906,12 @@ election_name <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                        lvl,
                                        canton),
                           election_nr = 1L,
-                          lang = all_langs,
+                          lang = pal::pkg_config_val(key = "lang",
+                                                     pkg = this_pkg),
                           type = c("short", "long", "body", "body_alt")) {
   
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   type <- rlang::arg_match(type)
   # this is required to trigger a proper error message in case `prcds` is not explicitly set and there are no elections (`prcd = character()`)
   if (!length(prcd)) {
@@ -4950,12 +4957,14 @@ election_names_combined <- function(ballot_date = pal::pkg_config_val(key = "bal
                                                                       pkg = this_pkg),
                                     lvls = all_lvls,
                                     canton = cantons(ballot_date),
-                                    lang = all_langs,
+                                    lang = pal::pkg_config_val(key = "lang",
+                                                               pkg = this_pkg),
                                     federal_first = TRUE) {
   
   lvls <- unique(rlang::arg_match(arg = lvls,
                                   multiple = TRUE))
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   checkmate::assert_flag(federal_first)
   
   sep <- switch(EXPR = lang,
@@ -5578,9 +5587,10 @@ skill_question <- function(ballot_date = pal::pkg_config_val(key = "ballot_date"
                            canton = cantons(ballot_date),
                            proposal_nr = NULL,
                            skill_question_nr = 1L,
-                           lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
+                           lang = pal::pkg_config_val(key = "lang",
+                                                      pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   raw_qstnr_suppl_skill_question(ballot_date = ballot_date,
                                  lvl = lvl,
@@ -5727,12 +5737,13 @@ TODO:
 ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                            pkg = this_pkg),
                          canton = cantons(ballot_date),
-                         lang = all_langs) {
-  
   ballot_date %<>% as.character()
   ballot_date <- rlang::arg_match(arg = ballot_date,
                                   values = as.character(all_ballot_dates))
-  lang <- rlang::arg_match(lang)
+                         lang = pal::pkg_config_val(key = "lang",
+                                                    pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   ballot_types <- ballot_types(ballot_date = ballot_date,
                                canton = canton)
@@ -5786,9 +5797,10 @@ ballot_title <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
 #'                         lang = "en")
 political_issues <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
-                             lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
+                             lang = pal::pkg_config_val(key = "lang",
+                                                        pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   
   result <-
     raw_qstnr_suppl(ballot_date = ballot_date) |>
@@ -5875,11 +5887,13 @@ postal_dispatch_way <- function(ballot_date = pal::pkg_config_val(key = "ballot_
 #'                          lang = "de",
 #'                          subtypes = c("election", "proportional"))
 response_options <- function(type = all_response_option_types,
-                             lang = all_langs,
+                             lang = pal::pkg_config_val(key = "lang",
+                                                        pkg = this_pkg),
                              subtypes = NULL) {
   
   type <- rlang::arg_match(type)
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   checkmate::assert_character(subtypes,
                               any.missing = FALSE,
                               min.len = 1L,
@@ -6153,7 +6167,8 @@ NOTES:
 read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                                pkg = this_pkg),
                              canton = cantons(ballot_date),
-                             lang = all_langs,
+                             lang = pal::pkg_config_val(key = "lang",
+                                                        pkg = this_pkg),
                              merged = FALSE,
                              use_cache = TRUE,
                              auth_token = pal::pkg_config_val(key = "token_repo_private",
@@ -6163,7 +6178,8 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val(key = "ballot_dat
                                   values = as.character(all_ballot_dates))
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
-  lang <- rlang::arg_match(lang)
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   checkmate::assert_flag(merged)
   
   read_private_file(path = glue::glue("generated/survey_data_", ifelse(merged, "merged_", ""), "{lang}_{ballot_date}_{canton}.rds"),
@@ -7226,7 +7242,7 @@ var_title <- function(var_name,
 #'
 #' @inheritParams lvls
 #' @inheritParams var_lbl
-#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = var_val_set)` for the value set's integer codes."
+#' @param lang Language. One of `r c(all_langs, "int") |> pal::as_md_vals() |> pal::enum_str(sep2 = " or ")` for the value set's integer codes."
 #'
 #' @return A character scalar.
 #' @family vars
@@ -7254,9 +7270,10 @@ var_val_set <- function(var_name,
                         ballot_date = pal::pkg_config_val(key = "ballot_date",
                                                           pkg = this_pkg),
                         canton = cantons(ballot_date),
-                        lang = c(all_langs, "int")) {
-  
-  lang <- rlang::arg_match(lang)
+                        lang = pal::pkg_config_val(key = "lang",
+                                                   pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = c(all_langs, "int"))
   
   var_predicate(predicate = switch(EXPR = lang,
                                    de = "response_options",
@@ -7486,14 +7503,15 @@ restore_colnames <- function(x) {
 #' @export
 #'
 #' @examples
-#' phrase(term = "side",
-#'        vals = c("pro", "pro", "contra"),
-#'        lang = "de")
+#' fokus::phrase(term = "side",
+#'               vals = c("pro", "pro", "contra"),
+#'               lang = "de")
 phrase <- function(term,
                    vals,
-                   lang = all_langs) {
-  
-  lang <- rlang::arg_match(lang)
+                   lang = pal::pkg_config_val(key = "lang",
+                                              pkg = this_pkg)) {
+  lang <- rlang::arg_match(arg = lang,
+                           values = all_langs)
   term <- rlang::arg_match(arg = term,
                            values = unique(phrased_terms_tidy$term))
   data <- phrased_terms_tidy |> dplyr::filter(term == !!term & lang == !!lang)
