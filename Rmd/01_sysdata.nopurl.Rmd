@@ -343,6 +343,13 @@ pkg_config <-
                                        cli::ansi_collapse(pal::as_md_vals(as.character(all_cantons)),
                                                           last = " or "),
                                        ".")) |>
+  tibble::add_row(key = "lang",
+                  default_value = list(all_langs[1L]),
+                  description = paste0("Language to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to",
+                                       " globally define the language to process. One of ",
+                                       cli::ansi_collapse(pal::as_md_vals(as.character(all_langs)),
+                                                          last = " or "),
+                                       ".")) |>
   tibble::add_row(key = "global_max_cache_age",
                   default_value = list("1 day"),
                   description = pkgsnip::md_snip("opt_global_max_cache_age")) |>
