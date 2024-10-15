@@ -1902,6 +1902,7 @@ qstnr_item_val <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 #' @family qstnr_internal
 #' @keywords internal
 qstnr_parties <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
+  
   ballot_date <- as_ballot_date(ballot_date)
   
   raw_qstnr |>
@@ -1914,9 +1915,7 @@ qstnr_parties <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
                          date_begin = .x$date_begin %||% clock::date_build(year = 1970L,
                                                                            month = 1L,
                                                                            day = 1L),
-                         date_end = .x$date_end %||% clock::date_build(year = 2099L,
-                                                                       month = 12L,
-                                                                       day = 31L))
+                         date_end = .x$date_end %||% as.Date(Inf))
     }) |>
     purrr::list_rbind() |>
     dplyr::filter(date_begin <= ballot_date & date_end >= ballot_date)

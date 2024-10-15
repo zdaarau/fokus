@@ -6381,7 +6381,7 @@ de = "dplyr::filter({lvl}_proposals_information_source_demokratiefabrik_argument
 ## political parties
 ## NOTES:
 ## - `date_begin` defaults to `1970-01-01`.
-## - `date_ends` defaults to `2099-12-31`.
+## - `date_ends` defaults to `Inf`.
 ## - `en.short` defaults to `de.short` (we don't actually translate party names because it seems to be a quite hopeless endeavor).
 [[party]]
 code = 1
