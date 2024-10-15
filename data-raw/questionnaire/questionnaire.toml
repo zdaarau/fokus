@@ -483,7 +483,40 @@ value_labels = "{ election_parties(ballot_date = ballot_date, lvl = 'cantonal', 
 i = "{ election_nrs(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, prcd = 'majoritarian') }"
 j = "{ seq_len(n_election_seats(ballot_date = ballot_date, lvl = 'cantonal', canton = canton, election_nr = i, seat_type = 'vacant')) }"
 topic = "Hypothetischer Stimmentscheid Sitz {j} kantonale Mehrheitswahl {i}"
-question_intro_j = """
+question_intro_j.default = """
+Wenn Sie an den Wahlen teilgenommen hätten, {
+  ifelse(n_election_seats(ballot_date = ballot_date,
+                          lvl = 'cantonal',
+                          canton = canton,
+                          election_nr = i,
+                          seat_type = 'vacant') > 1L,
+         'welche Kandidat:innen',
+         'wen')
+} hätten Sie in den kantonalen **{
+  election_name(ballot_date = ballot_date,
+                lvl = 'cantonal',
+                canton = canton,
+                prcd = 'majoritarian',
+                election_nr = i,
+                lang = 'de',
+                type = 'body')
+}** gewählt{
+  ifelse(n_election_seats(ballot_date = ballot_date,
+                          lvl = 'cantonal',
+                          canton = canton,
+                          election_nr = i,
+                          seat_type = 'vacant') > 1L,
+         paste0(' (max. ',
+                salim::write_out_n(n_election_seats(ballot_date = ballot_date,
+                                                    lvl = 'cantonal',
+                                                    canton = canton,
+                                                    election_nr = i,
+                                                    seat_type = 'vacant'),
+                                   lang = 'de'),
+                ')'),
+         '')
+}?"""
+question_intro_j.20180923_20230618 = """
 Wenn Sie an den Wahlen teilgenommen hätten, {
   ifelse(n_election_seats(ballot_date = ballot_date,
                           lvl = 'cantonal',
@@ -3359,8 +3392,7 @@ topic.20180923 = "Parteisympathie[^no-party]"
 question = "Welche Partei steht Ihnen am nächsten?"
 variable_name = "favored_party"
 variable_label = "the political party the respondent feels closest to his/her own political stance"
-response_options.default = "{ c(qstnr_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
-response_options.20230618 = "{ c(qstnr_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
+response_options = "{ c(qstnr_parties(ballot_date = ballot_date) %$% de.short, response_options(type = 'custom', lang = 'de', subtypes = 'party'), response_options(type = 'none', lang = 'de', subtypes = 'plural'), response_options(type = 'dunno', lang = 'de', subtypes = 'main')) }"
 variable_values = "{ c(qstnr_parties(ballot_date = ballot_date) %$% code, qstnr_response_option_codes(types = c('custom', 'none', 'dunno'))) }"
 value_labels = "{ c(qstnr_parties(ballot_date = ballot_date) %$% en.short, response_options(type = 'custom', lang = 'en', subtypes = 'main'), response_options(type = 'none', lang = 'en', subtypes = 'main'), response_options(type = 'dunno', lang = 'en', subtypes = 'main')) }"
 randomize_response_options.default = true
@@ -3747,6 +3779,7 @@ include.true = [ 2019-10-20, 2020-10-18, 2021-11-28, 2023-06-18 ]
 [[05_political_attitudes.z01_evoting.item]]
 topic = "E-Voting für alle Stimmberechtigten"
 question.default = "_Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** im Kanton { stringr::str_to_sentence(canton) }?_"
+question.20241020 = "_Sind Sie für oder gegen die Einführung von E-Voting für alle Stimmberechtigten im Kanton { stringr::str_to_sentence(canton) }?_"
 question.20181125 = "Der Kanton { stringr::str_to_sentence(canton) } plant für 2019 in einigen Pilotgemeinden das Abstimmen via Internet (E-Voting) zu testen. Sind Sie für oder gegen die Einführung von E-Voting im Kanton { stringr::str_to_sentence(canton) }?"
 question_common = "Sind Sie für oder gegen die Einführung von E-Voting **für alle Stimmberechtigten** in Ihrem Wohnkanton?"
 variable_name = "attitude_e_voting"
@@ -4258,9 +4291,12 @@ topic = "Staatsbürgerschaft bei Geburt"
 question = "Welche Staatsbürgerschaft hatten Sie bei der Geburt?"
 variable_name = "citizenship_at_birth"
 variable_label = "the respondent's citizenship(s) at birth"
-response_options = [ "Schweiz (CH)", "Schweiz (CH) plus weitere (\"Doppelbürger:in\")", "andere", "weiss nicht" ]
-variable_values = [ 1, 2, 3, 99 ]
-value_labels = [ "Switzerland (CH)", "Switzerland (CH) plus other(s) (\"dual citizen\")", "other(s)", "don't know" ]
+response_options.default = [ "Schweiz (CH)", "Schweiz (CH) plus weitere (\"Doppelbürger:in\")", "andere", "keine", "weiss nicht" ]
+response_options.20180923_20230618 = [ "Schweiz (CH)", "Schweiz (CH) plus weitere (\"Doppelbürger:in\")", "andere", "weiss nicht" ]
+variable_values.default = [ 1, 2, 3, 0, 99 ]
+variable_values.20180923_20230618 = [ 1, 2, 3, 99 ]
+value_labels.default = [ "Switzerland (CH)", "Switzerland (CH) plus other(s) (\"dual citizen\")", "other(s)", "none", "don't know" ]
+value_labels.20180923_20230618 = [ "Switzerland (CH)", "Switzerland (CH) plus other(s) (\"dual citizen\")", "other(s)", "don't know" ]
 include.false = [ 2018-09-23, 2018-11-25 ]
 [[07_personal_more.z02_more.item]]
 topic = "Geburtsort der Eltern"
@@ -6417,6 +6453,11 @@ de.short = "GLP"
 code = 7
 de.long = "Evangelische Volkspartei"
 de.short = "EVP"
+[[party]]
+code = 10
+de.long = "Eidgenössisch-Demokratische Union"
+de.short = "EDU"
+date_begin = 2024-10-20 # NOTE: we just didn't include this party in the FOKUS surveys before
 [[party]]
 code = 8
 de.long = "Bürgerlich-Demokratische Partei"
