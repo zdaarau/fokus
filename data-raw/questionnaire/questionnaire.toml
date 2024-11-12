@@ -4817,6 +4817,7 @@ variable_label = "dummy value indicating whether or not the respondent's answer 
 response_options = [ "nicht bestanden", "bestanden" ]
 variable_values = [ 0, 1 ]
 value_labels = [ "fail", "pass" ]
+include.false = [ 2024-10-20 ]
 
 [x_polling_agency.008_online]
 who = "Online-Respondenten"
@@ -4837,11 +4838,13 @@ topic = "Browser"
 variable_name = "web_browser"
 variable_label = "the User-Agent string of the respondent's web browser"
 response_options = "_Text_"
+include.false = [ 2024-10-20 ]
 [[x_polling_agency.008_online.item]]
 topic = "HTTP-Referrer"
 variable_name = "http_referrer"
 variable_label = "the HTTP referrer the respondent's web browser sent when accessing the questionnaire"
 response_options = "_Text_"
+include.false = [ 2024-10-20 ]
 [[x_polling_agency.008_online.item]]
 topic = "Interviewstartzeitpunkt"
 variable_name = "start_date_time"
@@ -4854,6 +4857,7 @@ variable_name = "last_access_date_time"
 variable_label = "date and time when the respondent last accessed the questionnaire"
 response_options = "_Datum/Uhrzeit ([ISO 8601][iso8601])_"
 value_scale = "interval"
+include.false = [ 2024-10-20 ]
 [[x_polling_agency.008_online.item]]
 topic = "Gesamte Interviewdauer"
 variable_name = "total_time"
@@ -4866,13 +4870,14 @@ variable_name = "time_introduction"
 variable_label = "time in seconds the respondent spent on the survey introduction page"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
-include.false = [ 2018-09-23, 2018-11-25, 2023-06-18 ]
+include.false = [ 2018-09-23, 2018-11-25, 2023-06-18, 2024-10-20 ]
 [[x_polling_agency.008_online.item]]
 topic = "Interviewdauer Thema/Themen XYZ"
 variable_name = "time_xyz"
 variable_label = "time in seconds it took the respondent to complete the variable(s) `xyz`"
 response_options = "_Ganzzahl_"
 value_scale = "ratio"
+include.false = [ 2024-10-20 ]
 
 [x_polling_agency.009_print]
 who = "Print-Respondenten"
