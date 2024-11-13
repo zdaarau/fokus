@@ -6046,11 +6046,11 @@ value.en = "economically active persons"
 description.default.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der ersten vier Antwortoptionen (`1`–`4`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _ja_ (`1`) beantwortet haben."
 description.20241020.de = "All jene Respondenten, welche die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der ersten vier Antwortoptionen (`1`–`4`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(as.integer(employment_situation) < 5L | employment_situation_routing == 'ja')"
-en = "dplyr::filter(as.integer(employment_situation) < 5L | employment_situation_routing == 'yes (working)')"
+de = "dplyr::filter(as.integer(employment_situation) < 5L | (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing == 'ja' else FALSE))"
+en = "dplyr::filter(as.integer(employment_situation) < 5L | (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing == 'yes (working)' else FALSE))"
 [who.filter.negative]
-de = "dplyr::filter(as.integer(employment_situation) > 4L & (employment_situation_routing %in% c('nein', NA)))"
-en = "dplyr::filter(as.integer(employment_situation) > 4L & (employment_situation_routing %in% c('no (not working)', NA)))"
+de = "dplyr::filter(as.integer(employment_situation) > 4L & (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing %in% c('nein', NA) else TRUE))"
+en = "dplyr::filter(as.integer(employment_situation) > 4L & (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing %in% c('no (not working)', NA) else TRUE))"
 
 [[who]]
 value.de = "Nichterwerbstätige"
@@ -6058,11 +6058,11 @@ value.en = "economically inactive persons"
 description.default.de = "All jene Respondenten, welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _Nein_ (`2`) beantwortet haben."
 description.20241020.de = "All jene Respondenten, welche die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(as.integer(employment_situation) > 4L | employment_situation_routing == 'nein')"
-en = "dplyr::filter(as.integer(employment_situation) > 4L | employment_situation_routing == 'no (not working)')"
+de = "dplyr::filter(as.integer(employment_situation) > 4L | (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing == 'nein' else FALSE))"
+en = "dplyr::filter(as.integer(employment_situation) > 4L | (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing == 'no (not working)' else FALSE))"
 [who.filter.negative]
-de = "dplyr::filter(as.integer(employment_situation) < 5L & (employment_situation_routing %in% c('ja', NA)))"
-en = "dplyr::filter(as.integer(employment_situation) < 5L & (employment_situation_routing %in% c('yes (working)', NA)))"
+de = "dplyr::filter(as.integer(employment_situation) < 5L & (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing %in% c('ja', NA) else TRUE))"
+en = "dplyr::filter(as.integer(employment_situation) < 5L & (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing %in% c('yes (working)', NA) else TRUE))"
 
 [[who]]
 value.de = "nichterwerbstätige Online-Respondenten"
@@ -6070,11 +6070,11 @@ value.en = "economically inactive online respondents"
 description.default.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche entweder die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben oder die Zusatzfrage zum Teilzeiterwerb (`employment_situation_routing`) mit _nein_ (`2`) beantwortet haben."
 description.20241020.de = "All jene Online-Respondenten (`questionnaire_channel = 1`), welche die Frage zur Beschäftigungssituation (`employment_situation`) mit einer der letzten sechs Antwortoptionen (`5`–`10`) beantwortet haben."
 [who.filter.positive]
-de = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | employment_situation_routing == 'nein'))"
-en = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | employment_situation_routing == 'no (not working)'))"
+de = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing == 'nein' else FALSE)))"
+en = "dplyr::filter(questionnaire_channel == 'online' & (as.integer(employment_situation) > 4L | (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing == 'no (not working)' else FALSE)))"
 [who.filter.negative]
-de = "dplyr::filter(questionnaire_channel == 'print' & (as.integer(employment_situation) < 5L & (employment_situation_routing %in% c('ja', NA))))"
-en = "dplyr::filter(questionnaire_channel == 'print' & (as.integer(employment_situation) < 5L & (employment_situation_routing %in% c('yes (working)', NA))))"
+de = "dplyr::filter(questionnaire_channel == 'print' & (as.integer(employment_situation) < 5L & (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing %in% c('ja', NA) else TRUE)))"
+en = "dplyr::filter(questionnaire_channel == 'print' & (as.integer(employment_situation) < 5L & (if ('employment_situation_routing' %in% colnames(.)) employment_situation_routing %in% c('yes (working)', NA) else TRUE)))"
 
 [[who]]
 value.de = "Angestellte"
