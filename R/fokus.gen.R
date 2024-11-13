@@ -3114,7 +3114,7 @@ has_election <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 #' Determine whether ballot includes type
 #'
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered the specified
-#' [ballot types][ballot_types] (of the specified election procedure(s)).
+#' [ballot types][ballot_types].
 #'
 #' @inheritParams n_elections
 #' @param canton FOKUS-covered canton name. One of
