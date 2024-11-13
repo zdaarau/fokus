@@ -2978,6 +2978,7 @@ cantons <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
 #' Determines the [political levels][all_lvls] covered by the FOKUS survey for the specified canton of the specified ballot type at the specified ballot date.
 #'
 #' @inheritParams cantons
+#' @inheritParams has_ballot_type
 #' @param canton FOKUS-covered canton name. One of
 #'   `r pal::as_md_val_list(all_cantons)`
 #' @param ballot_type Ballot type. One of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
@@ -2993,16 +2994,28 @@ cantons <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
 #' fokus::lvls(ballot_date = "2018-09-23",
 #'             canton = "aargau",
 #'             ballot_type = "election")
+#'
+#' fokus::lvls(ballot_date = "2019-10-20",
+#'             canton = "aargau",
+#'             ballot_type = "election")
+#'
+#' fokus::lvls(ballot_date = "2019-10-20",
+#'             canton = "aargau",
+#'             ballot_type = "election",
+#'             prcds = "proportional")
 lvls <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                  canton = cantons(ballot_date),
                  ballot_type = ballot_types(ballot_date = ballot_date,
-                                            canton = canton)) {
+                                            canton = canton),
+                 prcds = all_prcds) {
   
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   ballot_type <- rlang::arg_match(arg = ballot_type,
                                   values = all_ballot_types)
+  prcds <- unique(rlang::arg_match(arg = prcds,
+                                   multiple = TRUE))
   raw <- raw_qstnr_suppl(ballot_date = ballot_date)
   
   if (ballot_type == "referendum") {
@@ -3011,9 +3024,9 @@ lvls <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                 "federal"[length(raw$federal$proposal) > 0L])
   } else {
     
-    result <- c("cantonal"[any(purrr::map_lgl(all_prcds,
+    result <- c("cantonal"[any(purrr::map_lgl(prcds,
                                               ~ length(raw$cantonal[[canton]]$election[[.x]]) > 0L))],
-                "federal"[any(purrr::map_lgl(all_prcds,
+                "federal"[any(purrr::map_lgl(prcds,
                                              ~ length(raw$federal[[canton]]$election[[.x]]) > 0L))])
   }
   
