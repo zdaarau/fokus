@@ -73,6 +73,7 @@ Other fundamental predicate functions:
 \code{\link{has_election_nrs}()},
 \code{\link{has_proposal_nrs}()},
 \code{\link{has_referendum}()},
+\code{\link{is_representative}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{n_proposals}()},

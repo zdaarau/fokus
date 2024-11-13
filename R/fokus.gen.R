@@ -2534,10 +2534,12 @@ cantons <- function(ballot_date = pal::pkg_config_val("ballot_date")) {
 #' Determines the [political levels][all_lvls] covered by the FOKUS survey for the specified canton of the specified ballot type at the specified ballot date.
 #'
 #' @inheritParams cantons
-#' @inheritParams has_ballot_type
 #' @param canton FOKUS-covered canton name. One of
 #'   `r pal::as_md_val_list(all_cantons)`
 #' @param ballot_type Ballot type. One of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
+#' @param prcds Election procedure(s). One or more of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
+#'   
+#'   Only relevant if `ballot_type = "election"`.
 #'
 #' @return A character vector.
 #' @family predicate_fundamental
@@ -2937,6 +2939,30 @@ survey_channels <- function(ballot_date = pal::pkg_config_val("ballot_date"),
     purrr::chuck("channels")
 }
 
+#' Determine whether survey is based on representative sample
+#'
+#' Determines whether or not the survey was conducted among a representative sample of the electorate (i.e. drawn randomly).
+#'
+#' @inheritParams lvls
+#'
+#' @return A logical scalar.
+#' @family predicate_fundamental
+#' @export
+#'
+#' @examples
+#' fokus::is_representative(ballot_date = "2018-09-23",
+#'                          canton = "aargau")
+#'
+#' fokus::is_representative(ballot_date = "2024-10-20",
+#'                          canton = "aargau")
+is_representative <- function(ballot_date = pal::pkg_config_val("ballot_date"),
+                              canton = cantons(ballot_date)) {
+  
+  raw_qstnr_suppl_mode(ballot_date = ballot_date,
+                       canton = canton) |>
+    purrr::chuck("is_representative")
+}
+
 #' Get number of referendum proposals
 #'
 #' Determines the number of referendum proposals covered by the FOKUS survey for the specified canton at the specified ballot date on the specified political
@@ -3116,15 +3142,12 @@ has_election <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 #' Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered the specified
 #' [ballot types][ballot_types].
 #'
+#' @inheritParams lvls
 #' @inheritParams n_elections
 #' @param canton FOKUS-covered canton name. One of
 #'   `r pal::as_md_val_list(all_cantons)`
 #'   
 #'   Only relevant if `lvls` includes `"cantonal"` or `ballot_type = "election"`.
-#' @param ballot_type Ballot type to test for. One of `r all_ballot_types |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " or ", last = " or ")`.
-#' @param prcds Election procedure(s). One or more of `r all_prcds |> pal::as_md_vals() |> cli::ansi_collapse(sep2 = " and ", last = " and ")`.
-#'   
-#'   Only relevant if `ballot_type = "election"`.
 #'
 #' @return A logical vector of the same length as `lvl` (× `prcds`), named after `lvls(.prcds).ballot_type`.
 #' @family predicate_fundamental
@@ -5346,6 +5369,7 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              merged = FALSE,
                              use_cache = TRUE,
                              auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)

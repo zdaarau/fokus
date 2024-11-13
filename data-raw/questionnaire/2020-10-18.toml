@@ -3,6 +3,7 @@ ballot_date = 2020-10-18
 [mode.aargau]
 channels = [ "online", "print" ]
 n = 10000
+is_representative = true
 invitation = [ "online" ]
 reminder = [ "online", "print" ]
 constraints = "reminder_print_1970" # only persons with year of birth < 1970 received a print questionnaire!

@@ -3,6 +3,7 @@ ballot_date = 2024-10-20
 [mode.aargau]
 channels = [ "online" ]
 n = 2000
+is_representative = false # some Demoscope online panel was invited
 invitation = [ "online" ]
 reminder = [ "online" ]
 

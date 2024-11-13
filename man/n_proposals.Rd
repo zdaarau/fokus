@@ -11,6 +11,18 @@ n_proposals(
 )
 }
 \arguments{
+\item{ballot_date}{FOKUS-covered ballot date. One of
+\itemize{
+\item \code{"2018-09-23"}
+\item \code{"2018-11-25"}
+\item \code{"2019-10-20"}
+\item \code{"2020-09-27"}
+\item \code{"2020-10-18"}
+\item \code{"2021-11-28"}
+\item \code{"2023-06-18"}
+\item \code{"2024-10-20"}
+}}
+
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
@@ -54,6 +66,7 @@ Other fundamental predicate functions:
 \code{\link{has_lvl}()},
 \code{\link{has_proposal_nrs}()},
 \code{\link{has_referendum}()},
+\code{\link{is_representative}()},
 \code{\link{lvls}()},
 \code{\link{n_elections}()},
 \code{\link{prcds}()},

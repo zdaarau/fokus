@@ -3,6 +3,7 @@ ballot_date = 2018-09-23
 [mode.aargau]
 channels = [ "online", "print" ]
 n = 8000
+is_representative = true
 invitation = [ "online", "print" ]
 reminder = [ "online", "print" ]
 [mode.aargau.postal_dispatch.type]
