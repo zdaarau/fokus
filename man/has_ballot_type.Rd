@@ -13,18 +13,6 @@ has_ballot_type(
 )
 }
 \arguments{
-\item{ballot_date}{FOKUS-covered ballot date. One of
-\itemize{
-\item \code{"2018-09-23"}
-\item \code{"2018-11-25"}
-\item \code{"2019-10-20"}
-\item \code{"2020-09-27"}
-\item \code{"2020-10-18"}
-\item \code{"2021-11-28"}
-\item \code{"2023-06-18"}
-\item \code{"2024-10-20"}
-}}
-
 \item{lvls}{Political level(s). One or more of \code{"cantonal"} and \code{"federal"}.}
 
 \item{canton}{FOKUS-covered canton name. One of
@@ -45,7 +33,7 @@ A logical vector of the same length as \code{lvl} (× \code{prcds}), named after
 }
 \description{
 Determines whether or not the FOKUS survey for the specified canton at the specified ballot date on the specified political level(s) covered the specified
-\link[=ballot_types]{ballot types} (of the specified election procedure(s)).
+\link[=ballot_types]{ballot types}.
 }
 \examples{
 fokus::has_ballot_type(ballot_date = "2018-09-23",

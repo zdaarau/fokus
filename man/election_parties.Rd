@@ -6,7 +6,7 @@
 \usage{
 election_parties(
   ballot_date = pal::pkg_config_val("ballot_date"),
-  lvl = lvls(ballot_date, canton, ballot_type = "election"),
+  lvl = lvls(ballot_date, canton, ballot_type = "election", prcds = "proportional"),
   canton = cantons(ballot_date),
   election_nr = 1L,
   past = FALSE

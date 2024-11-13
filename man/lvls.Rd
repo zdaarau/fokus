@@ -7,7 +7,8 @@
 lvls(
   ballot_date = pal::pkg_config_val("ballot_date"),
   canton = cantons(ballot_date),
-  ballot_type = ballot_types(ballot_date = ballot_date, canton = canton)
+  ballot_type = ballot_types(ballot_date = ballot_date, canton = canton),
+  prcds = all_prcds
 )
 }
 \arguments{
@@ -29,6 +30,10 @@ lvls(
 }}
 
 \item{ballot_type}{Ballot type. One of \code{"referendum"} or \code{"election"}.}
+
+\item{prcds}{Election procedure(s). One or more of \code{"proportional"} and \code{"majoritarian"}.
+
+Only relevant if \code{ballot_type = "election"}.}
 }
 \value{
 A character vector.
@@ -43,6 +48,15 @@ fokus::lvls(ballot_date = "2018-09-23",
 fokus::lvls(ballot_date = "2018-09-23",
             canton = "aargau",
             ballot_type = "election")
+
+fokus::lvls(ballot_date = "2019-10-20",
+            canton = "aargau",
+            ballot_type = "election")
+
+fokus::lvls(ballot_date = "2019-10-20",
+            canton = "aargau",
+            ballot_type = "election",
+            prcds = "proportional")
 }
 \seealso{
 Other fundamental predicate functions:
