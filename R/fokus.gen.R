@@ -4387,7 +4387,8 @@ election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date")
 election_parties <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lvl = lvls(ballot_date,
                                         canton,
-                                        ballot_type = "election"),
+                                        ballot_type = "election",
+                                        prcds = "proportional"),
                              canton = cantons(ballot_date),
                              election_nr = 1L,
                              past = FALSE) {
