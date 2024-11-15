@@ -172,12 +172,22 @@ NOTES:
         -   elections
             -   cantonal
                 -   [majoritarian](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/select/BN17TBN1TGN1TN0MN0)
+                    (2024 data is missing as of 2024-11-15 and only available from
+                    [here](https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahl-und-abstimmungsresultate#/118/20241020) as file [*Übersicht Kandidatenstimmen
+                    (Pressedaten)*](https://ag-vework-public.clex.ch/data/publication//issues/199/downloads/de/20241020_Pressedaten_RRW_final.xlsx))
                 -   proportional
                     -   [electorate/turnout](https://www.ag.ch/de/verwaltung/dfr/statistik/zahlen-und-vergleiche/datenauswahl?rewriteRemoteUrl=/data/BN17TBN2TGN1TN1MN1)
                         (common dataset covering all cantonal proportional election dates)
 
-                    -   [party votes](https://www.ag.ch/app/wahlen/grw2020/output/parteistimmen.html) (2016 is [found
-                        here](https://www.ag.ch/app/wahlen/grw2016/output/parteistimmen_kanton_1.html); no common date-independent site exists)
+                    -   party votes (no common date-independent site exists)
+
+                        -   [2024](?) (data is only available from
+                            [here](https://www.ag.ch/de/aktuell/wahlen-abstimmungen/wahl-und-abstimmungsresultate#/118/20241020) as file [*Übersicht Partei- und
+                            Kandidatenstimmen
+                            (Pressedaten)*](https://ag-vework-public.clex.ch/data/publication//issues/198/downloads/de/20241020_Pressedaten_GRW_final.xlsx) so
+                            far)
+                        -   [2020](https://www.ag.ch/app/wahlen/grw2020/output/parteistimmen.html)
+                        -   [2016](https://www.ag.ch/app/wahlen/grw2016/output/parteistimmen_kanton_1.html)
 
                         Due to the division into constituencies and the [biproportional election
                         procedure](https://www.aargauerzeitung.ch/aargau/kanton-aargau/bei-den-grossratswahlen-kommt-der-doppelte-pukelsheim-zur-anwendung-doch-was-ist-das-ld.1310559),
@@ -385,6 +395,7 @@ ballots$election <-
         # modify remaining party names to match ours
         dplyr::case_match(.x = .,
                           "T65P"  ~ "TEAM65",
+                          "Musik" ~ "Musikpartei",
                           .default = .)
       
       party_col_names_new <-
