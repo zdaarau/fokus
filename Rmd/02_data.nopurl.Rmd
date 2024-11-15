@@ -296,9 +296,9 @@ ballots$election <-
         # rename common cols
         pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
         # ensure we renamed all non-candidate-specific col names
-        pal::when(length(candidates_phrased) != length(stringr::str_subset(colnames(.), "^[[:upper:]_]+$")) ~
+        pal::when(length(candidates_phrased) != length(stringr::str_subset(colnames(.), "^[[:upper:]_\\s]+$")) ~
                     cli::cli_abort(paste0("There are raw non-candidate-specific column names left. Please debug. Raw column names include: ",
-                                          "{.vals {stringr::str_subset(colnames(.), '^[[:upper:]_]+$')}}")),
+                                          "{.vals {stringr::str_subset(colnames(.), '^[[:upper:]_\\s]+$')}}")),
                   ~ .) |>
         # rename candidate-specific cols
         dplyr::rename_with(.cols = -any_of(fokus:::dicts$colnames$ballots),
@@ -309,14 +309,13 @@ ballots$election <-
                                stringi::stri_trans_general(id = "de-ASCII",
                                                            forward = TRUE) |>
                                purrr::map_int(\(x2) stringr::str_which(string = x2,
-                                                                       pattern = stringr::coll(pattern =
-                                                                                                 x |>
-                                                                                                 stringi::stri_trans_general(id = "de-ASCII",
-                                                                                                                             forward = TRUE) |>
-                                                                                                 stringr::str_replace_all(pattern = "_",
-                                                                                                                          replacement = "-"),
-                                                                                               ignore_case = TRUE,
-                                                                                               locale = "de-CH")))
+                                                                       pattern = stringr::regex(pattern =
+                                                                                                  x |>
+                                                                                                  stringi::stri_trans_general(id = "de-ASCII",
+                                                                                                                              forward = TRUE) |>
+                                                                                                  stringr::str_replace_all(pattern = "[^[:alnum:]\\s]",
+                                                                                                                           replacement = "."),
+                                                                                                ignore_case = TRUE)))
                              candidates_phrased[ix]
                            }) |>
         # convert col types
@@ -366,16 +365,18 @@ ballots$election <-
         parties_phrased |>
         stringi::stri_trans_general(id = "de-ASCII",
                                     forward = TRUE) |>
-        stringr::str_replace_all(pattern = "_",
-                                 replacement = "-")
+        stringr::str_replace_all(pattern = stringr::fixed("."),
+                                 replacement = " ") |>
+        stringr::str_replace_all(pattern = "[^[:alnum:]\\s]",
+                                 replacement = "")
       
       party_col_names_normalized <-
         colnames(result) |>
         setdiff(y = fokus:::dicts$colnames$ballots) |>
         stringi::stri_trans_general(id = "de-ASCII",
                                     forward = TRUE) |>
-        stringr::str_replace_all(pattern = "_",
-                                 replacement = "-") |>
+        stringr::str_replace_all(pattern = "[^[:alnum:]\\s]",
+                                 replacement = ".") |>
         # modify junior party names to match ours
         stringr::str_replace_all(pattern = "^(?i)j(bdp|cvp|evp|glp|gruene|mitte|svp)$",
                                  replacement = "Junge \\1") %>%
@@ -383,9 +384,7 @@ ballots$election <-
                                  replacement = "Jungfreisinnige") %>%
         # modify remaining party names to match ours
         dplyr::case_match(.x = .,
-                          "DU"    ~ "DU (Die Unabhaengigen)",
-                          "FW-AG" ~ "FW AG",
-                          "T65P"  ~ "TEAM65+",
+                          "T65P"  ~ "TEAM65",
                           .default = .)
       
       party_col_names_new <-
@@ -393,9 +392,8 @@ ballots$election <-
         purrr::map_chr(\(col_name_normalized) {
           
           parties_phrased_normalized |>
-            stringr::str_which(pattern = stringr::coll(pattern = col_name_normalized,
-                                                       ignore_case = TRUE,
-                                                       locale = "de-CH")) %>%
+            stringr::str_which(pattern = stringr::regex(pattern = paste0("\\b", col_name_normalized, "\\b"),
+                                                        ignore_case = TRUE)) %>%
             magrittr::extract(parties_phrased, .)
         })
       
