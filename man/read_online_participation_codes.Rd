@@ -54,6 +54,7 @@ Other data import functions:
 \code{\link{read_private_file}()},
 \code{\link{read_survey_data}()},
 \code{\link{read_voting_register_data_extra}()},
-\code{\link{read_voting_register_ids}()}
+\code{\link{read_voting_register_ids}()},
+\code{\link{tidy_cols}()}
 }
 \concept{data_import}

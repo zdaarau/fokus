@@ -5616,6 +5616,33 @@ read_private_file <- function(path,
   )
 }
 
+#' Tidy columns
+#'
+#' Renames a data frame's columns and converts them to their proper types. Aimed at datasets published by cantonal statistical offices.
+#'
+#' @param data Data frame whose columns are to be converted.
+#' @param default_type [readr column type][readr::col_character] to which columns are to be converted for which no explicit type is predefined.
+#'
+#' @return `data` 
+#' @family data_import
+#' @export
+tidy_cols <- function(data,
+                      default_type = readr::col_character()) {
+  data |>
+    # rename cols
+    pal::rename_from(dict = dicts$colnames$ballots) |>
+    # remove `.0` suffix from numbers to avoid warnings from `readr::type_convert()` below
+    dplyr::mutate(dplyr::across(.cols = where(is.character),
+                                .fns = \(x) stringr::str_replace(string = x,
+                                                                 pattern = "^(\\d+)\\.0$",
+                                                                 replacement = "\\1"))) %>%
+    # tidy col types
+    # NOTE: we must reduce `col_types` to the ones actually present in `data` to avoid warnings
+    readr::type_convert(col_types = readr::cols(!!!col_types[intersect(names(col_types),
+                                                                       colnames(.))],
+                                                .default = default_type))
+}
+
 #' Export questionnaire data
 #'
 #' Generates the [questionnaire tibble][gen_qstnr_tibble], the [Markdown questionnaire][gen_qstnr_md] and optionally a CSV, an HTML and an XLSX version of it,

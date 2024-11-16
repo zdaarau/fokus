@@ -46,7 +46,8 @@ Other data import functions:
 \code{\link{read_online_participation_codes}()},
 \code{\link{read_survey_data}()},
 \code{\link{read_voting_register_data_extra}()},
-\code{\link{read_voting_register_ids}()}
+\code{\link{read_voting_register_ids}()},
+\code{\link{tidy_cols}()}
 
 Other private FOKUS repository functions:
 \code{\link{print_private_repo_structure}()},

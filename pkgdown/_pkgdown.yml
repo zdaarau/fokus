@@ -114,6 +114,7 @@ reference:
   - read_voting_register_data_extra
   - read_voting_register_ids
   - read_private_file
+  - tidy_cols
 - subtitle: Data export
   desc: Functions to export data necessary to conduct a FOKUS survey and perform survey
     data analysis.
