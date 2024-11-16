@@ -151,7 +151,7 @@ NOTES:
         `data-raw/ballots/{ballot_date}_{canton}_{lvl}_proposal_{proposal_nr}.csv` or
         `data-raw/ballots/{ballot_date}_{canton}_{lvl}_majoritarian_election_{election_nr}.csv`, respectively.
 
-    -   *proportional election*, a CSV file containing the officially apportioned party vote numbers is expected to be present at
+    -   *proportional election*, a CSV file containing the officially apportioned party voter numbers is expected to be present at
         `data-raw/ballots/{ballot_date}_{canton}_federal_proportional_election_{election_nr}_votes.csv` and
         `data-raw/ballots/{ballot_date}_{canton}_cantonal_proportional_election_{election_nr}_votes_apportioned.csv` respectively. Additionally, a common CSV
         file containing the electorate and turnout numbers of all proportional elections in the respective canton on the respective political level is expected
@@ -229,20 +229,14 @@ ballots$referendum <-
                         locale = readr::locale(date_names = "de",
                                                encoding = "latin1"),
                         na = na_vals,
-                        col_types = "dcDddddddddddd") |>
-      # rename cols
-      pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
+                        col_types = readr::cols(.default = readr::col_character())) |>
+      # tidy cols
+      fokus::tidy_cols() |>
       # remove all-NA cols (`AUSL_SCHWEIZER` before e-voting suspension)
       dplyr::select(-where(\(x) all(is.na(x)))) |>
-      # tidy col types and add remaining cols
-      dplyr::mutate(dplyr::across(.cols = c(any_of("fso_id"),
-                                            starts_with("electorate_"),
-                                            starts_with("votes_"),
-                                            contains("_votes_")),
-                                  .fns = as.integer),
-                    lvl = combo$lvl,
+      # add remaining cols
+      dplyr::mutate(lvl = combo$lvl,
                     canton = combo$canton,
-                    ballot_type = "referendum",
                     proposal_nr = combo$proposal_nr,
                     .after = ballot_date)
     
@@ -264,6 +258,7 @@ ballots$referendum <-
   purrr::list_rbind()
 
 # add election data
+## per-election datasets
 ballots$election <-
   fokus::combos_elections() %>%
   magrittr::set_names(value = purrr::map_chr(.,
@@ -298,13 +293,13 @@ ballots$election <-
                           locale = readr::locale(date_names = "de",
                                                  encoding = "latin1"),
                           na = na_vals,
-                          col_types = list(.default = "c")) |>
+                          col_types = readr::cols(.default = readr::col_character())) |>
         # remove garbage from raw col names
         dplyr::rename_with(.cols = everything(),
                            .fn = \(x) stringr::str_remove_all(string = x,
                                                               pattern = stringr::fixed("#"))) |>
-        # rename common cols
-        pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
+        # tidy common cols
+        fokus::tidy_cols() |>
         # ensure we renamed all non-candidate-specific col names
         pal::when(length(candidates_phrased) != length(stringr::str_subset(colnames(.), "^[[:upper:]_\\s]+$")) ~
                     cli::cli_abort(paste0("There are raw non-candidate-specific column names left. Please debug. Raw column names include: ",
@@ -328,9 +323,8 @@ ballots$election <-
                                                                                                 ignore_case = TRUE)))
                              candidates_phrased[ix]
                            }) |>
-        # convert col types
-        dplyr::mutate(ballot_date = clock::date_parse(ballot_date),
-                      dplyr::across(.cols = -any_of(c("entity", "ballot_date")),
+        # convert remaining col types
+        dplyr::mutate(dplyr::across(.cols = -any_of(c("entity", "ballot_date")),
                                     .fns = \(x) as.integer(as.numeric(x))))
     } else {
       
@@ -349,24 +343,22 @@ ballots$election <-
                             locale = readr::locale(date_names = "de",
                                                    encoding = "latin1"),
                             na = na_vals,
-                            col_types = list(.default = "c")) |>
-          # rename common cols
-          pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
-          # convert col types
-          dplyr::mutate(ballot_date = clock::date_parse(ballot_date),
-                        dplyr::across(.cols = -any_of(c("entity", "ballot_date")),
+                            col_types = readr::cols(.default = readr::col_character())) |>
+          # tidy cols
+          fokus::tidy_cols() |>
+          # convert remaining col types
+          dplyr::mutate(dplyr::across(.cols = -any_of(c("entity", "ballot_date")),
                                       .fns = \(x) as.integer(as.numeric(x))))
       } else {
         
         result <-
           readr::read_csv(file = path_file,
                           na = na_vals,
-                          col_types = list(.default = "c")) |>
-          # rename common cols
-          pal::rename_from(dict = fokus:::dicts$colnames$ballots) |>
-          # convert col types
-          dplyr::mutate(electorate_total = as.integer(electorate_total),
-                        dplyr::across(.cols = -any_of(c("entity", "electorate_total")),
+                          col_types = readr::cols(.default = readr::col_character())) |>
+          # tidy cols
+          fokus::tidy_cols() |>
+          # convert remaining col types
+          dplyr::mutate(dplyr::across(.cols = -any_of(c("entity", "electorate_total")),
                                       .fns = \(x) as.numeric(x)))
       }
       
@@ -438,6 +430,47 @@ ballots$election <-
   }) |>
   purrr::compact()
 
+## per-lvl electorate and turnout dataset for proportional elections
+ballots$election$common <-
+  fokus::combos_elections(prcds = "proportional",
+                          incl_nr = FALSE) |>
+  purrr::map_dfr(tibble::as_tibble_row) |>
+  dplyr::select(-c(ballot_date, prcd)) |>
+  unique() |>
+  purrr::pmap(\(lvl, canton) {
+    
+    path_file <- glue::glue("data-raw/ballots/{canton}_{lvl}_proportional_elections_electorate.csv")
+    
+    if (!fs::file_exists(path_file)) {
+      cli::cli_alert_warning(paste0("No raw ballot CSV data file found under {.file {path_file}}. Please add the necessary CSV file and run again in order to ",
+                                    "generate the corresponding {.var ballots} results data."))
+      return(NULL)
+    }
+    
+    # read in all cols as chr
+    readr::read_delim(file = path_file,
+                      delim = ";",
+                      locale = readr::locale(date_names = "de",
+                                             encoding = "latin1"),
+                      na = na_vals,
+                      col_types = readr::cols(.default = readr::col_character())) |>
+      fokus::tidy_cols() |>
+      dplyr::mutate(lvl = lvl,
+                    canton = canton,
+                    # numbers are not apportioned, so we can use int
+                    voters_total = as.integer(voters_total))
+  }) |>
+  purrr::list_rbind() |>
+  dplyr::relocate(any_of(c("fso_id",
+                           "ballot_date",
+                           "lvl",
+                           "canton")),
+                  everything()) |>
+  dplyr::mutate(dplyr::across(.cols = c(any_of("fso_id"),
+                                        starts_with("electorate_"),
+                                        starts_with("votes_"),
+                                        contains("_votes_")),
+                              .fns = as.integer))
 # clean up
 rm(na_vals)
 ```
