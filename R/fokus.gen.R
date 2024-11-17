@@ -2038,6 +2038,7 @@ req_private_file <- function(path,
 }
 
 set_private_repo_connection <- function(auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   checkmate::assert_string(auth_token)
   rlang::check_installed(pkg = "gitlabr",
                          reason = pal::reason_pkg_required())
