@@ -2062,7 +2062,7 @@ set_private_repo_connection <- function(auth_token = pal::pkg_config_val("token_
 url_repo_private <- function(...,
                              .branch = repo_private_default_branch) {
   
-  result <- "https://gitlab.com/c2d-zda/private/fokus_private/"
+  result <- "https://gitlab.com/zdaarau/private/fokus_private/"
   
   if (...length() > 0L) {
     checkmate::assert_string(.branch)

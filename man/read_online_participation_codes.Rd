@@ -32,7 +32,7 @@ read_online_participation_codes(
 \item{use_cache}{Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 actually changed since the last download. If \code{FALSE}, the file is always newly fetched.}
 
-\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}.}
+\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository}.}
 }
 \value{
 A character vector.

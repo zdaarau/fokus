@@ -29,7 +29,7 @@ if \code{from_file = TRUE}.}
 
 \item{branch}{Git branch name to upload the file to.}
 
-\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}.}
+\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository}.}
 
 \item{quiet}{Whether or not to suppress printing status output from internal processing.}
 }
@@ -37,7 +37,7 @@ if \code{from_file = TRUE}.}
 \code{path}, invisibly.
 }
 \description{
-Uploads a file to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository} via \href{https://docs.gitlab.com/ee/api/rest/}{GitLab's RESTful API (v4)}.
+Uploads a file to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository} via \href{https://docs.gitlab.com/ee/api/rest/}{GitLab's RESTful API (v4)}.
 }
 \seealso{
 Other data export functions:

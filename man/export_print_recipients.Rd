@@ -37,7 +37,7 @@ export_print_recipients(
 
 \item{g_drive_folder}{Google Drive folder to upload the generated files to. Ignored if \code{upload_to_g_drive = FALSE}.}
 
-\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}.}
+\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository}.}
 
 \item{quiet}{Whether or not to suppress printing status output from internal processing.}
 

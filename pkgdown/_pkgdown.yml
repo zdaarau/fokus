@@ -106,7 +106,7 @@ reference:
   - elections
   - ballots
 - subtitle: Data import
-  desc: Functions to access FOKUS data from the [private FOKUS repository](https://gitlab.com/c2d-zda/private/fokus_private/).
+  desc: Functions to access FOKUS data from the [private FOKUS repository](https://gitlab.com/zdaarau/private/fokus_private/).
 - contents:
   - read_easyvote_municipalities
   - read_online_participation_codes

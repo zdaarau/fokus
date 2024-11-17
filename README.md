@@ -34,7 +34,7 @@ Some of fokus’s functionality is controlled via package-specific global config
 | FOKUS-covered canton name to fall back to in various functions of this package when it isn’t explicitly specified. Basically a means to globally define the canton to be processed. One of `"aargau"`.                                                                                                                            | `fokus.canton`               | `R_FOKUS_CANTON`               | `"aargau"`                       |
 | Language to fall back to in various functions of this package when it isn’t explicitly specified. Basically a means to globally define the language to process. One of `"de"` and `"en"`.                                                                                                                                         | `fokus.lang`                 | `R_FOKUS_LANG`                 | `"de"`                           |
 | Maximal timespan to preserve the package’s [pkgpins](https://pkgpins.rpkg.dev/) cache. Cache entries older than this will be deleted upon package loading.                                                                                                                                                                        | `fokus.global_max_cache_age` | `R_FOKUS_GLOBAL_MAX_CACHE_AGE` | `"1 day"`                        |
-| [Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private FOKUS repository](https://gitlab.com/c2d-zda/private/fokus_private/).                                                                                                                      | `fokus.token_repo_private`   | `R_FOKUS_TOKEN_REPO_PRIVATE`   | `Sys.getenv("GITLAB_COM_TOKEN")` |
+| [Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private FOKUS repository](https://gitlab.com/zdaarau/private/fokus_private/).                                                                                                                      | `fokus.token_repo_private`   | `R_FOKUS_TOKEN_REPO_PRIVATE`   | `Sys.getenv("GITLAB_COM_TOKEN")` |
 :::
 
 ## Questionnaires
@@ -54,7 +54,7 @@ Generated survey questionnaires are automatically deployed to `qstnr.fokus.ag/{b
 
 ## Private FOKUS directory structure
 
-For part of this package’s functionality, a [personal access token (PAT) of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private FOKUS repository](https://gitlab.com/c2d-zda/private/fokus_private/) is required. This repository contains additional sensitive, non-public (survey) data under the `raw/` subdirectory and certain files are written to its `generated/` subdirectory.
+For part of this package’s functionality, a [personal access token (PAT) of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private FOKUS repository](https://gitlab.com/zdaarau/private/fokus_private/) is required. This repository contains additional sensitive, non-public (survey) data under the `raw/` subdirectory and certain files are written to its `generated/` subdirectory.
 
 <details>
 <summary>

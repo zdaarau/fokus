@@ -17,7 +17,7 @@ Some of fokus's functionality is controlled via package-specific global configur
    FOKUS-covered canton name to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the canton to be processed. One of \code{"aargau"}. \tab \code{fokus.canton} \tab \code{R_FOKUS_CANTON} \tab \code{"aargau"} \cr
    Language to fall back to in various functions of this package when it isn't explicitly specified. Basically a means to globally define the language to process. One of \code{"de"} and \code{"en"}. \tab \code{fokus.lang} \tab \code{R_FOKUS_LANG} \tab \code{"de"} \cr
    Maximal timespan to preserve the package's \href{https://pkgpins.rpkg.dev/}{pkgpins} cache. Cache entries older than this will be deleted upon package loading. \tab \code{fokus.global_max_cache_age} \tab \code{R_FOKUS_GLOBAL_MAX_CACHE_AGE} \tab \code{"1 day"} \cr
-   \href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}. \tab \code{fokus.token_repo_private} \tab \code{R_FOKUS_TOKEN_REPO_PRIVATE} \tab \code{Sys.getenv("GITLAB_COM_TOKEN")} \cr
+   \href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository}. \tab \code{fokus.token_repo_private} \tab \code{R_FOKUS_TOKEN_REPO_PRIVATE} \tab \code{Sys.getenv("GITLAB_COM_TOKEN")} \cr
 }
 }
 

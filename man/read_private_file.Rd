@@ -20,13 +20,13 @@ read_private_file(
 \item{use_cache}{Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 actually changed since the last download. If \code{FALSE}, the file is always newly fetched.}
 
-\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository}.}
+\item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository}.}
 }
 \value{
 The file content, as character scalar if \code{as_chr}, otherwise as a \link[=raw]{raw vector}.
 }
 \description{
-Downloads a file from the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository} and returns it as a raw vector or a character scalar, depending on \code{as_chr}.
+Downloads a file from the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository} and returns it as a raw vector or a character scalar, depending on \code{as_chr}.
 }
 \details{
 Files are downloaded via \href{https://docs.gitlab.com/ee/api/rest/}{GitLab's RESTful API (v4)}. If \code{use_cache = TRUE} (the default), a downloaded file is cached

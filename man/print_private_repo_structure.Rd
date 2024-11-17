@@ -14,7 +14,7 @@ Returns a textual representation of the structure of the private FOKUS repositor
 }
 \details{
 For part of this package’s functionality, a \href{https://gitlab.com/-/user_settings/personal_access_tokens}{personal access token (PAT) of a gitlab.com account} with
-access to the \href{https://gitlab.com/c2d-zda/private/fokus_private/}{private FOKUS repository} is
+access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository} is
 required. This repository contains additional sensitive, non-public
 (survey) data under the \verb{raw/} subdirectory and certain files are
 written to its \verb{generated/} subdirectory.
