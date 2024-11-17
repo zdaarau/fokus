@@ -667,6 +667,17 @@ ballot_date,canton,block,variable_name,variable_name_32,topic,who,question,allow
 2024-10-20,aargau,x_polling_agency,questionnaire_status,questionnaire_status,Fragebogenbeantwortungsstatus,alle,,FALSE,respondent's questionnaire completion status,nicht beendet,3,unfinished,nominal,FALSE,FALSE
 2024-10-20,aargau,x_polling_agency,received_reminder,received_reminder,Erinnerungsschreiben (Dummy),alle,,FALSE,dummy value indicating whether or not the respondent received a postal reminder,kein Erinnerungsschreiben erhalten,0,received no reminder,binary,FALSE,FALSE
 2024-10-20,aargau,x_polling_agency,received_reminder,received_reminder,Erinnerungsschreiben (Dummy),alle,,FALSE,dummy value indicating whether or not the respondent received a postal reminder,Erinnerungsschreiben erhalten,1,received reminder,binary,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Aarau,1,Aarau,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Baden,2,Baden,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Bremgarten,3,Bremgarten,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Brugg,4,Brugg,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Kulm,5,Kulm,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Laufenburg,6,Laufenburg,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Lenzburg,7,Lenzburg,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Muri,8,Muri,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Rheinfelden,9,Rheinfelden,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Zofingen,10,Zofingen,nominal,FALSE,FALSE
+2024-10-20,aargau,x_polling_agency,district,district,Bezirk,alle,,FALSE,respondent's district of residence,Zurzach,11,Zurzach,nominal,FALSE,FALSE
 2024-10-20,aargau,y_generated,age_group,age_group,Altersgruppe,alle,,FALSE,respondent's age group (derived from age),18–29 Jahre,,18–29 years,ordinal_ascending,FALSE,FALSE
 2024-10-20,aargau,y_generated,age_group,age_group,Altersgruppe,alle,,FALSE,respondent's age group (derived from age),30–39 Jahre,,30–39 years,ordinal_ascending,FALSE,FALSE
 2024-10-20,aargau,y_generated,age_group,age_group,Altersgruppe,alle,,FALSE,respondent's age group (derived from age),40–49 Jahre,,40–49 years,ordinal_ascending,FALSE,FALSE

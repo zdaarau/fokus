@@ -4600,7 +4600,6 @@ variable_label = "respondent's district of residence"
 response_options = [ "Aarau", "Baden", "Bremgarten", "Brugg", "Kulm", "Laufenburg", "Lenzburg", "Muri", "Rheinfelden", "Zofingen", "Zurzach" ]
 variable_values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 value_labels = [ "Aarau", "Baden", "Bremgarten", "Brugg", "Kulm", "Laufenburg", "Lenzburg", "Muri", "Rheinfelden", "Zofingen", "Zurzach" ]
-include.false = [ 2024-10-20 ]
 [[x_polling_agency.001_all.item]]
 topic = "[«easyvote»-Broschüre](https://www.easyvote.ch/de/f/angebote/broschuere): Untere Altersgrenze des Gemeinde-Abonnements"
 variable_name = "easyvote_municipality_min_age"
