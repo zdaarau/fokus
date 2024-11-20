@@ -2378,6 +2378,42 @@ assert_integerish <- function(x,
 }
 ```
 
+#### `assert_var_names_present`
+
+TODO:
+
+-   Replace this fn with more sophisticated one that normalizes whole df based on `vctrs::df_cast()`? Error messages wouldn't be ideal for end-users, though...
+    e.g.:
+
+    ``` r
+    vctrs::df_cast(x = mtcars,
+                 to = mtcars |> dplyr::mutate(cyl = as.character(cyl)))
+    ```
+
+    gives
+
+    ```         
+    ! Can't convert `cyl` <double> to match type of `cyl` <character>.
+    ```
+
+    Is there maybe already a data validation pkg that builds upon vctrs?
+
+```{r}
+assert_var_names_present <- function(data,
+                                     var_names) {
+  checkmate::assert_data_frame(data)
+  
+  var_names |> purrr::walk(\(var_name) {
+    
+    if (!(var_name %in% colnames(data))) {
+      cli::cli_abort("{.arg data} must contain a column {.var {var_name}}")
+    }
+  })
+  
+  invisible(data)
+}
+```
+
 #### `assert_var_names_valid`
 
 ```{r}
