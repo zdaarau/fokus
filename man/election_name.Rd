@@ -38,7 +38,7 @@ election_name(
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
 \item{type}{Name type. One of \code{"short"}, \code{"long"}, \code{"body"} or \code{"body_alt"}.}
 }

@@ -55,6 +55,7 @@ Other data export functions:
 \code{\link{export_easyvote_municipalities}()},
 \code{\link{export_print_recipients}()},
 \code{\link{export_qstnr}()},
+\code{\link{export_survey_data}()},
 \code{\link{write_private_file}()}
 }
 \concept{data_export}

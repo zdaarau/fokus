@@ -22,7 +22,7 @@ political_issues(
 \item \code{"2024-10-20"}
 }}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character vector.

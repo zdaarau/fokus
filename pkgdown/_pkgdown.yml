@@ -123,6 +123,7 @@ reference:
   - export_qr_codes
   - export_print_recipients
   - export_easyvote_municipalities
+  - export_survey_data
   - write_private_file
 - title: Variable-related
 - contents:

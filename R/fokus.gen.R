@@ -421,7 +421,6 @@ raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val("ballot_d
                                      proposal_nr = 1L,
                                      side = all_argument_sides,
                                      argument_nr = 1L) {
-  
   side <- rlang::arg_match(side)
   checkmate::assert_count(argument_nr,
                           positive = TRUE)
@@ -555,7 +554,6 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val("ballot_d
                                      canton = pal::pkg_config_val("canton"),
                                      prcd = all_prcds,
                                      election_nr = 1L) {
-  
   prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
@@ -669,6 +667,7 @@ raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val("bal
 #'                              canton = "aargau")
 raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  canton = pal::pkg_config_val("canton")) {
+  
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   result <-
@@ -1667,7 +1666,6 @@ gen_qstnr_md <- function(qstnr_tibble,
 
 qstnr_md_table_body <- function(qstnr_tibble_block,
                                 block) {
-  
   qstnr_tibble_block |>
     # replace logicals by German ja/nein
     dplyr::mutate(dplyr::across(where(is.logical),
@@ -1743,7 +1741,6 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
 
 format_md_multival_col <- function(x,
                                    collapse_break = TRUE) {
-  
   result <- x
   
   if (all(is.na(x))) {
@@ -2007,6 +2004,7 @@ print_private_repo_structure <- function() {
 
 private_file_hash <- function(path,
                               auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   req_private_file(path = path,
                    method = "HEAD",
                    auth_token = auth_token) |>
@@ -2018,6 +2016,7 @@ req_private_file <- function(path,
                              method,
                              max_tries = 3L,
                              auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   checkmate::assert_string(auth_token)
   
   httr2::request(base_url = glue::glue("https://gitlab.com/api/v4/projects/{repo_private_proj_id}/repository/files/", utils::URLencode(path,
@@ -2105,9 +2104,23 @@ assert_integerish <- function(x,
   }
 }
 
-assert_var_names <- function(var_names,
-                             as_scalar = FALSE,
-                             null_ok = FALSE) {
+assert_var_names_present <- function(data,
+                                     var_names) {
+  checkmate::assert_data_frame(data)
+  
+  var_names |> purrr::walk(\(var_name) {
+    
+    if (!(var_name %in% colnames(data))) {
+      cli::cli_abort("{.arg data} must contain a column {.var {var_name}}")
+    }
+  })
+  
+  invisible(data)
+}
+
+assert_var_names_valid <- function(var_names,
+                                   as_scalar = FALSE,
+                                   null_ok = FALSE) {
   
   checkmate::assert_flag(as_scalar)
   
@@ -2206,7 +2219,7 @@ collapse_break <- function(s) {
 #'
 #' Converts a language code as used in many of this package's functions to a country-specific locale identifier.
 #'
-#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = lang_to_locale)`.
+#' @param lang Language. One of `r all_langs |> pal::as_md_vals() |> pal::enum_str(sep2 = " or ")`.
 #'
 #' @return A character scalar.
 #' @keywords internal
@@ -2215,6 +2228,7 @@ collapse_break <- function(s) {
 #' fokus:::lang_to_locale("de")
 #' fokus:::lang_to_locale("en")
 lang_to_locale <- function(lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   switch(lang,
@@ -2232,8 +2246,8 @@ var_predicate <- function(predicate,
                                                  c("ballot_date",
                                                    "canton",
                                                    "variable_name")))
-  assert_var_names(var_names = var_name,
-                   as_scalar = TRUE)
+  assert_var_names_valid(var_names = var_name,
+                         as_scalar = TRUE)
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
@@ -4895,6 +4909,7 @@ skill_question <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            proposal_nr = NULL,
                            skill_question_nr = 1L,
                            lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -5018,6 +5033,7 @@ skill_question_proposal_nrs <- function(ballot_date = pal::pkg_config_val("ballo
 ballot_title <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          canton = cantons(ballot_date),
                          lang = pal::pkg_config_val("lang")) {
+  
   ballot_date %<>% as_ballot_date()
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
@@ -5070,6 +5086,7 @@ ballot_title <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 #'                         lang = "en")
 political_issues <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -5325,19 +5342,11 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val("b
 
 #' Read in generated survey data
 #'
-#' Reads in the FOKUS survey dataset generated by [export_survey_data()] for the specified ballot date in the specified canton and language, optionally merged
+#' @description
+#' Reads in the FOKUS survey dataset exported by [export_survey_data()] for the specified ballot date in the specified canton and language, optionally merged
 #' with all prior survey datasets for that canton and language.
 #'
-#' # Merged data
-#'
-#' Merged datasets differ from single-ballot-date datasets in two ways:
-#'   
-#' 1. Column **labels** (the `label` attribute) are ballot-date-independent, i.e. do not include proposal or election names, and in case of question rewordings
-#'    over time, the very *latest* question wording of all FOKUS surveys in that canton is used (which might have been introduced only after `ballot_date`). So
-#'    be aware that the questions in the labels do not necessarily correspond to the actual questions asked in the FOKUS survey for `ballot_date`.
-#'
-#' 2. Variables whose **factor levels** vary across ballot dates, such as those capturing skill questions, are converted to type character. Be aware that these
-#'    variables usually aren't really comparable over time.
+#' @includeRmd data-raw/snippets/merged_data.Rmd
 #'
 #' @inheritParams ballot_title
 #' @inheritParams read_private_file
@@ -5597,6 +5606,7 @@ read_private_file <- function(path,
                               as_chr = FALSE,
                               use_cache = TRUE,
                               auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   checkmate::assert_flag(as_chr)
   checkmate::assert_string(path)
   
@@ -6021,7 +6031,6 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ba
                                            auth_token = pal::pkg_config_val("token_repo_private"),
                                            quiet = FALSE,
                                            verbose = FALSE) {
-  
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
@@ -6067,7 +6076,83 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ba
   invisible(result)
 }
 
-
+#' Export generated survey data
+#'
+#' @description
+#' Exports a FOKUS survey dataset generated via *TODO* to the [private FOKUS repository][print_private_repo_structure].
+#' 
+#' @includeRmd data-raw/snippets/merged_data.Rmd
+#'
+#' @inheritParams write_private_file
+#' @param data FOKUS survey dataset. `r pkgsnip::param_lbl("tibble")`
+#' @param lang Language. Either `NULL` to read the language from `data`'s `fokus_lang` attribute or one of
+#'   `r all_langs |> pal::as_md_vals() |> pal::enum_str(sep2 = " or ")`.
+#' @param merged Whether or not `data` is a *merged* dataset, i.e. one that includes the data from **all** ballot dates that were covered by FOKUS surveys up
+#'   until the most recent `ballot_date` contained in `data`. See section *Merged data* below for details.
+#' 
+#'   If `NULL`, a merged dataset is assumed if `data` covers multiple `ballot_date`s.
+#'
+#' @return `data`, invisibly.
+#' @family data_export
+#' @export
+export_survey_data <- function(data,
+                               lang = NULL,
+                               merged = NULL,
+                               auth_token = pal::pkg_config_val("token_repo_private")) {
+  lang <-
+    lang %||%
+    attr(data, "fokus_lang") %||%
+    cli::cli_abort("{.arg lang} must be explicitly specified since {.arg data} lacks a {.field fokus_lang} attribute to detect the language from.")
+  
+  lang <- rlang::arg_match(arg = lang,
+                             values = all_langs)
+  checkmate::assert_flag(merged,
+                         null.ok = TRUE)
+  
+  assert_var_names_present(data = data,
+                           var_names = c("ballot_date", "canton"))
+  if (is.null(merged)) {
+    merged <- unique(data$ballot_date) > 1L
+  }
+  
+  ballot_date <- checkmate::assert_date(unique(data$ballot_date),
+                                        any.missing = FALSE,
+                                        min.len = 1L)
+  canton <- checkmate::assert_character(unique(data$canton),
+                                        any.missing = FALSE,
+                                        min.len = 1L)
+  # assemble target path
+  path <- "generated/survey_data_"
+  
+  if (!merged) {
+    if (!checkmate::test_scalar(ballot_date)) {
+      cli::cli_abort("Column {.var ballot_date} mustn't contain different dates when {.code merged = FALSE}.")
+    }
+    if (!checkmate::test_scalar(canton)) {
+      cli::cli_abort("Column {.var canton} mustn't contain different cantons when {.code merged = FALSE}.")
+    }
+    path %<>% paste0("{lang}_{ballot_date}_{canton}")
+  } else {
+    if (length(ballot_date) > 1L) {
+      ballot_date %<>% max()
+    }
+    if (length(canton) > 1L) {
+      path %<>% paste0("merged_{lang}_{ballot_date}")
+    } else {
+      path %<>% paste0("merged_{lang}_{ballot_date}_{canton}")
+    }
+  }
+  
+  # write data
+  data |>
+    serialize(connection = NULL,
+              xdr = FALSE) |>
+    memCompress(type = "xz") |>
+    write_private_file(path = paste0(path, ".rds"),
+                       auth_token = auth_token)
+  
+  invisible(data)
+}
 
 #' Write file to private FOKUS repository
 #'
@@ -6363,6 +6448,7 @@ var_val_set <- function(var_name,
                         ballot_date = pal::pkg_config_val("ballot_date"),
                         canton = cantons(ballot_date),
                         lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = c(all_langs, "int"))
   
@@ -6556,6 +6642,7 @@ restore_colnames <- function(x) {
 phrase <- function(term,
                    vals,
                    lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   term <- rlang::arg_match(arg = term,
@@ -6586,6 +6673,7 @@ phrase <- function(term,
 phrase_date <- function(x = pal::pkg_config_val("ballot_date"),
                         format = "date_long",
                         lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   

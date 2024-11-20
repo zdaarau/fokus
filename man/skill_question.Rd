@@ -40,7 +40,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{skill_question_nr}{Skill question number. A positive integerish scalar.}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

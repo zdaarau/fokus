@@ -11,7 +11,7 @@ phrase(term, vals, lang = pal::pkg_config_val("lang"))
 
 \item{vals}{Value(s) of \code{term} to be phrased. A character vector.}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

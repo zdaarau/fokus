@@ -32,7 +32,7 @@ election_names_combined(
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
 \item{federal_first}{Whether or not to list federal elections before cantonal ones. Only has an effect if \code{"federal" \%in\% lvls}.}
 }

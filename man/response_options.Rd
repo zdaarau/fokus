@@ -24,7 +24,7 @@ response_options(
 \item \code{"yes"}
 }}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
 \item{subtypes}{Hierarchical response option subtypes as a character vector, or \code{NULL}. If \code{NULL}, all subtypes are returned.}
 }

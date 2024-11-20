@@ -28,7 +28,7 @@ ballot_title(
 \item \code{"aargau"}
 }}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

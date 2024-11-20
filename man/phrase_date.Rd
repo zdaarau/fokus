@@ -17,7 +17,7 @@ phrase_date(
 \code{"date_short"}, \code{"date_medium"}, \code{"date_long"}, \code{"date_full"}, \code{"time_short"}, \code{"time_medium"}, \code{"time_long"} and \code{"time_full"}.
 See \code{\link[stringi:stri_datetime_format]{stringi::stri_datetime_format()}} for details.}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

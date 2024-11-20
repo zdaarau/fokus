@@ -7,7 +7,7 @@
 lang_to_locale(lang = pal::pkg_config_val("lang"))
 }
 \arguments{
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A character scalar.

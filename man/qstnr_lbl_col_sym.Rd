@@ -7,7 +7,7 @@
 qstnr_lbl_col_sym(lang = pal::pkg_config_val("lang"))
 }
 \arguments{
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 }
 \value{
 A \link[base:name]{symbol}.

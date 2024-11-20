@@ -37,7 +37,7 @@ Only relevant if \code{lvl = "cantonal"}.}
 
 \item{proposal_nr}{Proposal number. A positive integerish scalar.}
 
-\item{lang}{Language. One of \code{"de"}.}
+\item{lang}{Language. One of \code{"de"} or \code{"en"}.}
 
 \item{type}{Name type. One of \code{"short"} or \code{"long"}.}
 }
