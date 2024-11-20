@@ -6164,8 +6164,6 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 
 #### !`read_survey_data_raw`
 
-Keep this fn internal?
-
 ```{r, purl = FALSE}
 read_survey_data_raw <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  canton = cantons(ballot_date)) {
