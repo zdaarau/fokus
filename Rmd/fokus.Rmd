@@ -6940,7 +6940,7 @@ export_survey_data <- function(data,
   assert_var_names_present(data = data,
                            var_names = c("ballot_date", "canton"))
   if (is.null(merged)) {
-    merged <- unique(data$ballot_date) > 1L
+    merged <- length(unique(data$ballot_date)) > 1L
   }
   
   ballot_date <- checkmate::assert_date(unique(data$ballot_date),
