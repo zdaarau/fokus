@@ -2378,12 +2378,12 @@ assert_integerish <- function(x,
 }
 ```
 
-#### `assert_var_names`
+#### `assert_var_names_valid`
 
 ```{r}
-assert_var_names <- function(var_names,
-                             as_scalar = FALSE,
-                             null_ok = FALSE) {
+assert_var_names_valid <- function(var_names,
+                                   as_scalar = FALSE,
+                                   null_ok = FALSE) {
   
   checkmate::assert_flag(as_scalar)
   
@@ -2546,8 +2546,8 @@ var_predicate <- function(predicate,
                                                  c("ballot_date",
                                                    "canton",
                                                    "variable_name")))
-  assert_var_names(var_names = var_name,
-                   as_scalar = TRUE)
+  assert_var_names_valid(var_names = var_name,
+                         as_scalar = TRUE)
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
