@@ -2550,7 +2550,7 @@ collapse_break <- function(s) {
 #'
 #' Converts a language code as used in many of this package's functions to a country-specific locale identifier.
 #'
-#' @param lang Language. One of `r pal::enum_fn_param_defaults(param = "lang", fn = lang_to_locale)`.
+#' @param lang Language. One of `r all_langs |> pal::as_md_vals() |> pal::enum_str(sep2 = " or ")`.
 #'
 #' @return A character scalar.
 #' @keywords internal
