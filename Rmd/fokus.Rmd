@@ -1853,7 +1853,6 @@ NOTES:
 ```{r}
 qstnr_md_table_body <- function(qstnr_tibble_block,
                                 block) {
-  
   qstnr_tibble_block |>
     # replace logicals by German ja/nein
     dplyr::mutate(dplyr::across(where(is.logical),
@@ -1933,7 +1932,6 @@ qstnr_md_table_body <- function(qstnr_tibble_block,
 ```{r}
 format_md_multival_col <- function(x,
                                    collapse_break = TRUE) {
-  
   result <- x
   
   if (all(is.na(x))) {
@@ -2239,6 +2237,7 @@ print_private_repo_structure <- function() {
 ```{r}
 private_file_hash <- function(path,
                               auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   req_private_file(path = path,
                    method = "HEAD",
                    auth_token = auth_token) |>
@@ -2254,6 +2253,7 @@ req_private_file <- function(path,
                              method,
                              max_tries = 3L,
                              auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   checkmate::assert_string(auth_token)
   
   httr2::request(base_url = glue::glue("https://gitlab.com/api/v4/projects/{repo_private_proj_id}/repository/files/", utils::URLencode(path,
@@ -2524,6 +2524,7 @@ collapse_break <- function(s) {
 #' fokus:::lang_to_locale("de")
 #' fokus:::lang_to_locale("en")
 lang_to_locale <- function(lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   switch(lang,
@@ -6826,7 +6827,6 @@ export_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ba
                                            auth_token = pal::pkg_config_val("token_repo_private"),
                                            quiet = FALSE,
                                            verbose = FALSE) {
-  
   ballot_date %<>% as_ballot_date()
   canton <- rlang::arg_match(arg = canton,
                              values = cantons(ballot_date))
@@ -7213,6 +7213,7 @@ var_val_set <- function(var_name,
                         ballot_date = pal::pkg_config_val("ballot_date"),
                         canton = cantons(ballot_date),
                         lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = c(all_langs, "int"))
   
@@ -7450,6 +7451,7 @@ restore_colnames <- function(x) {
 phrase <- function(term,
                    vals,
                    lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   term <- rlang::arg_match(arg = term,
@@ -7484,6 +7486,7 @@ phrase <- function(term,
 phrase_date <- function(x = pal::pkg_config_val("ballot_date"),
                         format = "date_long",
                         lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
