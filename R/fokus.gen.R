@@ -6105,7 +6105,7 @@ export_survey_data <- function(data,
     cli::cli_abort("{.arg lang} must be explicitly specified since {.arg data} lacks a {.field fokus_lang} attribute to detect the language from.")
   
   lang <- rlang::arg_match(arg = lang,
-                             values = all_langs)
+                           values = all_langs)
   checkmate::assert_flag(merged,
                          null.ok = TRUE)
   
@@ -6148,7 +6148,7 @@ export_survey_data <- function(data,
     serialize(connection = NULL,
               xdr = FALSE) |>
     memCompress(type = "xz") |>
-    write_private_file(path = paste0(path, ".rds"),
+    write_private_file(path = glue::glue(path, ".rds"),
                        auth_token = auth_token)
   
   invisible(data)
