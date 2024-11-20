@@ -474,7 +474,6 @@ raw_qstnr_suppl_argument <- function(ballot_date = pal::pkg_config_val("ballot_d
                                      proposal_nr = 1L,
                                      side = all_argument_sides,
                                      argument_nr = 1L) {
-  
   side <- rlang::arg_match(side)
   checkmate::assert_count(argument_nr,
                           positive = TRUE)
@@ -625,7 +624,6 @@ raw_qstnr_suppl_election <- function(ballot_date = pal::pkg_config_val("ballot_d
                                      canton = pal::pkg_config_val("canton"),
                                      prcd = all_prcds,
                                      election_nr = 1L) {
-  
   prcd <- rlang::arg_match(prcd)
   checkmate::assert_count(election_nr,
                           positive = TRUE)
@@ -747,6 +745,7 @@ raw_qstnr_suppl_election_name <- function(ballot_date = pal::pkg_config_val("bal
 #'                              canton = "aargau")
 raw_qstnr_suppl_mode <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  canton = pal::pkg_config_val("canton")) {
+  
   canton <- rlang::arg_match(arg = canton,
                              values = all_cantons)
   result <-
@@ -5583,6 +5582,7 @@ skill_question <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                            proposal_nr = NULL,
                            skill_question_nr = 1L,
                            lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -5728,6 +5728,7 @@ TODO:
 ballot_title <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                          canton = cantons(ballot_date),
                          lang = pal::pkg_config_val("lang")) {
+  
   ballot_date %<>% as_ballot_date()
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
@@ -5784,6 +5785,7 @@ ballot_title <- function(ballot_date = pal::pkg_config_val("ballot_date"),
 #'                         lang = "en")
 political_issues <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                              lang = pal::pkg_config_val("lang")) {
+  
   lang <- rlang::arg_match(arg = lang,
                            values = all_langs)
   
@@ -6167,7 +6169,6 @@ Keep this fn internal?
 ```{r, purl = FALSE}
 read_survey_data_raw <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                                  canton = cantons(ballot_date)) {
-  
   # TODO
 }
 ```
@@ -6397,6 +6398,7 @@ read_private_file <- function(path,
                               as_chr = FALSE,
                               use_cache = TRUE,
                               auth_token = pal::pkg_config_val("token_repo_private")) {
+  
   checkmate::assert_flag(as_chr)
   checkmate::assert_string(path)
   
