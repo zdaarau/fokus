@@ -1,0 +1,10 @@
+# Merged data
+
+Merged datasets differ from single-ballot-date datasets in two ways:
+
+1.  Column **labels** (the `label` attribute) are ballot-date-independent, i.e. do not include proposal or election names, and in case of question rewordings
+    over time, the very *latest* question wording of all FOKUS surveys in that canton is used (which might have been introduced only after `ballot_date`). So be
+    aware that the questions in the labels do not necessarily correspond to the actual questions asked in the FOKUS survey for `ballot_date`.
+
+2.  Variables whose **factor levels** vary across ballot dates, such as those capturing skill questions, are converted to type character. Be aware that these
+    variables usually aren't really comparable over time.
