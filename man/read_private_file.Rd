@@ -6,7 +6,6 @@
 \usage{
 read_private_file(
   path,
-  as_chr = FALSE,
   use_cache = TRUE,
   auth_token = pal::pkg_config_val("token_repo_private")
 )
@@ -14,19 +13,17 @@ read_private_file(
 \arguments{
 \item{path}{File path relative to the repository root.}
 
-\item{as_chr}{Whether to return the file content as a character scalar, which is only recommended for text files. If \code{FALSE}, the file is returned as a
-\link[=raw]{raw vector} instead.}
-
 \item{use_cache}{Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 actually changed since the last download. If \code{FALSE}, the file is always newly fetched.}
 
 \item{auth_token}{\href{https://gitlab.com/-/user_settings/personal_access_tokens}{Personal access token of a gitlab.com account} with access to the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository}.}
 }
 \value{
-The file content, as character scalar if \code{as_chr}, otherwise as a \link[=raw]{raw vector}.
+The file content, as character scalar for text files, otherwise as a \link[=raw]{raw vector}.
 }
 \description{
-Downloads a file from the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository} and returns it as a raw vector or a character scalar, depending on \code{as_chr}.
+Downloads a file from the \href{https://gitlab.com/zdaarau/private/fokus_private/}{private FOKUS repository} and returns it as a character scalar in case of a text file, or a \link{raw} vector
+otherwise.
 }
 \details{
 Files are downloaded via \href{https://docs.gitlab.com/ee/api/rest/}{GitLab's RESTful API (v4)}. If \code{use_cache = TRUE} (the default), a downloaded file is cached

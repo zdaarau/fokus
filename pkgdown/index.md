@@ -4,6 +4,8 @@
 
 fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.
 
+***Porting all the functionality from the legacy [`fokus_aargau` repository](https://gitlab.com/c2d-zda/fokus_aargau/) to this R package and the separate [`fokus_reports` Quarto project](https://gitlab.com/zdaarau/fokus_reports) is still work in progress.***
+
 ## Installation
 
 To install the latest development version of fokus, run the following in R:
@@ -97,7 +99,7 @@ The following placeholders are used in the schema above:
 
 ### R Markdown format
 
-This package's source code is written in the [R Markdown](https://rmarkdown.rstudio.com/) file format to facilitate practices commonly referred to as [*literate programming*](https://en.wikipedia.org/wiki/Literate_programming). It allows the actual code to be freely mixed with explanatory and supplementary information in expressive Markdown format instead of having to rely on [`#` comments](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Comments) only.
+This package's source code is written in the [R Markdown](https://rmarkdown.rstudio.com/) file format to facilitate practices commonly referred to as [*literate programming*](https://en.wikipedia.org/wiki/Literate_programming). It allows the actual code to be freely mixed with explanatory and supplementary information in expressive Markdown format instead of having to rely on [`#` comments](https://rstudio.github.io/r-manuals/r-lang/Parser.html#comments) only.
 
 All the `.gen.R` suffixed R source code found under [`R/`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/R/) is generated from the respective R Markdown counterparts under [`Rmd/`](https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/Rmd/) using [`pkgpurl::purl_rmd()`](https://pkgpurl.rpkg.dev/dev/reference/purl_rmd.html)[^1]. Always make changes only to the `.Rmd` files -- never the `.R` files -- and then run `pkgpurl::purl_rmd()` to regenerate the R source files.
 
@@ -175,6 +177,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   conditions                                cnds
   configurations                            configs
   configure, configuration                  config
+  connection                                conn
+  connections                               conns
   current                                   cur
   database                                  db
   dataframe                                 df
@@ -265,6 +269,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   logicals                                  lgls
   management                                mgmt
   Markdown                                  md
+  matrices                                  mats
+  matrix                                    mat
   message                                   msg
   messages                                  msgs
   modifications                             mods
@@ -298,6 +304,8 @@ The abbreviations used to name things (function and parameter names etc.) in thi
   primary keys                              pks
   procedures                                prcds
   proceed, procedure                        prcd
+  projection, project                       proj
+  projections, projects                     projs
   properties                                props
   property                                  prop
   prototype                                 ptype

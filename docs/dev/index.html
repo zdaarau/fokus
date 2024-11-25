@@ -69,6 +69,7 @@
 </h1></div>
 <p></p>
 <p>fokus allows to (pre-)process and clean the raw data, analyze and visualize the cleaned data, create the questionnaires and provides other utility functions around the FOKUS post-voting surveys by the Centre for Democracy Studies Aarau (ZDA) at the University of Zurich, Switzerland.</p>
+<p><strong><em>Porting all the functionality from the legacy <a href="https://gitlab.com/c2d-zda/fokus_aargau/" class="external-link"><code>fokus_aargau</code> repository</a> to this R package and the separate <a href="https://gitlab.com/zdaarau/fokus_reports" class="external-link"><code>fokus_reports</code> Quarto project</a> is still work in progress.</em></strong></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -209,7 +210,7 @@
 <div class="section level3">
 <h3 id="r-markdown-format">R Markdown format<a class="anchor" aria-label="anchor" href="#r-markdown-format"></a>
 </h3>
-<p>This package’s source code is written in the <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> file format to facilitate practices commonly referred to as <a href="https://en.wikipedia.org/wiki/Literate_programming" class="external-link"><em>literate programming</em></a>. It allows the actual code to be freely mixed with explanatory and supplementary information in expressive Markdown format instead of having to rely on <a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Comments" class="external-link"><code>#</code> comments</a> only.</p>
+<p>This package’s source code is written in the <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> file format to facilitate practices commonly referred to as <a href="https://en.wikipedia.org/wiki/Literate_programming" class="external-link"><em>literate programming</em></a>. It allows the actual code to be freely mixed with explanatory and supplementary information in expressive Markdown format instead of having to rely on <a href="https://rstudio.github.io/r-manuals/r-lang/Parser.html#comments" class="external-link"><code>#</code> comments</a> only.</p>
 <p>All the <code>.gen.R</code> suffixed R source code found under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/R/" class="external-link"><code>R/</code></a> is generated from the respective R Markdown counterparts under <a href="https://gitlab.com/zdaarau/rpkgs/fokus/-/tree/master/Rmd/" class="external-link"><code>Rmd/</code></a> using <a href="https://pkgpurl.rpkg.dev/dev/reference/purl_rmd.html" class="external-link"><code>pkgpurl::purl_rmd()</code></a><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;The very idea to leverage the R Markdown format to author R packages was originally proposed by Yihui Xie. See his excellent &lt;a href="https://yihui.name/rlp/" class="external-link"&gt;blog post&lt;/a&gt; for his point of view on the advantages of literate programming techniques and some practical examples. Note that using &lt;code&gt;&lt;a href="https://pkgpurl.rpkg.dev/reference/purl_rmd.html" class="external-link"&gt;pkgpurl::purl_rmd()&lt;/a&gt;&lt;/code&gt; is a less cumbersome alternative to the Makefile approach outlined by him.&lt;/p&gt;'><sup>1</sup></a>. Always make changes only to the <code>.Rmd</code> files – never the <code>.R</code> files – and then run <code><a href="https://pkgpurl.rpkg.dev/reference/purl_rmd.html" class="external-link">pkgpurl::purl_rmd()</a></code> to regenerate the R source files.</p>
 </div>
 <div class="section level3">
@@ -374,6 +375,14 @@
 <tr>
 <td align="left">configure, configuration</td>
 <td align="left">config</td>
+</tr>
+<tr>
+<td align="left">connection</td>
+<td align="left">conn</td>
+</tr>
+<tr>
+<td align="left">connections</td>
+<td align="left">conns</td>
 </tr>
 <tr>
 <td align="left">current</td>
@@ -736,6 +745,14 @@
 <td align="left">md</td>
 </tr>
 <tr>
+<td align="left">matrices</td>
+<td align="left">mats</td>
+</tr>
+<tr>
+<td align="left">matrix</td>
+<td align="left">mat</td>
+</tr>
+<tr>
 <td align="left">message</td>
 <td align="left">msg</td>
 </tr>
@@ -866,6 +883,14 @@
 <tr>
 <td align="left">proceed, procedure</td>
 <td align="left">prcd</td>
+</tr>
+<tr>
+<td align="left">projection, project</td>
+<td align="left">proj</td>
+</tr>
+<tr>
+<td align="left">projections, projects</td>
+<td align="left">projs</td>
 </tr>
 <tr>
 <td align="left">properties</td>
