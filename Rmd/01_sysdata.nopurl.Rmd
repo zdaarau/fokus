@@ -502,6 +502,14 @@ qstnr_non_item_lvls <- c("title",
                          "link")
 ```
 
+## `repo_private_default_branch`
+
+```{r}
+repo_private_default_branch <- gitlab::project_default_branch(id_project = fokus:::repo_private_proj_id,
+                                                              token = pal::pkg_config_val(key = "token_repo_private",
+                                                                                          pkg = "fokus"))
+```
+
 ## `shortening_rules`
 
 Variable name shortening rules
@@ -623,6 +631,7 @@ usethis::use_data(all_ballot_dates,
                   qstnr_item_keys,
                   qstnr_item_keys_multival,
                   qstnr_non_item_lvls,
+                  repo_private_default_branch,
                   shortening_rules,
                   internal = TRUE,
                   overwrite = TRUE,

@@ -2273,21 +2273,6 @@ req_private_file <- function(path,
 }
 ```
 
-#### `set_private_repo_connection`
-
-```{r}
-set_private_repo_connection <- function(auth_token = pal::pkg_config_val("token_repo_private")) {
-  
-  checkmate::assert_string(auth_token)
-  rlang::check_installed(pkg = "gitlabr",
-                         reason = pal::reason_pkg_required())
-  
-  gitlabr::set_gitlab_connection(gitlab_con = gitlabr::gl_project_connection(gitlab_url = "https://gitlab.com",
-                                                                             project = repo_private_proj_id,
-                                                                             private_token = auth_token))
-}
-```
-
 #### `url_repo_private`
 
 NOTES:
@@ -2694,7 +2679,6 @@ qstnr_md_table_header <-
 ### `repo_private_*`
 
 ```{r}
-repo_private_default_branch <- "master"
 repo_private_proj_id <- 21325371L
 ```
 
@@ -6019,11 +6003,11 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ball
   date_boundary_lower <- ballot_date - 90L
   date_boundary_upper <- ballot_date + 20L
   
-  set_private_repo_connection(auth_token = auth_token)
-  
   date_data <-
-    gitlabr::gl_list_files(ref = repo_private_default_branch,
-                           path = "raw") |>
+    gitlab::dir_ls(ref = repo_private_default_branch,
+                   path = "raw",
+                   id_project = repo_private_proj_id,
+                   token = auth_token) |>
     dplyr::pull("path") |>
     stringr::str_subset(pattern = stringr::fixed("raw/easyvote_municipalities_")) |>
     stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.csv$)")) |>
@@ -6037,7 +6021,6 @@ read_easyvote_municipalities <- function(ballot_date = pal::pkg_config_val("ball
   }
   
   read_private_file(path = glue::glue("raw/easyvote_municipalities_{date_data}_{canton}.csv"),
-                    as_chr = FALSE,
                     use_cache = use_cache,
                     auth_token = auth_token) |>
     readr::read_csv(col_types = "ciii")
@@ -6075,15 +6058,14 @@ read_online_participation_codes <- function(ballot_date = pal::pkg_config_val("b
   
   path <- glue::glue("raw/online_participation_codes_{ballot_date}_{canton}.txt")
   
-  set_private_repo_connection(auth_token = auth_token)
-  
-  if (!gitlabr::gl_file_exists(file_path = path,
-                               ref = repo_private_default_branch)) {
+  if (!gitlab::file_exists(path = path,
+                           id_project = repo_private_proj_id,
+                           ref = repo_private_default_branch,
+                           token = auth_token)) {
     cli::cli_abort("No online participation codes present for canton {.val {canton}} @ {.val {ballot_date}}.")
   }
   
   read_private_file(path = path,
-                    as_chr = TRUE,
                     use_cache = use_cache,
                     auth_token = auth_token) |>
     stringr::str_split_1(pattern = stringr::fixed("\n"))
@@ -6146,7 +6128,6 @@ read_survey_data <- function(ballot_date = pal::pkg_config_val("ballot_date"),
   checkmate::assert_flag(merged)
   
   read_private_file(path = glue::glue("generated/survey_data_", ifelse(merged, "merged_", ""), "{lang}_{ballot_date}_{canton}.rds"),
-                    as_chr = FALSE,
                     use_cache = use_cache,
                     auth_token = auth_token) |>
     memDecompress() |>
@@ -6194,11 +6175,11 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val("b
                          reason = pal::reason_pkg_required())
   
   # get date of latest dataset delivered *before* ballot date
-  set_private_repo_connection(auth_token = auth_token)
-  
   date_data <-
-    gitlabr::gl_list_files(ref = repo_private_default_branch,
-                           path = "raw") |>
+    gitlab::dir_ls(ref = repo_private_default_branch,
+                   path = "raw",
+                   id_project = repo_private_proj_id,
+                   token = auth_token) |>
     dplyr::pull("path") |>
     stringr::str_subset(pattern = stringr::fixed("raw/voting_register_data_extra_")) |>
     stringr::str_extract(glue::glue("\\d{{4}}-\\d{{2}}-\\d{{2}}(?=_{canton}\\.xlsx$)")) |>
@@ -6215,7 +6196,6 @@ read_voting_register_data_extra <- function(ballot_date = pal::pkg_config_val("b
                             ext = "xlsx")
   
   read_private_file(path = glue::glue("raw/voting_register_data_extra_{date_data}_{canton}.xlsx"),
-                    as_chr = FALSE,
                     use_cache = use_cache,
                     auth_token = auth_token) |>
     brio::write_file_raw(path = tmp_file)
@@ -6329,15 +6309,14 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val("ballot_d
   
   path <- glue::glue("raw/voting_register_ids_{ballot_date}_{canton}.csv")
   
-  set_private_repo_connection(auth_token = auth_token)
-  
-  if (!gitlabr::gl_file_exists(file_path = path,
-                               ref = repo_private_default_branch)) {
+  if (!gitlab::file_exists(path = path,
+                           id_project = repo_private_proj_id,
+                           ref = repo_private_default_branch,
+                           token = auth_token)) {
     cli::cli_abort("No voting register ID data present for canton {.val {canton}} @ {.val {ballot_date}}.")
   }
   
   read_private_file(path = glue::glue("raw/voting_register_ids_{ballot_date}_{canton}.csv"),
-                    as_chr = FALSE,
                     use_cache = use_cache,
                     auth_token = auth_token) |>
     readr::read_csv(col_types = "i") |>
@@ -6351,29 +6330,23 @@ read_voting_register_ids <- function(ballot_date = pal::pkg_config_val("ballot_d
 
 #### `read_private_file`
 
-NOTES:
-
--   The [gitlabr](https://thinkr-open.github.io/gitlabr/) package unfortunately neither conveniently supports HTTP HEAD requests, nor does it expose the API
-    response's HTTP header values. This means we had to roll our own `private_file_hash()` to implement light-weight ("cached") requests.
-
 ```{r}
 #' Read in file from private FOKUS repository
 #'
-#' Downloads a file from the [private FOKUS repository](`r url_repo_private()`) and returns it as a raw vector or a character scalar, depending on `as_chr`.
+#' Downloads a file from the [private FOKUS repository](`r url_repo_private()`) and returns it as a character scalar in case of a text file, or a [raw] vector
+#' otherwise.
 #'
 #' Files are downloaded via [GitLab's RESTful API (v4)](https://docs.gitlab.com/ee/api/rest/). If `use_cache = TRUE` (the default), a downloaded file is cached
 #' on disk in this package's [user-cache pins board][pkgpins::board] and only newly fetched from the private FOKUS repository GitLab remote if is has changed
 #' since being downloaded the last time. Caching saves a bit of time and (potentially) a lot of bandwidth.
 #'
 #' @param path File path relative to the repository root.
-#' @param as_chr Whether to return the file content as a character scalar, which is only recommended for text files. If `FALSE`, the file is returned as a
-#'   [raw vector][raw] instead.
 #' @param use_cache Whether or not to return cached results if possible. Caching is done based on file content hashing, so the file is only newly fetched if it
 #'   actually changed since the last download. If `FALSE`, the file is always newly fetched.
 #' @param auth_token [Personal access token of a gitlab.com account](https://gitlab.com/-/user_settings/personal_access_tokens) with access to the [private
 #'   FOKUS repository](`r url_repo_private()`).
 #'
-#' @return The file content, as character scalar if `as_chr`, otherwise as a [raw vector][raw].
+#' @return The file content, as character scalar for text files, otherwise as a [raw vector][raw].
 #' @family data_import
 #' @family private
 #' @export
@@ -6385,28 +6358,23 @@ NOTES:
 #'     length()
 #' )
 read_private_file <- function(path,
-                              as_chr = FALSE,
                               use_cache = TRUE,
                               auth_token = pal::pkg_config_val("token_repo_private")) {
   
-  checkmate::assert_flag(as_chr)
   checkmate::assert_string(path)
   
-  pkgpins::with_cache(
-    expr = {
-      set_private_repo_connection(auth_token = auth_token)
-      gitlabr::gl_get_file(file_path = path,
-                           ref = repo_private_default_branch,
-                           to_char = as_chr)
-    },
-    pkg = this_pkg,
-    from_fn = "read_private_file",
-    private_file_hash(path = path,
-                      auth_token = auth_token),
-    as_chr,
-    use_cache = use_cache,
-    max_cache_age = Inf
-  )
+  pkgpins::with_cache(expr = gitlab::file_content(path = "raw/survey_data_2018-09-23_aargau.xlsx",
+                                                  id_project = repo_private_proj_id,
+                                                  ref = repo_private_default_branch,
+                                                  token = auth_token),
+                      pkg = this_pkg,
+                      from_fn = "read_private_file",
+                      gitlab::file_meta(path = "raw/survey_data_2018-09-23_aargau.xlsx",
+                                        attribute = "content_sha256",
+                                        id_project = repo_private_proj_id,
+                                        ref = repo_private_default_branch),
+                      use_cache = use_cache,
+                      max_cache_age = Inf)
 }
 ```
 
@@ -6800,6 +6768,10 @@ export_print_recipients <- function(ballot_date = pal::pkg_config_val("ballot_da
       dplyr::select(id, receives_print) |>
       readr::write_csv(file = tmp_path)
     
+    gitlab::file_write(content = tmp_path,
+                       path = fs::path("generated/for-polling-agency", filename),
+                       id_project = repo_private_proj_id,
+                       start_branch = repo_private_default_branch)
     write_private_file(path = fs::path("generated/for-polling-agency", filename),
                        content = tmp_path,
                        from_file = TRUE,
@@ -7012,75 +6984,15 @@ write_private_file <- function(path,
                                auth_token = pal::pkg_config_val("token_repo_private"),
                                quiet = FALSE) {
   
-  rlang::check_installed("digest", reason = pal::reason_pkg_required())
-  rlang::check_installed("gitlabr", reason = pal::reason_pkg_required())
-  checkmate::assert_string(path)
-  checkmate::assert_flag(from_file)
-  checkmate::assert_flag(overwrite)
-  checkmate::assert_string(commit_message)
-  checkmate::assert_string(branch)
-  checkmate::assert_flag(quiet)
-  
-  is_raw <- is.raw(content)
-  
-  if (is_raw && from_file) {
-    cli::cli_abort("{.arg content} must be a character scalar path when {.arg from_file} is {.val {from_file}}.")
-  }
-  if (!is_raw) {
-    checkmate::assert_string(content)
-  }
-  
-  set_private_repo_connection(auth_token = auth_token)
-  
-  # return early if file hasn't changed
-  if (gitlabr::gl_file_exists(file_path = path,
-                              ref = branch)) {
-    
-    hash_new <- ifelse(from_file,
-                       digest::digest(algo = "sha256",
-                                      file = content),
-                       digest::digest(algo = "sha256",
-                                      object = content,
-                                      serialize = FALSE))
-    if (identical(hash_new,
-                  private_file_hash(path = path,
-                                    auth_token = auth_token))) {
-      if (!quiet) {
-        cli::cli_alert_info("The new file contents are identical to the existing file contents and thus no data was uploaded to the private FOKUS repository.")
-      }
-      
-      return(invisible(path))
-    }
-  }
-  
-  if (from_file) {
-    content %<>% brio::read_file_raw()
-    is_raw <- TRUE
-  }
-
-  if (is_raw) {
-    rlang::check_installed("base64enc", reason = pal::reason_pkg_required())
-    content %<>% base64enc::base64encode()
-  }
-  
-  if (!quiet) {
-    cli_msg <- paste0("Uploading file to private FOKUS repository under path {.href [", path, "](", url_repo_private(path, .branch = branch), ")}.")
-    cli_id <- pal::cli_progress_step_quick(msg = cli_msg)
-  }
-  
-  gitlabr::gl_push_file(file_path = path,
-                        content = content,
-                        commit_message = commit_message,
-                        branch = branch,
-                        overwrite = overwrite,
-                        encoding = ifelse(is_raw,
-                                          "base64",
-                                          "text"))
-  if (!quiet) {
-    cli::cli_progress_done(id = cli_id)
-  }
-  
-  invisible(path)
+  gitlab::file_write(content = content,
+                     path = path,
+                     id_project = repo_private_proj_id,
+                     start_branch = branch,
+                     from_file = from_file,
+                     overwrite = overwrite,
+                     commit_message = commit_message,
+                     token = auth_token,
+                     quiet = quiet)
 }
 ```
 
