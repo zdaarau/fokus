@@ -27,6 +27,9 @@ pal::cat_lines(paste0("[![CRAN Status](https://r-pkg.org/badges/version/", pal::
                pal::desc_value("Description"))
 ```
 
+***Porting all the functionality from the legacy [`fokus_aargau` repository](https://gitlab.com/c2d-zda/fokus_aargau/) to this R package and the separate
+[`fokus_reports` Quarto project](https://gitlab.com/zdaarau/fokus_reports) is still work in progress.***
+
 ```{r}
 #| label: documentation
 #| eval: !expr '!isTRUE(getOption("pal.build_readme.is_pkgdown"))'
