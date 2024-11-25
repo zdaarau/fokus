@@ -26,43 +26,56 @@ variable_values = [ 1, 2, 3 ]
 value_labels = [ "referendum", "election", "both_referendum_and_election" ]
 
 [00_cantonal_statistical_office.002_to_polling_agency]
-include.default = true
-include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Nachname (amtliche Information)[^anon]"
 variable_name = "last_name"
 variable_label = "respondent's last name (official cantonal register information)"
 response_options = "_Text_"
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Vorname (amtliche Information)[^anon]"
 variable_name = "first_name"
 variable_label = "respondent's first name (official cantonal register information)"
 response_options = "_Text_"
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Weitere Vornamen (amtliche Information)[^anon]"
 variable_name = "middle_name"
 variable_label = "respondent's middle name(s) (official cantonal register information)"
 response_options = "_Text_"
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Strasse (amtliche Information)[^anon]"
 variable_name = "street"
 variable_label = "street name of respondent's place of residence (official cantonal register information)"
 response_options = "_Text_"
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Hausnummer (amtliche Information)[^anon]"
 variable_name = "street_number"
 variable_label = "street number of respondent's place of residence (official cantonal register information)"
 response_options = "_Hausnummer (Text)_"
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
-topic = "Postleitzahl (amtliche Information)[^anon]"
+topic.default = "Postleitzahl (amtliche Information)[^anon]"
+topic.20241020 = "Postleitzahl (amtliche Information)"
 variable_name = "zip_code"
-variable_label = "zip code of respondent's place of residence (official cantonal register information)"
+variable_label.default = "zip code of respondent's place of residence (official cantonal register information)"
+variable_label.20241020 = "zip code of respondent's place of residence (self-declaration)"
 response_options = "_Postleitzahl (4 Ziffern)_"
+include.default = true
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Ort (amtliche Information)[^anon]"
 variable_name = "place"
 variable_label = "respondent's place of residence (official cantonal register information)"
 response_options = "_Ort (Text)_"
+include.default = true
+include.false = [ 2024-10-20 ]
 [[00_cantonal_statistical_office.002_to_polling_agency.item]]
 topic = "Typ des Privathaushalts (amtliche Information)[^no-data]"
 variable_name = "household_type"
