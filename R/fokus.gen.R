@@ -5590,13 +5590,13 @@ read_private_file <- function(path,
   
   checkmate::assert_string(path)
   
-  pkgpins::with_cache(expr = gitlab::file_content(path = "raw/survey_data_2018-09-23_aargau.xlsx",
+  pkgpins::with_cache(expr = gitlab::file_content(path = path,
                                                   id_project = repo_private_proj_id,
                                                   ref = repo_private_default_branch,
                                                   token = auth_token),
                       pkg = this_pkg,
                       from_fn = "read_private_file",
-                      gitlab::file_meta(path = "raw/survey_data_2018-09-23_aargau.xlsx",
+                      gitlab::file_meta(path = path,
                                         attribute = "content_sha256",
                                         id_project = repo_private_proj_id,
                                         ref = repo_private_default_branch),
