@@ -5599,7 +5599,8 @@ read_private_file <- function(path,
                       gitlab::file_meta(path = path,
                                         attribute = "content_sha256",
                                         id_project = repo_private_proj_id,
-                                        ref = repo_private_default_branch),
+                                        ref = repo_private_default_branch,
+                                        token = auth_token),
                       use_cache = use_cache,
                       max_cache_age = Inf)
 }
