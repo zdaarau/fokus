@@ -125,7 +125,8 @@ reference:
   - export_easyvote_municipalities
   - export_survey_data
   - write_private_file
-- title: Variable-related
+- title: Variables
+  desc: Functions related to FOKUS questionnaire and survey data variables.
 - contents:
   - var_lbl
   - var_lvls

@@ -6997,7 +6997,11 @@ write_private_file <- function(path,
 }
 ```
 
-## Variable-related
+## Variables
+
+### DESCRIPTION
+
+Functions related to FOKUS questionnaire and survey data variables.
 
 ### `var_lbl`
 
