@@ -136,6 +136,8 @@ reference:
   - var_val_set
   - add_vars_to_combos
   - is_skill_question_var
+- subtitle: Factors
+- contents: fct_relabel_election_parties
 - subtitle: Variable name shortening
 - contents:
   - shorten_var_names

@@ -34,7 +34,7 @@ election_parties(
 
 \item{election_nr}{Election number. A positive integerish scalar.}
 
-\item{past}{Whether to extract the current or the predecessor election's parties.}
+\item{past}{Whether to process the current or the predecessor election's parties.}
 }
 \value{
 A \link[tibble:tbl_df-class]{tibble}.

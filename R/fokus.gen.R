@@ -68,6 +68,7 @@ utils::globalVariables(names = c(".",
                                  "n_federal_proposals",
                                  "n_kids_in_household_official",
                                  "name",
+                                 "name.de.qstnr",
                                  "nr",
                                  "question",
                                  "question_full",
@@ -4395,7 +4396,7 @@ election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date")
 #' Returns the questionnaire code as well as different versions of the name of all parties for the specified proportional election.
 #'
 #' @inheritParams n_election_seats
-#' @param past Whether to extract the current or the predecessor election's parties.
+#' @param past Whether to process the current or the predecessor election's parties.
 #'
 #' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_election
@@ -6415,7 +6416,6 @@ add_vars_to_combos <- function(list,
                  \(var_name) purrr::assign_in(x = x,
                                               where = "var_name",
                                               value = var_name))
-      
     }) |>
     purrr::list_flatten()
 }
@@ -6436,6 +6436,86 @@ is_skill_question_var <- function(var_names) {
   var_names |>
     checkmate::assert_character() |>
     stringr::str_detect(pattern = "^skill_question_\\d+_(cantonal|federal)(_proposal_\\d+)?$")
+}
+
+#' Relabel factor of election parties
+#'
+#' Relabels a [factor] that contains election parties from/to the different FOKUS election party name types.
+#'
+#' @inheritParams election_parties
+#' @param fct Factor to be relabelled.
+#' @param from_type Name type to convert from. One of `r pal::enum_fn_param_defaults(param = "from_type", fn = fct_relabel_election_parties)`.
+#' @param to_type Name type to convert to. One of `r pal::enum_fn_param_defaults(param = "to_type", fn = fct_relabel_election_parties)`.
+#'
+#' @return A factor.
+#' @family fcts
+#' @export
+#'
+#' @examples
+#' d <- fokus::read_survey_data(ballot_date = "2024-10-20",
+#'                              canton = "aargau",
+#'                              lang = "de")
+#' # before
+#' levels(d$voting_decision_cantonal_proportional_election_1_party)
+#' 
+#' fct_new <- fct_relabel_election_parties(
+#'   fct = d$voting_decision_cantonal_proportional_election_1_party,
+#'   to_type = "short",
+#'   ballot_date = "2024-10-20",
+#'   lvl = "cantonal",
+#'   canton = "aargau",
+#'   election_nr = 1L,
+#'   past = FALSE
+#' )
+#' 
+#' # after
+#' levels(d$voting_decision_cantonal_proportional_election_1_party)
+fct_relabel_election_parties <- function(fct,
+                                         from_type = c("qstnr", "run", "short"),
+                                         to_type = c("short", "run", "qstnr"),
+                                         ballot_date = pal::pkg_config_val("ballot_date"),
+                                         lvl = lvls(ballot_date,
+                                                    canton,
+                                                    ballot_type = "election",
+                                                    prcds = "proportional"),
+                                         canton = cantons(ballot_date),
+                                         election_nr = 1L,
+                                         past = FALSE) {
+  
+  from_type <- rlang::arg_match(from_type)
+  to_type <- rlang::arg_match(to_type)
+  
+  ref <-
+    election_parties(ballot_date = ballot_date,
+                     lvl = lvl,
+                     canton = canton,
+                     election_nr = election_nr,
+                     past = past) |>
+    # TODO: determine below "none" val dynamically instead of hardcoding it
+    tibble::add_row(code = 0L,
+                    name.de.qstnr = "keine (leer eingelegt oder nicht teilgenommen)",
+                    name.de.run = name.de.qstnr,
+                    name.de.short = "keine",
+                    .before = 1L)
+  
+  checkmate::assert_factor(fct,
+                           levels = ref[[paste0("name.de.", from_type)]])
+  
+  forcats::fct_relabel(.f = fct,
+                       .fun = \(fct_lvls) purrr::map_chr(fct_lvls,
+                                                         \(old_val) {
+                         
+                         new_val <-
+                           ref |>
+                           dplyr::filter(!!as.symbol(paste0("name.de.", from_type)) == old_val) |>
+                           dplyr::pull(paste0("name.de.", to_type))
+                         
+                         if (length(new_val) != 1L) {
+                           new_val <- old_val
+                         }
+                         
+                         new_val
+                       }))
 }
 
 #' Shorten variable names to a maximum length of 32 characters
