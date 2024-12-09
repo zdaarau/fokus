@@ -4400,6 +4400,7 @@ election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date")
 #'
 #' @return `r pkgsnip::return_lbl("tibble")`
 #' @family predicate_election
+#' @seealso [fct_relabel_election_parties()]
 #' @export
 #'
 #' @examples
@@ -6448,6 +6449,7 @@ is_skill_question_var <- function(var_names) {
 #' @param to_type Name type to convert to. One of `r pal::enum_fn_param_defaults(param = "to_type", fn = fct_relabel_election_parties)`.
 #'
 #' @return A factor.
+#' @seealso [election_parties()]
 #' @family fcts
 #' @export
 #'

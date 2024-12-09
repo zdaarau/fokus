@@ -5021,6 +5021,7 @@ election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date")
 #' @param past Whether to process the current or the predecessor election's parties.
 #'
 #' @return `r pkgsnip::return_lbl("tibble")`
+#' @seealso [fct_relabel_election_parties()]
 #' @family predicate_election
 #' @export
 #'
@@ -7327,6 +7328,7 @@ NOTES:
 #' @param to_type Name type to convert to. One of `r pal::enum_fn_param_defaults(param = "to_type", fn = fct_relabel_election_parties)`.
 #'
 #' @return A factor.
+#' @seealso [election_parties()]
 #' @family fcts
 #' @export
 #'
