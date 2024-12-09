@@ -33,12 +33,12 @@ name.de.run = "Schweizerische Volkspartei"
 name.de.qstnr = "Schweizerische Volkspartei (SVP)"
 code = 1
 [[cantonal.aargau.election.proportional.1.party]]
-name.de.short = "SP"
+name.de.short = "SP / JUSO"
 name.de.run = "Sozialdemokratische Partei und JUSO"
 name.de.qstnr = "Sozialdemokratische Partei (SP) und JUSO"
 code = 2
 [[cantonal.aargau.election.proportional.1.party]]
-name.de.short = "FDP"
+name.de.short = "FDP / Jungfreisinn"
 name.de.run = "FDP.Die Liberalen und Jungfreisinnige"
 name.de.qstnr = "FDP.Die Liberalen und Jungfreisinnige"
 code = 3
@@ -48,7 +48,7 @@ name.de.run = "Die Mitte.Miteinander.Für den Aargau."
 name.de.qstnr = "Die Mitte.Miteinander.Für den Aargau."
 code = 4
 [[cantonal.aargau.election.proportional.1.party]]
-name.de.short = "Grüne"
+name.de.short = "Grüne / Junge Grüne"
 name.de.run = "Grüne und Junge Grüne"
 name.de.qstnr = "Grüne und Junge Grüne"
 code = 5
@@ -73,7 +73,7 @@ name.de.run = "Lösungs-Orientierte Volks-Bewegung"
 name.de.qstnr = "Lösungs-Orientierte Volks-Bewegung (LOVB)"
 code = 9
 [[cantonal.aargau.election.proportional.1.party]]
-name.de.short = "PPS"
+name.de.short = "PPAG"
 name.de.run = "Piratenpartei Aargau"
 name.de.qstnr = "Piratenpartei Aargau (PPAG)"
 code = 10
