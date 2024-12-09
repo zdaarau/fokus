@@ -71,4 +71,7 @@ fct_new <- fct_relabel_election_parties(
 # after
 levels(d$voting_decision_cantonal_proportional_election_1_party)
 }
+\seealso{
+\code{\link[=election_parties]{election_parties()}}
+}
 \concept{fcts}
