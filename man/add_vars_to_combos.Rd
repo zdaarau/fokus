@@ -18,8 +18,8 @@ A list with \code{list} × \code{var_names} elements.
 Adds one or more \code{var_name}s to a combination list.
 }
 \examples{
-fokus::combos_proposals(ballot_date = "2023-06-18",
-                        canton = "aargau",
+fokus::combos_proposals(ballot_dates = "2023-06-18",
+                        cantons = "aargau",
                         incl_nr = FALSE) |>
   fokus::add_vars_to_combos(var_names = c("age_group", "favored_party"))
 }
