@@ -2152,7 +2152,8 @@ abbrs <- function(unnest = FALSE) {
               ~ .)
 }
 
-as_ballot_date <- function(ballot_date) {
+as_ballot_date <- function(ballot_date,
+                           error_call = rlang::caller_env()) {
   
   result <- ballot_date[1L]
   
@@ -2165,18 +2166,32 @@ as_ballot_date <- function(ballot_date) {
   } else {
     
     result %<>%
-      as_ballot_date_chr() %>%
+      as_ballot_date_chr(error_call = error_call) %>%
       clock::date_parse()
   }
   
   result
 }
 
-as_ballot_date_chr <- function(ballot_date) {
+as_ballot_date_chr <- function(ballot_date,
+                               error_call = rlang::caller_env()) {
+  
+  checkmate::assert_atomic(ballot_date,
+                           len = 1L)
   
   rlang::arg_match0(arg = as.character(ballot_date),
                     values = as.character(all_ballot_dates),
-                    arg_nm = "ballot_date")
+                    arg_nm = "ballot_date",
+                    error_call = error_call)
+}
+
+as_ballot_dates <- function(ballot_dates,
+                            error_call = rlang::caller_env()) {
+  
+  ballot_dates |>
+    purrr::map(\(x) as_ballot_date(ballot_date = x,
+                                   error_call = error_call)) |>
+    purrr::list_c(ptype = as.Date(NULL))
 }
 
 as_flat_list <- function(x) {
@@ -3443,10 +3458,7 @@ combos_ballot_types <- function(ballot_dates = all_ballot_dates,
                                 ballot_types = all_ballot_types,
                                 incl_lvl = TRUE) {
   
-  ballot_dates %<>% as.character()
-  ballot_dates <- rlang::arg_match(arg = ballot_dates,
-                                   values = as.character(all_ballot_dates),
-                                   multiple = TRUE)
+  ballot_dates %<>% as_ballot_dates()
   lvls <- rlang::arg_match(arg = lvls,
                            multiple = TRUE)
   cantons <- rlang::arg_match(arg = cantons,
@@ -3992,16 +4004,12 @@ combos_proposals <- function(ballot_dates = all_ballot_dates,
                              cantons = all_cantons,
                              incl_nr = TRUE) {
   
-  ballot_dates %<>% as.character()
-  ballot_dates <- rlang::arg_match(arg = ballot_dates,
-                                   values = as.character(all_ballot_dates),
-                                   multiple = TRUE)
+  ballot_dates %<>% as_ballot_dates()
   lvls <- rlang::arg_match(arg = lvls,
                            multiple = TRUE)
   cantons <- rlang::arg_match(arg = cantons,
                               multiple = TRUE)
   checkmate::assert_flag(incl_nr)
-  
   
   ballot_dates |>
     purrr::map(\(ballot_date) {
@@ -4080,10 +4088,7 @@ combos_proposal_arguments <- function(ballot_dates = all_ballot_dates,
                                       cantons = all_cantons,
                                       incl_side = TRUE,
                                       incl_argument_nr = incl_side) {
-  ballot_dates %<>% as.character()
-  ballot_dates <- rlang::arg_match(arg = ballot_dates,
-                                   values = as.character(all_ballot_dates),
-                                   multiple = TRUE)
+  ballot_dates %<>% as_ballot_dates()
   lvls <- rlang::arg_match(arg = lvls,
                            multiple = TRUE)
   cantons <- rlang::arg_match(arg = cantons,
@@ -4186,10 +4191,7 @@ combos_proposal_main_motives <- function(ballot_dates = all_ballot_dates,
                                          lvls = all_lvls,
                                          cantons = all_cantons,
                                          incl_type = TRUE) {
-  ballot_dates %<>% as.character()
-  ballot_dates <- rlang::arg_match(arg = ballot_dates,
-                                   values = as.character(all_ballot_dates),
-                                   multiple = TRUE)
+  ballot_dates %<>% as_ballot_dates()
   lvls <- rlang::arg_match(arg = lvls,
                            multiple = TRUE)
   cantons <- rlang::arg_match(arg = cantons,
@@ -4551,15 +4553,11 @@ past_election_date <- function(ballot_date = pal::pkg_config_val("ballot_date"),
                        incl_prcd = FALSE,
                        incl_nr = FALSE) |>
       purrr::keep(.p = \(x) {
-        clock::date_parse(x$ballot_date) |>
-          clock::get_year() |>
-          magrittr::equals(past_election_year)
+        clock::get_year(x$ballot_date) == past_election_year
       }) |>
       purrr::map_depth(.depth = 1L,
                        .f = \(x) x$ballot_date) |>
-      unlist(use.names = FALSE) %||%
-      character() |>
-      clock::date_parse() |>
+      purrr::list_c(ptype = as.Date(NULL)) |>
       pal::safe_min()
   }
   
@@ -4704,10 +4702,7 @@ combos_elections <- function(ballot_dates = all_ballot_dates,
                              incl_prcd = TRUE,
                              incl_nr = incl_prcd) {
   
-  ballot_dates %<>% as.character()
-  ballot_dates <- rlang::arg_match(arg = ballot_dates,
-                                   values = as.character(all_ballot_dates),
-                                   multiple = TRUE)
+  ballot_dates %<>% as_ballot_dates()
   lvls <- rlang::arg_match(arg = lvls,
                            multiple = TRUE)
   cantons <- rlang::arg_match(arg = cantons,

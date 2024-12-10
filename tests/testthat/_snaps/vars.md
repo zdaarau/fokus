@@ -15,9 +15,15 @@
           },
           "value": [
             {
-              "type": "character",
-              "attributes": {},
-              "value": ["2023-06-18"]
+              "type": "double",
+              "attributes": {
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Date"]
+                }
+              },
+              "value": [19526]
             },
             {
               "type": "character",
@@ -47,9 +53,15 @@
           },
           "value": [
             {
-              "type": "character",
-              "attributes": {},
-              "value": ["2023-06-18"]
+              "type": "double",
+              "attributes": {
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Date"]
+                }
+              },
+              "value": [19526]
             },
             {
               "type": "character",
@@ -79,9 +91,15 @@
           },
           "value": [
             {
-              "type": "character",
-              "attributes": {},
-              "value": ["2023-06-18"]
+              "type": "double",
+              "attributes": {
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Date"]
+                }
+              },
+              "value": [19526]
             },
             {
               "type": "character",
@@ -111,9 +129,15 @@
           },
           "value": [
             {
-              "type": "character",
-              "attributes": {},
-              "value": ["2023-06-18"]
+              "type": "double",
+              "attributes": {
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Date"]
+                }
+              },
+              "value": [19526]
             },
             {
               "type": "character",
