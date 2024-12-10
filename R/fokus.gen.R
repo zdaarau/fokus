@@ -4399,8 +4399,8 @@ election_candidates <- function(ballot_date = pal::pkg_config_val("ballot_date")
 #' @param past Whether to process the current or the predecessor election's parties.
 #'
 #' @return `r pkgsnip::return_lbl("tibble")`
-#' @family predicate_election
 #' @seealso [fct_relabel_election_parties()]
+#' @family predicate_election
 #' @export
 #'
 #' @examples
@@ -6447,6 +6447,7 @@ is_skill_question_var <- function(var_names) {
 #' @param fct Factor to be relabelled.
 #' @param from_type Name type to convert from. One of `r pal::enum_fn_param_defaults(param = "from_type", fn = fct_relabel_election_parties)`.
 #' @param to_type Name type to convert to. One of `r pal::enum_fn_param_defaults(param = "to_type", fn = fct_relabel_election_parties)`.
+#' @param strict Whether or not to strictly ensure that all of `fct` levels are matched by [known election parties][election_parties].
 #'
 #' @return A factor.
 #' @seealso [election_parties()]
@@ -6471,7 +6472,20 @@ is_skill_question_var <- function(var_names) {
 #' )
 #' 
 #' # after
-#' levels(d$voting_decision_cantonal_proportional_election_1_party)
+#' levels(fct_new)
+#' 
+#' # set `strict = FALSE` if your factor contains non-standard levels
+#' d$voting_decision_cantonal_proportional_election_1_party |>
+#'   forcats::fct_lump_min(other_level = "Kleinparteien",
+#'                         min = 5L) |>
+#'   fct_relabel_election_parties(to_type = "short",
+#'                                ballot_date = "2024-10-20",
+#'                                lvl = "cantonal",
+#'                                canton = "aargau",
+#'                                election_nr = 1L,
+#'                                past = FALSE,
+#'                                strict = FALSE) |>
+#'   levels()
 fct_relabel_election_parties <- function(fct,
                                          from_type = c("qstnr", "run", "short"),
                                          to_type = c("short", "run", "qstnr"),
@@ -6482,10 +6496,12 @@ fct_relabel_election_parties <- function(fct,
                                                     prcds = "proportional"),
                                          canton = cantons(ballot_date),
                                          election_nr = 1L,
-                                         past = FALSE) {
+                                         past = FALSE,
+                                         strict = TRUE) {
   
   from_type <- rlang::arg_match(from_type)
   to_type <- rlang::arg_match(to_type)
+  checkmate::assert_flag(strict)
   
   ref <-
     election_parties(ballot_date = ballot_date,
@@ -6501,7 +6517,7 @@ fct_relabel_election_parties <- function(fct,
                     .before = 1L)
   
   checkmate::assert_factor(fct,
-                           levels = ref[[paste0("name.de.", from_type)]])
+                           levels = if (strict) ref[[paste0("name.de.", from_type)]])
   
   forcats::fct_relabel(.f = fct,
                        .fun = \(fct_lvls) purrr::map_chr(fct_lvls,

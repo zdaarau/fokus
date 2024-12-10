@@ -56,7 +56,8 @@
 <span>  lvl <span class="op">=</span> <span class="fu"><a href="lvls.html">lvls</a></span><span class="op">(</span><span class="va">ballot_date</span>, <span class="va">canton</span>, ballot_type <span class="op">=</span> <span class="st">"election"</span>, prcds <span class="op">=</span> <span class="st">"proportional"</span><span class="op">)</span>,</span>
 <span>  canton <span class="op">=</span> <span class="fu"><a href="cantons.html">cantons</a></span><span class="op">(</span><span class="va">ballot_date</span><span class="op">)</span>,</span>
 <span>  election_nr <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  past <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  past <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  strict <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -104,6 +105,10 @@
 <dt id="arg-past">past<a class="anchor" aria-label="anchor" href="#arg-past"></a></dt>
 <dd><p>Whether to process the current or the predecessor election's parties.</p></dd>
 
+
+<dt id="arg-strict">strict<a class="anchor" aria-label="anchor" href="#arg-strict"></a></dt>
+<dd><p>Whether or not to strictly ensure that all of <code>fct</code> levels are matched by <a href="election_parties.html">known election parties</a>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -141,15 +146,25 @@
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># after</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">voting_decision_cantonal_proportional_election_1_party</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "keine (leer eingelegt oder nicht teilgenommen)"               "Schweizerische Volkspartei (SVP)"                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "Sozialdemokratische Partei (SP) und JUSO"                     "FDP.Die Liberalen und Jungfreisinnige"                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "Die Mitte.Miteinander.Für den Aargau."                        "Grüne und Junge Grüne"                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "Grünliberale Partei (GLP)"                                    "Evangelische Volkspartei (EVP)"                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "Eidgenössisch-Demokratische Union (EDU)"                      "Lösungs-Orientierte Volks-Bewegung (LOVB)"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Piratenpartei Aargau (PPAG)"                                  "Fit – Freiheit"                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "NB – Neues Bewusstsein"                                       "DBP – DieBürgerPartei"                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "MASS-VOLL! Bewegung für Freiheit, Souveränität &amp; Grundrechte" "Musikpartei"                                                 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">fct_new</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "keine"               "SVP"                 "SP / JUSO"           "FDP / Jungfreisinn"  "Mitte"               "Grüne / Junge Grüne" "GLP"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "EVP"                 "EDU"                 "LOVB"                "PPAG"                "Fit"                 "NB"                  "DBP"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "MASSVOLL"            "Musik"              </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set `strict = FALSE` if your factor contains non-standard levels</span></span></span>
+<span class="r-in"><span><span class="va">d</span><span class="op">$</span><span class="va">voting_decision_cantonal_proportional_election_1_party</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html" class="external-link">fct_lump_min</a></span><span class="op">(</span>other_level <span class="op">=</span> <span class="st">"Kleinparteien"</span>,</span></span>
+<span class="r-in"><span>                        min <span class="op">=</span> <span class="fl">5L</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">fct_relabel_election_parties</span><span class="op">(</span>to_type <span class="op">=</span> <span class="st">"short"</span>,</span></span>
+<span class="r-in"><span>                               ballot_date <span class="op">=</span> <span class="st">"2024-10-20"</span>,</span></span>
+<span class="r-in"><span>                               lvl <span class="op">=</span> <span class="st">"cantonal"</span>,</span></span>
+<span class="r-in"><span>                               canton <span class="op">=</span> <span class="st">"aargau"</span>,</span></span>
+<span class="r-in"><span>                               election_nr <span class="op">=</span> <span class="fl">1L</span>,</span></span>
+<span class="r-in"><span>                               past <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                               strict <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "keine"               "SVP"                 "SP / JUSO"           "FDP / Jungfreisinn"  "Mitte"               "Grüne / Junge Grüne" "GLP"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "EVP"                 "EDU"                 "MASSVOLL"            "Kleinparteien"      </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

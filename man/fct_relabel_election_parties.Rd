@@ -12,7 +12,8 @@ fct_relabel_election_parties(
   lvl = lvls(ballot_date, canton, ballot_type = "election", prcds = "proportional"),
   canton = cantons(ballot_date),
   election_nr = 1L,
-  past = FALSE
+  past = FALSE,
+  strict = TRUE
 )
 }
 \arguments{
@@ -44,6 +45,8 @@ fct_relabel_election_parties(
 \item{election_nr}{Election number. A positive integerish scalar.}
 
 \item{past}{Whether to process the current or the predecessor election's parties.}
+
+\item{strict}{Whether or not to strictly ensure that all of \code{fct} levels are matched by \link[=election_parties]{known election parties}.}
 }
 \value{
 A factor.
@@ -69,7 +72,20 @@ fct_new <- fct_relabel_election_parties(
 )
 
 # after
-levels(d$voting_decision_cantonal_proportional_election_1_party)
+levels(fct_new)
+
+# set `strict = FALSE` if your factor contains non-standard levels
+d$voting_decision_cantonal_proportional_election_1_party |>
+  forcats::fct_lump_min(other_level = "Kleinparteien",
+                        min = 5L) |>
+  fct_relabel_election_parties(to_type = "short",
+                               ballot_date = "2024-10-20",
+                               lvl = "cantonal",
+                               canton = "aargau",
+                               election_nr = 1L,
+                               past = FALSE,
+                               strict = FALSE) |>
+  levels()
 }
 \seealso{
 \code{\link[=election_parties]{election_parties()}}
