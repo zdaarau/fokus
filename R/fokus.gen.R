@@ -6252,10 +6252,15 @@ var_lbl <- function(var_name,
 #' @export
 #'
 #' @examples
-#' fokus::var_lvls("skill_question_1_cantonal_proposal_1")
-#'
-#' fokus::var_lvls(c("skill_question_1_cantonal_proposal_1",
-#'                   "skill_question_1_federal_proposal_1"))
+#' fokus::qstnrs |>
+#'   dplyr::mutate(lvls = purrr::map(variable_name,
+#'                                   fokus::var_lvls)) |>
+#'   dplyr::filter(purrr::map_lgl(lvls,
+#'                                \(x) length(x) > 0)) |>
+#'   dplyr::select(variable_name, lvls) |>
+#'   tidyr::unnest_longer(col = lvls,
+#'                        values_to = "lvl") |>
+#'   unique()
 var_lvls <- function(var_names) {
   
   checkmate::assert_character(var_names)
@@ -6328,6 +6333,13 @@ var_election_nr <- function(var_names) {
 #' @return An integer vector of the same length as `var_names`.
 #' @family vars
 #' @export
+#' 
+#' @examples
+#' fokus::qstnrs |>
+#'   dplyr::mutate(proposal_nr = fokus::var_proposal_nr(variable_name)) |>
+#'   dplyr::filter(!is.na(proposal_nr)) |>
+#'   dplyr::select(variable_name, proposal_nr) |>
+#'   unique()
 var_proposal_nr <- function(var_names) {
   
   var_names |>
@@ -6347,6 +6359,13 @@ var_proposal_nr <- function(var_names) {
 #'
 #' @family vars
 #' @export
+#' 
+#' @examples
+#' fokus::qstnrs |>
+#'   dplyr::mutate(skill_question_nr = fokus::var_skill_question_nr(variable_name)) |>
+#'   dplyr::filter(!is.na(skill_question_nr)) |>
+#'   dplyr::select(variable_name, skill_question_nr) |>
+#'   unique()
 var_skill_question_nr <- function(var_names) {
   
   var_names |>
