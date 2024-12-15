@@ -18,12 +18,21 @@ Determines the proposal number each variable corresponds to. In case no proposal
 \details{
 Note that the determination is performed by simply parsing \code{var_names}.
 }
+\examples{
+fokus::qstnrs |>
+  dplyr::mutate(proposal_nr = fokus::var_proposal_nr(variable_name)) |>
+  dplyr::filter(!is.na(proposal_nr)) |>
+  dplyr::select(variable_name, proposal_nr) |>
+  unique()
+}
 \seealso{
 Other variable-related functions:
 \code{\link{add_vars_to_combos}()},
 \code{\link{is_skill_question_var}()},
+\code{\link{var_election_nr}()},
 \code{\link{var_lbl}()},
 \code{\link{var_lvls}()},
+\code{\link{var_prcd}()},
 \code{\link{var_skill_question_nr}()},
 \code{\link{var_title}()},
 \code{\link{var_val_set}()}

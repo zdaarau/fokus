@@ -19,16 +19,23 @@ Determines political level(s) of one or more variables.
 Note that the political levels are determined by simply parsing \code{var_names}.
 }
 \examples{
-fokus::var_lvls("skill_question_1_cantonal_proposal_1")
-
-fokus::var_lvls(c("skill_question_1_cantonal_proposal_1",
-                  "skill_question_1_federal_proposal_1"))
+fokus::qstnrs |>
+  dplyr::mutate(lvls = purrr::map(variable_name,
+                                  fokus::var_lvls)) |>
+  dplyr::filter(purrr::map_lgl(lvls,
+                               \(x) length(x) > 0)) |>
+  dplyr::select(variable_name, lvls) |>
+  tidyr::unnest_longer(col = lvls,
+                       values_to = "lvl") |>
+  unique()
 }
 \seealso{
 Other variable-related functions:
 \code{\link{add_vars_to_combos}()},
 \code{\link{is_skill_question_var}()},
+\code{\link{var_election_nr}()},
 \code{\link{var_lbl}()},
+\code{\link{var_prcd}()},
 \code{\link{var_proposal_nr}()},
 \code{\link{var_skill_question_nr}()},
 \code{\link{var_title}()},
