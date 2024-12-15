@@ -34,7 +34,7 @@ var_title(
 A character scalar.
 }
 \description{
-Extracts a variable's title from the \link[=qstnrs]{questionnaire data}.
+Extracts a variable's title from the \link[=qstnrs]{questionnaire data}, adapted to the actual \code{\link[=election_name]{election_name()}} if applicable.
 }
 \examples{
 fokus::var_title(var_name = "weight_decision",
@@ -43,6 +43,10 @@ fokus::var_title(var_name = "weight_decision",
 
 fokus::var_title(var_name = "weight_decision",
                  ballot_date = "2019-10-20",
+                 canton = "aargau")
+
+fokus::var_title(var_name = "voting_decision_cantonal_proportional_election_1_party",
+                 ballot_date = "2024-10-20",
                  canton = "aargau")
 }
 \seealso{

@@ -81,6 +81,7 @@ utils::globalVariables(names = c(".",
                                  "sep",
                                  "sex_official",
                                  "string",
+                                 "term",
                                  "topic",
                                  "value_labels",
                                  "variable_label",
@@ -7245,7 +7246,7 @@ TODO:
 ```{r}
 #' Get variable title
 #'
-#' Extracts a variable's title from the [questionnaire data][qstnrs].
+#' Extracts a variable's title from the [questionnaire data][qstnrs], adapted to the actual [election_name()] if applicable.
 #'
 #' @inheritParams lvls
 #' @inheritParams var_lbl
@@ -7262,14 +7263,48 @@ TODO:
 #' fokus::var_title(var_name = "weight_decision",
 #'                  ballot_date = "2019-10-20",
 #'                  canton = "aargau")
+#'
+#' fokus::var_title(var_name = "voting_decision_cantonal_proportional_election_1_party",
+#'                  ballot_date = "2024-10-20",
+#'                  canton = "aargau")
 var_title <- function(var_name,
                       ballot_date = pal::pkg_config_val("ballot_date"),
                       canton = cantons(ballot_date)) {
   
-  var_predicate(predicate = "topic",
-                var_name = var_name,
-                ballot_date = ballot_date,
-                canton = canton)
+  ballot_date %<>% as_ballot_date()
+  lang <- "de"
+  result <- var_predicate(predicate = "topic",
+                          var_name = var_name,
+                          ballot_date = ballot_date,
+                          canton = canton)
+  
+  # replace generic with actual election name
+  prcd <- var_prcd(var_name)
+  
+  if (!is.na(prcd)) {
+    
+    lvl <- checkmate::assert_string(var_lvls(var_name))
+    election_nr <- var_election_nr(var_name)
+    regex_cut <-
+      phrased_terms |>
+      dplyr::filter(term == "lvl") |>
+      dplyr::pull(!!lang) |>
+      paste(collapse = "|") %>%
+      paste0("(?=", ., ")")
+    
+    result %<>%
+      stringr::str_extract(pattern = paste0("^.+?", regex_cut)) %>%
+      paste0(election_name(ballot_date = ballot_date,
+                           lvl = lvl, canton = canton,
+                           prcd = prcd,
+                           election_nr = election_nr,
+                           lang = lang,
+                           type = "short"),
+             "\u00a0",
+             clock::get_year(ballot_date))
+  }
+  
+  result
 }
 ```
 
