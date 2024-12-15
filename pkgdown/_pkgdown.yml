@@ -130,6 +130,8 @@ reference:
 - contents:
   - var_lbl
   - var_lvls
+  - var_prcd
+  - var_election_nr
   - var_proposal_nr
   - var_skill_question_nr
   - var_title

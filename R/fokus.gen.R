@@ -6266,6 +6266,57 @@ var_lvls <- function(var_names) {
   c("cantonal"[is_cantonal], "federal"[is_federal])
 }
 
+#' Determine variable's election procedure
+#'
+#' Determines the election procedure each variable corresponds to. In case no election procedure could be determined for a variable, `NA_character` is returned.
+#'
+#' @inherit is_skill_question_var details
+#'
+#' @inheritParams is_skill_question_var
+#'
+#' @return A character vector of the same length as `var_names`.
+#' @family vars
+#' @export
+#' 
+#' @examples
+#' fokus::qstnrs |>
+#'   dplyr::mutate(prcd = fokus::var_prcd(variable_name)) |>
+#'   dplyr::filter(!is.na(prcd)) |>
+#'   dplyr::select(variable_name, prcd) |>
+#'   unique()
+var_prcd <- function(var_names) {
+  
+  var_names |>
+    checkmate::assert_character() |>
+    stringr::str_extract(pattern = paste0(pal::fuse_regex(all_prcds), "(?=_election[\\b_])"))
+}
+
+#' Determine variable's election number
+#'
+#' Determines the election number each variable corresponds to. In case no election number could be determined for a variable, `NA_character` is returned.
+#'
+#' @inherit is_skill_question_var details
+#'
+#' @inheritParams is_skill_question_var
+#'
+#' @return An integer vector of the same length as `var_names`.
+#' @family vars
+#' @export
+#' 
+#' @examples
+#' fokus::qstnrs |>
+#'   dplyr::mutate(election_nr = fokus::var_election_nr(variable_name)) |>
+#'   dplyr::filter(!is.na(election_nr)) |>
+#'   dplyr::select(variable_name, election_nr) |>
+#'   unique()
+var_election_nr <- function(var_names) {
+  
+  var_names |>
+    checkmate::assert_character() |>
+    stringr::str_extract("(?<=[\\b_]election_)\\d+") |>
+    as.integer()
+}
+
 #' Determine variable's proposal number
 #'
 #' Determines the proposal number each variable corresponds to. In case no proposal number could be determined for a variable, `NA_character` is returned.
