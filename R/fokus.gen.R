@@ -6265,8 +6265,8 @@ var_lvls <- function(var_names) {
   
   checkmate::assert_character(var_names)
   
-  is_cantonal <- var_names |> stringr::str_detect(pattern = stringr::fixed("cantonal")) |> any()
-  is_federal <- var_names |> stringr::str_detect(pattern = stringr::fixed("federal")) |> any()
+  is_cantonal <- var_names |> stringr::str_detect(pattern = "[\\b_]cantonal[\\b_]") |> any()
+  is_federal  <- var_names |> stringr::str_detect(pattern = "[\\b_]federal[\\b_]") |> any()
   
   c("cantonal"[is_cantonal], "federal"[is_federal])
 }
@@ -6344,7 +6344,7 @@ var_proposal_nr <- function(var_names) {
   
   var_names |>
     checkmate::assert_character() |>
-    stringr::str_extract("(?<=_proposal_)\\d+") |>
+    stringr::str_extract("(?<=[\\b_]proposal_)\\d+") |>
     as.integer()
 }
 
@@ -6370,7 +6370,7 @@ var_skill_question_nr <- function(var_names) {
   
   var_names |>
     checkmate::assert_character() |>
-    stringr::str_extract("(?<=skill_question_)\\d+") |>
+    stringr::str_extract("(?<=[\\b_]skill_question_)\\d+") |>
     as.integer()
 }
 
