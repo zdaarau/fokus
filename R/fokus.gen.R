@@ -2216,6 +2216,11 @@ as_flat_list <- function(x) {
   result
 }
 
+as_sym_part_regex <- function(x) {
+  
+  paste0(sym_part_regex_start, x, sym_part_regex_end)
+}
+
 collapse_break <- function(s) {
   
   paste0(s, collapse = "<br>")
@@ -2334,6 +2339,9 @@ qstnr_md_table_header <-
     paste0(sep, collapse = " | "))
 
 repo_private_proj_id <- 21325371L
+
+sym_part_regex_start <- "(^|_|\\b)"
+sym_part_regex_end <- "(\\b|_|$)"
 
 unicode_checkmark <- "\u2705"
 unicode_crossmark <- "\u274C"
@@ -6266,8 +6274,8 @@ var_lvls <- function(var_names) {
   
   checkmate::assert_character(var_names)
   
-  is_cantonal <- var_names |> stringr::str_detect(pattern = "[\\b_]cantonal[\\b_]") |> any()
-  is_federal  <- var_names |> stringr::str_detect(pattern = "[\\b_]federal[\\b_]") |> any()
+  is_cantonal <- var_names |> stringr::str_detect(pattern = as_sym_part_regex("cantonal")) |> any()
+  is_federal  <- var_names |> stringr::str_detect(pattern = as_sym_part_regex("federal")) |> any()
   
   c("cantonal"[is_cantonal], "federal"[is_federal])
 }
@@ -6294,7 +6302,7 @@ var_prcd <- function(var_names) {
   
   var_names |>
     checkmate::assert_character() |>
-    stringr::str_extract(pattern = paste0(pal::fuse_regex(all_prcds), "(?=_election[\\b_])"))
+    stringr::str_extract(pattern = paste0(pal::fuse_regex(all_prcds), glue::glue("(?=_election{sym_part_regex_end})")))
 }
 
 #' Determine variable's election number
@@ -6319,7 +6327,7 @@ var_election_nr <- function(var_names) {
   
   var_names |>
     checkmate::assert_character() |>
-    stringr::str_extract("(?<=[\\b_]election_)\\d+") |>
+    stringr::str_extract(glue::glue("(?<={sym_part_regex_start}election_)\\d+")) |>
     as.integer()
 }
 
@@ -6345,7 +6353,7 @@ var_proposal_nr <- function(var_names) {
   
   var_names |>
     checkmate::assert_character() |>
-    stringr::str_extract("(?<=[\\b_]proposal_)\\d+") |>
+    stringr::str_extract(glue::glue("(?<={sym_part_regex_start}proposal_)\\d+")) |>
     as.integer()
 }
 
@@ -6371,7 +6379,7 @@ var_skill_question_nr <- function(var_names) {
   
   var_names |>
     checkmate::assert_character() |>
-    stringr::str_extract("(?<=[\\b_]skill_question_)\\d+") |>
+    stringr::str_extract(glue::glue("(?<={sym_part_regex_start}skill_question_)\\d+")) |>
     as.integer()
 }
 
