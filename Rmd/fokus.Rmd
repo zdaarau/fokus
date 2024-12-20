@@ -7308,16 +7308,21 @@ var_title <- function(var_name,
       paste(collapse = "|") %>%
       paste0("(?=", ., ")")
     
-    result %<>%
-      stringr::str_extract(pattern = paste0("^.+?", regex_cut)) %>%
-      paste0(election_name(ballot_date = ballot_date,
-                           lvl = lvl, canton = canton,
-                           prcd = prcd,
-                           election_nr = election_nr,
-                           lang = lang,
-                           type = "short"),
-             "\u00a0",
-             clock::get_year(ballot_date))
+    if (has_election(ballot_date = ballot_date,
+                     lvls = lvl,
+                     canton = canton,
+                     prcds = prcd)) {
+      result %<>%
+        stringr::str_extract(pattern = paste0("^.+?", regex_cut)) %>%
+        paste0(election_name(ballot_date = ballot_date,
+                             lvl = lvl, canton = canton,
+                             prcd = prcd,
+                             election_nr = election_nr,
+                             lang = lang,
+                             type = "short"),
+               "\u00a0",
+               clock::get_year(ballot_date))
+    }
   }
   
   # return `NULL` instead of empty chr vctr
