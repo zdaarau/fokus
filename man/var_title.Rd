@@ -31,7 +31,7 @@ var_title(
 }}
 }
 \value{
-A character scalar.
+\code{NULL} if the variable is not present at the specified \code{ballot_date} and \code{canton}, otherwise a character scalar.
 }
 \description{
 Extracts a variable's title from the \link[=qstnrs]{questionnaire data}, adapted to the actual \code{\link[=election_name]{election_name()}} if applicable.

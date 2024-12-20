@@ -6390,7 +6390,7 @@ var_skill_question_nr <- function(var_names) {
 #' @inheritParams lvls
 #' @inheritParams var_lbl
 #'
-#' @return A character scalar.
+#' @return `NULL` if the variable is not present at the specified `ballot_date` and `canton`, otherwise a character scalar.
 #' @family vars
 #' @export
 #'
@@ -6441,6 +6441,11 @@ var_title <- function(var_name,
                            type = "short"),
              "\u00a0",
              clock::get_year(ballot_date))
+  }
+  
+  # return `NULL` instead of empty chr vctr
+  if (length(result) == 0L) {
+    result <- NULL
   }
   
   result
